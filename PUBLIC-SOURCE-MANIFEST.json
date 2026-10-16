@@ -2682,8 +2682,8 @@
     },
     {
       "path": "tools/prepare_public_repository.py",
-      "bytes": 4942,
-      "sha256": "a148d84e67e5e54fdf1c7fd53f56eafd7cff6c13a6629625661c8759816c06b7"
+      "bytes": 5147,
+      "sha256": "091cd4b375499709d0141c367c944fb19caf404a344ac2bf9d4718c44fb53251"
     },
     {
       "path": "tools/psys_disasm.py",
@@ -3214,6 +3214,11 @@
       "path": "tools/test_port_oracle_building_plan.py",
       "bytes": 8930,
       "sha256": "8925c589009c89a3450b5f3ee76bfed8d62608601b07496fbf82fa66ef46bc20"
+    },
+    {
+      "path": "tools/test_prepare_public_repository.py",
+      "bytes": 2153,
+      "sha256": "65bc4d28e44a5c493259914a9fa1d0b8484795aae846ff5a225484289d17f1b6"
     },
     {
       "path": "tools/test_psys_disasm.py",

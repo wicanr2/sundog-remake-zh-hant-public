@@ -78,6 +78,10 @@ def prepare(root: Path, output: Path) -> dict:
         shutil.copy2(path, destination)
     for path in (root / TEMPLATES).rglob("*"):
         if path.is_file():
+            if path.relative_to(root).as_posix() not in tracked:
+                continue
+            if path.is_symlink():
+                raise ValueError(f"template symlink is not publishable: {path}")
             destination = output / path.relative_to(root / TEMPLATES)
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(path, destination)
