@@ -1,0 +1,255 @@
+{
+  "schema": "sundog-fuel-normal-player-1",
+  "date": "2026-10-16",
+  "status": "PASS-bounded-normal-fuel-player",
+  "baseHEAD": "ff2ec6fbfba038ff0d162d75692c5deb182cb271",
+  "saveSchema": 44,
+  "originalGUI": "unverified",
+  "originalExecutionsThisTurn": 0,
+  "productionRulesChanged": false,
+  "scope": "Two distinct unmodified normal schema44 branches: actual depot purchase/settlement, full slots, pod reentry <5 consumer and attached energy <=0 consumer; five-language HD main/aux readouts, pending and persistent-field reopens. Not a single uninterrupted all-PASS script or original GUI parity.",
+  "input": {
+    "library": "workplace/hd-full-production-20261015/player/a4/library.json",
+    "librarySHA256": "19218355b6bda05bbca59b4791c5c8503c7f2143d8afb0293c6e5ef817ad83af",
+    "binary": "workplace/fuel-vertical-20261016/sundog-fuel-player",
+    "binarySHA256": "657272210dcd3a348384b96b9e820e3f67f9860baf69f6cb1b5905dc62b0e04f",
+    "diskSHA256": "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6",
+    "settings": "workplace/hd-full-production-20261015/player/a4/settings.json",
+    "settingsSHA256": "b2779cd1a00a5e6e4a4f27ab6fd2f9758df8ef0a3b6c0b858432460caf1f3ba1",
+    "sourceMutation": false
+  },
+  "purchases": {
+    "mainOnePrice": 157,
+    "mainSettledFuel": 16,
+    "auxUnitPrice": 2200,
+    "auxSlots": 2,
+    "quality": 7,
+    "sourceCode": 1,
+    "bankFirstPayment": true,
+    "fullSlotsDoNotCharge": true,
+    "pendingMainReopen": true,
+    "pendingAuxReopens": 2
+  },
+  "energyGate": {
+    "previousObservedFuel": 1,
+    "afterFuel": 255,
+    "firstSlotCleared": true,
+    "secondSlotUnchanged": true,
+    "clearedMetadataPreserved": true,
+    "mode": "tactical; no reboarding or movement in this gate"
+  },
+  "podGate": {
+    "beforeFuel": 0,
+    "afterFuel": 255,
+    "firstSlotCleared": true,
+    "secondSlotUnchanged": true,
+    "clearedMetadataPreserved": true,
+    "mode": "normal pod reboarding; attached restored and foot mode"
+  },
+  "reentry": {
+    "processReopens": 5,
+    "exactPendingReopens": 3,
+    "persistentFieldReopens": 2,
+    "fieldComparisons": 108,
+    "pendingFieldCounts": [
+      24,
+      24,
+      24
+    ],
+    "activeEnergyFieldCounts": [
+      18,
+      18
+    ],
+    "activeEnergy": "Fuel/phase/time keep advancing after load; not claimed exact without clock replay"
+  },
+  "visual": {
+    "locales": [
+      "zh-Hant",
+      "zh-Hans",
+      "ja",
+      "ko",
+      "en"
+    ],
+    "mainQuantity": "0/16",
+    "auxQuantity": "0/2",
+    "mainFunds": 36836,
+    "auxFunds": 36679,
+    "screenshots": 12,
+    "allPNGComplete": true,
+    "controlInkMatchesAcrossPurchaseKinds": true,
+    "review": "all 12 complete native PNGs inspected; initial notice-covered captures excluded"
+  },
+  "images": [
+    {
+      "path": "workplace/fuel-vertical-20261016/main-visual-r2/hd-main-zh-Hant.png",
+      "sha256": "b08c31f38e56d54ba1c83cce5d4b8802d79b24f46fe357bf62c34638c5a303ff",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "review": "individually inspected; purchase prices/quantity/funds and controls visible"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/main-visual-r2/hd-main-zh-Hans.png",
+      "sha256": "659776e12e29b31eee08cd28227e376ba449c86847f5dbb3e5511ee25acfb42f",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "review": "individually inspected; purchase prices/quantity/funds and controls visible"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/main-visual-r2/hd-main-ja.png",
+      "sha256": "b825e47c30dcf4e8e65c0fa92fbbe7e4d474a30a9a74e56b2f65a37a87806c74",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "review": "individually inspected; purchase prices/quantity/funds and controls visible"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/main-visual-r2/hd-main-ko.png",
+      "sha256": "dc972a76e07674f6b9e9c39746b47e6a67291d49778952a9d610757c75fc4ee5",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "review": "individually inspected; purchase prices/quantity/funds and controls visible"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/main-visual-r2/hd-main-en.png",
+      "sha256": "4c6ad8d3717748acb9e4aacec8839d23ad12746951282122eeb204ce81bfdec6",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "review": "individually inspected; purchase prices/quantity/funds and controls visible"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/aux-visual-r2/hd-aux-zh-Hant.png",
+      "sha256": "611fd83d518fa016cbedba4ee9ce69a6ffc040d53e3db84816eab97217cb1c55",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "review": "individually inspected; purchase prices/quantity/funds and controls visible"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/aux-visual-r2/hd-aux-zh-Hans.png",
+      "sha256": "2ae5be563e5698a99f42c9035b9fa1d7d5daa0e96e95321e2dc3d1a6b8ecff09",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "review": "individually inspected; purchase prices/quantity/funds and controls visible"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/aux-visual-r2/hd-aux-ja.png",
+      "sha256": "8140b531fee3abadabf4e99b0d431d75e4948da317aa263917753ada0308e723",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "review": "individually inspected; purchase prices/quantity/funds and controls visible"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/aux-visual-r2/hd-aux-ko.png",
+      "sha256": "f8f6109a8083f1b4f582897561cace0ba5b80f21ebac62f018c1e817e7f22826",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "review": "individually inspected; purchase prices/quantity/funds and controls visible"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/aux-visual-r2/hd-aux-en.png",
+      "sha256": "08929af1cbacf2a72627eae7d1a6b5a0b493ffa976bf9279a604a6f819956262",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "review": "individually inspected; purchase prices/quantity/funds and controls visible"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/energy-visual-r3/hd-energy-refill-reopened.png",
+      "sha256": "09f5bdb6cf93f56dcbeaae78674dfd8fdc6963b6d9dee5f1a1d84503a361ce9e",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "review": "individually inspected; purchase prices/quantity/funds and controls visible"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/player-pod-resume-r3/hd-pod-refill-reopened.png",
+      "sha256": "a9d8b28918b1ea36599c8084c76577eff9e4bdbec7337a6ebecc2263b4d6cd59",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "review": "individually inspected; purchase prices/quantity/funds and controls visible"
+    }
+  ],
+  "segments": [
+    {
+      "path": "workplace/fuel-vertical-20261016/player-energy-r1/failure.json",
+      "sha256": "2f1c07a8b65d8bde2329b95f2b4421151bd9cf2b8344dea5ebdd334f878dfe8a",
+      "frozenToolSHA256": "659f96f4ccc1e767ee4720aec07b35193850de9ee8b0bd733f9ebac848b85928",
+      "segmentStatus": "FAIL"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/player-energy-resume-r2/receipt.json",
+      "sha256": "35fc8172c3e281d77b9681c3664fe88aed0de91367e3a16c0e1b216fde8e5233",
+      "frozenToolSHA256": "7538f1adc030883cfd20e01c74ff9e2a8d713abc614b13e50b344faa91cf0024",
+      "segmentStatus": "PASS"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/player-pod-r2/failure.json",
+      "sha256": "f3424998bafdd03a49e6068772f4b1cb337b635092a4828e9a72186e8a552f8b",
+      "frozenToolSHA256": "b7f04b3f582af7510f7d9a84f41e661ce662f5af50fa170fc27d161a1a169d1e",
+      "segmentStatus": "FAIL"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/player-pod-resume-r3/receipt.json",
+      "sha256": "20ec2e5cbe42bad63a15856b79d25b950fcf1ecd768a210decb46f0e691a274a",
+      "frozenToolSHA256": "1b864ea53d6ca38952cfba4d8d5cc986a662653eccca66256ee1cc5f0c5ad6d8",
+      "segmentStatus": "PASS"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/main-visual-r2/receipt.json",
+      "sha256": "eb6f000b19e150016ccf4cffe42e11e0f214e5b9bc19e41eb8663e3a8b3700c5",
+      "frozenToolSHA256": "f5d35508e6d04cf886c5fb8dbf9847e477794c7dae8a92dea1e53fc9cc81ffde",
+      "segmentStatus": "PASS"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/aux-visual-r2/receipt.json",
+      "sha256": "223e12317b8a7724693d9bd6d0571ea42ba7a5a52bc8a5d2f4f1b6f96f292d00",
+      "frozenToolSHA256": "b7f04b3f582af7510f7d9a84f41e661ce662f5af50fa170fc27d161a1a169d1e",
+      "segmentStatus": "PASS"
+    },
+    {
+      "path": "workplace/fuel-vertical-20261016/energy-visual-r3/receipt.json",
+      "sha256": "cdff31599ba7add9557620c7c3fb9b25ef67775ddcb6f78e2b36d18bddd765ee",
+      "frozenToolSHA256": "1b864ea53d6ca38952cfba4d8d5cc986a662653eccca66256ee1cc5f0c5ad6d8",
+      "segmentStatus": "PASS"
+    }
+  ],
+  "tools": {
+    "player": "tools/verify_fuel_player.py",
+    "playerSHA256": "4e2f7269531295440bca23f451d27dde3d91e4a9167feea13975c4e74125bc11",
+    "image": "sundog-remake-build:go1.25.12-bookworm-20261014-r1",
+    "user": "1000:1000",
+    "network": "none",
+    "display": "Xvfb :94, bounded finally cleanup"
+  },
+  "corrections": {
+    "energyPrefix": "player-energy-r1 bought and reopened correctly; 90-second wall-clock bound expired atFuel5 under software HD rendering/F5 pauses. Continued the exact last natural save, no repurchase or mutation.",
+    "podPrefix": "player-pod-r2 stopped atactual247,101 beforedepot256,101. Continued exact saved anchor, observe until actualdepot entry.",
+    "visual": "F5 Escape back notice was initially captured; dismiss outside actual menu and reshoot existing normal quotes. Final energy PNG was incomplete when process stopped; excluded and reshot with full PNG validation."
+  },
+  "limits": [
+    "No new original GUI, natural RND alignment or full cargo combat parent evidence.",
+    "Historical/full main-tank purchase and insufficient-funds branches retain their existing evidence; this run covers one main unit and one/full aux quantities.",
+    "Complete fuel spec remains READY; Issues8/6 remain OPEN for full cargo combat parent.",
+    "Raw GUI images and player saves remain ignored local data; this tracked receipt stores hashes and bounded observations only."
+  ]
+}

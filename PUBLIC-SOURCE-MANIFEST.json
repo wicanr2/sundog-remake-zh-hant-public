@@ -87,8 +87,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 2662,
-      "sha256": "803881f35d5dbeae5e05b58d6f6c88249acb6e200ba230954e4b4b13111fb836"
+      "bytes": 3116,
+      "sha256": "227c18b6b9551eb9c560cc8488f1cd96150064163653c7c10ed9bcaeb5f5bc4d"
     },
     {
       "path": "LICENSE",
@@ -117,8 +117,8 @@
     },
     {
       "path": "WORKLOG.md",
-      "bytes": 4549,
-      "sha256": "c5d036492ecdba8e5f7244b445bce33a381d7f009ae3c9896872acbf5f2bb0c9"
+      "bytes": 5394,
+      "sha256": "8b58f96676ecae7ceb9c8660022e9cb14bcfa556eb066b2547ad32f29d265519"
     },
     {
       "path": "assets/fonts/ASSET-MANIFEST.md",
@@ -566,6 +566,11 @@
       "sha256": "28802a9a711b679656890c754f270ba20c180881cd3478a1e998554a77d32fb2"
     },
     {
+      "path": "docs/atari-st/fuel-normal-player-parity-20261016.json",
+      "bytes": 10312,
+      "sha256": "93e2208e88d64fafb820382ca21674ea8062d0bba9f4562091976770126a4a7e"
+    },
+    {
       "path": "docs/atari-st/fuel-rescue-parity-20261005.json",
       "bytes": 14377619,
       "sha256": "f6353501a7460355e59475ee458d3644241ef9b0e3b964a406c1abe9f38bf11d"
@@ -737,8 +742,8 @@
     },
     {
       "path": "docs/index.md",
-      "bytes": 1833,
-      "sha256": "a54300ea64c42e3710ee2906ba83b7b4d056c03d8768603101e0793f7f5680f0"
+      "bytes": 2014,
+      "sha256": "9a36738417d80a1f06c8720380fe21c1f2b31d97e7aa4b4ce489625c16374373"
     },
     {
       "path": "docs/manual/remake-controls-zh-Hant.md",
@@ -2837,8 +2842,8 @@
     },
     {
       "path": "tools/prepare_public_repository.py",
-      "bytes": 6509,
-      "sha256": "0d597ca1f2b0d0fd825f3655ff0404280ef2ea9147cc8a3a5d426382fe61e464"
+      "bytes": 6585,
+      "sha256": "8691d23fec4f68e447536f1d69b40458423615cf80fc0427aa66f64c58d10217"
     },
     {
       "path": "tools/psys_disasm.py",
@@ -2867,8 +2872,8 @@
     },
     {
       "path": "tools/public-source/CONTEXT.md",
-      "bytes": 2662,
-      "sha256": "803881f35d5dbeae5e05b58d6f6c88249acb6e200ba230954e4b4b13111fb836"
+      "bytes": 3116,
+      "sha256": "227c18b6b9551eb9c560cc8488f1cd96150064163653c7c10ed9bcaeb5f5bc4d"
     },
     {
       "path": "tools/public-source/README.en.md",
@@ -2892,8 +2897,8 @@
     },
     {
       "path": "tools/public-source/WORKLOG.md",
-      "bytes": 4549,
-      "sha256": "c5d036492ecdba8e5f7244b445bce33a381d7f009ae3c9896872acbf5f2bb0c9"
+      "bytes": 5394,
+      "sha256": "8b58f96676ecae7ceb9c8660022e9cb14bcfa556eb066b2547ad32f29d265519"
     },
     {
       "path": "tools/public-source/docs/build.md",
@@ -2902,8 +2907,8 @@
     },
     {
       "path": "tools/public-source/docs/index.md",
-      "bytes": 1833,
-      "sha256": "a54300ea64c42e3710ee2906ba83b7b4d056c03d8768603101e0793f7f5680f0"
+      "bytes": 2014,
+      "sha256": "9a36738417d80a1f06c8720380fe21c1f2b31d97e7aa4b4ce489625c16374373"
     },
     {
       "path": "tools/public-source/docs/promo/README.md",
@@ -3589,6 +3594,11 @@
       "path": "tools/verify_final_score_player.py",
       "bytes": 4549,
       "sha256": "6ed1ac2678e79502f738af5150698d3a448bac3b31e38e19e7414dccc7c4c2b5"
+    },
+    {
+      "path": "tools/verify_fuel_player.py",
+      "bytes": 17531,
+      "sha256": "4e2f7269531295440bca23f451d27dde3d91e4a9167feea13975c4e74125bc11"
     },
     {
       "path": "tools/verify_fuel_rescue_player.py",
