@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"strconv"
 	"testing"
 
 	"github.com/wicanr2/sundog-remake/internal/source/atarist"
@@ -15,6 +16,14 @@ func TestExportTalosCombatContinuousParent(t *testing.T) {
 	output := os.Getenv("SUNDOG_PARITY_OUTPUT")
 	if output == "" {
 		t.Skip("continuous combat research not enabled")
+	}
+	initialShield := 255
+	if value := os.Getenv("SUNDOG_COMBAT_INITIAL_SHIELD"); value != "" {
+		var err error
+		initialShield, err = strconv.Atoi(value)
+		if err != nil || (initialShield != 0 && initialShield != 1 && initialShield != 7 && initialShield != 255) {
+			t.Fatal("unsupported initial shield", value)
+		}
 	}
 	type input struct {
 		Enemy, Mode, Phase, Fuel int
@@ -70,7 +79,7 @@ func TestExportTalosCombatContinuousParent(t *testing.T) {
 						if shipSystemStatusByID(s, ShipSystemSubcEngine) != 16 || shipSystemStatusByID(s, ShipSystemShipGuns) != 8 || shipSystemStatusByID(s, ShipSystemForceShields) != 8 {
 							t.Fatal("initial part rows/status mismatch")
 						}
-						s.Fuel, s.ShipPhase, s.WeaponCharge, s.ShieldLevel, s.ShieldSetting = fuel, phase, 0, 255, 255
+						s.Fuel, s.ShipPhase, s.WeaponCharge, s.ShieldLevel, s.ShieldSetting = fuel, phase, 0, initialShield, 255
 						s.HullCondition = 16
 						s.FlightTicks = 1000
 						s.FlightFromAngle, s.FlightFromRadius, s.FlightAngle, s.FlightRadius = 250, 20, 250, 20

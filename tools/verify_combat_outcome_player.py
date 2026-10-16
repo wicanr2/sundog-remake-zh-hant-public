@@ -24,6 +24,8 @@ def main():
     source.add_argument('--save-input',type=Path)
     source.add_argument('--library-input',type=Path)
     p.add_argument('--shield-policy',choices=['full','off'],default='full')
+    p.add_argument('--save-schema',type=int,choices=(44,45),default=45,help='只接受指定格式，不轉換歷史保存')
+    p.add_argument('--presentation',choices=('atari-st','atari-st-hd'),default='atari-st-hd')
     p.add_argument('--defeat-batch',type=int,default=1,choices=range(1,21),help='每次觀察前的正常R按鍵數；不注入遊戲時間')
     p.add_argument('--outcome',choices=['victory','defeat'],required=True)
     a=p.parse_args();assert Path('/.dockerenv').is_file()
@@ -34,22 +36,25 @@ def main():
     source_path=getattr(a,source_key)
     envelope=json.loads(source_path.read_text())
     initial=envelope['slots']['slot-1'] if a.library_input else envelope['state']
-    assert initial['schema']==44 and initial['screen'] in ['shipboard','tactical']
+    assert initial['schema']==a.save_schema and initial['screen'] in ['shipboard','tactical']
     assert initial['combatActive'] and not initial['combatVictory'] and initial['hullCondition']>0
     assert sha(a.disk)=='f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6'
     out=a.output.resolve();assert not out.exists() and out.parent.stat().st_uid==os.getuid();out.mkdir()
     shutil.copyfile(Path(__file__),out/'tool-at-start.py')
     shutil.copyfile(source_path,out/('library.json' if a.library_input else 'save.json'))
-    (out/'settings.json').write_text(json.dumps(dict(schema=1,theme='atari-st-original',tileset='atari-st-tiles',layout='atari-st')))
+    for name in ('assets','docs'):
+        (out/name).symlink_to(root/name,target_is_directory=True)
+    tileset='atari-st-hd-tiles' if a.presentation=='atari-st-hd' else 'atari-st-tiles'
+    (out/'settings.json').write_text(json.dumps(dict(schema=1,theme='atari-st-original',tileset=tileset,layout='atari-st')))
     env=dict(os.environ,DISPLAY=':116',HOME='/tmp')
     inputs=[];checks=[];app=None;window=None
     def write(name,d):
         (out/name).write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
     def run(*args):
         return subprocess.check_output(list(map(str,args)),env=env,text=True,timeout=20).strip()
-    def key(value,pause=.07):
+    def key(value,pause=.3):
         inputs.append(dict(key=value,pause=pause))
-        run('xdotool','keydown','--clearmodifiers',value);time.sleep(.07)
+        run('xdotool','keydown','--clearmodifiers',value);time.sleep(.25)
         run('xdotool','keyup',value);time.sleep(pause)
     def start(first=False):
         nonlocal app,window
@@ -140,7 +145,7 @@ def main():
         stable=['schema','screen','combatActive','combatVictory','enemyHull','enemyType','enemyMaxHull','hullCondition','holds','warehouses','cash','bank','colony','outcomeKey','deaths']
         assert all(before.get(k)==after.get(k) for k in stable),'勝敗核心欄位重開不符'
         clock=verify_awake_resume(root,out,before,after,'combat-outcome')
-        write('receipt.json',dict(status='PASS',outcome=a.outcome,shieldPolicy='off' if a.outcome=='defeat' else a.shield_policy,inputKind=source_key,scope='實際正式封包從既有真實戰鬥保存正常按鍵／滑鼠續行至勝敗、Q保存及新程序重開。瞄準讀正常保存輔助，非純視覺或原版完整GUI對拍。',inputs=inputs,checks=checks,shots=shots,stableFields=stable,clockReentry=clock,inputSHA256=dict(binary=sha(a.binary),disk=sha(a.disk),source=sha(source_path)),outputSaveSHA256=sha(out/'save.json'),toolSHA256=sha(out/'tool-at-start.py'),originalGUI='unverified'))
+        write('receipt.json',dict(status='PASS',outcome=a.outcome,saveSchema=a.save_schema,presentation=a.presentation,shieldPolicy='off' if a.outcome=='defeat' else a.shield_policy,inputKind=source_key,scope='目前來源建置從既有真實戰鬥保存正常按鍵／滑鼠續行至勝敗、Q保存及新程序重開。瞄準讀正常保存輔助，非純視覺或原版完整GUI對拍。',inputs=inputs,checks=checks,shots=shots,stableFields=stable,clockReentry=clock,inputSHA256=dict(binary=sha(a.binary),disk=sha(a.disk),source=sha(source_path)),outputSaveSHA256=sha(out/'save.json'),toolSHA256=sha(out/'tool-at-start.py'),originalGUI='unverified'))
         print('PASS',a.outcome,flush=True)
     except Exception as e:
         write('failure.json',dict(status='FAIL',error=str(e),inputs=inputs,checks=checks,toolSHA256=sha(Path(__file__))))

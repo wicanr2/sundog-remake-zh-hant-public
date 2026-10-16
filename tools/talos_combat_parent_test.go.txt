@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"strconv"
 	"testing"
 )
 
@@ -285,6 +286,14 @@ func TestSunDogCombatContinuousParent(t *testing.T)           { combatContinuous
 func TestSunDogCombatContinuousParentControlled(t *testing.T) { combatContinuousParent(t, true) }
 func combatContinuousParent(t *testing.T, controlled bool) {
 	disk := sundogWalkerDisk(t)
+	initialShield := 255
+	if value := os.Getenv("SUNDOG_COMBAT_INITIAL_SHIELD"); value != "" {
+		var err error
+		initialShield, err = strconv.Atoi(value)
+		if err != nil || (initialShield != 0 && initialShield != 1 && initialShield != 7 && initialShield != 255) {
+			t.Fatal("unsupported initial shield", value)
+		}
+	}
 	rows := []combatContinuousRow{}
 	for enemy := 0; enemy < 7; enemy++ {
 		for mode := 0; mode < 8; mode++ {
@@ -298,7 +307,7 @@ func combatContinuousParent(t *testing.T, controlled bool) {
 						levelsFrame(h, 0x46000)
 						h.poke(0x46000, 0x8000)
 						for n, v := range map[int]int{0x32: 0x7727, 0x49: 20<<8 | 250, 0x19: phase,
-							0xe5: fuel, 0xe4: 0, 0xe3: 255, 0xe2: 255, 0xcd: 2, 0xd4: 0, 0xd5: 1000,
+							0xe5: fuel, 0xe4: 0, 0xe3: initialShield, 0xe2: 255, 0xcd: 2, 0xd4: 0, 0xd5: 1000,
 							0xd6: 0, 0xd7: 0, 0xdd: 20, 0xde: 250, 0x101: 1, 0x102: 0,
 							0xce: mode, 0xd8: enemy, 0xda: 200, 0xd9: 1, 0xdb: 70, 0xd0: 512,
 							0xcf: 512, 0xd3: 3, 0xd2: -3, 0xd1: -1} {

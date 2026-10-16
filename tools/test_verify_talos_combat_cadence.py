@@ -59,6 +59,20 @@ class CombatContinuousGateTests(unittest.TestCase):
         self.assertEqual(result["conformance"], "DRAFT")
         self.assertEqual(result["differences"]["Cooldown"], 1)
 
+    def test_overflow_damage_differences_are_not_ignored(self):
+        step = self.formal[0]["Steps"][0]
+        for field in ("Shield", "Hull", "Systems"):
+            with self.subTest(field=field):
+                original = copy.deepcopy(step[field])
+                if field == "Systems":
+                    step[field][0][0] += 1
+                else:
+                    step[field] += 1
+                result = self.compare()
+                self.assertEqual(result["status"], "FAIL")
+                self.assertEqual(result["differences"][field], 1)
+                step[field] = original
+
     def test_mode0_cannot_be_omitted(self):
         self.formal = [row for row in self.formal if row["Input"]["Mode"] != 0]
         self.assertEqual(self.compare()["status"], "FAIL")
