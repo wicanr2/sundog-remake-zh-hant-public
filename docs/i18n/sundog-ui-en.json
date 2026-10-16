@@ -57,7 +57,7 @@
     },
     {
       "key": "ui.arena.opponents",
-      "translation": "Yes Hands",
+      "translation": "Opponents",
       "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
     },
     {
@@ -404,7 +404,7 @@
     },
     {
       "key": "ui.character_name_confirm",
-      "translation": "Confirmation corner Color name",
+      "translation": "Confirm character name",
       "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
     },
     {
@@ -1647,7 +1647,7 @@
     },
     {
       "key": "ui.help.presentation",
-      "translation": "F8: look (Atari ST original / Apple II original / Remake Modern)",
+      "translation": "F8: look (Atari ST / Atari ST HD / Apple II)",
       "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
     },
     {
@@ -3159,7 +3159,7 @@
     },
     {
       "key": "ui.nourishment",
-      "translation": "Satisfaction",
+      "translation": "Satiety",
       "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
     },
     {
@@ -4306,6 +4306,31 @@
       "key": "ui.withdraw",
       "translation": "Withdraw All Deposits",
       "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.locale.ko",
+      "translation": "Korean",
+      "translationStatus": "2026-10-16 new language label"
+    },
+    {
+      "key": "ui.primary_action_hint",
+      "translation": "ENTER / left-click: %s",
+      "translationStatus": "2026-10-16 localized shared controls"
+    },
+    {
+      "key": "ui.action.default",
+      "translation": "Action",
+      "translationStatus": "2026-10-16 localized shared controls"
+    },
+    {
+      "key": "ui.help.character_creation",
+      "translation": "Enter name  ENTER: confirm  Right-click: back",
+      "translationStatus": "2026-10-16 localized shared controls"
+    },
+    {
+      "key": "ui.help.dialog_footer",
+      "translation": "Arrows: choose words  ENTER: speak  Right-click: back",
+      "translationStatus": "2026-10-16 localized shared controls"
     }
   ]
 }

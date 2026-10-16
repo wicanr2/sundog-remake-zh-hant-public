@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -96,6 +97,47 @@ func TestHDCompleteAssetsAtNativeSizes(t *testing.T) {
 		for _, key := range []string{"cabin-closed", "cabin-lit"} {
 			if img := a.hdCabinRaster(key, 320, 200); img == nil || img.Bounds().Dx() != 320*scale {
 				t.Fatal("cabin", key, scale)
+			}
+		}
+	}
+}
+
+func TestHDOptionsLongPathsKeepFilenameAndFullDraft(t *testing.T) {
+	a := hdProductionTestApp(t)
+	a.scale = 4
+	for _, prefix := range []string{"/a/very/long/folder/", "/資料/遊戲/原版/"} {
+		path := strings.Repeat(prefix, 20) + "sundog.st"
+		a.showOptions = true
+		a.options = optionsCard{row: optionsRowDisk, draft: path}
+		view := a.fitOptionsField(path+"＿", optionsValueW, true)
+		p := hdReviewPainter{a: a, scale: 4}
+		if !strings.HasSuffix(view, "sundog.st＿") || font.MeasureString(p.face(8), view).Ceil() > optionsValueW*4 {
+			t.Fatalf("path view does not fit or lost its filename: %q", view)
+		}
+		image := ebiten.NewImage(1280, 800)
+		a.Draw(image)
+		image.Dispose()
+		if a.options.draft != path {
+			t.Fatal("display fitting changed the editable disk path")
+		}
+	}
+}
+
+func TestLocalizedFooterUsesRealEnglishAndKoreanControlWords(t *testing.T) {
+	a := hdProductionTestApp(t)
+	for _, locale := range []localization.Locale{localization.English, localization.Korean} {
+		a.applyLocale(locale)
+		for _, name := range []game.Screen{game.ScreenShipboard, game.ScreenCharacterCreation, game.ScreenDialog} {
+			s := a.state
+			s.Screen = name
+			line := footerLabel(a.labels, s)
+			for _, leaked := range []string{"左鍵", "右鍵", "輸入名稱", "保存終局"} {
+				if strings.Contains(line, leaked) {
+					t.Fatalf("%s/%s leaked Chinese controls: %s", locale, name, line)
+				}
+			}
+			if strings.Contains(line, "ui.") {
+				t.Fatalf("%s/%s has an unresolved footer key: %s", locale, name, line)
 			}
 		}
 	}

@@ -1,0 +1,2639 @@
+{
+  "schema": 1,
+  "locale": "ko",
+  "translationStatus": "AI translation; structurally verified; native editorial review pending",
+  "policy": [
+    "對話是組合出來的，不是完成句：譯文保留來源的引用 `{hh}` 與變體結構，執行時才展開。",
+    "同一個 stock phrase 的多個變體要譯成語氣或用詞不同、但語意等價的說法，那是原版語句變化的來源。",
+    "引用在句中的位置可依中文語序移動，但不得增減；缺一個引用就是漏掉一段會被代入的文字。",
+    "空白與標點依中文習慣調整；來源的英文前後空格不必逐字保留。",
+    "來源字串由 tools/scaffold_dialog_translation.py 從 evidence 重新產生，不要手改。"
+  ],
+  "stockPhrases": {
+    "0x00": {
+      "rawOffset": "0x06c41",
+      "alternatives": [
+        {
+          "source": "yes",
+          "translation": "예"
+        },
+        {
+          "source": "no",
+          "translation": "아니요"
+        },
+        {
+          "source": "accept",
+          "translation": "수락"
+        },
+        {
+          "source": "discuss it",
+          "translation": "의논하기"
+        },
+        {
+          "source": "threaten",
+          "translation": "협박"
+        },
+        {
+          "source": "charm",
+          "translation": "설득"
+        },
+        {
+          "source": "bluff",
+          "translation": "허풍"
+        },
+        {
+          "source": "bribe",
+          "translation": "뇌물"
+        },
+        {
+          "source": "buy",
+          "translation": "구입"
+        },
+        {
+          "source": "sell",
+          "translation": "판매"
+        },
+        {
+          "source": "information",
+          "translation": "정보"
+        },
+        {
+          "source": "offer",
+          "translation": "제안"
+        },
+        {
+          "source": "agree",
+          "translation": "동의"
+        },
+        {
+          "source": "refuse",
+          "translation": "거절"
+        },
+        {
+          "source": "fast talk",
+          "translation": "말로 둘러대기"
+        },
+        {
+          "source": "need fuel",
+          "translation": "연료가 필요함"
+        },
+        {
+          "source": "help",
+          "translation": "도움"
+        },
+        {
+          "source": "claim no cash",
+          "translation": "현금이 없다고 말하기"
+        },
+        {
+          "source": "junk",
+          "translation": "잡동사니"
+        },
+        {
+          "source": "forget it",
+          "translation": "그만두기"
+        },
+        {
+          "source": "search",
+          "translation": "수색"
+        },
+        {
+          "source": "nothing",
+          "translation": "없음"
+        },
+        {
+          "source": "recommend",
+          "translation": "추천"
+        },
+        {
+          "source": "uh huh",
+          "translation": "그렇군요"
+        },
+        {
+          "source": "dunno",
+          "translation": "모르겠음"
+        }
+      ]
+    },
+    "0x01": {
+      "rawOffset": "0x06cd9",
+      "alternatives": [
+        {
+          "source": "go",
+          "translation": "가세요"
+        },
+        {
+          "source": "are",
+          "translation": "계십니다"
+        }
+      ]
+    },
+    "0x02": {
+      "rawOffset": "0x06cde",
+      "alternatives": [
+        {
+          "source": "discuss",
+          "translation": "의논하다"
+        },
+        {
+          "source": "talk about",
+          "translation": "이야기하다"
+        }
+      ]
+    },
+    "0x03": {
+      "rawOffset": "0x06cee",
+      "alternatives": [
+        {
+          "source": "serve",
+          "translation": "도와드리다"
+        },
+        {
+          "source": "get",
+          "translation": "구하다"
+        },
+        {
+          "source": "bring",
+          "translation": "가져오다"
+        }
+      ]
+    },
+    "0x04": {
+      "rawOffset": "0x06cfb",
+      "alternatives": [
+        {
+          "source": "stop",
+          "translation": "그만"
+        },
+        {
+          "source": "quit",
+          "translation": "그만두세요"
+        }
+      ]
+    },
+    "0x05": {
+      "rawOffset": "0x06d03",
+      "alternatives": [
+        {
+          "source": "stalling",
+          "translation": "꾸물대기"
+        },
+        {
+          "source": "wasting time",
+          "translation": "시간 낭비"
+        },
+        {
+          "source": "spacing out",
+          "translation": "멍하니 있기"
+        }
+      ]
+    },
+    "0x06": {
+      "rawOffset": "0x06d20",
+      "alternatives": [
+        {
+          "source": "buy",
+          "translation": "구입"
+        },
+        {
+          "source": "order",
+          "translation": "주문"
+        }
+      ]
+    },
+    "0x07": {
+      "rawOffset": "0x06d28",
+      "alternatives": [
+        {
+          "source": "thanks for",
+          "translation": "감사합니다, 덕분에"
+        },
+        {
+          "source": "I appreciate",
+          "translation": "고맙습니다, 덕분에"
+        }
+      ]
+    },
+    "0x08": {
+      "rawOffset": "0x06d3c",
+      "alternatives": [
+        {
+          "source": "what",
+          "translation": "무엇"
+        },
+        {
+          "source": "how much",
+          "translation": "얼마"
+        }
+      ]
+    },
+    "0x09": {
+      "rawOffset": "0x06d47",
+      "alternatives": [
+        {
+          "source": "type",
+          "translation": "유형"
+        },
+        {
+          "source": "kind",
+          "translation": "종류"
+        },
+        {
+          "source": "sort",
+          "translation": "종류"
+        }
+      ]
+    },
+    "0x0a": {
+      "rawOffset": "0x06d53",
+      "alternatives": [
+        {
+          "source": "offer",
+          "translation": "제안"
+        },
+        {
+          "source": "pay",
+          "translation": "지불하다"
+        },
+        {
+          "source": "give",
+          "translation": "주다"
+        }
+      ]
+    },
+    "0x0b": {
+      "rawOffset": "0x06d5f",
+      "alternatives": [
+        {
+          "source": "chat",
+          "translation": "잡담"
+        },
+        {
+          "source": "conversation",
+          "translation": "대화"
+        },
+        {
+          "source": "talk",
+          "translation": "이야기"
+        },
+        {
+          "source": "discourse",
+          "translation": "담소"
+        }
+      ]
+    },
+    "0x0c": {
+      "rawOffset": "0x06d7c",
+      "alternatives": [
+        {
+          "source": "see",
+          "translation": "만나다"
+        },
+        {
+          "source": "catch",
+          "translation": "보다"
+        },
+        {
+          "source": "talk to",
+          "translation": "이야기하다"
+        }
+      ]
+    },
+    "0x0d": {
+      "rawOffset": "0x06d8a",
+      "alternatives": [
+        {
+          "source": "wish",
+          "translation": "바라다"
+        },
+        {
+          "source": "want",
+          "translation": "원하다"
+        },
+        {
+          "source": "need",
+          "translation": "필요하다"
+        }
+      ]
+    },
+    "0x0e": {
+      "rawOffset": "0x06d96",
+      "alternatives": [
+        {
+          "source": "bless {2b}",
+          "translation": "{2b}에게 축복을"
+        },
+        {
+          "source": "many thanks",
+          "translation": "정말 감사합니다"
+        },
+        {
+          "source": "thanks",
+          "translation": "감사합니다"
+        },
+        {
+          "source": "thank {2b}",
+          "translation": "{2b}에게 감사합니다"
+        }
+      ]
+    },
+    "0x0f": {
+      "rawOffset": "0x06db3",
+      "alternatives": [
+        {
+          "source": "{22},",
+          "translation": "{22},"
+        },
+        {
+          "source": "all right,",
+          "translation": "좋아요,"
+        }
+      ]
+    },
+    "0x10": {
+      "rawOffset": "0x06dbf",
+      "alternatives": [
+        {
+          "source": "smart",
+          "translation": "현명한"
+        },
+        {
+          "source": "wise",
+          "translation": "지혜로운"
+        },
+        {
+          "source": "good",
+          "translation": "좋은"
+        }
+      ]
+    },
+    "0x11": {
+      "rawOffset": "0x06dcc",
+      "alternatives": [
+        {
+          "source": "decision",
+          "translation": "결정"
+        },
+        {
+          "source": "choice",
+          "translation": "선택"
+        },
+        {
+          "source": "move",
+          "translation": "행동"
+        }
+      ]
+    },
+    "0x12": {
+      "rawOffset": "0x06dde",
+      "alternatives": [
+        {
+          "source": "ground hog",
+          "translation": "땅다람쥐"
+        },
+        {
+          "source": "laser brain",
+          "translation": "레이저 머리"
+        },
+        {
+          "source": "monkey boy",
+          "translation": "원숭이 녀석"
+        },
+        {
+          "source": "dirt man",
+          "translation": "흙투성이"
+        },
+        {
+          "source": "crater face",
+          "translation": "분화구 얼굴"
+        },
+        {
+          "source": "retro breath",
+          "translation": "역추진 입냄새"
+        }
+      ]
+    },
+    "0x13": {
+      "rawOffset": "0x06e16",
+      "alternatives": [
+        {
+          "source": "laser brain",
+          "translation": "레이저 머리"
+        },
+        {
+          "source": "moon man",
+          "translation": "달나라 인간"
+        },
+        {
+          "source": "low grav",
+          "translation": "저중력 녀석"
+        },
+        {
+          "source": "fly boy",
+          "translation": "날쌘 조종사"
+        },
+        {
+          "source": "vacuum head",
+          "translation": "진공 머리"
+        }
+      ]
+    },
+    "0x14": {
+      "rawOffset": "0x06e3e",
+      "alternatives": [
+        {
+          "source": "sorry",
+          "translation": "미안합니다"
+        },
+        {
+          "source": "too bad",
+          "translation": "안됐군요"
+        },
+        {
+          "source": "tough luck",
+          "translation": "운이 없군요"
+        }
+      ]
+    },
+    "0x15": {
+      "rawOffset": "0x06e52",
+      "alternatives": [
+        {
+          "source": "can I {03} {2b}",
+          "translation": "{2b}에게 {03}할까요"
+        },
+        {
+          "source": "do {2b} {0d}",
+          "translation": "{2b}는 {0d}합니까"
+        }
+      ]
+    },
+    "0x16": {
+      "rawOffset": "0x06e5d",
+      "alternatives": [
+        {
+          "source": "something",
+          "translation": "무언가"
+        },
+        {
+          "source": "anything",
+          "translation": "무엇이든"
+        }
+      ]
+    },
+    "0x17": {
+      "rawOffset": "0x06e6e",
+      "alternatives": [
+        {
+          "source": "heard",
+          "translation": "들었습니다"
+        },
+        {
+          "source": "was told",
+          "translation": "전해 들었습니다"
+        }
+      ]
+    },
+    "0x18": {
+      "rawOffset": "0x06e7a",
+      "alternatives": [
+        {
+          "source": "pardon",
+          "translation": "실례합니다"
+        },
+        {
+          "source": "excuse",
+          "translation": "양해해 주세요"
+        }
+      ]
+    },
+    "0x19": {
+      "rawOffset": "0x06e86",
+      "alternatives": [
+        {
+          "source": "good bye",
+          "translation": "안녕히 가세요"
+        },
+        {
+          "source": "good day",
+          "translation": "좋은 하루 되세요"
+        },
+        {
+          "source": "so long",
+          "translation": "잘 가요"
+        }
+      ]
+    },
+    "0x1a": {
+      "rawOffset": "0x06e9a",
+      "alternatives": [
+        {
+          "source": "talk",
+          "translation": "이야기"
+        },
+        {
+          "source": "speak",
+          "translation": "말하다"
+        }
+      ]
+    },
+    "0x1b": {
+      "rawOffset": "0x06ea3",
+      "alternatives": [
+        {
+          "source": "hello",
+          "translation": "안녕하세요"
+        },
+        {
+          "source": "good day",
+          "translation": "좋은 하루 되세요"
+        },
+        {
+          "source": "greetings",
+          "translation": "반갑습니다"
+        }
+      ]
+    },
+    "0x1c": {
+      "rawOffset": "0x06eb8",
+      "alternatives": [
+        {
+          "source": "can",
+          "translation": "할 수 있다"
+        },
+        {
+          "source": "may",
+          "translation": "해도 된다"
+        }
+      ]
+    },
+    "0x1d": {
+      "rawOffset": "0x06ebe",
+      "alternatives": [
+        {
+          "source": "get lost",
+          "translation": "꺼져"
+        },
+        {
+          "source": "boost it",
+          "translation": "빨리 가"
+        },
+        {
+          "source": "warp off",
+          "translation": "워프로 사라져"
+        }
+      ]
+    },
+    "0x1e": {
+      "rawOffset": "0x06ed3",
+      "alternatives": [
+        {
+          "source": "else",
+          "translation": "다른"
+        },
+        {
+          "source": "more",
+          "translation": "더"
+        }
+      ]
+    },
+    "0x1f": {
+      "rawOffset": "0x06edb",
+      "alternatives": [
+        {
+          "source": "here",
+          "translation": "여기"
+        },
+        {
+          "source": "there",
+          "translation": "저기"
+        }
+      ]
+    },
+    "0x26": {
+      "rawOffset": "0x06ee4",
+      "alternatives": [
+        {
+          "source": "we",
+          "translation": "우리"
+        },
+        {
+          "source": "I",
+          "translation": "나"
+        }
+      ]
+    },
+    "0x28": {
+      "rawOffset": "0x06ee7",
+      "alternatives": [
+        {
+          "source": "us",
+          "translation": "우리에게"
+        },
+        {
+          "source": "me",
+          "translation": "나에게"
+        }
+      ]
+    },
+    "0x29": {
+      "rawOffset": "0x06eeb",
+      "alternatives": [
+        {
+          "source": " or not",
+          "translation": " 아니면 말고"
+        }
+      ]
+    },
+    "0x2a": {
+      "rawOffset": "0x06ef1",
+      "alternatives": [
+        {
+          "source": "what",
+          "translation": "무엇"
+        }
+      ]
+    },
+    "0x2b": {
+      "rawOffset": "0x06ef5",
+      "alternatives": [
+        {
+          "source": "you",
+          "translation": "당신"
+        }
+      ]
+    },
+    "0x2d": {
+      "rawOffset": "0x06ef8",
+      "alternatives": [
+        {
+          "source": "{13}",
+          "translation": "{13}"
+        },
+        {
+          "source": "{13}",
+          "translation": "{13}"
+        },
+        {
+          "source": "{32}",
+          "translation": "{32}"
+        },
+        {
+          "source": "{32}",
+          "translation": "{32}"
+        },
+        {
+          "source": "{31}",
+          "translation": "{31}"
+        }
+      ]
+    },
+    "0x2f": {
+      "rawOffset": "0x06f01",
+      "alternatives": [
+        {
+          "source": "buy",
+          "translation": "구입"
+        },
+        {
+          "source": "sell",
+          "translation": "판매"
+        }
+      ]
+    },
+    "0x30": {
+      "rawOffset": "0x06f08",
+      "alternatives": [
+        {
+          "source": "{32}",
+          "translation": "{32}"
+        },
+        {
+          "source": "{12}",
+          "translation": "{12}"
+        }
+      ]
+    },
+    "0x31": {
+      "rawOffset": "0x06f0b",
+      "alternatives": [
+        {
+          "source": "sir",
+          "translation": "선생님"
+        },
+        {
+          "source": "captain",
+          "translation": "선장님"
+        },
+        {
+          "source": "friend",
+          "translation": "친구"
+        }
+      ]
+    },
+    "0x32": {
+      "rawOffset": "0x06f1b",
+      "alternatives": [
+        {
+          "source": "mac",
+          "translation": "이봐요"
+        },
+        {
+          "source": "buddy",
+          "translation": "친구"
+        },
+        {
+          "source": "fella",
+          "translation": "당신"
+        },
+        {
+          "source": "pal",
+          "translation": "친구"
+        }
+      ]
+    },
+    "0x33": {
+      "rawOffset": "0x06f2b",
+      "alternatives": [
+        {
+          "source": "dummy",
+          "translation": "바보"
+        },
+        {
+          "source": "dummy",
+          "translation": "바보"
+        },
+        {
+          "source": "dummy",
+          "translation": "바보"
+        },
+        {
+          "source": "dummy",
+          "translation": "바보"
+        },
+        {
+          "source": "dummy",
+          "translation": "바보"
+        },
+        {
+          "source": "dummy",
+          "translation": "바보"
+        },
+        {
+          "source": "dummy",
+          "translation": "바보"
+        },
+        {
+          "source": "dummy",
+          "translation": "바보"
+        }
+      ]
+    }
+  },
+  "blocks": {
+    "0x10": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x070a8",
+          "alternatives": [
+            {
+              "source": "please",
+              "translation": "부디"
+            },
+            {
+              "source": "go",
+              "translation": "가세요"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{2a} {15}, {31}{3f} ",
+          "translation": "{31}, {2a} {15}{3f} ",
+          "rawOffset": "0x070b2"
+        },
+        {
+          "source": "{15} {16} {1e}{3f} ",
+          "translation": "{15} {16} {1e}{3f} ",
+          "rawOffset": "0x070b8"
+        },
+        {
+          "source": "{16} {1e}, {32}{3f} ",
+          "translation": "{32}, {16} {1e}{3f} ",
+          "rawOffset": "0x070be"
+        },
+        {
+          "source": "{2a} now, {13}{3f} ",
+          "translation": "{13}, 지금 {2a}{3f} ",
+          "rawOffset": "0x070c4"
+        },
+        {
+          "source": "{1f} {2b} {01}, {31}. ",
+          "translation": "{31}, {1f} {2b} {01}. ",
+          "rawOffset": "0x070cc"
+        },
+        {
+          "source": "{0f} {32}, take it! ",
+          "translation": "{0f} {32}, 가져가요! ",
+          "rawOffset": "0x070d4"
+        },
+        {
+          "source": "Take it, {13}! ",
+          "translation": "{13}, 가져가세요! ",
+          "rawOffset": "0x070e0"
+        },
+        {
+          "source": "Hey, {32}! {2b} want this {25}{29}{3f} ",
+          "translation": "이봐요, {32}! {2b}는 이 {25}를 원합니까{29}{3f} ",
+          "rawOffset": "0x070ea"
+        },
+        {
+          "source": "{1c} I help {2b}{29}{3f} ",
+          "translation": "{2b}를 도와드려도 {1c}{29}{3f} ",
+          "rawOffset": "0x070fe"
+        },
+        {
+          "source": "{04} {05}. Do {2b} want to {06}{29}{3f} ",
+          "translation": "{04} {05}. {2b}는 {06}하고 싶습니까{29}{3f} ",
+          "rawOffset": "0x07108"
+        },
+        {
+          "source": "{0f} {13}, order or {1d}! ",
+          "translation": "{0f} {13}, 주문하거나 {1d}! ",
+          "rawOffset": "0x07118"
+        },
+        {
+          "source": "If {2b}'ll {18} me... ",
+          "translation": "{2b}가 저를 {18}해 주신다면... ",
+          "rawOffset": "0x07126"
+        },
+        {
+          "source": "Why don't {2b} run along, {32}{3f} ",
+          "translation": "{32}, {2b}는 이제 가는 게 어떻습니까{3f} ",
+          "rawOffset": "0x07134"
+        },
+        {
+          "source": "{1d}, {13}, {2b}'re wasting my time! ",
+          "translation": "{1d}, {13}, {2b}는 제 시간을 낭비하고 있어요! ",
+          "rawOffset": "0x0714a"
+        },
+        {
+          "source": "{08} is it worth to {2b}{3f} ",
+          "translation": "{2b}에게 이 정보는 {08}의 가치가 있습니까{3f} ",
+          "rawOffset": "0x07162"
+        },
+        {
+          "source": "{07} the tip! ",
+          "translation": "팁을 주셔서 {07}! ",
+          "rawOffset": "0x07172"
+        },
+        {
+          "source": "{2a} {09} of info do {2b} {0d}{3f} ",
+          "translation": "{2b}가 {0d}하는 정보는 {2a} {09}입니까{3f} ",
+          "rawOffset": "0x0717c"
+        },
+        {
+          "source": "Show me {2a} {2b} {0d} to sell. ",
+          "translation": "{2b}가 팔고 {0d}하는 {2a}인지 보여 주세요. ",
+          "rawOffset": "0x0718a"
+        },
+        {
+          "source": "{34} wait in a booth. I'll send someone over. ",
+          "translation": "부스에서 기다리세요. 사람을 보내{34}. ",
+          "rawOffset": "0x0719c"
+        },
+        {
+          "source": "{2a} do {2b} {0d} to buy{3f} ",
+          "translation": "{2b}는 {2a}을 구입하고 {0d}합니까{3f} ",
+          "rawOffset": "0x071c0"
+        },
+        {
+          "source": "{14}, {2d}. Try somewhere else. ",
+          "translation": "{14}, {2d}. 다른 곳을 찾아보세요. ",
+          "rawOffset": "0x071cc"
+        },
+        {
+          "source": "{07} the {0b}, {32}. I'll {0c} {2b} later. ",
+          "translation": "{32}, {0b}에 {07}. 나중에 {2b}와 {0c}게요. ",
+          "rawOffset": "0x071e2"
+        },
+        {
+          "source": "Hmm... ",
+          "translation": "흠... ",
+          "rawOffset": "0x071f8"
+        }
+      ]
+    },
+    "0x20": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x072e0",
+          "alternatives": [
+            {
+              "source": "I~ll",
+              "translation": "제가"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x072e6",
+          "alternatives": [
+            {
+              "source": "can~t",
+              "translation": "할 수 없습니다"
+            },
+            {
+              "source": "won~t",
+              "translation": "하지 않겠습니다"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x072f2",
+          "alternatives": [
+            {
+              "source": "over",
+              "translation": "넘게"
+            },
+            {
+              "source": "more than",
+              "translation": "보다 많이"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x07300",
+          "alternatives": [
+            {
+              "source": "last",
+              "translation": "마지막"
+            },
+            {
+              "source": "final",
+              "translation": "최종"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x0730a",
+          "alternatives": [
+            {
+              "source": "accept",
+              "translation": "수락"
+            },
+            {
+              "source": "take",
+              "translation": "받다"
+            }
+          ]
+        },
+        "0x39": {
+          "rawOffset": "0x07316",
+          "alternatives": [
+            {
+              "source": "leave",
+              "translation": "떠나다"
+            },
+            {
+              "source": "run along",
+              "translation": "가다"
+            }
+          ]
+        },
+        "0x3a": {
+          "rawOffset": "0x07324",
+          "alternatives": [
+            {
+              "source": "interest",
+              "translation": "관심"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "I {17} {2b} {0d} to {2f} a {25}. ",
+          "translation": "{2b}가 {25}를 {2f}하고 {0d}한다고 {17}. ",
+          "rawOffset": "0x0732e"
+        },
+        {
+          "source": "{34} sell {2b} a {25} for {24}. ",
+          "translation": "{2b}에게 {25}를 {24}에 팔아{34}. ",
+          "rawOffset": "0x0733a"
+        },
+        {
+          "source": "{34} {38} {24}. ",
+          "translation": "{24}를 {38}하{34}. ",
+          "rawOffset": "0x07348"
+        },
+        {
+          "source": "{24} is my {37} offer. ",
+          "translation": "{24}가 제 {37} 제안입니다. ",
+          "rawOffset": "0x0734e"
+        },
+        {
+          "source": "{24} take it or leave it! ",
+          "translation": "{24}입니다. 받든지 말든지 하세요! ",
+          "rawOffset": "0x0735c"
+        },
+        {
+          "source": "{34} {0a} {24} for {2b}r {25}. ",
+          "translation": "{2b}의 {25}에 {24}를 {0a}하{34}. ",
+          "rawOffset": "0x0736e"
+        },
+        {
+          "source": "I {35} {0a} {36} {24}. ",
+          "translation": "{24} {36} {0a}하는 건 {35}. ",
+          "rawOffset": "0x0737a"
+        },
+        {
+          "source": "Do {2b} {0d} to {2f} the {25}{29}. ",
+          "translation": "{2b}는 이 {25}를 {2f}하고 {0d}합니까{29}. ",
+          "rawOffset": "0x07382"
+        },
+        {
+          "source": "Discuss {2a}{3f} ",
+          "translation": "{2a}을 의논하죠{3f} ",
+          "rawOffset": "0x07390"
+        },
+        {
+          "source": "Hand it over! ",
+          "translation": "이리 내놔! ",
+          "rawOffset": "0x0739a"
+        },
+        {
+          "source": "Take it! ",
+          "translation": "가져가! ",
+          "rawOffset": "0x073a6"
+        },
+        {
+          "source": "Do we have a deal{29}{3f} ",
+          "translation": "거래가 성립됐습니까{29}{3f} ",
+          "rawOffset": "0x073ae"
+        },
+        {
+          "source": "{18} me, {31}. {1c} I {1a} to {2b}{3f} ",
+          "translation": "{31}, 저를 {18}. {2b}와 {1a}해도 {1c}{3f} ",
+          "rawOffset": "0x073be"
+        },
+        {
+          "source": "{1b}, fine {31}. {1c} I {3a} {2b} in a deal{3f} ",
+          "translation": "{1b}, 멋진 {31}. 거래에 {2b}의 {3a}을 끌어도 {1c}{3f} ",
+          "rawOffset": "0x073cc"
+        },
+        {
+          "source": "{18} me {31} I must {39}. ",
+          "translation": "{31}, {18}. 저는 {39}해야 합니다. ",
+          "rawOffset": "0x073e2"
+        },
+        {
+          "source": "Would {2b} be {3a}ed in a {25}{3f} ",
+          "translation": "{2b}는 {25}에 {3a}이 있습니까{3f} ",
+          "rawOffset": "0x073ee"
+        }
+      ]
+    },
+    "0x30": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x07486",
+          "alternatives": [
+            {
+              "source": "on the way",
+              "translation": "오는 중"
+            },
+            {
+              "source": "coming",
+              "translation": "곧 옵니다"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x07496",
+          "alternatives": [
+            {
+              "source": "an old",
+              "translation": "늙은"
+            },
+            {
+              "source": "a poor",
+              "translation": "가난한"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x074a2",
+          "alternatives": [
+            {
+              "source": "man",
+              "translation": "남자"
+            },
+            {
+              "source": "woman",
+              "translation": "여자"
+            },
+            {
+              "source": "orphan",
+              "translation": "고아"
+            },
+            {
+              "source": "beggar",
+              "translation": "거지"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x074b8",
+          "alternatives": [
+            {
+              "source": "discover",
+              "translation": "발견하다"
+            },
+            {
+              "source": "find",
+              "translation": "찾다"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x074c6",
+          "alternatives": [
+            {
+              "source": "nearby",
+              "translation": "근처의"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "See {2b} later {32}. {2b} can have the table! ",
+          "translation": "{32}, 나중에 봐요, {2b}. 이 자리는 {2b}가 쓰세요! ",
+          "rawOffset": "0x074ce"
+        },
+        {
+          "source": "Sorry pal, I'm just leaving. ",
+          "translation": "미안해요, 친구. 이제 막 나가려던 참이에요. ",
+          "rawOffset": "0x074ec"
+        },
+        {
+          "source": "Hey {13}! I was sitting here! ",
+          "translation": "이봐, {13}! 내가 앉아 있던 자리야! ",
+          "rawOffset": "0x07506"
+        },
+        {
+          "source": "Can {2b} spare {24} for {35} {36}{3f} ",
+          "translation": "{2b}, {35} {36}에게 {24}를 줄 수 있습니까{3f} ",
+          "rawOffset": "0x0751c"
+        },
+        {
+          "source": "Traffic Control here. {2a}'s {2b}r problem{3f} ",
+          "translation": "관제실입니다. {2b}의 문제는 {2a}입니까{3f} ",
+          "rawOffset": "0x0752e"
+        },
+        {
+          "source": "{0f} SunDog, it's {34}. We're docking {2b} {24}, though. ",
+          "translation": "{0f} SunDog, {34}. 다만 {2b}에게 {24}를 청구합니다. ",
+          "rawOffset": "0x07550"
+        },
+        {
+          "source": "It'll cost {2b} {24}, SunDog, but it's {34}. ",
+          "translation": "SunDog, {2b}의 비용은 {24}입니다. {34}. ",
+          "rawOffset": "0x07576"
+        },
+        {
+          "source": "Total charges are {24}, SunDog. It should be there in a while. ",
+          "translation": "SunDog, 총요금은 {24}입니다. 잠시 후 도착합니다. ",
+          "rawOffset": "0x07594"
+        },
+        {
+          "source": "A quick search turns up {24}. ",
+          "translation": "간단히 수색해 {24}를 찾았습니다. ",
+          "rawOffset": "0x075c6"
+        },
+        {
+          "source": "{2b} find {24}. ",
+          "translation": "{2b}는 {24}를 찾았습니다. ",
+          "rawOffset": "0x075dc"
+        },
+        {
+          "source": "{24} is found in a wallet. ",
+          "translation": "지갑에서 {24}를 찾았습니다. ",
+          "rawOffset": "0x075e4"
+        },
+        {
+          "source": "{38} {2b} {37} a {25}. ",
+          "translation": "{2b}는 {38} {25}를 {37}. ",
+          "rawOffset": "0x075f8"
+        }
+      ]
+    },
+    "0x40": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x076a8",
+          "alternatives": [
+            {
+              "source": "give {28}",
+              "translation": "{28}에게 주다"
+            },
+            {
+              "source": "hand over",
+              "translation": "내놓다"
+            },
+            {
+              "source": "cough up",
+              "translation": "토해 내다"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x076be",
+          "alternatives": [
+            {
+              "source": "give {28}",
+              "translation": "{28}에게 주다"
+            },
+            {
+              "source": "jettison",
+              "translation": "투하하다"
+            },
+            {
+              "source": "{26} want",
+              "translation": "{26}가 원하다"
+            },
+            {
+              "source": "dump",
+              "translation": "버리다"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x076d6",
+          "alternatives": [
+            {
+              "source": "blast {2b}",
+              "translation": "{2b}를 날려 버리다"
+            },
+            {
+              "source": "open fire",
+              "translation": "발포하다"
+            },
+            {
+              "source": "vaporize {2b}",
+              "translation": "{2b}를 증발시키다"
+            },
+            {
+              "source": "blow {2b} away",
+              "translation": "{2b}를 쏴 버리다"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{35} {2b}r cargo, or {26}'ll {36}! ",
+          "translation": "{2b}의 화물을 {35}. 아니면 {26}가 {36}! ",
+          "rawOffset": "0x076fa"
+        },
+        {
+          "source": "{2b} have one minute before {26} {36}! ",
+          "translation": "{26}가 {36}하기 전까지 {2b}에게 1분을 주겠다! ",
+          "rawOffset": "0x0770c"
+        },
+        {
+          "source": "Do it now, or {26}'ll {36}! ",
+          "translation": "당장 해라. 아니면 {26}가 {36}! ",
+          "rawOffset": "0x07724"
+        },
+        {
+          "source": "{0f} {30}, {2b}'re free to go. ",
+          "translation": "{0f} {30}, {2b}는 가도 좋다. ",
+          "rawOffset": "0x07736"
+        },
+        {
+          "source": "{0f} {30}, it's {2b}r funeral! ",
+          "translation": "{0f} {30}, {2b}가 자초한 일이다! ",
+          "rawOffset": "0x07748"
+        },
+        {
+          "source": "Hope {2b} can breathe vacuum, {30}! ",
+          "translation": "{30}, {2b}가 진공에서도 숨 쉬길 빌어라! ",
+          "rawOffset": "0x0775a"
+        },
+        {
+          "source": "{02} {2a}{3f} ",
+          "translation": "{2a}을 {02}한다고{3f} ",
+          "rawOffset": "0x07774"
+        },
+        {
+          "source": "{2a}'s to {02}{3f} ",
+          "translation": "{02}할 게 {2a} 있나{3f} ",
+          "rawOffset": "0x07778"
+        },
+        {
+          "source": "How will {2b} stop {28}{3f} ",
+          "translation": "{2b}가 어떻게 {28}를 막겠나{3f} ",
+          "rawOffset": "0x07780"
+        },
+        {
+          "source": "{34} {2b}r cash or die! ",
+          "translation": "{2b}의 현금을 {34}. 아니면 죽는다! ",
+          "rawOffset": "0x07790"
+        },
+        {
+          "source": "Why not{3f} ",
+          "translation": "왜 안 되지{3f} ",
+          "rawOffset": "0x0779e"
+        },
+        {
+          "source": "{26}'ll just have a look... ",
+          "translation": "{26}가 잠깐 살펴보겠다... ",
+          "rawOffset": "0x077a6"
+        },
+        {
+          "source": "{0f} {1d}! ",
+          "translation": "{0f} {1d}! ",
+          "rawOffset": "0x077bc"
+        },
+        {
+          "source": "{0f} {13}, {26}'ll get it the hard way. ",
+          "translation": "{0f} {13}, {26}가 강제로 가져가겠다. ",
+          "rawOffset": "0x077c0"
+        },
+        {
+          "source": "Last chance, {13}... ",
+          "translation": "마지막 기회다, {13}... ",
+          "rawOffset": "0x077d8"
+        },
+        {
+          "source": "{10} {11}, {32}. ",
+          "translation": "{10} {11}, {32}. ",
+          "rawOffset": "0x077e8"
+        },
+        {
+          "source": "{0f} {13}, {2b} asked for it... ",
+          "translation": "{0f} {13}, {2b}가 자초한 거다... ",
+          "rawOffset": "0x077ee"
+        }
+      ]
+    },
+    "0x50": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x078d0",
+          "alternatives": [
+            {
+              "source": "I don~t have any",
+              "translation": "하나도 없어요"
+            },
+            {
+              "source": "I~m fresh out",
+              "translation": "방금 다 떨어졌어요"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x078ea",
+          "alternatives": [
+            {
+              "source": "take it",
+              "translation": "가져가세요"
+            },
+            {
+              "source": "here it is",
+              "translation": "여기 있어요"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x078fa",
+          "alternatives": [
+            {
+              "source": "other",
+              "translation": "다른"
+            },
+            {
+              "source": "better",
+              "translation": "더 좋은"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x07906",
+          "alternatives": [
+            {
+              "source": "wasting my time",
+              "translation": "내 시간을 낭비하는 중"
+            },
+            {
+              "source": "boring me",
+              "translation": "나를 지루하게 하는 중"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x0791c",
+          "alternatives": [
+            {
+              "source": "something else",
+              "translation": "다른 것"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{2a} {15}, {2d}{3f} ",
+          "translation": "{2d}, {2a} {15}{3f} ",
+          "rawOffset": "0x0792a"
+        },
+        {
+          "source": "{2a} else can I show {2b}. ",
+          "translation": "{2b}에게 또 {2a}을 보여 드릴까요. ",
+          "rawOffset": "0x07930"
+        },
+        {
+          "source": "{16} {1e}, {32}{3f} ",
+          "translation": "{32}, {16} {1e}{3f} ",
+          "rawOffset": "0x07940"
+        },
+        {
+          "source": "{2a} else, {13}{3f} ",
+          "translation": "{13}, 또 {2a}을 원하나요{3f} ",
+          "rawOffset": "0x07946"
+        },
+        {
+          "source": "{1f} {2b} {01}, {31}. ",
+          "translation": "{31}, {1f} {2b} {01}. ",
+          "rawOffset": "0x07950"
+        },
+        {
+          "source": "{0f} {32}, {35}! ",
+          "translation": "{0f} {32}, {35}! ",
+          "rawOffset": "0x07958"
+        },
+        {
+          "source": "{35}, {13}! ",
+          "translation": "{13}, {35}! ",
+          "rawOffset": "0x0795e"
+        },
+        {
+          "source": "Hey, {32}! {2b} want this {25}{29}{3f} ",
+          "translation": "이봐요, {32}! {2b}는 이 {25}를 원합니까{29}{3f} ",
+          "rawOffset": "0x07964"
+        },
+        {
+          "source": "{1c} I help {2b}{29}{3f} ",
+          "translation": "{2b}를 도와드려도 {1c}{29}{3f} ",
+          "rawOffset": "0x07978"
+        },
+        {
+          "source": "{04} {05}. Do {2b} want to {06}{29}{3f} ",
+          "translation": "{04} {05}. {2b}는 {06}하고 싶습니까{29}{3f} ",
+          "rawOffset": "0x07982"
+        },
+        {
+          "source": "{0f} {13}, order or {1d}! ",
+          "translation": "{0f} {13}, 주문하거나 {1d}! ",
+          "rawOffset": "0x07992"
+        },
+        {
+          "source": "If {2b}'ll {18} me... ",
+          "translation": "{2b}가 저를 {18}해 주신다면... ",
+          "rawOffset": "0x079a0"
+        },
+        {
+          "source": "run along, {32}, I've got {36} things to do! ",
+          "translation": "{32}, 이제 가세요. {36} 일이 있어요! ",
+          "rawOffset": "0x079ae"
+        },
+        {
+          "source": "{1d}, {13}, {2b}'re {37}! ",
+          "translation": "{1d}, {13}, {2b}는 {37}! ",
+          "rawOffset": "0x079ce"
+        },
+        {
+          "source": "Sorry, {34}! ",
+          "translation": "미안합니다, {34}! ",
+          "rawOffset": "0x079da"
+        },
+        {
+          "source": "a {25} costs {24}. ",
+          "translation": "{25}의 가격은 {24}입니다. ",
+          "rawOffset": "0x079e4"
+        },
+        {
+          "source": "that will be {24} for a {25}. ",
+          "translation": "{25} 하나에 {24}입니다. ",
+          "rawOffset": "0x079ee"
+        }
+      ]
+    },
+    "0x60": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x07aae",
+          "alternatives": [
+            {
+              "source": "looking for",
+              "translation": "찾으십니까"
+            },
+            {
+              "source": "need",
+              "translation": "필요하다"
+            },
+            {
+              "source": "can I get {2b}",
+              "translation": "{2b}에게 드릴까요"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x07ac6",
+          "alternatives": [
+            {
+              "source": "{2b}r room awaits",
+              "translation": "{2b}의 객실이 준비됐습니다"
+            },
+            {
+              "source": "please check out by noon",
+              "translation": "정오까지 퇴실해 주세요"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x07ae8",
+          "alternatives": [
+            {
+              "source": "now",
+              "translation": "지금"
+            },
+            {
+              "source": "at the moment",
+              "translation": "현재"
+            },
+            {
+              "source": "currently",
+              "translation": "지금은"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x07b00",
+          "alternatives": [
+            {
+              "source": "another time",
+              "translation": "다음에"
+            },
+            {
+              "source": "tomorrow",
+              "translation": "내일"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x07b14",
+          "alternatives": [
+            {
+              "source": "fine",
+              "translation": "좋습니다"
+            },
+            {
+              "source": "thank {2b}",
+              "translation": "{2b}에게 감사합니다"
+            }
+          ]
+        },
+        "0x39": {
+          "rawOffset": "0x07b20",
+          "alternatives": [
+            {
+              "source": "quite",
+              "translation": "완전히"
+            },
+            {
+              "source": " ",
+              "translation": " "
+            }
+          ]
+        },
+        "0x3a": {
+          "rawOffset": "0x07b26",
+          "alternatives": [
+            {
+              "source": "business",
+              "translation": "용무"
+            },
+            {
+              "source": "customers",
+              "translation": "손님"
+            },
+            {
+              "source": "things to do",
+              "translation": "할 일"
+            }
+          ]
+        },
+        "0x3b": {
+          "rawOffset": "0x07b42",
+          "alternatives": [
+            {
+              "source": "shows insufficient funds",
+              "translation": "잔액이 부족합니다"
+            },
+            {
+              "source": "can~t cover the charge",
+              "translation": "요금을 지불할 수 없습니다"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "Welcome {31}. {34} a room{3f} ",
+          "translation": "{31}, 환영합니다. 객실을 {34}{3f} ",
+          "rawOffset": "0x07b6c"
+        },
+        {
+          "source": "Room, {31}{3f} ",
+          "translation": "{31}, 객실을 원하시나요{3f} ",
+          "rawOffset": "0x07b7e"
+        },
+        {
+          "source": "well, then, if {2b}'ll {18} me I have other {3a}. ",
+          "translation": "그럼 {2b}, 다른 {3a}이 있으니 {18}. ",
+          "rawOffset": "0x07b86"
+        },
+        {
+          "source": "I'm sorry, but we're {39}full {36}. perhaps {37}. ",
+          "translation": "죄송하지만 {36} {39} 만실입니다. {37} 오세요. ",
+          "rawOffset": "0x07ba6"
+        },
+        {
+          "source": "{38}, that will be {24}, in advance. ",
+          "translation": "{38}, 선불로 {24}입니다. ",
+          "rawOffset": "0x07bc8"
+        },
+        {
+          "source": "Thank {2b}, {31}. {35}. ",
+          "translation": "{31}, {2b}에게 감사합니다. {35}. ",
+          "rawOffset": "0x07be2"
+        },
+        {
+          "source": "Sorry, {2b}r account {3b}! ",
+          "translation": "죄송합니다. {2b}의 계좌가 {3b}! ",
+          "rawOffset": "0x07bee"
+        }
+      ]
+    },
+    "0x70": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x07c48",
+          "alternatives": [
+            {
+              "source": "cheap jerk",
+              "translation": "인색한 녀석"
+            },
+            {
+              "source": "tightwad",
+              "translation": "구두쇠"
+            },
+            {
+              "source": "greedy goon",
+              "translation": "탐욕스러운 놈"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x07c64",
+          "alternatives": [
+            {
+              "source": "mother",
+              "translation": "어머니"
+            },
+            {
+              "source": "father",
+              "translation": "아버지"
+            },
+            {
+              "source": "brother",
+              "translation": "남자 형제"
+            },
+            {
+              "source": "sister",
+              "translation": "여자 형제"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x07c7e",
+          "alternatives": [
+            {
+              "source": "glasses",
+              "translation": "안경"
+            },
+            {
+              "source": "new shoes",
+              "translation": "새 신발"
+            },
+            {
+              "source": "an operation",
+              "translation": "수술"
+            },
+            {
+              "source": "into dental school",
+              "translation": "치과 학교 입학"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "well remember, charity begins at home! ",
+          "translation": "자선은 가까운 곳에서 시작한다는 걸 기억해! ",
+          "rawOffset": "0x07caa"
+        },
+        {
+          "source": "just remember, {2b} reap {2a} {2b} sow!! ",
+          "translation": "{2b}가 뿌린 {2a}을 {2b}가 거두는 법이다!! ",
+          "rawOffset": "0x07ccc"
+        },
+        {
+          "source": "{2b}'ll regret it someday! ",
+          "translation": "{2b}는 언젠가 후회할 거야! ",
+          "rawOffset": "0x07ce6"
+        },
+        {
+          "source": "well, next time I'll be watching for {2b}! ",
+          "translation": "다음엔 {2b}를 지켜보겠어! ",
+          "rawOffset": "0x07cfc"
+        },
+        {
+          "source": "{22} {13}, we'll see who laughs last! ",
+          "translation": "{22} {13}, 누가 마지막에 웃는지 보자! ",
+          "rawOffset": "0x07d1e"
+        },
+        {
+          "source": "next time, don't walk the streets alone! ",
+          "translation": "다음엔 혼자 거리를 걷지 마라! ",
+          "rawOffset": "0x07d38"
+        },
+        {
+          "source": "may all {2b}r travels end on Woremed! ",
+          "translation": "{2b}의 모든 여행이 Woremed에서 끝나길! ",
+          "rawOffset": "0x07d5c"
+        },
+        {
+          "source": "thanks for nothing {13}! ",
+          "translation": "{13}, 아무것도 안 줘서 참 고맙군! ",
+          "rawOffset": "0x07d7a"
+        },
+        {
+          "source": "{2a} a {34}! ",
+          "translation": "{2a} {34} 같은 녀석! ",
+          "rawOffset": "0x07d8e"
+        },
+        {
+          "source": "I hope {2b} catch a laser burst! ",
+          "translation": "{2b}가 레이저에 맞길 바란다! ",
+          "rawOffset": "0x07d94"
+        },
+        {
+          "source": "Oh! Bless {2b} kind {31}! ",
+          "translation": "오! 친절한 {31}, {2b}에게 축복을! ",
+          "rawOffset": "0x07dac"
+        },
+        {
+          "source": "Thanks {32}, I'll never forget it! ",
+          "translation": "{32}, 고마워요. 절대 잊지 않을게요! ",
+          "rawOffset": "0x07dbc"
+        },
+        {
+          "source": "Thank {2b}! Now my {35} can get {36}! ",
+          "translation": "{2b}, 감사합니다! 이제 제 {35}가 {36}을 마련할 수 있어요! ",
+          "rawOffset": "0x07dd8"
+        },
+        {
+          "source": "boy, what a sucker! ",
+          "translation": "이야, 정말 호구네! ",
+          "rawOffset": "0x07dee"
+        }
+      ]
+    },
+    "0x80": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x07ecc",
+          "alternatives": [
+            {
+              "source": "busy",
+              "translation": "바쁘다"
+            },
+            {
+              "source": "just leaving",
+              "translation": "막 나가려던 참"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x07edc",
+          "alternatives": [
+            {
+              "source": "to buy or sell",
+              "translation": "매매할 것"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x07ee8",
+          "alternatives": [
+            {
+              "source": "something",
+              "translation": "무언가"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x07ef2",
+          "alternatives": [
+            {
+              "source": "do {2b} want",
+              "translation": "{2b}가 원하다"
+            },
+            {
+              "source": "would {2b} like",
+              "translation": "{2b}가 바라다"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x07f04",
+          "alternatives": [
+            {
+              "source": "to sell",
+              "translation": "판매할 것"
+            }
+          ]
+        },
+        "0x39": {
+          "rawOffset": "0x07f0c",
+          "alternatives": [
+            {
+              "source": "sorry, I~m",
+              "translation": "미안하지만 저는"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "do {2b} {0d} {36}{3f} ",
+          "translation": "{2b}는 {36}을 {0d}합니까{3f} ",
+          "rawOffset": "0x07f16"
+        },
+        {
+          "source": "is there {36} I can do for {2b}{3f} ",
+          "translation": "{2b}를 위해 제가 해드릴 {36}이 있습니까{3f} ",
+          "rawOffset": "0x07f1e"
+        },
+        {
+          "source": "can I help {2b} with {36}{3f} ",
+          "translation": "{2b}의 {36}을 도와드릴까요{3f} ",
+          "rawOffset": "0x07f32"
+        },
+        {
+          "source": "looking {35} {36}{3f} ",
+          "translation": "{35} {36}을 찾으시나요{3f} ",
+          "rawOffset": "0x07f42"
+        },
+        {
+          "source": "are {2b} buying or selling{3f} ",
+          "translation": "{2b}는 사러 왔나요, 팔러 왔나요{3f} ",
+          "rawOffset": "0x07f4e"
+        },
+        {
+          "source": "{37} {35} {36}{3f} ",
+          "translation": "{37} {35} {36}인가요{3f} ",
+          "rawOffset": "0x07f64"
+        },
+        {
+          "source": "{2a} {37} {38}{3f} ",
+          "translation": "{38}할 {2a}을 {37}{3f} ",
+          "rawOffset": "0x07f6a"
+        },
+        {
+          "source": "{39} not interested. Anything {1e} {38}{3f} ",
+          "translation": "{39}, 관심 없습니다. {38}할 다른 {1e}이 있나요{3f} ",
+          "rawOffset": "0x07f70"
+        },
+        {
+          "source": "hey!, {2b} got {36} {38}{29}{3f} ",
+          "translation": "이봐요! {2b}에게 {38}할 {36}이 있나요{29}{3f} ",
+          "rawOffset": "0x07f8c"
+        },
+        {
+          "source": "{37} to {1a} to me{29}{3f} ",
+          "translation": "제게 {1a}하고 {37}합니까{29}{3f} ",
+          "rawOffset": "0x07f9a"
+        },
+        {
+          "source": "{39} {34}! ",
+          "translation": "{39} {34}! ",
+          "rawOffset": "0x07fa6"
+        },
+        {
+          "source": "then I'll {0c} {2b} later ",
+          "translation": "그럼 나중에 {2b}와 {0c}겠습니다. ",
+          "rawOffset": "0x07faa"
+        },
+        {
+          "source": "then please {18} me! ",
+          "translation": "그럼 저를 {18}! ",
+          "rawOffset": "0x07fba"
+        },
+        {
+          "source": "{1b}. Care to sit down{3f} ",
+          "translation": "{1b}. 앉으시겠어요{3f} ",
+          "rawOffset": "0x07fca"
+        },
+        {
+          "source": "Hi {32}. Care to chat{3f} ",
+          "translation": "안녕하세요, {32}. 이야기할까요{3f} ",
+          "rawOffset": "0x07fdc"
+        },
+        {
+          "source": "Have a seat {31}. {37} to talk{3f} ",
+          "translation": "{31}, 앉으세요. 이야기하고 {37}합니까{3f} ",
+          "rawOffset": "0x07fec"
+        }
+      ]
+    },
+    "0x90": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x0806e",
+          "alternatives": [
+            {
+              "source": "t least one",
+              "translation": "적어도 하나의"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x08078",
+          "alternatives": [
+            {
+              "source": "hand",
+              "translation": "휴대용"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x0807e",
+          "alternatives": [
+            {
+              "source": "tell {2b} about",
+              "translation": "{2b}에게 설명하다"
+            },
+            {
+              "source": "help {2b} with",
+              "translation": "{2b}를 돕다"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{2a} can I {36}{3f} ",
+          "translation": "제가 {2a}을 {36}할까요{3f} ",
+          "rawOffset": "0x08092"
+        },
+        {
+          "source": "Another question{3f} ",
+          "translation": "다른 질문이 있습니까{3f} ",
+          "rawOffset": "0x0809a"
+        },
+        {
+          "source": "{16} else I can {36}{3f} ",
+          "translation": "또 {36}할 {16}이 있습니까{3f} ",
+          "rawOffset": "0x080ac"
+        },
+        {
+          "source": "I suggest {2b} pack a{34} shield and some {09} of {35} weapon! ",
+          "translation": "{2b}에게 {34} 방어막과 {09}의 {35} 무기를 챙기라고 권합니다! ",
+          "rawOffset": "0x080b8"
+        },
+        {
+          "source": "Our {25}s are guaranteed to restore health, but {2b} may need several if {2b}'re badly hurt! ",
+          "translation": "저희 {25}는 건강을 회복시켜 줍니다. 하지만 {2b}가 크게 다쳤다면 {2b}에게 여러 개가 필요할 수 있어요! ",
+          "rawOffset": "0x080e0"
+        },
+        {
+          "source": "The Mark IV body {25} is a real lifesaver! absorbs up to seven direct weapon hits! ",
+          "translation": "Mark IV 개인용 {25}는 생명을 구해 줍니다! 무기 직격을 일곱 번까지 흡수하죠! ",
+          "rawOffset": "0x08126"
+        },
+        {
+          "source": "Fine piece of hardware, the Nelson {25}, good for unlimited shots, but not as deadly as a scattergun! ",
+          "translation": "Nelson {25}는 훌륭한 장비예요. 무한히 발사할 수 있지만 산탄총만큼 치명적이지는 않죠! ",
+          "rawOffset": "0x08168"
+        },
+        {
+          "source": "Ah! Yes, a {25} is a great way to even up the odds, but beware . . . it's shots are limited!",
+          "translation": "아! {25}는 전세를 뒤집기에 좋죠. 다만 탄수가 제한돼 있으니 조심하세요!",
+          "rawOffset": "0x081ba"
+        }
+      ]
+    },
+    "0xa0": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x08254",
+          "alternatives": [
+            {
+              "source": "extended",
+              "translation": "확장형"
+            },
+            {
+              "source": "self lub",
+              "translation": "자동 윤활식"
+            },
+            {
+              "source": "oversize",
+              "translation": "대형"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x0826c",
+          "alternatives": [
+            {
+              "source": "ports",
+              "translation": "포트"
+            },
+            {
+              "source": "jacks",
+              "translation": "잭"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x08278",
+          "alternatives": [
+            {
+              "source": "reliable",
+              "translation": "믿음직한"
+            },
+            {
+              "source": "popular",
+              "translation": "인기 있는"
+            },
+            {
+              "source": "rugged",
+              "translation": "튼튼한"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x0828e",
+          "alternatives": [
+            {
+              "source": "that~s a",
+              "translation": "이것은"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x08296",
+          "alternatives": [
+            {
+              "source": "warp drive or sub c engines",
+              "translation": "워프 드라이브 또는 아광속 엔진"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{2a} can I tell {2b} about{3f} ",
+          "translation": "{2b}에게 {2a}에 관해 설명할까요{3f} ",
+          "rawOffset": "0x082ae"
+        },
+        {
+          "source": "{2a} else{3f} ",
+          "translation": "또 {2a}인가요{3f} ",
+          "rawOffset": "0x082c0"
+        },
+        {
+          "source": "{37} General Industron {25}. ",
+          "translation": "{37} General Industron {25}입니다. ",
+          "rawOffset": "0x082c8"
+        },
+        {
+          "source": "{37}n MBI {25} switching circuit. It fits tac and pilot bays. ",
+          "translation": "{37} MBI {25} 전환 회로입니다. 전술 및 조종 장치에 맞습니다. ",
+          "rawOffset": "0x082dc"
+        },
+        {
+          "source": "{37} {25} for {38}. ",
+          "translation": "{38}용 {37} {25}입니다. ",
+          "rawOffset": "0x0830a"
+        },
+        {
+          "source": "{37} {25}. Not as accurate as a G {25}, but it'll get ya into Starports. ",
+          "translation": "{37} {25}입니다. G {25}만큼 정밀하진 않지만 우주항까지는 데려다줍니다. ",
+          "rawOffset": "0x08312"
+        },
+        {
+          "source": "{37} {25} for shields, {38}. ",
+          "translation": "방어막용 {37} {25}입니다. {38}. ",
+          "rawOffset": "0x08344"
+        },
+        {
+          "source": "That's our custom made {25} with {34} {35}! ",
+          "translation": "{34} {35}를 갖춘 주문 제작 {25}입니다! ",
+          "rawOffset": "0x08354"
+        },
+        {
+          "source": "{37} TecCo Space Time distorter. Very {36}! ",
+          "translation": "{37} TecCo 시공간 왜곡기입니다. 아주 {36}! ",
+          "rawOffset": "0x08370"
+        },
+        {
+          "source": "{37} standard MicroP {25}. Ya can't shunt it so pack a few spares! ",
+          "translation": "{37} 표준 MicroP {25}입니다. 우회 회로로 대체할 수 없으니 예비 부품을 챙기세요! ",
+          "rawOffset": "0x08390"
+        },
+        {
+          "source": "{37} general purpose {25}. It'll replace most parts, but it's not as reliable! ",
+          "translation": "{37} 범용 {25}입니다. 대부분의 부품을 대체하지만 신뢰성은 떨어져요! ",
+          "rawOffset": "0x083c2"
+        }
+      ]
+    },
+    "0xb0": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x08482",
+          "alternatives": [
+            {
+              "source": "weather",
+              "translation": "날씨"
+            },
+            {
+              "source": "day",
+              "translation": "날"
+            },
+            {
+              "source": "place",
+              "translation": "장소"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x08492",
+          "alternatives": [
+            {
+              "source": "nice",
+              "translation": "좋은"
+            },
+            {
+              "source": "great",
+              "translation": "훌륭한"
+            },
+            {
+              "source": "terrific",
+              "translation": "멋진"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x084a4",
+          "alternatives": [
+            {
+              "source": "game",
+              "translation": "경기"
+            },
+            {
+              "source": "show",
+              "translation": "공연"
+            },
+            {
+              "source": "festival",
+              "translation": "축제"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x084b6",
+          "alternatives": [
+            {
+              "source": "furs",
+              "translation": "모피"
+            },
+            {
+              "source": "droids",
+              "translation": "드로이드"
+            },
+            {
+              "source": "organics",
+              "translation": "유기물"
+            },
+            {
+              "source": "meats",
+              "translation": "육류"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x084ce",
+          "alternatives": [
+            {
+              "source": "back",
+              "translation": "돌아옴"
+            },
+            {
+              "source": "in",
+              "translation": "들어옴"
+            }
+          ]
+        },
+        "0x39": {
+          "rawOffset": "0x084d6",
+          "alternatives": [
+            {
+              "source": "here",
+              "translation": "여기"
+            },
+            {
+              "source": "in town",
+              "translation": "시내에"
+            },
+            {
+              "source": "around here",
+              "translation": "이 근처에"
+            }
+          ]
+        },
+        "0x3a": {
+          "rawOffset": "0x084ec",
+          "alternatives": [
+            {
+              "source": "last week",
+              "translation": "지난주"
+            },
+            {
+              "source": "yesterday",
+              "translation": "어제"
+            },
+            {
+              "source": "last night",
+              "translation": "어젯밤"
+            },
+            {
+              "source": "today",
+              "translation": "오늘"
+            }
+          ]
+        },
+        "0x3b": {
+          "rawOffset": "0x0850c",
+          "alternatives": [
+            {
+              "source": "pirate activity",
+              "translation": "해적 활동"
+            },
+            {
+              "source": "action",
+              "translation": "소동"
+            }
+          ]
+        },
+        "0x3c": {
+          "rawOffset": "0x08522",
+          "alternatives": [
+            {
+              "source": "going",
+              "translation": "출발"
+            },
+            {
+              "source": "heading",
+              "translation": "이동"
+            },
+            {
+              "source": "boosting",
+              "translation": "추진"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{35} {34} eh{3f} ",
+          "translation": "{35} {34}, 그렇죠{3f} ",
+          "rawOffset": "0x08538"
+        },
+        {
+          "source": "I just got {38} from {23} {3a}! ",
+          "translation": "방금 {23}에서 {38}. {3a} 일이에요! ",
+          "rawOffset": "0x0853e"
+        },
+        {
+          "source": "{2b} new {39}{3f} ",
+          "translation": "{2b}는 {39} 처음인가요{3f} ",
+          "rawOffset": "0x08550"
+        },
+        {
+          "source": "{2b} come here often{3f} ",
+          "translation": "{2b}는 여기 자주 오나요{3f} ",
+          "rawOffset": "0x08558"
+        },
+        {
+          "source": "I just delivered some {37} to {23}. ",
+          "translation": "방금 {23}에 {37}을 배달했어요. ",
+          "rawOffset": "0x08568"
+        },
+        {
+          "source": "{2b}r ship is the SunDog isn't it{3f} ",
+          "translation": "{2b}의 함선이 SunDog 맞죠{3f} ",
+          "rawOffset": "0x08580"
+        },
+        {
+          "source": "Boy! That was sure a {35} {36} {3a}, eh{3f} ",
+          "translation": "이야! {3a} {35} {36}였어요, 그렇죠{3f} ",
+          "rawOffset": "0x0859a"
+        },
+        {
+          "source": "Are {2b} {3c} out soon{3f} ",
+          "translation": "{2b}는 곧 {3c}하나요{3f} ",
+          "rawOffset": "0x085b2"
+        },
+        {
+          "source": "Lot of {3b} on Woremed, isn't there{3f} ",
+          "translation": "Woremed에는 {3b}이 많지요{3f} ",
+          "rawOffset": "0x085c0"
+        },
+        {
+          "source": "do {2b} want to talk to me{29}{3f} ",
+          "translation": "{2b}는 저와 이야기하고 싶나요{29}{3f} ",
+          "rawOffset": "0x085dc"
+        },
+        {
+          "source": "Hey! Are {2b} awake{3f} ",
+          "translation": "이봐요! {2b}는 깨어 있나요{3f} ",
+          "rawOffset": "0x085f0"
+        }
+      ]
+    },
+    "0xc0": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x0863a",
+          "alternatives": [
+            {
+              "source": "how many",
+              "translation": "몇 명"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x08642",
+          "alternatives": [
+            {
+              "source": "does it take to",
+              "translation": "필요합니까"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x08650",
+          "alternatives": [
+            {
+              "source": "hah, hah, hah . . .",
+              "translation": "하하하..."
+            },
+            {
+              "source": "har, har . . .",
+              "translation": "껄껄..."
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x0866a",
+          "alternatives": [
+            {
+              "source": "one to",
+              "translation": "한 명이"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x08670",
+          "alternatives": [
+            {
+              "source": "change a glow globe",
+              "translation": "발광등 교체"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "Hey! Why didn't the sand shark eat the Rithan{3f} ",
+          "translation": "이봐요! 모래상어가 Rithan을 왜 먹지 않았을까요{3f} ",
+          "rawOffset": "0x08682"
+        },
+        {
+          "source": "Professional courtesy! {36} ",
+          "translation": "동종업계 예의죠! {36} ",
+          "rawOffset": "0x086aa"
+        },
+        {
+          "source": "{34} repair techs {35} plug in a shunt{3f} ",
+          "translation": "우회 회로 하나를 꽂는 데 수리공이 {34} {35}{3f} ",
+          "rawOffset": "0x086c2"
+        },
+        {
+          "source": "five! {37} force it with a hammer and four to go for spares! {36} ",
+          "translation": "다섯 명! {37} 망치로 밀어 넣고 네 명은 예비 부품을 구하러 가죠! {36} ",
+          "rawOffset": "0x086de"
+        },
+        {
+          "source": "{34} Rithans {35} open a Uniteller account! ",
+          "translation": "Uniteller 계좌를 여는 데 Rithan이 {34} {35}! ",
+          "rawOffset": "0x0870e"
+        },
+        {
+          "source": "Ten! {37} open the account and nine to steal the money! {36} ",
+          "translation": "열 명! {37} 계좌를 열고 아홉 명은 돈을 훔치죠! {36} ",
+          "rawOffset": "0x0872e"
+        },
+        {
+          "source": "{34} street traders {35} make a deal{3f} ",
+          "translation": "거래 한 건에 노점상이 {34} {35}{3f} ",
+          "rawOffset": "0x0875a"
+        },
+        {
+          "source": "four! {37} deal and three to protect him from muggers! {36} ",
+          "translation": "네 명! {37} 거래하고 세 명은 강도로부터 그를 지키죠! {36} ",
+          "rawOffset": "0x08774"
+        },
+        {
+          "source": "{34} New Faith Society Members {35} {38}{3f} ",
+          "translation": "{38}에 New Faith Society 회원이 {34} {35}{3f} ",
+          "rawOffset": "0x087a0"
+        },
+        {
+          "source": "None. They're all frozen! {36} ",
+          "translation": "아무도요. 전부 냉동돼 있으니까요! {36} ",
+          "rawOffset": "0x087bc"
+        },
+        {
+          "source": "{34} bureaucrats {35} {38}{3f} ",
+          "translation": "{38}에 관료가 {34} {35}{3f} ",
+          "rawOffset": "0x087d4"
+        },
+        {
+          "source": "two! {37} screw it in, {37} screw it up! {36} ",
+          "translation": "두 명! {37} 끼워 넣고 {37} 망쳐 놓죠! {36} ",
+          "rawOffset": "0x087e4"
+        }
+      ]
+    },
+    "0xd0": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x089a2",
+          "alternatives": [
+            {
+              "source": "{2b}~re not serious",
+              "translation": "{2b}는 진심이 아니군요"
+            },
+            {
+              "source": "I am wasting my time",
+              "translation": "제 시간을 낭비하고 있군요"
+            },
+            {
+              "source": "{2b}~re not interested",
+              "translation": "{2b}는 관심이 없군요"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x089d2",
+          "alternatives": [
+            {
+              "source": "obviously,",
+              "translation": "분명히,"
+            },
+            {
+              "source": "I can see",
+              "translation": "보아하니"
+            },
+            {
+              "source": "it~s clear",
+              "translation": "확실히"
+            },
+            {
+              "source": "evidently",
+              "translation": "틀림없이"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{35} {34}. {19}, {32}. ",
+          "translation": "{35} {34}. {32}, {19}. ",
+          "rawOffset": "0x089f8"
+        }
+      ]
+    },
+    "0xe0": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x08a7c",
+          "alternatives": [
+            {
+              "source": "pretty neat, huh",
+              "translation": "꽤 멋지죠"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x08a8c",
+          "alternatives": [
+            {
+              "source": "hi! my name is",
+              "translation": "안녕하세요! 제 이름은"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x08a98",
+          "alternatives": [
+            {
+              "source": "I wrote the",
+              "translation": "제가 만든 것은"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x08aa2",
+          "alternatives": [
+            {
+              "source": "for this game",
+              "translation": "이 게임에 쓰이는"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{35} Wayne Holder. {36} dialog {2b}'re reading here. Pretty great game, huh{3f} ",
+          "translation": "{35} Wayne Holder입니다. {2b}가 읽는 이 대화는 {36}. 멋진 게임이죠{3f} ",
+          "rawOffset": "0x08aae"
+        },
+        {
+          "source": "{35} Bruce Webster. {36} original SunDog. {34}{3f} ",
+          "translation": "{35} Bruce Webster입니다. 원작 SunDog은 {36}. {34}{3f} ",
+          "rawOffset": "0x08ae8"
+        },
+        {
+          "source": "{35} Donald Geddis. {36} dialog compiler {37}. {34}{3f} ",
+          "translation": "{35} Donald Geddis입니다. {37} 대화 컴파일러는 {36}. {34}{3f} ",
+          "rawOffset": "0x08b0a"
+        },
+        {
+          "source": "{35} Mike Newton. {36} ship modules {37}. {34}{3f} ",
+          "translation": "{35} Mike Newton입니다. {37} 함선 모듈은 {36}. {34}{3f} ",
+          "rawOffset": "0x08b2c"
+        },
+        {
+          "source": "{35} Doug Bell. {36} library {37} and integrated the rest. {34}{3f} ",
+          "translation": "{35} Doug Bell입니다. {37} 라이브러리는 {36}, 나머지도 통합했죠. {34}{3f} ",
+          "rawOffset": "0x08b4a"
+        },
+        {
+          "source": "{35} Andy Jaros. I designed the graphics {37}. {34}{3f} ",
+          "translation": "{35} Andy Jaros입니다. {37} 그래픽을 디자인했어요. {34}{3f} ",
+          "rawOffset": "0x08b76"
+        },
+        {
+          "source": "Glad {2b} like it! Oh, by the way here's {24}. Enjoy it! ",
+          "translation": "{2b}가 좋아하니 기쁘네요! 아, 참. 여기 {24}를 드릴게요. 즐겁게 쓰세요! ",
+          "rawOffset": "0x08b9a"
+        },
+        {
+          "source": "Well, {2b}'ve got no class. Just for that {2b} won't get the {24} I was going to give {2b}! ",
+          "translation": "{2b}는 안목이 없군요. 그래서 {2b}에게 주려던 {24}는 {2b}에게 못 주겠네요! ",
+          "rawOffset": "0x08bc2"
+        }
+      ]
+    }
+  },
+  "translationSource": "docs/i18n/ko.tsv"
+}

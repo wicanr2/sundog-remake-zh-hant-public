@@ -16,7 +16,7 @@ from package_public import is_forbidden, iter_public_files
 TEMPLATES = Path("tools/public-source")
 TOP = {".gitignore", "LICENSE", "go.mod", "go.sum"}
 DIRECTORIES = {"assets", "cmd", "internal", "docker", "tools"}
-DOCS = {"docs/manual/remake-controls-zh-Hant.md"}
+DOCS = {"docs/manual/remake-controls-zh-Hant.md", "docs/promo/five-language-story.json"}
 SHOTS = {
     "shipboard": "5a8d8a1aad3f26ff44c67648ffe0b93cafc92200fa0bf4924c085ae4d6f52c9e",
     "ground": "6108fc6c52f1098e5c94da43887753e5585957fc5a381a9a43e27b821320c6f7",
@@ -30,7 +30,9 @@ def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def prepare(root: Path, output: Path) -> dict:
+def prepare(root: Path, output: Path, version: str) -> dict:
+    if not re.fullmatch(r"v\.[0-9]+\.[0-9]+\.[0-9]+-[0-9]{8}", version):
+        raise ValueError(f"invalid release version: {version}")
     if output.exists():
         raise ValueError(f"output already exists: {output}")
     tracked = set(subprocess.check_output(
@@ -92,7 +94,7 @@ def prepare(root: Path, output: Path) -> dict:
     document = {
         "schema": 1,
         "boundary": "Fresh source snapshot; no original Git objects, disks, scans, original pixels or sounds. Private oracle images and full local packages excluded.",
-        "gameVersion": "v.1.1.0-20261015",
+        "gameVersion": version,
         "screenshots": [{"path": name, "sha256": digest(source), "kind": "independently drawn HD; normal player capture", "captureDate": "2026-10-15"} for source, name in screenshots],
         "files": [{"path": p.relative_to(output).as_posix(), "bytes": p.stat().st_size, "sha256": digest(p)} for p in sorted(output.rglob("*")) if p.is_file()],
     }
@@ -104,5 +106,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--version", required=True)
     args = parser.parse_args()
-    print(json.dumps(prepare(args.root.resolve(), args.output.resolve()), ensure_ascii=False))
+    print(json.dumps(prepare(args.root.resolve(), args.output.resolve(), args.version), ensure_ascii=False))

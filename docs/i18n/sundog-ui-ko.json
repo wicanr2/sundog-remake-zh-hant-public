@@ -1,0 +1,4337 @@
+{
+  "schema": 1,
+  "catalog": "SunDog remake prototype UI overlay",
+  "locale": "ko",
+  "sourceStatus": "remake-owned UI overlay; not an assertion about original bytes",
+  "translationStatus": "AI translation; structurally verified; native editorial review pending",
+  "entries": [
+    {
+      "key": "ui.about_sundog",
+      "translation": "SunDog 정보 (원작 제작진)",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.action.distress",
+      "translation": "긴급 급유 요청",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.action.hail",
+      "translation": "상대 함선 호출",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.action.jettison",
+      "translation": "화물 투하",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.action.pay_fine",
+      "translation": "불법 주차 벌금 납부",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.action.tractor",
+      "translation": "견인 광선",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.action.tube",
+      "translation": "도시 전차 탑승",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.airlock",
+      "translation": "에어록",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.arena.barehanded",
+      "translation": "맨손",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.arena.hitpoints",
+      "translation": "체력",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.arena.opponents",
+      "translation": "상대",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.arena.shield",
+      "translation": "방어막",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.arena.title",
+      "translation": "거리 전투",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.arena.weapon",
+      "translation": "무기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.attribute.ch",
+      "translation": "매력",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.attribute.dx",
+      "translation": "민첩",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.attribute.hidden",
+      "translation": "??",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.attribute.iq",
+      "translation": "지능",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.attribute.lk",
+      "translation": "행운",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.attribute.st",
+      "translation": "힘",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.attribute_allocation",
+      "translation": "능력치 배분",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.attribute_allocation_note",
+      "translation": "위/아래: 선택  왼쪽/오른쪽: 조정  Enter: 완료",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.attribute_points_remaining",
+      "translation": "남은 포인트",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.aux_fuel",
+      "translation": "보조 연료",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.back",
+      "translation": "돌아가기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.bank",
+      "translation": "은행 예금",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.buy",
+      "translation": "화물 구입",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.buy_part",
+      "translation": "선택한 부품 구입",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo",
+      "translation": "화물",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.antimatter",
+      "source": "antimatter",
+      "translation": "반물질",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.art-objects",
+      "source": "art objects",
+      "translation": "미술품",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.biochips",
+      "source": "biochips",
+      "translation": "바이오칩",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.cadcams",
+      "source": "cadcams",
+      "translation": "CAD/CAM 장비",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.chronographs",
+      "source": "chronographs",
+      "translation": "정밀 시계",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.clothing",
+      "source": "clothing",
+      "translation": "의류",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.comgear",
+      "source": "comgear",
+      "translation": "통신 장비",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.cryogens",
+      "source": "cryogens",
+      "translation": "냉동 이주민",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.droids",
+      "source": "droids",
+      "translation": "드로이드",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.exotic-metals",
+      "source": "exotic metals",
+      "translation": "특수 금속",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.fruits-vegs",
+      "source": "fruits/vegs",
+      "translation": "과일/채소",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.fuel",
+      "source": "fuel",
+      "translation": "연료",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.furs-silks",
+      "source": "furs/silks",
+      "translation": "모피/비단",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.gems-crystals",
+      "source": "gems/crystals",
+      "translation": "보석/수정",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.gold",
+      "source": "gold",
+      "translation": "금",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.grains-cereals",
+      "source": "grains/cereals",
+      "translation": "곡물",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.hand-weapons",
+      "source": "hand weapons",
+      "translation": "휴대 무기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.meats",
+      "source": "meats",
+      "translation": "육류",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.nothing",
+      "source": "nothing",
+      "translation": "없음",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.nullgravs",
+      "source": "nullgravs",
+      "translation": "무중력 장치",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.organics",
+      "source": "organics",
+      "translation": "유기물",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.pharmaceuticals",
+      "source": "pharmaceuticals",
+      "translation": "의약품",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.radioactives",
+      "source": "radioactives",
+      "translation": "방사성 물질",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.rare-earths",
+      "source": "rare earths",
+      "translation": "희토류",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.salvage_lots",
+      "translation": "견인 수입",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.seeds-sprouts",
+      "source": "seeds/sprouts",
+      "translation": "씨앗/모종",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.silichips",
+      "source": "silichips",
+      "translation": "실리콘칩",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.spices-herbs",
+      "source": "spices/herbs",
+      "translation": "향신료/허브",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.stimulants",
+      "source": "stimulants",
+      "translation": "각성제",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.stock-embryos",
+      "source": "stock embryos",
+      "translation": "가축 배아",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.sunsuns",
+      "source": "sunsuns",
+      "translation": "선선",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.synthesizers",
+      "source": "synthesizers",
+      "translation": "합성 장치",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.unknown",
+      "translation": "알 수 없는 화물",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo.woods-fibers",
+      "source": "woods/fibers",
+      "translation": "목재/섬유",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo_hold",
+      "translation": "화물칸",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo_pod",
+      "translation": "화물 포드",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cargo_units",
+      "translation": "화물칸 용량",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.carry",
+      "translation": "휴대품",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cash",
+      "translation": "현금",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.character",
+      "translation": "인물",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.character_creation",
+      "translation": "인물 생성",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.character_creation_note",
+      "translation": "Enter로 이름을 확정한 뒤 능력치를 배분합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.character_library",
+      "translation": "인물 저장소",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.character_name",
+      "translation": "인물 이름",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.character_name_confirm",
+      "translation": "이름 확정",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.character_name_prompt",
+      "translation": "인물의 이름을 입력하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.character_status",
+      "translation": "인물 상태",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city",
+      "translation": "도시",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.abran",
+      "source": "Abran",
+      "translation": "Abran",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.abundan",
+      "source": "Abundan",
+      "translation": "Abundan",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.alram",
+      "source": "Alram",
+      "translation": "Alram",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.arlenair",
+      "source": "Arlenair",
+      "translation": "Arlenair",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.aylika",
+      "source": "Aylika",
+      "translation": "Aylika",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.bantin",
+      "source": "Bantin",
+      "translation": "Bantin",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.banville",
+      "source": "Banville",
+      "translation": "Banville",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.barnum",
+      "source": "Barnum",
+      "translation": "Barnum",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.bedollug",
+      "source": "Bedollug",
+      "translation": "Bedollug",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.calidac",
+      "source": "Calidac",
+      "translation": "Calidac",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.corian",
+      "source": "Corian",
+      "translation": "Corian",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.d-esgid",
+      "source": "D'esgid",
+      "translation": "D'esgid",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.dajasyron",
+      "source": "Dajasyron",
+      "translation": "Dajasyron",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.darvilton",
+      "source": "Darvilton",
+      "translation": "Darvilton",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.drahew",
+      "source": "Drahew",
+      "translation": "Drahew",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.dramming",
+      "source": "Dramming",
+      "translation": "Dramming",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.dreider",
+      "source": "Dreider",
+      "translation": "Dreider",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.einkolt",
+      "source": "Einkolt",
+      "translation": "Einkolt",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.esposito",
+      "source": "Esposito",
+      "translation": "Esposito",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.essoit",
+      "source": "Essoit",
+      "translation": "Essoit",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.feriolah",
+      "source": "Feriolah",
+      "translation": "Feriolah",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.ferring",
+      "source": "Ferring",
+      "translation": "Ferring",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.ft-lyon",
+      "source": "Ft. Lyon",
+      "translation": "Ft. Lyon",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.ft-savon",
+      "source": "Ft. Savon",
+      "translation": "Ft. Savon",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.haiapolis",
+      "source": "Haiapolis",
+      "translation": "Haiapolis",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.helord",
+      "source": "Helord",
+      "translation": "Helord",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.icebox",
+      "source": "Icebox",
+      "translation": "Icebox",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.illdono",
+      "source": "Illdono",
+      "translation": "Illdono",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.industron",
+      "source": "Industron",
+      "translation": "Industron",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.jemba",
+      "source": "Jemba",
+      "translation": "Jemba",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.knuth",
+      "source": "Knuth",
+      "translation": "Knuth",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.kolbe",
+      "source": "Kolbe",
+      "translation": "Kolbe",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.lagosal",
+      "source": "Lagosal",
+      "translation": "Lagosal",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.lightning",
+      "source": "Lightning",
+      "translation": "Lightning",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.llorrac",
+      "source": "Llorrac",
+      "translation": "Llorrac",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.lonax",
+      "source": "Lonax",
+      "translation": "Lonax",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.malesti",
+      "source": "Malesti",
+      "translation": "Malesti",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.mortown",
+      "source": "Mortown",
+      "translation": "Mortown",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.n-ljones",
+      "source": "N'ljones",
+      "translation": "N'ljones",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.new-temol",
+      "source": "New Temol",
+      "translation": "New Temol",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.notweneki",
+      "source": "Notweneki",
+      "translation": "Notweneki",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.obburg",
+      "source": "Obburg",
+      "translation": "Obburg",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.paleko",
+      "source": "Paleko",
+      "translation": "Paleko",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.paran",
+      "source": "Paran",
+      "translation": "Paran",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.plepa",
+      "source": "Plepa",
+      "translation": "Plepa",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.poelter",
+      "source": "Poelter",
+      "translation": "Poelter",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.sheol",
+      "source": "Sheol",
+      "translation": "Sheol",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.sheshco",
+      "source": "Sheshco",
+      "translation": "Sheshco",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.shoothan",
+      "source": "Shoothan",
+      "translation": "Shoothan",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.surrell",
+      "source": "Surrell",
+      "translation": "Surrell",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.temlonton",
+      "source": "Temlonton",
+      "translation": "Temlonton",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.the-mines",
+      "source": "The Mines",
+      "translation": "The Mines",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.tram-el",
+      "source": "Tram'el",
+      "translation": "Tram'el",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.tuie",
+      "source": "Tuie",
+      "translation": "Tuie",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.velamie",
+      "source": "Velamie",
+      "translation": "Velamie",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.waslat",
+      "source": "Waslat",
+      "translation": "Waslat",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.wildera",
+      "source": "Wildera",
+      "translation": "Wildera",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.city.zadansa",
+      "source": "Zadansa",
+      "translation": "Zadansa",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.combat_range",
+      "translation": "교전 거리",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.combat_status",
+      "translation": "전투 상태",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.compass",
+      "translation": "나침반",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.credits.director",
+      "translation": "감독",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.credits.ftl_production",
+      "translation": "Faster Than Light 제작",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.credits.graphics",
+      "translation": "그래픽",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.credits.original_concept",
+      "translation": "원안 및 Apple II 게임",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.credits.producer",
+      "translation": "제작",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.credits.ship_sound_effects",
+      "translation": "함선, 음향 및 특수 효과",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.credits.studios",
+      "translation": "FTL Studios / Studio B",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.cryogens",
+      "translation": "냉동 이주민",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.delete_game",
+      "translation": "x><x>저장 삭제",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.deliver_mission",
+      "translation": "개척 계약 화물 인도",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.deposit",
+      "translation": "현금 전액 입금",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.depot_aux",
+      "translation": "3: 보조 연료 구입",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.depot_refuel",
+      "translation": "1: 함선 급유",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.depot_repair",
+      "translation": "2: 함선 수리",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.depot_title",
+      "translation": "연료 보급소",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.abran",
+      "source": "Glory/Glory I/Abran",
+      "translation": "Glory/Glory I/Abran",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.abundan",
+      "source": "Glory/Glory I/Abundan",
+      "translation": "Glory/Glory I/Abundan",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.alram",
+      "source": "Woremed/W'orrad/Alram",
+      "translation": "Woremed/W'orrad/Alram",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.arlenair",
+      "source": "Hepa/Hepah/Arlenair",
+      "translation": "Hepa/Hepah/Arlenair",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.aylika",
+      "source": "Woremed/W'orrad/Aylika",
+      "translation": "Woremed/W'orrad/Aylika",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.bantin",
+      "source": "Ferr/Ferr/Bantin",
+      "translation": "Ferr/Ferr/Bantin",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.banville",
+      "source": "Jondd/Jondd/Banville",
+      "translation": "Jondd/Jondd/Banville",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.barnum",
+      "source": "Ferr/Ferr/Barnum",
+      "translation": "Ferr/Ferr/Barnum",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.bedollug",
+      "source": "KalManDaa/Kala/Bedollug",
+      "translation": "KalManDaa/Kala/Bedollug",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.calidac",
+      "source": "New Shoot/New Shoot/Calidac",
+      "translation": "New Shoot/New Shoot/Calidac",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.corian",
+      "source": "Glory/Glory I/Corian",
+      "translation": "Glory/Glory I/Corian",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.d-esgid",
+      "source": "Jadul/Krakorum/D'esgid",
+      "translation": "Jadul/Krakorum/D'esgid",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.dajasyron",
+      "source": "KalManDaa/Kala/Dajasyron",
+      "translation": "KalManDaa/Kala/Dajasyron",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.darvilton",
+      "source": "Jondd/Jondd/Darvilton",
+      "translation": "Jondd/Jondd/Darvilton",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.drahew",
+      "source": "Jondd/Jondd/Drahew",
+      "translation": "Jondd/Jondd/Drahew",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.dramming",
+      "source": "Jondd/Jondd/Dramming",
+      "translation": "Jondd/Jondd/Dramming",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.dreider",
+      "source": "Glory/Glory II/Dreider",
+      "translation": "Glory/Glory II/Dreider",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.einkolt",
+      "source": "Lafser/Tcana/Einkolt",
+      "translation": "Lafser/Tcana/Einkolt",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.esposito",
+      "source": "Jondd/Jondd/Esposito",
+      "translation": "Jondd/Jondd/Esposito",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.essoit",
+      "source": "Hepa/Hepah/Essoit",
+      "translation": "Hepa/Hepah/Essoit",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.feriolah",
+      "source": "New Shoot/New Shoot/Feriolah",
+      "translation": "New Shoot/New Shoot/Feriolah",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.ferring",
+      "source": "Ferr/Ferr/Ferring",
+      "translation": "Ferr/Ferr/Ferring",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.ft-lyon",
+      "source": "Jondd/Heavy/Ft. Lyon",
+      "translation": "Jondd/Heavy/Ft. Lyon",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.ft-savon",
+      "source": "Jondd/Heavy/Ft. Savon",
+      "translation": "Jondd/Heavy/Ft. Savon",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.haiapolis",
+      "source": "Lafser/Tcana/Haiapolis",
+      "translation": "Lafser/Tcana/Haiapolis",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.helord",
+      "source": "Sosai/Vahevela/Helord",
+      "translation": "Sosai/Vahevela/Helord",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.icebox",
+      "source": "Ferr/Snowball/Icebox",
+      "translation": "Ferr/Snowball/Icebox",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.illdono",
+      "source": "Jadul/Krakorum/Illdono",
+      "translation": "Jadul/Krakorum/Illdono",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.industron",
+      "source": "Ferr/Ferrwerk/Industron",
+      "translation": "Ferr/Ferrwerk/Industron",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.jemba",
+      "source": "Glory/Glory II/Jemba",
+      "translation": "Glory/Glory II/Jemba",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.knuth",
+      "source": "Shoot/Shoot/Knuth",
+      "translation": "Shoot/Shoot/Knuth",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.kolbe",
+      "source": "KalManDaa/Kala/Kolbe",
+      "translation": "KalManDaa/Kala/Kolbe",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.lagosal",
+      "source": "Glory/Glory I/Lagosal",
+      "translation": "Glory/Glory I/Lagosal",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.lightning",
+      "source": "Jondd/Heavy/Lightning",
+      "translation": "Jondd/Heavy/Lightning",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.llorrac",
+      "source": "Glory/Glory II/Llorrac",
+      "translation": "Glory/Glory II/Llorrac",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.lonax",
+      "source": "Ferr/Ferr/Lonax",
+      "translation": "Ferr/Ferr/Lonax",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.malesti",
+      "source": "Jadul/Krakorum/Malesti",
+      "translation": "Jadul/Krakorum/Malesti",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.mortown",
+      "source": "Sosai/Vahevela/Mortown",
+      "translation": "Sosai/Vahevela/Mortown",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.n-ljones",
+      "source": "Sosai/Vahevela/N'ljones",
+      "translation": "Sosai/Vahevela/N'ljones",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.new-temol",
+      "source": "New Shoot/New Shoot/New Temol",
+      "translation": "New Shoot/New Shoot/New Temol",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.notweneki",
+      "source": "KalManDaa/Kala/Notweneki",
+      "translation": "KalManDaa/Kala/Notweneki",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.obburg",
+      "source": "Jondd/Jondd/Obburg",
+      "translation": "Jondd/Jondd/Obburg",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.paleko",
+      "source": "Jadul/Krakorum/Paleko",
+      "translation": "Jadul/Krakorum/Paleko",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.paran",
+      "source": "Glory/Glory I/Paran",
+      "translation": "Glory/Glory I/Paran",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.plepa",
+      "source": "Enlie/Enliah/Plepa",
+      "translation": "Enlie/Enliah/Plepa",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.poelter",
+      "source": "New Shoot/New Shoot/Poelter",
+      "translation": "New Shoot/New Shoot/Poelter",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.sheol",
+      "source": "New Shoot/Hell/Sheol",
+      "translation": "New Shoot/Hell/Sheol",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.sheshco",
+      "source": "Woremed/W'orrad/Sheshco",
+      "translation": "Woremed/W'orrad/Sheshco",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.shoothan",
+      "source": "Shoot/Shoot/Shoothan",
+      "translation": "Shoot/Shoot/Shoothan",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.surrell",
+      "source": "Glory/Glory III/Surrell",
+      "translation": "Glory/Glory III/Surrell",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.temlonton",
+      "source": "Shoot/Shoot/Temlonton",
+      "translation": "Shoot/Shoot/Temlonton",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.the-mines",
+      "source": "Ferr/Ferrwerk/The Mines",
+      "translation": "Ferr/Ferrwerk/The Mines",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.tram-el",
+      "source": "New Shoot/New Shoot/Tram'el",
+      "translation": "New Shoot/New Shoot/Tram'el",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.tuie",
+      "source": "Enlie/Enliah/Tuie",
+      "translation": "Enlie/Enliah/Tuie",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.velamie",
+      "source": "Hepa/Hepah/Velamie",
+      "translation": "Hepa/Hepah/Velamie",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.waslat",
+      "source": "Shoot/Shoot/Waslat",
+      "translation": "Shoot/Shoot/Waslat",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.wildera",
+      "source": "New Shoot/New Shoot/Wildera",
+      "translation": "New Shoot/New Shoot/Wildera",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination.zadansa",
+      "source": "Woremed/W'orrad/Zadansa",
+      "translation": "Woremed/W'orrad/Zadansa",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination_next",
+      "translation": "다음",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.destination_previous",
+      "translation": "이전",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.dialog",
+      "translation": "대화",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.dialog.ok",
+      "translation": "확인",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.dialog_said",
+      "translation": "당신의 말",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.dialog_say",
+      "translation": "선택한 말 하기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.dialog_verb",
+      "translation": "할 말",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.eat",
+      "translation": "먹기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.enemy.annihilator",
+      "source": "Annihilator",
+      "translation": "애니힐레이터",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.enemy.phantom-ul",
+      "source": "Phantom UL",
+      "translation": "팬텀 UL",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.enemy.unknown",
+      "source": "UNKNOWN",
+      "translation": "미확인",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.enemy.voton-mk-iv",
+      "source": "Voton Mk IV",
+      "translation": "보톤 Mk IV",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.enemy.voton-mk-x",
+      "source": "Voton Mk X",
+      "translation": "보톤 Mk X",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.enemy.vw-69",
+      "source": "VW-69",
+      "translation": "VW-69",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.enemy.z1-vector",
+      "source": "Z1 Vector",
+      "translation": "Z1 벡터",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.enemy_hull",
+      "translation": "적 함선 선체",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.enemy_ship",
+      "translation": "적 함선 기종",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.engineering",
+      "translation": "기관실",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.engineering_fuel_system",
+      "translation": "연료/엔진",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.engineering_hull_system",
+      "translation": "선체 상태",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.engineering_shield_system",
+      "translation": "방어막 장치",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.engineering_weapon_system",
+      "translation": "무기 장치",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.equipment",
+      "translation": "장비 자료",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.equipment_note",
+      "translation": "원본 위치 순서입니다. 효과는 검증이 필요합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.equipment_unavailable",
+      "translation": "Apple II 장비 목록을 불러오지 못했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.facilities",
+      "translation": "현재 시설",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.facility.colony",
+      "translation": "개척지",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.facility.exchange",
+      "translation": "거래소",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.facility.none",
+      "translation": "없음",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.facility.spaceport",
+      "translation": "우주항",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.facility.uniteller",
+      "translation": "은행",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.facility.warehouse",
+      "translation": "창고",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.fire",
+      "translation": "발사",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.flight",
+      "translation": "성계 내 항행",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.flight_distress_key",
+      "translation": "D: 구조 요청",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.flight_engage_key",
+      "translation": "E: 항행 계속",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.flight_progress",
+      "translation": "항행 진행",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.flight_resume_key",
+      "translation": "R: 항행 재개",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.flight_tick",
+      "translation": "항행 단계",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.flight_tick_key",
+      "translation": "Enter: 진행",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.food",
+      "translation": "식량",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.footer.failure",
+      "translation": "S: 저장  Q: 종료  표시: %s",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.footer.normal",
+      "translation": "마우스: 버튼/지도  우클릭: %s  F8 표시: %s",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.ftl_install",
+      "translation": "FTL 증폭기 설치",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.ftl_price",
+      "translation": "설치 비용",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.ftl_range",
+      "translation": "도약 거리",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.ftl_title",
+      "translation": "FTL 개조",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.fuel",
+      "translation": "연료량",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.fuel_available",
+      "translation": "사용 가능 자금",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.fuel_buy_full",
+      "translation": "1: 가득 채우기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.fuel_buy_one",
+      "translation": "2: 한 단위 구입",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.fuel_cancel",
+      "translation": "3: 완료",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.fuel_purchase",
+      "translation": "함선 정비",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.fuel_quantity",
+      "translation": "수량",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.fuel_unavailable",
+      "translation": "여기서는 이용 불가",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.fuel_unit_price",
+      "translation": "단가",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.full_shields",
+      "translation": "방어막 최대 출력",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.gauge.fuel",
+      "translation": "연료",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.gauge.guns",
+      "translation": "무기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.gauge.hull",
+      "translation": "선체",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.gauge.shield",
+      "translation": "방어막",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.ground",
+      "translation": "지상 이동",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.guns",
+      "translation": "무기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.hand",
+      "translation": "손에 든 물건",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.hand_empty",
+      "translation": "빈손",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.hand_key",
+      "translation": "← → H",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.heading.east",
+      "translation": "동",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.heading.north",
+      "translation": "북",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.heading.south",
+      "translation": "남",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.heading.west",
+      "translation": "서",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.health",
+      "translation": "건강",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.arrows",
+      "translation": "방향키: 이동 또는 선택",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.cards",
+      "translation": "F1: 도움말  F2: 설정 (언어, 표시, 디스크)",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.close",
+      "translation": "F1 또는 ESC로 닫기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.confirm",
+      "translation": "ENTER/SPACE: 기본 동작 확인",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.depot",
+      "translation": "1 급유  2 수리  3 보조 연료  4 개조 (Banville)  Esc 뒤로",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.engineering_shortcuts",
+      "translation": "←/→ 장치  E 수리  W 무기  S 방어막  R 선체  I 장비",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.equipment_back",
+      "translation": "ESC / 우클릭: 돌아가기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.escape",
+      "translation": "ESC: 취소 또는 돌아가기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.ftl",
+      "translation": "1 / ENTER: 설치  우클릭 / ESC: 돌아가기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.fuel_purchase",
+      "translation": "1: 가득  2: 한 단위  3 / ESC: 완료",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.ground_parts",
+      "translation": "Y: 창고의 함선 부품  P: 개척 물자 적재",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.ground_save",
+      "translation": "F5: 저장소 (8칸, 숫자키 선택)  S: 남쪽 이동",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.ground_shortcuts",
+      "translation": "T 거래  U 은행  R 연료  P 물자  K 이주민  V 인도  O 보조 연료",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.library_save",
+      "translation": "F5: 저장소 (8칸, 숫자키 선택)",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.mouse",
+      "translation": "좌클릭: 버튼/지도  우클릭: 돌아가기/상태",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.presentation",
+      "translation": "F8: 표시 (Atari ST / Atari ST HD / Apple II)",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.presentation_persists",
+      "translation": "색상, 그림과 배치가 함께 바뀌며 재시작 후에도 유지됩니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.quit",
+      "translation": "F10: 자동 저장 후 종료",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.save_load",
+      "translation": "S 빠른 저장  L 불러오기  F5 저장소 (숫자키 선택)",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.sleep",
+      "translation": "Space / Enter / 클릭: 기상  F5: 저장소  F10: 종료",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.sound",
+      "translation": "F7: 음소거",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.tactical",
+      "translation": "G 레이저  T 견인  J/K 화물 1/2 투하  B 모두 투하  H 호출",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.tactical_aim",
+      "translation": "M: 조준  마우스: 회전  좌클릭: 발사",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.tactical_fire",
+      "translation": "F/Enter 발사  R 충전  ESC 조준 종료",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.tactical_shields",
+      "translation": "O: 방어막 끄기  U: 최대 출력",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.teller_commit",
+      "translation": "은행: 나가면 확정  C: 금액을 지워 취소",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.title",
+      "translation": "조작 안내",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.title_keys",
+      "translation": "제목: P 시작  C 저장소  L 불러오기  O 설정  A 제작진",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.hull_condition",
+      "translation": "선체 상태",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.install_part",
+      "translation": "손상된 슬롯의 부품 교체",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.interior",
+      "translation": "실내",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.interior.booth",
+      "translation": "부스",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.interior.counter",
+      "translation": "판매대",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.interior.customers",
+      "translation": "손님",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.interior.door",
+      "translation": "문",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.interior.kind.bar",
+      "translation": "술집",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.interior.kind.equipment",
+      "translation": "장비 상점",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.interior.kind.hotel",
+      "translation": "호텔",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.interior.kind.parts",
+      "translation": "함선 부품점",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.interior.kind.unknown",
+      "translation": "간판 없는 문",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.interior.slots",
+      "translation": "슬롯머신",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.beer",
+      "source": "beer",
+      "translation": "맥주",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.burger",
+      "source": "burger",
+      "translation": "햄버거",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.charmer",
+      "source": "charmer",
+      "translation": "매력 증폭기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.cloaker",
+      "source": "cloaker",
+      "translation": "은폐 장치",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.concentrator",
+      "source": "concentrator",
+      "translation": "집중 증폭기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.control-node",
+      "source": "control node",
+      "translation": "제어 노드",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.cryofuse",
+      "source": "cryofuse",
+      "translation": "극저온 퓨즈",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.dead-part",
+      "source": "(dead part)",
+      "translation": "(고장 난 부품)",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.decloaker",
+      "source": "decloaker",
+      "translation": "은폐 탐지기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.dexboost",
+      "source": "dexboost",
+      "translation": "민첩 증폭기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.flux-modulator",
+      "source": "flux modulator",
+      "translation": "자속 변조기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.freeze-quit",
+      "source": "(freeze/quit)",
+      "translation": "(저장/종료)",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.ground-scanner",
+      "source": "ground scanner",
+      "translation": "지상 스캐너",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.j-junc-module",
+      "source": "j-junc module",
+      "translation": "J 접합 모듈",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.location",
+      "source": "(location)",
+      "translation": "(위치)",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.money",
+      "source": "(money)",
+      "translation": "(돈)",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.next-frame",
+      "source": "(next frame)",
+      "translation": "(다음 화면)",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.nothing",
+      "source": "(nothing)",
+      "translation": "(없음)",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.nutrapack",
+      "source": "nutrapack",
+      "translation": "영양 팩",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.peptab",
+      "source": "peptab",
+      "translation": "각성 정제",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.photon-bridge",
+      "source": "photon bridge",
+      "translation": "광자 브리지",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.plasma-tube",
+      "source": "plasma tube",
+      "translation": "플라스마관",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.rapidheal",
+      "source": "rapidheal",
+      "translation": "급속 치료제",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.reserved",
+      "source": "(reserved)",
+      "translation": "(예약됨)",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.s-t-distorter",
+      "source": "s/t distorter",
+      "translation": "시공간 왜곡기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.scanner",
+      "source": "scanner",
+      "translation": "스캐너",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.scattergun",
+      "source": "scattergun",
+      "translation": "산탄총",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.shield",
+      "source": "shield",
+      "translation": "방어막",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.shunt",
+      "source": "shunt",
+      "translation": "우회 회로",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.stinger",
+      "source": "stinger",
+      "translation": "스팅어",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.time",
+      "source": "(time)",
+      "translation": "(시간)",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.item.trash",
+      "source": "(trash)",
+      "translation": "(쓰레기)",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.layout.atari_st",
+      "translation": "Atari ST",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.layout.remake",
+      "translation": "리메이크",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.library_key_delete",
+      "translation": "삭제",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.library_key_load",
+      "translation": "불러오기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.library_key_make",
+      "translation": "만들기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.library_key_new",
+      "translation": "새 게임",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.library_key_pick",
+      "translation": "1-8: 슬롯 선택",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.library_key_store",
+      "translation": "저장",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.library_not_created",
+      "translation": "아직 만들지 않음",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.library_slot",
+      "translation": "저장 슬롯",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.library_slot_empty",
+      "translation": "빈 슬롯",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.load_aux_fuel",
+      "translation": "O: 보조 연료 적재",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.load_cargo",
+      "translation": "화물 적재",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.load_cryogens",
+      "translation": "냉동 이주민 적재",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.load_game",
+      "translation": "게임 불러오기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.load_supplies",
+      "translation": "개척 물자 적재",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.locale.en",
+      "translation": "English",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.locale.ja",
+      "translation": "日本語",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.locale.zh-Hans",
+      "translation": "简体中文",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.locale.zh-Hant",
+      "translation": "繁體中文",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.location",
+      "translation": "위치",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.make_library",
+      "translation": "저장소 만들기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.market_quote",
+      "translation": "화물 매매",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.market_unknown",
+      "translation": "미확인",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.about_needs_disk",
+      "translation": "제작진 목록은 원본 디스크에 있습니다. 설정에서 디스크를 지정하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.action_rejected",
+      "translation": "동작 거부:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.arena_ammo_out",
+      "translation": "산탄총 탄약이 떨어져 맨손으로 싸워야 합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.arena_exchange",
+      "translation": "양측이 한 차례 공격을 주고받았습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.arena_fled",
+      "translation": "전투에서 벗어났습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.arena_hit",
+      "translation": "공격에 맞았습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.arena_lost",
+      "translation": "쓰러졌습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.arena_over",
+      "translation": "전투가 끝났습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.arena_won",
+      "translation": "남은 상대들이 달아났습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.at_booth",
+      "translation": "부스 옆에 서 있습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.at_counter",
+      "translation": "판매대 앞에 서 있습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.at_door",
+      "translation": "바로 옆에 문이 있습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.at_slots",
+      "translation": "구석의 슬롯머신이 깜박입니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.ate",
+      "translation": "음식을 먹어 포만감이 올랐습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.attribute_points",
+      "translation": "인물의 능력치를 배분하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.attribute_waste",
+      "translation": "남은 포인트가 있습니다. 그대로 진행하려면 다시 확인하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.aux_fuel_drained",
+      "translation": "보조 연료를 주 연료 탱크에 옮겼습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.aux_fuel_dropped",
+      "translation": "보조 연료 탱크 하나를 내렸습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.aux_fuel_loaded",
+      "translation": "화물칸에 보조 연료 탱크를 실었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.back",
+      "translation": "이전 화면으로 돌아왔습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.beyond_maximum_jump",
+      "translation": "워프 드라이브의 최대 도약 거리를 넘었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.boarded",
+      "translation": "선독에 탑승했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.bolts_armed",
+      "translation": "분리 볼트가 작동해 화물칸을 비웠습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.bought",
+      "translation": "물품 하나를 구입했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.cannon_missed",
+      "translation": "함포 빗나감: 적 함선이 조준 범위 밖에 있습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.cannot_move",
+      "translation": "앞으로 갈 수 없습니다. 통행 가능한 지형으로 이동하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.cargo",
+      "translation": "화물칸을 열었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.cargo_full",
+      "translation": "화물칸이 가득 찼습니다. 화물은 두 칸까지 실을 수 있습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.cargo_loaded",
+      "translation": "화물 한 묶음을 실었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.cargo_unloaded",
+      "translation": "화물 한 묶음을 내렸습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.carry_full",
+      "translation": "휴대품 칸이 가득 차서 넣을 수 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.character_created",
+      "translation": "인물을 만들었습니다. 선독에 탑승할 준비가 됐습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.character_name",
+      "translation": "인물의 이름을 입력하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.character_name_invalid",
+      "translation": "이름을 비워 둘 수 없습니다. 다시 입력하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.collapsed",
+      "translation": "피로로 쓰러졌습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.comm_jammed",
+      "translation": "통신 채널이 방해받고 있습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.cryogens_loaded",
+      "translation": "지상 창고에서 냉동 이주민 한 단위를 실었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.defeat",
+      "translation": "더는 계속할 수 없습니다. 이 결말을 저장하거나 종료할 수 있습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.delivery_at_exchange",
+      "translation": "Banville 거래소에서 필요한 화물을 한 묶음씩 인도하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.deposited",
+      "translation": "현재 성계의 은행에 현금을 입금했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.destination_selected",
+      "translation": "다음 항행 목적지를 선택했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.dialog_ended",
+      "translation": "대화가 끝나 거리로 돌아갑니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.dialog_opened",
+      "translation": "상대가 당신의 말을 기다립니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.dialog_said",
+      "translation": "상대가 당신의 말에 답했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.dialog_unavailable",
+      "translation": "여기에는 대화할 상대가 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.distress_unavailable",
+      "translation": "여기서는 긴급 급유를 요청할 수 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.enemy_destroyed",
+      "translation": "적 함선을 파괴했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.enemy_fired_hull",
+      "translation": "적의 공격이 방어막을 뚫고 선체에 맞았습니다. 기관실에서 수리하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.enemy_fired_shields",
+      "translation": "적의 공격을 방어막이 흡수해 출력이 떨어졌습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.enemy_fired_system",
+      "translation": "적의 공격으로 함선 장치의 부품이 손상됐습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.enemy_holding",
+      "translation": "적 함선이 재장전 중이라 발사하지 않았습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.enemy_missed",
+      "translation": "적 함선이 발사했지만 빗나갔습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.engineering",
+      "translation": "기관실을 열었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.entered_city",
+      "translation": "도시에 들어왔습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.equipment",
+      "translation": "검증된 Apple II 목록의 장비 자료를 표시합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.exchange",
+      "translation": "거래소를 열었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.failure_terminal",
+      "translation": "실패 결말입니다. 결말을 저장하거나 종료할 수 있습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.fetched",
+      "translation": "화물칸에서 화물 한 묶음을 꺼냈습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.fine_paid",
+      "translation": "불법 주차 벌금을 냈습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.fired",
+      "translation": "발사했습니다. 무기 충전량이 줄었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.ftl_installed",
+      "translation": "FTL 증폭기를 설치했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.ftl_insufficient",
+      "translation": "FTL 증폭기를 설치하기에는 예금과 현금이 부족합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.ftl_quote",
+      "translation": "초광속 드라이브를 개조할 수 있습니다. 확인하면 설치합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.ftl_ship_absent",
+      "translation": "개조하려면 함선이 이 도시에 있어야 합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.fuel_full",
+      "translation": "연료가 가득 차 있습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.fuel_purchase",
+      "translation": "수량을 선택하세요. 완료할 때 대금을 정산합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.full_shields",
+      "translation": "방어막을 최대 출력으로 켰습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.game_deleted",
+      "translation": "저장된 게임을 삭제했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.game_stored",
+      "translation": "게임을 저장소에 저장했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.ground",
+      "translation": "화물 포드로 지상에 도착했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.ground_scanner_required",
+      "translation": "주요 도시 밖에 착륙하려면 지상 스캐너를 설치해야 합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.guns_blown",
+      "translation": "함포가 손상돼 발사할 수 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.hailing",
+      "translation": "상대 함선과 통신을 연결했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.hull_repaired",
+      "translation": "선체 수리를 마쳤습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.in_hand",
+      "translation": "손에 들었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.insufficient_cash",
+      "translation": "현금이 부족합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.insufficient_fuel",
+      "translation": "이 항행을 마치기에 연료가 부족합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.insufficient_funds",
+      "translation": "연료를 구입하기에는 예금과 현금이 부족합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.jettison_empty",
+      "translation": "화물칸이 비어 있어 투하할 것이 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.landed",
+      "translation": "착륙했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.landing",
+      "translation": "수평선이 올라옵니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.laser_fired",
+      "translation": "레이저를 발사했습니다. 무기 충전량이 줄었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.laser_missed",
+      "translation": "레이저가 빗나가 충전량을 소모했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.left_building",
+      "translation": "거리로 나왔습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.left_city",
+      "translation": "도시를 벗어났습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.library",
+      "translation": "인물 저장소를 열었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.library_created",
+      "translation": "리메이크 저장소를 만들었습니다. 원본 Library Disk와는 호환되지 않습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.library_list_rejected",
+      "translation": "저장소 목록 거부:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.library_missing",
+      "translation": "저장소가 아직 없습니다. 먼저 저장소를 만드세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.library_rejected",
+      "translation": "저장소 동작 거부:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.library_slot_selected",
+      "translation": "저장 슬롯을 선택했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.load_failed",
+      "translation": "불러오기 실패: 사용할 수 있는 저장 슬롯이 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.load_rejected",
+      "translation": "불러오기 거부:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.load_requested",
+      "translation": "저장 슬롯에서 게임을 불러옵니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.loaded",
+      "translation": "저장 슬롯에서 게임을 불러왔습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.mission_cargo_missing",
+      "translation": "개척 계약에는 물자와 냉동 이주민이 각각 한 단위 이상 필요합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.mission_complete",
+      "translation": "개척 계약 화물을 모두 인도했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.moved",
+      "translation": "커서 방향으로 이동합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.navigated",
+      "translation": "항행을 마치고 목적지에 도착했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.navigation",
+      "translation": "항행 화면을 열었습니다. 목적지를 선택하고 확인하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.need_colony",
+      "translation": "먼저 개척 시설로 이동한 뒤 계약 화물을 인도하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.need_depot",
+      "translation": "연료 보급소에서 연료를 구입하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.need_exchange",
+      "translation": "먼저 거래소로 이동하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.need_spaceport",
+      "translation": "먼저 우주항으로 이동한 뒤 연료를 구입하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.need_tube_station",
+      "translation": "이 칸에는 전차역이 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.need_uniteller",
+      "translation": "은행 업무를 보려면 먼저 Uniteller로 이동하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.need_warehouse",
+      "translation": "먼저 창고로 이동한 뒤 화물을 실으세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.new_game",
+      "translation": "Zed로 새 게임을 시작했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.new_game_discards",
+      "translation": "저장소에 보관하지 않은 진행은 사라집니다. 새 게임을 시작하려면 다시 누르세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.no_aux_fuel",
+      "translation": "화물칸에 보조 연료가 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.no_bank_balance",
+      "translation": "이 성계의 은행에서 인출할 예금이 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.no_cargo",
+      "translation": "판매할 화물이 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.no_cash",
+      "translation": "입금할 현금이 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.no_credit",
+      "translation": "판돈이 부족합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.no_door_here",
+      "translation": "이 칸에는 문이 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.no_enemy",
+      "translation": "공격할 적 함선이 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.no_fine",
+      "translation": "미납 벌금이 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.no_food",
+      "translation": "먹을 수 있는 음식이 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.no_funds",
+      "translation": "대금을 지불할 돈이 부족합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.no_lots",
+      "translation": "여기에는 판매 중인 화물이 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.no_matching_part",
+      "translation": "손상된 슬롯에 맞는 부품을 갖고 있지 않습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.no_ship_to_hail",
+      "translation": "주변에 호출할 함선이 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.no_shunt",
+      "translation": "우회 회로가 없어 장치를 빠르게 수리할 수 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.nobody_here",
+      "translation": "여기에는 대화할 사람이 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.not_at_booth",
+      "translation": "부스 옆으로 이동하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.not_at_counter",
+      "translation": "판매대 근처로 이동하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.not_at_door",
+      "translation": "나가려면 문까지 이동하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.not_at_slots",
+      "translation": "슬롯머신 근처로 이동하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.nothing_to_hold",
+      "translation": "손에 들 물건이 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.old_save_unsupported",
+      "translation": "이전 저장 형식은 지원하지 않습니다. 새 게임을 시작하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.out_of_fuel",
+      "translation": "연료가 떨어져 이륙할 수 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.part_bought",
+      "translation": "부품을 구입해 함선에 실었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.part_installed",
+      "translation": "부품을 해당 슬롯에 넣어 장치가 다시 작동합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.part_selected",
+      "translation": "부품을 선택했습니다. 아래에 가격과 수량이 표시됩니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.parts_counter",
+      "translation": "창고의 함선 부품 판매대입니다. 부품을 선택해 구입하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.pod_exit",
+      "translation": "분리한 화물 포드로 함선에서 나왔습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.pod_full",
+      "translation": "화물칸이 가득 찼습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.presentation_changed",
+      "translation": "표시 방식을 바꿨습니다. 규칙과 진행 상태는 유지되며 다음 실행에도 적용됩니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.quit",
+      "translation": "게임을 종료합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.ready",
+      "translation": "동작을 선택하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.refuel_eta",
+      "translation": "급유 예정 시간:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.refueled",
+      "translation": "우주항에서 급유했습니다. 은행 예금부터 사용한 뒤 현금으로 지불합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.repair_not_needed",
+      "translation": "선택한 장치가 정상이라 수리가 필요 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.repaired",
+      "translation": "우회 회로 하나를 사용해 선체를 25 회복했습니다 (리메이크 시제품 값).",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.rested",
+      "translation": "휴식을 마쳤습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.save_failed",
+      "translation": "저장하지 못했습니다. 저장 경로에 쓸 수 있는지 확인하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.saved",
+      "translation": "게임을 저장 슬롯에 저장했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.score",
+      "translation": "점수 정산입니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.shields_off",
+      "translation": "방어막을 껐습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.shields_off_for_flight",
+      "translation": "이륙 전에 방어막과 은폐 장치를 끄세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.shields_repaired",
+      "translation": "우회 회로 하나로 방어막을 25 회복했습니다 (리메이크 시제품 값).",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.shunt_does_not_fit",
+      "translation": "제어 노드는 우회 회로로 대체할 수 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.sleeping",
+      "translation": "잠자는 중입니다. 누르면 깨어납니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.slots_jackpot",
+      "translation": "세 그림이 모두 같아 당첨금을 받았습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.slots_lost",
+      "translation": "세 그림이 모두 다릅니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.slots_open",
+      "translation": "투입구가 켜졌습니다. 판돈은 현재 성계에 따라 정해집니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.slots_pair",
+      "translation": "두 그림이 같아 일부 금액을 돌려받았습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.sold",
+      "translation": "물품 하나를 팔았습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.sound_off",
+      "translation": "효과음을 껐습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.sound_on",
+      "translation": "효과음을 켰습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.status",
+      "translation": "인물 상태 창을 열었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.stored",
+      "translation": "화물 한 묶음을 창고에 보관했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.stowed",
+      "translation": "휴대품 칸에 넣었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.street_beggar",
+      "translation": "길모퉁이에서 누군가 돈을 구걸합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.street_dealer",
+      "translation": "누군가 거래를 제안하며 다가옵니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.street_mugger",
+      "translation": "누군가 길을 막고 돈을 요구합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.subc_engines_blown",
+      "translation": "아광속 엔진이 손상돼 항행할 수 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.supplies_loaded",
+      "translation": "지상 창고에서 개척 물자 한 단위를 실었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.system_repaired",
+      "translation": "우회 회로 하나로 장치의 손상된 부품을 대체했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.system_selected",
+      "translation": "기관실 장치를 선택했습니다. 상태란에 선택한 장치가 표시됩니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.tactical",
+      "translation": "전술 화면을 열었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.tactical_empty_pod",
+      "translation": "포드가 비어 있습니다. 빈 배를 노릴 자는 없고 스캐너도 조용합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.tactical_moved",
+      "translation": "전술 위치를 옮겼습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.tactical_slewing",
+      "translation": "커서가 중앙에서 멀수록 빨리 회전합니다. 좌클릭 발사, 우클릭/ESC 종료.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.teller_amount",
+      "translation": "키보드로 금액을 입력하고 우클릭 또는 ESC로 완료하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.teller_nothing",
+      "translation": "금액이 0이라 아무것도 옮기지 않았습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.too_hungry",
+      "translation": "너무 배가 고픕니다. 먼저 먹은 뒤 쉬세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.tractor_no_room",
+      "translation": "화물칸에 빈자리가 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.tractor_out_of_range",
+      "translation": "대상이 견인 범위 밖에 있습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.trade_confirm_sale",
+      "translation": "선택한 화물을 확인하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.trade_not_needed",
+      "translation": "이 거래소는 해당 화물을 받지 않습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.trade_passed",
+      "translation": "이 화물 거래를 거절했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.trade_purchase_destination",
+      "translation": "보관 장소 선택: 1 창고, 2 포드",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.trade_quote",
+      "translation": "거래소의 제시 가격입니다. 구입하거나 거절하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.trade_sell_which",
+      "translation": "어느 화물을 팔겠습니까?",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.transfer_same_system",
+      "translation": "목적지가 현재 성계라 성계 간 송금이 필요 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.transferred",
+      "translation": "현재 성계의 예금을 선택한 성계로 송금했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.tube_arrived",
+      "translation": "전차로 다른 도시에 도착했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.tube_confirm",
+      "translation": "탑승 버튼을 눌러 이동하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.tube_insufficient",
+      "translation": "전차 요금을 낼 현금이 부족합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.tube_no_destination",
+      "translation": "이 행성에 노선으로 연결된 다른 도시가 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.tube_off_planet",
+      "translation": "전차는 같은 행성의 도시 사이에서만 운행합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.tube_station",
+      "translation": "이 행성의 다른 도시로 가는 전차표를 판매합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.under_way",
+      "translation": "항행 중입니다. 함선이 극좌표 항로를 따라 목적지로 향합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.uniteller",
+      "translation": "Uniteller에서 현재 성계의 은행 업무를 처리합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.unknown_command",
+      "translation": "현재 화면에서 사용할 수 없는 명령입니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.unpaid_debts",
+      "translation": "이 성계에 미납금이 있어 이륙할 수 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.verb_selected",
+      "translation": "할 말을 선택했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.walk_to_ship",
+      "translation": "함선이 주차된 칸까지 걸어가 탑승하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.warehouse_empty",
+      "translation": "해당 칸이 비어 있습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.warehouse_full",
+      "translation": "창고에 빈자리가 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.warp_engines_blown",
+      "translation": "워프 엔진이 손상돼 도약할 수 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.weapon_empty",
+      "translation": "무기가 충전되지 않아 발사할 수 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.weapon_recharged",
+      "translation": "무기 충전을 켰습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.weapon_repaired",
+      "translation": "우회 회로 하나로 무기 충전량을 25 회복했습니다 (리메이크 시제품 값).",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.withdrawn",
+      "translation": "현재 성계의 은행에서 예금을 인출했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.wrong_destination",
+      "translation": "개척 계약 목적지가 아니라 화물을 인도할 수 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.minutes",
+      "translation": "분",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.mission_complete",
+      "translation": "개척 계약 완료",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.move",
+      "translation": "이동",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.navigate",
+      "translation": "항행",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.navigation",
+      "translation": "항행 / 조종",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.navigation_target",
+      "translation": "항행 목적지",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.new_game",
+      "translation": "새 게임 시작",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.nourishment",
+      "translation": "포만감",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.open_parts",
+      "translation": "함선 부품 판매대",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options",
+      "translation": "설정",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.audio_note",
+      "translation": "먼저 효과음을 가져오세요. 동봉된 음향 안내를 참고하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.detect",
+      "translation": "디스크 다시 찾기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.detect_where",
+      "translation": "기본 폴더에서 .st 검색",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.disk",
+      "translation": "Atari ST 디스크",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.disk_bootstrap_hint",
+      "translation": "↑↓ 선택  ENTER 확인  원본 디스크 필요",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.disk_bootstrap_note",
+      "translation": "합법적으로 보유한 SunDog Atari ST .st 디스크를 선택하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.disk_cleared",
+      "translation": "디스크를 해제하고 리메이크의 독립 미술로 전환했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.disk_failed",
+      "translation": "SunDog Atari ST 디스크가 아닙니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.disk_loaded",
+      "translation": "원본 디스크를 읽었습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.disk_none",
+      "translation": "디스크를 찾지 못했습니다. 설정/실행 파일 옆에 .st를 놓거나 경로를 입력하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.disk_note",
+      "translation": "원본 표시에서는 디스크의 지상, 선실 및 물품 그림을 사용합니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.disk_unset",
+      "translation": "미설정 (리메이크 미술)",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.hint",
+      "translation": "↑↓ 선택  ←→ 변경  ENTER 적용  F2/ESC 닫기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.language",
+      "translation": "언어",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.language_changed",
+      "translation": "언어를 바로 바꿨습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.look_bootstrap_hint",
+      "translation": "위/아래로 선택하고 ENTER로 확인",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.look_bootstrap_note",
+      "translation": "F8 또는 F2 설정에서 언제든 바꿀 수 있으며 선택은 저장됩니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.look_bootstrap_title",
+      "translation": "표시 방식 선택",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.presentation",
+      "translation": "표시 방식",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.outcome",
+      "translation": "계약 결과",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.outcome.failure",
+      "translation": "계약 실패: 인물 또는 선독이 더는 계속할 수 없습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.outcome.success",
+      "translation": "계약 완료: 개척 물자와 냉동 이주민을 인도했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.outcome_failure_terminal",
+      "translation": "실패 결말: S로 결말 저장, Q로 게임 종료",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.outcome_return",
+      "translation": "돌아가기를 눌러 함선 상태를 확인하거나 저장을 불러오세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.parts_carried",
+      "translation": "보유 수량",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.parts_counter",
+      "translation": "함선 부품 판매대",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.parts_price",
+      "translation": "가격",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.parts_select",
+      "translation": "이전/다음 부품 선택",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.pilotage",
+      "translation": "조종 장치",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet",
+      "translation": "행성",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.enliah",
+      "source": "Enliah",
+      "translation": "Enliah",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.ferr",
+      "source": "Ferr",
+      "translation": "Ferr",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.ferrwerk",
+      "source": "Ferrwerk",
+      "translation": "Ferrwerk",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.glory-i",
+      "source": "Glory I",
+      "translation": "Glory I",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.glory-ii",
+      "source": "Glory II",
+      "translation": "Glory II",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.glory-iii",
+      "source": "Glory III",
+      "translation": "Glory III",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.heavy",
+      "source": "Heavy",
+      "translation": "Heavy",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.hell",
+      "source": "Hell",
+      "translation": "Hell",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.hepah",
+      "source": "Hepah",
+      "translation": "Hepah",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.jondd",
+      "source": "Jondd",
+      "translation": "Jondd",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.kala",
+      "source": "Kala",
+      "translation": "Kala",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.krakorum",
+      "source": "Krakorum",
+      "translation": "Krakorum",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.new-shoot",
+      "source": "New Shoot",
+      "translation": "New Shoot",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.shoot",
+      "source": "Shoot",
+      "translation": "Shoot",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.snowball",
+      "source": "Snowball",
+      "translation": "Snowball",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.tcana",
+      "source": "Tcana",
+      "translation": "Tcana",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.vahevela",
+      "source": "Vahevela",
+      "translation": "Vahevela",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.planet.w-orrad",
+      "source": "W'orrad",
+      "translation": "W'orrad",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.play_sundog",
+      "translation": "SunDog 시작",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.pod_driver",
+      "translation": "화물 포드 조종석",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.pod_exit",
+      "translation": "E: 화물 포드로 나가기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.pod_locker",
+      "translation": "화물 보관칸",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.position",
+      "translation": "좌표",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.presentation.apple2",
+      "translation": "Apple II 원본",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.presentation.apple2.note",
+      "translation": "리메이크 창 배치에 Apple II 색상과 그림 적용",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.presentation.atari_st",
+      "translation": "Atari ST 원본",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.presentation.atari_st.note",
+      "translation": "플레이어의 디스크로 그리는 원본 전체 화면 배치",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.presentation.atari_st_hd",
+      "translation": "Atari ST HD",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.presentation.remake_modern",
+      "translation": "리메이크 모던",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.presentation.remake_modern.note",
+      "translation": "리메이크의 독립 고해상도 그림과 배치",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.quit",
+      "translation": "게임 종료",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.recharge",
+      "translation": "무기 충전",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.refuel",
+      "translation": "연료 구입",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.repair",
+      "translation": "선체 수리",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.repair_hull",
+      "translation": "선체 수리",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.repair_shields",
+      "translation": "방어막 수리",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.repair_system",
+      "translation": "선택 장치 수리",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.repair_weapon",
+      "translation": "무기 수리",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.rest",
+      "translation": "휴식",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.route_cost",
+      "translation": "항로",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.route_jump",
+      "translation": "도약",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.route_jump_unit",
+      "translation": "광년",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.save_game",
+      "translation": "게임 저장",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.score.banville_cargo",
+      "translation": "Banville 화물",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.score.bonus_note",
+      "translation": "원작에도 표시되지만 총점에는 포함되지 않습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.score.no_death_bonus",
+      "translation": "무사망 보너스",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.score.restart_penalty",
+      "translation": "재시작 감점",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.score.time_penalty",
+      "translation": "시간 감점",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.score.title",
+      "translation": "점수 정산",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.score.total",
+      "translation": "총점",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.select_game",
+      "translation": "인물 저장소",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.sell",
+      "translation": "화물 판매",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.shield_level",
+      "translation": "방어막 출력",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.shields",
+      "translation": "방어막",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.shields_off",
+      "translation": "방어막 끄기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.ship_locker",
+      "translation": "함내 보관함",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.ship_stores",
+      "translation": "함내 물자",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.shipboard",
+      "translation": "함내 이동",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.shipboard_hint",
+      "translation": "오른쪽 창의 선실을 클릭하세요.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.shunts",
+      "translation": "우회 회로",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.sleep_forced",
+      "translation": "강제 수면",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.slots.bet",
+      "translation": "판돈",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.slots.face.artifact",
+      "translation": "유물",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.slots.face.cell",
+      "translation": "전지",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.slots.face.circuit",
+      "translation": "회로",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.slots.face.crystal",
+      "translation": "수정",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.slots.face.grain",
+      "translation": "곡물",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.slots.face.medicine",
+      "translation": "의약품",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.slots.face.ore",
+      "translation": "광석",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.slots.face.sundog",
+      "translation": "선독",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.slots.payout",
+      "translation": "당첨금",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.slots.spin",
+      "translation": "돌리기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.slots.title",
+      "translation": "슬롯머신",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.store_game",
+      "translation": "저장소에 게임 저장",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.stores_keys",
+      "translation": "방향키: 선택  Enter: 옮기기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.stores_short_keys",
+      "translation": "← → Enter H E",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.subc_engine",
+      "translation": "아광속 엔진",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.supplies",
+      "translation": "개척 물자",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system",
+      "translation": "성계",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system.enlie",
+      "source": "Enlie",
+      "translation": "Enlie",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system.ferr",
+      "source": "Ferr",
+      "translation": "Ferr",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system.glory",
+      "source": "Glory",
+      "translation": "Glory",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system.hepa",
+      "source": "Hepa",
+      "translation": "Hepa",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system.jadul",
+      "source": "Jadul",
+      "translation": "Jadul",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system.jondd",
+      "source": "Jondd",
+      "translation": "Jondd",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system.kalmandaa",
+      "source": "KalManDaa",
+      "translation": "KalManDaa",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system.lafser",
+      "source": "Lafser",
+      "translation": "Lafser",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system.new-shoot",
+      "source": "New Shoot",
+      "translation": "New Shoot",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system.shoot",
+      "source": "Shoot",
+      "translation": "Shoot",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system.sosai",
+      "source": "Sosai",
+      "translation": "Sosai",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system.woremed",
+      "source": "Woremed",
+      "translation": "Woremed",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system_force_shields",
+      "translation": "방어막",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system_pilotage",
+      "translation": "조종 장치",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system_previous_next",
+      "translation": "이전/다음 장치 선택",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system_rows",
+      "translation": "각 열",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system_ship_guns",
+      "translation": "함선 무기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system_subc_engine",
+      "translation": "아광속 엔진",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system_tactical_display",
+      "translation": "전술 표시기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system_unknown",
+      "translation": "미확인 장치",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.system_warp_drive",
+      "translation": "워프 드라이브",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tactical",
+      "translation": "전술 표시기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tactical.damage",
+      "translation": "손상:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tactical_move",
+      "translation": "전술 이동",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.talk",
+      "translation": "대화하기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.target_city_previous_next",
+      "translation": "도시 변경",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.target_planet_next",
+      "translation": "다음 행성",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.target_planet_previous",
+      "translation": "이전 행성",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.target_planet_previous_next",
+      "translation": "행성 변경",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.target_system_next",
+      "translation": "다음 성계",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.target_system_previous",
+      "translation": "이전 성계",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.target_system_previous_next",
+      "translation": "성계 변경",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.teller.all",
+      "translation": "전액",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.teller.amount",
+      "translation": "금액:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.teller.available",
+      "translation": "사용 가능:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.teller.clear",
+      "translation": "지우기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.teller.commit_hint",
+      "translation": "ESC: 확정  C: 지우기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.teller.deposit",
+      "translation": "현금 입금",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.teller.header",
+      "translation": "UNITELLER &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.teller.in_bank",
+      "translation": "은행 예금:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.teller.on_hand",
+      "translation": "보유 현금:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.teller.others",
+      "translation": "기타",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.teller.pay_fine",
+      "translation": "벌금 납부",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.teller.title",
+      "translation": "%s 은행",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.teller.transfer",
+      "translation": "송금",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.teller.transfer_to",
+      "translation": "%s에 송금",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.teller.withdraw",
+      "translation": "현금 인출",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.theme",
+      "translation": "미술 테마",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.theme.apple2",
+      "translation": "Apple II",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.theme.atari_st",
+      "translation": "Atari ST",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.theme_cycle",
+      "translation": "인터페이스 색상 변경",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tileset.apple2",
+      "translation": "Apple II",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tileset.atari_st",
+      "translation": "Atari ST",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tileset.remake_modern",
+      "translation": "리메이크 모던",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tileset_cycle",
+      "translation": "그림 세트 변경",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.time",
+      "translation": "시간",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.title",
+      "translation": "SunDog",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.accept",
+      "translation": "수락",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.asking",
+      "translation": "요구 가격:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.aux_tank",
+      "translation": "보조 연료 탱크",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.buy",
+      "translation": "구입",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.contents",
+      "translation": "내용:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.deliver",
+      "translation": "인도",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.demand",
+      "translation": "수요:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.exchange",
+      "translation": "거래소",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.exit",
+      "translation": "나가기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.fetch",
+      "translation": "꺼내기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.fetch_which",
+      "translation": "어느 화물을 꺼내겠습니까?",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.lots_now_selling",
+      "translation": "판매 중인 화물:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.nothing",
+      "translation": "비어 있음",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.offer",
+      "translation": "제시 가격:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.pass",
+      "translation": "거절",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.pod",
+      "translation": "포드",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.pod_contents",
+      "translation": "화물칸 내용:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.price_on_goods",
+      "translation": "화물 시세",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.quality",
+      "translation": "등급:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.salvage",
+      "translation": "인양품",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.sell",
+      "translation": "판매",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.sell_from",
+      "translation": "어디에서 팔겠습니까?",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.store",
+      "translation": "보관",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.store_to",
+      "translation": "어디에 보관하겠습니까?",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.store_which",
+      "translation": "?",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.title",
+      "translation": "%s 거래소",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.to_be_delivered",
+      "translation": "인도할 화물",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.warehouse",
+      "translation": "창고",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.warehouse_title",
+      "translation": "창고에 보관할 화물 선택",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.withdraw",
+      "translation": "꺼내기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.withhold",
+      "translation": "보류",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.your_limit",
+      "translation": "사용 한도:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade_exchange",
+      "translation": "거래소",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.transfer",
+      "translation": "선택한 성계로 송금",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tube.city",
+      "translation": "도시:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tube.cost",
+      "translation": "요금:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tube.credits",
+      "translation": " Cr",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tube.destination",
+      "translation": "목적지",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tube.insufficient",
+      "translation": "자금 부족",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tube.planet",
+      "translation": "행성:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tube.select_1",
+      "translation": "목적지",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tube.select_2",
+      "translation": "도시 선택",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tube.system",
+      "translation": "성계:",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tube.title",
+      "translation": "전차역",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tube.transport",
+      "translation": "탑승",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.tube_short",
+      "translation": "도시 전차",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.uniteller",
+      "translation": "Uniteller 은행",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.unload_aux_fuel",
+      "translation": "O: 보조 연료 내리기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.unload_cargo",
+      "translation": "화물 내리기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.verb_previous_next",
+      "translation": "할 말 변경",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.vigor",
+      "translation": "활력",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.wake",
+      "translation": "기상",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.warp_drive",
+      "translation": "워프 드라이브",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.weapon_charge",
+      "translation": "무기 충전량",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.withdraw",
+      "translation": "예금 전액 인출",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.locale.ko",
+      "translation": "한국어",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.primary_action_hint",
+      "translation": "ENTER / 왼클릭: %s",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.action.default",
+      "translation": "동작",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.character_creation",
+      "translation": "이름 입력  ENTER: 확인  우클릭: 돌아가기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.help.dialog_footer",
+      "translation": "←→ 할 말 선택  ENTER: 말하기  우클릭: 돌아가기",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    }
+  ],
+  "translationSource": "docs/i18n/ko.tsv"
+}

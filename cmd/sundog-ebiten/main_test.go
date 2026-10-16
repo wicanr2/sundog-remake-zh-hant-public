@@ -654,7 +654,7 @@ func TestEveryGaugeLabelFitsTheGaugeBox(t *testing.T) {
 	barHeight := frameGaugeH - 46
 	bottom := frameGaugeY + frameGaugeH - 2
 	root := filepath.Join("..", "..", "docs", "i18n")
-	for _, locale := range []string{"zh-Hant", "zh-Hans", "ja", "en"} {
+	for _, locale := range []string{"zh-Hant", "zh-Hans", "ja", "ko", "en"} {
 		t.Run(locale, func(t *testing.T) {
 			sourceName := "apple2-text-" + locale + ".json"
 			if locale == "zh-Hant" {

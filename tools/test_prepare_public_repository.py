@@ -24,7 +24,7 @@ class PublicTemplateBoundaryTests(unittest.TestCase):
             (root / "tools/public-source/private-note.txt").write_text("local only\n")
             output = Path(directory) / "public"
             with patch.object(publication.subprocess, "check_output", return_value=tracked), patch.object(publication, "SHOTS", {}):
-                publication.prepare(root, output)
+                publication.prepare(root, output, "v.1.2.0-20261016")
             self.assertFalse((output / "private-note.txt").exists())
             self.assertFalse((output / "tools/public-source/private-note.txt").exists())
             self.assertEqual("tracked fixture\n", (output / "README.md").read_text())
@@ -40,7 +40,7 @@ class PublicTemplateBoundaryTests(unittest.TestCase):
             template.symlink_to(outside)
             with patch.object(publication.subprocess, "check_output", return_value=tracked), patch.object(publication, "SHOTS", {}):
                 with self.assertRaisesRegex(ValueError, "symlink"):
-                    publication.prepare(root, Path(directory) / "public")
+                    publication.prepare(root, Path(directory) / "public", "v.1.2.0-20261016")
 
 
 if __name__ == "__main__":

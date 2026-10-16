@@ -399,7 +399,7 @@ func main() {
 	atariAtlasManifest := flag.String("atari-atlas-manifest", "", "選用的 Atari ST normalized PNG atlas manifest")
 	atariDisk := flag.String("atari-disk", "", "選用的原版 Atari ST raw .st；給了就用原版的地表圖塊。沒給就讀設定檔，再到慣用位置偵測")
 	settingsPath := flag.String("settings", "", "設定檔（介面配色、圖塊集、磁碟路徑）；預設在使用者設定目錄")
-	localeFlag := flag.String("locale", "", "啟動語系：zh-Hant、zh-Hans、ja、en；指定後也會保存到設定檔")
+	localeFlag := flag.String("locale", "", "啟動語系：zh-Hant、zh-Hans、ja、ko、en；指定後也會保存到設定檔")
 	audioDir := flag.String("audio", "", "音效目錄；預設是 sundog-sound-export 的輸出位置")
 	scale := flag.Int("scale", defaultDisplayScale, "每個原版像素放大成幾個螢幕像素；截圖要再被縮放時給大一點")
 	showVersion := flag.Bool("version", false, "顯示完整發行版號後結束")
@@ -4717,7 +4717,7 @@ func footerLabel(labels catalog.Catalog, state game.State) string {
 		return lookupLabel(labels, "ui.help.fuel_purchase", "")
 	}
 	if isFailureTerminal(state) {
-		return "S：保存終局　Q：離開"
+		return lookupLabel(labels, "ui.outcome_failure_terminal", "ui.outcome_failure_terminal")
 	}
 	if screen == game.ScreenTitle {
 		return "P：" + lookupLabel(labels, "ui.play_sundog", "開始遊玩") +
@@ -4734,8 +4734,7 @@ func footerLabel(labels catalog.Catalog, state game.State) string {
 			"　" + lookupLabel(labels, "ui.library_key_pick", "1–8 選槽")
 	}
 	if screen == game.ScreenCharacterCreation {
-		return "輸入名稱　ENTER：" + lookupLabel(labels, "ui.character_name_confirm", "確認") +
-			"　右鍵：" + lookupLabel(labels, "ui.back", "返回")
+		return lookupLabel(labels, "ui.help.character_creation", "ui.help.character_creation")
 	}
 	if screen == game.ScreenNavigation {
 		previous := "上一個目的地"
@@ -4756,9 +4755,7 @@ func footerLabel(labels catalog.Catalog, state game.State) string {
 			"　ENTER：" + navigate
 	}
 	if screen == game.ScreenDialog {
-		return "←→ " + lookupLabel(labels, "ui.dialog_verb", "你要說的") +
-			"　ENTER：" + lookupLabel(labels, "ui.dialog_say", "說出選定的話") +
-			"　右鍵：" + lookupLabel(labels, "ui.back", "返回")
+		return lookupLabel(labels, "ui.help.dialog_footer", "ui.help.dialog_footer")
 	}
 	if screen == game.ScreenUniteller {
 		deposit := "存入"
@@ -4805,9 +4802,9 @@ func footerLabel(labels catalog.Catalog, state game.State) string {
 	}
 	key := keys[screen]
 	if value, ok := labels.Lookup(key); ok {
-		return "ENTER／左鍵：" + value
+		return fmt.Sprintf(lookupLabel(labels, "ui.primary_action_hint", "%s"), value)
 	}
-	return "ENTER／左鍵：動作"
+	return fmt.Sprintf(lookupLabel(labels, "ui.primary_action_hint", "%s"), lookupLabel(labels, "ui.action.default", "ui.action.default"))
 }
 
 func isFailureTerminal(state game.State) bool {

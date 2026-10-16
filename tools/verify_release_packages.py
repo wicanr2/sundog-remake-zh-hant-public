@@ -71,6 +71,8 @@ def main():
         assert len(list((stage/'audio').glob('*.ogg')))==33
         base=dict(version=version,platform=a.platform,archiveSHA256=sha(archive),manifestFileCount=file_count,diskSHA256=sha(disk),audioCount=33)
         if a.platform=='macos-universal':
+            for name in ['sundog-ui-ko.json','apple2-text-ko.json','atari-st-dialog-ko.json']:
+                catalog=next(stage.rglob(name));assert json.loads(catalog.read_text())['locale']=='ko'
             binary=next(stage.rglob('SunDog.app/Contents/MacOS/sundog-remake'))
             assert version.encode() in binary.read_bytes()
             launcher=stage/'Launch-SunDog.command';assert launcher.stat().st_mode&0o111
@@ -139,6 +141,13 @@ def main():
                 initial=capture('newgame');assert initial['schema']==44 and initial['screen']=='shipboard' and initial['layout']=='atari-st'
                 press('F8');hd=capture('hd-shipboard');assert hd['tileset']=='atari-st-hd-tiles' and hd['layout']=='atari-st'
                 assert all(initial.get(k)==hd.get(k) for k in ['holds','cash','bank','colony','position','fuel','tradeRolls','combatRolls'])
+                press('F2')
+                for locale in ['zh-Hans','ja','ko','en','zh-Hant']:
+                    press('Right')
+                    settings=[d for _,d in documents() if d.get('schema')==1 and 'presentation' in d and 'locale' in d]
+                    assert len(settings)==1 and settings[0]['locale']==locale,settings
+                    run('import','-window',window,out/f'language-{locale}.png')
+                press('Escape')
                 press('F8');assert capture('apple-presentation')['layout']=='remake'
                 press('F8');assert capture('atari-restored')['tileset']=='atari-st-tiles'
                 if not windows:

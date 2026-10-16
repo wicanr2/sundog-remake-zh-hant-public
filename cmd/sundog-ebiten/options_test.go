@@ -2,6 +2,7 @@ package main
 
 import (
 	"path/filepath"
+	"reflect"
 	"testing"
 
 	"github.com/wicanr2/sundog-remake/internal/catalog"
@@ -49,6 +50,20 @@ func TestLanguageCyclesImmediatelyAndPersistsOutsideSave(t *testing.T) {
 	}
 	if saved.Locale != "zh-Hans" {
 		t.Fatalf("settings locale = %q", saved.Locale)
+	}
+	for _, want := range []localization.Locale{localization.Japanese, localization.Korean, localization.English, localization.TraditionalChinese} {
+		before := a.state
+		a.cycleLocale(1)
+		if a.locale != want || a.lookup("probe") != string(want) {
+			t.Fatalf("language cycle = %q, want %q", a.locale, want)
+		}
+		if !reflect.DeepEqual(before, a.state) {
+			t.Fatalf("language %q changed game state", want)
+		}
+		saved, err := prefs.Load(a.settingsPath)
+		if err != nil || saved.Locale != string(want) {
+			t.Fatalf("language %q not persisted: %+v, %v", want, saved, err)
+		}
 	}
 }
 

@@ -8,9 +8,10 @@ const (
 	TraditionalChinese Locale = "zh-Hant"
 	SimplifiedChinese  Locale = "zh-Hans"
 	Japanese           Locale = "ja"
+	Korean             Locale = "ko"
 )
 
-var supportedLocales = []Locale{TraditionalChinese, SimplifiedChinese, Japanese, English}
+var supportedLocales = []Locale{TraditionalChinese, SimplifiedChinese, Japanese, Korean, English}
 
 // Locales 回傳固定的選項循環順序。
 func Locales() []Locale { return append([]Locale(nil), supportedLocales...) }

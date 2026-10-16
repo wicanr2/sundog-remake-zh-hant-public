@@ -3,6 +3,8 @@
 - [專案介紹、故事與 HD 畫廊](../README.md)
 - [目前狀態與驗證限制](../CONTEXT.md)
 - [建置及測試](build.md)
+- [五語資料與韓文 TSV 來源](i18n/README.md)
+- [精訊故事影片與重建工具](promo/README.md)
 - [完整繁中操作說明](manual/remake-controls-zh-Hant.md)
 - [公開檔案與截圖雜湊](../PUBLIC-SOURCE-MANIFEST.json)
 - [字型來源與授權](../assets/fonts/ASSET-MANIFEST.md)

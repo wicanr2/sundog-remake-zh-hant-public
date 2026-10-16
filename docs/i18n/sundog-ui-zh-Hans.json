@@ -1647,7 +1647,7 @@
     },
     {
       "key": "ui.help.presentation",
-      "translation": "F8：切换呈现（Atari ST 原版风／Apple II 原版风／重制版现代风）",
+      "translation": "F8：呈现（Atari ST／Atari ST HD／Apple II）",
       "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
     },
     {
@@ -4306,6 +4306,31 @@
       "key": "ui.withdraw",
       "translation": "提领全部存款",
       "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.locale.ko",
+      "translation": "韩文",
+      "translationStatus": "2026-10-16 new language label"
+    },
+    {
+      "key": "ui.primary_action_hint",
+      "translation": "ENTER／左键：%s",
+      "translationStatus": "2026-10-16 localized shared controls"
+    },
+    {
+      "key": "ui.action.default",
+      "translation": "动作",
+      "translationStatus": "2026-10-16 localized shared controls"
+    },
+    {
+      "key": "ui.help.character_creation",
+      "translation": "输入名称  ENTER：确认  右键：返回",
+      "translationStatus": "2026-10-16 localized shared controls"
+    },
+    {
+      "key": "ui.help.dialog_footer",
+      "translation": "←→ 选择说法  ENTER：说出  右键：返回",
+      "translationStatus": "2026-10-16 localized shared controls"
     }
   ]
 }

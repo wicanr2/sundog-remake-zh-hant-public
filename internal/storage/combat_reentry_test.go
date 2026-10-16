@@ -115,6 +115,9 @@ func TestOverflowDamageSurvivesSaveAndTacticalReentry(t *testing.T) {
 
 // Talos 執行 XDOFIGHT 的零容差分支；此測試補正式射擊與保存垂直鏈，非正常 GUI 證據。
 func TestZeroAimWindowFiringSurvivesSaveReload(t *testing.T) {
+	previousSeed := game.NewGameSeed
+	game.NewGameSeed = func() int64 { return 1 }
+	t.Cleanup(func() { game.NewGameSeed = previousSeed })
 	r, err := game.NewReducer()
 	if err != nil {
 		t.Fatal(err)
@@ -122,6 +125,9 @@ func TestZeroAimWindowFiringSurvivesSaveReload(t *testing.T) {
 	for _, weapon := range []game.Action{game.ActionFire, game.ActionFireLaser} {
 		for _, errorOffset := range []int{0, 1} {
 			s := game.NewState()
+			// This fixture isolates aim and persistence. A clock-seeded new
+			// game can have broken guns, which refuse the shot before aiming.
+			s.ShipSystems = game.IntactShipSystems()
 			s.Screen = game.ScreenTactical
 			s.CombatActive = true
 			s.Attributes[game.AttrDexterity] = 1

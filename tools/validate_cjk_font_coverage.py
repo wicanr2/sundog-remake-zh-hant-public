@@ -54,6 +54,8 @@ def main() -> int:
         ord(char)
         for char in text
         if "\u3400" <= char <= "\u4dbf" or "\u4e00" <= char <= "\u9fff"
+        or "\u3040" <= char <= "\u30ff" or "\uac00" <= char <= "\ud7a3"
+        or "\u1100" <= char <= "\u11ff" or "\u3130" <= char <= "\u318f"
     }
     missing = sorted(required - supported)
     result = {

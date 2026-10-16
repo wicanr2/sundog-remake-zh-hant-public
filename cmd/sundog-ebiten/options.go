@@ -12,6 +12,7 @@ import (
 	"github.com/wicanr2/sundog-remake/internal/prefs"
 	"github.com/wicanr2/sundog-remake/internal/source/atarist/originalmedia"
 	"github.com/wicanr2/sundog-remake/internal/theme"
+	"golang.org/x/image/font"
 )
 
 // The options card is the F1 help card's sibling: a reading-and-choosing mode
@@ -344,6 +345,31 @@ func (a *app) savePreferences() {
 	}
 }
 
+// User-supplied paths and diagnostics have no fixed maximum length. Keep
+// their full values for editing/storage; only the field's visible view fits
+// the actual font. A path keeps its end so the filename and caret stay visible.
+func (a *app) fitOptionsField(value string, width int, tail bool) string {
+	face, pixels := a.face, width
+	if a.usesHD() {
+		p := hdReviewPainter{a: a, scale: float32(a.viewScale())}
+		face, pixels = p.face(8), width*a.viewScale()
+	}
+	if face == nil || font.MeasureString(face, value).Ceil() <= pixels {
+		return value
+	}
+	if !tail {
+		return localization.FitText(face, value, pixels)
+	}
+	runes := []rune(value)
+	for index := 1; index < len(runes); index++ {
+		candidate := "…" + string(runes[index:])
+		if font.MeasureString(face, candidate).Ceil() <= pixels {
+			return candidate
+		}
+	}
+	return localization.FitText(face, value, pixels)
+}
+
 func (a *app) drawOptions(screen *ebiten.Image, group theme.Group) {
 	if a.options.diskOnly {
 		a.drawDiskBootstrap(screen)
@@ -377,7 +403,11 @@ func (a *app) drawOptions(screen *ebiten.Image, group theme.Group) {
 		}
 		a.drawTextWithin(screen, line.label, optionsLabelX, y, optionsValueX-optionsLabelX-4, fg)
 		if line.value != "" {
-			a.drawTextWithin(screen, line.value, optionsValueX, y, optionsValueW, fg)
+			value := line.value
+			if row == optionsRowDisk {
+				value = a.fitOptionsField(value, optionsValueW, true)
+			}
+			a.drawTextWithin(screen, value, optionsValueX, y, optionsValueW, fg)
 		}
 	}
 	if a.originalDisk == nil && a.options.statusKey == "" {
@@ -389,6 +419,7 @@ func (a *app) drawOptions(screen *ebiten.Image, group theme.Group) {
 		status := a.lookup(a.options.statusKey)
 		if a.options.statusDetail != "" {
 			status += "：" + a.options.statusDetail
+			status = a.fitOptionsField(status, 292, false)
 		}
 		a.drawTextWithin(screen, status, 14, optionsStatusY, 292, fg)
 	}
@@ -416,7 +447,7 @@ func (a *app) drawDiskBootstrap(screen *ebiten.Image) {
 		a.drawText(screen, "▶", 28, 82, frame)
 	}
 	a.drawText(screen, a.lookup("ui.options.disk"), 42, 82, fg)
-	a.drawTextWithin(screen, disk, 118, 82, 172, fg)
+	a.drawTextWithin(screen, a.fitOptionsField(disk, 172, true), 118, 82, 172, fg)
 	if a.options.row == optionsRowDetect {
 		a.drawText(screen, "▶", 28, 104, frame)
 	}
@@ -426,6 +457,7 @@ func (a *app) drawDiskBootstrap(screen *ebiten.Image) {
 		status := a.lookup(a.options.statusKey)
 		if a.options.statusDetail != "" {
 			status += "：" + a.options.statusDetail
+			status = a.fitOptionsField(status, 260, false)
 		}
 		a.drawTextWithin(screen, status, 30, 130, 260, fg)
 	}

@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "kind": "remake-owned paraphrase for local promotional video",
+  "source": {
+    "archive": "精訊資訊-陽犬號2.0版.rar",
+    "archiveSHA256": "992ef92df64a601a8033d2b5b98720a8edcc14bb4db86e6a015fd09422e264a1",
+    "scans": [5, 6, 7],
+    "printedPages": "4–9",
+    "evidence": "workplace/locales-20261016/manual-jingxun/metadata.json",
+    "verification": "proven by visual reading of original scans; OCR is auxiliary",
+    "boundary": "Original scans and RAR stay local. Cards contain a new synopsis, not copied pages."
+  },
+  "cards": [
+    {
+      "heading": "礦工傑（Zed）的新人生",
+      "lines": ["礦場裡的傑，意外繼承叔父的陽犬號。", "這艘傷痕累累的老船，是他爭取自由的機會。"],
+      "seconds": 8
+    },
+    {
+      "heading": "自由附帶一份契約",
+      "lines": ["他必須完成叔父留下的運補任務：", "運送建設物資，並接回冷凍中的移民。", "目的地，是強得星（Jondd）上的殖民基地。"],
+      "seconds": 9
+    },
+    {
+      "heading": "讓陽犬號繼續航行",
+      "lines": ["若任務失敗，他就得重返礦場償還債務。", "靠交易籌措燃料與零件，完成下一趟航行。"],
+      "seconds": 8
+    }
+  ]
+}

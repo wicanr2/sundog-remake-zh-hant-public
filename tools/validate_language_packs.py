@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""驗證四語語言包的結構、key、格式參數與對話引用完全一致。"""
+"""驗證五語語言包的結構、key、格式參數與對話引用完全一致。"""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 I18N = ROOT / "docs/i18n"
-LOCALES = ("zh-Hant", "zh-Hans", "ja", "en")
+LOCALES = ("zh-Hant", "zh-Hans", "ja", "ko", "en")
 PRINTF = re.compile(r"%(?:\[[0-9]+\])?[+#0 -]*(?:[0-9]+|\*)?(?:\.[0-9*]+)?[vTtbcdoOqxXUeEfFgGsp]")
 BRACES = re.compile(r"\{[0-9a-fA-F]{2}\}")
 MARKER_REFERENCES = {"{3f}"}
@@ -122,7 +122,7 @@ def main() -> int:
     if errors:
         print("\n".join(errors), file=sys.stderr)
         return 1
-    print("language packs: 4 locales, catalog keys and dialog references verified")
+    print(f"language packs: {len(LOCALES)} locales, catalog keys and dialog references verified")
     return 0
 
 

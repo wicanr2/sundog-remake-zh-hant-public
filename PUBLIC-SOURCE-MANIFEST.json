@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "boundary": "Fresh source snapshot; no original Git objects, disks, scans, original pixels or sounds. Private oracle images and full local packages excluded.",
-  "gameVersion": "v.1.1.0-20261015",
+  "gameVersion": "v.1.2.0-20261016",
   "screenshots": [
     {
       "path": "docs/screenshots/hd-shipboard.png",
@@ -47,8 +47,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 722,
-      "sha256": "e89d05fcb0115bc57c779c02b50b9f940e44a24049666858eb1d98ac9fe3dcf1"
+      "bytes": 825,
+      "sha256": "a4ae08c4f8ca35a855410ad99a5efe48ff7bf59e5e7b7003f70f827255c9ab21"
     },
     {
       "path": "LICENSE",
@@ -56,14 +56,29 @@
       "sha256": "3ef1db51e2434c5691153a152d3912f72ada30b7d268e972f08b486e9a2880b2"
     },
     {
+      "path": "README.en.md",
+      "bytes": 6078,
+      "sha256": "fae64febad970ecf6a018b9307b5d37bf4b393d920f1b14f8db3e2193b08820e"
+    },
+    {
+      "path": "README.ja.md",
+      "bytes": 6932,
+      "sha256": "60abb2299e9924c0797e26177203ae68132b1a6d9738e2aa41aab0b3bad0d125"
+    },
+    {
+      "path": "README.ko.md",
+      "bytes": 6807,
+      "sha256": "6ef8dbca683d31f8cc2bc81f4fefa2006c807817ff06702067fba22322f5023d"
+    },
+    {
       "path": "README.md",
-      "bytes": 5515,
-      "sha256": "0b6311f63b73a11ffa7d6640883f4904f9dc17d166437e112c74131ec65013df"
+      "bytes": 5965,
+      "sha256": "c169ad7c6c7ca2478a64cda21b67dc60446b5d06fa902e811b2b85b192c62880"
     },
     {
       "path": "WORKLOG.md",
-      "bytes": 1081,
-      "sha256": "a1da32c84da335f05c7341dad342be83ba6c33f84c6881ba39cb655e0de869cd"
+      "bytes": 1915,
+      "sha256": "a88290fe45ce24a943936bf0702617b9e370397e9e91818d55ad9fc6795fc61e"
     },
     {
       "path": "assets/fonts/ASSET-MANIFEST.md",
@@ -257,8 +272,8 @@
     },
     {
       "path": "cmd/sundog-ebiten/hdproduction_test.go",
-      "bytes": 9137,
-      "sha256": "e199582da4e9cf12456f27ea9ed0a1cde1c6a882d509f3dcbd64fa227b2013b2"
+      "bytes": 10677,
+      "sha256": "9e4bb4730970c653b95e310e4269e86e8dfaf64313849fbd164d0ccfe07e6b2c"
     },
     {
       "path": "cmd/sundog-ebiten/hdstores.go",
@@ -282,23 +297,23 @@
     },
     {
       "path": "cmd/sundog-ebiten/main.go",
-      "bytes": 193006,
-      "sha256": "882e45c42da22bf2f4ecd505c59f2146bc294e0a1a04a91e1e3ea7d1788e426e"
+      "bytes": 192998,
+      "sha256": "f1e99b1e1308303fadaaaf8533b168f6f4e7fee658d76180cf9a70b392bdf6ad"
     },
     {
       "path": "cmd/sundog-ebiten/main_test.go",
-      "bytes": 50037,
-      "sha256": "2bc9420742bacae4402acc9ddb2a785b4838db1e305a611d46d85f689f17c700"
+      "bytes": 50043,
+      "sha256": "873a78e687af9655a1c491540c2cdfa10593db6b736aa8a67d814ea5ec8a1ba8"
     },
     {
       "path": "cmd/sundog-ebiten/options.go",
-      "bytes": 17450,
-      "sha256": "2d151e25ec0f0a85f43088a777276ec7e59d12fa3fb8ed4de108c9416fab47d7"
+      "bytes": 18594,
+      "sha256": "0d904d2a80cb1dd5449f3c837d5aaf843e8fa07f1f500142dd8cc801ae0a99b5"
     },
     {
       "path": "cmd/sundog-ebiten/options_test.go",
-      "bytes": 10513,
-      "sha256": "ae539c9265bd554167c7e7b217badbc47b0e8e4f573ef52a7d4c43db218247f9"
+      "bytes": 11100,
+      "sha256": "93bf90a391fbae43fa26e87f533975dce907f7684f0297c93e82e845ebbe2f58"
     },
     {
       "path": "cmd/sundog-ebiten/originaltitle.go",
@@ -441,6 +456,11 @@
       "sha256": "64d502320a149a3e67713b52c61424018682d8628698d24836847227a5f869d0"
     },
     {
+      "path": "docker/sundog-manual-tools/Dockerfile",
+      "bytes": 758,
+      "sha256": "79b268304996a914e67d8423155e081d3dfdb8e374d17fd92f10211e90fe0351"
+    },
+    {
       "path": "docker/sundog-port-oracle/Dockerfile",
       "bytes": 581,
       "sha256": "39f030dea0a110c8a37b114d74953823baf966bad3e517e0b8d7d531bced6223"
@@ -546,6 +566,11 @@
       "sha256": "01993b3323d58b3bf1959699122771a5e04e964a2f0cbf5e0d94781d02cb1538"
     },
     {
+      "path": "docs/i18n/README.md",
+      "bytes": 1478,
+      "sha256": "7c75f19c19599875d132265546635e490963e83bbf1e3201c2f801eff7d48647"
+    },
+    {
       "path": "docs/i18n/REVIEW-2026-08-31.md",
       "bytes": 1899,
       "sha256": "b399211879c1653acb832c7579f53222f0657548d16cda8d2a204b176df0c1ed"
@@ -571,6 +596,11 @@
       "sha256": "4cede309358fca024073e5b55ae1b083ca23ab2cc10f6cf85f887758281216f0"
     },
     {
+      "path": "docs/i18n/apple2-text-ko.json",
+      "bytes": 14069,
+      "sha256": "6986a82ea2f3e810c244080e09ccb3cbdd106c0028c15b6528d3c8d8a9872bd4"
+    },
+    {
       "path": "docs/i18n/apple2-text-zh-Hans.json",
       "bytes": 13130,
       "sha256": "224f9f6e706927edcb22f214083aa0058a16496813c5104f762af41038fa3b10"
@@ -589,6 +619,11 @@
       "path": "docs/i18n/atari-st-dialog-ja.json",
       "bytes": 73720,
       "sha256": "c4f387a43f0123668cd9f83151cc19138836906ad4be1a76caf83d9cd8af28ae"
+    },
+    {
+      "path": "docs/i18n/atari-st-dialog-ko.json",
+      "bytes": 72537,
+      "sha256": "595b34379f863d0b0c73c4e09837239fdcb1a175c0a2ce58f78e2b6701732f2e"
     },
     {
       "path": "docs/i18n/atari-st-dialog-zh-Hans.json",
@@ -616,34 +651,54 @@
       "sha256": "7988e806cbfaa8831c974c6fa9d1967ad4580c842f8d0d544348abba8ebeeddc"
     },
     {
+      "path": "docs/i18n/ko.tsv",
+      "bytes": 79199,
+      "sha256": "608a1b73f884c139cf0f23a9dd2759d6c48f8dcd202ccbe17f8dc695d4997053"
+    },
+    {
       "path": "docs/i18n/sundog-ui-en.json",
-      "bytes": 153765,
-      "sha256": "f9e62640add0f777fcfab3c14d661154ab7303029c993f6cd5db55aba04fa450"
+      "bytes": 154560,
+      "sha256": "008dead0aa1a107b8b619f788443017e19d65bfdc21fda14c7f8590568743e1c"
     },
     {
       "path": "docs/i18n/sundog-ui-ja.json",
-      "bytes": 162611,
-      "sha256": "b6616f94082a0af7d8b611bc99276534f6cdf588de5727757fc0a4e9122d326e"
+      "bytes": 163414,
+      "sha256": "4a048d61223cfa3527f0feea6eb50b16293996fe96a9edefdb0b720307a3bae9"
+    },
+    {
+      "path": "docs/i18n/sundog-ui-ko.json",
+      "bytes": 170675,
+      "sha256": "63670b90ecb378ce506d7b2c82285cdb60e093f895b7f99e58872adfb4c438d1"
     },
     {
       "path": "docs/i18n/sundog-ui-zh-Hans.json",
-      "bytes": 153429,
-      "sha256": "f0179c947f6fb097199c3a9a2c73b509b8b47b769d2829b3c758ec9ec69ef042"
+      "bytes": 154220,
+      "sha256": "9796c661173ff789b0179f5c2e1deffa4735fba8166489d62c900f58ca7e8b96"
     },
     {
       "path": "docs/i18n/sundog-ui-zh-Hant.json",
-      "bytes": 153414,
-      "sha256": "b207c0f39e593fef29306f528b766bd55cdd4bd3f9321b92ae25ece710e4b4cc"
+      "bytes": 154205,
+      "sha256": "4574ab5d2e6c5aca38f26d0a68d3e8d55827ec2d22719264e170322bc1b773d4"
     },
     {
       "path": "docs/index.md",
-      "bytes": 1129,
-      "sha256": "32eddb8ad4f2e7a8d8c08e5da5a945cd7e59ccec790637e4d792aa95e261906e"
+      "bytes": 1237,
+      "sha256": "a8262f1065dad5837bbc000c02ab0f283e2470cc360be81d505866e7b8779742"
     },
     {
       "path": "docs/manual/remake-controls-zh-Hant.md",
       "bytes": 14753,
       "sha256": "1e536a15c8995062bbbe7d3d3440acbd98cac08e1f916b12729cda94ff7056df"
+    },
+    {
+      "path": "docs/promo/README.md",
+      "bytes": 971,
+      "sha256": "79469b56a659a1b6a38cdb8675007c7099e24a7abe12e147dc1c11e6311316d2"
+    },
+    {
+      "path": "docs/promo/five-language-story.json",
+      "bytes": 1262,
+      "sha256": "89ad0492f85b0cc4003aa739570d44903f0128cc380c2b1b3c2f605b3d182c38"
     },
     {
       "path": "docs/screenshots/hd-engineering.png",
@@ -1247,13 +1302,13 @@
     },
     {
       "path": "internal/localization/locale.go",
-      "bytes": 1080,
-      "sha256": "e0e961b8ff0278a5bcc81adc122d29f2ccbc33f56e71b035cc384c2140530c69"
+      "bytes": 1122,
+      "sha256": "6f2e575a0e5093ad4a4a87cd51ca3bc1bca7d22303b9e72870f546e5d258c4b6"
     },
     {
       "path": "internal/localization/locale_test.go",
-      "bytes": 682,
-      "sha256": "0159534aa56e7e06cce722f15dcb850e80c40599b31648891c4a503173e567d0"
+      "bytes": 690,
+      "sha256": "40bed91ec423e7d5229fde313753d818c9d1fc0beb10f153cd9b8cc412ec5b1a"
     },
     {
       "path": "internal/prefs/prefs.go",
@@ -1602,8 +1657,8 @@
     },
     {
       "path": "internal/storage/combat_reentry_test.go",
-      "bytes": 5251,
-      "sha256": "6faf53ac8d404095f68afa38215709d807104df1b9adda60e4d428c5efa17f78"
+      "bytes": 5568,
+      "sha256": "10955ca62c97b06d559bf3370a3cca27c7cd97fa4ec5d780ac320248746a3b63"
     },
     {
       "path": "internal/storage/current_state.go",
@@ -2356,6 +2411,11 @@
       "sha256": "e06ce96d4e21c21c284551325e57cb6bc85c179dbd397eb2ddf37ae6853f75f4"
     },
     {
+      "path": "tools/build_korean_language_pack.py",
+      "bytes": 3422,
+      "sha256": "3d95ccbbd257158b5baef5757e14fc4319e0a6104e89eff7cdc5d7454b108714"
+    },
+    {
       "path": "tools/build_modern_apple_atlas.py",
       "bytes": 13223,
       "sha256": "60608b99deca701a6b64d7d2fe78ef4a8d7fe45829265d1b7f7f9782f74761f7"
@@ -2379,6 +2439,11 @@
       "path": "tools/build_release.sh",
       "bytes": 7083,
       "sha256": "046f58263576237bc7c4d47a0e14c06f6a3d09ffdfab613e53e6bcf01ba46c21"
+    },
+    {
+      "path": "tools/build_story_promo_cards.py",
+      "bytes": 2647,
+      "sha256": "6078fecada59b55404433e18b5b398940941fad129d89419dd10f71901972878"
     },
     {
       "path": "tools/build_world_name_catalog.py",
@@ -2622,8 +2687,8 @@
     },
     {
       "path": "tools/package_release.py",
-      "bytes": 20487,
-      "sha256": "94d9d95d202d57c231591f04e874ac27a63f96014843bc25e612bb9d5374f2e4"
+      "bytes": 20701,
+      "sha256": "8a7ad0021e599e6420a44076b8cece4bbde79897c613cb6f72f674296e00b9a7"
     },
     {
       "path": "tools/port_oracle_building_plan.py",
@@ -2682,8 +2747,8 @@
     },
     {
       "path": "tools/prepare_public_repository.py",
-      "bytes": 5147,
-      "sha256": "091cd4b375499709d0141c367c944fb19caf404a344ac2bf9d4718c44fb53251"
+      "bytes": 5392,
+      "sha256": "d54ba859cd158935f245344c0553c00ab6cffea821cb4b1e1dbf33f665916762"
     },
     {
       "path": "tools/psys_disasm.py",
@@ -2712,18 +2777,33 @@
     },
     {
       "path": "tools/public-source/CONTEXT.md",
-      "bytes": 722,
-      "sha256": "e89d05fcb0115bc57c779c02b50b9f940e44a24049666858eb1d98ac9fe3dcf1"
+      "bytes": 825,
+      "sha256": "a4ae08c4f8ca35a855410ad99a5efe48ff7bf59e5e7b7003f70f827255c9ab21"
+    },
+    {
+      "path": "tools/public-source/README.en.md",
+      "bytes": 6078,
+      "sha256": "fae64febad970ecf6a018b9307b5d37bf4b393d920f1b14f8db3e2193b08820e"
+    },
+    {
+      "path": "tools/public-source/README.ja.md",
+      "bytes": 6932,
+      "sha256": "60abb2299e9924c0797e26177203ae68132b1a6d9738e2aa41aab0b3bad0d125"
+    },
+    {
+      "path": "tools/public-source/README.ko.md",
+      "bytes": 6807,
+      "sha256": "6ef8dbca683d31f8cc2bc81f4fefa2006c807817ff06702067fba22322f5023d"
     },
     {
       "path": "tools/public-source/README.md",
-      "bytes": 5515,
-      "sha256": "0b6311f63b73a11ffa7d6640883f4904f9dc17d166437e112c74131ec65013df"
+      "bytes": 5965,
+      "sha256": "c169ad7c6c7ca2478a64cda21b67dc60446b5d06fa902e811b2b85b192c62880"
     },
     {
       "path": "tools/public-source/WORKLOG.md",
-      "bytes": 1081,
-      "sha256": "a1da32c84da335f05c7341dad342be83ba6c33f84c6881ba39cb655e0de869cd"
+      "bytes": 1915,
+      "sha256": "a88290fe45ce24a943936bf0702617b9e370397e9e91818d55ad9fc6795fc61e"
     },
     {
       "path": "tools/public-source/docs/build.md",
@@ -2732,8 +2812,13 @@
     },
     {
       "path": "tools/public-source/docs/index.md",
-      "bytes": 1129,
-      "sha256": "32eddb8ad4f2e7a8d8c08e5da5a945cd7e59ccec790637e4d792aa95e261906e"
+      "bytes": 1237,
+      "sha256": "a8262f1065dad5837bbc000c02ab0f283e2470cc360be81d505866e7b8779742"
+    },
+    {
+      "path": "tools/public-source/docs/promo/README.md",
+      "bytes": 971,
+      "sha256": "79469b56a659a1b6a38cdb8675007c7099e24a7abe12e147dc1c11e6311316d2"
     },
     {
       "path": "tools/record_hd_promo.py",
@@ -3201,6 +3286,11 @@
       "sha256": "7038a5be29571a66baa94c79c0f893bbc1d5e396023dd4cd0061534c355e9673"
     },
     {
+      "path": "tools/test_korean_language_pack.py",
+      "bytes": 1051,
+      "sha256": "98dc2b8314b733bcbf18617f411d87d2836faebd7649d324bfa5d1b76c9f7906"
+    },
+    {
       "path": "tools/test_package_public.py",
       "bytes": 6076,
       "sha256": "4d7844f4cca1918edc1e4a6fb9ad21a7c8be6e081843ee8342fe518e4d955832"
@@ -3217,8 +3307,8 @@
     },
     {
       "path": "tools/test_prepare_public_repository.py",
-      "bytes": 2153,
-      "sha256": "65bc4d28e44a5c493259914a9fa1d0b8484795aae846ff5a225484289d17f1b6"
+      "bytes": 2193,
+      "sha256": "c09ff0eb84ac2ae77f97cedbae595ccfc1c1e21fcf7e2759c5b0b218d942a30d"
     },
     {
       "path": "tools/test_psys_disasm.py",
@@ -3332,8 +3422,8 @@
     },
     {
       "path": "tools/validate_cjk_font_coverage.py",
-      "bytes": 2392,
-      "sha256": "374e2aa108633f1394b0f8859911ed732494bb3cadeac26274d6550fb9938621"
+      "bytes": 2536,
+      "sha256": "ed23f33728df3fc2eca3a005f1a92144ccae36132e0b29d3040bdff69ebd6631"
     },
     {
       "path": "tools/validate_dialog_translation.py",
@@ -3347,8 +3437,8 @@
     },
     {
       "path": "tools/validate_language_packs.py",
-      "bytes": 5809,
-      "sha256": "ba223c1cfd44576a9b0b4a6fa6f851d994e014381d4fbb2599b1e2c42efc7075"
+      "bytes": 5829,
+      "sha256": "ee49798ead0c7d31d1b21b80e12273912965508073fadaba9dff8da34d0d3335"
     },
     {
       "path": "tools/validate_manual_coverage.py",
@@ -3416,9 +3506,14 @@
       "sha256": "711d123b01bba6e6c95e1a2377f8cb471a2f852b3375e4bf9afd14bccfb53c58"
     },
     {
+      "path": "tools/verify_locale_player.py",
+      "bytes": 7024,
+      "sha256": "9a4e4aad12b48b47180b10522ec87562fe8f7933dd5e83b86e8507a9a90c9049"
+    },
+    {
       "path": "tools/verify_release_packages.py",
-      "bytes": 11798,
-      "sha256": "08726e034b648cf5c093d345ecf9130b00291be91622170804e4b6840d00c130"
+      "bytes": 12446,
+      "sha256": "5dd2e019f0cc3f63777e77f9e7798928fe1173fdab9b8e1e2a038beebb90b9e8"
     },
     {
       "path": "tools/verify_sleep_interrupt_player.py",

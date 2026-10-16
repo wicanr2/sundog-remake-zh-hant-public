@@ -43,10 +43,13 @@ PAYLOAD = {
     "docs/i18n/sundog-ui-zh-Hans.json": "docs/i18n/sundog-ui-zh-Hans.json",
     "docs/i18n/sundog-ui-ja.json": "docs/i18n/sundog-ui-ja.json",
     "docs/i18n/sundog-ui-en.json": "docs/i18n/sundog-ui-en.json",
+    "docs/i18n/sundog-ui-ko.json": "docs/i18n/sundog-ui-ko.json",
+    "docs/i18n/apple2-text-ko.json": "docs/i18n/apple2-text-ko.json",
     "docs/i18n/atari-st-dialog-zh-Hant.json": "docs/i18n/atari-st-dialog-zh-Hant.json",
     "docs/i18n/atari-st-dialog-zh-Hans.json": "docs/i18n/atari-st-dialog-zh-Hans.json",
     "docs/i18n/atari-st-dialog-ja.json": "docs/i18n/atari-st-dialog-ja.json",
     "docs/i18n/atari-st-dialog-en.json": "docs/i18n/atari-st-dialog-en.json",
+    "docs/i18n/atari-st-dialog-ko.json": "docs/i18n/atari-st-dialog-ko.json",
     "操作說明.md": "docs/manual/remake-controls-zh-Hant.md",
 }
 

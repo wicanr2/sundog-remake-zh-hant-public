@@ -3,7 +3,7 @@ package localization
 import "testing"
 
 func TestSupportedLocalesAndFallback(t *testing.T) {
-	want := []Locale{TraditionalChinese, SimplifiedChinese, Japanese, English}
+	want := []Locale{TraditionalChinese, SimplifiedChinese, Japanese, Korean, English}
 	got := Locales()
 	if len(got) != len(want) {
 		t.Fatalf("locale count = %d, want %d", len(got), len(want))
