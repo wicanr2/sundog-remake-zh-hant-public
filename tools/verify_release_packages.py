@@ -124,6 +124,32 @@ def main():
             libs=[(p,d) for p,d in documents() if 'slots' in d];assert len(libs)==1
             path,d=libs[0];s=d['slots']['slot-1'];states.append(dict(name=name,state=s,sha256=sha(path)))
             time.sleep(2.2);run('import','-window',window,out/(name+'.png'));return s
+        def options_visible():
+            geometry=dict(line.split('=',1) for line in run('xdotool','getwindowgeometry','--shell',window).splitlines() if '=' in line)
+            scale=int(geometry['WIDTH'])//320
+            shot=out/'options-current.png';run('import','-window',window,shot)
+            colours=run('convert',shot,'-format',f'%[hex:p{{{13*scale},{27*scale}}}] %[hex:p{{{225*scale},{125*scale}}}]','info:').split()
+            rgb=[[int(value[i:i+2],16) for i in (0,2,4)] for value in colours]
+            return rgb[0][0]>130 and rgb[0][1]<150 and rgb[0][2]<140 and max(rgb[1])<40
+        def options_key(key,visible):
+            started=time.monotonic();run('xdotool','keydown','--clearmodifiers',key)
+            try:
+                while options_visible()!=visible:
+                    assert app.poll() is None and time.monotonic()-started<25,'選項畫面未完成轉換'
+                    time.sleep(.1)
+            finally:run('xdotool','keyup',key)
+            inputs.append(dict(key=key,ready='observed-options' if visible else 'observed-options-closed',heldSeconds=time.monotonic()-started))
+        def language_key(locale):
+            started=time.monotonic();run('xdotool','keydown','--clearmodifiers','Right')
+            try:
+                while True:
+                    settings=[d for _,d in documents() if d.get('schema')==1 and 'presentation' in d and 'locale' in d]
+                    if len(settings)==1 and settings[0]['locale']==locale:break
+                    assert app.poll() is None and time.monotonic()-started<25,settings
+                    time.sleep(.1)
+            finally:run('xdotool','keyup','Right')
+            inputs.append(dict(key='Right',ready='observed-preferences',locale=locale,heldSeconds=time.monotonic()-started))
+            time.sleep(.4)
         def command(load=False):
             flags=['-scale','3','-locale','zh-Hant']+(['-load'] if load else ['-start','title'])
             if windows:
@@ -141,13 +167,11 @@ def main():
                 initial=capture('newgame');assert initial['schema']==44 and initial['screen']=='shipboard' and initial['layout']=='atari-st'
                 press('F8');hd=capture('hd-shipboard');assert hd['tileset']=='atari-st-hd-tiles' and hd['layout']=='atari-st'
                 assert all(initial.get(k)==hd.get(k) for k in ['holds','cash','bank','colony','position','fuel','tradeRolls','combatRolls'])
-                press('F2')
+                options_key('F2',True)
                 for locale in ['zh-Hans','ja','ko','en','zh-Hant']:
-                    press('Right')
-                    settings=[d for _,d in documents() if d.get('schema')==1 and 'presentation' in d and 'locale' in d]
-                    assert len(settings)==1 and settings[0]['locale']==locale,settings
+                    language_key(locale)
                     run('import','-window',window,out/f'language-{locale}.png')
-                press('Escape')
+                options_key('Escape',False)
                 press('F8');assert capture('apple-presentation')['layout']=='remake'
                 press('F8');assert capture('atari-restored')['tileset']=='atari-st-tiles'
                 if not windows:

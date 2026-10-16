@@ -23,7 +23,7 @@ def main():
     for index, card in enumerate(story["cards"]):
         layers = [("精訊資訊《陽犬號2.0版》故事背景", 28, 90), (card["heading"], 58, 190)]
         layers += [(line, 40, 330 + line_index * 80) for line_index, line in enumerate(card["lines"])]
-        layers += [("依手冊印刷頁 4–9 改寫；原頁只留本機研究", 22, 710)]
+        layers += [("故事依精訊資訊《陽犬號2.0版》手冊第 4–9 頁改寫", 22, 710)]
         filters = ["drawbox=x=40:y=40:w=1200:h=720:color=0x6ed9bb:t=2"]
         for line_index, (text, size, y) in enumerate(layers):
             font = ImageFont.truetype(str(args.font), size)

@@ -77,8 +77,8 @@
     },
     {
       "path": "WORKLOG.md",
-      "bytes": 1915,
-      "sha256": "a88290fe45ce24a943936bf0702617b9e370397e9e91818d55ad9fc6795fc61e"
+      "bytes": 2552,
+      "sha256": "d8e79c83d2f004c79be26a93beac79df9092bbe24923454579b483f34a7cf58d"
     },
     {
       "path": "assets/fonts/ASSET-MANIFEST.md",
@@ -531,6 +531,11 @@
       "sha256": "ec4662476fc546ed04ca90173e8f83b338a536d4af58cd2eda826362bcb2439e"
     },
     {
+      "path": "docs/atari-st/release-v1200-20261016.json",
+      "bytes": 5311,
+      "sha256": "64c207e28934690fe44bfe8390f46002b6ed9bb6fa1dbfada9f83035b7209db1"
+    },
+    {
       "path": "docs/atari-st/ship-rules.json",
       "bytes": 82519,
       "sha256": "498b5bcd01ec38fa65d903b6c65ba001f9653d5169aead0dd530837579d6fefe"
@@ -682,8 +687,8 @@
     },
     {
       "path": "docs/index.md",
-      "bytes": 1237,
-      "sha256": "a8262f1065dad5837bbc000c02ab0f283e2470cc360be81d505866e7b8779742"
+      "bytes": 1312,
+      "sha256": "fa3bd0d7523b48e41c029b30189c54991abd7f87216088c1f20f013e48f18818"
     },
     {
       "path": "docs/manual/remake-controls-zh-Hant.md",
@@ -2442,8 +2447,8 @@
     },
     {
       "path": "tools/build_story_promo_cards.py",
-      "bytes": 2647,
-      "sha256": "6078fecada59b55404433e18b5b398940941fad129d89419dd10f71901972878"
+      "bytes": 2656,
+      "sha256": "33bb3d8fcc9881c8e4f27ad3aee2260d60cc65ac2f91b63178c0d7ed7acc7349"
     },
     {
       "path": "tools/build_world_name_catalog.py",
@@ -2747,8 +2752,8 @@
     },
     {
       "path": "tools/prepare_public_repository.py",
-      "bytes": 5392,
-      "sha256": "d54ba859cd158935f245344c0553c00ab6cffea821cb4b1e1dbf33f665916762"
+      "bytes": 5437,
+      "sha256": "1ef53181f002971af596ddf8073a6ebef27c3b126679dbc77f72164c63d5d704"
     },
     {
       "path": "tools/psys_disasm.py",
@@ -2802,8 +2807,8 @@
     },
     {
       "path": "tools/public-source/WORKLOG.md",
-      "bytes": 1915,
-      "sha256": "a88290fe45ce24a943936bf0702617b9e370397e9e91818d55ad9fc6795fc61e"
+      "bytes": 2552,
+      "sha256": "d8e79c83d2f004c79be26a93beac79df9092bbe24923454579b483f34a7cf58d"
     },
     {
       "path": "tools/public-source/docs/build.md",
@@ -2812,8 +2817,8 @@
     },
     {
       "path": "tools/public-source/docs/index.md",
-      "bytes": 1237,
-      "sha256": "a8262f1065dad5837bbc000c02ab0f283e2470cc360be81d505866e7b8779742"
+      "bytes": 1312,
+      "sha256": "fa3bd0d7523b48e41c029b30189c54991abd7f87216088c1f20f013e48f18818"
     },
     {
       "path": "tools/public-source/docs/promo/README.md",
@@ -3512,8 +3517,8 @@
     },
     {
       "path": "tools/verify_release_packages.py",
-      "bytes": 12446,
-      "sha256": "5dd2e019f0cc3f63777e77f9e7798928fe1173fdab9b8e1e2a038beebb90b9e8"
+      "bytes": 14085,
+      "sha256": "2cf25c49cb7000ee03631f571f10bc6bcbffa0cc0e566e6350448aad8f2b9e04"
     },
     {
       "path": "tools/verify_sleep_interrupt_player.py",

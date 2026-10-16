@@ -16,7 +16,7 @@ from package_public import is_forbidden, iter_public_files
 TEMPLATES = Path("tools/public-source")
 TOP = {".gitignore", "LICENSE", "go.mod", "go.sum"}
 DIRECTORIES = {"assets", "cmd", "internal", "docker", "tools"}
-DOCS = {"docs/manual/remake-controls-zh-Hant.md", "docs/promo/five-language-story.json"}
+DOCS = {"docs/manual/remake-controls-zh-Hant.md", "docs/promo/five-language-story.json", "docs/atari-st/release-v1200-20261016.json"}
 SHOTS = {
     "shipboard": "5a8d8a1aad3f26ff44c67648ffe0b93cafc92200fa0bf4924c085ae4d6f52c9e",
     "ground": "6108fc6c52f1098e5c94da43887753e5585957fc5a381a9a43e27b821320c6f7",
