@@ -5,7 +5,81 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from verify_talos_combat_cadence import compare_fuel_consumers, compare_mixed_energy, compare_fuel_flight_parent
+from verify_talos_combat_cadence import compare_fuel_consumers, compare_mixed_energy, compare_fuel_flight_parent, compare_combat_continuous_parent
+
+
+class CombatContinuousGateTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.output = Path(self.temp.name)
+        self.rows = []
+        common = ("Phase", "Fuel", "Weapon", "Shield", "Setting", "Hull", "Cooldown", "Range", "Bearing", "Pitch",
+                  "BearingDrift", "PitchDrift", "Counter", "Active", "Words", "Systems")
+        for mode in range(1, 8):
+            for phase in range(3):
+                for fuel in (0, 1, 255):
+                    for ready in (False, True):
+                        steps = []
+                        for index in range(12):
+                            step = {field: 0 for field in common}
+                            step.update(Phase=(phase + index + 1) % 3, Counter=1, Active=True, Words=[0, 0],
+                                        Systems=[[0] * 18 for _ in range(6)], Timer=0, Ready=False, Closing=0,
+                                        Aux8=0, Aux9=0, Flags=[0] * 5, RandomWords=[1, 0])
+                            steps.append(step)
+                        self.rows.append(dict(Input=dict(Mode=mode, Phase=phase, Fuel=fuel, Ready=ready), InitialSystems=[[0]*18 for _ in range(6)],Steps=steps,
+                                              Calls=[[0x31e00, at, proc] for _ in range(12)
+                                                     for at, proc in ((0x1295, 0x1f), (0x1298, 0x23), (0x12a8, 0x21))],
+                                              Draws=[dict(Low=0, High=15, Value=1, Counter=1)]))
+        self.controlled = copy.deepcopy(self.rows)
+        self.formal = [dict(Input=row["Input"],InitialSystems=row["InitialSystems"], Steps=[{field: step[field] for field in common} for step in row["Steps"]])
+                       for row in copy.deepcopy(self.rows) if not row["Input"]["Ready"]]
+
+    def compare(self):
+        for name, rows in (("native-combat-continuous", self.rows), ("native-combat-continuous-controlled", self.controlled),
+                           ("remake-combat-continuous", self.formal)):
+            (self.output / f"{name}.json").write_text(json.dumps(rows))
+        return compare_combat_continuous_parent(self.output)
+
+    def test_native_research_is_not_full_conformance(self):
+        result = self.compare()
+        self.assertEqual(result["status"], "PASS-research")
+        self.assertEqual(result["comparedUpdates"], 756)
+        self.assertEqual(result["initialReadyNotComparable"], 63)
+        self.assertIn("Ready", result["unmappedNativeFields"])
+
+    def test_formal_difference_keeps_spec_draft(self):
+        self.formal[0]["Steps"][0]["Cooldown"] += 1
+        result = self.compare()
+        self.assertEqual(result["status"], "PASS-research")
+        self.assertEqual(result["conformance"], "DRAFT")
+        self.assertEqual(result["differences"]["Cooldown"], 1)
+
+    def test_same_truncation_does_not_pass(self):
+        self.rows[0]["Steps"].pop()
+        self.controlled[0]["Steps"].pop()
+        self.formal[0]["Steps"].pop()
+        self.assertEqual(self.compare()["status"], "FAIL")
+
+    def test_parent_must_execute_real_callees_in_order(self):
+        self.controlled[0]["Calls"][0:2] = list(reversed(self.controlled[0]["Calls"][0:2]))
+        self.assertEqual(self.compare()["status"], "FAIL")
+
+    def test_unmapped_ready_rows_still_require_complete_native_fields(self):
+        self.rows[1]["Steps"][0].pop("Timer")
+        self.assertEqual(self.compare()["status"], "FAIL")
+
+    def test_duplicate_input_is_rejected(self):
+        self.rows[1] = copy.deepcopy(self.rows[0])
+        self.assertEqual(self.compare()["status"], "FAIL")
+
+    def test_controlled_rng_counter_must_be_persistent(self):
+        self.controlled[0]["Draws"][0]["Counter"] = 0
+        self.assertEqual(self.compare()["status"], "FAIL")
+
+    def test_initial_system_rows_must_match(self):
+        self.formal[0]["InitialSystems"][2][0] = 31
+        self.assertEqual(self.compare()["status"], "FAIL")
 
 
 class ContinuousParentGateTests(unittest.TestCase):

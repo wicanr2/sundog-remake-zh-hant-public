@@ -240,6 +240,162 @@ func parentCloakToggle(h *harness, disk []byte) {
 	}
 }
 
+// Actual parent, movement, energy and attack on one persistent interpreter
+// state. MAINLIB RND executes unchanged from words (1,0). Mode0/flag12 residue
+// is deliberately outside this research matrix; it is not assigned a policy.
+type combatContinuousInput struct {
+	Mode, Phase, Fuel int
+	Ready             bool
+}
+type combatContinuousStep struct {
+	Phase, Fuel, Weapon, Shield, Setting, Hull    int
+	Timer, Cooldown, Range, Bearing, Pitch        int
+	BearingDrift, PitchDrift, Closing, Aux8, Aux9 int
+	Ready, Active                                 bool
+	Words                                         [2]uint16
+	Flags                                         []uint16
+	RandomWords                                   [2]uint16
+	Counter                                       int
+	Systems                                       [6][18]int // sixteen parts, status, last-hit slot
+}
+type combatContinuousRow struct {
+	Input          combatContinuousInput
+	InitialSystems [6][18]int
+	Steps          []combatContinuousStep
+	Calls          [][3]int
+	Draws          []combatDraw
+}
+
+func combatContinuousSystems(h *harness) (systems [6][18]int) {
+	for system := range systems {
+		at := cadenceGlobal(0x5b) + uint32(system*28)
+		for row := 0; row < 4; row++ {
+			for col := 0; col < 4; col++ {
+				systems[system][row*4+col] = int(h.mem[at+uint32(row*5+col)])
+			}
+		}
+		systems[system][16] = int(h.mem[at+24])
+		slot := int(h.mem[at+25])
+		systems[system][17] = slot/5*4 + slot%5
+	}
+	return systems
+}
+
+func TestSunDogCombatContinuousParent(t *testing.T)           { combatContinuousParent(t, false) }
+func TestSunDogCombatContinuousParentControlled(t *testing.T) { combatContinuousParent(t, true) }
+func combatContinuousParent(t *testing.T, controlled bool) {
+	disk := sundogWalkerDisk(t)
+	rows := []combatContinuousRow{}
+	for mode := 1; mode < 8; mode++ {
+		for phase := 0; phase < 3; phase++ {
+			for _, fuel := range []int{0, 1, 255} {
+				for _, ready := range []bool{false, true} {
+					h := foodSleepHarness(t, disk)
+					h.cpu.State.A[1], h.cpu.State.A[2] = 0x48000, 0x80000
+					h.poke(interpBase+0x1b70, 4)
+					h.poke(interpBase+0x1b72, 0x8000)
+					levelsFrame(h, 0x46000)
+					h.poke(0x46000, 0x8000)
+					for n, v := range map[int]int{0x32: 0x7727, 0x49: 20<<8 | 250, 0x19: phase,
+						0xe5: fuel, 0xe4: 0, 0xe3: 255, 0xe2: 255, 0xcd: 2, 0xd4: 0, 0xd5: 1000,
+						0xd6: 0, 0xd7: 0, 0xdd: 20, 0xde: 250, 0x101: 1, 0x102: 0,
+						0xce: mode, 0xd8: 0, 0xda: 200, 0xd9: 1, 0xdb: 70, 0xd0: 512,
+						0xcf: 512, 0xd3: 3, 0xd2: -3, 0xd1: -1} {
+						h.poke(cadenceGlobal(n), uint16(v))
+					}
+					ship := func(n int) uint32 { return 0x48008 + uint32(n*2) }
+					for n, v := range map[int]int{4: 1, 6: 0x7000, 8: 2, 9: 1, 10: 1} {
+						h.poke(ship(n), uint16(v))
+					}
+					if ready {
+						h.poke(ship(5), 1)
+					}
+					for n, b := range disk[0x4000:0x401c] {
+						h.mem[0x47200+uint32(n)] = b
+					}
+					for system := 0; system < 6; system++ {
+						at := cadenceGlobal(0x5b) + uint32(system*28)
+						call := 0x3b868 + system*8
+						if disk[call] != 0x90 || disk[call+1] != 0x31 {
+							t.Fatal("system template call changed")
+						}
+						for col := 0; col < 4; col++ {
+							part := byte(31)
+							if col > 0 {
+								part = disk[call-6+col]
+							}
+							h.mem[at+20+uint32(col)] = part
+							for row := 0; row < 4; row++ {
+								if (system == 2 || system == 4) && row >= 2 {
+									h.mem[at+uint32(row*5+col)] = 0
+								} else {
+									h.mem[at+uint32(row*5+col)] = part
+									h.mem[at+uint32(row*5+4)] = 4
+								}
+							}
+						}
+						h.mem[at+24] = 16
+						if system == 2 || system == 4 {
+							h.mem[at+24] = 8
+						}
+						h.mem[at+26], h.mem[at+27] = disk[call-2], disk[call-1]
+					}
+					h.mem[cadenceGlobal(0x5b)+0xc0] = 16
+					for _, flag := range []int{0, 1, 2, 3, 4, 5, 7, 29, 44} {
+						cadenceFlag(h, flag, true)
+					}
+					for n := 0; n < 2; n++ {
+						h.poke(cadenceGlobal(0xec)+uint32(n*4), 0xab21)
+					}
+					trace := foodSleepTrace{Combat: &foodCombatTrace{}}
+					counter := 0
+					if controlled {
+						trace.Combat.Counter = &counter
+					}
+					row := combatContinuousRow{Input: combatContinuousInput{mode, phase, fuel, ready}, InitialSystems: combatContinuousSystems(h)}
+					for step := 0; step < 12; step++ {
+						foodSleepRun(h, disk, 0x31e00, 0x1278, 0x12c1, 0, &trace)
+						g := func(n int) int { return int(int16(h.peek(cadenceGlobal(n)))) }
+						s := func(n int) int { return int(int16(h.peek(ship(n)))) }
+						x := combatContinuousStep{Phase: g(0x19), Fuel: g(0xe5), Weapon: g(0xe4), Shield: g(0xe3), Setting: g(0xe2),
+							Hull: int(h.mem[cadenceGlobal(0x5b)+0xc0]), Timer: g(0xd9), Cooldown: s(10), Range: g(0xdb),
+							Bearing: g(0xd0), Pitch: g(0xcf), BearingDrift: g(0xd3), PitchDrift: g(0xd2), Closing: g(0xd1),
+							Aux8: s(8), Aux9: s(9), Ready: s(5) != 0, Active: s(4) != 0, Flags: displayFlags(h),
+							RandomWords: [2]uint16{h.peek(cadenceGlobal(0x101)), h.peek(cadenceGlobal(0x102))}}
+						x.Counter = counter
+						x.Systems = combatContinuousSystems(h)
+						for n := range x.Words {
+							x.Words[n] = h.peek(cadenceGlobal(0xec) + uint32(n*4))
+						}
+						if x.Phase != (phase+step+1)%3 {
+							t.Fatal("persistent parent phase", row.Input, step, x)
+						}
+						row.Steps = append(row.Steps, x)
+					}
+					row.Calls = trace.Combat.Calls
+					row.Draws = trace.Combat.Draws
+					rows = append(rows, row)
+				}
+			}
+		}
+	}
+	if len(rows) != 126 {
+		t.Fatal("missing continuous combat inputs", len(rows))
+	}
+	data, err := json.MarshalIndent(rows, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	name := "native-combat-continuous.json"
+	if controlled {
+		name = "native-combat-continuous-controlled.json"
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), name), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("actual persistent combat parent: %d inputs x 12 updates", len(rows))
+}
+
 func TestSunDogCombatParent(t *testing.T) {
 	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
 	if err != nil {

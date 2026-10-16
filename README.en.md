@@ -81,7 +81,7 @@ Use `F1` for each screen's actions. During naming, letter keys enter text; use `
 
 ## Verification and licence
 
-Player sampling covers character creation, cabin functions, navigation, ground movement, city services, interiors, sleep during flight, scoring, failed endings and save/reload. Rendering checks cover multiple languages and window sizes. Complete original GUI behaviour, matching natural random streams, every combat branch, native Windows/macOS operation and perceived audio timing remain outside the verified scope. This project does not claim whole-game pixel or frame equivalence.
+Player sampling covers character creation, cabin functions, navigation, ground movement, city services, interiors, sleep during flight, scoring, failed endings and save/reload. Rendering checks cover multiple languages and window sizes. Combat course countdowns, fire readiness and state between updates are not fully integrated; the current scheduler has known differences from the original. See the [combat implementation](internal/game/combat.go). Complete original GUI behaviour, matching natural random streams, every combat branch, native Windows/macOS operation and perceived audio timing remain outside the verified scope. This project does not claim whole-game pixel or frame equivalence.
 
 See the [document index](docs/index.md) and [current status](CONTEXT.md). Some research tools refer to evidence retained in the private project and need separately supplied legal inputs.
 

@@ -87,8 +87,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 3116,
-      "sha256": "227c18b6b9551eb9c560cc8488f1cd96150064163653c7c10ed9bcaeb5f5bc4d"
+      "bytes": 3421,
+      "sha256": "1cd064ff6337bc60fba87e5c8e230b295cbca32c2ef00fb48982d93a2ab10dd6"
     },
     {
       "path": "LICENSE",
@@ -97,28 +97,28 @@
     },
     {
       "path": "README.en.md",
-      "bytes": 7579,
-      "sha256": "04da425cc72e98b4c4dc954bbaba55dbd95ebede2c75e856776a0c8022e860be"
+      "bytes": 7793,
+      "sha256": "af3de2811107216a2d75335b79aba2b30001c9722b1857d04000883957dfa96e"
     },
     {
       "path": "README.ja.md",
-      "bytes": 8571,
-      "sha256": "0ca03753d1ad67c7871729cbe9123f82ebed068b0ea103bbe6344514f740c88f"
+      "bytes": 8832,
+      "sha256": "6297a15e8ae1edb29a12658afd74f9e7a18f40bf2fe937cc532bb4811b2a0447"
     },
     {
       "path": "README.ko.md",
-      "bytes": 8430,
-      "sha256": "ef7c9e156b0cfa9cabd00112d5bd2f128f39859c7698b16788d97ec24ab9e0b3"
+      "bytes": 8681,
+      "sha256": "e3a86009e534dc5036c92757c00da7f23736ce214e13c7580bc0c957864f146d"
     },
     {
       "path": "README.md",
-      "bytes": 7396,
-      "sha256": "c80a2d0a44a308dbabac60d298843845f05d61a59218dd0af5fadfec0007e7af"
+      "bytes": 7555,
+      "sha256": "b8028c132145a81562d5b00c57c59e1b6b7978f8c430a6d3682d39b96ef23882"
     },
     {
       "path": "WORKLOG.md",
-      "bytes": 5394,
-      "sha256": "8b58f96676ecae7ceb9c8660022e9cb14bcfa556eb066b2547ad32f29d265519"
+      "bytes": 5814,
+      "sha256": "7a93ed9ebb63f5832cf9736d94124e3648843e89b2aa64115ac995e29a6976f0"
     },
     {
       "path": "assets/fonts/ASSET-MANIFEST.md",
@@ -1292,8 +1292,8 @@
     },
     {
       "path": "internal/game/talos_combat_cadence_fixture_test.go",
-      "bytes": 13979,
-      "sha256": "ffb870e69d9aaeabaf7534933db2a433e1c88557eea2d43a1280f473dcde3bf0"
+      "bytes": 17841,
+      "sha256": "5e16ebd73998826b6a4fd23c058cb98129394f769facf5874e7e3a517cb06206"
     },
     {
       "path": "internal/game/talos_combat_fixture_test.go",
@@ -2872,33 +2872,33 @@
     },
     {
       "path": "tools/public-source/CONTEXT.md",
-      "bytes": 3116,
-      "sha256": "227c18b6b9551eb9c560cc8488f1cd96150064163653c7c10ed9bcaeb5f5bc4d"
+      "bytes": 3421,
+      "sha256": "1cd064ff6337bc60fba87e5c8e230b295cbca32c2ef00fb48982d93a2ab10dd6"
     },
     {
       "path": "tools/public-source/README.en.md",
-      "bytes": 7579,
-      "sha256": "04da425cc72e98b4c4dc954bbaba55dbd95ebede2c75e856776a0c8022e860be"
+      "bytes": 7793,
+      "sha256": "af3de2811107216a2d75335b79aba2b30001c9722b1857d04000883957dfa96e"
     },
     {
       "path": "tools/public-source/README.ja.md",
-      "bytes": 8571,
-      "sha256": "0ca03753d1ad67c7871729cbe9123f82ebed068b0ea103bbe6344514f740c88f"
+      "bytes": 8832,
+      "sha256": "6297a15e8ae1edb29a12658afd74f9e7a18f40bf2fe937cc532bb4811b2a0447"
     },
     {
       "path": "tools/public-source/README.ko.md",
-      "bytes": 8430,
-      "sha256": "ef7c9e156b0cfa9cabd00112d5bd2f128f39859c7698b16788d97ec24ab9e0b3"
+      "bytes": 8681,
+      "sha256": "e3a86009e534dc5036c92757c00da7f23736ce214e13c7580bc0c957864f146d"
     },
     {
       "path": "tools/public-source/README.md",
-      "bytes": 7396,
-      "sha256": "c80a2d0a44a308dbabac60d298843845f05d61a59218dd0af5fadfec0007e7af"
+      "bytes": 7555,
+      "sha256": "b8028c132145a81562d5b00c57c59e1b6b7978f8c430a6d3682d39b96ef23882"
     },
     {
       "path": "tools/public-source/WORKLOG.md",
-      "bytes": 5394,
-      "sha256": "8b58f96676ecae7ceb9c8660022e9cb14bcfa556eb066b2547ad32f29d265519"
+      "bytes": 5814,
+      "sha256": "7a93ed9ebb63f5832cf9736d94124e3648843e89b2aa64115ac995e29a6976f0"
     },
     {
       "path": "tools/public-source/docs/build.md",
@@ -3102,8 +3102,8 @@
     },
     {
       "path": "tools/talos_combat_parent_test.go.txt",
-      "bytes": 19135,
-      "sha256": "fe4af0cf297d44825a4d24b7cac748fec5791ca2703c419d7d6050bbb1b64d1a"
+      "bytes": 25066,
+      "sha256": "76594c461ec8bf82a4fe1e4fbd618a07f1d7a83909bec07be6757b4831455aa7"
     },
     {
       "path": "tools/talos_combat_player_input_test.go.txt",
@@ -3127,8 +3127,8 @@
     },
     {
       "path": "tools/talos_food_test.go.txt",
-      "bytes": 90267,
-      "sha256": "8e9a098858c57e6372c135b1a02794ec9f336dfb731305e70165f4c1affd817b"
+      "bytes": 93639,
+      "sha256": "057628cab0b57006ec65052dfcf0e8affd3cf2c56654c3f7298e0d387d6dc1a8"
     },
     {
       "path": "tools/talos_fuel_depot_test.go.txt",
@@ -3442,8 +3442,8 @@
     },
     {
       "path": "tools/test_verify_talos_combat_cadence.py",
-      "bytes": 7338,
-      "sha256": "36aee331071783ad78b09ed762fdca10e09c2d0afc814eed4dc10b1b09521612"
+      "bytes": 11378,
+      "sha256": "0b5fbe481c56f8dd2ec39d93f6456b33d07dac1ec64e623d44e08582fd5c7b5e"
     },
     {
       "path": "tools/test_verify_talos_fuel_depot.py",
@@ -3637,8 +3637,8 @@
     },
     {
       "path": "tools/verify_talos_combat_cadence.py",
-      "bytes": 48646,
-      "sha256": "b6adbabaee0e4cdcec0a613ea3ed6f04f500073a0bbd192402c4c4d83b614169"
+      "bytes": 57979,
+      "sha256": "51e7059f9143dfd688ec57b009e7eacd0cc2c9e58f1f0b4f08a6e6411d8b873e"
     },
     {
       "path": "tools/verify_talos_cryo_source.py",

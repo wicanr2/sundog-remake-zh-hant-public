@@ -838,6 +838,15 @@ type foodSleepTrace struct {
 	Random                                                        []int
 	Background                                                    *foodBackgroundTrace  `json:",omitempty"`
 	GroundClock                                                   *foodGroundClockTrace `json:",omitempty"`
+	Combat                                                        *foodCombatTrace      `json:",omitempty"`
+}
+
+// Opt-in research of actual SHIPLIB global procedures. Other fixtures retain
+// their established calling boundaries. This never supplies game decisions.
+type foodCombatTrace struct {
+	Calls   [][3]int // disk base, call-site offset, procedure
+	Counter *int     // nil executes actual MAINLIB RND; non-nil controlled draw
+	Draws   []combatDraw
 }
 
 // Kernel time is supplied before execution as raw two-word values. It is
@@ -921,6 +930,20 @@ func foodSleepRun(h *harness, disk []byte, base, first, last, depth int, trace *
 			op, proc := h.mem[ip], h.mem[ip+1]
 			childBase, entry, end, locals, argc, result := 0, 0, 0, 0, 0, 0
 			switch {
+			case trace.Combat != nil && base == 0x31e00 && op == 0x91 && proc == 0x21:
+				childBase, entry, end, locals = base, 0xd23, 0xf65, 8
+			case trace.Combat != nil && base == 0x31e00 && op == 0x91 && proc == 0x20:
+				childBase, entry, end = base, 0xc50, 0xcee
+			case trace.Combat != nil && base == 0x31e00 && op == 0x91 && proc == 0x1e:
+				childBase, entry, end = base, 0x650, 0x8e4
+			case trace.Combat != nil && base == 0x31e00 && op == 0x91 && proc == 0x1d:
+				childBase, entry, end, locals = base, 0x5a0, 0x64a, 3
+			case trace.Combat != nil && base == 0x31e00 && op == 0x91 && proc == 0x0e:
+				childBase, entry, end, locals, argc = base, 0x236, 0x35f, 11, 1
+			case trace.Combat != nil && base == 0x2e800 && op == 0x91 && proc == 0x0b:
+				childBase, entry, end, result = base, 0x614, 0x654, 1
+			case trace.Combat != nil && trace.Combat.Counter == nil && op == 0x73 && proc == 0x0c:
+				childBase, entry, end, argc, result = 0x2e800, 0x65a, 0x665, 2, 3
 			case base == 0x37200 && op == 0x71 && proc == 0x14:
 				childBase, entry, end, locals, argc = 0x31e00, 0x19a, 0x1b3, 1, 1
 			case base == 0x37200 && op == 0x71 && proc == 0x13:
@@ -960,7 +983,7 @@ func foodSleepRun(h *harness, disk []byte, base, first, last, depth int, trace *
 					trace.Background.Callbacks = append(trace.Background.Callbacks, [3]int{trace.Background.Passes, trace.Background.Pulses, 1})
 				}
 				childBase, entry, end, locals, argc = 0x2e800, 0xbf8, 0xd20, 16, 1
-			case op == 0x73 && proc == 0x0b:
+			case op == 0x73 && proc == 0x0b && (trace.Combat == nil || trace.Combat.Counter == nil):
 				childBase, entry, end, result = 0x2e800, 0x614, 0x654, 1
 			case op == 0x73 && proc == 0x0a:
 				childBase, entry, end, argc = 0x2e800, 0x66c, 0x680, 3
@@ -1036,6 +1059,14 @@ func foodSleepRun(h *harness, disk []byte, base, first, last, depth int, trace *
 				} else if childBase == 0x37e00 {
 					module, segment = 0x49000, 0x90000
 				}
+				if trace.Combat != nil {
+					trace.Combat.Calls = append(trace.Combat.Calls, [3]int{base, at, int(proc)})
+					if op == 0x91 || op == 0x73 {
+						// CGP/SCXG procedures have the callee module as their
+						// static link, rather than the calling procedure frame.
+						h.poke(frame, uint16(module-0x40000))
+					}
+				}
 				h.cpu.State.A[1], h.cpu.State.A[2] = module, segment
 				h.poke(interpBase+0x1b70, uint16(module>>16))
 				h.poke(interpBase+0x1b72, uint16(module))
@@ -1067,6 +1098,40 @@ func foodSleepRun(h *harness, disk []byte, base, first, last, depth int, trace *
 			}
 			pop, handled := 0, false
 			switch {
+			case trace.Combat != nil && trace.Combat.Counter != nil && op == 0x73 && (proc == 0x0b || proc == 0x0c):
+				low, high := 0, 1
+				if proc == 0x0c {
+					high, low = int(int16(h.peek(sp))), int(int16(h.peek(sp+2)))
+					pop = 2
+				} else {
+					// A raw random() consumer must explicitly take modulo N
+					// or its low bit; no inferred/random default is permitted.
+					next, count, bytes := h.mem[ip+2], 0, uint32(1)
+					if next <= 31 {
+						count = int(next)
+					} else if next == 0x80 {
+						count, bytes = int(h.mem[ip+3]), 2
+					} else if next == 0x81 {
+						count, bytes = int(h.mem[ip+3])|int(h.mem[ip+4])<<8, 3
+					}
+					if count > 0 && h.mem[ip+2+bytes] == 0x8f {
+						high = count - 1
+					} else if next != 0xa1 && next != 0xd4 {
+						h.t.Fatalf("unknown controlled raw RND consumer base%x at%x next%x", base, at, next)
+					}
+				}
+				if high < low {
+					h.t.Fatal("controlled RND bounds")
+				}
+				h.poke(sp+uint32(pop*2), uint16(cadenceDraw(trace.Combat.Counter, low, high, &trace.Combat.Draws)))
+				trace.Combat.Calls = append(trace.Combat.Calls, [3]int{base, at, int(proc)})
+				handled = true
+			case trace.Combat != nil && base == 0x31e00 && op == 0x73 && proc == 3:
+				pop, handled = 1, true // sound output only; game writers execute
+			case trace.Combat != nil && base == 0x31e00 && op == 0x73 && proc == 0x39:
+				pop, handled = 1, true // visual feedback delay, no game writer
+			case trace.Combat != nil && base == 0x31e00 && op == 0x91 && proc == 0x11:
+				pop, handled = 1, true // system/hull HUD, writers execute unchanged
 			case base == 0x2e800 && trace.GroundClock != nil && op == 0x70 && proc == 0x14:
 				clock := trace.GroundClock
 				if clock.Reads >= len(clock.Inputs) {
