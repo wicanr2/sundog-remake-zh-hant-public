@@ -5,7 +5,53 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from verify_talos_combat_cadence import compare_fuel_consumers, compare_mixed_energy
+from verify_talos_combat_cadence import compare_fuel_consumers, compare_mixed_energy, compare_fuel_flight_parent
+
+
+class ContinuousParentGateTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.output = Path(self.temp.name)
+        self.native = []
+        for phase in range(3):
+            for fuel in (0, 1, 4, 5, 254, 255):
+                for energy in ([0, 0, 255], [254, 63, 63], [255, 255, 0]):
+                    for kinds in ([0, 0], [1, 0], [0, 1], [1, 1]):
+                        for attached in (False, True):
+                            self.native.append(dict(Input=dict(Phase=phase, Fuel=fuel, Energy=energy, Kinds=kinds, Attached=attached),
+                                Steps=[dict(Phase=(phase + n + 1) % 3, Tick=0, Fuel=0, Weapon=0, Shield=0,
+                                            Setting=0, Angle=0, Radius=0, Words=[0, 0], Flags=[0] * 5) for n in range(9)]))
+        self.formal = copy.deepcopy(self.native)
+
+    def compare(self):
+        for name, rows in (("native", self.native), ("remake", self.formal)):
+            (self.output / f"{name}-fuel-flight-parent.json").write_text(json.dumps(rows))
+        return compare_fuel_flight_parent(self.output)
+
+    def test_complete_parent_coverage(self):
+        result = self.compare()
+        self.assertEqual(result["status"], "PASS")
+        self.assertEqual(result["updates"], 3888)
+
+    def test_same_shortened_sequence_is_rejected(self):
+        for rows in (self.native, self.formal):
+            rows[0]["Steps"].pop()
+        self.assertEqual(self.compare()["status"], "FAIL")
+
+    def test_same_duplicate_input_is_rejected(self):
+        for rows in (self.native, self.formal):
+            rows[1] = copy.deepcopy(rows[0])
+        self.assertEqual(self.compare()["status"], "FAIL")
+
+    def test_late_energy_difference_is_rejected(self):
+        self.formal[-1]["Steps"][-1]["Fuel"] = 1
+        self.assertEqual(self.compare()["status"], "FAIL")
+
+    def test_matching_phase_reset_is_rejected(self):
+        for rows in (self.native, self.formal):
+            rows[0]["Steps"][2]["Phase"] = 2
+        self.assertEqual(self.compare()["status"], "FAIL")
 
 
 class ConsumerGateTests(unittest.TestCase):

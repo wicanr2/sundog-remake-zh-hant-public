@@ -18,6 +18,120 @@ type fuelEnergyInput struct {
 	Kinds                                                            [2]int
 }
 
+type fuelFlightParentInput struct {
+	Phase, Fuel int
+	Energy      [3]int
+	Kinds       [2]int
+	Attached    bool
+}
+type fuelFlightParentSnapshot struct {
+	Phase, Tick, Fuel, Weapon, Shield, Setting, Angle, Radius int
+	Words                                                     [2]uint16
+	Flags                                                     []uint16
+}
+type fuelFlightParentRow struct {
+	Input fuelFlightParentInput
+	Steps []fuelFlightParentSnapshot
+}
+
+func TestExportTalosFuelFlightParent(t *testing.T) {
+	out := os.Getenv("SUNDOG_PARITY_OUTPUT")
+	if out == "" {
+		t.Skip("original fuel parent export not enabled")
+	}
+	exportTalosFuelFlightParent(t, out)
+}
+
+func TestFuelFlightParentNativeParity(t *testing.T) {
+	raw, err := os.ReadFile("../../docs/atari-st/fuel-flight-parent-parity-20261016.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var receipt struct{ Native []fuelFlightParentRow }
+	if err = json.Unmarshal(raw, &receipt); err != nil {
+		t.Fatal(err)
+	}
+	if len(receipt.Native) != 432 {
+		t.Fatal("missing native432 continuous fuel inputs")
+	}
+	out := t.TempDir()
+	raw, err = json.Marshal(receipt.Native)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(out, "native-fuel-flight-parent.json"), raw, 0600); err != nil {
+		t.Fatal(err)
+	}
+	exportTalosFuelFlightParent(t, out)
+}
+
+func exportTalosFuelFlightParent(t *testing.T, out string) {
+	t.Helper()
+	raw, err := os.ReadFile(filepath.Join(out, "native-fuel-flight-parent.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var native []fuelFlightParentRow
+	if err = json.Unmarshal(raw, &native); err != nil {
+		t.Fatal(err)
+	}
+	if len(native) != 432 {
+		t.Fatal("missing native432 fuel parent inputs")
+	}
+	actual := []fuelFlightParentRow{}
+	differences := 0
+	for _, n := range native {
+		i := n.Input
+		s := consumerState(i.Attached, i.Kinds)
+		s.Screen = ScreenFlight
+		s.Fuel, s.ShipPhase, s.WeaponCharge, s.ShieldLevel, s.ShieldSetting = i.Fuel, i.Phase, i.Energy[0], i.Energy[1], i.Energy[2]
+		s.ShipControls = ShipControls{Warp: true, Subc: true, Guns: true, Tactical: true, Pilotage: true}
+		s.ShieldsActive = true
+		s.FlightTicks = 33
+		s.FlightFromAngle, s.FlightFromRadius, s.FlightDeltaAngle, s.FlightDeltaRadius = 250, 20, 6, 10
+		s.FlightAngle, s.FlightRadius = 250, 20
+		for j := range s.ShipSystems {
+			system := &s.ShipSystems[j]
+			system.Rows = intactRows(system.ID)
+			if system.ID == ShipSystemShipGuns || system.ID == ShipSystemForceShields {
+				system.Rows[2], system.Rows[3] = make([]int, 4), make([]int, 4)
+			}
+		}
+		normalizeShipSystems(&s)
+		if shipSystemStatusByID(s, ShipSystemSubcEngine) != 16 || shipSystemStatusByID(s, ShipSystemShipGuns) != 8 || shipSystemStatusByID(s, ShipSystemForceShields) != 8 {
+			t.Fatal("controlled system rows differ")
+		}
+		r := fuelFlightParentRow{Input: i}
+		for step := 0; step < 9; step++ {
+			advanceShipClock(&s)
+			words, _ := consumerWords(s)
+			x := fuelFlightParentSnapshot{Phase: s.ShipPhase, Tick: s.FlightTick, Fuel: s.Fuel, Weapon: s.WeaponCharge, Shield: s.ShieldLevel, Setting: s.ShieldSetting, Angle: s.FlightAngle, Radius: s.FlightRadius, Words: words, Flags: consumerFlags(s)}
+			r.Steps = append(r.Steps, x)
+			if len(n.Steps) != 9 {
+				t.Fatal("missing nine original continuous updates")
+			}
+			if !reflect.DeepEqual(x, n.Steps[step]) {
+				differences++
+				if differences <= 5 {
+					t.Logf("input%+v step%d original%+v remake%+v", i, step, n.Steps[step], x)
+				}
+			}
+		}
+		actual = append(actual, r)
+	}
+	raw, err = json.MarshalIndent(actual, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(out, "remake-fuel-flight-parent.json"), append(raw, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if differences != 0 {
+		t.Fatalf("continuous fuel parent differences %d/3888", differences)
+	}
+	t.Log("432 fuel inputs x 9 continuous formal ship callbacks conform")
+}
+
 // This comparison consumes the original answers, rather than a second copy
 // of the rule contract. Packed fields are reconstructed only at this boundary.
 type fuelConsumerInput struct {

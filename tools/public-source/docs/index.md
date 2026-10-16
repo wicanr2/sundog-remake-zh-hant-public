@@ -9,6 +9,7 @@
 - [v.1.2.0 五語與三平台驗收](atari-st/release-v1200-20261016.json)
 - [完整繁中操作說明](manual/remake-controls-zh-Hant.md)
 - [倉庫 Swap 正常玩家驗證工具](../tools/verify_warehouse_swap_player.py)
+- [連續航行燃料父層原生答案與驗證範圍](atari-st/fuel-flight-parent-parity-20261016.json)
 - [公開檔案與截圖雜湊](../PUBLIC-SOURCE-MANIFEST.json)
 - [字型來源與授權](../assets/fonts/ASSET-MANIFEST.md)
 - [工作紀錄](../WORKLOG.md)

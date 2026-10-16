@@ -1,5 +1,7 @@
 # 公開來源目前狀態
 
+2026-10-16 連續航行燃料父層補驗通過：432個控制初態各九次更新，原版完整SHIPLIB父程序與正式背景回呼共3888個更新點零差異。普通回歸新增固定原版答案，工具新增 `--fuel-flight-parent-only`。本輪只補證據與測試，正式遊戲規則及schema44不變；完整有貨交戰排程與全部正常玩家範圍仍未驗，不宣稱完整燃料或全款exact。入口見docs/index.md。
+
 遊戲來源版本為 v.1.2.0-20261016，存檔 schema44。三個正式呈現為 Atari ST、Atari ST HD 與 Apple II。語系為繁中、簡中、日文、韓文與英文；README 提供繁中、日文、韓文及英文。全套 HD 已接入正式操作；原版對拍及平台驗證限制見 README。
 
 本公開 repo 為全新來源快照，原私人 repo 的歷史、全部 tag、Release 與原版對拍圖片保持私人。公開檔案與獨立 HD 截圖雜湊見 PUBLIC-SOURCE-MANIFEST.json。

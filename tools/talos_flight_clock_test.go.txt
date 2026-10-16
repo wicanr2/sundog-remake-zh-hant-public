@@ -12,6 +12,86 @@ type flightShipSleepInput struct {
 	Phase, Ticks, Tick, WakeCycle int
 	Energy                        [4]int
 }
+
+// Issue8: persistent parent -> movement -> mixed energy, without encounter
+// goods or speed changes. Original MAINLIB RND runs from fixed words (1,0).
+type fuelFlightParentInput struct {
+	Phase, Fuel int
+	Energy      [3]int // weapon, shield, setting
+	Kinds       [2]int
+	Attached    bool
+}
+type fuelFlightParentSnapshot struct {
+	Phase, Tick, Fuel, Weapon, Shield, Setting, Angle, Radius int
+	Words                                                     [2]uint16
+	Flags                                                     []uint16
+}
+type fuelFlightParentRow struct {
+	Input fuelFlightParentInput
+	Steps []fuelFlightParentSnapshot
+}
+
+func TestSunDogFuelFlightParent(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	rows := []fuelFlightParentRow{}
+	for phase := 0; phase < 3; phase++ {
+		for _, fuel := range []int{0, 1, 4, 5, 254, 255} {
+			for _, energy := range [][3]int{{0, 0, 255}, {254, 63, 63}, {255, 255, 0}} {
+				for _, kinds := range [][2]int{{0, 0}, {1, 0}, {0, 1}, {1, 1}} {
+					for _, attached := range []bool{false, true} {
+						i := fuelFlightParentInput{phase, fuel, energy, kinds, attached}
+						h := foodSleepHarness(t, disk)
+						h.cpu.State.A[1], h.cpu.State.A[2] = 0x48000, 0x80000
+						h.poke(interpBase+0x1b70, 4)
+						h.poke(interpBase+0x1b72, 0x8000)
+						levelsFrame(h, 0x46000)
+						h.poke(0x46000, 0x5000)
+						// Same explicit presentation word as the established
+						// mode2 parent fixture, outside this state comparison.
+						for n, v := range map[int]int{0x32: 0x7727, 0x49: 20<<8 | 250, 0x19: phase, 0xe5: fuel, 0xe4: energy[0], 0xe3: energy[1], 0xe2: energy[2], 0xcd: 2, 0xd4: 0, 0xd5: 33, 0xd6: 10, 0xd7: 6, 0xdd: 20, 0xde: 250, 0x101: 1, 0x102: 0} {
+							h.poke(cadenceGlobal(n), uint16(v))
+						}
+						h.mem[cadenceGlobal(0x5b)+0x34] = 16
+						h.mem[cadenceGlobal(0x5b)+0x50] = 8
+						h.mem[cadenceGlobal(0x5b)+0x88] = 8
+						for flag := 0; flag < 6; flag++ {
+							cadenceFlag(h, flag, true)
+						}
+						cadenceFlag(h, 7, attached)
+						for n, k := range kinds {
+							h.poke(cadenceGlobal(0xec)+uint32(n*4), 0xab20|uint16(k))
+						}
+						r := fuelFlightParentRow{Input: i}
+						trace := foodSleepTrace{}
+						for step := 0; step < 9; step++ {
+							foodSleepRun(h, disk, 0x31e00, 0x1278, 0x12c1, 0, &trace)
+							g := func(n int) int { return int(int16(h.peek(cadenceGlobal(n)))) }
+							position := h.peek(cadenceGlobal(0x49))
+							x := fuelFlightParentSnapshot{Phase: g(0x19), Tick: g(0xd4), Fuel: g(0xe5), Weapon: g(0xe4), Shield: g(0xe3), Setting: g(0xe2), Angle: int(position & 255), Radius: int(position >> 8), Flags: displayFlags(h)}
+							for n := range kinds {
+								x.Words[n] = h.peek(cadenceGlobal(0xec) + uint32(n*4))
+							}
+							r.Steps = append(r.Steps, x)
+						}
+						rows = append(rows, r)
+					}
+				}
+			}
+		}
+	}
+	if len(rows) != 432 {
+		t.Fatal("missing fuel parent inputs", len(rows))
+	}
+	data, err := json.MarshalIndent(rows, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-fuel-flight-parent.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("original full fuel parent: %d inputs x 9 continuous updates", len(rows))
+}
+
 type flightShipSleepRow struct {
 	Input                                                            flightShipSleepInput
 	EnergyAfter                                                      [4]int

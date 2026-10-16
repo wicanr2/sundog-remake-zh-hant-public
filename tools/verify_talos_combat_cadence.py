@@ -14,6 +14,67 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def compare_fuel_flight_parent(output):
+    paths = [output / name for name in ("native-fuel-flight-parent.json", "remake-fuel-flight-parent.json")]
+    if not all(path.is_file() for path in paths):
+        return {"status": "FAIL", "reason": "missing continuous parent receipt"}
+    native, formal = [json.loads(path.read_text()) for path in paths]
+    key = lambda value: json.dumps(value, sort_keys=True)
+    wanted = {key(dict(Phase=phase, Fuel=fuel, Energy=energy, Kinds=kinds, Attached=attached))
+              for phase in range(3) for fuel in (0, 1, 4, 5, 254, 255)
+              for energy in ([0, 0, 255], [254, 63, 63], [255, 255, 0])
+              for kinds in ([0, 0], [1, 0], [0, 1], [1, 1]) for attached in (False, True)}
+    required = {"Phase", "Tick", "Fuel", "Weapon", "Shield", "Setting", "Angle", "Radius", "Words", "Flags"}
+    coverage = len(native) == len(formal) == len(wanted) == 432
+    for rows in (native, formal):
+        coverage = coverage and {key(row.get("Input")) for row in rows} == wanted
+        for row in rows:
+            steps = row.get("Steps", [])
+            coverage = coverage and len(steps) == 9
+            for index, step in enumerate(steps):
+                coverage = coverage and set(step) == required and step.get("Phase") == (row["Input"]["Phase"] + index + 1) % 3
+    differences = sum(a != b for a, b in zip(native, formal)) + abs(len(native) - len(formal))
+    return dict(status="PASS" if coverage and not differences else "FAIL", cases=len(native),
+                updates=sum(len(row.get("Steps", [])) for row in native), complete_unique_inputs=coverage,
+                differences=differences)
+
+
+def run_fuel_flight_parent(repo, talos, output, env, version):
+    names = ("combat_aim", "combat_cadence", "combat_course", "combat_init", "combat_parent", "combat_display",
+             "combat_levels", "combat_movement", "combat_fuel", "fuel_depot", "fuel_entry", "walker_slices",
+             "banville", "banville_price", "banville_site", "trade_classes", "food", "flight_clock")
+    sources = [repo / f"tools/talos_{name}_test.go.txt" for name in names]
+    overlay = output / "overlay.json"
+    overlay.write_text(json.dumps({"Replace": {str(talos / f"internal/m68k/sundog_{name}_test.go"): str(path)
+                                              for name, path in zip(names, sources)}}))
+    commands = [["go", "test", "-overlay", str(overlay), "-buildvcs=false", "./internal/m68k", "-run", "^TestSunDogFuelFlightParent$", "-count=1", "-v"],
+                ["go", "test", "./internal/game", "-run", "^TestExportTalosFuelFlightParent$", "-count=1", "-v"]]
+    for cmd, cwd, log in zip(commands, (talos, repo), ("native.log", "formal.log")):
+        run_logged(cmd, output / log, cwd=cwd, env=env, timeout=240)
+    report = compare_fuel_flight_parent(output)
+    report.update(scope="432初態各連續九次：原始完整SHIPLIB:12→1f→23，對正式advanceShipClock→advanceInSystemFlight；包括三相位、移動耗油、混合充能、耗盡關閉與兩槽消費。無遭遇貨物，速度0且相等，未到站。不是正常GUI或完整交戰父鏈。",
+                  grade="proven-native-scoped", saveSchema=44, go=version, originalGUI="unverified",
+                  randomness="原版MAINLIB RND原始雙字(1,0)固定於執行前；Subc狀態16使移動結果不依抽值，無速度差或交戰。正式RNG算法不同，不宣稱跨流程骰序相同。",
+                  initialState=dict(ticks=33, tick=0, angle=250, radius=20, deltaAngle=6, deltaRadius=10,
+                                    subcStatus=16, gunStatus=8, shieldStatus=8, currentSpeed=0, targetSpeed=0,
+                                    originalDisplayWord="0x7727", holdWordPrefix="0xab20"),
+                  commands=commands, native=json.loads((output / "native-fuel-flight-parent.json").read_text()),
+                  diskSHA256=sha(Path(env["SUNDOG_PARITY_DISK"])), interpreterSHA256=sha(Path(env["TALOS_UCSD_INTERP"]) / "SYSTEM.INTERP"),
+                  talosHead=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=talos, text=True).strip(),
+                  sourceSHA256={str(path.relative_to(repo)): sha(path) for path in sources + [Path(__file__).resolve(),
+                      repo / "internal/game/talos_fuel_energy_fixture_test.go", repo / "internal/game/flight.go",
+                      repo / "internal/game/ship_energy.go", repo / "internal/game/awake_clock_state.go"]},
+                  outputSHA256={name: sha(output / name) for name in ("native-fuel-flight-parent.json", "remake-fuel-flight-parent.json")},
+                  locations={"addressSpace": "sundog.st磁碟raw基底加段內byte位移", "rawBase": "0x31e00",
+                             "parent": "0x1278..0x12c1，RPU前", "movement": "0x08ea..0x0c4a，RPU前",
+                             "energy": "0x105c..0x1272，RPU前"},
+                  boundaries="沿既有foodSleepRun呼叫框架與原始MAINLIB亂數／cond_level／付款／check_fuel／夾限。HUD、平台封裝與程序返回ABI由研究框架隔離，實際狀態writer及相位遞增均由原指令執行。")
+    (output / "receipt.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+    print(f"{report['status']} continuous fuel parent: {report['cases']} inputs / {report['updates']} updates")
+    if report["status"] != "PASS":
+        raise SystemExit(1)
+
+
 def run_flight_back(repo,talos,output,env,version):
     names=("combat_aim","combat_cadence","combat_course","combat_init","combat_parent","combat_display",
         "combat_levels","combat_movement","combat_fuel","fuel_depot","fuel_entry","walker_slices",
@@ -310,6 +371,8 @@ def main():
                         help="完整空艙航行睡眠父鏈、第四貨艙閘門及正式比較")
     parser.add_argument("--flight-back-only", action="store_true",
                         help="原版航行退出16案及正式返回船艙六場景，不新增Flight H")
+    parser.add_argument("--fuel-flight-parent-only", action="store_true",
+                        help="432組連續九次原版父程序／正式燃料背景回呼，不含交戰或GUI")
     parser.add_argument("--require-initial-cooldown", action="store_true",
                         help="驗收已修初始化冷卻；正式完整航向／排程投影仍只報差異")
     parser.add_argument("--require-mode5-drift", action="store_true",
@@ -352,6 +415,11 @@ def main():
     output.mkdir(mode=0o700, exist_ok=True)
     env = dict(os.environ, SUNDOG_PARITY_DISK=str(disk), SUNDOG_PARITY_OUTPUT=str(output),
                TALOS_UCSD_INTERP=str(interp.parent), GOPROXY="off", GOTOOLCHAIN="local")
+    if args.fuel_flight_parent_only:
+        if any(value for name, value in vars(args).items() if name not in ['disk', 'talos', 'output', 'fuel_flight_parent_only']):
+            parser.error('--fuel-flight-parent-only須獨立執行')
+        run_fuel_flight_parent(repo, talos, output, env, version)
+        return
     if args.flight_back_only:
         if any(value for name,value in vars(args).items() if name not in ['disk','talos','output','flight_back_only']):
             parser.error('--flight-back-only須獨立執行')

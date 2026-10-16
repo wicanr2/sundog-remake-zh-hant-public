@@ -87,8 +87,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 2218,
-      "sha256": "501b9fd82bbb56573f3b0820fa138aa93bb1680d8502e2e01cf7ee39c38ad860"
+      "bytes": 2662,
+      "sha256": "803881f35d5dbeae5e05b58d6f6c88249acb6e200ba230954e4b4b13111fb836"
     },
     {
       "path": "LICENSE",
@@ -117,8 +117,8 @@
     },
     {
       "path": "WORKLOG.md",
-      "bytes": 3945,
-      "sha256": "21268eb7530e2687e5ccc360baeec4c2cefebd42ad1838ce7b7b91a4a2c4deff"
+      "bytes": 4549,
+      "sha256": "c5d036492ecdba8e5f7244b445bce33a381d7f009ae3c9896872acbf5f2bb0c9"
     },
     {
       "path": "assets/fonts/ASSET-MANIFEST.md",
@@ -561,6 +561,11 @@
       "sha256": "8eecbaae18d3c89c9aa8d59cccf165ba3428d6db0631123ce6f1ba87f8557c2d"
     },
     {
+      "path": "docs/atari-st/fuel-flight-parent-parity-20261016.json",
+      "bytes": 1624723,
+      "sha256": "28802a9a711b679656890c754f270ba20c180881cd3478a1e998554a77d32fb2"
+    },
+    {
       "path": "docs/atari-st/fuel-rescue-parity-20261005.json",
       "bytes": 14377619,
       "sha256": "f6353501a7460355e59475ee458d3644241ef9b0e3b964a406c1abe9f38bf11d"
@@ -732,8 +737,8 @@
     },
     {
       "path": "docs/index.md",
-      "bytes": 1727,
-      "sha256": "7fcf87a16ebcb83c4c79f308ddb3a552eca24313a279ea6daf04236e0aad1e7a"
+      "bytes": 1833,
+      "sha256": "a54300ea64c42e3710ee2906ba83b7b4d056c03d8768603101e0793f7f5680f0"
     },
     {
       "path": "docs/manual/remake-controls-zh-Hant.md",
@@ -1302,8 +1307,8 @@
     },
     {
       "path": "internal/game/talos_fuel_energy_fixture_test.go",
-      "bytes": 18220,
-      "sha256": "3c4c0360d515f509fe14ea2f21455a60c59945a967fbede55711dfa5a6629573"
+      "bytes": 22072,
+      "sha256": "59ed0bb3cc73a76aee50a7941de14c4495323f64611e7b3a05cad3a641265065"
     },
     {
       "path": "internal/game/teller.go",
@@ -2862,8 +2867,8 @@
     },
     {
       "path": "tools/public-source/CONTEXT.md",
-      "bytes": 2218,
-      "sha256": "501b9fd82bbb56573f3b0820fa138aa93bb1680d8502e2e01cf7ee39c38ad860"
+      "bytes": 2662,
+      "sha256": "803881f35d5dbeae5e05b58d6f6c88249acb6e200ba230954e4b4b13111fb836"
     },
     {
       "path": "tools/public-source/README.en.md",
@@ -2887,8 +2892,8 @@
     },
     {
       "path": "tools/public-source/WORKLOG.md",
-      "bytes": 3945,
-      "sha256": "21268eb7530e2687e5ccc360baeec4c2cefebd42ad1838ce7b7b91a4a2c4deff"
+      "bytes": 4549,
+      "sha256": "c5d036492ecdba8e5f7244b445bce33a381d7f009ae3c9896872acbf5f2bb0c9"
     },
     {
       "path": "tools/public-source/docs/build.md",
@@ -2897,8 +2902,8 @@
     },
     {
       "path": "tools/public-source/docs/index.md",
-      "bytes": 1727,
-      "sha256": "7fcf87a16ebcb83c4c79f308ddb3a552eca24313a279ea6daf04236e0aad1e7a"
+      "bytes": 1833,
+      "sha256": "a54300ea64c42e3710ee2906ba83b7b4d056c03d8768603101e0793f7f5680f0"
     },
     {
       "path": "tools/public-source/docs/promo/README.md",
@@ -3112,8 +3117,8 @@
     },
     {
       "path": "tools/talos_flight_clock_test.go.txt",
-      "bytes": 13063,
-      "sha256": "41017def9adf5b3e2531d471be6aacc309d0ac6f19f0b1c4de63e6ad95ba810f"
+      "bytes": 16286,
+      "sha256": "0d6084e94eb3be7aef71ed988a35285389c4869aace62428f08cc65b2d9914c5"
     },
     {
       "path": "tools/talos_food_test.go.txt",
@@ -3432,8 +3437,8 @@
     },
     {
       "path": "tools/test_verify_talos_combat_cadence.py",
-      "bytes": 5181,
-      "sha256": "a46e82cef44c178de8582e56f3d427322699591a4048fca8639150b55d068b84"
+      "bytes": 7338,
+      "sha256": "36aee331071783ad78b09ed762fdca10e09c2d0afc814eed4dc10b1b09521612"
     },
     {
       "path": "tools/test_verify_talos_fuel_depot.py",
@@ -3622,8 +3627,8 @@
     },
     {
       "path": "tools/verify_talos_combat_cadence.py",
-      "bytes": 42725,
-      "sha256": "4ff8106f73b385fca7f4768410f9b9e0734df442f48ea3b8b7b69692d17bb666"
+      "bytes": 48646,
+      "sha256": "b6adbabaee0e4cdcec0a613ea3ed6f04f500073a0bbd192402c4c4d83b614169"
     },
     {
       "path": "tools/verify_talos_cryo_source.py",
