@@ -30,8 +30,22 @@ func decodeCurrentState(raw json.RawMessage) (game.State, error) {
 		"shieldsActive", "shipControls", "shipPhase", "currentSpeed", "targetSpeed",
 		"groundMode", "cargoAttached", "cargoCityId", "cargoPosition", "tractorActive",
 		"fuelRescuePending", "fuelRescueDue", "fuelJettisonPending", "shipRefresh", "sleep", "sleepTheftProtected", "awakeClock",
-		"enemyClosing", "fuelPurchase", "holds", "warehouses", "tradeSession", "tradeClassShift", "colony", "colonySite", "tradeSaleSlot", "tradeSalePrice", "stores", "parts", "handItem", "handOrigin", "attributes", "attributeMax"); err != nil {
+		"enemyClosing", "enemyCourse", "fuelPurchase", "holds", "warehouses", "tradeSession", "tradeClassShift", "colony", "colonySite", "tradeSaleSlot", "tradeSalePrice", "stores", "parts", "handItem", "handOrigin", "attributes", "attributeMax"); err != nil {
 		return game.State{}, err
+	}
+	var course map[string]json.RawMessage
+	if err := json.Unmarshal(fields["enemyCourse"], &course); err != nil {
+		return game.State{}, err
+	}
+	if err := require(course, "ticks", "fireReady", "canPrepareFire", "maneuver"); err != nil {
+		return game.State{}, err
+	}
+	var maneuver []json.RawMessage
+	if err := json.Unmarshal(course["maneuver"], &maneuver); err != nil {
+		return game.State{}, err
+	}
+	if len(maneuver) != 2 || string(maneuver[0]) == "null" || string(maneuver[1]) == "null" {
+		return game.State{}, fmt.Errorf("invalid enemy maneuver state")
 	}
 	var clock map[string]json.RawMessage
 	if err := json.Unmarshal(fields["awakeClock"], &clock); err != nil {
@@ -197,6 +211,9 @@ func decodeCurrentState(raw json.RawMessage) (game.State, error) {
 	}
 	if s.Schema != game.CurrentSchema {
 		return game.State{}, fmt.Errorf("%w：schema %d", ErrOldSave, s.Schema)
+	}
+	if err := game.ValidateEnemyCourseState(s); err != nil {
+		return game.State{}, err
 	}
 	if err := game.ValidateFuelState(s); err != nil {
 		return game.State{}, err

@@ -77,6 +77,9 @@ func ListLibrary(path string) ([]SlotSummary, error) {
 // not mutated. Menu-only screens are normalized to shipboard so a loaded
 // stored game returns to a playable screen.
 func StoreGame(path, slotID string, state game.State) error {
+	if err := game.ValidateEnemyCourseState(state); err != nil {
+		return err
+	}
 	if err := game.ValidateAwakeClockState(state); err != nil {
 		return err
 	}

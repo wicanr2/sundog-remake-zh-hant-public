@@ -15,7 +15,7 @@ def sha(path):
 
 
 def compare_combat_continuous_parent(output):
-    """Validate research coverage; formal differences remain a DRAFT gate."""
+    """Require all persisted combat fields to match the controlled native parent."""
     names = ("native-combat-continuous.json", "native-combat-continuous-controlled.json", "remake-combat-continuous.json")
     if not all((output / name).is_file() for name in names):
         return dict(status="FAIL", reason="missing continuous combat output")
@@ -23,9 +23,8 @@ def compare_combat_continuous_parent(output):
     key = lambda value: json.dumps(value, sort_keys=True)
     wanted = {key(dict(Mode=mode, Phase=phase, Fuel=fuel, Ready=ready))
               for mode in range(1, 8) for phase in range(3) for fuel in (0, 1, 255) for ready in (False, True)}
-    projected = {key(json.loads(value)) for value in wanted if not json.loads(value)["Ready"]}
     coverage = True
-    for rows, expected in ((actual, wanted), (controlled, wanted), (formal, projected)):
+    for rows, expected in ((actual, wanted), (controlled, wanted), (formal, wanted)):
         coverage = coverage and len(rows) == len(expected) and {key(row.get("Input")) for row in rows} == expected
         for row in rows:
             steps = row.get("Steps", [])
@@ -33,8 +32,9 @@ def compare_combat_continuous_parent(output):
             for index, step in enumerate(steps):
                 coverage = coverage and step.get("Phase") == (row["Input"]["Phase"] + index + 1) % 3
     common = ("Phase", "Fuel", "Weapon", "Shield", "Setting", "Hull", "Cooldown", "Range", "Bearing", "Pitch",
-              "BearingDrift", "PitchDrift", "Counter", "Active", "Words", "Systems")
-    native_fields = set(common) | {"Timer", "Ready", "Closing", "Aux8", "Aux9", "Flags", "RandomWords"}
+              "BearingDrift", "PitchDrift", "Counter", "Active", "Words", "Systems",
+              "Timer", "Ready", "Closing", "Aux8", "Aux9", "CanPrepareFire")
+    native_fields = (set(common) - {"CanPrepareFire"}) | {"Flags", "RandomWords"}
     for rows in (actual, controlled):
         for row in rows:
             calls = [call for call in row.get("Calls", []) if call[0] == 0x31e00 and call[1] in (0x1295, 0x1298, 0x12a8)]
@@ -64,6 +64,9 @@ def compare_combat_continuous_parent(output):
             initial_system_differences += 1
         for index, (a, b) in enumerate(zip(native["Steps"], row["Steps"])):
             points += 1
+            # Native flag44 is the proven eligibility bit. Other display flags
+            # remain unmapped; no interpreter memory enters runtime or saves.
+            a = dict(a, CanPrepareFire=bool(a["Flags"][44 // 16] & (1 << (44 % 16))))
             for field in common:
                 if field not in a or field not in b:
                     coverage = False
@@ -71,13 +74,13 @@ def compare_combat_continuous_parent(output):
                     differences[field] += 1
                     if len(examples) < 12:
                         examples.append(dict(input=row["Input"], update=index + 1, field=field, native=a[field], formal=b[field]))
-    return dict(status="PASS-research" if coverage else "FAIL", nativeCases=len(actual), controlledCases=len(controlled),
+    return dict(status="PASS-scoped" if coverage and not any(differences.values()) else "FAIL", nativeCases=len(actual), controlledCases=len(controlled),
                 nativeUpdates=sum(len(row.get("Steps", [])) for row in actual), formalCases=len(formal), comparedUpdates=points,
                 completeUniqueInputs=coverage, differences=differences, examples=examples,
                 initialSystemDifferences=initial_system_differences,
-                conformance="DRAFT" if any(differences.values()) else "scoped-projection-only",
-                unmappedNativeFields=["Timer", "Ready", "Closing", "Aux8", "Aux9", "Flags"],
-                initialReadyNotComparable=63)
+                conformance="CONFORMED-scoped" if coverage and not any(differences.values()) else "DRAFT",
+                unmappedNativeFields=["Flags", "RandomWords"],
+                initialReadyNotComparable=0)
 
 
 def run_combat_continuous_parent(repo, talos, output, env, version):
@@ -94,11 +97,11 @@ def run_combat_continuous_parent(repo, talos, output, env, version):
         run_logged(cmd, output / log, cwd=cwd, env=env, timeout=240)
     report = compare_combat_continuous_parent(output)
     report.update(scope="原始完整SHIPLIB:12→1f→23→21→1e/1d/20及傷害/系統重算，各初態連續12更新；模式1..7、三相、Fuel0/1/255、ready真假，敵型0。不是原版正常GUI或全敵型驗收。",
-                  grade="proven-native-scoped", saveSchema=44, go=version, productionRulesChanged=False,
+                  grade="proven-native-scoped", saveSchema=45, go=version, productionRulesChanged=True,
                   originalGUI="unverified", fullParentSpec="DRAFT",
                   randomness={"actual": "原始MAINLIB RND雙字(1,0)，執行前固定，全部原始亂數程序真正執行。",
                               "controlled": "原版RND/有界rand邊界與正式combatRoll共用counter0混合序列；原指令決定範圍及呼叫順序，非原版RNG。",
-                              "comparison": "只比較controlled非ready63初態；ready在正式State無對應，不補零，不要求自然RNG骰序一致。"},
+                              "comparison": "controlled全部126初態比較22個持久欄位；射擊資格對應原始flag44，其餘顯示旗標不映射；不要求自然RNG骰序一致。"},
                   initialState=dict(enemyType=0, enemyHull=200, range=70, bearing=512, pitch=512,
                                     bearingDrift=3, pitchDrift=-3, closing=-1, courseTimer=1, cooldown=1, aux8=2, aux9=1,
                                     weapon=0, shield=255, setting=255, hull=16, ticks=1000, attached=True,
@@ -110,6 +113,7 @@ def run_combat_continuous_parent(repo, talos, output, env, version):
                   talosHead=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=talos, text=True).strip(),
                   sourceSHA256={str(path.relative_to(repo)): sha(path) for path in sources + [Path(__file__).resolve(),
                       repo / "internal/game/talos_combat_cadence_fixture_test.go", repo / "internal/game/combat.go",
+                      repo / "internal/game/enemy_course.go", repo / "internal/game/state.go",
                       repo / "internal/game/awake_clock_state.go", repo / "internal/game/sleep.go", repo / "internal/game/ship_energy.go"]},
                   outputSHA256={name: sha(output / name) for name in ("native-combat-continuous.json", "native-combat-continuous-controlled.json", "remake-combat-continuous.json")},
                   locations={"addressSpace": "sundog.st磁碟raw基底加段內byte位移", "rawBase": "0x31e00",
@@ -118,7 +122,7 @@ def run_combat_continuous_parent(repo, talos, output, env, version):
                              "setFire": "0x0c50..0x0cee", "updateSystem": "0x0236..0x035f", "stop": "各範圍末端RPU前"})
     (output / "receipt.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     print(f"{report['status']} continuous combat: {report['nativeCases']} actual / {report['controlledCases']} controlled / {report['formalCases']} formal; conformance={report['conformance']}")
-    if report["status"] != "PASS-research":
+    if report["status"] != "PASS-scoped":
         raise SystemExit(1)
 
 
@@ -482,7 +486,7 @@ def main():
     parser.add_argument("--fuel-flight-parent-only", action="store_true",
                         help="432組連續九次原版父程序／正式燃料背景回呼，不含交戰或GUI")
     parser.add_argument("--combat-continuous-parent-only", action="store_true",
-                        help="連續交戰完整原生父呼叫鏈及正式差異基線；不把研究PASS當CONFORMED")
+                        help="模式1..7連續交戰原生父鏈／正式22欄一致閘門；不是全款GUI驗收")
     parser.add_argument("--require-initial-cooldown", action="store_true",
                         help="驗收已修初始化冷卻；正式完整航向／排程投影仍只報差異")
     parser.add_argument("--require-mode5-drift", action="store_true",

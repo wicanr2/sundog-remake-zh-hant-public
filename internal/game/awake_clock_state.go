@@ -159,8 +159,8 @@ func advanceGroundClock(s *State, moving bool) {
 	advanceTime(s, s.AwakeClock.Ground.Update(s.AwakeClock.Source.Ticks, moving, s.GroundMode == GroundOnFoot))
 }
 
-// Same idle movement/energy consumer as the verified sleep parent. Full
-// flight/combat command scheduling remains a separate player-path gate.
+// One parent callback: phase/movement, energy, then the enemy update. Sleep,
+// awake slots and explicit tactical steps share this order.
 func advanceShipClock(s *State) {
 	if s.FlightTicks > 0 && s.FlightTick < s.FlightTicks {
 		advanceInSystemFlight(s)
@@ -168,4 +168,5 @@ func advanceShipClock(s *State) {
 		advanceShipPhase(s)
 		updateShipEnergy(s, func(n int) int { return combatRoll(s, n) })
 	}
+	advanceEnemyCombat(s)
 }

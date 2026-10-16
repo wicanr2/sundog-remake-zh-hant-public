@@ -12,6 +12,8 @@
 - [連續航行燃料父層原生答案與驗證範圍](atari-st/fuel-flight-parent-parity-20261016.json)
 - [schema44正常購油、兩補油入口與五語畫面驗收](atari-st/fuel-normal-player-parity-20261016.json)
 - [正常燃料玩家驗證工具](../tools/verify_fuel_player.py)
+- [schema45 戰鬥持久狀態](../internal/game/enemy_course.go)
+- [schema45 正常新局、購貨與戰鬥保存工具](../tools/verify_schema45_player.py)
 - [公開檔案與截圖雜湊](../PUBLIC-SOURCE-MANIFEST.json)
 - [字型來源與授權](../assets/fonts/ASSET-MANIFEST.md)
 - [工作紀錄](../WORKLOG.md)
@@ -22,5 +24,7 @@
 `cmd/` 為程式入口，`internal/` 為規則、解析器及呈現，`tools/` 保存建置與研究工具，`docker/` 保存工具鏈。研究工具可能需要私人證據或自備磁碟，請先檢查參數與說明。
 
 Swap 驗證使用自備合法磁碟、正常Dramming取貨保存及足以購買兩批貨物的資金；參數見工具 `--help`。`--review-only` 從已有正常倉庫保存重拍五語畫面，不執行購買或交換。這些輸入不隨公開來源提供。
+
+schema45 玩家工具在 Docker 從標題建角，或用 `--library-input` 接續同一正常保存。地面往返來源交易所使用既有 Apple II 格移動，交易與戰術切回 Atari ST HD；不把這段測試稱為 Atari ST 像素地面對拍。原生連續戰鬥工具參數 `--combat-continuous-parent-only` 僅驗模式1至7、敵型0及明示受控亂數，新的批量數值答案留私人。
 
 公開來源匯出腳本 [prepare_public_repository.py](../tools/prepare_public_repository.py) 供原私人工作樹建立新快照，使用 [public-source 範本](../tools/public-source/README.md)；公開 clone 已是匯出結果，不具備再次匯出所需的私人截圖路徑。

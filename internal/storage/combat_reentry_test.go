@@ -64,6 +64,9 @@ func TestOverflowDamageSurvivesSaveAndTacticalReentry(t *testing.T) {
 	s.Screen, s.CombatActive = game.ScreenTactical, true
 	s.EnemyType, s.EnemyHull, s.EnemyMaxHull, s.CombatRange = 0, 189, 189, 60
 	s.CombatRolls, s.EnemyCourseMode, s.EnemyFireCountdown = 10, 2, 0
+	// This test starts at a prepared shot, rather than relying on the old
+	// immediate-fire projection when a cooldown reached zero.
+	s.EnemyCourse = game.EnemyCourseState{Ticks: 20, FireReady: true, CanPrepareFire: true, Maneuver: [2]int{2, 1}}
 	s.HullCondition, s.ShieldLevel, s.ShieldSetting, s.ShieldsActive = 16, 0, 0, false
 	for i := range s.ShipSystems {
 		for row := range s.ShipSystems[i].Rows {

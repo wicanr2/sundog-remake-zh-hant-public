@@ -206,9 +206,8 @@ func PodDrawsEncounter(state State) bool {
 	return false
 }
 
-// beginEncounter 使用已核定的原版一般遭遇型號、模式、初始冷卻與位置子規則。
-// 完整初始化／航向／排程仍待整合，尤其模式3的跨次Aux值沒有正式對應。
-// 原始定位與READY範圍見 docs/atari-st/talos-combat-audit-20260907.md。
+// beginEncounter uses the source initialization order and persistent course
+// state. Scope and the mode0 legacy boundary are in ship-rules.md.
 func beginEncounter(state *State, encounterRating int) {
 	base := 0
 	if encounterRating > 0 {
@@ -225,16 +224,21 @@ func beginEncounter(state *State, encounterRating int) {
 	state.EnemyCourseMode = combatRoll(state, enemySpawnCourseModes)
 
 	state.CombatRange = initialCombatRange
-	initializeEnemyCourseDrift(state)
+	state.EnemyClosing = 0
+	state.EnemyCourse.FireReady = false
+	state.EnemyCourse.CanPrepareFire = true
+	initializeEnemyManeuver(state, &state.EnemyCourse)
 	initializeEnemyPositionAndHull(state)
-	setEnemyDrift(state)
-	state.EnemyFireCountdown = initialEnemyFireCountdown
+	if !selectEnemyCourse(state, &state.EnemyCourse) {
+		// The unproven mode0/cloak boundary keeps its legacy projection.
+		setEnemyDrift(state)
+	}
 	state.CombatActive = true
 	state.CombatVictory = false
 }
 
-// 原版 init_fight 模式4／5子規則，SHIPLIB 0x054f..0x0582。
-// 模式5的兩次布林在位置／船體之前；其他模式的完整初始化不在此切片範圍。
+// Historical isolated mode4/5 projection. Production initializes the complete
+// persistent maneuver through initializeEnemyManeuver.
 func initializeEnemyCourseDrift(state *State) {
 	switch state.EnemyCourseMode {
 	case 4:
@@ -252,7 +256,7 @@ func initializeEnemyCourseDrift(state *State) {
 }
 
 // 原版 SHIPLIB 0x0c0f..0x0c37：先方位、再俯仰，最後抽船體。
-// 這是相同counter入口的三抽子規則；mode3的額外抽值與跨次值仍待整合。
+// beginEncounter calls it after the source mode-specific maneuver initializer.
 func initializeEnemyPositionAndHull(state *State) {
 	state.EnemyBearing = combatRoll(state, enemyAngleTurn)
 	state.EnemyPitch = combatRoll(state, enemyAngleTurn)
@@ -558,7 +562,12 @@ func resolveEnemyFire(state *State) {
 	}
 	setEnemyDrift(state)
 	state.EnemyFireCountdown = fireCountdownLow + combatRoll(state, fireCountdownHigh-fireCountdownLow+1)
+	resolveEnemyShot(state)
+}
 
+// A prepared shot and the retained legacy projection share the same already
+// verified accuracy, shield, hull and system-damage consumer.
+func resolveEnemyShot(state *State) {
 	damage, hit := enemyShotDamage(state)
 	if !hit {
 		state.MessageKey = "ui.message.enemy_missed"

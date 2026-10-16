@@ -87,8 +87,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 3421,
-      "sha256": "1cd064ff6337bc60fba87e5c8e230b295cbca32c2ef00fb48982d93a2ab10dd6"
+      "bytes": 4001,
+      "sha256": "1fde5912e8dadb6929bbf492e3c6a718316e91358662fcc148cd879ad06aca7d"
     },
     {
       "path": "LICENSE",
@@ -97,28 +97,28 @@
     },
     {
       "path": "README.en.md",
-      "bytes": 7793,
-      "sha256": "af3de2811107216a2d75335b79aba2b30001c9722b1857d04000883957dfa96e"
+      "bytes": 8057,
+      "sha256": "6b3bf7ba662899537c57612cfa07adff57c84f88afc707f4cffa837fbe5c0c4f"
     },
     {
       "path": "README.ja.md",
-      "bytes": 8832,
-      "sha256": "6297a15e8ae1edb29a12658afd74f9e7a18f40bf2fe937cc532bb4811b2a0447"
+      "bytes": 9126,
+      "sha256": "261a772ccd49750045b33e90ba7a50db218831afe43ccf7d7ad8b1f30b718fc3"
     },
     {
       "path": "README.ko.md",
-      "bytes": 8681,
-      "sha256": "e3a86009e534dc5036c92757c00da7f23736ce214e13c7580bc0c957864f146d"
+      "bytes": 9006,
+      "sha256": "93185ffdc1275416bb2ee7b5b61fbaf496bf07ba59b6f00f116a13c9b2fefb19"
     },
     {
       "path": "README.md",
-      "bytes": 7555,
-      "sha256": "b8028c132145a81562d5b00c57c59e1b6b7978f8c430a6d3682d39b96ef23882"
+      "bytes": 7763,
+      "sha256": "202b24ff151f26ab24dc5fab67be6beb08c88aff5c16a046ab69948374c1b838"
     },
     {
       "path": "WORKLOG.md",
-      "bytes": 5814,
-      "sha256": "7a93ed9ebb63f5832cf9736d94124e3648843e89b2aa64115ac995e29a6976f0"
+      "bytes": 6984,
+      "sha256": "90ff9f8cc896212190673fe3e4a4400b3efd53aec1740dfcf738c0cfa5d52412"
     },
     {
       "path": "assets/fonts/ASSET-MANIFEST.md",
@@ -192,8 +192,8 @@
     },
     {
       "path": "cmd/sundog/main.go",
-      "bytes": 34222,
-      "sha256": "f3951a2e8fe60dbdc44f9a3f9ff4e9ac8d4e6499ede2d10b81231193e869b869"
+      "bytes": 34296,
+      "sha256": "36dc834e3b5da806eb5bb5b40367e8d57d33121939dbd0c174ce7a9bcc868e5c"
     },
     {
       "path": "cmd/sundog-dialog/main.go",
@@ -337,8 +337,8 @@
     },
     {
       "path": "cmd/sundog-ebiten/main.go",
-      "bytes": 193124,
-      "sha256": "dc57b4e2feaf332ba04e2b40e2fdbbe98f0c2c7e17c69a0882f3c8d3aa122ec3"
+      "bytes": 193218,
+      "sha256": "376dc066affc048941607eb91acdbbfd8566d62bfd5afe3cacae14e3c981eea5"
     },
     {
       "path": "cmd/sundog-ebiten/main_test.go",
@@ -742,8 +742,8 @@
     },
     {
       "path": "docs/index.md",
-      "bytes": 2014,
-      "sha256": "9a36738417d80a1f06c8720380fe21c1f2b31d97e7aa4b4ce489625c16374373"
+      "bytes": 2580,
+      "sha256": "d58d2ed03610adcb6a7a86772d4cec3ffa2621b2eff872bbf77ee9a6daf37043"
     },
     {
       "path": "docs/manual/remake-controls-zh-Hant.md",
@@ -922,8 +922,8 @@
     },
     {
       "path": "internal/game/awake_clock_state.go",
-      "bytes": 5316,
-      "sha256": "7261aca5f3a575d1a5b81bcb142197dbde8810b529afbbc0b514f126ee7b4d27"
+      "bytes": 5332,
+      "sha256": "88f161114e023f576e13a9ab5621b1ecdd131e2a7a8b8aaee0ccb13a42478ead"
     },
     {
       "path": "internal/game/awake_clock_state_test.go",
@@ -967,8 +967,8 @@
     },
     {
       "path": "internal/game/combat.go",
-      "bytes": 25714,
-      "sha256": "44c3fbd52dc0fa13eba9569ce660606543c9ec55476e5c194cdf5ef4edd08efa"
+      "bytes": 25906,
+      "sha256": "99e3470c831c9196d210c4850f4fabec6927400a2e5e4c1b4284ed524b0c7e17"
     },
     {
       "path": "internal/game/combat_test.go",
@@ -1029,6 +1029,16 @@
       "path": "internal/game/enemy_angles_test.go",
       "bytes": 3601,
       "sha256": "1f1afa0ad4b4ea4eb12e808f50038b5f0d4e644cd89260554374dca6e5056c4d"
+    },
+    {
+      "path": "internal/game/enemy_course.go",
+      "bytes": 6542,
+      "sha256": "89b98a48cf9f606c04dd68235cb165784b1c266e9eccd0dcc05c70aa1f2345a0"
+    },
+    {
+      "path": "internal/game/enemy_course_test.go",
+      "bytes": 8147,
+      "sha256": "8cd50f77fe6e069040c0592a66846d2f07789e673773de145f6d4fba26c899e5"
     },
     {
       "path": "internal/game/exchange.go",
@@ -1187,8 +1197,8 @@
     },
     {
       "path": "internal/game/reducer.go",
-      "bytes": 80676,
-      "sha256": "73f213478d95effdd77865a95059e34b7c74e0dc8cd57964fa0f259f81505461"
+      "bytes": 80149,
+      "sha256": "7ca7d292912000ef2654f1c4ed3d4d95fd1fde8ed5ec74ca1bccb58410bef0c7"
     },
     {
       "path": "internal/game/reducer_test.go",
@@ -1252,8 +1262,8 @@
     },
     {
       "path": "internal/game/sleep.go",
-      "bytes": 4869,
-      "sha256": "28436361e77715309816bbb2617b8552acdfc377bf42714e859117c3a56590a6"
+      "bytes": 4799,
+      "sha256": "f010a66f135d0d7f401de644e08c786314d5b5e1a89b165216b122726f6b82e5"
     },
     {
       "path": "internal/game/sleep_native_parity_test.go",
@@ -1277,8 +1287,8 @@
     },
     {
       "path": "internal/game/state.go",
-      "bytes": 40744,
-      "sha256": "f6f74c1141750b27d1c642e13f7d4f6b4eb89c1e6d80503c9457cebce1e53cf3"
+      "bytes": 40872,
+      "sha256": "3e1c939cbb2b805d5f24f189fd2f77dcf64f17e326ff27f1b2626cd203cc8c4a"
     },
     {
       "path": "internal/game/street.go",
@@ -1292,8 +1302,8 @@
     },
     {
       "path": "internal/game/talos_combat_cadence_fixture_test.go",
-      "bytes": 17841,
-      "sha256": "5e16ebd73998826b6a4fd23c058cb98129394f769facf5874e7e3a517cb06206"
+      "bytes": 18141,
+      "sha256": "1d4edb57b9d6f3376873347630a56bc89eaf56d1a34069183d43c0cec6b8ca1b"
     },
     {
       "path": "internal/game/talos_combat_fixture_test.go",
@@ -1747,13 +1757,18 @@
     },
     {
       "path": "internal/storage/combat_reentry_test.go",
-      "bytes": 5568,
-      "sha256": "10955ca62c97b06d559bf3370a3cca27c7cd97fa4ec5d780ac320248746a3b63"
+      "bytes": 5813,
+      "sha256": "417908e164e51bd90591af4dd919f0b9b69cedd9fc028842dc541892e6fbbb50"
     },
     {
       "path": "internal/storage/current_state.go",
-      "bytes": 6989,
-      "sha256": "b810e473b1c5962c4c91ccbffbdd07b6ced4338d42be94e52b9ba1bc6a392703"
+      "bytes": 7649,
+      "sha256": "95d95aace43ad03647b146dbdaace246b4f613cdc00fa67b606c0b9bb7cb763f"
+    },
+    {
+      "path": "internal/storage/enemy_course_test.go",
+      "bytes": 5023,
+      "sha256": "fa3fe4f1fc365b420c6d4bd9adb6c9a6ae8a73f66c72e774637074a13319d6ec"
     },
     {
       "path": "internal/storage/fuel_state_test.go",
@@ -1772,8 +1787,8 @@
     },
     {
       "path": "internal/storage/library.go",
-      "bytes": 6982,
-      "sha256": "63bf5cf523a6fc2c09279f8b034d0f54a90fc8075a64392b884daa675b45fd95"
+      "bytes": 7060,
+      "sha256": "2d6ff28b985e8a05352169f39f7b10e455e465c950aaa1d8de2d5a271f309044"
     },
     {
       "path": "internal/storage/library_test.go",
@@ -1782,8 +1797,8 @@
     },
     {
       "path": "internal/storage/save.go",
-      "bytes": 4527,
-      "sha256": "17eed336a3eefeeb8c4709ba7d1edd4a76ca1f6ddecffc5970a799934fea0321"
+      "bytes": 4653,
+      "sha256": "51d5743bf14ae93971ed268b1570d748a084bd146426332b732f4ad4c78ff22d"
     },
     {
       "path": "internal/storage/save_test.go",
@@ -1797,8 +1812,8 @@
     },
     {
       "path": "internal/storage/warehouse_swap_test.go",
-      "bytes": 3229,
-      "sha256": "ecdc4c6584ec39398ff192c1374049f9746d71b1cf86d0b010e4da133f5cbcb8"
+      "bytes": 3245,
+      "sha256": "a46401b1dc8b93502e8a42459473c5fe23d1a29c22020e72a057adc7f2a8e968"
     },
     {
       "path": "internal/theme/assets/modern-apple/README.md",
@@ -2626,6 +2641,11 @@
       "sha256": "f77b610b59129d893e8d3367f923628b6464825bd498ef7c716b16a157e2e9b6"
     },
     {
+      "path": "tools/combat_state_draft_test.go.txt",
+      "bytes": 18453,
+      "sha256": "bf8acf64a22fdd93a85cf91ed789aeafb364fb88330b5a78bb173cb93633571b"
+    },
+    {
       "path": "tools/compare_appimage_to_original.py",
       "bytes": 19195,
       "sha256": "8dbff6d83b38385ad45a1181c21b2283bff4b9931e8bcd123882a03e2202b6fd"
@@ -2783,7 +2803,7 @@
     {
       "path": "tools/package_release.py",
       "bytes": 20701,
-      "sha256": "8a7ad0021e599e6420a44076b8cece4bbde79897c613cb6f72f674296e00b9a7"
+      "sha256": "54e27649f02dc2ea4b663ae607a3d678ce7338f8744892c46f4fbb57045206bf"
     },
     {
       "path": "tools/port_oracle_building_plan.py",
@@ -2872,33 +2892,33 @@
     },
     {
       "path": "tools/public-source/CONTEXT.md",
-      "bytes": 3421,
-      "sha256": "1cd064ff6337bc60fba87e5c8e230b295cbca32c2ef00fb48982d93a2ab10dd6"
+      "bytes": 4001,
+      "sha256": "1fde5912e8dadb6929bbf492e3c6a718316e91358662fcc148cd879ad06aca7d"
     },
     {
       "path": "tools/public-source/README.en.md",
-      "bytes": 7793,
-      "sha256": "af3de2811107216a2d75335b79aba2b30001c9722b1857d04000883957dfa96e"
+      "bytes": 8057,
+      "sha256": "6b3bf7ba662899537c57612cfa07adff57c84f88afc707f4cffa837fbe5c0c4f"
     },
     {
       "path": "tools/public-source/README.ja.md",
-      "bytes": 8832,
-      "sha256": "6297a15e8ae1edb29a12658afd74f9e7a18f40bf2fe937cc532bb4811b2a0447"
+      "bytes": 9126,
+      "sha256": "261a772ccd49750045b33e90ba7a50db218831afe43ccf7d7ad8b1f30b718fc3"
     },
     {
       "path": "tools/public-source/README.ko.md",
-      "bytes": 8681,
-      "sha256": "e3a86009e534dc5036c92757c00da7f23736ce214e13c7580bc0c957864f146d"
+      "bytes": 9006,
+      "sha256": "93185ffdc1275416bb2ee7b5b61fbaf496bf07ba59b6f00f116a13c9b2fefb19"
     },
     {
       "path": "tools/public-source/README.md",
-      "bytes": 7555,
-      "sha256": "b8028c132145a81562d5b00c57c59e1b6b7978f8c430a6d3682d39b96ef23882"
+      "bytes": 7763,
+      "sha256": "202b24ff151f26ab24dc5fab67be6beb08c88aff5c16a046ab69948374c1b838"
     },
     {
       "path": "tools/public-source/WORKLOG.md",
-      "bytes": 5814,
-      "sha256": "7a93ed9ebb63f5832cf9736d94124e3648843e89b2aa64115ac995e29a6976f0"
+      "bytes": 6984,
+      "sha256": "90ff9f8cc896212190673fe3e4a4400b3efd53aec1740dfcf738c0cfa5d52412"
     },
     {
       "path": "tools/public-source/docs/build.md",
@@ -2907,8 +2927,8 @@
     },
     {
       "path": "tools/public-source/docs/index.md",
-      "bytes": 2014,
-      "sha256": "9a36738417d80a1f06c8720380fe21c1f2b31d97e7aa4b4ce489625c16374373"
+      "bytes": 2580,
+      "sha256": "d58d2ed03610adcb6a7a86772d4cec3ffa2621b2eff872bbf77ee9a6daf37043"
     },
     {
       "path": "tools/public-source/docs/promo/README.md",
@@ -3442,8 +3462,8 @@
     },
     {
       "path": "tools/test_verify_talos_combat_cadence.py",
-      "bytes": 11378,
-      "sha256": "0b5fbe481c56f8dd2ec39d93f6456b33d07dac1ec64e623d44e08582fd5c7b5e"
+      "bytes": 11600,
+      "sha256": "2a739f4a18fbc846fc8d71b389af4d1e4d1c6e896610359fc346a4c173e13f0c"
     },
     {
       "path": "tools/test_verify_talos_fuel_depot.py",
@@ -3616,6 +3636,11 @@
       "sha256": "2cf25c49cb7000ee03631f571f10bc6bcbffa0cc0e566e6350448aad8f2b9e04"
     },
     {
+      "path": "tools/verify_schema45_player.py",
+      "bytes": 10824,
+      "sha256": "031423ded8bc2300897463ddd428c766deda301e5915f74c90017ab531185fdc"
+    },
+    {
       "path": "tools/verify_sleep_interrupt_player.py",
       "bytes": 9960,
       "sha256": "3b42f1023c1c6fb8c725326cf5e7dd2a96839187852284d45dd5d7e950d69d7a"
@@ -3637,8 +3662,8 @@
     },
     {
       "path": "tools/verify_talos_combat_cadence.py",
-      "bytes": 57979,
-      "sha256": "51e7059f9143dfd688ec57b009e7eacd0cc2c9e58f1f0b4f08a6e6411d8b873e"
+      "bytes": 58319,
+      "sha256": "1b8f09ffd4397a7824539aaf3c7b6f3b5e1cb597ab5571826c609503f031de61"
     },
     {
       "path": "tools/verify_talos_cryo_source.py",

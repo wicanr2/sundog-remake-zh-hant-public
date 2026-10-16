@@ -9,9 +9,8 @@ import (
 	"github.com/wicanr2/sundog-remake/internal/source/atarist"
 )
 
-// Source-only diagnostic projection. State has no persistent course timer,
-// readiness or Aux8/Aux9; those native fields are deliberately not fabricated.
-// The initial-ready rows have no formal equivalent and are not exported.
+// Actual schema45 parent, including both initial readiness states. Original
+// display requests and original RNG words remain outside the typed State.
 func TestExportTalosCombatContinuousParent(t *testing.T) {
 	output := os.Getenv("SUNDOG_PARITY_OUTPUT")
 	if output == "" {
@@ -24,6 +23,8 @@ func TestExportTalosCombatContinuousParent(t *testing.T) {
 	type snapshot struct {
 		Phase, Fuel, Weapon, Shield, Setting, Hull                         int
 		Cooldown, Range, Bearing, Pitch, BearingDrift, PitchDrift, Counter int
+		Timer, Closing, Aux8, Aux9                                         int
+		Ready, CanPrepareFire                                              bool
 		Active                                                             bool
 		Words                                                              [2]uint16
 		Systems                                                            [6][18]int
@@ -48,48 +49,49 @@ func TestExportTalosCombatContinuousParent(t *testing.T) {
 	for mode := 1; mode < 8; mode++ {
 		for phase := 0; phase < 3; phase++ {
 			for _, fuel := range []int{0, 1, 255} {
-				s := consumerState(true, [2]int{1, 1})
-				s.Screen = ScreenTactical
-				s.ShipControls = ShipControls{Warp: true, Subc: true, Guns: true, Tactical: true, Pilotage: true}
-				s.ShieldsActive = true
-				s.ShipSystems = IntactShipSystems()
-				for n := range s.ShipSystems {
-					if n == 2 || n == 4 {
-						s.ShipSystems[n].Rows[2] = make([]int, 4)
-						s.ShipSystems[n].Rows[3] = make([]int, 4)
+				for _, ready := range []bool{false, true} {
+					s := consumerState(true, [2]int{1, 1})
+					s.Screen = ScreenTactical
+					s.ShipControls = ShipControls{Warp: true, Subc: true, Guns: true, Tactical: true, Pilotage: true}
+					s.ShieldsActive = true
+					s.ShipSystems = IntactShipSystems()
+					for n := range s.ShipSystems {
+						if n == 2 || n == 4 {
+							s.ShipSystems[n].Rows[2] = make([]int, 4)
+							s.ShipSystems[n].Rows[3] = make([]int, 4)
+						}
+						s.ShipSystems[n].LastHitSlot = 0
 					}
-					s.ShipSystems[n].LastHitSlot = 0
-				}
-				normalizeShipSystems(&s)
-				if shipSystemStatusByID(s, ShipSystemSubcEngine) != 16 || shipSystemStatusByID(s, ShipSystemShipGuns) != 8 || shipSystemStatusByID(s, ShipSystemForceShields) != 8 {
-					t.Fatal("initial part rows/status mismatch")
-				}
-				s.Fuel, s.ShipPhase, s.WeaponCharge, s.ShieldLevel, s.ShieldSetting = fuel, phase, 0, 255, 255
-				s.HullCondition = 16
-				s.FlightTicks = 1000
-				s.FlightFromAngle, s.FlightFromRadius, s.FlightAngle, s.FlightRadius = 250, 20, 250, 20
-				s.FlightDeltaAngle, s.FlightDeltaRadius = 0, 0
-				s.EnemyType, s.EnemyCourseMode, s.EnemyFireCountdown = 0, mode, 1
-				s.CombatRange, s.EnemyHull, s.EnemyMaxHull = 70, 200, 200
-				s.EnemyBearing, s.EnemyPitch, s.EnemyDriftBearing, s.EnemyDriftPitch = 512, 512, 3, -3
-				s.EnemyClosing = -1
-				s.CombatActive = true
-				s.CombatRolls = 0
-				r := row{Input: input{mode, phase, fuel, false}, InitialSystems: captureSystems(s)}
-				for step := 0; step < 12; step++ {
-					advanceShipClock(&s)
-					if s.CombatActive {
-						steerEnemy(&s)
-						resolveEnemyFire(&s)
+					normalizeShipSystems(&s)
+					if shipSystemStatusByID(s, ShipSystemSubcEngine) != 16 || shipSystemStatusByID(s, ShipSystemShipGuns) != 8 || shipSystemStatusByID(s, ShipSystemForceShields) != 8 {
+						t.Fatal("initial part rows/status mismatch")
 					}
-					words, _ := consumerWords(s)
-					x := snapshot{Phase: s.ShipPhase, Fuel: s.Fuel, Weapon: s.WeaponCharge, Shield: s.ShieldLevel, Setting: s.ShieldSetting,
-						Hull: s.HullCondition, Cooldown: s.EnemyFireCountdown, Range: s.CombatRange, Bearing: s.EnemyBearing, Pitch: s.EnemyPitch,
-						BearingDrift: s.EnemyDriftBearing, PitchDrift: s.EnemyDriftPitch, Counter: s.CombatRolls, Active: s.CombatActive, Words: words}
-					x.Systems = captureSystems(s)
-					r.Steps = append(r.Steps, x)
+					s.Fuel, s.ShipPhase, s.WeaponCharge, s.ShieldLevel, s.ShieldSetting = fuel, phase, 0, 255, 255
+					s.HullCondition = 16
+					s.FlightTicks = 1000
+					s.FlightFromAngle, s.FlightFromRadius, s.FlightAngle, s.FlightRadius = 250, 20, 250, 20
+					s.FlightDeltaAngle, s.FlightDeltaRadius = 0, 0
+					s.EnemyType, s.EnemyCourseMode, s.EnemyFireCountdown = 0, mode, 1
+					s.CombatRange, s.EnemyHull, s.EnemyMaxHull = 70, 200, 200
+					s.EnemyBearing, s.EnemyPitch, s.EnemyDriftBearing, s.EnemyDriftPitch = 512, 512, 3, -3
+					s.EnemyClosing = -1
+					s.CombatActive = true
+					s.CombatRolls = 0
+					s.EnemyCourse = EnemyCourseState{Ticks: 1, FireReady: ready, CanPrepareFire: true, Maneuver: [2]int{2, 1}}
+					r := row{Input: input{mode, phase, fuel, ready}, InitialSystems: captureSystems(s)}
+					for step := 0; step < 12; step++ {
+						advanceShipClock(&s)
+						words, _ := consumerWords(s)
+						x := snapshot{Phase: s.ShipPhase, Fuel: s.Fuel, Weapon: s.WeaponCharge, Shield: s.ShieldLevel, Setting: s.ShieldSetting,
+							Hull: s.HullCondition, Cooldown: s.EnemyFireCountdown, Range: s.CombatRange, Bearing: s.EnemyBearing, Pitch: s.EnemyPitch,
+							BearingDrift: s.EnemyDriftBearing, PitchDrift: s.EnemyDriftPitch, Counter: s.CombatRolls, Active: s.CombatActive, Words: words}
+						x.Timer, x.Ready, x.Closing, x.Aux8, x.Aux9 = s.EnemyCourse.Ticks, s.EnemyCourse.FireReady, s.EnemyClosing, s.EnemyCourse.Maneuver[0], s.EnemyCourse.Maneuver[1]
+						x.CanPrepareFire = s.EnemyCourse.CanPrepareFire
+						x.Systems = captureSystems(s)
+						r.Steps = append(r.Steps, x)
+					}
+					rows = append(rows, r)
 				}
-				rows = append(rows, r)
 			}
 		}
 	}
@@ -100,11 +102,10 @@ func TestExportTalosCombatContinuousParent(t *testing.T) {
 	if err = os.WriteFile(filepath.Join(output, "remake-combat-continuous.json"), append(raw, '\n'), 0600); err != nil {
 		t.Fatal(err)
 	}
-	t.Logf("formal background projection: %d inputs x 12 updates; missing native persistent fields remain explicit", len(rows))
+	t.Logf("schema45 actual parent: %d inputs x 12 updates; display flags and original RNG remain excluded", len(rows))
 }
 
-// 匯出現行正式入口的冷卻／counter，供原版 set_fire 獨立比較。
-// 現行 State 沒有 ready、G19 週期與旗標 44/12；不得把缺欄位當成零值 parity。
+// Legacy fire projection retained for mode0; it is not the modes1..7 parent.
 func TestExportTalosCombatCadence(t *testing.T) {
 	output := os.Getenv("SUNDOG_PARITY_OUTPUT")
 	if output == "" {

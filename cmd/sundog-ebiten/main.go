@@ -391,8 +391,10 @@ func main() {
 	fontPath := flag.String("font", "assets/fonts/NotoSansCJKtc-Regular.otf", "繁體中文字型資產")
 	sourcePath := flag.String("catalog", "docs/i18n/apple2-text-catalog.json", "Apple II 來源文字 catalog")
 	uiPath := flag.String("ui-catalog", "docs/i18n/sundog-ui-zh-Hant.json", "繁中 UI catalog")
-	savePath := flag.String("save", "workplace/save/sundog-ebiten-slot-1.json", "可寫入的重製版存檔槽")
-	libraryPath := flag.String("library", "workplace/save/sundog-ebiten-library.json", "可寫入的重製版保存庫替代檔")
+	saveName := fmt.Sprintf("sundog-ebiten-v%d-slot-1.json", game.CurrentSchema)
+	libraryName := fmt.Sprintf("sundog-ebiten-v%d-library.json", game.CurrentSchema)
+	savePath := flag.String("save", "workplace/save/"+saveName, "可寫入的重製版存檔槽")
+	libraryPath := flag.String("library", "workplace/save/"+libraryName, "可寫入的重製版保存庫替代檔")
 	loadSave := flag.Bool("load", false, "啟動前載入可寫入的重製版存檔槽")
 	startScreen := flag.String("start", "title", "起始畫面：title、shipboard、status、ground、trade、uniteller、tube-station、tube-broke、navigation、tactical、arena、engineering、equipment、cargo、dialog、mission 或 outcome")
 	frames := flag.Int("frames", 0, "在指定影格數後退出；供 Docker 截圖 smoke 使用")
@@ -422,10 +424,10 @@ func main() {
 	given := map[string]bool{}
 	flag.Visit(func(f *flag.Flag) { given[f.Name] = true })
 	if !given["save"] {
-		*savePath = appdir.UserData("sundog-ebiten-slot-1.json", *savePath)
+		*savePath = appdir.UserData(saveName, *savePath)
 	}
 	if !given["library"] {
-		*libraryPath = appdir.UserData("sundog-ebiten-library.json", *libraryPath)
+		*libraryPath = appdir.UserData(libraryName, *libraryPath)
 	}
 	if *settingsPath == "" {
 		*settingsPath = prefs.DefaultPath()

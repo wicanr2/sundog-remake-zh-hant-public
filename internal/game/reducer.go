@@ -1874,18 +1874,8 @@ func (r Reducer) step(state State, action Action) (State, error) {
 		return state, fmt.Errorf("unknown action %q", action)
 	}
 	if isCombatTurnAction(action) {
-		// 每次正式戰術更新先持續相位，再耗能及敵艦更新。
-		// 已發射的未命中也必須走到這裡，不能略過整拍。
-		advanceShipPhase(&next)
-		updateShipEnergyFromFuel(&next, state.Fuel, func(n int) int { return combatRoll(&next, n) })
-		// The enemy steers before it shoots, the order set_course and
-		// update_attack run in. Closing in cuts both ways: the same distance
-		// feeds the player's damage, the enemy's accuracy and the enemy's
-		// damage, so the enemy's own course decides how dangerous the fight is.
-		if next.CombatActive {
-			steerEnemy(&next)
-			resolveEnemyFire(&next)
-		}
+		// Explicit tactical steps run the same parent as awake/sleep updates.
+		advanceShipClock(&next)
 	}
 	if action != ActionBack && next.Screen != ScreenOutcome && (next.Vigor <= 0 || next.HullCondition <= 0) {
 		next.Sleep = SleepState{}

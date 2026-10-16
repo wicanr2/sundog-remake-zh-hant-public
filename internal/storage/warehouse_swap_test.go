@@ -67,7 +67,7 @@ func TestPendingWarehouseSwapSurvivesSaveAndLibrary(t *testing.T) {
 				}
 			}
 			roundTrip()
-			if s.Schema != 44 || s.TradePage != game.TradePageSwapWarehouse || s.TradeSaleSlot != 5 || s.TradeSalePrice != 0 || s.Holds[0].Lot() != beforeHold || s.Warehouses[s.CityID][0] != beforeWarehouse {
+			if s.Schema != game.CurrentSchema || s.TradePage != game.TradePageSwapWarehouse || s.TradeSaleSlot != 5 || s.TradeSalePrice != 0 || s.Holds[0].Lot() != beforeHold || s.Warehouses[s.CityID][0] != beforeWarehouse {
 				t.Fatal("pending source lost on reopen")
 			}
 			for _, mutate := range []func(*game.State){

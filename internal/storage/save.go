@@ -60,16 +60,20 @@ const (
 	formatV42 = "sundog-remake-prototype-save-v42"
 	formatV43 = "sundog-remake-prototype-save-v43"
 	formatV44 = "sundog-remake-prototype-save-v44"
+	formatV45 = "sundog-remake-prototype-save-v45"
 )
 
 // Only the current envelope is supported. Older format constants above remain
 // available to rejection tests and do not grant a migration path.
-var saveFormats = map[string]int{formatV44: game.CurrentSchema}
+var saveFormats = map[string]int{formatV45: game.CurrentSchema}
 
 // currentFormat is the envelope a new save is written with.
-const currentFormat = formatV44
+const currentFormat = formatV45
 
 func Save(path string, state game.State) error {
+	if err := game.ValidateEnemyCourseState(state); err != nil {
+		return err
+	}
 	if err := game.ValidateAwakeClockState(state); err != nil {
 		return err
 	}

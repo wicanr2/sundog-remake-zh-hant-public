@@ -4,7 +4,7 @@
 
 A science fiction trading adventure rebuilt in Go and Ebitengine, with the Atari ST interface and independently drawn HD artwork. The game supports Traditional Chinese, Simplified Chinese, Japanese, Korean and English.
 
-Current version: **v.1.2.0-20261016**. You need your own legally obtained Atari ST `sundog.st` disk. This repository and its engine releases do not include original disks, graphics, sounds or scanned manuals. The original private repository's history, comparison images and earlier releases remain private.
+Latest published version: **v.1.2.0-20261016**. You need your own legally obtained Atari ST `sundog.st` disk. This repository and its engine releases do not include original disks, graphics, sounds or scanned manuals. The original private repository's history, comparison images and earlier releases remain private.
 
 ![HD cabin after normal character creation](docs/screenshots/hd-shipboard.png)
 
@@ -77,11 +77,11 @@ Full packages containing original data and the sound demonstration video are loc
 | Move / confirm | Arrow keys or mouse / `Enter` or `Space` |
 | Character library | `M` create, `N` new game, `1`–`8` slot, `S` store, `L` load |
 
-Use `F1` for each screen's actions. During naming, letter keys enter text; use `F10` to quit. Only schema44 saves are supported. Saves, the library and preferences use the system configuration folder: Linux `~/.config/sundog-remake/`, Windows `%APPDATA%\sundog-remake\`, macOS `~/Library/Application Support/sundog-remake/`.
+Use `F1` for each screen's actions. During naming, letter keys enter text; use `F10` to quit. The source branch supports new schema45 saves with v45 default filenames. Published v.1.2.0-20261016 uses schema44; keep old saves for the older build. No conversion is provided. Saves, the library and preferences use the system configuration folder: Linux `~/.config/sundog-remake/`, Windows `%APPDATA%\sundog-remake\`, macOS `~/Library/Application Support/sundog-remake/`.
 
 ## Verification and licence
 
-Player sampling covers character creation, cabin functions, navigation, ground movement, city services, interiors, sleep during flight, scoring, failed endings and save/reload. Rendering checks cover multiple languages and window sizes. Combat course countdowns, fire readiness and state between updates are not fully integrated; the current scheduler has known differences from the original. See the [combat implementation](internal/game/combat.go). Complete original GUI behaviour, matching natural random streams, every combat branch, native Windows/macOS operation and perceived audio timing remain outside the verified scope. This project does not claim whole-game pixel or frame equivalence.
+Player sampling covers character creation, cabin functions, navigation, ground movement, city services, interiors, sleep during flight, scoring, failed endings and save/reload. Rendering checks cover multiple languages and window sizes. The source branch now persists course countdowns, fire readiness and maneuver state for modes 1–7, verified against the native parent with controlled random input. Mode 0 retains the existing approximate scheduler; full combat conformance remains unverified. See the [combat implementation](internal/game/enemy_course.go). Complete original GUI behaviour, matching natural random streams, every combat branch, native Windows/macOS operation and perceived audio timing remain outside the verified scope. This project does not claim whole-game pixel or frame equivalence.
 
 See the [document index](docs/index.md) and [current status](CONTEXT.md). Some research tools refer to evidence retained in the private project and need separately supplied legal inputs.
 

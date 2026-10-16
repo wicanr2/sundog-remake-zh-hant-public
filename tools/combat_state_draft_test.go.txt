@@ -1,0 +1,549 @@
+package game
+
+// Disposable typed-state prototype. It is loaded only by a Go test overlay;
+// It preceded the approved schema45 integration; current runtime verification
+// uses TestExportTalosCombatContinuousParent instead. Entry: ship-rules.md.
+import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"reflect"
+	"testing"
+)
+
+type combatStateDraft struct {
+	CourseTicks    int  `json:"courseTicks"`
+	FireReady      bool `json:"fireReady"`
+	CanPrepareFire bool `json:"canPrepareFire"`
+	// Mode3 uses a turn countdown/polarity; mode7 uses pitch/bearing steps.
+	Maneuver [2]int `json:"maneuver"`
+	// Boundary observations, not proposed runtime fields or RAM snapshots.
+	Following, CloakRetreat, Fired, ReadyRefresh bool
+}
+
+func initializeCombatDraft(s *State, c *combatStateDraft) {
+	s.EnemyFireCountdown = 20
+	switch s.EnemyCourseMode {
+	case 3:
+		c.Maneuver[1] = 0
+		if s.CombatRange <= 60 {
+			c.Maneuver[1] = 1
+		}
+		c.Maneuver[0] = rollBetween(s, 2, 10)
+	case 4:
+		s.EnemyDriftBearing, s.EnemyDriftPitch = 3, -3
+	case 5:
+		s.EnemyDriftBearing = 2
+		if combatRoll(s, 2) != 0 {
+			s.EnemyDriftBearing = -3
+		}
+		s.EnemyDriftPitch = 3
+		if combatRoll(s, 2) != 0 {
+			s.EnemyDriftPitch = -2
+		}
+	case 7:
+		s.EnemyDriftBearing, s.EnemyDriftPitch = -4, 4
+		c.Maneuver = [2]int{-1, 1}
+	}
+}
+
+// Returns false at the unproven mode0/cloak helper boundary. No local-frame
+// residue or invented replacement enters this prototype's typed state.
+func selectCombatCourseDraft(s *State, c *combatStateDraft) bool {
+	distance := combatRange(*s)
+	rand := func(low, high int) int { return rollBetween(s, low, high) }
+	switch s.EnemyCourseMode {
+	case 0:
+		if s.ShipPhase == 0 && s.ShipControls.Secondary[4] {
+			return false
+		}
+		s.EnemyDriftBearing = rand(-2, 2)
+		s.EnemyDriftPitch = rand(-2, 2)
+		s.EnemyClosing, c.CourseTicks = -2, distance/16
+	case 1:
+		s.EnemyDriftPitch = rand(-1, 1)
+		s.EnemyDriftBearing = rand(-1, 1)
+		s.EnemyClosing = -1
+		if distance < 70 {
+			s.EnemyClosing = rand(-2, 2)
+		}
+		c.CourseTicks = distance / 10
+	case 2:
+		s.EnemyClosing = -2
+		if distance <= 90 {
+			s.EnemyClosing = -1
+			if distance < 60 {
+				s.EnemyClosing = 1
+			}
+		}
+		s.EnemyDriftBearing++
+		if s.EnemyDriftBearing > 4 {
+			s.EnemyDriftBearing = -4
+		}
+		s.EnemyDriftPitch--
+		if s.EnemyDriftPitch < -4 {
+			s.EnemyDriftPitch = 4
+		}
+		c.CourseTicks = 20
+	case 3:
+		s.EnemyDriftBearing, s.EnemyDriftPitch = rand(-4, 4), rand(-4, 4)
+		if distance > 90 {
+			s.EnemyClosing = -3
+		} else if distance < 50 || distance > 80 {
+			s.EnemyClosing = 0
+		}
+		if s.EnemyClosing == 0 {
+			c.Maneuver[0]--
+		}
+		if c.Maneuver[0] < 1 {
+			if c.Maneuver[1] == 0 {
+				s.EnemyClosing = rand(-3, -1)
+				c.Maneuver[1] = 1
+			} else {
+				s.EnemyClosing = rand(1, 3)
+				c.Maneuver[1] = 0
+			}
+			c.Maneuver[0] = rand(2, 10)
+		}
+		c.CourseTicks = 20
+	case 4:
+		s.EnemyDriftBearing = -s.EnemyDriftBearing
+		if combatRoll(s, 5) == 0 {
+			s.EnemyDriftBearing++
+			s.EnemyDriftPitch = -s.EnemyDriftPitch + 1
+		}
+		c.CourseTicks, s.EnemyClosing = 40, -1
+		if distance <= 80 {
+			s.EnemyClosing = rand(-2, 1)
+		}
+	case 5:
+		s.EnemyClosing = -2
+		if distance <= 70 {
+			s.EnemyClosing = rand(-2, 1)
+		}
+		if combatRoll(s, 2) != 0 {
+			s.EnemyDriftBearing = -s.EnemyDriftBearing
+		} else {
+			s.EnemyDriftPitch = -s.EnemyDriftPitch
+		}
+		c.CourseTicks = rand(5, 20)
+	case 6:
+		s.EnemyDriftBearing, s.EnemyDriftPitch = rand(-4, 0), rand(-4, 4)
+		c.CourseTicks, s.EnemyClosing = 30, -2
+		if distance <= 60 {
+			s.EnemyClosing = 0
+		}
+	case 7:
+		if s.EnemyDriftBearing == 4 || s.EnemyDriftBearing == -4 {
+			c.Maneuver[1] = -c.Maneuver[1]
+		}
+		if s.EnemyDriftPitch == 4 || s.EnemyDriftBearing == -4 {
+			c.Maneuver[0] = -c.Maneuver[0]
+		}
+		s.EnemyDriftBearing += c.Maneuver[1]
+		s.EnemyDriftPitch += c.Maneuver[0]
+		if distance > 100 {
+			s.EnemyClosing = -3
+		} else if distance > 60 {
+			s.EnemyClosing = rand(-2, 2)
+		}
+		c.CourseTicks = 20
+	default:
+		return false
+	}
+	s.EnemyDriftBearing = clamp(s.EnemyDriftBearing, -4, 4)
+	s.EnemyDriftPitch = clamp(s.EnemyDriftPitch, -4, 4)
+	if distance < 40 {
+		s.EnemyClosing = 1
+	}
+	if s.ShipPhase != 0 {
+		return true
+	}
+	retreat, closing, ticks := false, 0, 0
+	switch s.EnemyCourseMode {
+	case 0:
+		return true // flag12=false was checked above; no undefined read
+	case 1:
+		retreat = s.EnemyHull < rand(10, 120)
+		closing, ticks = 3, 45
+	case 2:
+		retreat = s.EnemyHull < 80
+		closing, ticks = 1, 130
+	case 3:
+		retreat = s.EnemyHull < rand(30, 60)
+		closing, ticks = 3, 40
+	case 4, 5, 6:
+		retreat = s.EnemyHull < rand(60, 100)
+		closing, ticks = 2, 65
+	case 7:
+		retreat = s.EnemyHull < rand(40, 80)
+		closing, ticks = 1, 130
+	}
+	if retreat || s.ShipControls.Secondary[4] {
+		s.EnemyClosing, c.CourseTicks = closing, ticks
+		c.CanPrepareFire, c.Following = false, false
+		if s.ShipControls.Secondary[4] {
+			c.CloakRetreat = true
+		}
+	}
+	return true
+}
+
+func prepareCombatFireDraft(s *State, c *combatStateDraft) {
+	ship, ok := enemyShip(s.EnemyType)
+	if !ok {
+		return
+	}
+	if s.EnemyFireCountdown > 0 {
+		s.EnemyFireCountdown -= ship.FireRate
+	}
+	if s.EnemyFireCountdown < 1 && c.CanPrepareFire && !s.ShipControls.Secondary[4] {
+		switch s.EnemyCourseMode {
+		case 0:
+			c.FireReady = combatRoll(s, 100) > combatRange(*s)
+		case 2:
+			odd := combatRoll(s, 2) != 0
+			c.FireReady = combatRange(*s) < 80 && odd && s.ShipPhase == 0
+		case 6:
+			limit := rollBetween(s, 40, 70)
+			c.FireReady = combatRange(*s) < limit && (s.EnemyDriftPitch > 3 || s.EnemyDriftPitch < -3)
+		default:
+			c.FireReady = combatRange(*s) < rollBetween(s, 40, 80)
+		}
+	}
+	// 0x0ce1..0x0ced only sets the redraw request when ready is true.
+	// Clearing it belongs to the omitted display consumer, not set_fire.
+	c.ReadyRefresh = c.ReadyRefresh || c.FireReady
+}
+
+func advanceCombatDraft(s *State, c *combatStateDraft, moveAngles bool) bool {
+	if c.CourseTicks > 0 {
+		c.CourseTicks--
+		if moveAngles {
+			s.EnemyBearing = wrapAngle(s.EnemyBearing - s.EnemyDriftBearing*4)
+			s.EnemyPitch = wrapAngle(s.EnemyPitch + s.EnemyDriftPitch*4)
+		}
+		s.CombatRange = max(10, s.CombatRange+s.EnemyClosing)
+	} else if !selectCombatCourseDraft(s, c) {
+		return false
+	}
+	if !c.FireReady {
+		prepareCombatFireDraft(s, c)
+		return true
+	}
+	c.FireReady, c.Fired = false, true
+	s.EnemyFireCountdown = rollBetween(s, 5, 10)
+	damage, hit := enemyShotDamage(s)
+	if !hit {
+		return true
+	}
+	if damage <= s.ShieldLevel {
+		s.ShieldLevel -= damage
+		return true
+	}
+	damage -= s.ShieldLevel
+	s.ShieldLevel = 0
+	for damage > 0 {
+		applyOverflowHit(s)
+		damage -= overflowPerPart
+	}
+	return true
+}
+
+func beginCombatDraft(s *State, c *combatStateDraft, rating int) bool {
+	base := 1 - (rating-1)/4
+	s.EnemyType = clamp(base+combatRoll(s, 4)+combatRoll(s, 3)+combatRoll(s, 2), 0, EnemyShipCount()-2)
+	s.EnemyCourseMode = combatRoll(s, 6)
+	c.FireReady, c.CanPrepareFire, c.Following, c.CloakRetreat = false, true, true, false
+	s.EnemyClosing, s.CombatRange = 0, 127
+	initializeCombatDraft(s, c)
+	initializeEnemyPositionAndHull(s)
+	s.CombatActive, s.CombatVictory = true, false
+	return selectCombatCourseDraft(s, c)
+}
+
+type combatDraftSnapshot struct {
+	Phase, Fuel, Weapon, Shield, Setting, Hull                                            int
+	Timer, Cooldown, Range, Bearing, Pitch, BearingDrift, PitchDrift, Closing, Aux8, Aux9 int
+	Ready, Active                                                                         bool
+	Words                                                                                 [2]uint16
+	Flags                                                                                 []uint16
+	RandomWords                                                                           [2]uint16
+	Counter                                                                               int
+	Systems                                                                               [6][18]int
+}
+
+func captureCombatDraft(s State, c combatStateDraft) combatDraftSnapshot {
+	words, _ := consumerWords(s)
+	x := combatDraftSnapshot{Phase: s.ShipPhase, Fuel: s.Fuel, Weapon: s.WeaponCharge, Shield: s.ShieldLevel, Setting: s.ShieldSetting,
+		Hull: s.HullCondition, Timer: c.CourseTicks, Cooldown: s.EnemyFireCountdown, Range: s.CombatRange, Bearing: s.EnemyBearing, Pitch: s.EnemyPitch,
+		BearingDrift: s.EnemyDriftBearing, PitchDrift: s.EnemyDriftPitch, Closing: s.EnemyClosing, Aux8: c.Maneuver[0], Aux9: c.Maneuver[1],
+		Ready: c.FireReady, Active: s.CombatActive, Words: words, Flags: consumerFlags(s), RandomWords: [2]uint16{1, 0}, Counter: s.CombatRolls}
+	for n, on := range map[int]bool{29: c.Following, 43: c.Fired, 44: c.CanPrepareFire, 46: c.CloakRetreat, 69: c.ReadyRefresh} {
+		if on {
+			x.Flags[n/16] |= 1 << uint(n%16)
+		}
+	}
+	for system, record := range s.ShipSystems {
+		for row, parts := range record.Rows {
+			for col, part := range parts {
+				x.Systems[system][row*4+col] = part
+			}
+		}
+		x.Systems[system][16], x.Systems[system][17] = record.Status, record.LastHitSlot
+	}
+	return x
+}
+
+func TestCombatStateDraftContinuous(t *testing.T) {
+	in, out := os.Getenv("SUNDOG_COMBAT_DRAFT_INPUT"), os.Getenv("SUNDOG_PARITY_OUTPUT")
+	if in == "" || out == "" {
+		t.Skip("typed-state disposable overlay only")
+	}
+	type row struct {
+		Input struct {
+			Mode, Phase, Fuel int
+			Ready             bool
+		}
+		InitialSystems [6][18]int
+		Steps          []combatDraftSnapshot
+	}
+	var native []row
+	raw, err := os.ReadFile(filepath.Join(in, "native-combat-continuous-controlled.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = json.Unmarshal(raw, &native); err != nil {
+		t.Fatal(err)
+	}
+	if len(native) != 126 {
+		t.Fatal("native126 required")
+	}
+	diffs, reopens := 0, 0
+	actual := []row{}
+	for _, n := range native {
+		i := n.Input
+		s := consumerState(true, [2]int{1, 1})
+		s.Screen = ScreenTactical
+		s.ShipControls = ShipControls{Warp: true, Subc: true, Guns: true, Tactical: true, Pilotage: true}
+		s.ShieldsActive = true
+		s.ShipSystems = IntactShipSystems()
+		for j := range s.ShipSystems {
+			if j == 2 || j == 4 {
+				s.ShipSystems[j].Rows[2] = make([]int, 4)
+				s.ShipSystems[j].Rows[3] = make([]int, 4)
+			}
+			s.ShipSystems[j].LastHitSlot = 0
+		}
+		normalizeShipSystems(&s)
+		s.Fuel, s.ShipPhase, s.WeaponCharge, s.ShieldLevel, s.ShieldSetting = i.Fuel, i.Phase, 0, 255, 255
+		s.HullCondition, s.FlightTicks = 16, 1000
+		s.FlightFromAngle, s.FlightFromRadius, s.FlightAngle, s.FlightRadius = 250, 20, 250, 20
+		s.FlightDeltaAngle, s.FlightDeltaRadius = 0, 0
+		s.EnemyType, s.EnemyCourseMode, s.EnemyFireCountdown = 0, i.Mode, 1
+		s.CombatRange, s.EnemyHull, s.EnemyMaxHull = 70, 200, 200
+		s.EnemyBearing, s.EnemyPitch, s.EnemyDriftBearing, s.EnemyDriftPitch = 512, 512, 3, -3
+		s.EnemyClosing, s.CombatActive, s.CombatRolls = -1, true, 0
+		c := combatStateDraft{CourseTicks: 1, FireReady: i.Ready, CanPrepareFire: true, Maneuver: [2]int{2, 1}, Following: true}
+		initial := captureCombatDraft(s, c).Systems
+		if initial != n.InitialSystems {
+			t.Fatal("initial full parts differ")
+		}
+		r := row{Input: i, InitialSystems: initial}
+		for step := 0; step < 12; step++ {
+			// Historical prototype drives the lower movement/energy stage;
+			// current advanceShipClock also includes production enemy updates.
+			if s.FlightTicks > 0 && s.FlightTick < s.FlightTicks {
+				advanceInSystemFlight(&s)
+			} else {
+				advanceShipPhase(&s)
+				updateShipEnergy(&s, func(n int) int { return combatRoll(&s, n) })
+			}
+			if !advanceCombatDraft(&s, &c, true) {
+				t.Fatal("unsupported draft input", i, step)
+			}
+			x := captureCombatDraft(s, c)
+			r.Steps = append(r.Steps, x)
+			if !reflect.DeepEqual(x, n.Steps[step]) {
+				diffs++
+				if diffs <= 3 {
+					t.Logf("input%+v update%d native%+v draft%+v", i, step+1, n.Steps[step], x)
+				}
+			}
+			if step == 3 || step == 7 {
+				before := struct {
+					State  State
+					Combat combatStateDraft
+				}{s, c}
+				b, err := json.Marshal(before)
+				if err != nil {
+					t.Fatal(err)
+				}
+				var resumed struct {
+					State  State
+					Combat combatStateDraft
+				}
+				if err = json.Unmarshal(b, &resumed); err != nil {
+					t.Fatal(err)
+				}
+				if !reflect.DeepEqual(before, resumed) {
+					t.Fatal("draft JSON roundtrip changed state")
+				}
+				s, c = resumed.State, resumed.Combat
+				reopens++
+			}
+		}
+		actual = append(actual, r)
+	}
+	data, err := json.MarshalIndent(struct {
+		Cases, Updates, Differences, JSONRoundtrips int
+		Draft                                       []row
+	}{len(native), len(native) * 12, diffs, reopens, actual}, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(out, "draft-continuous.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if diffs != 0 {
+		t.Fatalf("draft differs at %d updates", diffs)
+	}
+	t.Logf("draft126 x12 match; %d JSON resumes; no production/save format changed", reopens)
+}
+
+func TestCombatStateDraftEncounterInit(t *testing.T) {
+	in, out := os.Getenv("SUNDOG_COMBAT_INIT_INPUT"), os.Getenv("SUNDOG_PARITY_OUTPUT")
+	if in == "" || out == "" {
+		t.Skip("typed-state disposable overlay only")
+	}
+	type input struct{ System, Rating, Phase, BearingDrift, PitchDrift, Aux8, Aux9, Seed int }
+	type row struct {
+		Input                                                                                                                   input
+		Enemy, Mode, Range, Hull, Bearing, Pitch, BearingDrift, PitchDrift, Aux8, Aux9, Closing, CourseTimer, Cooldown, Counter int
+		Active, Ready, Flag44, Flag46                                                                                           bool
+	}
+	var native struct{ Native []row }
+	raw, err := os.ReadFile(filepath.Join(in, "native-encounter-init.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = json.Unmarshal(raw, &native); err != nil {
+		t.Fatal(err)
+	}
+	if len(native.Native) != 2304 {
+		t.Fatal("native2304 required")
+	}
+	diffs := 0
+	actual := []row{}
+	for _, n := range native.Native {
+		i := n.Input
+		s := State{ShipPhase: i.Phase, EnemyDriftBearing: i.BearingDrift, EnemyDriftPitch: i.PitchDrift, CombatRolls: i.Seed}
+		c := combatStateDraft{Maneuver: [2]int{i.Aux8, i.Aux9}}
+		if !beginCombatDraft(&s, &c, i.Rating) {
+			t.Fatal("unexpected undefined init branch", i)
+		}
+		x := row{Input: i, Enemy: s.EnemyType, Mode: s.EnemyCourseMode, Range: s.CombatRange, Hull: s.EnemyHull,
+			Bearing: s.EnemyBearing, Pitch: s.EnemyPitch, BearingDrift: s.EnemyDriftBearing, PitchDrift: s.EnemyDriftPitch,
+			Aux8: c.Maneuver[0], Aux9: c.Maneuver[1], Closing: s.EnemyClosing, CourseTimer: c.CourseTicks,
+			Cooldown: s.EnemyFireCountdown, Counter: s.CombatRolls, Active: s.CombatActive, Ready: c.FireReady, Flag44: c.CanPrepareFire, Flag46: c.CloakRetreat}
+		actual = append(actual, x)
+		if !reflect.DeepEqual(x, n) {
+			diffs++
+			if diffs < 4 {
+				t.Logf("init%+v native%+v draft%+v", i, n, x)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(struct {
+		Cases, Differences int
+		Unmapped           []string
+		Draft              []row
+	}{len(actual), diffs,
+		[]string{"DamageTotal", "EnemyShield", "Flag41", "Flag47", "Draws"}, actual}, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(out, "draft-encounter-init.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if diffs != 0 {
+		t.Fatalf("draft encounter init differs in %d cases", diffs)
+	}
+	t.Log("draft init2304 match including persistent state; five excluded native observations remain explicit")
+}
+
+func TestCombatStateDraftUndefinedBoundary(t *testing.T) {
+	s := State{EnemyCourseMode: 0, ShipPhase: 0, CombatRange: 60, EnemyHull: 200, EnemyClosing: -2, EnemyDriftBearing: 1, EnemyDriftPitch: -1}
+	s.ShipControls.Secondary[4] = true
+	c := combatStateDraft{CanPrepareFire: true, Maneuver: [2]int{2, 1}}
+	beforeS, beforeC := s, c
+	if selectCombatCourseDraft(&s, &c) || !reflect.DeepEqual(s, beforeS) || c != beforeC {
+		t.Fatal("undefined mode0/cloak must remain outside the prototype")
+	}
+}
+
+func TestCombatStateDraftCourse(t *testing.T) {
+	in, out := os.Getenv("SUNDOG_COMBAT_INIT_INPUT"), os.Getenv("SUNDOG_PARITY_OUTPUT")
+	if in == "" || out == "" {
+		t.Skip("typed-state disposable overlay only")
+	}
+	type input struct {
+		Mode, Range, BearingDrift, PitchDrift, Aux8, Aux9, Closing, Phase, Hull, Seed, HelperLocal2, HelperLocal3 int
+		Flag12                                                                                                    bool
+	}
+	type row struct {
+		Input                                                         input
+		BearingDrift, PitchDrift, Aux8, Aux9, Closing, Timer, Counter int
+		Flag44, Flag29, Flag46                                        bool
+	}
+	var native struct{ Native []row }
+	raw, err := os.ReadFile(filepath.Join(in, "native-course.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = json.Unmarshal(raw, &native); err != nil {
+		t.Fatal(err)
+	}
+	if len(native.Native) != 6336 {
+		t.Fatal("native6336 required")
+	}
+	diffs, excluded := 0, 0
+	actual := []row{}
+	for _, n := range native.Native {
+		i := n.Input
+		s := State{EnemyCourseMode: i.Mode, CombatRange: i.Range, EnemyDriftBearing: i.BearingDrift, EnemyDriftPitch: i.PitchDrift,
+			EnemyClosing: i.Closing, ShipPhase: i.Phase, EnemyHull: i.Hull, CombatRolls: i.Seed}
+		s.ShipControls.Secondary[4] = i.Flag12
+		c := combatStateDraft{Maneuver: [2]int{i.Aux8, i.Aux9}, CanPrepareFire: true, Following: true}
+		if !selectCombatCourseDraft(&s, &c) {
+			if i.Mode != 0 || !i.Flag12 || i.Phase != 0 {
+				t.Fatal("unexpected unsupported course", i)
+			}
+			excluded++
+			continue
+		}
+		x := row{Input: i, BearingDrift: s.EnemyDriftBearing, PitchDrift: s.EnemyDriftPitch, Aux8: c.Maneuver[0], Aux9: c.Maneuver[1],
+			Closing: s.EnemyClosing, Timer: c.CourseTicks, Counter: s.CombatRolls, Flag44: c.CanPrepareFire, Flag29: c.Following, Flag46: c.CloakRetreat}
+		actual = append(actual, x)
+		if !reflect.DeepEqual(x, n) {
+			diffs++
+			if diffs < 4 {
+				t.Logf("course%+v native%+v draft%+v", i, n, x)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(struct {
+		Cases, Differences, ExcludedUndefined int
+		Draft                                 []row
+	}{len(actual), diffs, excluded, actual}, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(out, "draft-course.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if diffs != 0 || len(actual) != 6144 || excluded != 192 {
+		t.Fatalf("draft course cases%d diffs%d undefined%d", len(actual), diffs, excluded)
+	}
+	t.Log("draft course6144 match; 192 explicit mode0/cloak helper residues excluded")
+}

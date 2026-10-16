@@ -132,10 +132,6 @@ func (r Reducer) advanceSleep(s *State) {
 		if s.Sleep.ShipCycles == 32 {
 			s.Sleep.ShipCycles = 0
 			advanceShipClock(s)
-			if s.CombatActive {
-				steerEnemy(s)
-				resolveEnemyFire(s)
-			}
 			callback = true
 		}
 	}

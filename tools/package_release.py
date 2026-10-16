@@ -158,7 +158,7 @@ def write_readme(target: Path, version: str, platform: str, launch: str, notes: 
         "- macOS：`~/Library/Application Support/sundog-remake/`",
         "",
         "要放在別的地方，用 `-save`、`-library` 與 `-settings` 指定路徑。",
-        "只支援 schema44 新存檔；舊存檔與原版 Library Disk 不支援，不提供遷移。",
+        "只支援 schema45 新存檔；舊存檔與原版 Library Disk 不支援，不提供遷移。",
         "",
         "## 邊界",
         "",

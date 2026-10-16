@@ -20,9 +20,9 @@ import (
 func main() {
 	catalogPath := flag.String("catalog", "docs/i18n/apple2-text-catalog.json", "Apple II 來源文字 catalog")
 	uiCatalogPath := flag.String("ui-catalog", "docs/i18n/sundog-ui-zh-Hant.json", "重製版繁中 UI overlay")
-	savePath := flag.String("save", "workplace/save/sundog-prototype-slot-1.json", "可寫入的重製版存檔槽")
+	savePath := flag.String("save", fmt.Sprintf("workplace/save/sundog-prototype-v%d-slot-1.json", game.CurrentSchema), "可寫入的重製版存檔槽")
 	loadSave := flag.Bool("load", false, "啟動前載入可寫入的重製版存檔槽")
-	libraryPath := flag.String("library", "workplace/save/sundog-remake-library.json", "可寫入的重製版保存庫替代檔")
+	libraryPath := flag.String("library", fmt.Sprintf("workplace/save/sundog-remake-v%d-library.json", game.CurrentSchema), "可寫入的重製版保存庫替代檔")
 	demo := flag.Bool("demo", false, "執行 deterministic 垂直切片重播")
 	atariAtlasManifest := flag.String("atari-atlas-manifest", "", "選用的 Atari ST normalized PNG atlas manifest")
 	flag.Parse()

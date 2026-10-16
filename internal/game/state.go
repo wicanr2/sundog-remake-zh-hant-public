@@ -10,7 +10,7 @@ import (
 	"github.com/wicanr2/sundog-remake/internal/world"
 )
 
-const CurrentSchema = 44
+const CurrentSchema = 45
 
 // The purse a new game opens with: XSTARTUP:0x30 sets it to
 // `random() mod 700 + 200`, so 200..899 Cr (ground-rules.json, cash.new-game).
@@ -486,13 +486,14 @@ type State struct {
 	// LibraryReturn is the screen the save library was opened from, so Back
 	// goes there instead of to the title. Empty means it was opened from the
 	// title, which is where the original's Select Game lives.
-	LibraryReturn      Screen `json:"libraryReturn,omitempty"`
-	EnemyHull          int    `json:"enemyHull"`
-	EnemyMaxHull       int    `json:"enemyMaxHull"`
-	EnemyType          int    `json:"enemyType"`
-	EnemyFireCountdown int    `json:"enemyFireCountdown"`
-	CombatRange        int    `json:"combatRange"`
-	EnemyCourseMode    int    `json:"enemyCourseMode"`
+	LibraryReturn      Screen           `json:"libraryReturn,omitempty"`
+	EnemyHull          int              `json:"enemyHull"`
+	EnemyMaxHull       int              `json:"enemyMaxHull"`
+	EnemyType          int              `json:"enemyType"`
+	EnemyFireCountdown int              `json:"enemyFireCountdown"`
+	EnemyCourse        EnemyCourseState `json:"enemyCourse"`
+	CombatRange        int              `json:"combatRange"`
+	EnemyCourseMode    int              `json:"enemyCourseMode"`
 	// EnemyBearing and EnemyPitch are the two axes the original tracks the
 	// enemy on (MAINLIB_Gd0 and Gcf, 0–0x3ff); EnemyDriftBearing and
 	// EnemyDriftPitch are the per-tick drifts set_course gives them
