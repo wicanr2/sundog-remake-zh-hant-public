@@ -32,6 +32,26 @@ Press `F8` to cycle **Atari ST → Atari ST HD → Apple II**. Atari ST remains 
 
 These are normal player captures from the integrated HD candidate, taken on different branches. They are not original comparison images or a claim that all scenes share one state. File hashes are recorded in the [public source manifest](PUBLIC-SOURCE-MANIFEST.json).
 
+## HD screenshots in five languages
+
+The same saved warehouse in Dramming, captured after switching languages through the game interface. Click an image for the original 1280×800 capture.
+
+<table>
+<tr>
+<td><a href="docs/screenshots/hd-warehouse-zh-Hant-20261016.png"><img src="docs/screenshots/hd-warehouse-zh-Hant-20261016.png" alt="繁體中文 · Atari ST HD · Dramming" width="416"></a><br>繁體中文</td>
+<td><a href="docs/screenshots/hd-warehouse-zh-Hans-20261016.png"><img src="docs/screenshots/hd-warehouse-zh-Hans-20261016.png" alt="简体中文 · Atari ST HD · Dramming" width="416"></a><br>简体中文</td>
+</tr>
+<tr>
+<td><a href="docs/screenshots/hd-warehouse-ja-20261016.png"><img src="docs/screenshots/hd-warehouse-ja-20261016.png" alt="日本語 · Atari ST HD · Dramming" width="416"></a><br>日本語</td>
+<td><a href="docs/screenshots/hd-warehouse-ko-20261016.png"><img src="docs/screenshots/hd-warehouse-ko-20261016.png" alt="한국어 · Atari ST HD · Dramming" width="416"></a><br>한국어</td>
+</tr>
+<tr>
+<td><a href="docs/screenshots/hd-warehouse-en-20261016.png"><img src="docs/screenshots/hd-warehouse-en-20261016.png" alt="English · Atari ST HD · Dramming" width="416"></a><br>English</td>
+</tr>
+</table>
+
+These unedited normal-play captures show the current source branch. Warehouse Swap was added after v.1.2.0-20261016 and is not included in that release’s installers. Image hashes are recorded in the [public source manifest](PUBLIC-SOURCE-MANIFEST.json).
+
 ## Download and language
 
 Download the [v.1.2.0-20261016 engine release](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.2.0-20261016), or follow the [Docker build guide](docs/build.md). Select your legal `sundog.st` when prompted. Sound stays muted until you import sound from your own disk.

@@ -32,6 +32,26 @@ Go와 Ebitengine으로 다시 만든 우주 무역 모험 게임입니다. Atari
 
 이미지는 정식 통합 후보를 일반 조작으로 플레이하며 캡처했습니다. 서로 다른 진행 분기에서 가져왔으며 같은 상태의 원작 비교를 뜻하지 않습니다. 파일 해시는 [공개 소스 목록](PUBLIC-SOURCE-MANIFEST.json)에 기록되어 있습니다.
 
+## 5개 언어의 HD 게임 화면
+
+동일한 저장 데이터를 불러온 Dramming 창고에서 게임 설정으로 언어를 바꾸며 촬영했습니다. 이미지를 누르면 1280×800 원본을 볼 수 있습니다.
+
+<table>
+<tr>
+<td><a href="docs/screenshots/hd-warehouse-zh-Hant-20261016.png"><img src="docs/screenshots/hd-warehouse-zh-Hant-20261016.png" alt="繁體中文 · Atari ST HD · Dramming" width="416"></a><br>繁體中文</td>
+<td><a href="docs/screenshots/hd-warehouse-zh-Hans-20261016.png"><img src="docs/screenshots/hd-warehouse-zh-Hans-20261016.png" alt="简体中文 · Atari ST HD · Dramming" width="416"></a><br>简体中文</td>
+</tr>
+<tr>
+<td><a href="docs/screenshots/hd-warehouse-ja-20261016.png"><img src="docs/screenshots/hd-warehouse-ja-20261016.png" alt="日本語 · Atari ST HD · Dramming" width="416"></a><br>日本語</td>
+<td><a href="docs/screenshots/hd-warehouse-ko-20261016.png"><img src="docs/screenshots/hd-warehouse-ko-20261016.png" alt="한국어 · Atari ST HD · Dramming" width="416"></a><br>한국어</td>
+</tr>
+<tr>
+<td><a href="docs/screenshots/hd-warehouse-en-20261016.png"><img src="docs/screenshots/hd-warehouse-en-20261016.png" alt="English · Atari ST HD · Dramming" width="416"></a><br>English</td>
+</tr>
+</table>
+
+현재 소스에서 일반 조작으로 저장 데이터를 불러와 촬영한 무편집 화면입니다. 창고의 교환 기능은 v.1.2.0-20261016 출시 후 추가되어 해당 버전의 배포 패키지에는 포함되지 않습니다. 이미지 해시는 [공개 소스 목록](PUBLIC-SOURCE-MANIFEST.json)에 기록되어 있습니다.
+
 ## 다운로드와 언어 설정
 
 [v.1.2.0-20261016 엔진](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.2.0-20261016)을 받거나 [Docker 빌드 안내](docs/build.md)에 따라 컴파일하세요. 실행 후 합법적으로 보유한 `sundog.st`를 선택합니다. 자신의 디스크에서 효과음을 가져오기 전에는 무음입니다.

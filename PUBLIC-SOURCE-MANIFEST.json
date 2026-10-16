@@ -7,31 +7,71 @@
       "path": "docs/screenshots/hd-shipboard.png",
       "sha256": "5a8d8a1aad3f26ff44c67648ffe0b93cafc92200fa0bf4924c085ae4d6f52c9e",
       "kind": "independently drawn HD; normal player capture",
-      "captureDate": "2026-10-15"
+      "captureDate": "2026-10-15",
+      "locale": "zh-Hant"
     },
     {
       "path": "docs/screenshots/hd-ground.png",
       "sha256": "6108fc6c52f1098e5c94da43887753e5585957fc5a381a9a43e27b821320c6f7",
       "kind": "independently drawn HD; normal player capture",
-      "captureDate": "2026-10-15"
+      "captureDate": "2026-10-15",
+      "locale": "zh-Hant"
     },
     {
       "path": "docs/screenshots/hd-system.png",
       "sha256": "596504b0d90e1c26b1047918e1993be67c5ad0fc06e4c67a9bc39eca683f79a7",
       "kind": "independently drawn HD; normal player capture",
-      "captureDate": "2026-10-15"
+      "captureDate": "2026-10-15",
+      "locale": "zh-Hant"
     },
     {
       "path": "docs/screenshots/hd-engineering.png",
       "sha256": "8c7694bf617947de5485721a7f51512a7c9518e3f3bed21bb84467ba1439e622",
       "kind": "independently drawn HD; normal player capture",
-      "captureDate": "2026-10-15"
+      "captureDate": "2026-10-15",
+      "locale": "zh-Hant"
     },
     {
       "path": "docs/screenshots/hd-stores.png",
       "sha256": "5f5109f0fceee4a8b9bb0e08529eba570aa8c0a5606b9c220486591b902154e3",
       "kind": "independently drawn HD; normal player capture",
-      "captureDate": "2026-10-15"
+      "captureDate": "2026-10-15",
+      "locale": "zh-Hant"
+    },
+    {
+      "path": "docs/screenshots/hd-warehouse-zh-Hant-20261016.png",
+      "sha256": "58056ee4e98367915224169fa6c1848f13fe95561346d48efacde49014b70642",
+      "kind": "independently drawn HD; normal player capture",
+      "captureDate": "2026-10-16",
+      "locale": "zh-Hant"
+    },
+    {
+      "path": "docs/screenshots/hd-warehouse-zh-Hans-20261016.png",
+      "sha256": "52b053b1cc27d08ac8c47b7dd94e6d18ad000f1947d00f514d58724aecfcc96e",
+      "kind": "independently drawn HD; normal player capture",
+      "captureDate": "2026-10-16",
+      "locale": "zh-Hans"
+    },
+    {
+      "path": "docs/screenshots/hd-warehouse-ja-20261016.png",
+      "sha256": "1d0ecfd8df19fbec4c868e379f14eb1df0dd47d88c0384b6bb312ce5b0410d51",
+      "kind": "independently drawn HD; normal player capture",
+      "captureDate": "2026-10-16",
+      "locale": "ja"
+    },
+    {
+      "path": "docs/screenshots/hd-warehouse-ko-20261016.png",
+      "sha256": "4181a325958139b91e5890e4eaad3480ba87f7277cee849fdd5ff60e011ef594",
+      "kind": "independently drawn HD; normal player capture",
+      "captureDate": "2026-10-16",
+      "locale": "ko"
+    },
+    {
+      "path": "docs/screenshots/hd-warehouse-en-20261016.png",
+      "sha256": "a02e6c6e7aab4ef5b6a39dd5bacf107f2cc0d700382233e5e0c54e1791aac11d",
+      "kind": "independently drawn HD; normal player capture",
+      "captureDate": "2026-10-16",
+      "locale": "en"
     }
   ],
   "files": [
@@ -47,8 +87,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 1807,
-      "sha256": "f9b9ac5757936e6387fabf0914c1b1cf01fa427d3048136bf898a06111281fd9"
+      "bytes": 2218,
+      "sha256": "501b9fd82bbb56573f3b0820fa138aa93bb1680d8502e2e01cf7ee39c38ad860"
     },
     {
       "path": "LICENSE",
@@ -57,28 +97,28 @@
     },
     {
       "path": "README.en.md",
-      "bytes": 6078,
-      "sha256": "fae64febad970ecf6a018b9307b5d37bf4b393d920f1b14f8db3e2193b08820e"
+      "bytes": 7579,
+      "sha256": "04da425cc72e98b4c4dc954bbaba55dbd95ebede2c75e856776a0c8022e860be"
     },
     {
       "path": "README.ja.md",
-      "bytes": 6932,
-      "sha256": "60abb2299e9924c0797e26177203ae68132b1a6d9738e2aa41aab0b3bad0d125"
+      "bytes": 8571,
+      "sha256": "0ca03753d1ad67c7871729cbe9123f82ebed068b0ea103bbe6344514f740c88f"
     },
     {
       "path": "README.ko.md",
-      "bytes": 6807,
-      "sha256": "6ef8dbca683d31f8cc2bc81f4fefa2006c807817ff06702067fba22322f5023d"
+      "bytes": 8430,
+      "sha256": "ef7c9e156b0cfa9cabd00112d5bd2f128f39859c7698b16788d97ec24ab9e0b3"
     },
     {
       "path": "README.md",
-      "bytes": 5965,
-      "sha256": "c169ad7c6c7ca2478a64cda21b67dc60446b5d06fa902e811b2b85b192c62880"
+      "bytes": 7396,
+      "sha256": "c80a2d0a44a308dbabac60d298843845f05d61a59218dd0af5fadfec0007e7af"
     },
     {
       "path": "WORKLOG.md",
-      "bytes": 3534,
-      "sha256": "22422455291494906419f4194c6fcf7b1ea3aface10d8b1f5b963b1586e3cba5"
+      "bytes": 3945,
+      "sha256": "21268eb7530e2687e5ccc360baeec4c2cefebd42ad1838ce7b7b91a4a2c4deff"
     },
     {
       "path": "assets/fonts/ASSET-MANIFEST.md",
@@ -692,8 +732,8 @@
     },
     {
       "path": "docs/index.md",
-      "bytes": 1657,
-      "sha256": "9c53ae4676277c646e5675fd29141665ff4ddf7c3ac7eebc49911079e440ed44"
+      "bytes": 1727,
+      "sha256": "7fcf87a16ebcb83c4c79f308ddb3a552eca24313a279ea6daf04236e0aad1e7a"
     },
     {
       "path": "docs/manual/remake-controls-zh-Hant.md",
@@ -734,6 +774,31 @@
       "path": "docs/screenshots/hd-system.png",
       "bytes": 137880,
       "sha256": "596504b0d90e1c26b1047918e1993be67c5ad0fc06e4c67a9bc39eca683f79a7"
+    },
+    {
+      "path": "docs/screenshots/hd-warehouse-en-20261016.png",
+      "bytes": 46331,
+      "sha256": "a02e6c6e7aab4ef5b6a39dd5bacf107f2cc0d700382233e5e0c54e1791aac11d"
+    },
+    {
+      "path": "docs/screenshots/hd-warehouse-ja-20261016.png",
+      "bytes": 44322,
+      "sha256": "1d0ecfd8df19fbec4c868e379f14eb1df0dd47d88c0384b6bb312ce5b0410d51"
+    },
+    {
+      "path": "docs/screenshots/hd-warehouse-ko-20261016.png",
+      "bytes": 44537,
+      "sha256": "4181a325958139b91e5890e4eaad3480ba87f7277cee849fdd5ff60e011ef594"
+    },
+    {
+      "path": "docs/screenshots/hd-warehouse-zh-Hans-20261016.png",
+      "bytes": 43832,
+      "sha256": "52b053b1cc27d08ac8c47b7dd94e6d18ad000f1947d00f514d58724aecfcc96e"
+    },
+    {
+      "path": "docs/screenshots/hd-warehouse-zh-Hant-20261016.png",
+      "bytes": 44136,
+      "sha256": "58056ee4e98367915224169fa6c1848f13fe95561346d48efacde49014b70642"
     },
     {
       "path": "go.mod",
@@ -2767,8 +2832,8 @@
     },
     {
       "path": "tools/prepare_public_repository.py",
-      "bytes": 5437,
-      "sha256": "1ef53181f002971af596ddf8073a6ebef27c3b126679dbc77f72164c63d5d704"
+      "bytes": 6509,
+      "sha256": "0d597ca1f2b0d0fd825f3655ff0404280ef2ea9147cc8a3a5d426382fe61e464"
     },
     {
       "path": "tools/psys_disasm.py",
@@ -2797,33 +2862,33 @@
     },
     {
       "path": "tools/public-source/CONTEXT.md",
-      "bytes": 1807,
-      "sha256": "f9b9ac5757936e6387fabf0914c1b1cf01fa427d3048136bf898a06111281fd9"
+      "bytes": 2218,
+      "sha256": "501b9fd82bbb56573f3b0820fa138aa93bb1680d8502e2e01cf7ee39c38ad860"
     },
     {
       "path": "tools/public-source/README.en.md",
-      "bytes": 6078,
-      "sha256": "fae64febad970ecf6a018b9307b5d37bf4b393d920f1b14f8db3e2193b08820e"
+      "bytes": 7579,
+      "sha256": "04da425cc72e98b4c4dc954bbaba55dbd95ebede2c75e856776a0c8022e860be"
     },
     {
       "path": "tools/public-source/README.ja.md",
-      "bytes": 6932,
-      "sha256": "60abb2299e9924c0797e26177203ae68132b1a6d9738e2aa41aab0b3bad0d125"
+      "bytes": 8571,
+      "sha256": "0ca03753d1ad67c7871729cbe9123f82ebed068b0ea103bbe6344514f740c88f"
     },
     {
       "path": "tools/public-source/README.ko.md",
-      "bytes": 6807,
-      "sha256": "6ef8dbca683d31f8cc2bc81f4fefa2006c807817ff06702067fba22322f5023d"
+      "bytes": 8430,
+      "sha256": "ef7c9e156b0cfa9cabd00112d5bd2f128f39859c7698b16788d97ec24ab9e0b3"
     },
     {
       "path": "tools/public-source/README.md",
-      "bytes": 5965,
-      "sha256": "c169ad7c6c7ca2478a64cda21b67dc60446b5d06fa902e811b2b85b192c62880"
+      "bytes": 7396,
+      "sha256": "c80a2d0a44a308dbabac60d298843845f05d61a59218dd0af5fadfec0007e7af"
     },
     {
       "path": "tools/public-source/WORKLOG.md",
-      "bytes": 3534,
-      "sha256": "22422455291494906419f4194c6fcf7b1ea3aface10d8b1f5b963b1586e3cba5"
+      "bytes": 3945,
+      "sha256": "21268eb7530e2687e5ccc360baeec4c2cefebd42ad1838ce7b7b91a4a2c4deff"
     },
     {
       "path": "tools/public-source/docs/build.md",
@@ -2832,8 +2897,8 @@
     },
     {
       "path": "tools/public-source/docs/index.md",
-      "bytes": 1312,
-      "sha256": "fa3bd0d7523b48e41c029b30189c54991abd7f87216088c1f20f013e48f18818"
+      "bytes": 1727,
+      "sha256": "7fcf87a16ebcb83c4c79f308ddb3a552eca24313a279ea6daf04236e0aad1e7a"
     },
     {
       "path": "tools/public-source/docs/promo/README.md",
@@ -3327,8 +3392,8 @@
     },
     {
       "path": "tools/test_prepare_public_repository.py",
-      "bytes": 2193,
-      "sha256": "c09ff0eb84ac2ae77f97cedbae595ccfc1c1e21fcf7e2759c5b0b218d942a30d"
+      "bytes": 3129,
+      "sha256": "0ba6190b9331e2b38fff95ba139cf4e2880754cd8a3624ee05377ab17d39b9ce"
     },
     {
       "path": "tools/test_psys_disasm.py",

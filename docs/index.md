@@ -1,6 +1,7 @@
 # 文件索引
 
 - [專案介紹、故事與 HD 畫廊](../README.md)
+- [五語 HD 正常玩家截圖](../README.md#五語-hd-遊玩截圖)
 - [目前狀態與驗證限制](../CONTEXT.md)
 - [建置及測試](build.md)
 - [五語資料與韓文 TSV 來源](i18n/README.md)

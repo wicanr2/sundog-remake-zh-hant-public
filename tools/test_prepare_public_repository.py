@@ -23,7 +23,7 @@ class PublicTemplateBoundaryTests(unittest.TestCase):
             tracked = self.fixture(root)
             (root / "tools/public-source/private-note.txt").write_text("local only\n")
             output = Path(directory) / "public"
-            with patch.object(publication.subprocess, "check_output", return_value=tracked), patch.object(publication, "SHOTS", {}):
+            with patch.object(publication.subprocess, "check_output", return_value=tracked), patch.object(publication, "SHOTS", {}), patch.object(publication, "LANGUAGE_SHOTS", {}):
                 publication.prepare(root, output, "v.1.2.0-20261016")
             self.assertFalse((output / "private-note.txt").exists())
             self.assertFalse((output / "tools/public-source/private-note.txt").exists())
@@ -38,8 +38,22 @@ class PublicTemplateBoundaryTests(unittest.TestCase):
             template = root / "tools/public-source/README.md"
             template.unlink()
             template.symlink_to(outside)
-            with patch.object(publication.subprocess, "check_output", return_value=tracked), patch.object(publication, "SHOTS", {}):
+            with patch.object(publication.subprocess, "check_output", return_value=tracked), patch.object(publication, "SHOTS", {}), patch.object(publication, "LANGUAGE_SHOTS", {}):
                 with self.assertRaisesRegex(ValueError, "symlink"):
+                    publication.prepare(root, Path(directory) / "public", "v.1.2.0-20261016")
+
+
+    def test_changed_localized_screenshot_is_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "source"
+            tracked = self.fixture(root)
+            name = "docs/screenshots/hd-warehouse-en-20261016.png"
+            path = root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(b"unreviewed replacement")
+            tracked += (name + "\0").encode()
+            with patch.object(publication.subprocess, "check_output", return_value=tracked), patch.object(publication, "SHOTS", {}), patch.object(publication, "LANGUAGE_SHOTS", {"en": "0" * 64}):
+                with self.assertRaisesRegex(ValueError, "HD screenshot changed"):
                     publication.prepare(root, Path(directory) / "public", "v.1.2.0-20261016")
 
 

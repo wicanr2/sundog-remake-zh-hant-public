@@ -26,6 +26,16 @@ SHOTS = {
 }
 
 
+# Reviewed normal-player HD captures from the post-release source branch.
+LANGUAGE_SHOTS = {
+    "zh-Hant": "58056ee4e98367915224169fa6c1848f13fe95561346d48efacde49014b70642",
+    "zh-Hans": "52b053b1cc27d08ac8c47b7dd94e6d18ad000f1947d00f514d58724aecfcc96e",
+    "ja": "1d0ecfd8df19fbec4c868e379f14eb1df0dd47d88c0384b6bb312ce5b0410d51",
+    "ko": "4181a325958139b91e5890e4eaad3480ba87f7277cee849fdd5ff60e011ef594",
+    "en": "a02e6c6e7aab4ef5b6a39dd5bacf107f2cc0d700382233e5e0c54e1791aac11d",
+}
+
+
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -63,7 +73,7 @@ def prepare(root: Path, output: Path, version: str) -> dict:
         if name not in {p.relative_to(root).as_posix() for p in selected}:
             raise ValueError(f"required tracked source missing: {name}")
     # These reviewed screenshots show independently drawn HD art. The source
-    # directory stays excluded; only these five exact files are relocated.
+    # directory stays excluded; only the reviewed exact files are relocated.
     screenshots = []
     for scene in SHOTS:
         name = f"docs/atari-st/parity-shots/hd-full-{scene}-20261015.png"
@@ -72,7 +82,15 @@ def prepare(root: Path, output: Path, version: str) -> dict:
             raise ValueError(f"reviewed HD screenshot missing: {name}")
         if digest(path) != SHOTS[scene]:
             raise ValueError(f"HD screenshot changed; review before publication: {name}")
-        screenshots.append((path, f"docs/screenshots/hd-{scene}.png"))
+        screenshots.append((path, f"docs/screenshots/hd-{scene}.png", "2026-10-15", "zh-Hant"))
+    for locale, expected in LANGUAGE_SHOTS.items():
+        name = f"docs/screenshots/hd-warehouse-{locale}-20261016.png"
+        path = root / name
+        if name not in tracked or not path.is_file() or path.is_symlink():
+            raise ValueError(f"reviewed HD screenshot missing: {name}")
+        if digest(path) != expected:
+            raise ValueError(f"HD screenshot changed; review before publication: {name}")
+        screenshots.append((path, name, "2026-10-16", locale))
     output.mkdir(parents=True)
     for path in selected:
         destination = output / path.relative_to(root)
@@ -87,7 +105,7 @@ def prepare(root: Path, output: Path, version: str) -> dict:
             destination = output / path.relative_to(root / TEMPLATES)
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(path, destination)
-    for source, name in screenshots:
+    for source, name, capture_date, locale in screenshots:
         destination = output / name
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
@@ -95,7 +113,7 @@ def prepare(root: Path, output: Path, version: str) -> dict:
         "schema": 1,
         "boundary": "Fresh source snapshot; no original Git objects, disks, scans, original pixels or sounds. Private oracle images and full local packages excluded.",
         "gameVersion": version,
-        "screenshots": [{"path": name, "sha256": digest(source), "kind": "independently drawn HD; normal player capture", "captureDate": "2026-10-15"} for source, name in screenshots],
+        "screenshots": [{"path": name, "sha256": digest(source), "kind": "independently drawn HD; normal player capture", "captureDate": capture_date, "locale": locale} for source, name, capture_date, locale in screenshots],
         "files": [{"path": p.relative_to(output).as_posix(), "bytes": p.stat().st_size, "sha256": digest(p)} for p in sorted(output.rglob("*")) if p.is_file()],
     }
     (output / "PUBLIC-SOURCE-MANIFEST.json").write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n")

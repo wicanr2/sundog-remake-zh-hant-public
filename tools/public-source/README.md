@@ -34,6 +34,26 @@ HD 採「清晰精繪」方向，保留明亮色彩、船形與原分區。標�
 
 圖片為正式整合候選的正常玩家操作擷取，分屬不同分支，不宣稱同一時間狀態。僅展示獨立 HD 重畫，未包含原版對拍圖片。來源雜湊見[公開來源清單](PUBLIC-SOURCE-MANIFEST.json)。
 
+## 五語 HD 遊玩截圖
+
+同一個 Dramming 倉庫保存，經遊戲介面切換五種語言後擷取。點圖可看 1280×800 原圖。
+
+<table>
+<tr>
+<td><a href="docs/screenshots/hd-warehouse-zh-Hant-20261016.png"><img src="docs/screenshots/hd-warehouse-zh-Hant-20261016.png" alt="繁體中文 · Atari ST HD · Dramming" width="416"></a><br>繁體中文</td>
+<td><a href="docs/screenshots/hd-warehouse-zh-Hans-20261016.png"><img src="docs/screenshots/hd-warehouse-zh-Hans-20261016.png" alt="简体中文 · Atari ST HD · Dramming" width="416"></a><br>简体中文</td>
+</tr>
+<tr>
+<td><a href="docs/screenshots/hd-warehouse-ja-20261016.png"><img src="docs/screenshots/hd-warehouse-ja-20261016.png" alt="日本語 · Atari ST HD · Dramming" width="416"></a><br>日本語</td>
+<td><a href="docs/screenshots/hd-warehouse-ko-20261016.png"><img src="docs/screenshots/hd-warehouse-ko-20261016.png" alt="한국어 · Atari ST HD · Dramming" width="416"></a><br>한국어</td>
+</tr>
+<tr>
+<td><a href="docs/screenshots/hd-warehouse-en-20261016.png"><img src="docs/screenshots/hd-warehouse-en-20261016.png" alt="English · Atari ST HD · Dramming" width="416"></a><br>English</td>
+</tr>
+</table>
+
+畫面來自目前來源主線的正常保存載入，沒有後製。倉庫「交換」是 v.1.2.0-20261016 發布後新增的功能，尚未收入該版安裝包。來源與雜湊見[公開檔案清單](PUBLIC-SOURCE-MANIFEST.json)。
+
 ## 建置與執行
 
 [下載 v.1.2.0-20261016 引擎](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.2.0-20261016)，或依[Docker 建置說明](docs/build.md)自行編譯。啟動後選擇自己的合法 `sundog.st`。未匯入原版音效時保持靜音。
