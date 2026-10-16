@@ -17,22 +17,23 @@ class CombatContinuousGateTests(unittest.TestCase):
         common = ("Phase", "Fuel", "Weapon", "Shield", "Setting", "Hull", "Cooldown", "Range", "Bearing", "Pitch",
                   "BearingDrift", "PitchDrift", "Counter", "Active", "Words", "Systems",
                   "Timer", "Ready", "Closing", "Aux8", "Aux9", "CanPrepareFire")
-        for mode in range(8):
-            for phase in range(3):
-                for fuel in (0, 1, 255):
-                    for ready in (False, True):
-                        steps = []
-                        for index in range(12):
-                            step = {field: 0 for field in common}
-                            step.update(Phase=(phase + index + 1) % 3, Counter=1, Active=True, Words=[0, 0],
-                                        Systems=[[0] * 18 for _ in range(6)], Timer=0, Ready=False, Closing=0,
-                                        Aux8=0, Aux9=0, Flags=[0] * 5, RandomWords=[1, 0])
-                            step.pop("CanPrepareFire")
-                            steps.append(step)
-                        self.rows.append(dict(Input=dict(Mode=mode, Phase=phase, Fuel=fuel, Ready=ready), InitialSystems=[[0]*18 for _ in range(6)],Steps=steps,
-                                              Calls=[[0x31e00, at, proc] for _ in range(12)
-                                                     for at, proc in ((0x1295, 0x1f), (0x1298, 0x23), (0x12a8, 0x21))],
-                                              Draws=[dict(Low=0, High=15, Value=1, Counter=1)]))
+        for enemy in range(7):
+            for mode in range(8):
+                for phase in range(3):
+                    for fuel in (0, 1, 255):
+                        for ready in (False, True):
+                            steps = []
+                            for index in range(12):
+                                step = {field: 0 for field in common}
+                                step.update(Phase=(phase + index + 1) % 3, Counter=1, Active=True, Words=[0, 0],
+                                            Systems=[[0] * 18 for _ in range(6)], Timer=0, Ready=False, Closing=0,
+                                            Aux8=0, Aux9=0, Flags=[0] * 5, RandomWords=[1, 0])
+                                step.pop("CanPrepareFire")
+                                steps.append(step)
+                            self.rows.append(dict(Input=dict(Enemy=enemy, Mode=mode, Phase=phase, Fuel=fuel, Ready=ready), InitialSystems=[[0]*18 for _ in range(6)],Steps=steps,
+                                                  Calls=[[0x31e00, at, proc] for _ in range(12)
+                                                         for at, proc in ((0x1295, 0x1f), (0x1298, 0x23), (0x12a8, 0x21))],
+                                                  Draws=[dict(Low=0, High=15, Value=1, Counter=1)]))
         self.controlled = copy.deepcopy(self.rows)
         self.formal = [dict(Input=row["Input"],InitialSystems=row["InitialSystems"], Steps=[{field: step[field] if field != "CanPrepareFire" else False for field in common} for step in row["Steps"]])
                        for row in copy.deepcopy(self.rows)]
@@ -46,7 +47,7 @@ class CombatContinuousGateTests(unittest.TestCase):
     def test_native_research_is_not_full_conformance(self):
         result = self.compare()
         self.assertEqual(result["status"], "PASS-scoped")
-        self.assertEqual(result["comparedUpdates"], 1728)
+        self.assertEqual(result["comparedUpdates"], 12096)
         self.assertEqual(result["initialReadyNotComparable"], 0)
         self.assertNotIn("Ready", result["unmappedNativeFields"])
         self.assertEqual(result["unmappedNativeFields"], ["Flags", "RandomWords"])
@@ -60,6 +61,14 @@ class CombatContinuousGateTests(unittest.TestCase):
 
     def test_mode0_cannot_be_omitted(self):
         self.formal = [row for row in self.formal if row["Input"]["Mode"] != 0]
+        self.assertEqual(self.compare()["status"], "FAIL")
+
+    def test_special_enemy_type_cannot_be_omitted(self):
+        self.formal = [row for row in self.formal if row["Input"]["Enemy"] != 6]
+        self.assertEqual(self.compare()["status"], "FAIL")
+
+    def test_unknown_enemy_type_is_rejected(self):
+        self.rows[0]["Input"]["Enemy"] = 7
         self.assertEqual(self.compare()["status"], "FAIL")
 
     def test_cloaked_case_cannot_count_as_noncloaked(self):

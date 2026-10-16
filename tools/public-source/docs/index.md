@@ -30,3 +30,5 @@ schema45 玩家工具在 Docker 從標題建角，或用 `--library-input` 接�
 公開來源匯出腳本 [prepare_public_repository.py](../tools/prepare_public_repository.py) 供原私人工作樹建立新快照，使用 [public-source 範本](../tools/public-source/README.md)；公開 clone 已是匯出結果，不具備再次匯出所需的私人截圖路徑。
 
 `verify_schema45_player.py --combat-reentry-only` 從正常有貨庫續行；`--shore-visits 4 --require-mode0` 預先固定下船／走回船門後的模式0抽驗，不反覆重抽。輸出使用專案 `workplace/` 內新目錄供Go重播。保存輸入留本機。
+
+連續核心工具已覆蓋原始七型敵艦，含特殊UNKNOWN6的數值；每型144初態／1728更新，初始護盾255。缺型、未知索引或不相等拒絕通過。新原生數值收據留私人，不宣稱全型GUI、死亡或完整戰鬥。
