@@ -1,0 +1,269 @@
+package main
+
+// Disposable HD navigation review: no original bitmap is read by this painter.
+import (
+	"fmt"
+	"image"
+	"math"
+
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/vector"
+	"github.com/wicanr2/sundog-remake/internal/game"
+)
+
+type hdMapNode struct {
+	Kind   string       `json:"kind"`
+	Box    [4]float32   `json:"box,omitempty"`
+	Points [][2]float32 `json:"points,omitempty"`
+	Colour uint32       `json:"colour"`
+	Width  float32      `json:"width,omitempty"`
+	Text   string       `json:"text,omitempty"`
+	Clip   [4]int       `json:"clip"`
+}
+
+type hdMapMarker struct {
+	ID       string `json:"id"`
+	Kind     string `json:"kind"`
+	X        int    `json:"x"`
+	Y        int    `json:"y"`
+	Selected bool   `json:"selected,omitempty"`
+}
+
+type hdMapScene struct {
+	View    game.NavigationView `json:"view"`
+	Nodes   []hdMapNode         `json:"nodes"`
+	Markers []hdMapMarker       `json:"markers"`
+	Hidden  []string            `json:"hiddenNotDrawn"`
+}
+
+type hdMapBuilder struct {
+	scene hdMapScene
+	clip  [4]int
+}
+
+func (b *hdMapBuilder) line(colour uint32, width float32, points ...[2]float32) {
+	b.scene.Nodes = append(b.scene.Nodes, hdMapNode{Kind: "line", Points: points, Colour: colour, Width: width, Clip: b.clip})
+}
+
+func (b *hdMapBuilder) ellipse(x, y, rx, ry float32, colour uint32, width float32) {
+	b.scene.Nodes = append(b.scene.Nodes, hdMapNode{Kind: "ellipse", Box: [4]float32{x - rx, y - ry, rx * 2, ry * 2}, Colour: colour, Width: width, Clip: b.clip})
+}
+
+func (b *hdMapBuilder) polygon(colour uint32, points ...[2]float32) {
+	b.scene.Nodes = append(b.scene.Nodes, hdMapNode{Kind: "polygon", Points: points, Colour: colour, Clip: b.clip})
+}
+
+func (b *hdMapBuilder) ship(x, y int, colour uint32) {
+	xf, yf := float32(x)-.5, float32(y)-.5
+	b.polygon(colour, [2]float32{xf, yf - 3.5}, [2]float32{xf + 1.8, yf - 2}, [2]float32{xf + 1.2, yf + 3.5}, [2]float32{xf - 1.2, yf + 3.5}, [2]float32{xf - 1.8, yf - 2})
+	for _, direction := range []float32{-1, 1} {
+		b.line(colour, .7, [2]float32{xf + direction*1.5, yf - .5}, [2]float32{xf + direction*2.7, yf}, [2]float32{xf + direction*2.7, yf + 3.5})
+	}
+	b.line(0x020508, .6, [2]float32{xf, yf + 1}, [2]float32{xf, yf + 2.5})
+}
+
+func (b *hdMapBuilder) city(x, y int, colour uint32) {
+	// Four building clusters reinterpret character 20; no source mask is scaled.
+	for _, r := range [][4]float32{{-2, -3, 1.7, 1.7}, {.8, -2, 1.7, 3}, {-3, 0, 1.7, 1.7}, {-3, 2, 2.5, 1.7}, {.8, 2, 1.7, 1.7}} {
+		x0, y0 := float32(x)+r[0], float32(y)+r[1]
+		b.polygon(colour, [2]float32{x0, y0}, [2]float32{x0 + r[2], y0}, [2]float32{x0 + r[2], y0 + r[3]}, [2]float32{x0, y0 + r[3]})
+	}
+}
+
+func hdNavigationMapScene(a *app) hdMapScene {
+	full := [4]int{stMapOriginX, stMapOriginY, 160, 112}
+	b := hdMapBuilder{scene: hdMapScene{View: a.state.NavigationView, Hidden: []string{}}, clip: full}
+	target, hasTarget := a.reducer.World.Destination(a.state.NavigationTargetID)
+	switch a.state.NavigationView {
+	case game.NavigationSystem:
+		// Independently constructed curves, guided by image 12 at raw 0x15170.
+		// Its background is cropped to 96 rows by the existing ST renderer.
+		b.clip[3] = stSystemClipRows
+		cx, cy := float32(stSystemCentreX-1), float32(stSystemCentreY-1)
+		for _, radius := range []float32{6, 12, 19, 26, 33, 54, 61} {
+			b.ellipse(cx, cy, radius, radius, 0x434b52, .55)
+		}
+		for angle := 0; angle < 256; angle += 32 {
+			dx, dy := game.PolarToRect(angle, 37)
+			b.line(0x434b52, .55, [2]float32{cx, cy}, [2]float32{cx + float32(dx), cy + float32(dy)})
+		}
+		for angle := 0; angle < 256; angle += 16 {
+			dx0, dy0 := game.PolarToRect(angle, 53)
+			dx1, dy1 := game.PolarToRect(angle, 72)
+			b.line(0x00b51a, .65, [2]float32{cx + float32(dx0), cy + float32(dy0)}, [2]float32{cx + float32(dx1), cy + float32(dy1)})
+		}
+		for _, label := range []struct {
+			text string
+			x, y float32
+		}{{"176", 134, 7}, {"208", 205, 7}, {"144", 99, 41}, {"240", 238, 41}, {"112", 101, 77}, {"16", 239, 77}} {
+			b.scene.Nodes = append(b.scene.Nodes, hdMapNode{Kind: "text", Text: label.text, Box: [4]float32{label.x, label.y, 15, 6}, Colour: 0xc7cdd3, Clip: b.clip})
+		}
+		b.ellipse(cx, cy, 3.8, 3.8, 0xf4242d, 0)
+		b.ellipse(cx, cy, 2.4, 2.4, 0xffe327, 0)
+		b.clip = full
+		for i := 0; i < stSystemRingN; i++ {
+			dx, dy := game.PolarToRect(i*256/stSystemRingN, stSystemRingR)
+			x, y := stSystemCentreX+dx, stSystemCentreY+dy
+			xf, yf := float32(x)-1, float32(y)-1
+			b.line(0xf4f7fa, .65, [2]float32{xf - 2, yf + 3}, [2]float32{xf + 2, yf - 3})
+			b.line(0xf4f7fa, .65, [2]float32{xf - 2, yf - 1}, [2]float32{xf + 2, yf + 1})
+			b.scene.Markers = append(b.scene.Markers, hdMapMarker{ID: fmt.Sprint(i), Kind: "reference", X: x, Y: y})
+		}
+		systemID := a.state.SystemID
+		if hasTarget {
+			systemID = target.SystemID
+		}
+		for _, planet := range a.reducer.World.PlanetsInSystem(systemID) {
+			orbit := a.reducer.PlanetOrbit(a.state, planet)
+			dx, dy := game.PolarToRect(orbit.Angle, orbit.Radius)
+			x, y := stSystemCentreX+dx, stSystemCentreY+dy
+			b.ellipse(float32(x)-1, float32(y)-1, 2.5, 2.5, 0xf4f7fa, 0)
+			b.scene.Markers = append(b.scene.Markers, hdMapMarker{ID: planet.ID, Kind: "planet", X: x, Y: y, Selected: hasTarget && planet.ID == target.PlanetID})
+		}
+		if systemID == a.state.SystemID && a.frames/15%2 == 0 {
+			dx, dy := systemMapShipOffset(a.state)
+			x, y := stSystemCentreX+dx, stSystemCentreY+dy
+			b.ship(x, y, 0xf4f7fa)
+			b.scene.Markers = append(b.scene.Markers, hdMapMarker{ID: "ship", Kind: "ship", X: x, Y: y})
+		}
+	case game.NavigationPlanet:
+		// Image 11 (raw 0x14a74) is a double-hemisphere graticule, not terrain.
+		// Curves are geometric reinterpretations; city anchors are exact typed data.
+		for _, cx := range []float32{149, 202} {
+			cy := float32(62)
+			// Draw the union's outside edge. Full ellipses would introduce
+			// two green internal arcs absent from the source graticule.
+			start, end := math.Acos(26.5/48.0), 2*math.Pi-math.Acos(26.5/48.0)
+			if cx > 175 {
+				start, end = -math.Pi+math.Acos(26.5/48.0), math.Pi-math.Acos(26.5/48.0)
+			}
+			var edge [][2]float32
+			for i := 0; i <= 128; i++ {
+				angle := start + (end-start)*float64(i)/128
+				edge = append(edge, [2]float32{cx + 48*float32(math.Cos(angle)), cy + 52*float32(math.Sin(angle))})
+			}
+			b.line(0x00b51a, .8, edge...)
+			b.line(0x434b52, .55, [2]float32{cx, cy - 51}, [2]float32{cx, cy + 51})
+			for _, rx := range []float32{12, 24, 36} {
+				b.ellipse(cx, cy, rx, 51, 0x434b52, .55)
+			}
+			for _, dy := range []float32{-36, -20, 0, 20, 36} {
+				half := float32(math.Sqrt(1-float64(dy*dy/(52*52)))) * 48
+				b.line(0x434b52, .55, [2]float32{cx - half, cy + dy}, [2]float32{cx + half, cy + dy})
+			}
+		}
+		planetID := a.state.PlanetID
+		if hasTarget {
+			planetID = target.PlanetID
+		}
+		shipShown := false
+		for _, d := range a.reducer.DestinationsOnPlanet(a.state, planetID) {
+			if d.Hidden {
+				b.scene.Hidden = append(b.scene.Hidden, d.ID)
+				continue
+			}
+			x, y := stMapOriginX+d.MapX, stMapOriginY+d.MapY
+			colour := uint32(0xed22ee)
+			if d.CityID == a.state.CityID {
+				colour = 0xf4f7fa
+			}
+			selected := hasTarget && d.CityID == target.CityID && d.CityID != a.state.CityID
+			if selected {
+				xf, yf := float32(x)-.5, float32(y)-1
+				b.line(colour, 1.1, [2]float32{xf + 1.5, yf - 3}, [2]float32{xf - 1.5, yf}, [2]float32{xf + 1.5, yf + 3})
+			} else {
+				b.city(x, y, colour)
+			}
+			b.scene.Markers = append(b.scene.Markers, hdMapMarker{ID: d.ID, Kind: "city", X: x, Y: y, Selected: selected})
+			if d.CityID == a.state.ShipCityID {
+				b.ship(x, y, 0x8b939b)
+				shipShown = true
+				b.scene.Markers = append(b.scene.Markers, hdMapMarker{ID: "ship", Kind: "ship", X: x, Y: y})
+			}
+		}
+		if planetID == a.state.PlanetID && a.state.Screen != game.ScreenGround && !shipShown {
+			x, y := stMapOriginX+stOrbitShipX, stMapOriginY+stOrbitShipY
+			b.ship(x, y, 0xf4f7fa)
+			b.scene.Markers = append(b.scene.Markers, hdMapMarker{ID: "ship-orbit", Kind: "ship", X: x, Y: y})
+		}
+	}
+	return b.scene
+}
+
+func (p *hdReviewPainter) drawNavigationMaps(a *app) {
+	scene := hdNavigationMapScene(a)
+	for _, n := range scene.Nodes {
+		r := n.Clip
+		clip := image.Rect(a.originX+r[0]*a.viewScale(), a.originY+r[1]*a.viewScale(), a.originX+(r[0]+r[2])*a.viewScale(), a.originY+(r[1]+r[3])*a.viewScale())
+		q := hdReviewPainter{a: a, screen: p.screen.SubImage(clip).(*ebiten.Image), scale: p.scale}
+		switch n.Kind {
+		case "text":
+			q.text(n.Text, n.Box[0], n.Box[1], n.Box[2], n.Box[3], 5, 4, n.Colour, true)
+		case "line":
+			for i := 1; i < len(n.Points); i++ {
+				q.line(n.Points[i-1][0], n.Points[i-1][1], n.Points[i][0], n.Points[i][1], n.Width, n.Colour)
+			}
+		case "ellipse", "polygon":
+			q.operations = append(q.operations, func() {
+				var path vector.Path
+				point := func(x, y float32) (float32, float32) {
+					return float32(a.originX) + x*p.scale, float32(a.originY) + y*p.scale
+				}
+				if n.Kind == "ellipse" {
+					x, y, w, h := n.Box[0], n.Box[1], n.Box[2], n.Box[3]
+					for i := 0; i <= 128; i++ {
+						angle := float64(i) * math.Pi / 64
+						px, py := point(x+w/2+float32(math.Cos(angle))*w/2, y+h/2+float32(math.Sin(angle))*h/2)
+						if i == 0 {
+							path.MoveTo(px, py)
+						} else {
+							path.LineTo(px, py)
+						}
+					}
+				} else {
+					for i, v := range n.Points {
+						x, y := point(v[0], v[1])
+						if i == 0 {
+							path.MoveTo(x, y)
+						} else {
+							path.LineTo(x, y)
+						}
+					}
+				}
+				path.Close()
+				var vertices []ebiten.Vertex
+				var indices []uint16
+				if n.Width > 0 {
+					vertices, indices = path.AppendVerticesAndIndicesForStroke(nil, nil, &vector.StrokeOptions{Width: n.Width * p.scale})
+				} else {
+					vertices, indices = path.AppendVerticesAndIndicesForFilling(nil, nil)
+				}
+				c := hdReviewColour(n.Colour)
+				for i := range vertices {
+					vertices[i].ColorR = float32(c.R) / 255
+					vertices[i].ColorG = float32(c.G) / 255
+					vertices[i].ColorB = float32(c.B) / 255
+					vertices[i].ColorA = 1
+					vertices[i].SrcX = 1
+					vertices[i].SrcY = 1
+				}
+				q.screen.DrawTriangles(vertices, indices, hdMapsWhite(), &ebiten.DrawTrianglesOptions{AntiAlias: true})
+			})
+		}
+		if q.err != "" {
+			p.err = q.err
+			return
+		}
+		p.operations = append(p.operations, q.operations...)
+	}
+}
+
+var hdMapsWhiteImage *ebiten.Image
+
+func hdMapsWhite() *ebiten.Image {
+	if hdMapsWhiteImage == nil {
+		hdMapsWhiteImage = ebiten.NewImage(3, 3)
+		hdMapsWhiteImage.Fill(hdReviewColour(0xffffff))
+	}
+	return hdMapsWhiteImage
+}

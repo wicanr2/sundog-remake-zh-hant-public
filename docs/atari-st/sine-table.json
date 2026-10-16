@@ -1,0 +1,241 @@
+{
+  "schema": 2,
+  "tool": "tools/atari_st_sine_table.py",
+  "inputs": {
+    "archive": {
+      "name": "Sundog-Frozen-Legacy_Atari-ST_EN.zip",
+      "sha256": "d555864c5d6e358f18e3cb18bc753e3b0f8aa9a255d7f64bb7e92bbe62dde716"
+    },
+    "disk": {
+      "name": "Sundog - Frozen Legacy v3.0 (1985)(FTL)[a2].st",
+      "size": 368640,
+      "sha256": "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6"
+    },
+    "variant": "[a2]"
+  },
+  "region": {
+    "rawOffset": "0x0d400",
+    "logicalBlock": "0x46",
+    "length": 33,
+    "runtimeAddress": "MAINLIB_G726",
+    "loadedBy": "XSTARTUP:0x01 以 MAINLIB:0x49 moveblock 讀入",
+    "readBy": "SHIPLIB:0x0c polar_to_rect"
+  },
+  "turnSteps": 256,
+  "scale": 128,
+  "table": [
+    0,
+    6,
+    13,
+    19,
+    25,
+    31,
+    37,
+    43,
+    49,
+    55,
+    60,
+    66,
+    71,
+    76,
+    81,
+    86,
+    91,
+    95,
+    99,
+    103,
+    106,
+    110,
+    113,
+    116,
+    118,
+    121,
+    122,
+    124,
+    126,
+    127,
+    127,
+    128,
+    128
+  ],
+  "blockExtras": {
+    "mouseSlew": {
+      "rawOffset": "0x0d422",
+      "runtimeAddress": "MAINLIB_G737",
+      "words": [
+        8,
+        7,
+        6,
+        5,
+        5,
+        4,
+        4,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    "arrowUp": {
+      "rawOffset": "0x0d462",
+      "runtimeAddress": "MAINLIB_G757",
+      "points": [
+        [
+          11,
+          11
+        ],
+        [
+          5,
+          23
+        ],
+        [
+          8,
+          23
+        ],
+        [
+          8,
+          35
+        ],
+        [
+          14,
+          35
+        ],
+        [
+          14,
+          23
+        ],
+        [
+          17,
+          23
+        ],
+        [
+          11,
+          11
+        ]
+      ]
+    },
+    "arrowDown": {
+      "rawOffset": "0x0d472",
+      "runtimeAddress": "MAINLIB_G75f",
+      "points": [
+        [
+          11,
+          35
+        ],
+        [
+          5,
+          23
+        ],
+        [
+          8,
+          23
+        ],
+        [
+          8,
+          11
+        ],
+        [
+          14,
+          11
+        ],
+        [
+          14,
+          23
+        ],
+        [
+          17,
+          23
+        ],
+        [
+          11,
+          35
+        ]
+      ]
+    },
+    "manFigure": {
+      "rawOffset": "0x0d482",
+      "runtimeAddress": "MAINLIB_G767",
+      "points": [
+        [
+          1,
+          20
+        ],
+        [
+          6,
+          20
+        ],
+        [
+          9,
+          23
+        ],
+        [
+          9,
+          29
+        ],
+        [
+          4,
+          33
+        ],
+        [
+          10,
+          35
+        ],
+        [
+          10,
+          36
+        ],
+        [
+          21,
+          47
+        ],
+        [
+          17,
+          51
+        ],
+        [
+          9,
+          43
+        ],
+        [
+          9,
+          52
+        ],
+        [
+          1,
+          52
+        ]
+      ]
+    }
+  },
+  "pcodeConsumers": [
+    {
+      "name": "man.draw",
+      "procedure": "WINDOWLI:0x1a draw_man",
+      "signature": "9b 04 09 9a 04 08 ee d7 04 78 68 01 80 40 01 01 73 3e 20 00 d2 09 04 80 6a 01 01 73 3e 8a 07 0c 80 6b 01 01 73 3e 01 72 18 01 17 00 9b 04 87 67 9a 04 08 73 40 00 91 03",
+      "semantics": "角色視窗的人形：先畫視窗 0x40 的外框（模式依視窗種類再畫 0x6a 或 0x6b），再以 draw_poly 畫 G767 的 12 點折線（bytes 0..0x17），最後 put_items 排圖示。",
+      "rawOffset": "0x31994"
+    },
+    {
+      "name": "poly.loop",
+      "procedure": "MAINLIB:0x40 draw_poly",
+      "signature": "63 20 87 80 a8 a3 d7 01 22 87 80 a7 20 87 80 a8 a3 a7 a2 c4 63 20 ed 87 80 a8 a3 d7 01 21 87 80 a7 20 ed 87 80 a8 a3 a7 a2 c4 20 02 a2 68 8a c9",
+      "semantics": "把 byte 表的 (x,y) 對逐一加上視窗原點後送 VDI polyline——折線表的每一對就是視窗內座標。",
+      "rawOffset": "0x2e9e0"
+    },
+    {
+      "name": "mouse.slew",
+      "procedure": "XDOFIGHT:0x0b slew",
+      "signature": "9b 04 87 37 3c 06 8d d7 01 78 a5 0d 9b 04 87 37 1f 3d 0a 8d a3 d7 01 78 a5 0e",
+      "semantics": "戰術畫面的滑鼠斜移：x 距離除以 6、y 用 31 − 距離/10 查同一張 16-word 表，查出的值就是每拍的移動量。",
+      "rawOffset": "0x38d77"
+    }
+  ],
+  "evidence": "proven（位置自 p-code 的載入點與取用點讀出）",
+  "semanticsEvidence": "proven（表的每一項逐一等於 round(128 * sin(k*pi/64))，這是磁碟位元組對外部數學事實的獨立比對，不是自我一致檢查）",
+  "whatThisProves": "polar_to_rect 用的是一張 33 個 byte、滿刻度 128 的四分之一正弦表，整圈以 256 刻度計。"
+}

@@ -1,0 +1,30 @@
+package m68k
+
+import (
+ "crypto/sha256"
+ "fmt"
+ "os"
+ "testing"
+)
+
+// 原版 get_marks 的三個寫入本體。父層分支及原始定位見
+// docs/atari-st/native-collision-entry-20260908.md；不是全機玩家路徑。
+func TestSunDogGroundMarkWriters(t *testing.T) {
+ disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+ if err != nil {t.Fatal(err)}
+ if fmt.Sprintf("%x",sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {t.Fatal("磁碟身分不同")}
+ for _, tc := range []struct{offset int; value uint16}{{0x40cfe,4},{0x40d24,2},{0x40d36,5}} {
+  for _, old := range []uint16{0,6,0xffff} {
+   h:=newHarness(t,loadInterp(t))
+   h.cpu.State.A[6]=0x40000
+   h.cpu.State.A[0]=0x48000
+   h.poke(0x4800a,0x1000)
+   h.poke(0x41000,old)
+   h.poke(0x41002,0x1234)
+   h.startDispatch(disk[tc.offset:tc.offset+3],operandStream)
+   h.runPCode(3,512)
+   if h.peek(0x41000)!=tc.value || h.peek(0x41002)!=0x1234 {t.Fatalf("raw %x：寫入不符",tc.offset)}
+  }
+ }
+ t.Log("原版 get_marks 三個圖樣寫入本體 × 三個舊值通過；父層條件另由原始 bytes 審查")
+}

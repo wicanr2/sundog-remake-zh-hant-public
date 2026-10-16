@@ -1,0 +1,96 @@
+package main
+
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"os"
+	"testing"
+
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/wicanr2/sundog-remake/internal/game"
+	"github.com/wicanr2/sundog-remake/internal/localization"
+	"github.com/wicanr2/sundog-remake/internal/source/atarist/originalmedia"
+	"golang.org/x/image/font"
+)
+
+func TestHDStoresReview(t *testing.T) {
+	a, _ := hdMapsTestApp(t)
+	var model struct {
+		State game.State `json:"state"`
+	}
+	raw, err := os.ReadFile(os.Getenv("HD_STORES_MODEL"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = json.Unmarshal(raw, &model); err != nil {
+		t.Fatal(err)
+	}
+	disk, err := originalmedia.Open(os.Getenv("HD_WORLD_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	a.originalDisk = disk
+	a.originalTiles = map[int]*originalTileCache{}
+	if model.State.Screen != game.ScreenStores {
+		t.Fatal("stores fixture")
+	}
+	selected := model.State
+	selected.SelectedPartIndex = 19
+	held := a.reducer.SelectStoreItem(model.State, 0)
+	if held.HandItem == 0 || held.Stores[0] != 0 {
+		t.Fatal("held fixture")
+	}
+	states := []game.State{model.State, selected, held}
+	var scenes []map[string]any
+	count := 0
+	for _, locale := range []localization.Locale{"zh-Hant", "zh-Hans", "ja", "en"} {
+		a.applyLocale(locale)
+		for _, scale := range []int{4, 5} {
+			a.scale = scale
+			atlas := hdStoresRaster(fmt.Sprintf("icons/%d", scale))
+			if atlas == nil || atlas.Bounds().Dx() != 128*scale || atlas.Bounds().Dy() != 64*scale {
+				t.Fatal("atlas shape")
+			}
+			for variant, state := range states {
+				a.state = state
+				a.textLayer = nil
+				a.uiLayer = nil
+				before, _ := json.Marshal(a.state)
+				target := ebiten.NewImage(320*scale, 200*scale)
+				if !a.drawHDStoresReview(target) {
+					t.Fatal("stores fallback", locale, scale, variant)
+				}
+				after, _ := json.Marshal(a.state)
+				if !bytes.Equal(before, after) {
+					t.Fatal("render changed state")
+				}
+				window := stZoomFor(game.ScreenStores, 0, 0, 0)
+				p := hdReviewPainter{a: a, screen: target, scale: float32(scale)}
+				title, footer := hdStoresTitleSafe(window), hdStoresFooterSafe(window)
+				values := []string{a.lookup("ui.ship_stores"), a.lookup("ui.stores_short_keys")}
+				var fields []map[string]any
+				for i, rect := range [][4]int{title, footer} {
+					ink, _ := font.BoundString(p.face(8), values[i])
+					iw, ih := (ink.Max.X - ink.Min.X).Ceil(), (ink.Max.Y - ink.Min.Y).Ceil()
+					if iw > rect[2]*scale || ih > rect[3]*scale {
+						t.Fatal("text ink", locale, scale, rect, iw, ih)
+					}
+					fields = append(fields, map[string]any{"text": values[i], "safe": rect, "inkPixels": []int{iw, ih}})
+				}
+				scenes = append(scenes, map[string]any{"locale": locale, "scale": scale, "variant": variant, "state": state, "fields": fields})
+				target.Dispose()
+				count++
+			}
+		}
+	}
+	output := map[string]any{"status": "PASS-native-queued-draw-state-and-ink; GPU-display-separate", "cases": count, "scenes": scenes, "limits": "Fixtures, not normal GUI. Native calls enqueue draw operations; screenshots establish display completion. Input/reducer and source slot functions unchanged."}
+	data, err := json.MarshalIndent(output, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(os.Getenv("HD_STORES_SCENE_OUTPUT"), append(data, '\n'), 0644); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("PASS %d stores cases;4 locales x2 sizes x3 selected/empty/held states; actual font ink fits; state unchanged", count)
+}

@@ -1,0 +1,2215 @@
+package m68k
+
+import (
+	"crypto/sha256"
+	"encoding/binary"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"sort"
+	"testing"
+)
+
+// #16；入口見 banville-restoration-spec.md 的食物與睡眠研究段。
+// 原始 WINDOWLI:08/17/18 與 MAINLIB:0a 真正執行。
+// 背景任務只記錄 ABI，圖形只消耗明示參數，不把局部原生執行當作 GUI 對拍。
+func foodRun(h *harness, disk []byte, first, last, depth int, calls *[][3]int) {
+	stream := uint32(operandStream + 0xa000 + depth*0x400)
+	h.startDispatch(disk[0x31200+first:0x31200+last+4], stream)
+	for steps := 0; steps < 100000; steps++ {
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip, sp, parent := h.cpu.State.A[4], h.cpu.State.SSP, h.cpu.State.A[0]
+			at := int(ip-stream) + first
+			if at == last {
+				return
+			}
+			op, proc := h.mem[ip], h.mem[ip+1]
+			if op == 0x90 && (proc == 0x17 || proc == 0x18) {
+				frame := uint32(0x46000 + (depth+1)*0x200)
+				entry, end, argc := 0x230, 0x2c6, 5
+				if proc == 0x18 {
+					entry, end, argc = 0x216, 0x22a, 2
+				}
+				for n := uint32(0); n < 64; n++ {
+					h.mem[frame+n] = 0
+				}
+				h.poke(frame, uint16(parent-0x40000))
+				for n := 1; n <= argc; n++ {
+					h.poke(depotLocal(frame, n), h.peek(sp+uint32((n-1)*2)))
+				}
+				if proc == 0x17 {
+					// 1個區域變數，五個參數因此從L2起。
+					for n := argc; n >= 1; n-- {
+						h.poke(depotLocal(frame, n+1), h.peek(depotLocal(frame, n)))
+					}
+					h.poke(depotLocal(frame, 1), 0)
+				}
+				levelsFrame(h, frame)
+				foodRun(h, disk, entry, end, depth+1, calls)
+				levelsFrame(h, parent)
+				h.cpu.State.SSP = sp + uint32(argc*2)
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if op == 0x73 && proc == 0x0a {
+				frame := uint32(0x48000)
+				for n := uint32(0); n < 64; n++ {
+					h.mem[frame+n] = 0
+				}
+				for n := 1; n <= 3; n++ {
+					h.poke(depotLocal(frame, n), h.peek(sp+uint32((n-1)*2)))
+				}
+				levelsFrame(h, frame)
+				depotRun(h, disk, 0x2e800, 0x66c, 0x680, depth+1, nil)
+				levelsFrame(h, parent)
+				h.cpu.State.SSP = sp + 6
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			pop, handled := 0, false
+			switch {
+			case op == 0x73 && proc == 0x2f:
+				if h.peek(sp) != 1 || h.peek(sp+2) != 0 {
+					h.t.Fatal("食用前背景槽 ABI")
+				}
+				h.poke(sp+2, 60)
+				pop, handled = 1, true
+				*calls = append(*calls, [3]int{0x2f, 1, 60})
+			case op == 0x73 && proc == 0x31:
+				if h.peek(sp) != 1 {
+					h.t.Fatal("食用停止背景槽 ABI")
+				}
+				pop, handled = 1, true
+				*calls = append(*calls, [3]int{0x31, 1, 0})
+			case op == 0x73 && proc == 0x30:
+				if h.peek(sp) != 60 || h.peek(sp+2) != 1 {
+					h.t.Fatal("食用恢復背景槽 ABI")
+				}
+				pop, handled = 2, true
+				*calls = append(*calls, [3]int{0x30, 1, 60})
+			case op == 0x91 && proc == 6:
+				pop, handled = 1, true // 顯示字串。
+			case op == 0x72 && proc == 0x20:
+				pop, handled = 4, true // draw_icon。
+			}
+			if handled {
+				h.cpu.State.SSP = sp + uint32(pop*2)
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatalf("food native IP%x PC%x: %v", h.cpu.State.A[4], h.cpu.State.PC, err)
+		}
+	}
+	h.t.Fatalf("food原始切片%x..%x超時", first, last)
+}
+
+// Stores selector6: 6+6-5=7, 28*7=196。兩個條件分支皆由原始TJP/FJP執行。
+// WINDOWLI與MAINLIB全域分開；此框架只攔截繪圖與有界滑鼠/背景ABI。
+func foodWindowGlobal(n int) uint32 { return 0x44008 + uint32(n*2) }
+func foodChainHarness(t *testing.T, disk []byte) *harness {
+	h := banvilleHarness(t, disk)
+	h.poke(0x4100a, 0x2100)
+	h.poke(0x42100, 0x4000)
+	for n := uint32(0); n < 0x400; n++ {
+		h.mem[0x44000+n] = 0
+	}
+	for _, seg := range [][3]int{{0x36600, 0xc00, 0x50000}, {0x31200, 0xc00, 0x52000}, {0x2e800, 0x2a00, 0x56000}} {
+		for i, b := range disk[seg[0] : seg[0]+seg[1]] {
+			h.mem[uint32(seg[2]+i)] = b
+		}
+	}
+	h.poke(cadenceGlobal(8), 1)
+	h.poke(0x49010, 24)
+	h.poke(0x49012, 29)
+	h.poke(0x49014, 0)
+	for n := uint32(0); n < 12; n++ {
+		h.mem[cadenceGlobal(0x773)+n] = 0
+	}
+	return h
+}
+
+func foodChainModule(h *harness, window bool) {
+	base := uint32(0x45000)
+	if window {
+		base = 0x44000
+	}
+	h.cpu.State.A[1] = base
+	h.poke(interpBase+0x1b70, uint16(base>>16))
+	h.poke(interpBase+0x1b72, uint16(base))
+}
+
+// 原始完整Stores拖動：滑鼠座標預先固定到頭部或空白處；WINDOWLI:05真正hit-test。
+func foodChainRun(h *harness, disk []byte, base, first, last, depth int, cancel bool, calls *[][3]int) {
+	stream := uint32(operandStream + 0x7000 + depth*0x800)
+	h.startDispatch(disk[base+first:base+last+4], stream)
+	for steps := 0; steps < 100000; steps++ {
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip, sp, parent := h.cpu.State.A[4], h.cpu.State.SSP, h.cpu.State.A[0]
+			at := int(ip-stream) + first
+			if at == last {
+				return
+			}
+			op, proc := h.mem[ip], h.mem[ip+1]
+			childBase, entry, end, locals, argc, result := 0, 0, 0, 0, 0, 0
+			switch {
+			case op == 0x73 && proc == 7:
+				childBase, entry, end, argc, result = 0x2e800, 0x5de, 0x5e2, 2, 3
+			case op == 0x73 && proc == 0xa:
+				childBase, entry, end, argc = 0x2e800, 0x66c, 0x680, 3
+			case base == 0x36600 && op == 0xef && proc == 7:
+				childBase, entry, end, locals, argc = base, 0x356, 0x3be, 3, 2
+			case base == 0x36600 && op == 0xef && proc == 0xa:
+				childBase, entry, end, locals, argc, result = base, 0x476, 0x4c0, 2, 2, 5
+			case (op == 0x74 || base == 0x31200 && op == 0x91) && proc == 2:
+				childBase, entry, end, locals, argc = 0x31200, 0x1a, 0x44, 1, 3
+			case base == 0x31200 && op == 0x91 && proc == 0xa:
+				childBase, entry, end, locals, argc = base, 0x3fe, 0x409, 1, 3
+			case op == 0x74 && proc == 4:
+				childBase, entry, end, locals, argc = 0x31200, 0x90, 0x122, 5, 5
+			case op == 0x74 && proc == 5:
+				childBase, entry, end, locals, argc = 0x31200, 0x128, 0x17d, 2, 4
+			case op == 0x74 && proc == 8:
+				childBase, entry, end, locals, argc = 0x31200, 0x2cc, 0x36e, 5, 4
+			}
+			if childBase != 0 {
+				frame := uint32(0x4a000 + depth*0x100)
+				for n := uint32(0); n < 100; n++ {
+					h.mem[frame+n] = 0
+				}
+				link := parent
+				if op == 0xef {
+					link = 0x45000
+				}
+				h.poke(frame, uint16(link-0x40000))
+				for n := 0; n < argc; n++ {
+					h.poke(depotLocal(frame, locals+n+1), h.peek(sp+uint32(n*2)))
+				}
+				oldGlobal := h.cpu.State.A[1]
+				oldSegment := h.cpu.State.A[2]
+				cache0, cache1 := h.peek(interpBase+0x1b70), h.peek(interpBase+0x1b72)
+				foodChainModule(h, childBase == 0x31200)
+				switch childBase {
+				case 0x31200:
+					h.cpu.State.A[2] = 0x52000
+				case 0x36600:
+					h.cpu.State.A[2] = 0x50000
+				case 0x2e800:
+					h.cpu.State.A[2] = 0x56000
+					h.cpu.State.A[1] = 0x43000
+					h.poke(interpBase+0x1b72, 0x3000)
+				}
+				levelsFrame(h, frame)
+				if childBase == 0x31200 && proc == 8 {
+					foodRun(h, disk, entry, end, 0, calls)
+				} else {
+					foodChainRun(h, disk, childBase, entry, end, depth+1, cancel, calls)
+				}
+				if result != 0 {
+					h.poke(sp+uint32(argc*2), h.peek(depotLocal(frame, result)))
+				}
+				levelsFrame(h, parent)
+				h.cpu.State.A[1] = oldGlobal
+				h.cpu.State.A[2] = oldSegment
+				h.poke(interpBase+0x1b70, cache0)
+				h.poke(interpBase+0x1b72, cache1)
+				h.cpu.State.SSP = sp + uint32(argc*2)
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			pop, handled := 0, false
+			switch {
+			case op == 0x74 && proc == 3:
+				pop, handled = 1, true // Stores視窗繪圖。
+			case op == 0x74 && proc == 0x15:
+				*calls = append(*calls, [3]int{int(h.peek(sp + 4)), int(h.peek(sp + 2)), int(h.peek(sp))})
+				pop, handled = 3, true // Observe make_zoom arguments; rendering isolated.
+			case op == 0x74 && (proc == 9 || proc == 0xb || proc == 6):
+				pop, handled = 1, true
+			case op == 0x91 && proc == 0xb && base == 0x31200:
+				pop, handled = 1, true
+			case op == 0x72 && proc == 0x20:
+				pop, handled = 4, true
+			case op == 0x72 && (proc == 0x27 || proc == 0x26):
+				handled = true
+			case op == 0x73 && proc == 2:
+				handled = true // 輸入事件poll，不推進遊戲時鐘。
+			case op == 0x73 && proc == 0x2a:
+				h.poke(sp+2, 0)
+				pop, handled = 1, true // 預先固定timeout false。
+			case op == 0x73 && proc == 0x3c:
+				for n, v := range []uint16{200, 0, 320, 0} {
+					h.poke(0x40000+uint32(h.peek(sp+uint32(n*2))), v)
+				}
+				pop, handled = 5, true
+			case op == 0x72 && proc == 0x1e:
+				x, y := h.peek(0x49010), h.peek(0x49012)
+				if cancel {
+					x, y = 300, 180
+				}
+				h.poke(0x40000+uint32(h.peek(sp)), y)
+				h.poke(0x40000+uint32(h.peek(sp+2)), x)
+				pop, handled = 2, true
+			case op == 0x72 && proc == 0x1f:
+				if h.peek(sp) != 1 && h.peek(sp) != 0 {
+					h.t.Fatal("滑鼠button ABI")
+				}
+				button := h.peek(sp)
+				value := uint16(0)
+				if button == 0 && !cancel || button == 1 && (cancel || h.peek(0x49014) == 1) {
+					value = 1
+				}
+				h.poke(sp+2, value)
+				pop, handled = 1, true // 執行前固定：食用(1,0)、取消(0,1)。
+			}
+			if handled {
+				h.cpu.State.SSP = sp + uint32(pop*2)
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatalf("chain base%x at%x PC%x: %v", base, int(h.cpu.State.A[4]-stream)+first, h.cpu.State.PC, err)
+		}
+	}
+	h.t.Fatalf("chain base%x %x..%x超時 at%x PC%x frame%x held%d target%d item%d old%d head%d g3%d", base, first, last,
+		int(h.cpu.State.A[4]-stream)+first, h.cpu.State.PC, h.cpu.State.A[0],
+		h.peek(depotLocal(0x46000, 6)), h.peek(depotLocal(0x46000, 9)), h.peek(depotLocal(0x46000, 10)),
+		h.peek(depotLocal(0x46000, 8)), h.peek(foodWindowGlobal(3)), h.peek(cadenceGlobal(3)))
+}
+
+func TestSunDogFoodStoresChain(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Slot, NourishmentBefore, NourishmentAfter, ItemAfter, HeldAfter int
+		Cancel                                                          bool
+		Flow                                                            string
+		MiddleStores                                                    [20]byte
+		MiddleCarry                                                     [4]byte
+		StoresBefore, StoresAfter                                       [20]byte
+		CarryBefore, CarryAfter                                         [4]byte
+		Calls                                                           [][3]int
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{
+		Scope:      "XDOREPAI:03原始20格讀取→:0b完整拖動→:07持久清槽/取消還原→WINDOWLI:04槽交換/:05實際hit-test/:08頭部食用；兩個空攜帶槽先搬物再食用，已占用槽拒絕並還原；:0a原始適配檢查。MAINLIB:07原始位元AND/:0a原始座標夾限。",
+		Boundaries: "明示MAINLIB/WINDOWLI獨立全域；XDOREPAI:02兩段原始選擇分支決定selector6→base196/unit7/direct-container=true，WINDOWLI:1d完整make_man/:0a讀取原始四攜帶槽。按鈕返回值食用(1,0)、取消(0,1)、搬物及占用槽(1,1)與目標座標於執行前固定；原版hit-test真正執行。圖形、游標、事件poll、timeout和背景槽採有界ABI；不宣稱整機開局/實體滑鼠/GUI/父時鐘。無RND。"}
+	for slot := 0; slot < 20; slot++ {
+		for _, n := range []int{0, 63, 64, 185, 186, 254, 255} {
+			for _, flow := range []string{"eat", "cancel", "carry0", "carry3", "occupied1"} {
+				cancel := flow == "cancel"
+				h := foodChainHarness(t, disk)
+				r := row{Slot: slot, NourishmentBefore: n, Cancel: cancel, Flow: flow}
+				for i := range r.StoresBefore {
+					r.StoresBefore[i] = byte(9 + i)
+				}
+				r.StoresBefore[slot] = 8
+				r.CarryBefore = [4]byte{0, 11, 44, 0}
+				for i, v := range r.StoresBefore {
+					h.mem[cadenceGlobal(0x5b)+196+uint32(i)] = v
+				}
+				for i, v := range r.CarryBefore {
+					h.mem[cadenceGlobal(0x3f)+uint32(i)] = v
+				}
+				before := [4]byte{113, 70, 169, byte(n)}
+				for i, v := range before {
+					h.mem[cadenceGlobal(0x3d)+uint32(i)] = v
+				}
+				h.mem[cadenceGlobal(0x35)] = 100
+				foodChainModule(h, false)
+				levelsFrame(h, 0x46000)
+				h.poke(depotLocal(0x46000, 3), 6)
+				foodChainRun(h, disk, 0x36600, 0x21, 0x2d, 0, cancel, &r.Calls)
+				foodChainRun(h, disk, 0x36600, 0x10a, 0x139, 0, cancel, &r.Calls)
+				if h.peek(depotLocal(0x45000, 1)) != 196 || h.peek(depotLocal(0x45000, 6)) != 7 || h.peek(depotLocal(0x45000, 0xb)) != 1 || h.peek(depotLocal(0x45000, 0xa)) != 0 {
+					t.Fatal("原版Stores selector6分支不同")
+				}
+				foodChainModule(h, true)
+				h.cpu.State.A[2] = 0x52000
+				h.poke(depotLocal(0x46000, 1), 2)
+				foodChainRun(h, disk, 0x31200, 0x876, 0x8ef, 0, cancel, &r.Calls)
+				if h.peek(foodWindowGlobal(3)) != 3 || h.peek(foodWindowGlobal(4)) != 7 {
+					t.Fatal("原版make_man攜帶槽不同")
+				}
+				foodChainModule(h, false)
+				h.cpu.State.A[2] = 0x50000
+				foodChainRun(h, disk, 0x36600, 0x140, 0x1ad, 0, cancel, &r.Calls)
+				if h.peek(foodWindowGlobal(0xdc)) != 27 {
+					t.Fatal("原版Stores非20格")
+				}
+				for i, v := range r.StoresBefore {
+					if h.peek(foodWindowGlobal(0xdd)+uint32((i+7)*6+4)) != uint16(v) {
+						t.Fatalf("原版Stores讀取槽%d不同", i)
+					}
+				}
+				for i := uint32(0); i < 100; i++ {
+					h.mem[0x46000+i] = 0
+				}
+				h.poke(0x46000, 0x5000)
+				h.poke(depotLocal(0x46000, 15), uint16(slot+8))
+				pocket := -1
+				switch flow {
+				case "carry0":
+					pocket = 0
+				case "carry3":
+					pocket = 3
+				case "occupied1":
+					pocket = 1
+				}
+				if pocket >= 0 {
+					coords := [][2]uint16{{27, 57}, {9, 60}, {9, 77}, {27, 77}}
+					h.poke(0x49010, coords[pocket][0])
+					h.poke(0x49012, coords[pocket][1])
+					h.poke(0x49014, 1)
+				}
+				foodChainRun(h, disk, 0x36600, 0x4c6, 0x5dd, 0, cancel, &r.Calls)
+				var middleStores [20]byte
+				var middleCarry [4]byte
+				for i := range middleStores {
+					middleStores[i] = h.mem[cadenceGlobal(0x5b)+196+uint32(i)]
+				}
+				for i := range middleCarry {
+					middleCarry[i] = h.mem[cadenceGlobal(0x3f)+uint32(i)]
+				}
+				r.MiddleStores, r.MiddleCarry = middleStores, middleCarry
+				if pocket >= 0 && flow != "occupied1" {
+					wantCarry := r.CarryBefore
+					wantCarry[pocket] = 8
+					wantStores := r.StoresBefore
+					wantStores[slot] = 0
+					if middleCarry != wantCarry || middleStores != wantStores || h.mem[cadenceGlobal(0x3d)+3] != byte(n) {
+						t.Fatalf("原版搬到攜帶槽 flow%s %+v", flow, r)
+					}
+					h.poke(0x49010, 24)
+					h.poke(0x49012, 29)
+					h.poke(0x49014, 0)
+					for i := uint32(0); i < 100; i++ {
+						h.mem[0x46000+i] = 0
+					}
+					h.poke(0x46000, 0x5000)
+					h.poke(depotLocal(0x46000, 15), uint16(pocket+4))
+					foodChainRun(h, disk, 0x36600, 0x4c6, 0x5dd, 0, false, &r.Calls)
+				}
+				for i := range r.StoresAfter {
+					r.StoresAfter[i] = h.mem[cadenceGlobal(0x5b)+196+uint32(i)]
+				}
+				for i := range r.CarryAfter {
+					r.CarryAfter[i] = h.mem[cadenceGlobal(0x3f)+uint32(i)]
+				}
+				r.NourishmentAfter = int(h.mem[cadenceGlobal(0x3d)+3])
+				r.HeldAfter = int(h.peek(depotLocal(0x46000, 6)))
+				r.ItemAfter = int(h.peek(foodWindowGlobal(0xdd) + uint32((slot+7)*6+4)))
+				wantStores, wantN := r.StoresBefore, n
+				if !cancel && flow != "occupied1" {
+					wantStores[slot] = 0
+					wantN = min(255, n+70)
+				}
+				if r.StoresAfter != wantStores || r.CarryAfter != r.CarryBefore || r.NourishmentAfter != wantN || r.HeldAfter != 0 || r.ItemAfter != int(wantStores[slot]) {
+					t.Fatalf("原始食物鏈 %+v", r)
+				}
+				for i := 0; i < 3; i++ {
+					if h.mem[cadenceGlobal(0x3d)+uint32(i)] != before[i] {
+						t.Fatal("非營養讀數改變")
+					}
+				}
+				report.Rows = append(report.Rows, r)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-stores-chain.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("原版Stores取物/頭部食用/取消還原%d案", len(report.Rows))
+}
+
+func TestSunDogFoodStoresWindow(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	h := foodChainHarness(t, disk)
+	foodChainModule(h, false)
+	h.cpu.State.A[2] = 0x50000
+	levelsFrame(h, 0x46000)
+	h.poke(depotLocal(0x46000, 3), 6)
+	var calls [][3]int
+	foodChainRun(h, disk, 0x36600, 0x46, 0x6f, 0, false, &calls)
+	if len(calls) != 1 || calls[0] != ([3]int{3, 10, 0}) {
+		t.Fatalf("Stores window %+v", calls)
+	}
+	report := struct {
+		Calls [][3]int
+		Scope string
+	}{calls, "XDOREPAI:02 0046..006f原始XJP執行；make_zoom繪圖ABI只觀測參數(style,column,row)，不宣稱畫面或完整GUI。"}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-stores-window.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestSunDogFoodBurgerConsumption(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		PackedItem, Target, NourishmentBefore, NourishmentAfter, ItemAfter int
+		ConditionsBefore, ConditionsAfter                                  [4]int
+		Calls                                                              [][3]int
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{Scope: "WINDOWLI raw0x31200:02cc..036e完整set_item；:0230..02c6食物分派；:0216..022a四項飽和增減。漢堡低五位8，頭部目標1營養+70且清空整個物品；目標2不食用漢堡。",
+		Boundaries: "Talos MC68000執行原始SYSTEM.INTERP；MAINLIB:0a夾制原始指令執行。執行前固定背景槽週期60，只核ABI停止／恢復；顯示字串與draw_icon明示攔截。不執行原版滑鼠、取物、商店、父排程或GUI；不涉及RND。"}
+	for flags := 0; flags < 8; flags++ {
+		for nourishment := 0; nourishment < 256; nourishment++ {
+			for _, target := range []int{1, 2} {
+				h := banvilleHarness(t, disk)
+				for i, b := range disk[0x31200:0x31d00] {
+					h.mem[0x50000+uint32(i)] = b
+				}
+				packed := 8 + flags*32
+				before := [4]int{113, 70, 169, nourishment}
+				for n, v := range before {
+					h.mem[cadenceGlobal(0x3d)+uint32(n)] = byte(v)
+				}
+				h.mem[cadenceGlobal(0x35)] = 100
+				h.poke(0x49000, uint16(packed))
+				h.poke(0x49002, 80)
+				h.poke(0x49004, 100)
+				for n, value := range map[int]int{6: 0x9002, 7: 0x9004, 8: 0x9000, 9: target} {
+					h.poke(depotLocal(0x46000, n), uint16(value))
+				}
+				r := row{PackedItem: packed, Target: target, NourishmentBefore: nourishment, ConditionsBefore: before}
+				foodRun(h, disk, 0x2cc, 0x36e, 0, &r.Calls)
+				r.ItemAfter = int(h.peek(0x49000))
+				for n := range r.ConditionsAfter {
+					r.ConditionsAfter[n] = int(h.mem[cadenceGlobal(0x3d)+uint32(n)])
+				}
+				r.NourishmentAfter = r.ConditionsAfter[3]
+				want, item := before, packed
+				if target == 1 {
+					want[3], item = min(255, nourishment+70), 0
+				}
+				if r.ConditionsAfter != want || r.ItemAfter != item || len(r.Calls) != 3 {
+					t.Fatalf("漢堡 %s", fmt.Sprint(r))
+				}
+				report.Rows = append(report.Rows, r)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-burger.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("原版漢堡完整營養0..255、8種packed高位、頭部／非食用目標：%d案通過", len(report.Rows))
+}
+
+// 停於完整返回或首次條件更新前；不替換原版時鐘分支。
+func TestSunDogFoodClockHourGate(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Minute, Hour, Delta, MinuteAfter, HourAfter, DayAfter, Stop int
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{Scope: "MAINLIB raw0x2e800:0bf8..0c40分鐘進位；0bff→0cf1在未滿60分時直接繞過條件更新。原始指令執行至0c40或0d20。",
+		Boundaries: "只驗第一次整點閘門，跨多小時輸入止於第一輪條件更新之前，不將中間時鐘當完整返回。睡眠flag／衰減／屬性及父排程不在本切片執行。顯示flag關閉，auxiliary palette word初值0。無RND。"}
+	for _, hour := range []int{0, 23} {
+		for minute := 0; minute < 60; minute++ {
+			for _, delta := range []int{0, 1, 5, 10, 59, 60, 61, 120} {
+				h := banvilleHarness(t, disk)
+				h.cpu.State.A[1] = 0x43000
+				// 原版LDE3只需auxiliary palette word；明示env記錄與初值0。
+				h.poke(0x41006, 0x2200)
+				h.poke(0x42200, 0x3500)
+				h.poke(0x43508+0x238*2, 0)
+				for i, b := range disk[0x2e800:0x311ff] {
+					h.mem[0x50000+uint32(i)] = b
+				}
+				h.poke(cadenceGlobal(0x11), uint16(minute))
+				h.poke(cadenceGlobal(0x12), uint16(hour))
+				h.poke(cadenceGlobal(0x13), 7)
+				h.poke(depotLocal(0x46000, 0x11), uint16(delta))
+				stream := uint32(operandStream + 0xc000)
+				h.startDispatch(disk[0x2e800+0xbf8:0x2e800+0xd24], stream)
+				stop := 0
+				for steps := 0; steps < 10000; steps++ {
+					if h.cpu.State.PC == interpBase+interpLoop+4 {
+						at := int(h.cpu.State.A[4]-stream) + 0xbf8
+						if at == 0xc40 || at == 0xd20 {
+							stop = at
+							break
+						}
+					}
+					if _, err := h.cpu.Step(); err != nil {
+						t.Fatalf("clock hour gate IP%x: %v", h.cpu.State.A[4], err)
+					}
+				}
+				wantMinute, wantHour, wantDay, wantStop := minute+delta, hour, 7, 0xd20
+				if wantMinute >= 60 {
+					wantMinute, wantHour, wantStop = wantMinute-60, hour+1, 0xc40
+					if wantHour == 24 {
+						wantHour, wantDay = 0, 8
+					}
+				}
+				r := row{minute, hour, delta, int(h.peek(cadenceGlobal(0x11))), int(h.peek(cadenceGlobal(0x12))), int(h.peek(cadenceGlobal(0x13))), stop}
+				if r.MinuteAfter != wantMinute || r.HourAfter != wantHour || r.DayAfter != wantDay || stop != wantStop {
+					t.Fatalf("整點閘門 %v", r)
+				}
+				report.Rows = append(report.Rows, r)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-clock-gate.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("原版分鐘更新首次整點閘門：%d案通過", len(report.Rows))
+}
+
+func foodConditionRun(h *harness, disk []byte, first, last, depth int) {
+	stream := uint32(operandStream + 0xf000 + depth*0x400)
+	h.startDispatch(disk[0x2e800+first:0x2e800+last+4], stream)
+	for steps := 0; steps < 100000; steps++ {
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip, sp, parent := h.cpu.State.A[4], h.cpu.State.SSP, h.cpu.State.A[0]
+			if int(ip-stream)+first == last {
+				return
+			}
+			op, proc := h.mem[ip], h.mem[ip+1]
+			if op == 0x90 && proc == 0x52 {
+				frame := uint32(0x46200)
+				for n := uint32(0); n < 64; n++ {
+					h.mem[frame+n] = 0
+				}
+				h.poke(frame, uint16(parent-0x40000))
+				for n := 4; n <= 6; n++ {
+					h.poke(depotLocal(frame, n), h.peek(sp+uint32((n-4)*2)))
+				}
+				levelsFrame(h, frame)
+				foodConditionRun(h, disk, 0xb62, 0xbf1, depth+1)
+				levelsFrame(h, parent)
+				h.cpu.State.SSP = sp + 6
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if op == 0x91 && proc == 8 {
+				frame := uint32(0x46400)
+				h.poke(depotLocal(frame, 1), h.peek(sp))
+				h.poke(depotLocal(frame, 2), h.peek(sp+2))
+				levelsFrame(h, frame)
+				foodConditionRun(h, disk, 0x5c4, 0x5d8, depth+1)
+				levelsFrame(h, parent)
+				h.cpu.State.SSP = sp + 2
+				h.poke(sp+2, h.peek(depotLocal(frame, 2)))
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatalf("condition depth%d at%x: %v", depth, int(h.cpu.State.A[4]-stream)+first, err)
+		}
+	}
+	h.t.Fatal("condition超時")
+}
+
+func TestSunDogFoodConditionProbe(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	h := banvilleHarness(t, disk)
+	h.cpu.State.A[1] = 0x43000
+	// CAP會由原始movem $1B6C(a3)恢復A0/A1，cache須同全域基底。
+	h.poke(interpBase+0x1b70, 4)
+	h.poke(interpBase+0x1b72, 0x3000)
+	for i, b := range disk[0x2e800:0x311ff] {
+		h.mem[0x50000+uint32(i)] = b
+	}
+	// LPR8 fixture段基底1000；CAP實際取413f8..41403。
+	// 從原始MAINLIB常數池搬入，保留真正CAP及衰減表索引執行。
+	for i, b := range disk[0x2e800+0x13f8 : 0x2e800+0x1404] {
+		h.mem[0x413f8+uint32(i)] = b
+	}
+	for n := 0; n < 4; n++ {
+		h.mem[cadenceGlobal(0x3d)+uint32(n)] = 255
+	}
+	foodConditionRun(h, disk, 0xc40, 0xcb0, 0)
+	var actual [4]int
+	for n := range actual {
+		actual[n] = int(h.mem[cadenceGlobal(0x3d)+uint32(n)])
+	}
+	if actual != [4]int{253, 251, 255, 252} {
+		t.Fatalf("原始小時條件更新%v", actual)
+	}
+	t.Logf("原始小時條件更新%v", actual)
+}
+
+func TestSunDogFoodConditionMatrix(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	inputs := map[[4]int]bool{}
+	for value := 0; value < 256; value++ {
+		inputs[[4]int{value, value, value, value}] = true
+		for _, base := range []int{0, 255} {
+			for axis := 0; axis < 4; axis++ {
+				v := [4]int{base, base, base, base}
+				v[axis] = value
+				inputs[v] = true
+			}
+		}
+	}
+	edges := []int{0, 63, 64, 127, 128, 255}
+	for _, v := range edges {
+		for _, r := range edges {
+			for _, h := range edges {
+				for _, n := range edges {
+					inputs[[4]int{v, r, h, n}] = true
+				}
+			}
+		}
+	}
+	ordered := make([][4]int, 0, len(inputs))
+	for input := range inputs {
+		ordered = append(ordered, input)
+	}
+	sort.Slice(ordered, func(i, j int) bool {
+		for k := 0; k < 4; k++ {
+			if ordered[i][k] != ordered[j][k] {
+				return ordered[i][k] < ordered[j][k]
+			}
+		}
+		return false
+	})
+	type row struct {
+		Before, After [4]int
+		Asleep        bool
+		Mode, G3, G18 int
+	}
+	report := struct {
+		Scope, Boundaries string
+		Inputs            int
+		Rows              []row
+	}{Scope: "MAINLIB raw0x2e800:0c40..0cb0整點四項更新，原始:0b62..0bf1包括CAP、三張表、低於64的Vigor額外懲罰、睡眠旗標與強制睡眠／倒下writer，:05c4..05d8 sign原始指令。",
+		Boundaries: "原始指令真正執行；CLP52/CGP08的frame入參與返回ABI顯式搬入，不替換公式。原始常數池13f8..1403映射到CAP實際讀取413f8。初始G32四個mode nibble皆7、G3=0、G18=7；sleep flag執行前固定。未執行自動睡眠父流程、屬性恢復、完整the_time返回或原版GUI。無RND。", Inputs: len(ordered)}
+	for _, input := range ordered {
+		for _, asleep := range []bool{false, true} {
+			h := banvilleHarness(t, disk)
+			h.cpu.State.A[1] = 0x43000
+			h.poke(interpBase+0x1b70, 4)
+			h.poke(interpBase+0x1b72, 0x3000)
+			for i, b := range disk[0x2e800:0x311ff] {
+				h.mem[0x50000+uint32(i)] = b
+			}
+			for i, b := range disk[0x2e800+0x13f8 : 0x2e800+0x1404] {
+				h.mem[0x413f8+uint32(i)] = b
+			}
+			for n, v := range input {
+				h.mem[cadenceGlobal(0x3d)+uint32(n)] = byte(v)
+			}
+			h.poke(cadenceGlobal(0x32), 0x7777)
+			h.poke(cadenceGlobal(3), 0)
+			h.poke(cadenceGlobal(0x18), 7)
+			cadenceFlag(h, 0x3b, asleep)
+			foodConditionRun(h, disk, 0xc40, 0xcb0, 0)
+			r := row{Before: input, Asleep: asleep, Mode: int(h.peek(cadenceGlobal(0x32))), G3: int(h.peek(cadenceGlobal(3))), G18: int(h.peek(cadenceGlobal(0x18)))}
+			for n := range r.After {
+				r.After[n] = int(h.mem[cadenceGlobal(0x3d)+uint32(n)])
+			}
+			if cadenceFlagValue(h, 0x3b) != asleep {
+				t.Fatal("整點更新改寫睡眠flag")
+			}
+			report.Rows = append(report.Rows, r)
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-condition.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("原版整點條件更新：%d唯一四項初值、%d清醒／睡眠案", len(ordered), len(report.Rows))
+}
+
+func foodSleepMinute(h *harness, disk []byte, period int) int {
+	h.poke(depotLocal(0x46000, 1), uint16(period))
+	h.poke(depotLocal(0x46000, 2), 0xffff)
+	stream := uint32(operandStream + 0xb000)
+	h.startDispatch(disk[0x34800+0x5f3:0x34800+0x66a], stream)
+	minutes := 0
+	for steps := 0; steps < 100000; steps++ {
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip, sp := h.cpu.State.A[4], h.cpu.State.SSP
+			at := int(ip-stream) + 0x5f3
+			if at == 0x666 {
+				return minutes
+			}
+			op, proc := h.mem[ip], h.mem[ip+1]
+			if op == 0xef && proc == 4 && at == 0x625 {
+				if h.peek(sp) != 0 {
+					h.t.Fatal("睡眠等待helper參數")
+				}
+				h.cpu.State.SSP = sp + 2
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if op == 0x73 && proc == 0x35 && at == 0x62b {
+				if h.peek(sp) != 1 {
+					h.t.Fatal("睡眠the_time分鐘參數")
+				}
+				minutes++
+				h.cpu.State.SSP = sp + 2
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatalf("sleep minute IP%x: %v", h.cpu.State.A[4], err)
+		}
+	}
+	h.t.Fatal("sleep minute超時")
+	return 0
+}
+
+func TestSunDogFoodSleepMinute(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct{ Before, After, Period, Iterations, Minutes int }
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{Scope: "XDOUSERM raw0x34800:05f3..0666，睡眠flag、原始倒數、每次the_time(1)同步累積Rest+1、上限255及Rest writer。",
+		Boundaries: "背景槽1週期執行前固定1或60，槽2固定-1；原始倒數真正執行。SCIP1:04等待／UI helper與MAINLIB:35明示攔截，只核ABI／分鐘數，不執行時钟及其條件更新。停止於醒來／點擊／隨機失竊前；sleepflag尚未清除。不是完整睡眠或正常GUI證據。無RND。"}
+	for rest := 0; rest < 256; rest++ {
+		for _, period := range []int{1, 60} {
+			for _, iterations := range []int{1, 10, 60} {
+				h := banvilleHarness(t, disk)
+				h.mem[cadenceGlobal(0x3d)+1] = byte(rest)
+				r := row{Before: rest, Period: period, Iterations: iterations}
+				for i := 0; i < iterations; i++ {
+					r.Minutes += foodSleepMinute(h, disk, period)
+				}
+				r.After = int(h.mem[cadenceGlobal(0x3d)+1])
+				if r.After != min(255, rest+iterations) || r.Minutes != iterations || !cadenceFlagValue(h, 0x3b) {
+					t.Fatalf("睡眠分鐘%s", fmt.Sprint(r))
+				}
+				report.Rows = append(report.Rows, r)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-sleep-minute.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("原始睡眠Rest分鐘累積：%d案", len(report.Rows))
+}
+
+// 完整睡眠的研究框架；正式入口見 banville-restoration-spec.md。
+// 原始 MAINLIB 時鐘、背景槽及 XDOUSERM 等待／醒來流程真正執行。
+// 滑鼠按鈕由執行前固定的 poll 序列控制，繪圖／事件 ABI 明示隔離。
+type foodSleepTrace struct {
+	WakePoll, Polls, Minutes, ClockDraws, StatusDraws, Hide, Show int
+	WakeCycle, Cycles, ShipUpdates                                int `json:",omitempty"`
+	ParentEntry, ParentButton, MenuChoices                        int `json:",omitempty"`
+	ArrivalSounds                                                 int `json:",omitempty"`
+	Calls                                                         [][3]int
+	Random                                                        []int
+	Background                                                    *foodBackgroundTrace  `json:",omitempty"`
+	GroundClock                                                   *foodGroundClockTrace `json:",omitempty"`
+}
+
+// Kernel time is supplied before execution as raw two-word values. It is
+// not inferred to be seconds, wall clock, or the background semaphore clock.
+type foodGroundClockTrace struct {
+	Inputs [][2]int
+	Reads  int
+}
+
+// Event pulses are controlled semaphore releases, not hardware seconds.
+type foodBackgroundTrace struct {
+	Limit, Passes, Pulses, Copies, Signals, LockWaits int
+	Callbacks                                         [][3]int // pass, event pulses, callback id
+	StartupLocation                                   int      `json:",omitempty"`
+	StartupInitialized                                bool     `json:",omitempty"`
+}
+
+func foodSleepHarness(t *testing.T, disk []byte) *harness {
+	h := foodChainHarness(t, disk)
+	for at := uint32(0x43000); at < 0x44700; at++ {
+		h.mem[at] = 0
+	}
+	h.poke(0x41006, 0x2200)
+	h.poke(0x42200, 0x3500)
+	for n := uint32(0); n < 0x500; n++ {
+		h.mem[0x43500+n] = 0
+	}
+	for i, b := range disk[0x34800:0x36600] {
+		h.mem[0x58000+uint32(i)] = b
+	}
+	for i, b := range disk[0x31e00:0x34800] {
+		h.mem[0x80000+uint32(i)] = b
+	}
+	for i, b := range disk[0x2e800+0x13f8 : 0x2e800+0x1404] {
+		h.mem[0x413f8+uint32(i)] = b
+	}
+	h.cpu.State.A[1], h.cpu.State.A[2] = 0x45000, 0x58000
+	h.poke(interpBase+0x1b70, 4)
+	h.poke(interpBase+0x1b72, 0x5000)
+	return h
+}
+
+func foodSleepRun(h *harness, disk []byte, base, first, last, depth int, trace *foodSleepTrace) {
+	stream := uint32(0x60000 + depth*0x2000)
+	h.startDispatch(disk[base+first:base+last+4], stream)
+	stepLimit := 4000000
+	// A deliberately artificial zero-delay initial table exercises the
+	// original 16-bit do-until wait wrap: 65536 pulses, about 4.8M steps.
+	if trace.Background != nil {
+		stepLimit = 6000000
+	}
+	for steps := 0; steps < stepLimit; steps++ {
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip, sp, parent := h.cpu.State.A[4], h.cpu.State.SSP, h.cpu.State.A[0]
+			at := int(ip-stream) + first
+			if at == last {
+				return
+			}
+			if base == 0x2e200 && at == 0x26 && trace.Background != nil {
+				if trace.Background.Passes == trace.Background.Limit {
+					return
+				}
+				trace.Background.Passes++
+			}
+			if base == 0x34800 && at == 0x613 {
+				trace.Cycles++
+			}
+			if base == 0x2e200 && at == 0x70 && trace.Background != nil && trace.Background.StartupLocation > 0 && !trace.Background.StartupInitialized {
+				// Register slots while the worker is in its empty-table first
+				// wait. The original countdown writers execute unchanged.
+				trace.Background.StartupInitialized = true
+				foodSleepRun(h, disk, base, 0x311, 0x316, depth+1, trace)
+				if trace.Background.StartupLocation == 2 {
+					foodSleepRun(h, disk, base, 0x1b4, 0x1b8, depth+1, trace)
+				}
+				levelsFrame(h, parent)
+				h.cpu.State.SSP, h.cpu.State.A[4] = sp, ip
+				h.start(interpLoop)
+				continue
+			}
+			op, proc := h.mem[ip], h.mem[ip+1]
+			childBase, entry, end, locals, argc, result := 0, 0, 0, 0, 0, 0
+			switch {
+			case base == 0x37200 && op == 0x71 && proc == 0x14:
+				childBase, entry, end, locals, argc = 0x31e00, 0x19a, 0x1b3, 1, 1
+			case base == 0x37200 && op == 0x71 && proc == 0x13:
+				childBase, entry, end, locals, argc = 0x31e00, 0x128, 0x15a, 2, 2
+			case op == 0x73 && proc == 0x28 && trace.GroundClock != nil:
+				childBase, entry, end, locals, result = 0x2e800, 0x8e4, 0x8f7, 2, 3
+			case op == 0x73 && proc == 0x27 && trace.GroundClock != nil:
+				childBase, entry, end, argc = 0x2e800, 0x8d2, 0x8dd, 1
+			case base == 0x2e800 && op == 0x91 && proc == 0x25 && trace.GroundClock != nil:
+				childBase, entry, end, locals, argc, result = base, 0x830, 0x896, 4, 2, 7
+			case base == 0x2e800 && op == 0x91 && proc == 0x26 && trace.GroundClock != nil:
+				childBase, entry, end, locals, argc = base, 0x89c, 0x8cb, 1, 2
+			case base == 0x2e200 && op == 0x75 && proc == 2 || base == 0x37e00 && op == 0x71 && proc == 2:
+				childBase, entry, end, argc = 0x31e00, 0x1a, 0x1e, 2
+			case base == 0x31e00 && op == 0x75 && proc == 1:
+				childBase, entry, end, locals, argc = 0x34800, 0x7be, 0x85e, 17, 2
+			case base == 0x37e00 && op == 0x90 && proc == 0x0b:
+				childBase, entry, end, locals = base, 0x50e, 0x53e, 1
+			case op == 0x73 && proc == 0x2f:
+				childBase, entry, end, locals, argc, result = 0x2e800, 0x9a6, 0x9d3, 2, 1, 4
+			case op == 0x73 && proc == 0x31:
+				childBase, entry, end, locals, argc = 0x2e800, 0xa42, 0xa72, 1, 1
+			case op == 0x73 && proc == 0x30:
+				childBase, entry, end, locals, argc = 0x2e800, 0x9da, 0xa3b, 2, 2
+			case op == 0x73 && proc == 0x35:
+				if h.peek(sp) != 1 && (trace.GroundClock == nil || h.peek(sp) != 4) {
+					h.t.Fatal("睡眠時鐘參數不為1分鐘")
+				}
+				for n := 0; trace.Background == nil && n < 8; n++ {
+					id := h.peek(cadenceGlobal(0xa78) + uint32(n*6))
+					if id == 1 || id == 2 {
+						h.t.Fatal("睡眠時背景槽未停止")
+					}
+				}
+				trace.Minutes += int(h.peek(sp))
+				if trace.Background != nil {
+					trace.Background.Callbacks = append(trace.Background.Callbacks, [3]int{trace.Background.Passes, trace.Background.Pulses, 1})
+				}
+				childBase, entry, end, locals, argc = 0x2e800, 0xbf8, 0xd20, 16, 1
+			case op == 0x73 && proc == 0x0b:
+				childBase, entry, end, result = 0x2e800, 0x614, 0x654, 1
+			case op == 0x73 && proc == 0x0a:
+				childBase, entry, end, argc = 0x2e800, 0x66c, 0x680, 3
+			case (op == 0x71 || base == 0x2e200 && op == 0x75) && proc == 0x12:
+				trace.ShipUpdates++
+				if trace.Background != nil {
+					trace.Background.Callbacks = append(trace.Background.Callbacks, [3]int{trace.Background.Passes, trace.Background.Pulses, 2})
+				}
+				childBase, entry, end, locals = 0x31e00, 0x1278, 0x12c1, 9
+			case base == 0x31e00 && op == 0x91 && proc == 0x1f:
+				childBase, entry, end, locals, argc = base, 0x8ea, 0xc4a, 9, 1
+			case base == 0x31e00 && op == 0x91 && proc == 0x23:
+				childBase, entry, end, locals, argc = base, 0x105c, 0x1272, 14, 1
+			case base == 0x31e00 && op == 0x91 && proc == 0x22:
+				childBase, entry, end, argc = base, 0xf6c, 0xf81, 5
+			case base == 0x31e00 && op == 0x90 && proc == 0x25:
+				childBase, entry, end, locals, argc = base, 0xffe, 0x1056, 3, 8
+			case base == 0x31e00 && (op == 0xef || op == 0x90) && proc == 0x24:
+				childBase, entry, end = base, 0xf88, 0xff7
+			case base == 0x2e800 && op == 0x90 && proc == 0x52:
+				childBase, entry, end, locals, argc = base, 0xb62, 0xbf1, 3, 3
+			case base == 0x2e800 && op == 0x91 && proc == 8:
+				childBase, entry, end, argc, result = base, 0x5c4, 0x5d8, 1, 2
+			case base == 0x34800 && (op == 0xef || op == 0x90) && proc == 4:
+				childBase, entry, end, argc = base, 0xae, 0xd9, 1
+			case base == 0x34800 && op == 0x90 && proc == 8:
+				childBase, entry, end = base, 0x14e, 0x188
+			case base == 0x34800 && op == 0x90 && proc == 0x10:
+				childBase, entry, end, locals = base, 0x5b0, 0x768, 11
+			case base == 0x34800 && op == 0x90 && proc == 0x11:
+				childBase, entry, end = base, 0x76e, 0x7b7
+			case base == 0x34800 && op == 0x90 && proc == 5:
+				childBase, entry, end = base, 0x9a, 0xa7
+			case base == 0x34800 && op == 0xef && proc == 3:
+				trace.StatusDraws++
+				childBase, entry, end, locals = base, 0x40, 0x94, 7
+			case base == 0x34800 && op == 0xef && proc == 9:
+				childBase, entry, end, argc = base, 0x18e, 0x1a7, 1
+			case op == 0x74 && proc == 4:
+				childBase, entry, end, locals, argc = 0x31200, 0x90, 0x122, 5, 5
+			case op == 0x74 && proc == 9:
+				childBase, entry, end, locals, argc = 0x31200, 0x374, 0x3b3, 2, 1
+			case base == 0x31200 && op == 0x91 && proc == 0x0b:
+				childBase, entry, end, locals, argc = base, 0x3ba, 0x3f8, 2, 1
+			case op == 0x73 && proc == 0x36:
+				childBase, entry, end, locals, argc = 0x2e800, 0x9c, 0xd3, 5, 2
+			case op == 0x73 && proc == 0x38:
+				childBase, entry, end, argc = 0x2e800, 0x112, 0x11b, 5
+			}
+			if childBase != 0 {
+				frame := uint32(0x4a000 + depth*0x200)
+				for n := uint32(0); n < 128; n++ {
+					h.mem[frame+n] = 0
+				}
+				link := parent
+				if op == 0xef {
+					link = 0x40000 + uint32(h.peek(parent))
+				}
+				h.poke(frame, uint16(link-0x40000))
+				for n := 0; n < argc; n++ {
+					h.poke(depotLocal(frame, locals+n+1), h.peek(sp+uint32(n*2)))
+				}
+				oldGlobal, oldSegment := h.cpu.State.A[1], h.cpu.State.A[2]
+				cache0, cache1 := h.peek(interpBase+0x1b70), h.peek(interpBase+0x1b72)
+				module := uint32(0x45000)
+				segment := uint32(0x58000)
+				if childBase == 0x2e800 {
+					module, segment = 0x43000, 0x56000
+				} else if childBase == 0x31200 {
+					module, segment = 0x44000, 0x52000
+				} else if childBase == 0x31e00 {
+					module, segment = 0x48000, 0x80000
+				} else if childBase == 0x37e00 {
+					module, segment = 0x49000, 0x90000
+				}
+				h.cpu.State.A[1], h.cpu.State.A[2] = module, segment
+				h.poke(interpBase+0x1b70, uint16(module>>16))
+				h.poke(interpBase+0x1b72, uint16(module))
+				levelsFrame(h, frame)
+				foodSleepRun(h, disk, childBase, entry, end, depth+1, trace)
+				if result != 0 {
+					h.poke(sp+uint32(argc*2), h.peek(depotLocal(frame, result)))
+				}
+				if proc == 0x2f || proc == 0x30 || proc == 0x31 {
+					id, period := int(h.peek(sp)), 0
+					if proc == 0x2f {
+						period = int(int16(h.peek(sp + 2)))
+					} else if proc == 0x30 {
+						id, period = int(h.peek(sp+2)), int(int16(h.peek(sp)))
+					}
+					trace.Calls = append(trace.Calls, [3]int{int(proc), id, period})
+				}
+				if childBase == 0x2e800 && proc == 0x0b {
+					trace.Random = append(trace.Random, int(h.peek(sp)))
+				}
+				levelsFrame(h, parent)
+				h.cpu.State.A[1], h.cpu.State.A[2] = oldGlobal, oldSegment
+				h.poke(interpBase+0x1b70, cache0)
+				h.poke(interpBase+0x1b72, cache1)
+				h.cpu.State.SSP = sp + uint32(argc*2)
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			pop, handled := 0, false
+			switch {
+			case base == 0x2e800 && trace.GroundClock != nil && op == 0x70 && proc == 0x14:
+				clock := trace.GroundClock
+				if clock.Reads >= len(clock.Inputs) {
+					h.t.Fatal("原始clock讀取超出預定輸入")
+				}
+				for n := 0; n < 2; n++ {
+					pointer := 0x40000 + uint32(h.peek(sp+uint32((1-n)*2)))
+					want := depotLocal(parent, n+1)
+					if at == 0x8d6 {
+						want = cadenceGlobal(0x1a + n)
+					}
+					if pointer != want {
+						h.t.Fatalf("TIME ABI at%x pointer%x want%x", at, pointer, want)
+					}
+					h.poke(pointer, uint16(clock.Inputs[clock.Reads][n]))
+				}
+				clock.Reads++
+				pop, handled = 2, true
+			case base == 0x2e200 && trace.Background != nil && (op == 0xde || op == 0xdf):
+				if op == 0xde {
+					trace.Background.Signals++
+				} else if at == 0x73 {
+					if h.peek(sp) != uint16(cadenceGlobal(1)-0x40000) {
+						h.t.Fatal("背景event semaphore ABI")
+					}
+					trace.Background.Pulses++
+				} else if at == 0x7f {
+					trace.Background.LockWaits++
+				} else {
+					h.t.Fatalf("未知背景wait at%x", at)
+				}
+				h.cpu.State.SSP = sp + 2
+				h.cpu.State.A[4] = ip + 1
+				h.start(interpLoop)
+				continue
+			case base == 0x2e200 && trace.Background != nil && op == 0x70 && proc == 0x0f:
+				if h.peek(sp) != 12 || h.peek(sp+2) != 0 || h.peek(sp+6) != 0 {
+					h.t.Fatal("背景MOVE ABI")
+				}
+				from, to := 0x40000+uint32(h.peek(sp+8)), 0x40000+uint32(h.peek(sp+4))
+				wantFrom, wantTo := uint32(0x4351e), depotLocal(parent, 4)
+				if at == 0x97 {
+					wantFrom, wantTo = 0x4352a, 0x4351e
+				}
+				if at == 0xf6 {
+					wantFrom, wantTo = depotLocal(parent, 4), 0x4351e
+				}
+				if (at != 0x8c && at != 0x97 && at != 0xf6) || from != wantFrom || to != wantTo {
+					h.t.Fatalf("背景MOVE定位 at%x from%x to%x", at, from, to)
+				}
+				buf := make([]byte, 12)
+				for n := range buf {
+					buf[n] = h.mem[from+uint32(n)]
+				}
+				for n, b := range buf {
+					h.mem[to+uint32(n)] = b
+				}
+				trace.Background.Copies++
+				pop, handled = 5, true
+			case op == 0x70 && proc == 0x15:
+				// KERNEL01 fill：頂部填充值、長度bytes、第二填充值、near pointer。
+				if h.peek(sp) != 0 || h.peek(sp+4) != 0 {
+					h.t.Fatal("零填充ABI不符")
+				}
+				pointer, size := 0x40000+uint32(h.peek(sp+6)), int(h.peek(sp+2))
+				for n := 0; n < size; n++ {
+					h.mem[pointer+uint32(n)] = 0
+				}
+				pop, handled = 4, true
+			case base == 0x2e800 && op == 0x91 && (proc == 0x2d || proc == 0x2e):
+				handled = true // 背景表lock／unlock；不執行硬體timer。
+			case op == 0x72 && proc == 0x27:
+				trace.Hide++
+				handled = true
+			case op == 0x72 && proc == 0x26:
+				trace.Show++
+				handled = true
+			case op == 0x72 && proc == 0x1f:
+				button := h.peek(sp)
+				if button == 0 && trace.ParentEntry != 0 {
+					value := uint16(0)
+					if trace.ParentButton == 0 && trace.MenuChoices == 0 && trace.Cycles == 0 {
+						value = 1
+					}
+					trace.ParentButton++
+					h.poke(sp+2, value)
+					pop, handled = 1, true
+					break
+				}
+				if button != 1 {
+					h.t.Fatal("睡眠醒來按鈕ABI")
+				}
+				trace.Polls++
+				value := uint16(0)
+				if trace.WakeCycle > 0 && trace.Cycles >= trace.WakeCycle || trace.WakeCycle == 0 && trace.Polls >= trace.WakePoll {
+					value = 1
+				}
+				h.poke(sp+2, value)
+				pop, handled = 1, true
+			case op == 0x91 && proc == 0x3c:
+				for n, v := range []uint16{200, 0, 320, 0} {
+					h.poke(0x40000+uint32(h.peek(sp+uint32(n*2))), v)
+				}
+				pop, handled = 5, true // clock rectangle only; native window10 copying preserved.
+			case op == 0x91 && proc == 0x24:
+				trace.ClockDraws++
+				pop, handled = 5, true // clock字串格式／繪圖，時間讀寫已由原始35執行。
+			case op == 0x72 && (proc == 0x19 || proc == 0x16 || proc == 0x25 || proc == 0x1a):
+				pop, handled = 1, true
+			case op == 0x72 && proc == 0x23:
+				handled = true
+			case op == 0x72 && proc == 0x14:
+				pop, handled = 4, true
+			case op == 0x72 && (proc == 0x20 || proc == 0x21):
+				pop, handled = 4, true // icon／WINDOWLI:09 highlight graphics。
+			case op == 0x73 && proc == 0x37:
+				pop, handled = 2, true // 起床清視窗，不聲稱逐像素。
+			case op == 0x74 && proc == 0x11:
+				if h.peek(sp+4) != 106 {
+					h.t.Fatal("醒來訊息不是106")
+				}
+				pop, handled = 3, true
+			case op == 0x73 && proc == 2:
+				handled = true // 起床尾端事件poll；不追加時間或亂數。
+			case base == 0x31e00 && op == 0x91 && proc == 0x0d:
+				pop, handled = 4, true // HUD繪圖隔離；燃料及能量writer仍真正執行。
+			case base == 0x31e00 && at == 0xa54 && op == 0x73 && proc == 3:
+				if h.peek(sp) != 12 {
+					h.t.Fatal("抵達聲音ABI")
+				}
+				trace.ArrivalSounds++
+				pop, handled = 1, true // MAINLIB播放12號提示音；抵達writer真正執行。
+			case trace.ParentEntry != 0 && base == 0x34800 && op == 0xef && proc == 7:
+				// :07為介面建構邊界，唯一非圖形writer :0134..0138原樣呈現。
+				h.poke(depotLocal(0x40000+uint32(h.peek(parent)), 14), 1)
+				handled = true
+			case trace.ParentEntry != 0 && op == 0x74 && proc == 0x15:
+				pop, handled = 3, true // make_zoom繪圖及視窗資料初始化隔離。
+			case trace.ParentEntry != 0 && op == 0x74 && proc == 0x16:
+				handled = true // close_zoom繪圖隔離。
+			case trace.ParentEntry != 0 && op == 0x72 && proc == 0x0e:
+				pop, handled = 1, true // 滑鼠形狀。
+			case base == 0x37e00 && op == 0x72 && proc == 0x2a:
+				pop, handled = 1, true // 游標啟停；:0b 的場景及座標 writer 真正執行。
+			case trace.ParentEntry != 0 && op == 0x72 && proc == 0x1e:
+				for n := 0; n < 2; n++ {
+					h.poke(0x40000+uint32(h.peek(sp+uint32(n*2))), 16)
+				}
+				pop, handled = 2, true // 預設選單點座標。
+			case trace.ParentEntry != 0 && op == 0x74 && proc == 5:
+				for n := 0; n < 2; n++ {
+					h.poke(0x40000+uint32(h.peek(sp+uint32(n*2))), 0)
+				}
+				pop, handled = 4, true // 明示hit-test不選物品，導向原版menu。
+			case trace.ParentEntry != 0 && op == 0x74 && proc == 0x10:
+				if h.peek(sp+4) != 106 {
+					h.t.Fatal("正常睡眠menu identity")
+				}
+				h.poke(sp+6, 1)
+				trace.MenuChoices++
+				pop, handled = 3, true // 預定get_menu(106)選擇1，非GUI點擊證據。
+			}
+			if handled {
+				h.cpu.State.SSP = sp + uint32(pop*2)
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if op == 0x70 || op == 0x71 || op == 0x72 || op == 0x73 || op == 0x74 || op == 0x90 || op == 0x91 || op == 0xef {
+				h.t.Fatalf("未覆蓋sleep呼叫 base%x at%x op%x proc%x", base, at, op, proc)
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatalf("sleep base%x depth%d at%x PC%x: %v", base, depth, int(h.cpu.State.A[4]-stream)+first, h.cpu.State.PC, err)
+		}
+	}
+	h.t.Fatalf("sleep超出有界步數 base%x depth%d poll%d minutes%d at%x A0%x SP%x background%+v", base, depth, trace.Polls, trace.Minutes, int(h.cpu.State.A[4]-stream)+first, h.cpu.State.A[0], h.cpu.State.SSP, trace.Background)
+}
+
+func TestSunDogFoodAttributeClock(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Current, Target, After               [5]int
+		MinuteBefore, MinuteAfter, HourAfter int
+	}
+	report := struct {
+		Scope, Boundaries     string
+		InitBefore, InitAfter [15]int
+		ReadingsAfter         [4]int
+		Rows                  []row
+	}{Scope: "XSTARTUP raw0x39c00 :30 1bd1..1bf1速率初始化；MAINLIB raw0x2e800 :35 0bf8..0d20原始整點屬性恢復。",
+		Boundaries: "從已確認的程序內部邊界進入，MAINLIB全body執行；圖形／lock隔離，無RND。非正常原版開局或GUI。"}
+	h := foodSleepHarness(t, disk)
+	for n := range report.InitBefore {
+		report.InitBefore[n] = 17 + n
+		h.mem[cadenceGlobal(0x35)+uint32(n)] = byte(report.InitBefore[n])
+	}
+	foodSleepRun(h, disk, 0x39c00, 0x1bd1, 0x1bf1, 0, &foodSleepTrace{})
+	for n := range report.InitAfter {
+		report.InitAfter[n] = int(h.mem[cadenceGlobal(0x35)+uint32(n)])
+	}
+	for n := range report.ReadingsAfter {
+		report.ReadingsAfter[n] = int(h.mem[cadenceGlobal(0x3d)+uint32(n)])
+	}
+	for n := 0; n < 10; n++ {
+		if report.InitAfter[n] != report.InitBefore[n] {
+			t.Fatal("初始化改寫現值／目標")
+		}
+	}
+	if report.InitAfter[10] != 5 || report.InitAfter[11] != 5 || report.InitAfter[12] != 5 || report.InitAfter[13] != 5 || report.InitAfter[14] != 1 || report.ReadingsAfter != [4]int{255, 255, 255, 255} {
+		t.Fatalf("原始速率初始化 %v", report)
+	}
+	for _, current := range []int{0, 1, 4, 5, 6, 127, 254, 255} {
+		for _, target := range []int{0, 1, 4, 5, 6, 127, 254, 255} {
+			for _, minute := range []int{0, 59} {
+				h := foodSleepHarness(t, disk)
+				r := row{MinuteBefore: minute}
+				for n := 0; n < 5; n++ {
+					r.Current[n], r.Target[n] = current, target
+					h.mem[cadenceGlobal(0x35)+uint32(n)] = byte(current)
+					h.mem[cadenceGlobal(0x35)+uint32(n+5)] = byte(target)
+					h.mem[cadenceGlobal(0x35)+uint32(n+10)] = byte(report.InitAfter[n+10])
+				}
+				for n := 0; n < 4; n++ {
+					h.mem[cadenceGlobal(0x3d)+uint32(n)] = 255
+				}
+				h.poke(cadenceGlobal(0x11), uint16(minute))
+				h.cpu.State.A[1], h.cpu.State.A[2] = 0x43000, 0x56000
+				h.poke(interpBase+0x1b70, 4)
+				h.poke(interpBase+0x1b72, 0x3000)
+				h.poke(depotLocal(0x46000, 17), 1)
+				foodSleepRun(h, disk, 0x2e800, 0xbf8, 0xd20, 0, &foodSleepTrace{})
+				for n := range r.After {
+					r.After[n] = int(h.mem[cadenceGlobal(0x35)+uint32(n)])
+				}
+				r.MinuteAfter, r.HourAfter = int(h.peek(cadenceGlobal(0x11))), int(h.peek(cadenceGlobal(0x12)))
+				if h.cpu.State.SSP != stackTop {
+					t.Fatal("屬性時鐘返回ABI")
+				}
+				report.Rows = append(report.Rows, r)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-attribute-clock.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("原始恢復速率初始化與屬性整點／未整點：%d案", len(report.Rows))
+}
+
+func TestSunDogFoodSleepMenuParent(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Location, Mode, Nourishment, Rest, SceneBefore, SceneAfter, RestAfter, NourishmentAfter int
+		Trace                                                                                   foodSleepTrace
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{
+		Scope:      "完整XDOUSERM:01父入口07be..085e，:08初始化/:11退出writer及:10完整睡眠，正常get_menu(106)choice1與mode10入口。",
+		Boundaries: "get_menu選擇1、button0/1與hit-test是預先固定UI邊界；make_zoom/close_zoom/:07圖形建構隔離，:07的outerL14=1按原始writer呈現。非正常原版GUI；正式remake未比較。"}
+	for _, location := range []int{2, 3, 5} {
+		for _, mode := range []int{7, 10} {
+			for _, nourishment := range []int{0, 9, 10, 255} {
+				h := foodSleepHarness(t, disk)
+				initialRest := 64
+				if mode == 10 {
+					initialRest = 0
+				}
+				r := row{Location: location, Mode: mode, Nourishment: nourishment, Rest: initialRest,
+					SceneBefore: 0x5000 | mode<<8 | location<<4 | 7, Trace: foodSleepTrace{ParentEntry: 1, WakeCycle: 60}}
+				for n, v := range [4]int{255, initialRest, 255, nourishment} {
+					h.mem[cadenceGlobal(0x3d)+uint32(n)] = byte(v)
+				}
+				h.poke(cadenceGlobal(0x32), uint16(r.SceneBefore))
+				foodSleepRun(h, disk, 0x2e200, 0x311, 0x316, 0, &r.Trace)
+				if location == 2 {
+					foodSleepRun(h, disk, 0x2e200, 0x1b4, 0x1b8, 0, &r.Trace)
+				}
+				levelsFrame(h, 0x45000)
+				h.poke(depotLocal(0x45000, 18), 4)
+				h.poke(depotLocal(0x45000, 19), 16)
+				foodSleepRun(h, disk, 0x34800, 0x7be, 0x85e, 0, &r.Trace)
+				r.RestAfter = int(h.mem[cadenceGlobal(0x3d)+1])
+				r.NourishmentAfter = int(h.mem[cadenceGlobal(0x3d)+3])
+				r.SceneAfter = int(h.peek(cadenceGlobal(0x32)))
+				expectedScene := 0x5000 | location<<8 | 7<<4 | 11
+				if r.SceneAfter != expectedScene || h.cpu.State.SSP != stackTop || r.Trace.Minutes == 0 ||
+					r.RestAfter != min(255, initialRest+r.Trace.Minutes) || r.NourishmentAfter != nourishment ||
+					r.Trace.MenuChoices != map[int]int{7: 1, 10: 0}[mode] || h.peek(depotLocal(0x45000, 17)) != 0 {
+					t.Fatalf("正常睡眠父入口 %v SSP%x", r, h.cpu.State.SSP)
+				}
+				if mode == 10 && r.Trace.Minutes != 51 {
+					t.Fatalf("疲勞倒下需51分鐘 %v", r)
+				}
+				report.Rows = append(report.Rows, r)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-sleep-menu-parent.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("完整角色睡眠父入口／低營養／場景退出：%d案", len(report.Rows))
+}
+
+// The clock and foreground consumers execute their own scene writers. The
+// sleep button is held from cycle 1; no frame or scene writer is replaced.
+func foodClockFixture(t *testing.T, disk []byte) *harness {
+	h := foodSleepHarness(t, disk)
+	h.cpu.State.A[1], h.cpu.State.A[2] = 0x43000, 0x56000
+	h.poke(interpBase+0x1b70, 4)
+	h.poke(interpBase+0x1b72, 0x3000)
+	// Exact original endpoint writer; no invented day length.
+	h.poke(cadenceGlobal(0x1c), 17)
+	h.poke(cadenceGlobal(0x1d), 29)
+	foodSleepRun(h, disk, 0x39c00, 0x3c3, 0x3cd, 0, &foodSleepTrace{})
+	if h.peek(cadenceGlobal(0x1c)) != 65535 || h.peek(cadenceGlobal(0x1d)) != 65535 {
+		t.Fatal("原始時間端點writer")
+	}
+	return h
+}
+
+func TestSunDogFoodGroundClockGate(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type wideRow struct {
+		Left, Right [2]int
+		Less, Gate  int
+	}
+	type deadlineRow struct {
+		Before, After [2]int
+		Delta         int
+		Trace         foodGroundClockTrace
+	}
+	type groundRow struct {
+		Foot                                                          bool
+		Record5, CounterBefore, CounterAfter, NowDelta, Cost, Applied int
+		Before, After                                                 [4]int
+		SceneBefore, SceneAfter, Interrupt, MinuteAfter, HourAfter    int
+		DeadlineAfter                                                 [2]int
+		Trace                                                         foodGroundClockTrace
+	}
+	report := struct {
+		Scope, Boundaries string
+		Endpoint          [2]int
+		Wide              []wideRow
+		Deadlines         []deadlineRow
+		Ground            []groundRow
+	}{Scope: "MAINLIB:25/26/27/28完整body、XSTARTUP:07時間端點writer；XMOVEONG:23成本writer及:14計時／十次更新前綴、MAINLIB:35完整時鐘。",
+		Boundaries: "TIME以執行前固定的雙字輸入採原始兩pointer ABI提供；時間單位及硬體wall-clock未知。只驗ground更新前綴到0aca，未跑移動／游標／collision／foreground退出；沒有RND。正式時序仍DRAFT。", Endpoint: [2]int{65535, 65535}}
+	corners := []int{0, 1, 32767, 32768, 65535}
+	for _, ah := range corners {
+		for _, al := range corners {
+			for _, bh := range corners {
+				for _, bl := range corners {
+					h := foodClockFixture(t, disk)
+					r := wideRow{Left: [2]int{ah, al}, Right: [2]int{bh, bl}}
+					for n := 0; n < 2; n++ {
+						h.poke(0x4e000+uint32(n*2), uint16(r.Left[n]))
+						h.poke(0x4e004+uint32(n*2), uint16(r.Right[n]))
+					}
+					h.poke(depotLocal(0x46000, 5), 0xe004)
+					h.poke(depotLocal(0x46000, 6), 0xe000)
+					trace := foodSleepTrace{GroundClock: &foodGroundClockTrace{Inputs: [][2]int{r.Right}}}
+					foodSleepRun(h, disk, 0x2e800, 0x830, 0x896, 0, &trace)
+					r.Less = int(h.peek(depotLocal(0x46000, 7)))
+					h.poke(cadenceGlobal(0x1a), uint16(ah))
+					h.poke(cadenceGlobal(0x1b), uint16(al))
+					foodSleepRun(h, disk, 0x2e800, 0x8e4, 0x8f7, 0, &trace)
+					r.Gate = int(h.peek(depotLocal(0x46000, 3)))
+					if trace.GroundClock.Reads != 1 || h.cpu.State.SSP != stackTop {
+						t.Fatal("雙字比較與TIME stack")
+					}
+					report.Wide = append(report.Wide, r)
+				}
+			}
+		}
+	}
+	for _, before := range [][2]int{{0, 0}, {0, 32767}, {0, 65535}, {1, 65535}, {65535, 65534}, {65535, 65535}} {
+		for _, delta := range []int{0, 1, 2, 32767} {
+			h := foodClockFixture(t, disk)
+			trace := foodSleepTrace{GroundClock: &foodGroundClockTrace{Inputs: [][2]int{before}}}
+			h.poke(depotLocal(0x46000, 1), uint16(delta))
+			foodSleepRun(h, disk, 0x2e800, 0x8d2, 0x8dd, 0, &trace)
+			r := deadlineRow{Before: before, Delta: delta, After: [2]int{int(h.peek(cadenceGlobal(0x1a))), int(h.peek(cadenceGlobal(0x1b)))}, Trace: *trace.GroundClock}
+			if r.Trace.Reads != 1 || h.cpu.State.SSP != stackTop {
+				t.Fatal("原始deadline writer stack")
+			}
+			report.Deadlines = append(report.Deadlines, r)
+		}
+	}
+	for _, foot := range []bool{false, true} {
+		for _, moving := range []int{-1, 0, 1} {
+			for _, counter := range []int{0, 8, 9, 10} {
+				for _, offset := range []int{-1, 0, 1, 2} {
+					for _, before := range [][4]int{{255, 255, 255, 255}, {255, 1, 255, 255}, {1, 1, 255, 255}} {
+						h := foodClockFixture(t, disk)
+						h.poke(0x46000, 0xf000)
+						scene := 0x5000 | 3<<8 | 7<<4 | 11
+						if foot {
+							scene |= 1 << 13
+						}
+						h.poke(cadenceGlobal(0x32), uint16(scene))
+						foodSleepRun(h, disk, 0x40000, 0x1ab2, 0x1ae0, 0, &foodSleepTrace{})
+						cost := int(h.peek(depotLocal(0x4f000, 12)))
+						now := [2]int{0, 100 + offset}
+						trace := foodSleepTrace{GroundClock: &foodGroundClockTrace{Inputs: [][2]int{now, now}}}
+						h.poke(cadenceGlobal(0x1a), 0)
+						h.poke(cadenceGlobal(0x1b), 100)
+						h.poke(depotLocal(0x4f000, 14), uint16(counter))
+						h.poke(0x43508+0xec*2+10, uint16(int16(moving)))
+						for n, v := range before {
+							h.mem[cadenceGlobal(0x3d)+uint32(n)] = byte(v)
+						}
+						for n, v := range [15]int{30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5, 5, 5, 5, 1} {
+							h.mem[cadenceGlobal(0x35)+uint32(n)] = byte(v)
+						}
+						h.poke(cadenceGlobal(0x11), 59)
+						foodSleepRun(h, disk, 0x40000, 0xa9e, 0xaca, 0, &trace)
+						r := groundRow{Foot: foot, Record5: moving, CounterBefore: counter, CounterAfter: int(h.peek(depotLocal(0x4f000, 14))),
+							NowDelta: offset, Cost: cost, Applied: trace.Minutes, Before: before, SceneBefore: scene,
+							SceneAfter: int(h.peek(cadenceGlobal(0x32))), Interrupt: int(h.peek(cadenceGlobal(3))),
+							MinuteAfter: int(h.peek(cadenceGlobal(0x11))), HourAfter: int(h.peek(cadenceGlobal(0x12))),
+							DeadlineAfter: [2]int{int(h.peek(cadenceGlobal(0x1a))), int(h.peek(cadenceGlobal(0x1b)))}, Trace: *trace.GroundClock}
+						for n := range r.After {
+							r.After[n] = int(h.mem[cadenceGlobal(0x3d)+uint32(n)])
+						}
+						if h.cpu.State.SSP != stackTop {
+							t.Fatalf("ground clock stack %x", h.cpu.State.SSP)
+						}
+						report.Ground = append(report.Ground, r)
+					}
+				}
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-ground-clock.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("雙字比較%d、deadline%d、地面時鐘%d案", len(report.Wide), len(report.Deadlines), len(report.Ground))
+}
+
+// Load the original PRG at a synthetic base with its real relocation table.
+// The bootstrap's BIOS pointer is text+4, after the program entry branch.
+func foodPlatformClockHarness(t *testing.T, disk []byte) (*harness, uint32) {
+	const prgBase = uint32(0x70000)
+	raw := disk[0x2400 : 0x2400+3976]
+	if fmt.Sprintf("%x", sha256.Sum256(raw)) != "b317a490ef64d110c535da69ee8bf164ed16e70eb9a7b0e5d77291cb33b7b902" {
+		t.Fatal("原始PRG身分")
+	}
+	code := append([]byte(nil), raw[28:28+0xf3c]...)
+	relocs := raw[28+0xf3c:]
+	at := int(binary.BigEndian.Uint32(relocs[:4]))
+	binary.BigEndian.PutUint32(code[at:at+4], binary.BigEndian.Uint32(code[at:at+4])+prgBase)
+	for _, delta := range relocs[4:] {
+		if delta == 0 {
+			break
+		}
+		if delta == 1 {
+			at += 254
+			continue
+		}
+		at += int(delta)
+		if at < 0 || at+4 > len(code) {
+			t.Fatal("PRG relocation bounds")
+		}
+		binary.BigEndian.PutUint32(code[at:at+4], binary.BigEndian.Uint32(code[at:at+4])+prgBase)
+	}
+	if binary.BigEndian.Uint32(code[0x334:0x338]) != prgBase+4 {
+		t.Fatal("原始bootstrap BIOS pointer")
+	}
+	h := newHarness(t, loadInterp(t))
+	for n, b := range code {
+		h.mem[prgBase+uint32(n)] = b
+	}
+	h.cpu.State.A[6] = 0x40000
+	pokeLong := func(a, v uint32) { h.poke(a, uint16(v>>16)); h.poke(a+2, uint16(v)) }
+	pokeLong(interpBase+0x1c28, prgBase+4)
+	pokeLong(interpBase+0x1c30, 0x60000)
+	return h, prgBase
+}
+
+func TestSunDogFoodPlatformClock(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Before, After           uint32
+		Enabled                 bool
+		VBLs, Events, Countdown int
+		TimeBefore, TimeAfter   [2]int
+	}
+	rows := []row{}
+	for _, before := range []uint32{0, 1, 65535, 65536, 0xfffffffe, 0xffffffff} {
+		for _, enabled := range []bool{false, true} {
+			for _, vbls := range []int{1, 4, 9} {
+				h, base := foodPlatformClockHarness(t, disk)
+				pokeLong := func(a, v uint32) { h.poke(a, uint16(v>>16)); h.poke(a+2, uint16(v)) }
+				pokeLong(base+0x18c, before)
+				// Execute the original QUIET/ENABLE vector. ABI return address only.
+				h.push(uint16(sentinel & 0xffff))
+				h.push(uint16(sentinel >> 16))
+				entry := base + 4 + 0x70
+				if enabled {
+					entry = base + 4 + 0x74
+				}
+				h.start(entry - interpBase)
+				h.run(1000)
+				readTime := func() [2]int {
+					h.poke(0x4f000, 0x1234)
+					h.poke(0x4f002, 0x5678)
+					h.push(0xf000)
+					h.push(0xf002)
+					h.start(0x1832)
+					h.run(1000)
+					if h.cpu.State.SSP != stackTop {
+						t.Fatal("原始TIME stack")
+					}
+					return [2]int{int(h.peek(0x4f000)), int(h.peek(0x4f002))}
+				}
+				r := row{Before: before, Enabled: enabled, VBLs: vbls, TimeBefore: readTime()}
+				for v := 0; v < vbls; v++ {
+					h.start(base + 0x154 - interpBase)
+					done := false
+					for step := 0; step < 1000; step++ {
+						if h.cpu.State.PC == base+0x17c+4 {
+							done = true
+							break
+						}
+						if h.cpu.State.PC == base+0x176+4 {
+							if h.cpu.State.D[0] != 0 || h.cpu.State.A[3] != interpBase {
+								t.Fatal("原始VBL event ABI")
+							}
+							r.Events++
+							// Record the original event0 callback boundary; no ISR or signal substitution.
+							h.start(base + 0x17c - interpBase)
+							continue
+						}
+						if _, err := h.cpu.Step(); err != nil {
+							t.Fatal("原始VBL prefix", err)
+						}
+					}
+					if !done || h.cpu.State.SSP != stackTop {
+						t.Fatal("VBL prefix bounds")
+					}
+				}
+				r.After = uint32(h.peek(base+0x18c))<<16 | uint32(h.peek(base+0x18e))
+				r.Countdown = int(h.peek(base + 0x190))
+				r.TimeAfter = readTime()
+				rows = append(rows, r)
+			}
+		}
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{
+		Scope:      "原始PRG重定位與bootstrap BIOS base+4；原始QUIET/ENABLE、VBL計數前綴與SYSTEM.INTERP KERNEL:14 TIME及BIOS真正執行。",
+		Boundaries: "固定初態36案；人工送入VBL前綴，不執行舊TOS handler、rte、完整IRQ/signal或GUI。原始event0 callback只記ABI後停止；不比較每秒Hz或硬體wall-clock，沒有RND。", Rows: rows}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-platform-clock.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("原始VBL／BIOS TIME %d案", len(rows))
+}
+
+// Controlled pause/resume slices use the original getters and slot writers.
+// No GUI, elapsed interrupt event, or callback is substituted for this scope.
+func TestSunDogFoodSceneClockPause(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Context                                              string
+		Mask, Placement, Period, PausedCallback, SavedPeriod int
+		Before, Paused, After                                [8][3]int
+	}
+	rows := []row{}
+	for _, context := range []string{"WINDOWLI:08", "XSHOWMOV:03/06", "XMOVEONS:06"} {
+		for mask := 0; mask < 4; mask++ {
+			for _, placement := range []int{0, 1} {
+				for _, period := range []int{1, 7, 15} {
+					h := foodSleepHarness(t, disk)
+					r := row{Context: context, Mask: mask, Placement: placement, Period: period, PausedCallback: 2}
+					if context == "WINDOWLI:08" {
+						r.PausedCallback = 1
+					}
+					for n, id := range []int{3, 4, 5} {
+						r.Before[n+2] = [3]int{id, n + 2, n + 5}
+					}
+					r.Before[6] = [3]int{6, 9, 12}
+					clockSlot, shipSlot := 0, 1
+					if placement == 1 {
+						clockSlot, shipSlot = 5, 7
+					}
+					if mask&1 != 0 {
+						r.Before[clockSlot] = [3]int{1, 3, period}
+					}
+					if mask&2 != 0 {
+						r.Before[shipSlot] = [3]int{2, 5, period + 1}
+					}
+					for n, v := range r.Before {
+						for k, value := range v {
+							h.poke(cadenceGlobal(0xa78)+uint32(n*6+k*2), uint16(value))
+						}
+					}
+					trace := foodSleepTrace{}
+					base, begin, stop, resume, end, local := 0x31200, 0x2cc, 0x2d4, 0x36a, 0x36e, 1
+					switch context {
+					case "XSHOWMOV:03/06":
+						base, begin, stop, resume, end = 0x37200, 0x52, 0x5b, 0x1c4, 0x1c8
+						h.poke(depotLocal(0x46000, 1), 0xe000)
+					case "XMOVEONS:06":
+						base, begin, stop, resume, end, local = 0x37e00, 0x1ca, 0x1d2, 0x26d, 0x271, 3
+					}
+					foodSleepRun(h, disk, base, begin, stop, 0, &trace)
+					read := func(dst *[8][3]int) {
+						for n := range dst {
+							for k := range dst[n] {
+								dst[n][k] = int(h.peek(cadenceGlobal(0xa78) + uint32(n*6+k*2)))
+							}
+						}
+					}
+					read(&r.Paused)
+					if context == "XSHOWMOV:03/06" {
+						r.SavedPeriod = int(int16(h.peek(0x4e000)))
+						h.poke(depotLocal(0x46000, 1), uint16(int16(r.SavedPeriod)))
+					} else {
+						r.SavedPeriod = int(int16(h.peek(depotLocal(0x46000, local))))
+					}
+					foodSleepRun(h, disk, base, resume, end, 0, &trace)
+					read(&r.After)
+					if h.cpu.State.SSP != stackTop || trace.Minutes != 0 || trace.ShipUpdates != 0 || len(trace.Random) != 0 {
+						t.Fatal("pause slice scope", context)
+					}
+					rows = append(rows, r)
+				}
+			}
+		}
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{Scope: "WINDOWLI:08、XSHOWMOV:03/06、XMOVEONS:06停止／恢復前綴，MAINLIB:2f/30/31原始body真正執行。",
+		Boundaries: "固定初態；沒有timer event／callback／RND；freeze/melt採既有無爭用ABI。不是完整視圖、移動、航行、GUI或wall-clock；正式清醒時序仍DRAFT。", Rows: rows}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-scene-clock-pause.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("原始場景停止／恢復%d案", len(rows))
+}
+
+func TestSunDogFoodAwakeBackground(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Location, Phase, Passes, SceneBefore, SceneAfter, Interrupt int
+		Before, After                                               [4]int
+		MinuteAfter, HourAfter, Minutes, ShipUpdates                int
+		SlotsBefore, SlotsAfter                                     [2][3]int
+		SystemBefore, SystemAfter                                   [6]int
+		Trace                                                       foodBackgroundTrace
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{Scope: "SUNDOG raw0x2e200 :02初始化及有界完整分派迴圈與原始XJP；:01/:03原始槽初始化，MAINLIB:35完整時鐘、SHIPLIB:12 idle背景callback。",
+		Boundaries: "wait/signal以預定event semaphore pulse和無爭用lock隔離；MOVE採定位明示12-byte ABI。只設槽1/2，沒有RND。phase=-1固定worker先進空表等待、foreground再登記的受控交錯；phase1/7/14為測試倒數，phase0僅一案人工零等待邊界。實機啟動交錯、程序末端退出、原版完整GUI及硬體wall-clock未驗。"}
+	for _, location := range []int{2, 3, 4} {
+		for _, phase := range []int{-1, 0, 1, 7, 14} {
+			for _, passes := range []int{1, 2, 8, 16, 32} {
+				for _, before := range [][4]int{{255, 255, 255, 255}, {255, 1, 255, 255}, {1, 1, 255, 255}, {255, 5, 255, 255}} {
+					if phase == 0 && !(location == 3 && passes == 1 && before == [4]int{255, 255, 255, 255}) {
+						continue
+					}
+					h := foodSleepHarness(t, disk)
+					trace := foodSleepTrace{Background: &foodBackgroundTrace{Limit: passes}}
+					for n, b := range disk[0x2e200:0x2e5ac] {
+						h.mem[0x90000+uint32(n)] = b
+					}
+					module := func() { h.cpu.State.A[1], h.cpu.State.A[2] = 0x4e000, 0x90000 }
+					module()
+					h.poke(depotLocal(0x46000, 11), uint16(cadenceGlobal(0xa74)-0x40000))
+					foodSleepRun(h, disk, 0x2e200, 0x1a, 0x26, 0, &trace)
+					if phase < 0 {
+						trace.Background.StartupLocation = location
+					} else {
+						foodSleepRun(h, disk, 0x2e200, 0x311, 0x316, 0, &trace)
+						if location == 2 {
+							foodSleepRun(h, disk, 0x2e200, 0x1b4, 0x1b8, 0, &trace)
+						}
+						h.poke(cadenceGlobal(0xa79), uint16(phase))
+						if location == 2 {
+							h.poke(cadenceGlobal(0xa7c), uint16(phase%8))
+						}
+					}
+					r := row{Location: location, Phase: phase, Passes: passes, Before: before,
+						SceneBefore: 0x7000 | location<<8 | 7<<4 | 11}
+					for n, v := range before {
+						h.mem[cadenceGlobal(0x3d)+uint32(n)] = byte(v)
+					}
+					for n, v := range [15]int{30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5, 5, 5, 5, 1} {
+						h.mem[cadenceGlobal(0x35)+uint32(n)] = byte(v)
+					}
+					h.poke(cadenceGlobal(0x11), 59)
+					h.poke(cadenceGlobal(0x32), uint16(r.SceneBefore))
+					cadenceFlag(h, 57, true)
+					// Root module3 G1 and G0b..10 are saved by the original body.
+					for n := range r.SystemBefore {
+						r.SystemBefore[n] = 101 + n
+						h.poke(0x43508+uint32((11+n)*2), uint16(r.SystemBefore[n]))
+					}
+					h.poke(0x4350a, 23)
+					for n := range r.SlotsBefore {
+						for k := range r.SlotsBefore[n] {
+							r.SlotsBefore[n][k] = int(h.peek(cadenceGlobal(0xa78) + uint32(n*6+k*2)))
+						}
+					}
+					module()
+					foodSleepRun(h, disk, 0x2e200, 0x26, 0xff, 0, &trace)
+					for n := range r.SlotsAfter {
+						for k := range r.SlotsAfter[n] {
+							r.SlotsAfter[n][k] = int(h.peek(cadenceGlobal(0xa78) + uint32(n*6+k*2)))
+						}
+					}
+					for n := range r.SystemAfter {
+						r.SystemAfter[n] = int(h.peek(0x43508 + uint32((11+n)*2)))
+					}
+					for n := range r.After {
+						r.After[n] = int(h.mem[cadenceGlobal(0x3d)+uint32(n)])
+					}
+					r.SceneAfter, r.Interrupt = int(h.peek(cadenceGlobal(0x32))), int(h.peek(cadenceGlobal(3)))
+					r.MinuteAfter, r.HourAfter = int(h.peek(cadenceGlobal(0x11))), int(h.peek(cadenceGlobal(0x12)))
+					r.Minutes, r.ShipUpdates, r.Trace = trace.Minutes, trace.ShipUpdates, *trace.Background
+					if r.Trace.Passes != passes || h.cpu.State.SSP != stackTop || r.SystemBefore != r.SystemAfter || h.peek(0x4350a) != 23 {
+						t.Fatalf("背景原始body返回／system保持失敗 %+v SP%x G1%d", r, h.cpu.State.SSP, h.peek(0x4350a))
+					}
+					report.Rows = append(report.Rows, r)
+				}
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-awake-background.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("原始背景分派%d案", len(report.Rows))
+}
+
+func TestSunDogFoodSleepInterruptParent(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Location, Rest, Vigor, Delta, SceneBefore, SceneAfterClock, SceneAfterSleep int
+		Before, AfterClock, AfterSleep                                              [4]int
+		Interrupt, GroundLoopExited, ShipSlotBefore, ShipSlotAfter                  int
+		MinuteAfterClock, HourAfterClock, MinuteAfterSleep, HourAfterSleep          int
+		Trace                                                                       foodSleepTrace
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{Scope: "MAINLIB:35整點中斷；XMOVEONS:01原始強制睡眠caller/:0b場景writer/SHIPLIB:02/XDOUSERM:01；地面XMOVEONG:01中斷出口及SUNDOG:04真實XJP分派。",
+		Boundaries: "先設原始時鐘與typed對應初態，執行已定位的父流程片段；圖形/menu/button ABI隔離，非完整原版GUI。held button1從cycle1固定，不注入Rest或場景轉移。地面exit後的圖形/座標cleanup不執行；保護flag57預設true以隔離失竊。"}
+	for _, location := range []int{2, 3, 4} {
+		for _, rest := range []int{0, 1, 4, 5} {
+			for _, vigor := range []int{1, 255} {
+				for _, delta := range []int{1, 121} {
+					h := foodSleepHarness(t, disk)
+					r := row{Location: location, Rest: rest, Vigor: vigor, Delta: delta,
+						SceneBefore: 0x7000 | location<<8 | 7<<4 | 11, Before: [4]int{vigor, rest, 255, 255},
+						Trace: foodSleepTrace{ParentEntry: 1, WakeCycle: 1}}
+					for n, v := range r.Before {
+						h.mem[cadenceGlobal(0x3d)+uint32(n)] = byte(v)
+					}
+					for n, v := range [15]int{30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5, 5, 5, 5, 1} {
+						h.mem[cadenceGlobal(0x35)+uint32(n)] = byte(v)
+					}
+					h.poke(cadenceGlobal(0x11), 59)
+					h.poke(cadenceGlobal(0x32), uint16(r.SceneBefore))
+					cadenceFlag(h, 57, true)
+					foodSleepRun(h, disk, 0x2e200, 0x311, 0x316, 0, &r.Trace)
+					if location == 2 {
+						foodSleepRun(h, disk, 0x2e200, 0x1b4, 0x1b8, 0, &r.Trace)
+					}
+					r.ShipSlotBefore = int(h.peek(cadenceGlobal(0xa7b)))
+					h.cpu.State.A[1], h.cpu.State.A[2] = 0x43000, 0x56000
+					h.poke(depotLocal(0x46000, 17), uint16(delta))
+					foodSleepRun(h, disk, 0x2e800, 0xbf8, 0xd20, 0, &r.Trace)
+					r.SceneAfterClock = int(h.peek(cadenceGlobal(0x32)))
+					r.Interrupt = int(h.peek(cadenceGlobal(3)))
+					r.MinuteAfterClock = int(h.peek(cadenceGlobal(0x11)))
+					r.HourAfterClock = int(h.peek(cadenceGlobal(0x12)))
+					for n := range r.AfterClock {
+						r.AfterClock[n] = int(h.mem[cadenceGlobal(0x3d)+uint32(n)])
+					}
+					if r.SceneAfterClock>>8&15 == 10 {
+						if location == 2 {
+							for n, b := range disk[0x37e00:0x38498] {
+								h.mem[0x90000+uint32(n)] = b
+							}
+							h.cpu.State.A[1], h.cpu.State.A[2] = 0x49000, 0x90000
+							foodSleepRun(h, disk, 0x37e00, 0x5d6, 0x5fe, 0, &r.Trace)
+						} else {
+							// With G3 set, the original walker skips movement and reaches
+							// its exit, without another RND or player input.
+							h.poke(depotLocal(0x46000, 53), 0xf100)
+							h.poke(0x4f100, 0)
+							foodSleepRun(h, disk, 0x40000, 0x27ed, 0x28d7, 0, &r.Trace)
+							r.GroundLoopExited = 1
+							for n, b := range disk[0x2e200:0x2e5ac] {
+								h.mem[0x90000+uint32(n)] = b
+							}
+							h.cpu.State.A[1], h.cpu.State.A[2] = 0x4e000, 0x90000
+							h.poke(depotLocal(0x46000, 3), 16)
+							h.poke(depotLocal(0x46000, 4), 4)
+							foodSleepRun(h, disk, 0x2e200, 0x253, 0x2a3, 0, &r.Trace)
+						}
+					}
+					r.SceneAfterSleep = int(h.peek(cadenceGlobal(0x32)))
+					r.MinuteAfterSleep = int(h.peek(cadenceGlobal(0x11)))
+					r.HourAfterSleep = int(h.peek(cadenceGlobal(0x12)))
+					r.ShipSlotAfter = int(h.peek(cadenceGlobal(0xa7b)))
+					for n := range r.AfterSleep {
+						r.AfterSleep[n] = int(h.mem[cadenceGlobal(0x3d)+uint32(n)])
+					}
+					if h.cpu.State.SSP != stackTop {
+						t.Fatalf("中斷父流程stack %x row%+v", h.cpu.State.SSP, r)
+					}
+					report.Rows = append(report.Rows, r)
+				}
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-sleep-interrupt-parent.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("正常時鐘到強制睡眠父分派：%d案", len(report.Rows))
+}
+
+func TestSunDogFoodSleepShipParent(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Mode, Rest, WakeCycle, Phase      int
+		EnergyBefore, EnergyAfter         [4]int // Fuel、Weapon、Shield、ShieldSetting。
+		RestAfter, ModeAfter              int
+		BackgroundBefore, BackgroundAfter [8][3]int
+		Trace                             foodSleepTrace
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{Scope: "SUNDOG:01 0311..0316及:03 01b4..01b8原始設定槽1/2；完整睡眠與SHIPLIB:12、:1f、:23、:22、:25、:24及MAINLIB夾限真正執行。",
+		Boundaries: "ship idle：travel、Enlie、active combat、tractor、cloak、rescue、jettison關閉，速度同為0，無aux tank。醒來按鈕在執行前固定inner-loop cycle起按下；圖形、事件、鎖及硬體timer隔離。非原版完整GUI或正式remake對拍。"}
+	for _, mode := range []int{7, 10} {
+		for _, rest := range []int{0, 50, 255} {
+			for _, cycle := range []int{1, 32, 60, 120, 3900} {
+				for _, energy := range [][4]int{{255, 64, 64, 128}, {2, 254, 254, 255}, {0, 0, 0, 0}} {
+					h := foodSleepHarness(t, disk)
+					r := row{Mode: mode, Rest: rest, WakeCycle: cycle, EnergyBefore: energy, Trace: foodSleepTrace{WakeCycle: cycle}}
+					for n, v := range [4]int{255, rest, 255, 255} {
+						h.mem[cadenceGlobal(0x3d)+uint32(n)] = byte(v)
+					}
+					h.poke(cadenceGlobal(0x32), uint16(0x7027|mode<<8))
+					h.mem[cadenceGlobal(0x5b)+0x50] = 8
+					h.mem[cadenceGlobal(0x5b)+0x88] = 8
+					cadenceFlag(h, 2, true)
+					for n, field := range []int{0xe5, 0xe4, 0xe3, 0xe2} {
+						h.poke(cadenceGlobal(field), uint16(energy[n]))
+					}
+					// 正常caller真正執行，沒有注入背景table週期。
+					foodSleepRun(h, disk, 0x2e200, 0x311, 0x316, 0, &r.Trace)
+					foodSleepRun(h, disk, 0x2e200, 0x1b4, 0x1b8, 0, &r.Trace)
+					for n := range r.BackgroundBefore {
+						for k := 0; k < 3; k++ {
+							r.BackgroundBefore[n][k] = int(h.peek(cadenceGlobal(0xa78) + uint32(n*6+k*2)))
+						}
+					}
+					if r.BackgroundBefore != [8][3]int{{1, 0, 15}, {2, 0, 8}} {
+						t.Fatalf("正常caller背景初態 %v", r.BackgroundBefore)
+					}
+					foodSleepRun(h, disk, 0x34800, 0x5b0, 0x768, 0, &r.Trace)
+					for n, field := range []int{0xe5, 0xe4, 0xe3, 0xe2} {
+						r.EnergyAfter[n] = int(h.peek(cadenceGlobal(field)))
+					}
+					for n := range r.BackgroundAfter {
+						for k := 0; k < 3; k++ {
+							r.BackgroundAfter[n][k] = int(h.peek(cadenceGlobal(0xa78) + uint32(n*6+k*2)))
+						}
+					}
+					// 每32cycle船艦更新；每60cycle原版the_time(1)。
+					r.RestAfter = int(h.mem[cadenceGlobal(0x3d)+1])
+					r.ModeAfter = int(h.peek(cadenceGlobal(0x32)) >> 8 & 15)
+					r.Phase = int(h.peek(cadenceGlobal(0x19)))
+					if r.Trace.Minutes != r.Trace.Cycles/60 || r.Trace.ShipUpdates != r.Trace.Cycles/32 ||
+						r.Phase != r.Trace.ShipUpdates%3 || r.RestAfter != min(255, rest+r.Trace.Minutes) ||
+						r.BackgroundAfter != r.BackgroundBefore || h.cpu.State.SSP != stackTop ||
+						r.Trace.Hide != 1+r.Trace.ShipUpdates || r.Trace.Show != r.Trace.Hide || len(r.Trace.Random) != 0 {
+						t.Fatalf("船艦睡眠父鏈 %v SSP%x", r, h.cpu.State.SSP)
+					}
+					if mode == 10 && r.RestAfter <= 50 || r.ModeAfter != 7 {
+						t.Fatalf("強制睡眠50/51閘門 %v", r)
+					}
+					if cycle == 1 && mode == 7 && (r.Trace.Cycles != 32 || r.Trace.Minutes != 0) {
+						t.Fatalf("分鐘前的船艦callback醒來 %v", r)
+					}
+					if r.Trace.Calls[2] != [3]int{0x2f, 1, 60} || r.Trace.Calls[4] != [3]int{0x2f, 2, 32} {
+						t.Fatalf("槽讀回週期 %v", r.Trace.Calls)
+					}
+					report.Rows = append(report.Rows, r)
+				}
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-sleep-ship-parent.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("正常槽初始化／完整睡眠／idle船艦更新：%d案", len(report.Rows))
+}
+
+func TestSunDogFoodSleepWake(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Before, After                     [4]int
+		Minute, Hour, Day, Mode, Period   int
+		MinuteAfter, HourAfter, DayAfter  int
+		ModeAfter, G3, G18, Dead          int
+		AttributesBefore, AttributesAfter [15]int
+		BackgroundBefore, BackgroundAfter [8][3]int
+		FlagsAfter                        [3]bool
+		Trace                             foodSleepTrace
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{Scope: "完整XDOUSERM raw0x34800:05b0..0768及04/03/05；完整MAINLIB raw0x2e800:0bf8..0d20含52/sign/屬性恢復；背景槽原始2f/30/31讀停恢復。",
+		Boundaries: "槽2執行前固定缺席；失竊gate關閉。滑鼠button1在預設poll起保持按下；graphics／字串／尾端事件及lock/unlock明示隔離，KERNEL零填充按ABI模擬。不是完整原版GUI／硬體timer／正常玩家睡眠；正式remake尚未比較。無RND。"}
+	inputs := [][4]int{{255, 0, 255, 255}, {128, 49, 128, 128}, {128, 50, 128, 128}, {255, 51, 255, 255}, {255, 254, 255, 255}, {255, 255, 255, 255}, {1, 0, 0, 0}}
+	for _, input := range inputs {
+		for _, mode := range []int{7, 10, 12} {
+			for _, timing := range [][3]int{{0, 12, 1}, {59, 23, 1}, {55, 23, 65}} {
+				h := foodSleepHarness(t, disk)
+				for n, v := range input {
+					h.mem[cadenceGlobal(0x3d)+uint32(n)] = byte(v)
+				}
+				r := row{Before: input, Minute: timing[0], Hour: timing[1], Day: 7, Mode: mode, Period: 60,
+					Trace: foodSleepTrace{WakePoll: timing[2]}}
+				h.poke(cadenceGlobal(0x11), uint16(r.Minute))
+				h.poke(cadenceGlobal(0x12), uint16(r.Hour))
+				h.poke(cadenceGlobal(0x13), uint16(r.Day))
+				h.poke(cadenceGlobal(0x32), uint16(0x7077|mode<<8))
+				h.poke(cadenceGlobal(0x18), 7)
+				// 已登記槽3必須保持；槽1由真實2f回傳15*4=60。
+				r.BackgroundBefore[0] = [3]int{3, 23, 9}
+				r.BackgroundBefore[1] = [3]int{1, 17, 15}
+				for n, record := range r.BackgroundBefore {
+					for k, v := range record {
+						h.poke(cadenceGlobal(0xa78)+uint32(n*6+k*2), uint16(v))
+					}
+				}
+				for n := 0; n < 5; n++ {
+					for k, v := range []int{10 + n, 20 - n, n + 1} {
+						r.AttributesBefore[k*5+n] = v
+						h.mem[cadenceGlobal(0x35)+uint32(k*5+n)] = byte(v)
+					}
+				}
+				h.cpu.State.A[1], h.cpu.State.A[2] = 0x45000, 0x58000
+				h.poke(interpBase+0x1b70, 4)
+				h.poke(interpBase+0x1b72, 0x5000)
+				foodSleepRun(h, disk, 0x34800, 0x5b0, 0x768, 0, &r.Trace)
+				for n := range r.After {
+					r.After[n] = int(h.mem[cadenceGlobal(0x3d)+uint32(n)])
+				}
+				for n := range r.AttributesAfter {
+					r.AttributesAfter[n] = int(h.mem[cadenceGlobal(0x35)+uint32(n)])
+				}
+				for n := range r.BackgroundAfter {
+					for k := 0; k < 3; k++ {
+						r.BackgroundAfter[n][k] = int(h.peek(cadenceGlobal(0xa78) + uint32(n*6+k*2)))
+					}
+				}
+				r.MinuteAfter, r.HourAfter, r.DayAfter = int(h.peek(cadenceGlobal(0x11))), int(h.peek(cadenceGlobal(0x12))), int(h.peek(cadenceGlobal(0x13)))
+				r.ModeAfter, r.G3, r.G18, r.Dead = int(h.peek(cadenceGlobal(0x32))>>8&15), int(h.peek(cadenceGlobal(3))), int(h.peek(cadenceGlobal(0x18))), int(h.peek(cadenceOuter(0x11)))
+				for n, flag := range []int{59, 60, 120} {
+					r.FlagsAfter[n] = cadenceFlagValue(h, flag)
+				}
+				if h.cpu.State.SSP != stackTop || r.Trace.Hide != 1 || r.Trace.Show != 1 || r.Trace.ClockDraws != r.Trace.Minutes || r.FlagsAfter[0] || r.FlagsAfter[1] || r.FlagsAfter[2] {
+					t.Fatalf("完整睡眠返回／旗標／時鐘ABI %v SSP%x", r, h.cpu.State.SSP)
+				}
+				if r.BackgroundAfter != [8][3]int{{3, 23, 9}, {1, 0, 15}} {
+					t.Fatalf("背景槽恢復 %v", r.BackgroundAfter)
+				}
+				if r.After[1] != min(255, input[1]+r.Trace.Minutes) {
+					t.Fatalf("睡眠累積 %v", r)
+				}
+				if r.ModeAfter == 12 && (r.Dead != 1 || r.G3 != 1) || r.ModeAfter != 12 && r.Dead != 0 {
+					t.Fatalf("死亡尾端 %v", r)
+				}
+				report.Rows = append(report.Rows, r)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-sleep-wake.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("完整睡眠時鐘／醒來／死亡受控鏈：%d案", len(report.Rows))
+}
+
+func TestSunDogFoodSleepTheft(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		LocationMode, Risk, Minutes, CashBefore, CashAfter int
+		Bit13, Flag57                                      bool
+		SeedBefore, SeedAfter                              [2]uint16
+		CarryBefore, CarryAfter                            [4]byte
+		StoresBefore, StoresAfter                          [20]byte
+		Before, After                                      [4]byte
+		Trace                                              foodSleepTrace
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{Scope: "完整XDOUSERM:10睡眠／醒來／失竊，:09及WINDOWLI:04原始攜帶槽清除writer，MAINLIB:0b原始16-bit RND與完整35時鐘。",
+		Boundaries: "槽2缺席、分鐘槽1固定60，由原始2f/31/30讀停恢復。button1依預定poll序列；兩組seed於每案前固定，原始RND所有呼叫真執行，不重擲。location nibble/bit13/flag57/risk皆原始欄位名，不預判安全地點語意。繪圖／事件ABI隔離；非正常GUI／正式remake對拍。"}
+	for _, gate := range [][3]int{{3, 1, 0}, {5, 1, 0}, {7, 1, 0}, {3, 0, 0}, {3, 1, 1}} {
+		for _, risk := range []int{0, 1, 15} {
+			for _, minutes := range []int{1, 11, 65} {
+				for _, cash := range []int{0, 12345} {
+					for _, carry := range [][4]byte{{8, 0, 44, 255}, {0, 0, 0, 0}} {
+						for _, seed := range [][2]uint16{{0, 0}, {1234, 5678}} {
+							h := foodSleepHarness(t, disk)
+							r := row{LocationMode: gate[0], Risk: risk, Minutes: minutes, CashBefore: cash,
+								Bit13: gate[1] != 0, Flag57: gate[2] != 0, SeedBefore: seed, CarryBefore: carry,
+								Before: [4]byte{128, 64, 255, 255}, Trace: foodSleepTrace{WakePoll: minutes}}
+							for n, v := range r.Before {
+								h.mem[cadenceGlobal(0x3d)+uint32(n)] = v
+							}
+							for n, v := range carry {
+								h.mem[cadenceGlobal(0x3f)+uint32(n)] = v
+							}
+							for n := range r.StoresBefore {
+								r.StoresBefore[n] = byte(n*11 + 1)
+								h.mem[cadenceGlobal(0x5b)+196+uint32(n)] = r.StoresBefore[n]
+							}
+							// 原版make_man建立slot3頭部和slot4..7四攜帶記錄。
+							h.poke(cadenceGlobal(8), 1)
+							foodChainModule(h, true)
+							h.cpu.State.A[2] = 0x52000
+							h.poke(depotLocal(0x46000, 1), 2)
+							foodChainRun(h, disk, 0x31200, 0x876, 0x8ef, 0, false, &r.Trace.Calls)
+							if h.peek(foodWindowGlobal(3)) != 3 || h.peek(foodWindowGlobal(4)) != 7 {
+								t.Fatal("原版角色攜帶槽初始化")
+							}
+							for n := uint32(0); n < 128; n++ {
+								h.mem[0x46000+n] = 0
+							}
+							h.poke(0x46000, 0x5000)
+							h.poke(cadenceGlobal(0xa78), 1)
+							h.poke(cadenceGlobal(0xa78)+4, 15)
+							h.poke(cadenceGlobal(0x32), uint16(0x7700|gate[0]<<4|7))
+							if !r.Bit13 {
+								h.poke(cadenceGlobal(0x32), h.peek(cadenceGlobal(0x32))&^0x2000)
+							}
+							cadenceFlag(h, 57, r.Flag57)
+							h.poke(cadenceGlobal(0x2a), 1)
+							h.poke(cadenceGlobal(0x11f)+16, uint16(risk<<12))
+							depotPutMoney(h, cadenceGlobal(0x33), cash)
+							for n, v := range seed {
+								h.poke(cadenceGlobal(0x101)+uint32(n*2), v)
+							}
+							foodChainModule(h, false)
+							h.cpu.State.A[2] = 0x58000
+							foodSleepRun(h, disk, 0x34800, 0x5b0, 0x768, 0, &r.Trace)
+							r.CashAfter = depotMoney(h, cadenceGlobal(0x33))
+							for n := range r.SeedAfter {
+								r.SeedAfter[n] = h.peek(cadenceGlobal(0x101) + uint32(n*2))
+							}
+							for n := range r.CarryAfter {
+								r.CarryAfter[n] = h.mem[cadenceGlobal(0x3f)+uint32(n)]
+							}
+							for n := range r.StoresAfter {
+								r.StoresAfter[n] = h.mem[cadenceGlobal(0x5b)+196+uint32(n)]
+							}
+							for n := range r.After {
+								r.After[n] = h.mem[cadenceGlobal(0x3d)+uint32(n)]
+							}
+							gateEnabled := r.Bit13 && !r.Flag57 && (r.LocationMode == 3 || r.LocationMode == 5)
+							if r.Trace.Minutes != minutes || r.Trace.Polls != minutes || h.cpu.State.SSP != stackTop || r.StoresAfter != r.StoresBefore {
+								t.Fatalf("失竊鏈時間／返回／Stores旁效 %v SSP%x", r, h.cpu.State.SSP)
+							}
+							if (!gateEnabled || risk >= minutes) && (len(r.Trace.Random) != 0 || r.CashAfter != cash || r.CarryAfter != carry || r.SeedAfter != seed) {
+								t.Fatalf("失竊關閉gate未保持 %v", r)
+							}
+							if gateEnabled && risk < minutes && len(r.Trace.Random) == 0 {
+								t.Fatalf("失竊開啟gate未使用原始RND %v", r)
+							}
+							if r.CashAfter != 0 && r.CashAfter != cash {
+								t.Fatalf("原始失竊現金writer %v", r)
+							}
+							for n, v := range r.CarryAfter {
+								if v != 0 && v != carry[n] {
+									t.Fatalf("原始失竊固定攜帶槽writer %v", r)
+								}
+							}
+							report.Rows = append(report.Rows, r)
+						}
+					}
+				}
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-food-sleep-theft.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("完整睡眠失竊與固定原始種子：%d案", len(report.Rows))
+}

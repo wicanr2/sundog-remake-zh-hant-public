@@ -1,0 +1,2306 @@
+{
+  "schema": 1,
+  "tool": "tools/atari_st_dialog_render.py",
+  "inputs": {
+    "frames": "docs/atari-st/dialog-frames.json",
+    "text": "docs/atari-st/dialog-text.json",
+    "framesTool": "tools/atari_st_dialog_frames.py",
+    "textTool": "tools/atari_st_dialog_text.py"
+  },
+  "evidenceLevel": "proven",
+  "model": "message × 2 是區塊內的位元組位移（XDOINTER:0x10 put_message，0x07de）；message < 30 時先經 pick_one 隨機挑一個候選（0x0897）。一般引用取第 0 個變體（replace 傳 y = -1，0x075c），只有 0x29／0x2a／0x2b 隨機挑變體（0x0794 → get_offset 0x0535）。",
+  "notation": {
+    "{a|b}": "原版隨機挑一個變體",
+    "[a|b]": "由執行時的值選一個（欄位見 SPECIALS）",
+    "«…»": "執行時才產生的內容（地名、金額、物品名）"
+  },
+  "pointers": {
+    "total": 183,
+    "unresolved": 0
+  },
+  "choiceModel": "候選清單有兩種形狀。message > 10 那一支是「指標、條件」交替，條件碼交給 XDOINTER:0x06 passed 判，通過就用前一句，最後一個沒有條件、是預設；其餘是清一色的指標，由 random() 挑一個。",
+  "frames": [
+    {
+      "id": "0x10",
+      "block": "0x10",
+      "index": 0,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 89,
+          "byteOffset": 178,
+          "rawOffset": "0x070b2",
+          "raw": "<0x2a> <0x15>, <0x31><0x3f> ",
+          "text": "What can I serve you, sir"
+        },
+        {
+          "pointer": 92,
+          "byteOffset": 184,
+          "rawOffset": "0x070b8",
+          "raw": "<0x15> <0x16> <0x1e><0x3f> ",
+          "text": "Can I serve you something else"
+        },
+        {
+          "pointer": 95,
+          "byteOffset": 190,
+          "rawOffset": "0x070be",
+          "raw": "<0x16> <0x1e>, <0x32><0x3f> ",
+          "text": "Something else, mac"
+        },
+        {
+          "pointer": 98,
+          "byteOffset": 196,
+          "rawOffset": "0x070c4",
+          "raw": "<0x2a> now, <0x13><0x3f> ",
+          "text": "What now, laser brain"
+        }
+      ]
+    },
+    {
+      "id": "0x11",
+      "block": "0x10",
+      "index": 1,
+      "kind": "chain",
+      "selection": "random",
+      "chainsTo": [
+        "0x16",
+        "0x02",
+        "0x1a",
+        "0x01",
+        "0x16"
+      ]
+    },
+    {
+      "id": "0x12",
+      "block": "0x10",
+      "index": 2,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 102,
+          "byteOffset": 204,
+          "rawOffset": "0x070cc",
+          "raw": "<0x1f> <0x2b> <0x01>, <0x31>. ",
+          "text": "Here you go, sir."
+        },
+        {
+          "pointer": 106,
+          "byteOffset": 212,
+          "rawOffset": "0x070d4",
+          "raw": "<0x0f> <0x32>, take it! ",
+          "text": "O.K., mac, take it!"
+        },
+        {
+          "pointer": 112,
+          "byteOffset": 224,
+          "rawOffset": "0x070e0",
+          "raw": "Take it, <0x13>! ",
+          "text": "Take it, laser brain!"
+        }
+      ]
+    },
+    {
+      "id": "0x13",
+      "block": "0x10",
+      "index": 3,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 117,
+          "byteOffset": 234,
+          "rawOffset": "0x070ea",
+          "raw": "Hey, <0x32>! <0x2b> want this <0x25><0x29><0x3f> ",
+          "text": "Hey, mac! you want this «物品» or not"
+        }
+      ]
+    },
+    {
+      "id": "0x14",
+      "block": "0x10",
+      "index": 4,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 127,
+          "byteOffset": 254,
+          "rawOffset": "0x070fe",
+          "raw": "<0x1c> I help <0x2b><0x29><0x3f> ",
+          "text": "Can I help you or not"
+        },
+        {
+          "pointer": 132,
+          "byteOffset": 264,
+          "rawOffset": "0x07108",
+          "raw": "<0x04> <0x05>. Do <0x2b> want to <0x06><0x29><0x3f> ",
+          "text": "Stop stalling. Do you want to buy or not"
+        },
+        {
+          "pointer": 140,
+          "byteOffset": 280,
+          "rawOffset": "0x07118",
+          "raw": "<0x0f> <0x13>, order or <0x1d>! ",
+          "text": "O.K., laser brain, order or get lost!"
+        }
+      ]
+    },
+    {
+      "id": "0x15",
+      "block": "0x10",
+      "index": 5,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 147,
+          "byteOffset": 294,
+          "rawOffset": "0x07126",
+          "raw": "If <0x2b>'ll <0x18> me... ",
+          "text": "If you'll pardon me..."
+        },
+        {
+          "pointer": 154,
+          "byteOffset": 308,
+          "rawOffset": "0x07134",
+          "raw": "Why don't <0x2b> run along, <0x32><0x3f> ",
+          "text": "Why don't you run along, mac"
+        },
+        {
+          "pointer": 165,
+          "byteOffset": 330,
+          "rawOffset": "0x0714a",
+          "raw": "<0x1d>, <0x13>, <0x2b>'re wasting my time! ",
+          "text": "Get lost, laser brain, you're wasting my time!"
+        }
+      ]
+    },
+    {
+      "id": "0x16",
+      "block": "0x10",
+      "index": 6,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 177,
+          "byteOffset": 354,
+          "rawOffset": "0x07162",
+          "raw": "<0x08> is it worth to <0x2b><0x3f> ",
+          "text": "What is it worth to you"
+        }
+      ]
+    },
+    {
+      "id": "0x17",
+      "block": "0x10",
+      "index": 7,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 252,
+          "byteOffset": 504,
+          "rawOffset": "0x071f8",
+          "raw": "Hmm... ",
+          "text": "Hmm..."
+        }
+      ]
+    },
+    {
+      "id": "0x18",
+      "block": "0x10",
+      "index": 8,
+      "kind": "chain",
+      "selection": "random",
+      "chainsTo": [
+        "0x19",
+        "0x08",
+        "0x19",
+        "0x01",
+        "0x15"
+      ]
+    },
+    {
+      "id": "0x19",
+      "block": "0x10",
+      "index": 9,
+      "kind": "chain",
+      "selection": "random",
+      "chainsTo": [
+        "0x1a",
+        "0x64",
+        "0x1a"
+      ]
+    },
+    {
+      "id": "0x1a",
+      "block": "0x10",
+      "index": 10,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 190,
+          "byteOffset": 380,
+          "rawOffset": "0x0717c",
+          "raw": "<0x2a> <0x09> of info do <0x2b> <0x0d><0x3f> ",
+          "text": "What type of info do you wish"
+        }
+      ]
+    },
+    {
+      "id": "0x1b",
+      "block": "0x10",
+      "index": 11,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 197,
+          "byteOffset": 394,
+          "rawOffset": "0x0718a",
+          "raw": "Show me <0x2a> <0x2b> <0x0d> to sell. ",
+          "text": "Show me what you wish to sell."
+        }
+      ]
+    },
+    {
+      "id": "0x1c",
+      "block": "0x10",
+      "index": 12,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 224,
+          "byteOffset": 448,
+          "rawOffset": "0x071c0",
+          "raw": "<0x2a> do <0x2b> <0x0d> to buy<0x3f> ",
+          "text": "What do you wish to buy"
+        }
+      ]
+    },
+    {
+      "id": "0x1d",
+      "block": "0x10",
+      "index": 13,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 206,
+          "byteOffset": 412,
+          "rawOffset": "0x0719c",
+          "raw": "<0x34> wait in a booth. I'll send someone over. ",
+          "text": "Please wait in a booth. I'll send someone over."
+        }
+      ]
+    },
+    {
+      "id": "0x1e",
+      "block": "0x10",
+      "index": 14,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 230,
+          "byteOffset": 460,
+          "rawOffset": "0x071cc",
+          "raw": "<0x14>, <0x2d>. Try somewhere else. ",
+          "text": "Sorry, [laser brain|laser brain|mac|mac|sir]. Try somewhere else."
+        }
+      ]
+    },
+    {
+      "id": "0x1f",
+      "block": "0x10",
+      "index": 15,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 241,
+          "byteOffset": 482,
+          "rawOffset": "0x071e2",
+          "raw": "<0x07> the <0x0b>, <0x32>. I'll <0x0c> <0x2b> later. ",
+          "text": "Thanks for the chat, mac. I'll see you later."
+        }
+      ]
+    },
+    {
+      "id": "0x20",
+      "block": "0x20",
+      "index": 0,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 151,
+          "byteOffset": 302,
+          "rawOffset": "0x0732e",
+          "raw": "I <0x17> <0x2b> <0x0d> to <0x2f> a <0x25>. ",
+          "text": "I heard you wish to [buy|sell] a «物品»."
+        }
+      ]
+    },
+    {
+      "id": "0x21",
+      "block": "0x20",
+      "index": 1,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 223,
+          "byteOffset": 446,
+          "rawOffset": "0x073be",
+          "raw": "<0x18> me, <0x31>. <0x1c> I <0x1a> to <0x2b><0x3f> ",
+          "text": "Pardon me, sir. can I talk to you",
+          "condition": {
+            "code": 9,
+            "check": "other",
+            "detail": "見 passed 的分派表（0x0419）"
+          }
+        },
+        {
+          "pointer": 230,
+          "byteOffset": 460,
+          "rawOffset": "0x073cc",
+          "raw": "<0x1b>, fine <0x31>. <0x1c> I <0x3a> <0x2b> in a deal<0x3f> ",
+          "text": "Hello, fine sir. can I interest you in a deal"
+        }
+      ]
+    },
+    {
+      "id": "0x22",
+      "block": "0x20",
+      "index": 2,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 157,
+          "byteOffset": 314,
+          "rawOffset": "0x0733a",
+          "raw": "<0x34> sell <0x2b> a <0x25> for <0x24>. ",
+          "text": "I'll sell you a «物品» for «金額»."
+        },
+        {
+          "pointer": 164,
+          "byteOffset": 328,
+          "rawOffset": "0x07348",
+          "raw": "<0x34> <0x38> <0x24>. ",
+          "text": "I'll accept «金額»."
+        },
+        {
+          "pointer": 167,
+          "byteOffset": 334,
+          "rawOffset": "0x0734e",
+          "raw": "<0x24> is my <0x37> offer. ",
+          "text": "«金額» is my last offer."
+        },
+        {
+          "pointer": 174,
+          "byteOffset": 348,
+          "rawOffset": "0x0735c",
+          "raw": "<0x24> take it or leave it! ",
+          "text": "«金額» take it or leave it!"
+        }
+      ]
+    },
+    {
+      "id": "0x23",
+      "block": "0x20",
+      "index": 3,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 183,
+          "byteOffset": 366,
+          "rawOffset": "0x0736e",
+          "raw": "<0x34> <0x0a> <0x24> for <0x2b>r <0x25>. ",
+          "text": "I'll offer «金額» for your «物品»."
+        },
+        {
+          "pointer": 189,
+          "byteOffset": 378,
+          "rawOffset": "0x0737a",
+          "raw": "I <0x35> <0x0a> <0x36> <0x24>. ",
+          "text": "I can't offer over «金額»."
+        },
+        {
+          "pointer": 167,
+          "byteOffset": 334,
+          "rawOffset": "0x0734e",
+          "raw": "<0x24> is my <0x37> offer. ",
+          "text": "«金額» is my last offer."
+        },
+        {
+          "pointer": 174,
+          "byteOffset": 348,
+          "rawOffset": "0x0735c",
+          "raw": "<0x24> take it or leave it! ",
+          "text": "«金額» take it or leave it!"
+        }
+      ]
+    },
+    {
+      "id": "0x24",
+      "block": "0x20",
+      "index": 4,
+      "kind": "chain",
+      "selection": "random",
+      "chainsTo": [
+        "0x23",
+        "0x06",
+        "0x22"
+      ]
+    },
+    {
+      "id": "0x25",
+      "block": "0x20",
+      "index": 5,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 205,
+          "byteOffset": 410,
+          "rawOffset": "0x0739a",
+          "raw": "Hand it over! ",
+          "text": "Hand it over!",
+          "condition": {
+            "code": 6,
+            "check": "other",
+            "detail": "見 passed 的分派表（0x0419）"
+          }
+        },
+        {
+          "pointer": 211,
+          "byteOffset": 422,
+          "rawOffset": "0x073a6",
+          "raw": "Take it! ",
+          "text": "Take it!"
+        }
+      ]
+    },
+    {
+      "id": "0x26",
+      "block": "0x20",
+      "index": 6,
+      "kind": "chain",
+      "selection": "random",
+      "chainsTo": [
+        "0x2a",
+        "0x82",
+        "0x2e"
+      ]
+    },
+    {
+      "id": "0x27",
+      "block": "0x20",
+      "index": 7,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 200,
+          "byteOffset": 400,
+          "rawOffset": "0x07390",
+          "raw": "Discuss <0x2a><0x3f> ",
+          "text": "Discuss what"
+        }
+      ]
+    },
+    {
+      "id": "0x28",
+      "block": "0x20",
+      "index": 8,
+      "kind": "chain",
+      "selection": "random",
+      "chainsTo": [
+        "0x2f",
+        "0x02",
+        "0x24",
+        "0x07",
+        "0x29"
+      ]
+    },
+    {
+      "id": "0x29",
+      "block": "0x20",
+      "index": 9,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 174,
+          "byteOffset": 348,
+          "rawOffset": "0x0735c",
+          "raw": "<0x24> take it or leave it! ",
+          "text": "«金額» take it or leave it!"
+        }
+      ]
+    },
+    {
+      "id": "0x2a",
+      "block": "0x20",
+      "index": 10,
+      "kind": "chain",
+      "selection": "random",
+      "chainsTo": [
+        "0x2e",
+        "0x06",
+        "0x2b"
+      ]
+    },
+    {
+      "id": "0x2b",
+      "block": "0x20",
+      "index": 11,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 247,
+          "byteOffset": 494,
+          "rawOffset": "0x073ee",
+          "raw": "Would <0x2b> be <0x3a>ed in a <0x25><0x3f> ",
+          "text": "Would you be interested in a «物品»"
+        }
+      ]
+    },
+    {
+      "id": "0x2c",
+      "block": "0x20",
+      "index": 12,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 193,
+          "byteOffset": 386,
+          "rawOffset": "0x07382",
+          "raw": "Do <0x2b> <0x0d> to <0x2f> the <0x25><0x29>. ",
+          "text": "Do you wish to [buy|sell] the «物品» or not."
+        }
+      ]
+    },
+    {
+      "id": "0x2d",
+      "block": "0x20",
+      "index": 13,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 215,
+          "byteOffset": 430,
+          "rawOffset": "0x073ae",
+          "raw": "Do we have a deal<0x29><0x3f> ",
+          "text": "Do we have a deal or not"
+        }
+      ]
+    },
+    {
+      "id": "0x2e",
+      "block": "0x20",
+      "index": 14,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 241,
+          "byteOffset": 482,
+          "rawOffset": "0x073e2",
+          "raw": "<0x18> me <0x31> I must <0x39>. ",
+          "text": "Pardon me sir I must leave."
+        }
+      ]
+    },
+    {
+      "id": "0x2f",
+      "block": "0x20",
+      "index": 15,
+      "kind": "chain",
+      "selection": "random",
+      "chainsTo": [
+        "0xd0",
+        "0x64",
+        "0xd0"
+      ]
+    },
+    {
+      "id": "0x30",
+      "block": "0x30",
+      "index": 0,
+      "kind": "chain",
+      "selection": "random",
+      "chainsTo": [
+        "0x80",
+        "0x38",
+        "0x36"
+      ]
+    },
+    {
+      "id": "0x31",
+      "block": "0x30",
+      "index": 1,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 142,
+          "byteOffset": 284,
+          "rawOffset": "0x0751c",
+          "raw": "Can <0x2b> spare <0x24> for <0x35> <0x36><0x3f> ",
+          "text": "Can you spare «金額» for an old man"
+        }
+      ]
+    },
+    {
+      "id": "0x32",
+      "block": "0x30",
+      "index": 2,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 151,
+          "byteOffset": 302,
+          "rawOffset": "0x0752e",
+          "raw": "Traffic Control here. <0x2a>'s <0x2b>r problem<0x3f> ",
+          "text": "Traffic Control here. what's your problem"
+        }
+      ]
+    },
+    {
+      "id": "0x33",
+      "block": "0x30",
+      "index": 3,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 227,
+          "byteOffset": 454,
+          "rawOffset": "0x075c6",
+          "raw": "A quick search turns up <0x24>. ",
+          "text": "A quick search turns up «金額»."
+        },
+        {
+          "pointer": 238,
+          "byteOffset": 476,
+          "rawOffset": "0x075dc",
+          "raw": "<0x2b> find <0x24>. ",
+          "text": "You find «金額»."
+        },
+        {
+          "pointer": 242,
+          "byteOffset": 484,
+          "rawOffset": "0x075e4",
+          "raw": "<0x24> is found in a wallet. ",
+          "text": "«金額» is found in a wallet."
+        }
+      ]
+    },
+    {
+      "id": "0x34",
+      "block": "0x30",
+      "index": 4,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 252,
+          "byteOffset": 504,
+          "rawOffset": "0x075f8",
+          "raw": "<0x38> <0x2b> <0x37> a <0x25>. ",
+          "text": "Nearby you discover a «物品»."
+        }
+      ]
+    },
+    {
+      "id": "0x35",
+      "block": "0x30",
+      "index": 5,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 168,
+          "byteOffset": 336,
+          "rawOffset": "0x07550",
+          "raw": "<0x0f> SunDog, it's <0x34>. We're docking <0x2b> <0x24>, though. ",
+          "text": "O.K., SunDog, it's on the way. We're docking you «金額», though."
+        },
+        {
+          "pointer": 187,
+          "byteOffset": 374,
+          "rawOffset": "0x07576",
+          "raw": "It'll cost <0x2b> <0x24>, SunDog, but it's <0x34>. ",
+          "text": "It'll cost you «金額», SunDog, but it's on the way."
+        },
+        {
+          "pointer": 202,
+          "byteOffset": 404,
+          "rawOffset": "0x07594",
+          "raw": "Total charges are <0x24>, SunDog. It should be there in a while. ",
+          "text": "Total charges are «金額», SunDog. It should be there in a while."
+        }
+      ]
+    },
+    {
+      "id": "0x36",
+      "block": "0x30",
+      "index": 6,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 103,
+          "byteOffset": 206,
+          "rawOffset": "0x074ce",
+          "raw": "See <0x2b> later <0x32>. <0x2b> can have the table! ",
+          "text": "See you later mac. you can have the table!"
+        },
+        {
+          "pointer": 118,
+          "byteOffset": 236,
+          "rawOffset": "0x074ec",
+          "raw": "Sorry pal, I'm just leaving. ",
+          "text": "Sorry pal, I'm just leaving."
+        },
+        {
+          "pointer": 131,
+          "byteOffset": 262,
+          "rawOffset": "0x07506",
+          "raw": "Hey <0x13>! I was sitting here! ",
+          "text": "Hey laser brain! I was sitting here!"
+        }
+      ]
+    },
+    {
+      "id": "0x40",
+      "block": "0x40",
+      "index": 0,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 125,
+          "byteOffset": 250,
+          "rawOffset": "0x076fa",
+          "raw": "<0x35> <0x2b>r cargo, or <0x26>'ll <0x36>! ",
+          "text": "Give [us|me] your cargo, or [we|I]'ll blast you!"
+        }
+      ]
+    },
+    {
+      "id": "0x41",
+      "block": "0x40",
+      "index": 1,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 200,
+          "byteOffset": 400,
+          "rawOffset": "0x07790",
+          "raw": "<0x34> <0x2b>r cash or die! ",
+          "text": "Give [us|me] your cash or die!"
+        }
+      ]
+    },
+    {
+      "id": "0x42",
+      "block": "0x40",
+      "index": 2,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 134,
+          "byteOffset": 268,
+          "rawOffset": "0x0770c",
+          "raw": "<0x2b> have one minute before <0x26> <0x36>! ",
+          "text": "You have one minute before [we|I] blast you!"
+        },
+        {
+          "pointer": 146,
+          "byteOffset": 292,
+          "rawOffset": "0x07724",
+          "raw": "Do it now, or <0x26>'ll <0x36>! ",
+          "text": "Do it now, or [we|I]'ll blast you!"
+        }
+      ]
+    },
+    {
+      "id": "0x43",
+      "block": "0x40",
+      "index": 3,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 155,
+          "byteOffset": 310,
+          "rawOffset": "0x07736",
+          "raw": "<0x0f> <0x30>, <0x2b>'re free to go. ",
+          "text": "O.K., mac, you're free to go."
+        }
+      ]
+    },
+    {
+      "id": "0x44",
+      "block": "0x40",
+      "index": 4,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 164,
+          "byteOffset": 328,
+          "rawOffset": "0x07748",
+          "raw": "<0x0f> <0x30>, it's <0x2b>r funeral! ",
+          "text": "O.K., mac, it's your funeral!"
+        },
+        {
+          "pointer": 173,
+          "byteOffset": 346,
+          "rawOffset": "0x0775a",
+          "raw": "Hope <0x2b> can breathe vacuum, <0x30>! ",
+          "text": "Hope you can breathe vacuum, mac!"
+        }
+      ]
+    },
+    {
+      "id": "0x45",
+      "block": "0x40",
+      "index": 5,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 186,
+          "byteOffset": 372,
+          "rawOffset": "0x07774",
+          "raw": "<0x02> <0x2a><0x3f> ",
+          "text": "Discuss what"
+        },
+        {
+          "pointer": 188,
+          "byteOffset": 376,
+          "rawOffset": "0x07778",
+          "raw": "<0x2a>'s to <0x02><0x3f> ",
+          "text": "What's to discuss"
+        }
+      ]
+    },
+    {
+      "id": "0x46",
+      "block": "0x40",
+      "index": 6,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 192,
+          "byteOffset": 384,
+          "rawOffset": "0x07780",
+          "raw": "How will <0x2b> stop <0x28><0x3f> ",
+          "text": "How will you stop [us|me]"
+        }
+      ]
+    },
+    {
+      "id": "0x47",
+      "block": "0x40",
+      "index": 7,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 207,
+          "byteOffset": 414,
+          "rawOffset": "0x0779e",
+          "raw": "Why not<0x3f> ",
+          "text": "Why not"
+        }
+      ]
+    },
+    {
+      "id": "0x48",
+      "block": "0x40",
+      "index": 8,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 211,
+          "byteOffset": 422,
+          "rawOffset": "0x077a6",
+          "raw": "<0x26>'ll just have a look... ",
+          "text": "[we|I]'ll just have a look..."
+        }
+      ]
+    },
+    {
+      "id": "0x49",
+      "block": "0x40",
+      "index": 9,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 222,
+          "byteOffset": 444,
+          "rawOffset": "0x077bc",
+          "raw": "<0x0f> <0x1d>! ",
+          "text": "O.K., get lost!"
+        }
+      ]
+    },
+    {
+      "id": "0x4a",
+      "block": "0x40",
+      "index": 10,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 224,
+          "byteOffset": 448,
+          "rawOffset": "0x077c0",
+          "raw": "<0x0f> <0x13>, <0x26>'ll get it the hard way. ",
+          "text": "O.K., laser brain, [we|I]'ll get it the hard way."
+        },
+        {
+          "pointer": 247,
+          "byteOffset": 494,
+          "rawOffset": "0x077ee",
+          "raw": "<0x0f> <0x13>, <0x2b> asked for it... ",
+          "text": "O.K., laser brain, you asked for it..."
+        }
+      ]
+    },
+    {
+      "id": "0x4b",
+      "block": "0x40",
+      "index": 11,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 236,
+          "byteOffset": 472,
+          "rawOffset": "0x077d8",
+          "raw": "Last chance, <0x13>... ",
+          "text": "Last chance, laser brain..."
+        }
+      ]
+    },
+    {
+      "id": "0x4c",
+      "block": "0x40",
+      "index": 12,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 244,
+          "byteOffset": 488,
+          "rawOffset": "0x077e8",
+          "raw": "<0x10> <0x11>, <0x32>. ",
+          "text": "Smart decision, mac."
+        }
+      ]
+    },
+    {
+      "id": "0x4d",
+      "block": "0x40",
+      "index": 13,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 186,
+          "byteOffset": 372,
+          "rawOffset": "0x07774",
+          "raw": "<0x02> <0x2a><0x3f> ",
+          "text": "Discuss what"
+        },
+        {
+          "pointer": 188,
+          "byteOffset": 376,
+          "rawOffset": "0x07778",
+          "raw": "<0x2a>'s to <0x02><0x3f> ",
+          "text": "What's to discuss"
+        }
+      ]
+    },
+    {
+      "id": "0x50",
+      "block": "0x50",
+      "index": 0,
+      "kind": "chain",
+      "selection": "random",
+      "chainsTo": [
+        "0x52",
+        "0x64",
+        "0x52"
+      ]
+    },
+    {
+      "id": "0x51",
+      "block": "0x50",
+      "index": 1,
+      "kind": "chain",
+      "selection": "random",
+      "chainsTo": [
+        "0x53",
+        "0x64",
+        "0x53"
+      ]
+    },
+    {
+      "id": "0x52",
+      "block": "0x50",
+      "index": 2,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 149,
+          "byteOffset": 298,
+          "rawOffset": "0x0792a",
+          "raw": "<0x2a> <0x15>, <0x2d><0x3f> ",
+          "text": "What can I serve you, [laser brain|laser brain|mac|mac|sir]"
+        },
+        {
+          "pointer": 152,
+          "byteOffset": 304,
+          "rawOffset": "0x07930",
+          "raw": "<0x2a> else can I show <0x2b>. ",
+          "text": "What else can I show you."
+        },
+        {
+          "pointer": 160,
+          "byteOffset": 320,
+          "rawOffset": "0x07940",
+          "raw": "<0x16> <0x1e>, <0x32><0x3f> ",
+          "text": "Something else, mac"
+        },
+        {
+          "pointer": 163,
+          "byteOffset": 326,
+          "rawOffset": "0x07946",
+          "raw": "<0x2a> else, <0x13><0x3f> ",
+          "text": "What else, laser brain"
+        }
+      ]
+    },
+    {
+      "id": "0x53",
+      "block": "0x50",
+      "index": 3,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 149,
+          "byteOffset": 298,
+          "rawOffset": "0x0792a",
+          "raw": "<0x2a> <0x15>, <0x2d><0x3f> ",
+          "text": "What can I serve you, [laser brain|laser brain|mac|mac|sir]"
+        },
+        {
+          "pointer": 152,
+          "byteOffset": 304,
+          "rawOffset": "0x07930",
+          "raw": "<0x2a> else can I show <0x2b>. ",
+          "text": "What else can I show you."
+        },
+        {
+          "pointer": 160,
+          "byteOffset": 320,
+          "rawOffset": "0x07940",
+          "raw": "<0x16> <0x1e>, <0x32><0x3f> ",
+          "text": "Something else, mac"
+        },
+        {
+          "pointer": 163,
+          "byteOffset": 326,
+          "rawOffset": "0x07946",
+          "raw": "<0x2a> else, <0x13><0x3f> ",
+          "text": "What else, laser brain"
+        }
+      ]
+    },
+    {
+      "id": "0x54",
+      "block": "0x50",
+      "index": 4,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 242,
+          "byteOffset": 484,
+          "rawOffset": "0x079e4",
+          "raw": "a <0x25> costs <0x24>. ",
+          "text": "A «物品» costs «金額»."
+        },
+        {
+          "pointer": 247,
+          "byteOffset": 494,
+          "rawOffset": "0x079ee",
+          "raw": "that will be <0x24> for a <0x25>. ",
+          "text": "That will be «金額» for a «物品»."
+        }
+      ]
+    },
+    {
+      "id": "0x55",
+      "block": "0x50",
+      "index": 5,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 168,
+          "byteOffset": 336,
+          "rawOffset": "0x07950",
+          "raw": "<0x1f> <0x2b> <0x01>, <0x31>. ",
+          "text": "Here you go, sir."
+        },
+        {
+          "pointer": 172,
+          "byteOffset": 344,
+          "rawOffset": "0x07958",
+          "raw": "<0x0f> <0x32>, <0x35>! ",
+          "text": "O.K., mac, take it!"
+        },
+        {
+          "pointer": 175,
+          "byteOffset": 350,
+          "rawOffset": "0x0795e",
+          "raw": "<0x35>, <0x13>! ",
+          "text": "Take it, laser brain!"
+        }
+      ]
+    },
+    {
+      "id": "0x56",
+      "block": "0x50",
+      "index": 6,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 178,
+          "byteOffset": 356,
+          "rawOffset": "0x07964",
+          "raw": "Hey, <0x32>! <0x2b> want this <0x25><0x29><0x3f> ",
+          "text": "Hey, mac! you want this «物品» or not"
+        }
+      ]
+    },
+    {
+      "id": "0x57",
+      "block": "0x50",
+      "index": 7,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 188,
+          "byteOffset": 376,
+          "rawOffset": "0x07978",
+          "raw": "<0x1c> I help <0x2b><0x29><0x3f> ",
+          "text": "Can I help you or not"
+        },
+        {
+          "pointer": 193,
+          "byteOffset": 386,
+          "rawOffset": "0x07982",
+          "raw": "<0x04> <0x05>. Do <0x2b> want to <0x06><0x29><0x3f> ",
+          "text": "Stop stalling. Do you want to buy or not"
+        },
+        {
+          "pointer": 201,
+          "byteOffset": 402,
+          "rawOffset": "0x07992",
+          "raw": "<0x0f> <0x13>, order or <0x1d>! ",
+          "text": "O.K., laser brain, order or get lost!"
+        }
+      ]
+    },
+    {
+      "id": "0x58",
+      "block": "0x50",
+      "index": 8,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 208,
+          "byteOffset": 416,
+          "rawOffset": "0x079a0",
+          "raw": "If <0x2b>'ll <0x18> me... ",
+          "text": "If you'll pardon me..."
+        },
+        {
+          "pointer": 215,
+          "byteOffset": 430,
+          "rawOffset": "0x079ae",
+          "raw": "run along, <0x32>, I've got <0x36> things to do! ",
+          "text": "Run along, mac, I've got other things to do!"
+        },
+        {
+          "pointer": 231,
+          "byteOffset": 462,
+          "rawOffset": "0x079ce",
+          "raw": "<0x1d>, <0x13>, <0x2b>'re <0x37>! ",
+          "text": "Get lost, laser brain, you're wasting my time!"
+        }
+      ]
+    },
+    {
+      "id": "0x59",
+      "block": "0x50",
+      "index": 9,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 237,
+          "byteOffset": 474,
+          "rawOffset": "0x079da",
+          "raw": "Sorry, <0x34>! ",
+          "text": "Sorry, I don't have any!"
+        }
+      ]
+    },
+    {
+      "id": "0x60",
+      "block": "0x60",
+      "index": 0,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 182,
+          "byteOffset": 364,
+          "rawOffset": "0x07b6c",
+          "raw": "Welcome <0x31>. <0x34> a room<0x3f> ",
+          "text": "Welcome sir. looking for a room"
+        },
+        {
+          "pointer": 191,
+          "byteOffset": 382,
+          "rawOffset": "0x07b7e",
+          "raw": "Room, <0x31><0x3f> ",
+          "text": "Room, sir"
+        },
+        {
+          "pointer": 191,
+          "byteOffset": 382,
+          "rawOffset": "0x07b7e",
+          "raw": "Room, <0x31><0x3f> ",
+          "text": "Room, sir"
+        },
+        {
+          "pointer": 191,
+          "byteOffset": 382,
+          "rawOffset": "0x07b7e",
+          "raw": "Room, <0x31><0x3f> ",
+          "text": "Room, sir"
+        }
+      ]
+    },
+    {
+      "id": "0x61",
+      "block": "0x60",
+      "index": 1,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 195,
+          "byteOffset": 390,
+          "rawOffset": "0x07b86",
+          "raw": "well, then, if <0x2b>'ll <0x18> me I have other <0x3a>. ",
+          "text": "Well, then, if you'll pardon me I have other business."
+        }
+      ]
+    },
+    {
+      "id": "0x62",
+      "block": "0x60",
+      "index": 2,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 211,
+          "byteOffset": 422,
+          "rawOffset": "0x07ba6",
+          "raw": "I'm sorry, but we're <0x39>full <0x36>. perhaps <0x37>. ",
+          "text": "I'm sorry, but we're quitefull now. perhaps another time."
+        }
+      ]
+    },
+    {
+      "id": "0x63",
+      "block": "0x60",
+      "index": 3,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 228,
+          "byteOffset": 456,
+          "rawOffset": "0x07bc8",
+          "raw": "<0x38>, that will be <0x24>, in advance. ",
+          "text": "Fine, that will be «金額», in advance."
+        }
+      ]
+    },
+    {
+      "id": "0x64",
+      "block": "0x60",
+      "index": 4,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 241,
+          "byteOffset": 482,
+          "rawOffset": "0x07be2",
+          "raw": "Thank <0x2b>, <0x31>. <0x35>. ",
+          "text": "Thank you, sir. your room awaits."
+        }
+      ]
+    },
+    {
+      "id": "0x65",
+      "block": "0x60",
+      "index": 5,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 247,
+          "byteOffset": 494,
+          "rawOffset": "0x07bee",
+          "raw": "Sorry, <0x2b>r account <0x3b>! ",
+          "text": "Sorry, your account shows insufficient funds!"
+        }
+      ]
+    },
+    {
+      "id": "0x70",
+      "block": "0x70",
+      "index": 0,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 85,
+          "byteOffset": 170,
+          "rawOffset": "0x07caa",
+          "raw": "well remember, charity begins at home! ",
+          "text": "Well remember, charity begins at home!"
+        },
+        {
+          "pointer": 102,
+          "byteOffset": 204,
+          "rawOffset": "0x07ccc",
+          "raw": "just remember, <0x2b> reap <0x2a> <0x2b> sow!! ",
+          "text": "Just remember, you reap what you sow!!"
+        },
+        {
+          "pointer": 115,
+          "byteOffset": 230,
+          "rawOffset": "0x07ce6",
+          "raw": "<0x2b>'ll regret it someday! ",
+          "text": "You'll regret it someday!"
+        },
+        {
+          "pointer": 126,
+          "byteOffset": 252,
+          "rawOffset": "0x07cfc",
+          "raw": "well, next time I'll be watching for <0x2b>! ",
+          "text": "Well, next time I'll be watching for you!"
+        },
+        {
+          "pointer": 143,
+          "byteOffset": 286,
+          "rawOffset": "0x07d1e",
+          "raw": "<0x22> <0x13>, we'll see who laughs last! ",
+          "text": "O.K. laser brain, we'll see who laughs last!"
+        },
+        {
+          "pointer": 156,
+          "byteOffset": 312,
+          "rawOffset": "0x07d38",
+          "raw": "next time, don't walk the streets alone! ",
+          "text": "Next time, don't walk the streets alone!"
+        },
+        {
+          "pointer": 174,
+          "byteOffset": 348,
+          "rawOffset": "0x07d5c",
+          "raw": "may all <0x2b>r travels end on Woremed! ",
+          "text": "May all your travels end on Woremed!"
+        },
+        {
+          "pointer": 189,
+          "byteOffset": 378,
+          "rawOffset": "0x07d7a",
+          "raw": "thanks for nothing <0x13>! ",
+          "text": "Thanks for nothing laser brain!"
+        },
+        {
+          "pointer": 199,
+          "byteOffset": 398,
+          "rawOffset": "0x07d8e",
+          "raw": "<0x2a> a <0x34>! ",
+          "text": "What a cheap jerk!"
+        },
+        {
+          "pointer": 202,
+          "byteOffset": 404,
+          "rawOffset": "0x07d94",
+          "raw": "I hope <0x2b> catch a laser burst! ",
+          "text": "I hope you catch a laser burst!"
+        }
+      ]
+    },
+    {
+      "id": "0x71",
+      "block": "0x70",
+      "index": 1,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 214,
+          "byteOffset": 428,
+          "rawOffset": "0x07dac",
+          "raw": "Oh! Bless <0x2b> kind <0x31>! ",
+          "text": "Oh! Bless you kind sir!"
+        },
+        {
+          "pointer": 222,
+          "byteOffset": 444,
+          "rawOffset": "0x07dbc",
+          "raw": "Thanks <0x32>, I'll never forget it! ",
+          "text": "Thanks mac, I'll never forget it!"
+        },
+        {
+          "pointer": 236,
+          "byteOffset": 472,
+          "rawOffset": "0x07dd8",
+          "raw": "Thank <0x2b>! Now my <0x35> can get <0x36>! ",
+          "text": "Thank you! Now my mother can get glasses!"
+        },
+        {
+          "pointer": 247,
+          "byteOffset": 494,
+          "rawOffset": "0x07dee",
+          "raw": "boy, what a sucker! ",
+          "text": "Boy, what a sucker!"
+        }
+      ]
+    },
+    {
+      "id": "0x80",
+      "block": "0x80",
+      "index": 0,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 229,
+          "byteOffset": 458,
+          "rawOffset": "0x07fca",
+          "raw": "<0x1b>. Care to sit down<0x3f> ",
+          "text": "Hello. Care to sit down"
+        },
+        {
+          "pointer": 238,
+          "byteOffset": 476,
+          "rawOffset": "0x07fdc",
+          "raw": "Hi <0x32>. Care to chat<0x3f> ",
+          "text": "Hi mac. Care to chat"
+        },
+        {
+          "pointer": 246,
+          "byteOffset": 492,
+          "rawOffset": "0x07fec",
+          "raw": "Have a seat <0x31>. <0x37> to talk<0x3f> ",
+          "text": "Have a seat sir. do you want to talk"
+        }
+      ]
+    },
+    {
+      "id": "0x81",
+      "block": "0x80",
+      "index": 1,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 139,
+          "byteOffset": 278,
+          "rawOffset": "0x07f16",
+          "raw": "do <0x2b> <0x0d> <0x36><0x3f> ",
+          "text": "Do you wish something"
+        },
+        {
+          "pointer": 143,
+          "byteOffset": 286,
+          "rawOffset": "0x07f1e",
+          "raw": "is there <0x36> I can do for <0x2b><0x3f> ",
+          "text": "Is there something I can do for you"
+        },
+        {
+          "pointer": 153,
+          "byteOffset": 306,
+          "rawOffset": "0x07f32",
+          "raw": "can I help <0x2b> with <0x36><0x3f> ",
+          "text": "Can I help you with something"
+        }
+      ]
+    },
+    {
+      "id": "0x82",
+      "block": "0x80",
+      "index": 2,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 161,
+          "byteOffset": 322,
+          "rawOffset": "0x07f42",
+          "raw": "looking <0x35> <0x36><0x3f> ",
+          "text": "Looking to buy or sell something"
+        },
+        {
+          "pointer": 167,
+          "byteOffset": 334,
+          "rawOffset": "0x07f4e",
+          "raw": "are <0x2b> buying or selling<0x3f> ",
+          "text": "Are you buying or selling"
+        },
+        {
+          "pointer": 178,
+          "byteOffset": 356,
+          "rawOffset": "0x07f64",
+          "raw": "<0x37> <0x35> <0x36><0x3f> ",
+          "text": "Do you want to buy or sell something"
+        }
+      ]
+    },
+    {
+      "id": "0x83",
+      "block": "0x80",
+      "index": 3,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 181,
+          "byteOffset": 362,
+          "rawOffset": "0x07f6a",
+          "raw": "<0x2a> <0x37> <0x38><0x3f> ",
+          "text": "What do you want to sell"
+        }
+      ]
+    },
+    {
+      "id": "0x84",
+      "block": "0x80",
+      "index": 4,
+      "kind": "chain",
+      "selection": "random",
+      "chainsTo": [
+        "0x23",
+        "0x64",
+        "0x23"
+      ]
+    },
+    {
+      "id": "0x85",
+      "block": "0x80",
+      "index": 5,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 184,
+          "byteOffset": 368,
+          "rawOffset": "0x07f70",
+          "raw": "<0x39> not interested. Anything <0x1e> <0x38><0x3f> ",
+          "text": "Sorry, I'm not interested. Anything else to sell"
+        }
+      ]
+    },
+    {
+      "id": "0x86",
+      "block": "0x80",
+      "index": 6,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 198,
+          "byteOffset": 396,
+          "rawOffset": "0x07f8c",
+          "raw": "hey!, <0x2b> got <0x36> <0x38><0x29><0x3f> ",
+          "text": "Hey!, you got something to sell or not"
+        }
+      ]
+    },
+    {
+      "id": "0x87",
+      "block": "0x80",
+      "index": 7,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 211,
+          "byteOffset": 422,
+          "rawOffset": "0x07fa6",
+          "raw": "<0x39> <0x34>! ",
+          "text": "Sorry, I'm busy!"
+        }
+      ]
+    },
+    {
+      "id": "0x88",
+      "block": "0x80",
+      "index": 8,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 213,
+          "byteOffset": 426,
+          "rawOffset": "0x07faa",
+          "raw": "then I'll <0x0c> <0x2b> later ",
+          "text": "Then I'll see you later"
+        },
+        {
+          "pointer": 221,
+          "byteOffset": 442,
+          "rawOffset": "0x07fba",
+          "raw": "then please <0x18> me! ",
+          "text": "Then please pardon me!"
+        }
+      ]
+    },
+    {
+      "id": "0x89",
+      "block": "0x80",
+      "index": 9,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 205,
+          "byteOffset": 410,
+          "rawOffset": "0x07f9a",
+          "raw": "<0x37> to <0x1a> to me<0x29><0x3f> ",
+          "text": "Do you want to talk to me or not"
+        }
+      ]
+    },
+    {
+      "id": "0x90",
+      "block": "0x90",
+      "index": 0,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 73,
+          "byteOffset": 146,
+          "rawOffset": "0x08092",
+          "raw": "<0x2a> can I <0x36><0x3f> ",
+          "text": "What can I tell you about"
+        }
+      ]
+    },
+    {
+      "id": "0x91",
+      "block": "0x90",
+      "index": 1,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 92,
+          "byteOffset": 184,
+          "rawOffset": "0x080b8",
+          "raw": "I suggest <0x2b> pack a<0x34> shield and some <0x09> of <0x35> weapon! ",
+          "text": "I suggest you pack at least one shield and some type of hand weapon!"
+        }
+      ]
+    },
+    {
+      "id": "0x92",
+      "block": "0x90",
+      "index": 2,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 112,
+          "byteOffset": 224,
+          "rawOffset": "0x080e0",
+          "raw": "Our <0x25>s are guaranteed to restore health, but <0x2b> may need several if <0x2b>'re badly hurt! ",
+          "text": "Our «物品»s are guaranteed to restore health, but you may need several if you're badly hurt!",
+          "condition": {
+            "code": 210,
+            "check": "item",
+            "detail": "目前談的物品編號等於 10"
+          }
+        },
+        {
+          "pointer": 147,
+          "byteOffset": 294,
+          "rawOffset": "0x08126",
+          "raw": "The Mark IV body <0x25> is a real lifesaver! absorbs up to seven direct weapon hits! ",
+          "text": "The Mark IV body «物品» is a real lifesaver! absorbs up to seven direct weapon hits!",
+          "condition": {
+            "code": 211,
+            "check": "item",
+            "detail": "目前談的物品編號等於 11"
+          }
+        },
+        {
+          "pointer": 180,
+          "byteOffset": 360,
+          "rawOffset": "0x08168",
+          "raw": "Fine piece of hardware, the Nelson <0x25>, good for unlimited shots, but not as deadly as a scattergun! ",
+          "text": "Fine piece of hardware, the Nelson «物品», good for unlimited shots, but not as deadly as a scattergun!",
+          "condition": {
+            "code": 212,
+            "check": "item",
+            "detail": "目前談的物品編號等於 12"
+          }
+        },
+        {
+          "pointer": 221,
+          "byteOffset": 442,
+          "rawOffset": "0x081ba",
+          "raw": "Ah! Yes, a <0x25> is a great way to even up the odds, but beware . . . it's shots are limited!",
+          "text": "Ah! Yes, a «物品» is a great way to even up the odds, but beware . . . it's shots are limited!"
+        }
+      ]
+    },
+    {
+      "id": "0x93",
+      "block": "0x90",
+      "index": 3,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 77,
+          "byteOffset": 154,
+          "rawOffset": "0x0809a",
+          "raw": "Another question<0x3f> ",
+          "text": "Another question"
+        },
+        {
+          "pointer": 86,
+          "byteOffset": 172,
+          "rawOffset": "0x080ac",
+          "raw": "<0x16> else I can <0x36><0x3f> ",
+          "text": "Something else I can tell you about"
+        }
+      ]
+    },
+    {
+      "id": "0xa0",
+      "block": "0xa0",
+      "index": 0,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 87,
+          "byteOffset": 174,
+          "rawOffset": "0x082ae",
+          "raw": "<0x2a> can I tell <0x2b> about<0x3f> ",
+          "text": "What can I tell you about"
+        }
+      ]
+    },
+    {
+      "id": "0xa1",
+      "block": "0xa0",
+      "index": 1,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 100,
+          "byteOffset": 200,
+          "rawOffset": "0x082c8",
+          "raw": "<0x37> General Industron <0x25>. ",
+          "text": "That's a General Industron «物品».",
+          "condition": {
+            "code": 224,
+            "check": "item",
+            "detail": "目前談的物品編號等於 24"
+          }
+        },
+        {
+          "pointer": 110,
+          "byteOffset": 220,
+          "rawOffset": "0x082dc",
+          "raw": "<0x37>n MBI <0x25> switching circuit. It fits tac and pilot bays. ",
+          "text": "That's an MBI «物品» switching circuit. It fits tac and pilot bays.",
+          "condition": {
+            "code": 225,
+            "check": "item",
+            "detail": "目前談的物品編號等於 25"
+          }
+        },
+        {
+          "pointer": 133,
+          "byteOffset": 266,
+          "rawOffset": "0x0830a",
+          "raw": "<0x37> <0x25> for <0x38>. ",
+          "text": "That's a «物品» for warp drive or sub c engines.",
+          "condition": {
+            "code": 226,
+            "check": "item",
+            "detail": "目前談的物品編號等於 26"
+          }
+        },
+        {
+          "pointer": 137,
+          "byteOffset": 274,
+          "rawOffset": "0x08312",
+          "raw": "<0x37> <0x25>. Not as accurate as a G <0x25>, but it'll get ya into Starports. ",
+          "text": "That's a «物品». Not as accurate as a G «物品», but it'll get ya into Starports.",
+          "condition": {
+            "code": 227,
+            "check": "item",
+            "detail": "目前談的物品編號等於 27"
+          }
+        },
+        {
+          "pointer": 162,
+          "byteOffset": 324,
+          "rawOffset": "0x08344",
+          "raw": "<0x37> <0x25> for shields, <0x38>. ",
+          "text": "That's a «物品» for shields, warp drive or sub c engines.",
+          "condition": {
+            "code": 228,
+            "check": "item",
+            "detail": "目前談的物品編號等於 28"
+          }
+        },
+        {
+          "pointer": 170,
+          "byteOffset": 340,
+          "rawOffset": "0x08354",
+          "raw": "That's our custom made <0x25> with <0x34> <0x35>! ",
+          "text": "That's our custom made «物品» with extended ports!",
+          "condition": {
+            "code": 229,
+            "check": "item",
+            "detail": "目前談的物品編號等於 29"
+          }
+        },
+        {
+          "pointer": 184,
+          "byteOffset": 368,
+          "rawOffset": "0x08370",
+          "raw": "<0x37> TecCo Space Time distorter. Very <0x36>! ",
+          "text": "That's a TecCo Space Time distorter. Very reliable!",
+          "condition": {
+            "code": 230,
+            "check": "item",
+            "detail": "目前談的物品編號等於 30"
+          }
+        },
+        {
+          "pointer": 200,
+          "byteOffset": 400,
+          "rawOffset": "0x08390",
+          "raw": "<0x37> standard MicroP <0x25>. Ya can't shunt it so pack a few spares! ",
+          "text": "That's a standard MicroP «物品». Ya can't shunt it so pack a few spares!",
+          "condition": {
+            "code": 231,
+            "check": "item",
+            "detail": "目前談的物品編號等於 31"
+          }
+        },
+        {
+          "pointer": 225,
+          "byteOffset": 450,
+          "rawOffset": "0x083c2",
+          "raw": "<0x37> general purpose <0x25>. It'll replace most parts, but it's not as reliable! ",
+          "text": "That's a general purpose «物品». It'll replace most parts, but it's not as reliable!"
+        }
+      ]
+    },
+    {
+      "id": "0xa2",
+      "block": "0xa0",
+      "index": 2,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 96,
+          "byteOffset": 192,
+          "rawOffset": "0x082c0",
+          "raw": "<0x2a> else<0x3f> ",
+          "text": "What else"
+        }
+      ]
+    },
+    {
+      "id": "0xb0",
+      "block": "0xb0",
+      "index": 0,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 156,
+          "byteOffset": 312,
+          "rawOffset": "0x08538",
+          "raw": "<0x35> <0x34> eh<0x3f> ",
+          "text": "Nice weather eh"
+        },
+        {
+          "pointer": 159,
+          "byteOffset": 318,
+          "rawOffset": "0x0853e",
+          "raw": "I just got <0x38> from <0x23> <0x3a>! ",
+          "text": "I just got back from «地名» last week!"
+        },
+        {
+          "pointer": 168,
+          "byteOffset": 336,
+          "rawOffset": "0x08550",
+          "raw": "<0x2b> new <0x39><0x3f> ",
+          "text": "You new here"
+        }
+      ]
+    },
+    {
+      "id": "0xb1",
+      "block": "0xb0",
+      "index": 1,
+      "kind": "chain",
+      "selection": "random",
+      "chainsTo": [
+        "0xc0",
+        "0x96",
+        "0xb2"
+      ]
+    },
+    {
+      "id": "0xb2",
+      "block": "0xb0",
+      "index": 2,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 172,
+          "byteOffset": 344,
+          "rawOffset": "0x08558",
+          "raw": "<0x2b> come here often<0x3f> ",
+          "text": "You come here often"
+        },
+        {
+          "pointer": 180,
+          "byteOffset": 360,
+          "rawOffset": "0x08568",
+          "raw": "I just delivered some <0x37> to <0x23>. ",
+          "text": "I just delivered some furs to «地名»."
+        },
+        {
+          "pointer": 192,
+          "byteOffset": 384,
+          "rawOffset": "0x08580",
+          "raw": "<0x2b>r ship is the SunDog isn't it<0x3f> ",
+          "text": "Your ship is the SunDog isn't it"
+        }
+      ]
+    },
+    {
+      "id": "0xb3",
+      "block": "0xb0",
+      "index": 3,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 205,
+          "byteOffset": 410,
+          "rawOffset": "0x0859a",
+          "raw": "Boy! That was sure a <0x35> <0x36> <0x3a>, eh<0x3f> ",
+          "text": "Boy! That was sure a nice game last week, eh"
+        },
+        {
+          "pointer": 217,
+          "byteOffset": 434,
+          "rawOffset": "0x085b2",
+          "raw": "Are <0x2b> <0x3c> out soon<0x3f> ",
+          "text": "Are you going out soon"
+        },
+        {
+          "pointer": 224,
+          "byteOffset": 448,
+          "rawOffset": "0x085c0",
+          "raw": "Lot of <0x3b> on Woremed, isn't there<0x3f> ",
+          "text": "Lot of pirate activity on Woremed, isn't there"
+        }
+      ]
+    },
+    {
+      "id": "0xb4",
+      "block": "0xb0",
+      "index": 4,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 238,
+          "byteOffset": 476,
+          "rawOffset": "0x085dc",
+          "raw": "do <0x2b> want to talk to me<0x29><0x3f> ",
+          "text": "Do you want to talk to me or not"
+        },
+        {
+          "pointer": 248,
+          "byteOffset": 496,
+          "rawOffset": "0x085f0",
+          "raw": "Hey! Are <0x2b> awake<0x3f> ",
+          "text": "Hey! Are you awake"
+        }
+      ]
+    },
+    {
+      "id": "0xc0",
+      "block": "0xc0",
+      "index": 0,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 65,
+          "byteOffset": 130,
+          "rawOffset": "0x08682",
+          "raw": "Hey! Why didn't the sand shark eat the Rithan<0x3f> ",
+          "text": "Hey! Why didn't the sand shark eat the Rithan"
+        },
+        {
+          "pointer": 97,
+          "byteOffset": 194,
+          "rawOffset": "0x086c2",
+          "raw": "<0x34> repair techs <0x35> plug in a shunt<0x3f> ",
+          "text": "How many repair techs does it take to plug in a shunt"
+        },
+        {
+          "pointer": 135,
+          "byteOffset": 270,
+          "rawOffset": "0x0870e",
+          "raw": "<0x34> Rithans <0x35> open a Uniteller account! ",
+          "text": "How many Rithans does it take to open a Uniteller account!"
+        },
+        {
+          "pointer": 173,
+          "byteOffset": 346,
+          "rawOffset": "0x0875a",
+          "raw": "<0x34> street traders <0x35> make a deal<0x3f> ",
+          "text": "How many street traders does it take to make a deal"
+        },
+        {
+          "pointer": 208,
+          "byteOffset": 416,
+          "rawOffset": "0x087a0",
+          "raw": "<0x34> New Faith Society Members <0x35> <0x38><0x3f> ",
+          "text": "How many New Faith Society Members does it take to change a glow globe"
+        },
+        {
+          "pointer": 234,
+          "byteOffset": 468,
+          "rawOffset": "0x087d4",
+          "raw": "<0x34> bureaucrats <0x35> <0x38><0x3f> ",
+          "text": "How many bureaucrats does it take to change a glow globe"
+        }
+      ]
+    },
+    {
+      "id": "0xc1",
+      "block": "0xc0",
+      "index": 1,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 85,
+          "byteOffset": 170,
+          "rawOffset": "0x086aa",
+          "raw": "Professional courtesy! <0x36> ",
+          "text": "Professional courtesy! hah, hah, hah . . ."
+        },
+        {
+          "pointer": 111,
+          "byteOffset": 222,
+          "rawOffset": "0x086de",
+          "raw": "five! <0x37> force it with a hammer and four to go for spares! <0x36> ",
+          "text": "Five! one to force it with a hammer and four to go for spares! hah, hah, hah . . ."
+        },
+        {
+          "pointer": 151,
+          "byteOffset": 302,
+          "rawOffset": "0x0872e",
+          "raw": "Ten! <0x37> open the account and nine to steal the money! <0x36> ",
+          "text": "Ten! one to open the account and nine to steal the money! hah, hah, hah . . ."
+        },
+        {
+          "pointer": 186,
+          "byteOffset": 372,
+          "rawOffset": "0x08774",
+          "raw": "four! <0x37> deal and three to protect him from muggers! <0x36> ",
+          "text": "Four! one to deal and three to protect him from muggers! hah, hah, hah . . ."
+        },
+        {
+          "pointer": 222,
+          "byteOffset": 444,
+          "rawOffset": "0x087bc",
+          "raw": "None. They're all frozen! <0x36> ",
+          "text": "None. They're all frozen! hah, hah, hah . . ."
+        },
+        {
+          "pointer": 242,
+          "byteOffset": 484,
+          "rawOffset": "0x087e4",
+          "raw": "two! <0x37> screw it in, <0x37> screw it up! <0x36> ",
+          "text": "Two! one to screw it in, one to screw it up! hah, hah, hah . . ."
+        }
+      ]
+    },
+    {
+      "id": "0xd0",
+      "block": "0xd0",
+      "index": 0,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 252,
+          "byteOffset": 504,
+          "rawOffset": "0x089f8",
+          "raw": "<0x35> <0x34>. <0x19>, <0x32>. ",
+          "text": "Obviously, you're not serious. good bye, mac."
+        }
+      ]
+    },
+    {
+      "id": "0xe0",
+      "block": "0xe0",
+      "index": 0,
+      "kind": "message",
+      "selection": "random",
+      "lines": [
+        {
+          "pointer": 87,
+          "byteOffset": 174,
+          "rawOffset": "0x08aae",
+          "raw": "<0x35> Wayne Holder. <0x36> dialog <0x2b>'re reading here. Pretty great game, huh<0x3f> ",
+          "text": "Hi! my name is Wayne Holder. I wrote the dialog you're reading here. Pretty great game, huh"
+        },
+        {
+          "pointer": 116,
+          "byteOffset": 232,
+          "rawOffset": "0x08ae8",
+          "raw": "<0x35> Bruce Webster. <0x36> original SunDog. <0x34><0x3f> ",
+          "text": "Hi! my name is Bruce Webster. I wrote the original SunDog. pretty neat, huh"
+        },
+        {
+          "pointer": 133,
+          "byteOffset": 266,
+          "rawOffset": "0x08b0a",
+          "raw": "<0x35> Donald Geddis. <0x36> dialog compiler <0x37>. <0x34><0x3f> ",
+          "text": "Hi! my name is Donald Geddis. I wrote the dialog compiler for this game. pretty neat, huh"
+        },
+        {
+          "pointer": 150,
+          "byteOffset": 300,
+          "rawOffset": "0x08b2c",
+          "raw": "<0x35> Mike Newton. <0x36> ship modules <0x37>. <0x34><0x3f> ",
+          "text": "Hi! my name is Mike Newton. I wrote the ship modules for this game. pretty neat, huh"
+        },
+        {
+          "pointer": 165,
+          "byteOffset": 330,
+          "rawOffset": "0x08b4a",
+          "raw": "<0x35> Doug Bell. <0x36> library <0x37> and integrated the rest. <0x34><0x3f> ",
+          "text": "Hi! my name is Doug Bell. I wrote the library for this game and integrated the rest. pretty neat, huh"
+        },
+        {
+          "pointer": 187,
+          "byteOffset": 374,
+          "rawOffset": "0x08b76",
+          "raw": "<0x35> Andy Jaros. I designed the graphics <0x37>. <0x34><0x3f> ",
+          "text": "Hi! my name is Andy Jaros. I designed the graphics for this game. pretty neat, huh"
+        }
+      ]
+    },
+    {
+      "id": "0xe1",
+      "block": "0xe0",
+      "index": 1,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 205,
+          "byteOffset": 410,
+          "rawOffset": "0x08b9a",
+          "raw": "Glad <0x2b> like it! Oh, by the way here's <0x24>. Enjoy it! ",
+          "text": "Glad you like it! Oh, by the way here's «金額». Enjoy it!"
+        }
+      ]
+    },
+    {
+      "id": "0xe2",
+      "block": "0xe0",
+      "index": 2,
+      "kind": "message",
+      "selection": "fixed",
+      "lines": [
+        {
+          "pointer": 225,
+          "byteOffset": 450,
+          "rawOffset": "0x08bc2",
+          "raw": "Well, <0x2b>'ve got no class. Just for that <0x2b> won't get the <0x24> I was going to give <0x2b>! ",
+          "text": "Well, you've got no class. Just for that you won't get the «金額» I was going to give you!"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,289 @@
+package m68k
+
+import (
+	"crypto/sha256"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"reflect"
+	"testing"
+)
+
+// 僅測試的初始化契約；原始定位與未知範圍見既有戰鬥研究入口。
+type initFightInput struct{ Mode, Range, BearingDrift, PitchDrift, Aux8, Aux9, Seed int }
+type initFightResult struct {
+	Input                                                   initFightInput
+	BearingDrift, PitchDrift, Aux8, Aux9, Cooldown, Counter int
+	Draws                                                   []combatDraw
+}
+
+func initFightContract(r initFightInput) initFightResult {
+	x := initFightResult{Input: r, BearingDrift: r.BearingDrift, PitchDrift: r.PitchDrift, Aux8: r.Aux8, Aux9: r.Aux9, Cooldown: 20, Counter: r.Seed}
+	rand := func(low, high int) int { return cadenceDraw(&x.Counter, low, high, &x.Draws) }
+	switch r.Mode {
+	case 3:
+		x.Aux9 = 0
+		if r.Range <= 60 {
+			x.Aux9 = 1
+		}
+		x.Aux8 = rand(2, 10)
+	case 4:
+		x.BearingDrift, x.PitchDrift = 3, -3
+	case 5:
+		x.BearingDrift = 2
+		if rand(0, 1) != 0 {
+			x.BearingDrift = -3
+		}
+		x.PitchDrift = 3
+		if rand(0, 1) != 0 {
+			x.PitchDrift = -2
+		}
+	case 7:
+		x.BearingDrift, x.PitchDrift, x.Aux9, x.Aux8 = -4, 4, 1, -1
+	}
+	return x
+}
+func initFightRead(h *harness, r initFightInput, counter int, draws []combatDraw) initFightResult {
+	return initFightResult{r, int(int16(h.peek(cadenceGlobal(0xd3)))), int(int16(h.peek(cadenceGlobal(0xd2)))), int(int16(h.peek(cadenceOuter(8)))), int(int16(h.peek(cadenceOuter(9)))), int(int16(h.peek(cadenceOuter(10)))), counter, draws}
+}
+func initFightWrite(h *harness, r initFightInput) {
+	for n, value := range map[int]int{0xce: r.Mode, 0xdb: r.Range, 0xd3: r.BearingDrift, 0xd2: r.PitchDrift} {
+		h.poke(cadenceGlobal(n), uint16(value))
+	}
+	h.poke(cadenceOuter(8), uint16(r.Aux8))
+	h.poke(cadenceOuter(9), uint16(r.Aux9))
+	h.poke(cadenceOuter(10), 0x1234)
+}
+
+func TestSunDogCombatMode5Drift(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	type row struct{ Bearing, Pitch, Seed, ResultBearing, ResultPitch, Counter int }
+	var formal []row
+	raw, err := os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-mode5-drift.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = json.Unmarshal(raw, &formal); err != nil || len(formal) != 2592 {
+		t.Fatal("模式5正式漂移矩陣不符")
+	}
+	report := struct {
+		Scope, Randomness                       string
+		Cases, Differences, ContractDifferences int
+		Native                                  []row
+	}{Scope: "原版SHIPLIB:0x1e內0x07fc..0x0815布林翻軸子規則；完整合法漂移對與seed0..31。入口已在接近率抽值之後，終點在航向timer抽值之前；不宣稱完整set_course順序或排程。", Randomness: "執行前固定counter；原版CGP:0x0b低位元供應同counter受控抽值，不執行自然RNG。"}
+	for _, r := range formal {
+		if r.Bearing < -4 || r.Bearing > 4 || r.Pitch < -4 || r.Pitch > 4 || r.Seed < 0 || r.Seed > 31 {
+			t.Fatal("模式5漂移輸入越界")
+		}
+		h := cadenceHarness(t, disk)
+		h.poke(cadenceGlobal(0xd3), uint16(r.Bearing))
+		h.poke(cadenceGlobal(0xd2), uint16(r.Pitch))
+		counter := r.Seed
+		var draws []combatDraw
+		cadenceRun(h, disk, 0x7fc, 0x815, &counter, &draws)
+		actual := row{r.Bearing, r.Pitch, r.Seed, int(int16(h.peek(cadenceGlobal(0xd3)))), int(int16(h.peek(cadenceGlobal(0xd2)))), counter}
+		expected := row{r.Bearing, r.Pitch, r.Seed, r.Bearing, r.Pitch, r.Seed}
+		var expectedDraws []combatDraw
+		if cadenceDraw(&expected.Counter, 0, 1, &expectedDraws) != 0 {
+			expected.ResultBearing = -expected.ResultBearing
+		} else {
+			expected.ResultPitch = -expected.ResultPitch
+		}
+		report.Cases++
+		report.Native = append(report.Native, actual)
+		if !reflect.DeepEqual(actual, expected) || !reflect.DeepEqual(draws, expectedDraws) {
+			report.ContractDifferences++
+		}
+		if !reflect.DeepEqual(actual, r) {
+			report.Differences++
+		}
+	}
+	raw, err = json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-mode5-drift.json"), append(raw, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.ContractDifferences != 0 {
+		t.Fatalf("模式5原生契約差異%d/%d", report.ContractDifferences, report.Cases)
+	}
+	t.Logf("模式5原生契約%d案通過；正式漂移差異%d", report.Cases, report.Differences)
+}
+func TestSunDogCombatInit(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	report := struct {
+		Scope, Randomness  string
+		Cases, Differences int
+		Native             []initFightResult
+	}{Scope: "原版SHIPLIB:0x0b完整初始化0x052c..0x0599與原始跳表；八模式/距離/明示舊漂移及Aux值。原版RPU省略，非完整正常遭遇路徑。", Randomness: "執行前固定Seed0/1/17/41；原版請求界線供應同counter受控抽值，不執行自然RNG。"}
+	for mode := 0; mode < 8; mode++ {
+		for _, distance := range []int{10, 39, 60, 61, 127} {
+			for _, c := range [][4]int{{0, 0, 0, 0}, {3, -3, 2, 1}, {-4, 4, -1, -1}, {4, -4, 10, 0}} {
+				for _, seed := range []int{0, 1, 17, 41} {
+					in := initFightInput{mode, distance, c[0], c[1], c[2], c[3], seed}
+					h := cadenceHarness(t, disk)
+					initFightWrite(h, in)
+					counter := seed
+					var draws []combatDraw
+					cadenceRun(h, disk, 0x52c, 0x599, &counter, &draws)
+					actual := initFightRead(h, in, counter, draws)
+					expected := initFightContract(in)
+					report.Cases++
+					report.Native = append(report.Native, actual)
+					if !reflect.DeepEqual(actual, expected) {
+						report.Differences++
+						if report.Differences < 5 {
+							t.Logf("初始化契約差異 actual=%+v expected=%+v", actual, expected)
+						}
+					}
+				}
+			}
+		}
+	}
+	type input struct{ System, Rating, Phase, BearingDrift, PitchDrift, Aux8, Aux9, Seed int }
+	type formalRow struct {
+		Input                                                                                 input
+		Enemy, Mode, Range, Hull, Bearing, Pitch, BearingDrift, PitchDrift, Cooldown, Counter int
+	}
+	var formal []formalRow
+	raw, err := os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-init.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = json.Unmarshal(raw, &formal); err != nil || len(formal) != 2304 {
+		t.Fatal("正式初始化矩陣不符")
+	}
+	type encounterResult struct {
+		Input                                                                                                                                             input
+		Enemy, Mode, Range, Hull, Bearing, Pitch, BearingDrift, PitchDrift, Aux8, Aux9, Closing, CourseTimer, Cooldown, Counter, DamageTotal, EnemyShield int
+		Active, Ready, Flag41, Flag44, Flag46, Flag47                                                                                                     bool
+		Draws                                                                                                                                             []combatDraw
+	}
+	encounter := struct {
+		Scope                                                                                                                                                  string
+		Cases, ContractDifferences, FormalCooldownDifferences, FormalDriftDifferences, FormalHullDifferences, FormalAngleDifferences, FormalCounterDifferences int
+		Native                                                                                                                                                 []encounterResult
+	}{Scope: "一般遭遇建立原版0x0b9e..0x0c40：三次型號拓展/原版夾限/模式抽值/旗標/完整init_fight/護盾/兩軸/船體/完整set_course。入口基礎型號由明示星系設定換算；不驗前置遭遇閘門、後續HUD或全機時間。正式State沒有全部原版欄位，僅明示投影差異。"}
+	for _, r := range formal {
+		in := r.Input
+		h := cadenceHarness(t, disk)
+		base := 1 - (in.Rating-1)/4
+		h.poke(cadenceGlobal(0xd8), uint16(base))
+		h.poke(cadenceGlobal(0x19), uint16(in.Phase))
+		h.poke(cadenceGlobal(0xd3), uint16(in.BearingDrift))
+		h.poke(cadenceGlobal(0xd2), uint16(in.PitchDrift))
+		h.poke(cadenceOuter(8), uint16(in.Aux8))
+		h.poke(cadenceOuter(9), uint16(in.Aux9))
+		counter := in.Seed
+		var draws []combatDraw
+		cadenceRun(h, disk, 0xb9e, 0xc40, &counter, &draws)
+		global := func(n int) int { return int(int16(h.peek(cadenceGlobal(n)))) }
+		outer := func(n int) int { return int(int16(h.peek(cadenceOuter(n)))) }
+		actual := encounterResult{Input: in, Enemy: global(0xd8), Mode: global(0xce), Range: global(0xdb), Hull: global(0xda), Bearing: global(0xd0), Pitch: global(0xcf), BearingDrift: global(0xd3), PitchDrift: global(0xd2), Aux8: outer(8), Aux9: outer(9), Closing: global(0xd1), CourseTimer: global(0xd9), Cooldown: outer(10), Counter: counter, DamageTotal: int(h.mem[cadenceGlobal(0x5b)+0xbf]), EnemyShield: int(h.mem[cadenceGlobal(0x5b)+0xc1]), Active: outer(4) != 0, Ready: outer(5) != 0, Flag41: cadenceFlagValue(h, 41), Flag44: cadenceFlagValue(h, 44), Flag46: cadenceFlagValue(h, 46), Flag47: cadenceFlagValue(h, 47), Draws: draws}
+		ec := in.Seed
+		var ed []combatDraw
+		rand := func(low, high int) int { return cadenceDraw(&ec, low, high, &ed) }
+		et := base + rand(0, 3) + rand(0, 2) + rand(0, 1)
+		if et < 0 {
+			et = 0
+		}
+		if et > 5 {
+			et = 5
+		}
+		mode := rand(0, 5)
+		fight := initFightContract(initFightInput{mode, 127, in.BearingDrift, in.PitchDrift, in.Aux8, in.Aux9, ec})
+		ec = fight.Counter
+		ed = append(ed, fight.Draws...)
+		bearing, pitch := rand(0, 1023), rand(0, 1023)
+		hull := rand(120+et*20, 255)
+		course := courseContract(courseInput{Mode: mode, Range: 127, BearingDrift: fight.BearingDrift, PitchDrift: fight.PitchDrift, Aux8: fight.Aux8, Aux9: fight.Aux9, Closing: 0, Phase: in.Phase, Hull: hull, Seed: ec, HelperLocal2: 0, HelperLocal3: 0, Flag12: false})
+		ed = append(ed, course.Draws...)
+		expected := encounterResult{Input: in, Enemy: et, Mode: mode, Range: 127, Hull: hull, Bearing: bearing, Pitch: pitch, BearingDrift: course.BearingDrift, PitchDrift: course.PitchDrift, Aux8: course.Aux8, Aux9: course.Aux9, Closing: course.Closing, CourseTimer: course.Timer, Cooldown: 20, Counter: course.Counter, DamageTotal: 0, EnemyShield: 127, Active: true, Ready: false, Flag41: true, Flag44: course.Flag44, Flag46: course.Flag46, Flag47: false, Draws: ed}
+		encounter.Cases++
+		encounter.Native = append(encounter.Native, actual)
+		if !reflect.DeepEqual(actual, expected) {
+			encounter.ContractDifferences++
+			if encounter.ContractDifferences < 4 {
+				t.Logf("遭遇契約差異 actual=%+v expected=%+v", actual, expected)
+			}
+		}
+		if actual.Cooldown != r.Cooldown {
+			encounter.FormalCooldownDifferences++
+		}
+		if actual.BearingDrift != r.BearingDrift || actual.PitchDrift != r.PitchDrift {
+			encounter.FormalDriftDifferences++
+		}
+		if actual.Hull != r.Hull {
+			encounter.FormalHullDifferences++
+		}
+		if actual.Bearing != r.Bearing || actual.Pitch != r.Pitch {
+			encounter.FormalAngleDifferences++
+		}
+		if actual.Counter != r.Counter {
+			encounter.FormalCounterDifferences++
+		}
+		if actual.Enemy != r.Enemy || actual.Mode != r.Mode || actual.Range != r.Range {
+			t.Fatal("正常遭遇型號/模式/距離投影不同")
+		}
+	}
+	type positionRow struct{ Enemy, Seed, Bearing, Pitch, Hull, Counter int }
+	var positions []positionRow
+	raw, err = os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-init-position.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = json.Unmarshal(raw, &positions); err != nil || len(positions) != 224 {
+		t.Fatal("正式位置/船體矩陣不符")
+	}
+	positionReport := struct {
+		Scope              string
+		Cases, Differences int
+		Native             []positionRow
+	}{Scope: "原版SHIPLIB 0x0c0f..0x0c37與正式位置/船體helper的同counter三抽；七型號×seed0..31，不包含先前init_fight額外抽值或完整遭遇排程。"}
+	for _, r := range positions {
+		if r.Enemy < 0 || r.Enemy > 6 || r.Seed < 0 || r.Seed > 31 {
+			t.Fatal("位置/船體輸入越界")
+		}
+		h := cadenceHarness(t, disk)
+		h.poke(cadenceGlobal(0xd8), uint16(r.Enemy))
+		counter := r.Seed
+		var draws []combatDraw
+		cadenceRun(h, disk, 0xc0f, 0xc37, &counter, &draws)
+		actual := positionRow{r.Enemy, r.Seed, int(h.peek(cadenceGlobal(0xd0))), int(h.peek(cadenceGlobal(0xcf))), int(h.peek(cadenceGlobal(0xda))), counter}
+		positionReport.Cases++
+		positionReport.Native = append(positionReport.Native, actual)
+		if !reflect.DeepEqual(r, actual) {
+			positionReport.Differences++
+		}
+	}
+	for name, value := range map[string]any{"native-init.json": report, "native-encounter-init.json": encounter, "native-init-position.json": positionReport} {
+		data, err := json.MarshalIndent(value, "", "  ")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), name), append(data, '\n'), 0600); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if report.Differences != 0 || encounter.ContractDifferences != 0 {
+		t.Fatalf("init_fight契約差異%d/%d；遭遇契約差異%d/%d", report.Differences, report.Cases, encounter.ContractDifferences, encounter.Cases)
+	}
+	if positionReport.Differences != 0 {
+		t.Fatalf("正式位置/船體差異%d/%d", positionReport.Differences, positionReport.Cases)
+	}
+	t.Logf("原版init_fight%d/完整遭遇初始化%d案研究契約通過；正式冷卻投影差異%d", report.Cases, encounter.Cases, encounter.FormalCooldownDifferences)
+}

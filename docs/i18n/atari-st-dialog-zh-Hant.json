@@ -1,0 +1,2638 @@
+{
+  "schema": 1,
+  "locale": "zh-Hant",
+  "translationStatus": "reviewed once; official AI language pack; 2026-08-31",
+  "policy": [
+    "對話是組合出來的，不是完成句：譯文保留來源的引用 `{hh}` 與變體結構，執行時才展開。",
+    "同一個 stock phrase 的多個變體要譯成語氣或用詞不同、但語意等價的說法，那是原版語句變化的來源。",
+    "引用在句中的位置可依中文語序移動，但不得增減；缺一個引用就是漏掉一段會被代入的文字。",
+    "空白與標點依中文習慣調整；來源的英文前後空格不必逐字保留。",
+    "來源字串由 tools/scaffold_dialog_translation.py 從 evidence 重新產生，不要手改。"
+  ],
+  "stockPhrases": {
+    "0x00": {
+      "rawOffset": "0x06c41",
+      "alternatives": [
+        {
+          "source": "yes",
+          "translation": "是"
+        },
+        {
+          "source": "no",
+          "translation": "否"
+        },
+        {
+          "source": "accept",
+          "translation": "接受"
+        },
+        {
+          "source": "discuss it",
+          "translation": "詳談"
+        },
+        {
+          "source": "threaten",
+          "translation": "威脅"
+        },
+        {
+          "source": "charm",
+          "translation": "示好"
+        },
+        {
+          "source": "bluff",
+          "translation": "唬弄"
+        },
+        {
+          "source": "bribe",
+          "translation": "賄賂"
+        },
+        {
+          "source": "buy",
+          "translation": "購買"
+        },
+        {
+          "source": "sell",
+          "translation": "出售"
+        },
+        {
+          "source": "information",
+          "translation": "打聽消息"
+        },
+        {
+          "source": "offer",
+          "translation": "開價"
+        },
+        {
+          "source": "agree",
+          "translation": "同意"
+        },
+        {
+          "source": "refuse",
+          "translation": "拒絕"
+        },
+        {
+          "source": "fast talk",
+          "translation": "花言巧語"
+        },
+        {
+          "source": "need fuel",
+          "translation": "需要燃料"
+        },
+        {
+          "source": "help",
+          "translation": "求助"
+        },
+        {
+          "source": "claim no cash",
+          "translation": "推說沒錢"
+        },
+        {
+          "source": "junk",
+          "translation": "廢話"
+        },
+        {
+          "source": "forget it",
+          "translation": "算了"
+        },
+        {
+          "source": "search",
+          "translation": "搜查"
+        },
+        {
+          "source": "nothing",
+          "translation": "沒事"
+        },
+        {
+          "source": "recommend",
+          "translation": "請推薦"
+        },
+        {
+          "source": "uh huh",
+          "translation": "嗯哼"
+        },
+        {
+          "source": "dunno",
+          "translation": "不知道"
+        }
+      ]
+    },
+    "0x01": {
+      "rawOffset": "0x06cd9",
+      "alternatives": [
+        {
+          "source": "go",
+          "translation": "請用"
+        },
+        {
+          "source": "are",
+          "translation": "在此"
+        }
+      ]
+    },
+    "0x02": {
+      "rawOffset": "0x06cde",
+      "alternatives": [
+        {
+          "source": "discuss",
+          "translation": "談談"
+        },
+        {
+          "source": "talk about",
+          "translation": "聊聊"
+        }
+      ]
+    },
+    "0x03": {
+      "rawOffset": "0x06cee",
+      "alternatives": [
+        {
+          "source": "serve",
+          "translation": "服務"
+        },
+        {
+          "source": "get",
+          "translation": "張羅"
+        },
+        {
+          "source": "bring",
+          "translation": "端來"
+        }
+      ]
+    },
+    "0x04": {
+      "rawOffset": "0x06cfb",
+      "alternatives": [
+        {
+          "source": "stop",
+          "translation": "別再"
+        },
+        {
+          "source": "quit",
+          "translation": "少"
+        }
+      ]
+    },
+    "0x05": {
+      "rawOffset": "0x06d03",
+      "alternatives": [
+        {
+          "source": "stalling",
+          "translation": "拖時間"
+        },
+        {
+          "source": "wasting time",
+          "translation": "浪費時間"
+        },
+        {
+          "source": "spacing out",
+          "translation": "發呆"
+        }
+      ]
+    },
+    "0x06": {
+      "rawOffset": "0x06d20",
+      "alternatives": [
+        {
+          "source": "buy",
+          "translation": "購買"
+        },
+        {
+          "source": "order",
+          "translation": "點單"
+        }
+      ]
+    },
+    "0x07": {
+      "rawOffset": "0x06d28",
+      "alternatives": [
+        {
+          "source": "thanks for",
+          "translation": "謝謝這"
+        },
+        {
+          "source": "I appreciate",
+          "translation": "我很感激這"
+        }
+      ]
+    },
+    "0x08": {
+      "rawOffset": "0x06d3c",
+      "alternatives": [
+        {
+          "source": "what",
+          "translation": "什麼"
+        },
+        {
+          "source": "how much",
+          "translation": "多少"
+        }
+      ]
+    },
+    "0x09": {
+      "rawOffset": "0x06d47",
+      "alternatives": [
+        {
+          "source": "type",
+          "translation": "類"
+        },
+        {
+          "source": "kind",
+          "translation": "種"
+        },
+        {
+          "source": "sort",
+          "translation": "樣"
+        }
+      ]
+    },
+    "0x0a": {
+      "rawOffset": "0x06d53",
+      "alternatives": [
+        {
+          "source": "offer",
+          "translation": "開價"
+        },
+        {
+          "source": "pay",
+          "translation": "付"
+        },
+        {
+          "source": "give",
+          "translation": "給"
+        }
+      ]
+    },
+    "0x0b": {
+      "rawOffset": "0x06d5f",
+      "alternatives": [
+        {
+          "source": "chat",
+          "translation": "閒聊"
+        },
+        {
+          "source": "conversation",
+          "translation": "交談"
+        },
+        {
+          "source": "talk",
+          "translation": "談話"
+        },
+        {
+          "source": "discourse",
+          "translation": "敘舊"
+        }
+      ]
+    },
+    "0x0c": {
+      "rawOffset": "0x06d7c",
+      "alternatives": [
+        {
+          "source": "see",
+          "translation": "再見到"
+        },
+        {
+          "source": "catch",
+          "translation": "再碰到"
+        },
+        {
+          "source": "talk to",
+          "translation": "再找"
+        }
+      ]
+    },
+    "0x0d": {
+      "rawOffset": "0x06d8a",
+      "alternatives": [
+        {
+          "source": "wish",
+          "translation": "想"
+        },
+        {
+          "source": "want",
+          "translation": "要"
+        },
+        {
+          "source": "need",
+          "translation": "需要"
+        }
+      ]
+    },
+    "0x0e": {
+      "rawOffset": "0x06d96",
+      "alternatives": [
+        {
+          "source": "bless {2b}",
+          "translation": "祝福{2b}"
+        },
+        {
+          "source": "many thanks",
+          "translation": "萬分感謝"
+        },
+        {
+          "source": "thanks",
+          "translation": "多謝"
+        },
+        {
+          "source": "thank {2b}",
+          "translation": "謝謝{2b}"
+        }
+      ]
+    },
+    "0x0f": {
+      "rawOffset": "0x06db3",
+      "alternatives": [
+        {
+          "source": "{22},",
+          "translation": "{22}，"
+        },
+        {
+          "source": "all right,",
+          "translation": "好吧，"
+        }
+      ]
+    },
+    "0x10": {
+      "rawOffset": "0x06dbf",
+      "alternatives": [
+        {
+          "source": "smart",
+          "translation": "聰明的"
+        },
+        {
+          "source": "wise",
+          "translation": "明智的"
+        },
+        {
+          "source": "good",
+          "translation": "不錯的"
+        }
+      ]
+    },
+    "0x11": {
+      "rawOffset": "0x06dcc",
+      "alternatives": [
+        {
+          "source": "decision",
+          "translation": "決定"
+        },
+        {
+          "source": "choice",
+          "translation": "選擇"
+        },
+        {
+          "source": "move",
+          "translation": "一步"
+        }
+      ]
+    },
+    "0x12": {
+      "rawOffset": "0x06dde",
+      "alternatives": [
+        {
+          "source": "ground hog",
+          "translation": "土撥鼠"
+        },
+        {
+          "source": "laser brain",
+          "translation": "雷射腦袋"
+        },
+        {
+          "source": "monkey boy",
+          "translation": "猴崽子"
+        },
+        {
+          "source": "dirt man",
+          "translation": "泥巴人"
+        },
+        {
+          "source": "crater face",
+          "translation": "隕坑臉"
+        },
+        {
+          "source": "retro breath",
+          "translation": "廢氣嘴"
+        }
+      ]
+    },
+    "0x13": {
+      "rawOffset": "0x06e16",
+      "alternatives": [
+        {
+          "source": "laser brain",
+          "translation": "雷射腦袋"
+        },
+        {
+          "source": "moon man",
+          "translation": "月球佬"
+        },
+        {
+          "source": "low grav",
+          "translation": "低重力仔"
+        },
+        {
+          "source": "fly boy",
+          "translation": "飛行小子"
+        },
+        {
+          "source": "vacuum head",
+          "translation": "真空腦"
+        }
+      ]
+    },
+    "0x14": {
+      "rawOffset": "0x06e3e",
+      "alternatives": [
+        {
+          "source": "sorry",
+          "translation": "抱歉"
+        },
+        {
+          "source": "too bad",
+          "translation": "可惜"
+        },
+        {
+          "source": "tough luck",
+          "translation": "運氣不好"
+        }
+      ]
+    },
+    "0x15": {
+      "rawOffset": "0x06e52",
+      "alternatives": [
+        {
+          "source": "can I {03} {2b}",
+          "translation": "我能為{2b}{03}些"
+        },
+        {
+          "source": "do {2b} {0d}",
+          "translation": "{2b}{0d}"
+        }
+      ]
+    },
+    "0x16": {
+      "rawOffset": "0x06e5d",
+      "alternatives": [
+        {
+          "source": "something",
+          "translation": "點什麼"
+        },
+        {
+          "source": "anything",
+          "translation": "些什麼"
+        }
+      ]
+    },
+    "0x17": {
+      "rawOffset": "0x06e6e",
+      "alternatives": [
+        {
+          "source": "heard",
+          "translation": "聽說"
+        },
+        {
+          "source": "was told",
+          "translation": "聽人講"
+        }
+      ]
+    },
+    "0x18": {
+      "rawOffset": "0x06e7a",
+      "alternatives": [
+        {
+          "source": "pardon",
+          "translation": "見諒"
+        },
+        {
+          "source": "excuse",
+          "translation": "包涵"
+        }
+      ]
+    },
+    "0x19": {
+      "rawOffset": "0x06e86",
+      "alternatives": [
+        {
+          "source": "good bye",
+          "translation": "再會"
+        },
+        {
+          "source": "good day",
+          "translation": "日安"
+        },
+        {
+          "source": "so long",
+          "translation": "後會有期"
+        }
+      ]
+    },
+    "0x1a": {
+      "rawOffset": "0x06e9a",
+      "alternatives": [
+        {
+          "source": "talk",
+          "translation": "談話"
+        },
+        {
+          "source": "speak",
+          "translation": "說"
+        }
+      ]
+    },
+    "0x1b": {
+      "rawOffset": "0x06ea3",
+      "alternatives": [
+        {
+          "source": "hello",
+          "translation": "你好"
+        },
+        {
+          "source": "good day",
+          "translation": "日安"
+        },
+        {
+          "source": "greetings",
+          "translation": "幸會"
+        }
+      ]
+    },
+    "0x1c": {
+      "rawOffset": "0x06eb8",
+      "alternatives": [
+        {
+          "source": "can",
+          "translation": "能"
+        },
+        {
+          "source": "may",
+          "translation": "可以"
+        }
+      ]
+    },
+    "0x1d": {
+      "rawOffset": "0x06ebe",
+      "alternatives": [
+        {
+          "source": "get lost",
+          "translation": "滾開"
+        },
+        {
+          "source": "boost it",
+          "translation": "快閃"
+        },
+        {
+          "source": "warp off",
+          "translation": "跳走"
+        }
+      ]
+    },
+    "0x1e": {
+      "rawOffset": "0x06ed3",
+      "alternatives": [
+        {
+          "source": "else",
+          "translation": "別的"
+        },
+        {
+          "source": "more",
+          "translation": "更多"
+        }
+      ]
+    },
+    "0x1f": {
+      "rawOffset": "0x06edb",
+      "alternatives": [
+        {
+          "source": "here",
+          "translation": "這兒"
+        },
+        {
+          "source": "there",
+          "translation": "那兒"
+        }
+      ]
+    },
+    "0x26": {
+      "rawOffset": "0x06ee4",
+      "alternatives": [
+        {
+          "source": "we",
+          "translation": "我們"
+        },
+        {
+          "source": "I",
+          "translation": "我"
+        }
+      ]
+    },
+    "0x28": {
+      "rawOffset": "0x06ee7",
+      "alternatives": [
+        {
+          "source": "us",
+          "translation": "我們"
+        },
+        {
+          "source": "me",
+          "translation": "我"
+        }
+      ]
+    },
+    "0x29": {
+      "rawOffset": "0x06eeb",
+      "alternatives": [
+        {
+          "source": " or not",
+          "translation": "，還是不要"
+        }
+      ]
+    },
+    "0x2a": {
+      "rawOffset": "0x06ef1",
+      "alternatives": [
+        {
+          "source": "what",
+          "translation": "什麼"
+        }
+      ]
+    },
+    "0x2b": {
+      "rawOffset": "0x06ef5",
+      "alternatives": [
+        {
+          "source": "you",
+          "translation": "你"
+        }
+      ]
+    },
+    "0x2d": {
+      "rawOffset": "0x06ef8",
+      "alternatives": [
+        {
+          "source": "{13}",
+          "translation": "{13}"
+        },
+        {
+          "source": "{13}",
+          "translation": "{13}"
+        },
+        {
+          "source": "{32}",
+          "translation": "{32}"
+        },
+        {
+          "source": "{32}",
+          "translation": "{32}"
+        },
+        {
+          "source": "{31}",
+          "translation": "{31}"
+        }
+      ]
+    },
+    "0x2f": {
+      "rawOffset": "0x06f01",
+      "alternatives": [
+        {
+          "source": "buy",
+          "translation": "購買"
+        },
+        {
+          "source": "sell",
+          "translation": "出售"
+        }
+      ]
+    },
+    "0x30": {
+      "rawOffset": "0x06f08",
+      "alternatives": [
+        {
+          "source": "{32}",
+          "translation": "{32}"
+        },
+        {
+          "source": "{12}",
+          "translation": "{12}"
+        }
+      ]
+    },
+    "0x31": {
+      "rawOffset": "0x06f0b",
+      "alternatives": [
+        {
+          "source": "sir",
+          "translation": "先生"
+        },
+        {
+          "source": "captain",
+          "translation": "船長"
+        },
+        {
+          "source": "friend",
+          "translation": "朋友"
+        }
+      ]
+    },
+    "0x32": {
+      "rawOffset": "0x06f1b",
+      "alternatives": [
+        {
+          "source": "mac",
+          "translation": "老兄"
+        },
+        {
+          "source": "buddy",
+          "translation": "夥計"
+        },
+        {
+          "source": "fella",
+          "translation": "小子"
+        },
+        {
+          "source": "pal",
+          "translation": "兄弟"
+        }
+      ]
+    },
+    "0x33": {
+      "rawOffset": "0x06f2b",
+      "alternatives": [
+        {
+          "source": "dummy",
+          "translation": "保留"
+        },
+        {
+          "source": "dummy",
+          "translation": "保留"
+        },
+        {
+          "source": "dummy",
+          "translation": "保留"
+        },
+        {
+          "source": "dummy",
+          "translation": "保留"
+        },
+        {
+          "source": "dummy",
+          "translation": "保留"
+        },
+        {
+          "source": "dummy",
+          "translation": "保留"
+        },
+        {
+          "source": "dummy",
+          "translation": "保留"
+        },
+        {
+          "source": "dummy",
+          "translation": "保留"
+        }
+      ]
+    }
+  },
+  "blocks": {
+    "0x10": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x070a8",
+          "alternatives": [
+            {
+              "source": "please",
+              "translation": "請"
+            },
+            {
+              "source": "go",
+              "translation": "請用"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{2a} {15}, {31}{3f} ",
+          "translation": "{31}，{15}{2a}？",
+          "rawOffset": "0x070b2"
+        },
+        {
+          "source": "{15} {16} {1e}{3f} ",
+          "translation": "{15}{1e}{16}嗎？",
+          "rawOffset": "0x070b8"
+        },
+        {
+          "source": "{16} {1e}, {32}{3f} ",
+          "translation": "{32}，還要{1e}{16}嗎？",
+          "rawOffset": "0x070be"
+        },
+        {
+          "source": "{2a} now, {13}{3f} ",
+          "translation": "{13}，這下又{2a}事？",
+          "rawOffset": "0x070c4"
+        },
+        {
+          "source": "{1f} {2b} {01}, {31}. ",
+          "translation": "{31}，{2b}的東西{1f}，{01}。",
+          "rawOffset": "0x070cc"
+        },
+        {
+          "source": "{0f} {32}, take it! ",
+          "translation": "{0f}{32}，拿去吧！",
+          "rawOffset": "0x070d4"
+        },
+        {
+          "source": "Take it, {13}! ",
+          "translation": "拿去吧，{13}！",
+          "rawOffset": "0x070e0"
+        },
+        {
+          "source": "Hey, {32}! {2b} want this {25}{29}{3f} ",
+          "translation": "喂，{32}！這{25}{2b}到底要不要{29}？",
+          "rawOffset": "0x070ea"
+        },
+        {
+          "source": "{1c} I help {2b}{29}{3f} ",
+          "translation": "我{1c}幫{2b}點忙嗎{29}？",
+          "rawOffset": "0x070fe"
+        },
+        {
+          "source": "{04} {05}. Do {2b} want to {06}{29}{3f} ",
+          "translation": "{04}{05}了。{2b}到底要不要{06}{29}？",
+          "rawOffset": "0x07108"
+        },
+        {
+          "source": "{0f} {13}, order or {1d}! ",
+          "translation": "{0f}{13}，要點就點，不然就{1d}！",
+          "rawOffset": "0x07118"
+        },
+        {
+          "source": "If {2b}'ll {18} me... ",
+          "translation": "{2b}若肯{18}，我先失陪……",
+          "rawOffset": "0x07126"
+        },
+        {
+          "source": "Why don't {2b} run along, {32}{3f} ",
+          "translation": "{32}，{2b}怎麼還不走開？",
+          "rawOffset": "0x07134"
+        },
+        {
+          "source": "{1d}, {13}, {2b}'re wasting my time! ",
+          "translation": "{1d}，{13}，{2b}在浪費我的時間！",
+          "rawOffset": "0x0714a"
+        },
+        {
+          "source": "{08} is it worth to {2b}{3f} ",
+          "translation": "這對{2b}值{08}？",
+          "rawOffset": "0x07162"
+        },
+        {
+          "source": "{07} the tip! ",
+          "translation": "{07}小費！",
+          "rawOffset": "0x07172"
+        },
+        {
+          "source": "{2a} {09} of info do {2b} {0d}{3f} ",
+          "translation": "{2b}{0d}哪{09}消息？說個{2a}。",
+          "rawOffset": "0x0717c"
+        },
+        {
+          "source": "Show me {2a} {2b} {0d} to sell. ",
+          "translation": "把{2b}{0d}賣的東西拿出來看看是{2a}。",
+          "rawOffset": "0x0718a"
+        },
+        {
+          "source": "{34} wait in a booth. I'll send someone over. ",
+          "translation": "{34}到包廂候著，我叫人過去。",
+          "rawOffset": "0x0719c"
+        },
+        {
+          "source": "{2a} do {2b} {0d} to buy{3f} ",
+          "translation": "{2b}{0d}買{2a}？",
+          "rawOffset": "0x071c0"
+        },
+        {
+          "source": "{14}, {2d}. Try somewhere else. ",
+          "translation": "{14}，{2d}。到別處問問吧。",
+          "rawOffset": "0x071cc"
+        },
+        {
+          "source": "{07} the {0b}, {32}. I'll {0c} {2b} later. ",
+          "translation": "{07}場{0b}，{32}。改天{0c}{2b}。",
+          "rawOffset": "0x071e2"
+        },
+        {
+          "source": "Hmm... ",
+          "translation": "唔……",
+          "rawOffset": "0x071f8"
+        }
+      ]
+    },
+    "0x20": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x072e0",
+          "alternatives": [
+            {
+              "source": "I~ll",
+              "translation": "我"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x072e6",
+          "alternatives": [
+            {
+              "source": "can~t",
+              "translation": "不能"
+            },
+            {
+              "source": "won~t",
+              "translation": "不肯"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x072f2",
+          "alternatives": [
+            {
+              "source": "over",
+              "translation": "超過"
+            },
+            {
+              "source": "more than",
+              "translation": "多於"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x07300",
+          "alternatives": [
+            {
+              "source": "last",
+              "translation": "最後"
+            },
+            {
+              "source": "final",
+              "translation": "最終"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x0730a",
+          "alternatives": [
+            {
+              "source": "accept",
+              "translation": "接受"
+            },
+            {
+              "source": "take",
+              "translation": "收下"
+            }
+          ]
+        },
+        "0x39": {
+          "rawOffset": "0x07316",
+          "alternatives": [
+            {
+              "source": "leave",
+              "translation": "離開"
+            },
+            {
+              "source": "run along",
+              "translation": "走人"
+            }
+          ]
+        },
+        "0x3a": {
+          "rawOffset": "0x07324",
+          "alternatives": [
+            {
+              "source": "interest",
+              "translation": "興趣"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "I {17} {2b} {0d} to {2f} a {25}. ",
+          "translation": "我{17}{2b}{0d}{2f}一件{25}。",
+          "rawOffset": "0x0732e"
+        },
+        {
+          "source": "{34} sell {2b} a {25} for {24}. ",
+          "translation": "{34}以{24}賣{2b}一件{25}。",
+          "rawOffset": "0x0733a"
+        },
+        {
+          "source": "{34} {38} {24}. ",
+          "translation": "{34}{38}{24}。",
+          "rawOffset": "0x07348"
+        },
+        {
+          "source": "{24} is my {37} offer. ",
+          "translation": "{24}是我的{37}報價。",
+          "rawOffset": "0x0734e"
+        },
+        {
+          "source": "{24} take it or leave it! ",
+          "translation": "{24}，要就要，不要拉倒！",
+          "rawOffset": "0x0735c"
+        },
+        {
+          "source": "{34} {0a} {24} for {2b}r {25}. ",
+          "translation": "{2b}的{25}，{34}{0a}{24}。",
+          "rawOffset": "0x0736e"
+        },
+        {
+          "source": "I {35} {0a} {36} {24}. ",
+          "translation": "我{35}{0a}{36}{24}。",
+          "rawOffset": "0x0737a"
+        },
+        {
+          "source": "Do {2b} {0d} to {2f} the {25}{29}. ",
+          "translation": "{2b}到底{0d}不{0d}{2f}這件{25}{29}。",
+          "rawOffset": "0x07382"
+        },
+        {
+          "source": "Discuss {2a}{3f} ",
+          "translation": "要談{2a}？",
+          "rawOffset": "0x07390"
+        },
+        {
+          "source": "Hand it over! ",
+          "translation": "交出來！",
+          "rawOffset": "0x0739a"
+        },
+        {
+          "source": "Take it! ",
+          "translation": "拿去！",
+          "rawOffset": "0x073a6"
+        },
+        {
+          "source": "Do we have a deal{29}{3f} ",
+          "translation": "這筆生意成不成{29}？",
+          "rawOffset": "0x073ae"
+        },
+        {
+          "source": "{18} me, {31}. {1c} I {1a} to {2b}{3f} ",
+          "translation": "{31}，恕我{18}。我{1c}跟{2b}{1a}兩句嗎？",
+          "rawOffset": "0x073be"
+        },
+        {
+          "source": "{1b}, fine {31}. {1c} I {3a} {2b} in a deal{3f} ",
+          "translation": "{1b}，好{31}。不知{2b}對一筆生意可有{3a}，我{1c}說說嗎？",
+          "rawOffset": "0x073cc"
+        },
+        {
+          "source": "{18} me {31} I must {39}. ",
+          "translation": "{31}請{18}，我得{39}了。",
+          "rawOffset": "0x073e2"
+        },
+        {
+          "source": "Would {2b} be {3a}ed in a {25}{3f} ",
+          "translation": "{2b}對一件{25}有{3a}嗎？",
+          "rawOffset": "0x073ee"
+        }
+      ]
+    },
+    "0x30": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x07486",
+          "alternatives": [
+            {
+              "source": "on the way",
+              "translation": "已在路上"
+            },
+            {
+              "source": "coming",
+              "translation": "就快到"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x07496",
+          "alternatives": [
+            {
+              "source": "an old",
+              "translation": "一位年老的"
+            },
+            {
+              "source": "a poor",
+              "translation": "一位可憐的"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x074a2",
+          "alternatives": [
+            {
+              "source": "man",
+              "translation": "先生"
+            },
+            {
+              "source": "woman",
+              "translation": "女士"
+            },
+            {
+              "source": "orphan",
+              "translation": "孤兒"
+            },
+            {
+              "source": "beggar",
+              "translation": "乞丐"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x074b8",
+          "alternatives": [
+            {
+              "source": "discover",
+              "translation": "發現"
+            },
+            {
+              "source": "find",
+              "translation": "找到"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x074c6",
+          "alternatives": [
+            {
+              "source": "nearby",
+              "translation": "附近"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "See {2b} later {32}. {2b} can have the table! ",
+          "translation": "{32}，回頭見。這桌讓給{2b}！",
+          "rawOffset": "0x074ce"
+        },
+        {
+          "source": "Sorry pal, I'm just leaving. ",
+          "translation": "抱歉兄弟，我正要走。",
+          "rawOffset": "0x074ec"
+        },
+        {
+          "source": "Hey {13}! I was sitting here! ",
+          "translation": "喂{13}！這位子是我的！",
+          "rawOffset": "0x07506"
+        },
+        {
+          "source": "Can {2b} spare {24} for {35} {36}{3f} ",
+          "translation": "{2b}能施捨{24}給{35}{36}嗎？",
+          "rawOffset": "0x0751c"
+        },
+        {
+          "source": "Traffic Control here. {2a}'s {2b}r problem{3f} ",
+          "translation": "這裡是塔台。{2b}出了{2a}狀況？",
+          "rawOffset": "0x0752e"
+        },
+        {
+          "source": "{0f} SunDog, it's {34}. We're docking {2b} {24}, though. ",
+          "translation": "{0f}陽犬號，救援{34}。不過要向{2b}收{24}停泊費。",
+          "rawOffset": "0x07550"
+        },
+        {
+          "source": "It'll cost {2b} {24}, SunDog, but it's {34}. ",
+          "translation": "陽犬號，這要收{2b}{24}，不過已經{34}。",
+          "rawOffset": "0x07576"
+        },
+        {
+          "source": "Total charges are {24}, SunDog. It should be there in a while. ",
+          "translation": "陽犬號，總計{24}。東西再過一會兒就到。",
+          "rawOffset": "0x07594"
+        },
+        {
+          "source": "A quick search turns up {24}. ",
+          "translation": "隨手一翻，找到{24}。",
+          "rawOffset": "0x075c6"
+        },
+        {
+          "source": "{2b} find {24}. ",
+          "translation": "{2b}找到{24}。",
+          "rawOffset": "0x075dc"
+        },
+        {
+          "source": "{24} is found in a wallet. ",
+          "translation": "在一個皮夾裡找到{24}。",
+          "rawOffset": "0x075e4"
+        },
+        {
+          "source": "{38} {2b} {37} a {25}. ",
+          "translation": "就在{38}，{2b}{37}一件{25}。",
+          "rawOffset": "0x075f8"
+        }
+      ]
+    },
+    "0x40": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x076a8",
+          "alternatives": [
+            {
+              "source": "give {28}",
+              "translation": "交給{28}"
+            },
+            {
+              "source": "hand over",
+              "translation": "交出來"
+            },
+            {
+              "source": "cough up",
+              "translation": "吐出來"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x076be",
+          "alternatives": [
+            {
+              "source": "give {28}",
+              "translation": "交給{28}"
+            },
+            {
+              "source": "jettison",
+              "translation": "拋掉"
+            },
+            {
+              "source": "{26} want",
+              "translation": "{26}要"
+            },
+            {
+              "source": "dump",
+              "translation": "丟出來"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x076d6",
+          "alternatives": [
+            {
+              "source": "blast {2b}",
+              "translation": "轟了{2b}"
+            },
+            {
+              "source": "open fire",
+              "translation": "開火"
+            },
+            {
+              "source": "vaporize {2b}",
+              "translation": "把{2b}汽化"
+            },
+            {
+              "source": "blow {2b} away",
+              "translation": "把{2b}打成碎片"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{35} {2b}r cargo, or {26}'ll {36}! ",
+          "translation": "把{2b}的貨{35}，否則{26}就{36}！",
+          "rawOffset": "0x076fa"
+        },
+        {
+          "source": "{2b} have one minute before {26} {36}! ",
+          "translation": "{2b}還有一分鐘，之後{26}就{36}！",
+          "rawOffset": "0x0770c"
+        },
+        {
+          "source": "Do it now, or {26}'ll {36}! ",
+          "translation": "馬上照做，否則{26}就{36}！",
+          "rawOffset": "0x07724"
+        },
+        {
+          "source": "{0f} {30}, {2b}'re free to go. ",
+          "translation": "{0f}{30}，{2b}可以走了。",
+          "rawOffset": "0x07736"
+        },
+        {
+          "source": "{0f} {30}, it's {2b}r funeral! ",
+          "translation": "{0f}{30}，那是{2b}自找的！",
+          "rawOffset": "0x07748"
+        },
+        {
+          "source": "Hope {2b} can breathe vacuum, {30}! ",
+          "translation": "{30}，希望{2b}能呼吸真空！",
+          "rawOffset": "0x0775a"
+        },
+        {
+          "source": "{02} {2a}{3f} ",
+          "translation": "要{02}{2a}？",
+          "rawOffset": "0x07774"
+        },
+        {
+          "source": "{2a}'s to {02}{3f} ",
+          "translation": "有{2a}好{02}的？",
+          "rawOffset": "0x07778"
+        },
+        {
+          "source": "How will {2b} stop {28}{3f} ",
+          "translation": "{2b}要怎麼攔住{28}？",
+          "rawOffset": "0x07780"
+        },
+        {
+          "source": "{34} {2b}r cash or die! ",
+          "translation": "把{2b}的錢{34}，不然就死！",
+          "rawOffset": "0x07790"
+        },
+        {
+          "source": "Why not{3f} ",
+          "translation": "為什麼不？",
+          "rawOffset": "0x0779e"
+        },
+        {
+          "source": "{26}'ll just have a look... ",
+          "translation": "{26}只是看看……",
+          "rawOffset": "0x077a6"
+        },
+        {
+          "source": "{0f} {1d}! ",
+          "translation": "{0f}{1d}！",
+          "rawOffset": "0x077bc"
+        },
+        {
+          "source": "{0f} {13}, {26}'ll get it the hard way. ",
+          "translation": "{0f}{13}，{26}就來硬的。",
+          "rawOffset": "0x077c0"
+        },
+        {
+          "source": "Last chance, {13}... ",
+          "translation": "最後機會，{13}……",
+          "rawOffset": "0x077d8"
+        },
+        {
+          "source": "{10} {11}, {32}. ",
+          "translation": "{32}，這是個{10}{11}。",
+          "rawOffset": "0x077e8"
+        },
+        {
+          "source": "{0f} {13}, {2b} asked for it... ",
+          "translation": "{0f}{13}，這是{2b}自找的……",
+          "rawOffset": "0x077ee"
+        }
+      ]
+    },
+    "0x50": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x078d0",
+          "alternatives": [
+            {
+              "source": "I don~t have any",
+              "translation": "我這兒沒有"
+            },
+            {
+              "source": "I~m fresh out",
+              "translation": "我剛好賣完"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x078ea",
+          "alternatives": [
+            {
+              "source": "take it",
+              "translation": "請收下"
+            },
+            {
+              "source": "here it is",
+              "translation": "就是這個"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x078fa",
+          "alternatives": [
+            {
+              "source": "other",
+              "translation": "別的"
+            },
+            {
+              "source": "better",
+              "translation": "更要緊的"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x07906",
+          "alternatives": [
+            {
+              "source": "wasting my time",
+              "translation": "浪費我的時間"
+            },
+            {
+              "source": "boring me",
+              "translation": "讓我發悶"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x0791c",
+          "alternatives": [
+            {
+              "source": "something else",
+              "translation": "別的東西"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{2a} {15}, {2d}{3f} ",
+          "translation": "{2d}，{15}{2a}？",
+          "rawOffset": "0x0792a"
+        },
+        {
+          "source": "{2a} else can I show {2b}. ",
+          "translation": "還能給{2b}看{2a}別的。",
+          "rawOffset": "0x07930"
+        },
+        {
+          "source": "{16} {1e}, {32}{3f} ",
+          "translation": "{32}，還要{1e}{16}嗎？",
+          "rawOffset": "0x07940"
+        },
+        {
+          "source": "{2a} else, {13}{3f} ",
+          "translation": "還要{2a}，{13}？",
+          "rawOffset": "0x07946"
+        },
+        {
+          "source": "{1f} {2b} {01}, {31}. ",
+          "translation": "{31}，{2b}的東西{1f}，{01}。",
+          "rawOffset": "0x07950"
+        },
+        {
+          "source": "{0f} {32}, {35}! ",
+          "translation": "{0f}{32}，{35}！",
+          "rawOffset": "0x07958"
+        },
+        {
+          "source": "{35}, {13}! ",
+          "translation": "{35}，{13}！",
+          "rawOffset": "0x0795e"
+        },
+        {
+          "source": "Hey, {32}! {2b} want this {25}{29}{3f} ",
+          "translation": "喂，{32}！這{25}{2b}到底要不要{29}？",
+          "rawOffset": "0x07964"
+        },
+        {
+          "source": "{1c} I help {2b}{29}{3f} ",
+          "translation": "我{1c}幫{2b}點忙嗎{29}？",
+          "rawOffset": "0x07978"
+        },
+        {
+          "source": "{04} {05}. Do {2b} want to {06}{29}{3f} ",
+          "translation": "{04}{05}了。{2b}到底要不要{06}{29}？",
+          "rawOffset": "0x07982"
+        },
+        {
+          "source": "{0f} {13}, order or {1d}! ",
+          "translation": "{0f}{13}，要點就點，不然就{1d}！",
+          "rawOffset": "0x07992"
+        },
+        {
+          "source": "If {2b}'ll {18} me... ",
+          "translation": "{2b}若肯{18}，我先失陪……",
+          "rawOffset": "0x079a0"
+        },
+        {
+          "source": "run along, {32}, I've got {36} things to do! ",
+          "translation": "{32}，走吧，我還有{36}事要辦！",
+          "rawOffset": "0x079ae"
+        },
+        {
+          "source": "{1d}, {13}, {2b}'re {37}! ",
+          "translation": "{1d}，{13}，{2b}在{37}！",
+          "rawOffset": "0x079ce"
+        },
+        {
+          "source": "Sorry, {34}! ",
+          "translation": "抱歉，{34}！",
+          "rawOffset": "0x079da"
+        },
+        {
+          "source": "a {25} costs {24}. ",
+          "translation": "一件{25}要{24}。",
+          "rawOffset": "0x079e4"
+        },
+        {
+          "source": "that will be {24} for a {25}. ",
+          "translation": "一件{25}，收{24}。",
+          "rawOffset": "0x079ee"
+        }
+      ]
+    },
+    "0x60": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x07aae",
+          "alternatives": [
+            {
+              "source": "looking for",
+              "translation": "要找"
+            },
+            {
+              "source": "need",
+              "translation": "需要"
+            },
+            {
+              "source": "can I get {2b}",
+              "translation": "能為{2b}安排"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x07ac6",
+          "alternatives": [
+            {
+              "source": "{2b}r room awaits",
+              "translation": "{2b}的房間已備好"
+            },
+            {
+              "source": "please check out by noon",
+              "translation": "請於正午前退房"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x07ae8",
+          "alternatives": [
+            {
+              "source": "now",
+              "translation": "現在"
+            },
+            {
+              "source": "at the moment",
+              "translation": "目前"
+            },
+            {
+              "source": "currently",
+              "translation": "眼下"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x07b00",
+          "alternatives": [
+            {
+              "source": "another time",
+              "translation": "改天"
+            },
+            {
+              "source": "tomorrow",
+              "translation": "明天"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x07b14",
+          "alternatives": [
+            {
+              "source": "fine",
+              "translation": "好的"
+            },
+            {
+              "source": "thank {2b}",
+              "translation": "謝謝{2b}"
+            }
+          ]
+        },
+        "0x39": {
+          "rawOffset": "0x07b20",
+          "alternatives": [
+            {
+              "source": "quite",
+              "translation": "全都"
+            },
+            {
+              "source": " ",
+              "translation": "都"
+            }
+          ]
+        },
+        "0x3a": {
+          "rawOffset": "0x07b26",
+          "alternatives": [
+            {
+              "source": "business",
+              "translation": "生意"
+            },
+            {
+              "source": "customers",
+              "translation": "客人"
+            },
+            {
+              "source": "things to do",
+              "translation": "事情要辦"
+            }
+          ]
+        },
+        "0x3b": {
+          "rawOffset": "0x07b42",
+          "alternatives": [
+            {
+              "source": "shows insufficient funds",
+              "translation": "顯示餘額不足"
+            },
+            {
+              "source": "can~t cover the charge",
+              "translation": "付不了這筆帳"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "Welcome {31}. {34} a room{3f} ",
+          "translation": "歡迎{31}。{34}房間嗎？",
+          "rawOffset": "0x07b6c"
+        },
+        {
+          "source": "Room, {31}{3f} ",
+          "translation": "要房間嗎，{31}？",
+          "rawOffset": "0x07b7e"
+        },
+        {
+          "source": "well, then, if {2b}'ll {18} me I have other {3a}. ",
+          "translation": "那麼，請{2b}{18}，我還有別的{3a}。",
+          "rawOffset": "0x07b86"
+        },
+        {
+          "source": "I'm sorry, but we're {39}full {36}. perhaps {37}. ",
+          "translation": "抱歉，{36}房間{39}滿了。{37}或許還有。",
+          "rawOffset": "0x07ba6"
+        },
+        {
+          "source": "{38}, that will be {24}, in advance. ",
+          "translation": "{38}，收{24}，請先付。",
+          "rawOffset": "0x07bc8"
+        },
+        {
+          "source": "Thank {2b}, {31}. {35}. ",
+          "translation": "謝謝{2b}，{31}。{35}。",
+          "rawOffset": "0x07be2"
+        },
+        {
+          "source": "Sorry, {2b}r account {3b}! ",
+          "translation": "抱歉，{2b}的帳戶{3b}！",
+          "rawOffset": "0x07bee"
+        }
+      ]
+    },
+    "0x70": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x07c48",
+          "alternatives": [
+            {
+              "source": "cheap jerk",
+              "translation": "小氣鬼"
+            },
+            {
+              "source": "tightwad",
+              "translation": "鐵公雞"
+            },
+            {
+              "source": "greedy goon",
+              "translation": "貪心蠢貨"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x07c64",
+          "alternatives": [
+            {
+              "source": "mother",
+              "translation": "母親"
+            },
+            {
+              "source": "father",
+              "translation": "父親"
+            },
+            {
+              "source": "brother",
+              "translation": "弟弟"
+            },
+            {
+              "source": "sister",
+              "translation": "妹妹"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x07c7e",
+          "alternatives": [
+            {
+              "source": "glasses",
+              "translation": "眼鏡"
+            },
+            {
+              "source": "new shoes",
+              "translation": "新鞋"
+            },
+            {
+              "source": "an operation",
+              "translation": "一場手術"
+            },
+            {
+              "source": "into dental school",
+              "translation": "上牙醫學校"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "well remember, charity begins at home! ",
+          "translation": "記著，行善先從自家做起！",
+          "rawOffset": "0x07caa"
+        },
+        {
+          "source": "just remember, {2b} reap {2a} {2b} sow!! ",
+          "translation": "記著，{2b}種{2a}就收{2a}！！",
+          "rawOffset": "0x07ccc"
+        },
+        {
+          "source": "{2b}'ll regret it someday! ",
+          "translation": "{2b}總有一天會後悔！",
+          "rawOffset": "0x07ce6"
+        },
+        {
+          "source": "well, next time I'll be watching for {2b}! ",
+          "translation": "下次我會盯著{2b}！",
+          "rawOffset": "0x07cfc"
+        },
+        {
+          "source": "{22} {13}, we'll see who laughs last! ",
+          "translation": "{22}{13}，看誰笑到最後！",
+          "rawOffset": "0x07d1e"
+        },
+        {
+          "source": "next time, don't walk the streets alone! ",
+          "translation": "下次別一個人走夜路！",
+          "rawOffset": "0x07d38"
+        },
+        {
+          "source": "may all {2b}r travels end on Woremed! ",
+          "translation": "願{2b}的旅程都終結在沃瑞米德(Woremed)！",
+          "rawOffset": "0x07d5c"
+        },
+        {
+          "source": "thanks for nothing {13}! ",
+          "translation": "多謝你的一毛不拔，{13}！",
+          "rawOffset": "0x07d7a"
+        },
+        {
+          "source": "{2a} a {34}! ",
+          "translation": "{2a}話都說得出，真是個{34}！",
+          "rawOffset": "0x07d8e"
+        },
+        {
+          "source": "I hope {2b} catch a laser burst! ",
+          "translation": "但願{2b}挨上一發雷射！",
+          "rawOffset": "0x07d94"
+        },
+        {
+          "source": "Oh! Bless {2b} kind {31}! ",
+          "translation": "喔！好心的{31}，願{2b}得福！",
+          "rawOffset": "0x07dac"
+        },
+        {
+          "source": "Thanks {32}, I'll never forget it! ",
+          "translation": "多謝{32}，我永遠不會忘記！",
+          "rawOffset": "0x07dbc"
+        },
+        {
+          "source": "Thank {2b}! Now my {35} can get {36}! ",
+          "translation": "謝謝{2b}！這下我{35}可以{36}了！",
+          "rawOffset": "0x07dd8"
+        },
+        {
+          "source": "boy, what a sucker! ",
+          "translation": "嘿，真是個大傻瓜！",
+          "rawOffset": "0x07dee"
+        }
+      ]
+    },
+    "0x80": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x07ecc",
+          "alternatives": [
+            {
+              "source": "busy",
+              "translation": "正忙"
+            },
+            {
+              "source": "just leaving",
+              "translation": "正要走"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x07edc",
+          "alternatives": [
+            {
+              "source": "to buy or sell",
+              "translation": "買賣"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x07ee8",
+          "alternatives": [
+            {
+              "source": "something",
+              "translation": "點什麼"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x07ef2",
+          "alternatives": [
+            {
+              "source": "do {2b} want",
+              "translation": "{2b}要"
+            },
+            {
+              "source": "would {2b} like",
+              "translation": "{2b}想"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x07f04",
+          "alternatives": [
+            {
+              "source": "to sell",
+              "translation": "出售"
+            }
+          ]
+        },
+        "0x39": {
+          "rawOffset": "0x07f0c",
+          "alternatives": [
+            {
+              "source": "sorry, I~m",
+              "translation": "抱歉，我"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "do {2b} {0d} {36}{3f} ",
+          "translation": "{2b}{0d}{36}嗎？",
+          "rawOffset": "0x07f16"
+        },
+        {
+          "source": "is there {36} I can do for {2b}{3f} ",
+          "translation": "有{36}我能替{2b}做的嗎？",
+          "rawOffset": "0x07f1e"
+        },
+        {
+          "source": "can I help {2b} with {36}{3f} ",
+          "translation": "我能幫{2b}{36}嗎？",
+          "rawOffset": "0x07f32"
+        },
+        {
+          "source": "looking {35} {36}{3f} ",
+          "translation": "在找{36}來{35}嗎？",
+          "rawOffset": "0x07f42"
+        },
+        {
+          "source": "are {2b} buying or selling{3f} ",
+          "translation": "{2b}是要買還是要賣？",
+          "rawOffset": "0x07f4e"
+        },
+        {
+          "source": "{37} {35} {36}{3f} ",
+          "translation": "{37}{35}{36}嗎？",
+          "rawOffset": "0x07f64"
+        },
+        {
+          "source": "{2a} {37} {38}{3f} ",
+          "translation": "{37}{38}{2a}？",
+          "rawOffset": "0x07f6a"
+        },
+        {
+          "source": "{39} not interested. Anything {1e} {38}{3f} ",
+          "translation": "{39}沒興趣。還有{1e}的可{38}嗎？",
+          "rawOffset": "0x07f70"
+        },
+        {
+          "source": "hey!, {2b} got {36} {38}{29}{3f} ",
+          "translation": "喂！{2b}有{36}要{38}嗎{29}？",
+          "rawOffset": "0x07f8c"
+        },
+        {
+          "source": "{37} to {1a} to me{29}{3f} ",
+          "translation": "{37}跟我{1a}話嗎{29}？",
+          "rawOffset": "0x07f9a"
+        },
+        {
+          "source": "{39} {34}! ",
+          "translation": "{39}{34}！",
+          "rawOffset": "0x07fa6"
+        },
+        {
+          "source": "then I'll {0c} {2b} later ",
+          "translation": "那我改天{0c}{2b}",
+          "rawOffset": "0x07faa"
+        },
+        {
+          "source": "then please {18} me! ",
+          "translation": "那就請{18}！",
+          "rawOffset": "0x07fba"
+        },
+        {
+          "source": "{1b}. Care to sit down{3f} ",
+          "translation": "{1b}。要坐下嗎？",
+          "rawOffset": "0x07fca"
+        },
+        {
+          "source": "Hi {32}. Care to chat{3f} ",
+          "translation": "嗨{32}。聊兩句嗎？",
+          "rawOffset": "0x07fdc"
+        },
+        {
+          "source": "Have a seat {31}. {37} to talk{3f} ",
+          "translation": "請坐，{31}。{37}聊聊嗎？",
+          "rawOffset": "0x07fec"
+        }
+      ]
+    },
+    "0x90": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x0806e",
+          "alternatives": [
+            {
+              "source": "t least one",
+              "translation": "至少一面"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x08078",
+          "alternatives": [
+            {
+              "source": "hand",
+              "translation": "手持"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x0807e",
+          "alternatives": [
+            {
+              "source": "tell {2b} about",
+              "translation": "跟{2b}說說"
+            },
+            {
+              "source": "help {2b} with",
+              "translation": "幫{2b}處理"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{2a} can I {36}{3f} ",
+          "translation": "我能{36}{2a}？",
+          "rawOffset": "0x08092"
+        },
+        {
+          "source": "Another question{3f} ",
+          "translation": "還有別的問題嗎？",
+          "rawOffset": "0x0809a"
+        },
+        {
+          "source": "{16} else I can {36}{3f} ",
+          "translation": "還有{16}我能{36}嗎？",
+          "rawOffset": "0x080ac"
+        },
+        {
+          "source": "I suggest {2b} pack a{34} shield and some {09} of {35} weapon! ",
+          "translation": "我建議{2b}帶上{34}護盾，再配某{09}{35}武器！",
+          "rawOffset": "0x080b8"
+        },
+        {
+          "source": "Our {25}s are guaranteed to restore health, but {2b} may need several if {2b}'re badly hurt! ",
+          "translation": "我們的{25}保證能回復健康，不過{2b}要是傷得重，可能得用上好幾份！",
+          "rawOffset": "0x080e0"
+        },
+        {
+          "source": "The Mark IV body {25} is a real lifesaver! absorbs up to seven direct weapon hits! ",
+          "translation": "第四型的{25}真能救命！最多能擋下七次直接命中！",
+          "rawOffset": "0x08126"
+        },
+        {
+          "source": "Fine piece of hardware, the Nelson {25}, good for unlimited shots, but not as deadly as a scattergun! ",
+          "translation": "Nelson 的{25}是好貨，發數無限，只是不如散射槍致命！",
+          "rawOffset": "0x08168"
+        },
+        {
+          "source": "Ah! Yes, a {25} is a great way to even up the odds, but beware . . . it's shots are limited!",
+          "translation": "啊！沒錯，{25}是拉平勝算的好東西，不過小心……它的發數有限！",
+          "rawOffset": "0x081ba"
+        }
+      ]
+    },
+    "0xa0": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x08254",
+          "alternatives": [
+            {
+              "source": "extended",
+              "translation": "加長"
+            },
+            {
+              "source": "self lub",
+              "translation": "自潤"
+            },
+            {
+              "source": "oversize",
+              "translation": "加大"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x0826c",
+          "alternatives": [
+            {
+              "source": "ports",
+              "translation": "接口"
+            },
+            {
+              "source": "jacks",
+              "translation": "插孔"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x08278",
+          "alternatives": [
+            {
+              "source": "reliable",
+              "translation": "可靠"
+            },
+            {
+              "source": "popular",
+              "translation": "受歡迎"
+            },
+            {
+              "source": "rugged",
+              "translation": "耐操"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x0828e",
+          "alternatives": [
+            {
+              "source": "that~s a",
+              "translation": "這是一具"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x08296",
+          "alternatives": [
+            {
+              "source": "warp drive or sub c engines",
+              "translation": "曲速引擎或次光速引擎"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{2a} can I tell {2b} about{3f} ",
+          "translation": "{2b}想聽{2a}？",
+          "rawOffset": "0x082ae"
+        },
+        {
+          "source": "{2a} else{3f} ",
+          "translation": "還要{2a}？",
+          "rawOffset": "0x082c0"
+        },
+        {
+          "source": "{37} General Industron {25}. ",
+          "translation": "{37} General Industron 的{25}。",
+          "rawOffset": "0x082c8"
+        },
+        {
+          "source": "{37}n MBI {25} switching circuit. It fits tac and pilot bays. ",
+          "translation": "{37} MBI 的{25}切換電路，戰術艙與駕駛艙都裝得上。",
+          "rawOffset": "0x082dc"
+        },
+        {
+          "source": "{37} {25} for {38}. ",
+          "translation": "{37}給{38}用的{25}。",
+          "rawOffset": "0x0830a"
+        },
+        {
+          "source": "{37} {25}. Not as accurate as a G {25}, but it'll get ya into Starports. ",
+          "translation": "{37}{25}。準度比不上 G 型{25}，不過進太空港夠用了。",
+          "rawOffset": "0x08312"
+        },
+        {
+          "source": "{37} {25} for shields, {38}. ",
+          "translation": "{37}給護盾用的{25}，也能用在{38}。",
+          "rawOffset": "0x08344"
+        },
+        {
+          "source": "That's our custom made {25} with {34} {35}! ",
+          "translation": "這是我們訂製的{25}，配{34}{35}！",
+          "rawOffset": "0x08354"
+        },
+        {
+          "source": "{37} TecCo Space Time distorter. Very {36}! ",
+          "translation": "{37} TecCo 的時空扭曲器，非常{36}！",
+          "rawOffset": "0x08370"
+        },
+        {
+          "source": "{37} standard MicroP {25}. Ya can't shunt it so pack a few spares! ",
+          "translation": "{37}標準的 MicroP {25}。它不能用分流器頂替，多帶幾個備品！",
+          "rawOffset": "0x08390"
+        },
+        {
+          "source": "{37} general purpose {25}. It'll replace most parts, but it's not as reliable! ",
+          "translation": "{37}通用型{25}。多數零件都能頂替，只是沒那麼可靠！",
+          "rawOffset": "0x083c2"
+        }
+      ]
+    },
+    "0xb0": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x08482",
+          "alternatives": [
+            {
+              "source": "weather",
+              "translation": "天氣"
+            },
+            {
+              "source": "day",
+              "translation": "日子"
+            },
+            {
+              "source": "place",
+              "translation": "地方"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x08492",
+          "alternatives": [
+            {
+              "source": "nice",
+              "translation": "不錯的"
+            },
+            {
+              "source": "great",
+              "translation": "很棒的"
+            },
+            {
+              "source": "terrific",
+              "translation": "了不起的"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x084a4",
+          "alternatives": [
+            {
+              "source": "game",
+              "translation": "比賽"
+            },
+            {
+              "source": "show",
+              "translation": "表演"
+            },
+            {
+              "source": "festival",
+              "translation": "慶典"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x084b6",
+          "alternatives": [
+            {
+              "source": "furs",
+              "translation": "毛皮"
+            },
+            {
+              "source": "droids",
+              "translation": "機器人"
+            },
+            {
+              "source": "organics",
+              "translation": "有機物"
+            },
+            {
+              "source": "meats",
+              "translation": "肉品"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x084ce",
+          "alternatives": [
+            {
+              "source": "back",
+              "translation": "回來"
+            },
+            {
+              "source": "in",
+              "translation": "進城"
+            }
+          ]
+        },
+        "0x39": {
+          "rawOffset": "0x084d6",
+          "alternatives": [
+            {
+              "source": "here",
+              "translation": "這兒"
+            },
+            {
+              "source": "in town",
+              "translation": "來城裡"
+            },
+            {
+              "source": "around here",
+              "translation": "來這一帶"
+            }
+          ]
+        },
+        "0x3a": {
+          "rawOffset": "0x084ec",
+          "alternatives": [
+            {
+              "source": "last week",
+              "translation": "上週"
+            },
+            {
+              "source": "yesterday",
+              "translation": "昨天"
+            },
+            {
+              "source": "last night",
+              "translation": "昨晚"
+            },
+            {
+              "source": "today",
+              "translation": "今天"
+            }
+          ]
+        },
+        "0x3b": {
+          "rawOffset": "0x0850c",
+          "alternatives": [
+            {
+              "source": "pirate activity",
+              "translation": "海盜活動"
+            },
+            {
+              "source": "action",
+              "translation": "熱鬧"
+            }
+          ]
+        },
+        "0x3c": {
+          "rawOffset": "0x08522",
+          "alternatives": [
+            {
+              "source": "going",
+              "translation": "要走"
+            },
+            {
+              "source": "heading",
+              "translation": "要出發"
+            },
+            {
+              "source": "boosting",
+              "translation": "要起飛"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{35} {34} eh{3f} ",
+          "translation": "{35}{34}，是吧？",
+          "rawOffset": "0x08538"
+        },
+        {
+          "source": "I just got {38} from {23} {3a}! ",
+          "translation": "我{3a}才從{23}{38}！",
+          "rawOffset": "0x0853e"
+        },
+        {
+          "source": "{2b} new {39}{3f} ",
+          "translation": "{2b}是第一次{39}嗎？",
+          "rawOffset": "0x08550"
+        },
+        {
+          "source": "{2b} come here often{3f} ",
+          "translation": "{2b}常來這兒嗎？",
+          "rawOffset": "0x08558"
+        },
+        {
+          "source": "I just delivered some {37} to {23}. ",
+          "translation": "我剛送了一批{37}到{23}。",
+          "rawOffset": "0x08568"
+        },
+        {
+          "source": "{2b}r ship is the SunDog isn't it{3f} ",
+          "translation": "{2b}的船是陽犬號，對吧？",
+          "rawOffset": "0x08580"
+        },
+        {
+          "source": "Boy! That was sure a {35} {36} {3a}, eh{3f} ",
+          "translation": "唉唷！{3a}那場{36}真是{35}，是吧？",
+          "rawOffset": "0x0859a"
+        },
+        {
+          "source": "Are {2b} {3c} out soon{3f} ",
+          "translation": "{2b}快{3c}了嗎？",
+          "rawOffset": "0x085b2"
+        },
+        {
+          "source": "Lot of {3b} on Woremed, isn't there{3f} ",
+          "translation": "沃瑞米德(Woremed)那邊{3b}不少，是吧？",
+          "rawOffset": "0x085c0"
+        },
+        {
+          "source": "do {2b} want to talk to me{29}{3f} ",
+          "translation": "{2b}到底要不要跟我說話{29}？",
+          "rawOffset": "0x085dc"
+        },
+        {
+          "source": "Hey! Are {2b} awake{3f} ",
+          "translation": "喂！{2b}醒著嗎？",
+          "rawOffset": "0x085f0"
+        }
+      ]
+    },
+    "0xc0": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x0863a",
+          "alternatives": [
+            {
+              "source": "how many",
+              "translation": "幾個"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x08642",
+          "alternatives": [
+            {
+              "source": "does it take to",
+              "translation": "才能"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x08650",
+          "alternatives": [
+            {
+              "source": "hah, hah, hah . . .",
+              "translation": "哈、哈、哈……"
+            },
+            {
+              "source": "har, har . . .",
+              "translation": "呵、呵……"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x0866a",
+          "alternatives": [
+            {
+              "source": "one to",
+              "translation": "一個負責"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x08670",
+          "alternatives": [
+            {
+              "source": "change a glow globe",
+              "translation": "換一顆光球"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "Hey! Why didn't the sand shark eat the Rithan{3f} ",
+          "translation": "喂！沙鯊為什麼不吃里森人？",
+          "rawOffset": "0x08682"
+        },
+        {
+          "source": "Professional courtesy! {36} ",
+          "translation": "同行相護嘛！{36}",
+          "rawOffset": "0x086aa"
+        },
+        {
+          "source": "{34} repair techs {35} plug in a shunt{3f} ",
+          "translation": "{34}維修技師{35}插上一個分流器？",
+          "rawOffset": "0x086c2"
+        },
+        {
+          "source": "five! {37} force it with a hammer and four to go for spares! {36} ",
+          "translation": "五個！{37}拿鐵鎚硬敲，另外四個去拿備品！{36}",
+          "rawOffset": "0x086de"
+        },
+        {
+          "source": "{34} Rithans {35} open a Uniteller account! ",
+          "translation": "{34}里森人{35}開一個 Uniteller 帳戶？",
+          "rawOffset": "0x0870e"
+        },
+        {
+          "source": "Ten! {37} open the account and nine to steal the money! {36} ",
+          "translation": "十個！{37}開戶，另外九個負責偷錢！{36}",
+          "rawOffset": "0x0872e"
+        },
+        {
+          "source": "{34} street traders {35} make a deal{3f} ",
+          "translation": "{34}街頭商人{35}談成一筆生意？",
+          "rawOffset": "0x0875a"
+        },
+        {
+          "source": "four! {37} deal and three to protect him from muggers! {36} ",
+          "translation": "四個！{37}談生意，另外三個保護他不被搶！{36}",
+          "rawOffset": "0x08774"
+        },
+        {
+          "source": "{34} New Faith Society Members {35} {38}{3f} ",
+          "translation": "{34}新信仰會成員{35}{38}？",
+          "rawOffset": "0x087a0"
+        },
+        {
+          "source": "None. They're all frozen! {36} ",
+          "translation": "一個也不用。他們全都凍著呢！{36}",
+          "rawOffset": "0x087bc"
+        },
+        {
+          "source": "{34} bureaucrats {35} {38}{3f} ",
+          "translation": "{34}官僚{35}{38}？",
+          "rawOffset": "0x087d4"
+        },
+        {
+          "source": "two! {37} screw it in, {37} screw it up! {36} ",
+          "translation": "兩個！{37}把它裝上去，{37}把它搞砸！{36}",
+          "rawOffset": "0x087e4"
+        }
+      ]
+    },
+    "0xd0": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x089a2",
+          "alternatives": [
+            {
+              "source": "{2b}~re not serious",
+              "translation": "{2b}並不是認真的"
+            },
+            {
+              "source": "I am wasting my time",
+              "translation": "我在浪費時間"
+            },
+            {
+              "source": "{2b}~re not interested",
+              "translation": "{2b}沒有興趣"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x089d2",
+          "alternatives": [
+            {
+              "source": "obviously,",
+              "translation": "顯然，"
+            },
+            {
+              "source": "I can see",
+              "translation": "我看得出來"
+            },
+            {
+              "source": "it~s clear",
+              "translation": "很清楚"
+            },
+            {
+              "source": "evidently",
+              "translation": "看來"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{35} {34}. {19}, {32}. ",
+          "translation": "{35}{34}。{19}，{32}。",
+          "rawOffset": "0x089f8"
+        }
+      ]
+    },
+    "0xe0": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x08a7c",
+          "alternatives": [
+            {
+              "source": "pretty neat, huh",
+              "translation": "挺不賴的吧"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x08a8c",
+          "alternatives": [
+            {
+              "source": "hi! my name is",
+              "translation": "嗨！我叫"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x08a98",
+          "alternatives": [
+            {
+              "source": "I wrote the",
+              "translation": "我寫了"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x08aa2",
+          "alternatives": [
+            {
+              "source": "for this game",
+              "translation": "這遊戲的"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{35} Wayne Holder. {36} dialog {2b}'re reading here. Pretty great game, huh{3f} ",
+          "translation": "{35} Wayne Holder。{36}{2b}現在讀的這些對話。這遊戲很棒吧？",
+          "rawOffset": "0x08aae"
+        },
+        {
+          "source": "{35} Bruce Webster. {36} original SunDog. {34}{3f} ",
+          "translation": "{35} Bruce Webster。{36}最初的陽犬號。{34}？",
+          "rawOffset": "0x08ae8"
+        },
+        {
+          "source": "{35} Donald Geddis. {36} dialog compiler {37}. {34}{3f} ",
+          "translation": "{35} Donald Geddis。{36}{37}對話編譯器。{34}？",
+          "rawOffset": "0x08b0a"
+        },
+        {
+          "source": "{35} Mike Newton. {36} ship modules {37}. {34}{3f} ",
+          "translation": "{35} Mike Newton。{36}{37}船艦模組。{34}？",
+          "rawOffset": "0x08b2c"
+        },
+        {
+          "source": "{35} Doug Bell. {36} library {37} and integrated the rest. {34}{3f} ",
+          "translation": "{35} Doug Bell。{36}{37}函式庫，其餘部分也由我整合。{34}？",
+          "rawOffset": "0x08b4a"
+        },
+        {
+          "source": "{35} Andy Jaros. I designed the graphics {37}. {34}{3f} ",
+          "translation": "{35} Andy Jaros。{37}美術是我設計的。{34}？",
+          "rawOffset": "0x08b76"
+        },
+        {
+          "source": "Glad {2b} like it! Oh, by the way here's {24}. Enjoy it! ",
+          "translation": "很高興{2b}喜歡！喔對了，這{24}給{2b}。好好享受！",
+          "rawOffset": "0x08b9a"
+        },
+        {
+          "source": "Well, {2b}'ve got no class. Just for that {2b} won't get the {24} I was going to give {2b}! ",
+          "translation": "唉，{2b}真沒品味。就為了這個，本來要給{2b}的{24}沒了！",
+          "rawOffset": "0x08bc2"
+        }
+      ]
+    }
+  }
+}

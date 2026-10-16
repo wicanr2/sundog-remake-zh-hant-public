@@ -1,0 +1,837 @@
+package m68k
+
+import (
+	"crypto/sha256"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"reflect"
+	"testing"
+)
+
+// 入口：ship-rules.md完整燃料契約；原始定位保留，不進runtime。
+func TestSunDogFuelEntry(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不同")
+	}
+	word := func(at int) int { return int(disk[at])<<8 | int(disk[at+1]) }
+	for _, p := range [][4]int{{0x39c00, 7, 0x36e, 0x3cd}, {0x39c00, 48, 0x1b6e, 0x1cb9},
+		{0x37e00, 4, 0x14c, 0x172}, {0x37e00, 5, 0x176, 0x1c4}, {0x37e00, 9, 0x3a4, 0x4d3},
+		{0x40000, 23, 0xc50, 0xcdb}, {0x40000, 25, 0xe28, 0x1124}, {0x40000, 35, 0x1a52, 0x1ae0}} {
+		dict := p[0] + 2*word(p[0])
+		if 2*word(dict-2*p[1]) != p[2] || word(p[0]+p[2]-2) != p[3] {
+			t.Fatal("原始字典邊界不同", p)
+		}
+	}
+	if !reflect.DeepEqual(disk[0x39c00+0x2e0d:0x39c00+0x2e0f], []byte{0x90, 7}) {
+		t.Fatal("啟動主程序的原始CLP7不同")
+	}
+	if !reflect.DeepEqual(disk[0x37e00+0x44e:0x37e00+0x450], []byte{0xef, 8}) {
+		t.Fatal("回船程序的原始SCIP1:8不同")
+	}
+	type input struct {
+		Kind           string
+		Phase, City    int
+		Mode           uint16
+		Dead, Attached bool
+	}
+	type result struct {
+		Input                        input
+		Phase, Mode, Variant, Outer1 int
+		VehicleKind                  int
+		Flags                        []uint16
+		Position                     [6]uint16
+		Pattern                      int
+		Sprite                       [16]byte
+	}
+	report := struct {
+		Scope, Randomness          string
+		Cases, Differences         int
+		Groups                     map[string]int
+		Native                     []result
+		GateCases, GateDifferences int
+		GateNative                 []struct {
+			Pod                bool
+			Mode, Stop, Outer4 int
+		}
+	}{Scope: "原始初始化寫入、氣閘／貨艙出口、回船成功後寫回、步行／載具碰撞圖樣及同一研究狀態的寫入鏈。窗口、位置門檻、裝置輸入、sprite移動與完整程序前後段略過；非正常GUI或全機玩家鏈。", Randomness: "切片無亂數，所有輸入執行前固定。", Groups: map[string]int{}}
+	newHarnessFor := func(in input) *harness {
+		h := cadenceHarness(t, disk)
+		h.poke(interpBase+0x1b70, 4)
+		h.poke(interpBase+0x1b72, 0x5000)
+		// GEMBIND是獨立segment的全域記錄；不與MAINLIB混用。
+		h.poke(0x41006, 0x2100)
+		h.poke(0x42100, 0x4000)
+		h.poke(cadenceGlobal(0x19), uint16(in.Phase))
+		h.poke(cadenceGlobal(0x32), in.Mode)
+		h.poke(cadenceGlobal(0x38f), 123)
+		h.poke(cadenceOuter(1), 17)
+		if in.Dead {
+			h.poke(cadenceGlobal(3), 1)
+		}
+		for n := 0; n < 5; n++ {
+			h.poke(cadenceGlobal(0x53)+uint32(n*2), in.Mode)
+		}
+		cadenceFlag(h, 7, in.Attached)
+		for n := 0; n < 6; n++ {
+			h.poke(cadenceGlobal(0x29)+uint32(n*2), uint16(100+n))
+			h.poke(cadenceGlobal(0xe6)+uint32(n*2), uint16(200+n))
+		}
+		// G2a是六字位置記錄的第二字；先種位置，再設定目前城市。
+		h.poke(cadenceGlobal(0x2a), uint16(1|in.City<<9))
+		for n := 0; n < 16; n++ {
+			h.mem[0x44008+0x230*2+uint32(n)] = byte(0x30 + n)
+		}
+		// 被略過的c52..c5c建立GEMBIND_Gec第0筆的local5指標。
+		h.poke(0x44008+0xec*2, 2)
+		return h
+	}
+	capture := func(h *harness, in input) result {
+		r := result{Input: in, Phase: int(h.peek(cadenceGlobal(0x19))), Mode: int(h.peek(cadenceGlobal(0x32))),
+			Variant: int(h.peek(cadenceGlobal(0x38f))), Outer1: int(h.peek(cadenceOuter(1))),
+			Flags: displayFlags(h), Pattern: int(h.peek(cadenceOuter(12))),
+			VehicleKind: int(h.peek(cadenceGlobal(0x100)))}
+		for n := range r.Position {
+			r.Position[n] = h.peek(cadenceGlobal(0x29) + uint32(n*2))
+		}
+		for n := range r.Sprite {
+			r.Sprite[n] = h.mem[0x44008+0x230*2+uint32(n)]
+		}
+		return r
+	}
+	setFlag := func(r *result, n int, v bool) {
+		r.Flags[n/16] &^= 1 << uint(n%16)
+		if v {
+			r.Flags[n/16] |= 1 << uint(n%16)
+		}
+	}
+	check := func(h *harness, in input, expected result) {
+		actual := capture(h, in)
+		report.Cases++
+		report.Groups[in.Kind]++
+		report.Native = append(report.Native, actual)
+		if !reflect.DeepEqual(actual, expected) {
+			report.Differences++
+			if report.Differences < 5 {
+				t.Logf("狀態寫入差異 %+v 預期 %+v", actual, expected)
+			}
+		}
+	}
+	boot := func(h *harness) {
+		displayRun(h, disk, 0x39c00, 0x39e, 0x3b3, 0x3b3)
+		displayRun(h, disk, 0x39c00, 0x1bf1, 0x1c14, 0x1c14)
+		displayRun(h, disk, 0x39c00, 0x1c56, 0x1c5f, 0x1c5f)
+	}
+	boardContract := func(r *result) {
+		foot := r.Mode&0x2000 != 0
+		mode := (r.Mode &^ 0x1ff0) | ((r.Mode>>8)&15)<<4 | 0x0200
+		if foot {
+			mode |= 0x1000
+		} else {
+			setFlag(r, 7, true)
+			r.Variant = 9
+			r.VehicleKind = 2
+		}
+		r.Mode = mode
+	}
+	boardRun := func(h *harness) {
+		h.poke(0x46008+5*2, 0x4008+0xec*2)
+		displayRun(h, disk, 0x40000, 0xc9c, 0xcdb, 0xcdb)
+		// 下一程序的local5是是否建立sprite的參數；使用不同研究frame內容。
+		h.poke(0x46008+5*2, 0)
+	}
+	for _, mode := range []uint16{0, 0x1357, 0xefff, 0xffff} {
+		for _, phase := range []int{0, 1, 2, 65535} {
+			in := input{Kind: "boot-and-new-game", Phase: phase, City: 1, Mode: mode}
+			h := newHarnessFor(in)
+			expected := capture(h, in)
+			expected.Phase, expected.Mode = 0, int(mode&0xc000)|0x32bb
+			setFlag(&expected, 7, true)
+			boot(h)
+			check(h, in, expected)
+			for _, pod := range []bool{false, true} {
+				in.Kind = "same-state-return-chain"
+				in.Attached = pod // 此欄在鏈組表示選擇貨艙出口，非新遊戲附件初值。
+				h = newHarnessFor(in)
+				expected = capture(h, in)
+				expected.Phase, expected.Mode = 0, int(mode&0xc000)|0x32bb
+				setFlag(&expected, 7, true)
+				boot(h)
+				if pod {
+					displayRun(h, disk, 0x37e00, 0x178, 0x1c4, 0x1c4)
+					expected.Mode = (expected.Mode &^ 0x2ff0) | 0x1320
+					setFlag(&expected, 7, false)
+					setFlag(&expected, 68, false)
+					expected.Outer1, expected.Variant = 0, 10
+					expected.Position = [6]uint16{200, 201, 202, 203, 204, 205}
+				} else {
+					displayRun(h, disk, 0x37e00, 0x14e, 0x172, 0x172)
+					expected.Mode = (expected.Mode &^ 0x0f00) | 0x300
+					expected.Outer1 = 0
+					setFlag(&expected, 57, false)
+				}
+				boardRun(h)
+				boardContract(&expected)
+				// 真正caller前綴在bit13改回步行之前選擇補油分支。
+				gateMode := int(h.peek(cadenceGlobal(0x32)))
+				gateStop := displayRun(h, disk, 0x37e00, 0x43c, 0x466, 0x448, 0x45c)
+				gateOuter := int(h.peek(cadenceOuter(4)))
+				wantStop := 0x45c
+				if pod {
+					wantStop = 0x448
+				}
+				report.GateCases++
+				if gateStop != wantStop || (pod && gateOuter != 2) {
+					report.GateDifferences++
+				}
+				report.GateNative = append(report.GateNative, struct {
+					Pod                bool
+					Mode, Stop, Outer4 int
+				}{pod, gateMode, gateStop, gateOuter})
+				displayRun(h, disk, 0x37e00, 0x493, 0x4d3, 0x4d3)
+				expected.Mode |= 0x2000
+				setFlag(&expected, 57, true)
+				expected.Variant = 9
+				check(h, in, expected)
+			}
+		}
+		for _, city := range []int{0, 1, 60} {
+			for _, dead := range []bool{false, true} {
+				in := input{Kind: "airlock-exit", City: city, Mode: mode, Dead: dead, Attached: true}
+				h := newHarnessFor(in)
+				expected := capture(h, in)
+				if city > 0 {
+					if !dead {
+						expected.Mode = (expected.Mode &^ 0xf00) | 0x300
+					}
+					expected.Outer1 = 0
+					setFlag(&expected, 57, false)
+				}
+				displayRun(h, disk, 0x37e00, 0x14e, 0x172, 0x172)
+				check(h, in, expected)
+			}
+			for _, attached := range []bool{false, true} {
+				in := input{Kind: "pod-exit", City: city, Mode: mode, Attached: attached}
+				h := newHarnessFor(in)
+				expected := capture(h, in)
+				if city > 0 {
+					expected.Mode = (expected.Mode &^ 0x3ff0) | 0x1320
+					setFlag(&expected, 7, false)
+					setFlag(&expected, 68, false)
+					expected.Outer1, expected.Variant = 0, 10
+					expected.Position = [6]uint16{200, 201, 202, 203, 204, 205}
+				}
+				displayRun(h, disk, 0x37e00, 0x178, 0x1c4, 0x1c4)
+				check(h, in, expected)
+			}
+		}
+		for _, attached := range []bool{false, true} {
+			for _, kind := range []string{"board-success", "ship-entry", "ground-enter-vehicle", "movement-pattern"} {
+				in := input{Kind: kind, City: 1, Mode: mode, Attached: attached}
+				h := newHarnessFor(in)
+				expected := capture(h, in)
+				switch kind {
+				case "board-success":
+					boardContract(&expected)
+					boardRun(h)
+				case "ship-entry":
+					expected.Mode |= 0x2000
+					setFlag(&expected, 57, true)
+					expected.Variant = 10
+					if attached {
+						expected.Variant = 9
+					}
+					displayRun(h, disk, 0x37e00, 0x493, 0x4d3, 0x4d3)
+				case "ground-enter-vehicle":
+					expected.Mode &^= 0x3000
+					setFlag(&expected, 68, false)
+					displayRun(h, disk, 0x40000, 0x1094, 0x10b0, 0x10b0)
+				case "movement-pattern":
+					expected.Pattern = 4
+					if mode&0x2000 == 0 {
+						expected.Pattern = 1
+						expected.Sprite[7], expected.Sprite[8] = 1, 1
+					}
+					displayRun(h, disk, 0x40000, 0x1ab2, 0x1ae0, 0x1ae0)
+				}
+				check(h, in, expected)
+			}
+		}
+	}
+	raw, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-fuel-entry.json"), append(raw, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 || report.GateDifferences != 0 {
+		t.Fatal("燃料入口與初值契約不同", report.Differences, report.GateDifferences)
+	}
+}
+
+// 原始視窗資料→原始矩形helper→站位→check_enc→原始出口；略過sprite銷毀，停於畫面更新前。
+// 沒有裝置按住／放開、sprite移動或全機啟動，不能當作正常GUI收據。
+func TestSunDogFuelControls(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不同")
+	}
+	word := func(at int) int { return int(disk[at])<<8 | int(disk[at+1]) }
+	type procKey struct{ base, number int }
+	type procedure struct{ first, end, locals int }
+	procedures := map[procKey]procedure{}
+	for _, key := range []procKey{{0x2e800, 54}, {0x2e800, 60}, {0x2e800, 63},
+		{0x37e00, 4}, {0x37e00, 5}, {0x37e00, 10}, {0x37e00, 11}, {0x37e00, 12}} {
+		dict := key.base + 2*word(key.base)
+		localsAt := 2 * word(dict-2*key.number)
+		procedures[key] = procedure{localsAt + 2, word(key.base + localsAt - 2), word(key.base + localsAt)}
+	}
+	type input struct {
+		X, Y, City, Previous int
+		Mode                 uint16
+	}
+	type result struct {
+		Input                                  input
+		Station, AfterStation, Procedure, Mode int
+		Flag7                                  bool
+		Flags                                  []uint16
+	}
+	report := struct {
+		Scope, Randomness  string
+		Cases, Differences int
+		Native             []result
+	}{Scope: "原始raw0x6000視窗表、MAINLIB 54/60/63矩形與父視窗、XMOVEONS 10取站位、12分派、11離船寫回與4/5出口；輸入為明示sprite座標、城市、上一站位與模式，非裝置／sprite移動／全機正常玩家鏈。SCXG3:42 sprite銷毀為明示繪圖邊界，check_enc停於0x5c8畫面更新或0x5ca返回前，其餘未知呼叫即失敗。", Randomness: "此切片無亂數，全部初態執行前固定。"}
+	// 原始靜態window66的parent92原點為(127,49)，須加到子矩形。
+	// 不以船艙顯示後的動態矩形代替本次明示的靜態視窗初態。
+	for _, point := range [][3]int{{152, 114, 2}, {148, 107, 2}, {157, 122, 2},
+		{74, 112, 4}, {68, 108, 4}, {80, 116, 4}, {147, 114, 0}, {152, 123, 0},
+		{67, 112, 0}, {81, 112, 0}, {20, 35, 0}} {
+		for _, city := range []int{0, 1, 60} {
+			for _, previous := range []int{0, 2, 4} {
+				for _, mode := range []uint16{0, 0x32bb, 0xefff, 0xffff} {
+					in := input{point[0], point[1], city, previous, mode}
+					h := cadenceHarness(t, disk)
+					h.poke(0x46000, 0x5000) // 原始靜態鏈指向XMOVEONS外層框架。
+					// MAINLIB的122筆視窗與GEMBIND須分開；原始表會跨0x44000。
+					h.poke(0x41006, 0x2400)
+					h.poke(0x42400, 0xb000)
+					for i, b := range disk[0x6000 : 0x6000+122*10] {
+						h.mem[cadenceGlobal(0x773)+uint32(i)] = b
+					}
+					for i := uint32(0); i < 16; i++ {
+						h.mem[0x4b008+0xec*2+i] = 0
+					}
+					h.poke(0x4b008+0xec*2+2, uint16(in.X))
+					h.poke(0x4b008+0xec*2+4, uint16(in.Y))
+					h.poke(cadenceGlobal(0x2a), uint16(1|city<<9))
+					h.poke(cadenceGlobal(0x32), mode)
+					cadenceFlag(h, 7, true)
+					h.poke(cadenceOuter(4), uint16(previous))
+					h.poke(interpBase+0x1b70, 4)
+					h.poke(interpBase+0x1b72, 0x5000)
+					selected, station := 0, 0
+					var run func(procKey, int)
+					run = func(key procKey, depth int) {
+						if depth > 12 {
+							t.Fatal("原始視窗父鏈過深")
+						}
+						p, ok := procedures[key]
+						if !ok {
+							t.Fatal("未知程序", key)
+						}
+						stream := uint32(operandStream + 0x6000 + depth*0x200)
+						h.startDispatch(disk[key.base+p.first:key.base+p.end+4], stream)
+						for steps := 0; steps < 20000; steps++ {
+							if h.cpu.State.PC == interpBase+interpLoop+4 {
+								ip, sp := h.cpu.State.A[4], h.cpu.State.SSP
+								if ip == stream+uint32(p.end-p.first) {
+									return
+								}
+								if key == (procKey{0x37e00, 12}) && ip == stream+uint32(0x5c8-p.first) {
+									return // 原始MAINLIB:2畫面更新前，規則分派已完成。
+								}
+								op, n := h.mem[ip], int(h.mem[ip+1])
+								if op == 0x72 && n == 0x2a {
+									h.cpu.State.SSP += 2 // 原始參數idx；銷毀圖形，不代算規則。
+									h.cpu.State.A[4] = ip + 2
+									h.start(interpLoop)
+									continue
+								}
+								callee, args, returns := procKey{}, 0, false
+								switch {
+								case op == 0xef && (n == 4 || n == 5 || n == 10 || n == 11):
+									callee = procKey{0x37e00, n}
+									returns = n == 10
+									if n == 4 || n == 5 {
+										selected = n
+									}
+								case op == 0x73 && n == 63:
+									callee, args, returns = procKey{0x2e800, 63}, 3, true
+								case op == 0x91 && key.base == 0x2e800 && n == 60:
+									callee, args = procKey{0x2e800, 60}, 5
+								case op == 0x91 && key.base == 0x2e800 && n == 54:
+									callee, args = procKey{0x2e800, 54}, 2
+								case op == 0xef || op == 0x73 || op == 0x72 || op == 0x91 || op == 0x90:
+									t.Fatalf("未知呼叫key%v offset%x op%x proc%x", key, ip-stream+uint32(p.first), op, n)
+								}
+								if callee.base != 0 {
+									oldA0, oldA1 := h.cpu.State.A[0], h.cpu.State.A[1]
+									cache0, cache1 := h.peek(interpBase+0x1b6e), h.peek(interpBase+0x1b72)
+									frame := uint32(0x48000 + (depth+1)*0x100)
+									for i := uint32(0); i < 128; i++ {
+										h.mem[frame+i] = 0
+									}
+									cp := procedures[callee]
+									for i := 0; i < args; i++ {
+										h.poke(frame+8+uint32((cp.locals+1+i)*2), h.peek(sp+uint32(i*2)))
+									}
+									h.poke(frame, 0x5000)
+									h.cpu.State.A[0] = frame
+									h.poke(interpBase+0x1b6e, uint16(frame-0x40000))
+									if callee.base == 0x2e800 {
+										h.cpu.State.A[1] = 0x43000
+										h.poke(interpBase+0x1b72, 0x3000)
+									}
+									run(callee, depth+1)
+									if returns {
+										h.poke(sp+uint32(args*2), h.peek(frame+8+uint32((cp.locals+args+1)*2)))
+										if callee == (procKey{0x37e00, 10}) {
+											station = int(h.peek(sp)) // 出口會清除Outer1，先記原始取站位的返回值。
+										}
+									}
+									h.cpu.State.A[0], h.cpu.State.A[1] = oldA0, oldA1
+									h.poke(interpBase+0x1b6e, cache0)
+									h.poke(interpBase+0x1b72, cache1)
+									h.cpu.State.SSP = sp + uint32(args*2)
+									h.cpu.State.A[4] = ip + 2
+									h.start(interpLoop)
+									continue
+								}
+							}
+							if _, err := h.cpu.Step(); err != nil {
+								t.Fatalf("key%v PC%x IP%x: %v", key, h.cpu.State.PC, h.cpu.State.A[4], err)
+							}
+						}
+						t.Fatal("原始控制切片未終止")
+					}
+					run(procKey{0x37e00, 12}, 0)
+					x := result{in, station, int(h.peek(cadenceOuter(1))), selected, int(h.peek(cadenceGlobal(0x32))), cadenceFlagValue(h, 7), displayFlags(h)}
+					wantProc := 0
+					if point[2] != 0 && point[2] != previous {
+						if point[2] == 2 {
+							wantProc = 5
+						} else {
+							wantProc = 4
+						}
+					}
+					wantFoot := mode&(1<<13) != 0
+					wantAttached := true
+					wantAfterStation := point[2]
+					if wantProc != 0 && city > 0 {
+						wantAfterStation = 0
+					}
+					if wantProc == 5 && city > 0 {
+						wantFoot = false
+						wantAttached = false
+					}
+					report.Cases++
+					report.Native = append(report.Native, x)
+					if x.Station != point[2] || x.AfterStation != wantAfterStation || x.Procedure != wantProc || (x.Mode&(1<<13) != 0) != wantFoot || x.Flag7 != wantAttached {
+						report.Differences++
+						if report.Differences < 5 {
+							t.Logf("實際%+v 預期station%d proc%d foot%v attached%v", x, point[2], wantProc, wantFoot, wantAttached)
+						}
+					}
+				}
+			}
+		}
+	}
+	raw, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-fuel-controls.json"), append(raw, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 {
+		t.Fatal("原始站位／出口契約不同", report.Differences)
+	}
+}
+
+// 完整update_levels與原始callee；補齊速度、牽引、隱形、到期救援與拋燃料艙。
+
+type mixedFuelInput struct {
+	Levels   levelsInput
+	Scenario int
+	Attached bool
+	Kinds    [2]int
+}
+type mixedFuelRow struct {
+	Input                                                                  mixedFuelInput
+	Fuel, Weapon, Shield, Setting, Current, Target, Draws, Closing, Course int
+	Refresh                                                                bool
+	Words                                                                  [2]uint16
+	Flags                                                                  []uint16
+}
+
+// 原版觀測收據，沒有用獨立契約計算答案。正式比較由引擎匯出與Python閘門執行。
+func TestSunDogFuelMixedEnergy(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不同")
+	}
+	report := struct {
+		Scope, Randomness string
+		Cases             int
+		Native            []mixedFuelRow
+	}{
+		Scope:      "原始SHIPLIB raw0x31e00程序35 0x105c..0x1272及既有原始callee。活躍艦砲／四種護盾狀態與兩槽、附件、速度、牽引／隱形、到期救援或拋艙同次更新。每次相位已選定；HUD與提示音明示省略，非完整父排程或正常GUI。",
+		Randomness: "Scenario0..6與Draw於執行前固定；成功加速Draw0、失敗Draw15、救援Draw1；原版仍執行RND餘數／低位，抽次記錄。不宣稱自然亂數。"}
+	for phase := 0; phase < 3; phase++ {
+		for _, fuel := range []int{0, 1, 4, 5, 254, 255} {
+			for _, weapon := range []int{0, 254, 255} {
+				for _, shield := range [][3]int{{0, 255, 8}, {63, 63, 16}, {255, 63, 8}, {0, 0, 0}} {
+					for _, attached := range []bool{false, true} {
+						for _, kinds := range [][2]int{{0, 0}, {1, 0}, {2, 1}, {1, 1}} {
+							for scenario := 0; scenario < 7; scenario++ {
+								in := mixedFuelInput{levelsInput{phase, fuel, weapon, 8, shield[0], shield[1], shield[2], true, true}, scenario, attached, kinds}
+								h := cadenceHarness(t, disk)
+								for _, frame := range []uint32{0x47000, 0x4a000, 0x4b000, 0x4c000, 0x4d000, 0x4e000} {
+									for n := uint32(0); n < 128; n++ {
+										h.mem[frame+n] = 0
+									}
+								}
+								for n, b := range disk[0x31e00:0x33600] {
+									h.mem[0x50000+uint32(n)] = b
+								}
+								levelsFrame(h, 0x4a000)
+								h.poke(0x4a000, 0x5000)
+								h.poke(0x4a026, 0x7000)
+								h.poke(0x47000, uint16(fuel))
+								for n, v := range map[int]int{0x19: phase, 0xe5: fuel, 0xe4: weapon, 0xe3: shield[0], 0xe2: shield[1], 0x11: 10, 0x12: 20, 0x13: 1, 0x4f: 20<<8 | 10, 0x50: 1} {
+									h.poke(cadenceGlobal(n), uint16(v))
+								}
+								h.mem[cadenceGlobal(0x5b)+0x50] = 8
+								h.mem[cadenceGlobal(0x5b)+0x88] = byte(shield[2])
+								h.mem[cadenceGlobal(0x5b)+24] = 8
+								h.poke(cadenceGlobal(0x53), 0x2f3f)
+								cadenceFlag(h, 7, attached)
+								cadenceFlag(h, 12, scenario == 3 || scenario == 4)
+								cadenceFlag(h, 37, scenario == 3 || scenario == 4)
+								cadenceFlag(h, 25, scenario == 5)
+								cadenceFlag(h, 70, scenario == 6)
+								if scenario == 3 || scenario == 4 {
+									h.poke(cadenceGlobal(0xdb), 255)
+								}
+								if scenario == 5 {
+									h.poke(cadenceOuter(4), 1)
+								}
+								draw := 0
+								if scenario == 1 || scenario == 2 || scenario == 4 {
+									h.poke(cadenceGlobal(0xe1), 224)
+									h.poke(cadenceGlobal(0xe0), 255)
+								}
+								if scenario == 2 {
+									draw = 15
+								}
+								if scenario == 5 {
+									draw = 1
+								}
+								for n, k := range kinds {
+									h.poke(cadenceGlobal(0xec)+uint32(n*4), 0xab20|uint16(k))
+								}
+								draws := 0
+								levelsSliceWithRandom(h, disk, 0x32e5c, 0x216, 0x216, operandStream+0xd000, &draw, &draws)
+								g := func(n int) int { return int(int16(h.peek(cadenceGlobal(n)))) }
+								x := mixedFuelRow{Input: in, Fuel: int(int16(h.peek(0x47000))), Weapon: g(0xe4), Shield: g(0xe3), Setting: g(0xe2), Current: g(0xe1), Target: g(0xe0), Draws: draws, Closing: g(0xd9), Course: g(0xd1), Refresh: g(0x15) != 0, Flags: displayFlags(h)}
+								for n := range kinds {
+									x.Words[n] = h.peek(cadenceGlobal(0xec) + uint32(n*4))
+								}
+								report.Native = append(report.Native, x)
+								report.Cases++
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	if report.Cases != 12096 {
+		t.Fatal("混合矩陣缺案", report.Cases)
+	}
+	raw, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-fuel-mixed.json"), append(raw, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+}
+
+// 受控RND返回值在執行前固定，音效與HUD為明示邊界；沒有正常裝置輸入。
+func TestSunDogFuelEnergy(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不同")
+	}
+	type input struct {
+		Group                                                            string
+		Phase, Fuel, Current, Target, WarpStatus, Draw, Range, DueMinute int
+		Tractor, Cloak, Pending, Battle, Jettison, Attached              bool
+		Kinds                                                            [2]int
+	}
+	type result struct {
+		Input                                         input
+		Fuel, Current, Target, Draws, Closing, Course int
+		Refresh                                       bool
+		Words                                         [2]uint16
+		Flags                                         []uint16
+	}
+	type toggleRow struct {
+		Active, Fitted bool
+		Before, After  []uint16
+	}
+	report := struct {
+		Scope, Randomness              string
+		Cases, Differences             int
+		Groups                         map[string]int
+		Native                         []result
+		ToggleCases, ToggleDifferences int
+		ToggleNative                   []toggleRow
+	}{Scope: "SHIPLIB raw0x31e00程序35完整0x105c..0x1272，含原始cond_level、付款、check_fuel、clamp及程序21時間比較；另驗XDOFIGHT raw0x38600的0x1003..0x101d隱形切換分支。武器／護盾初態0，專測特殊耗能、速度與補油相互順序；SCXG4:11固定受控原始RND返回，SCXG4:3音效與CGP13 HUD明示省略。非正式動態或正常裝置／全機玩家收據。", Randomness: "每案Draw執行前固定；原版仍執行取餘與低位判斷，並比較呼叫次數，未實跑自然RNG。", Groups: map[string]int{}}
+	check := func(in input) {
+		h := cadenceHarness(t, disk)
+		for _, frame := range []uint32{0x47000, 0x4a000, 0x4b000, 0x4c000, 0x4d000, 0x4e000} {
+			for n := uint32(0); n < 128; n++ {
+				h.mem[frame+n] = 0
+			}
+		}
+		for n, b := range disk[0x31e00:0x33600] {
+			h.mem[0x50000+uint32(n)] = b
+		}
+		levelsFrame(h, 0x4a000)
+		h.poke(0x4a000, 0x5000)
+		h.poke(0x4a026, 0x7000)
+		h.poke(0x47000, uint16(in.Fuel))
+		// 原始G11／G12／G13為分鐘／小時／日；固定第1日20:10。
+		for n, v := range map[int]int{0x19: in.Phase, 0xe5: in.Fuel, 0xe1: in.Current, 0xe0: in.Target, 0xdb: in.Range, 0x11: 10, 0x12: 20, 0x13: 1, 0x4f: 20<<8 | in.DueMinute, 0x50: 1} {
+			h.poke(cadenceGlobal(n), uint16(v))
+		}
+		h.mem[cadenceGlobal(0x5b)+24] = byte(in.WarpStatus)
+		h.poke(cadenceGlobal(0x53), 0x2f3f) // 六套主開關與次開關，cloaker另外設定。
+		for n, v := range map[int]bool{7: in.Attached, 12: in.Cloak, 25: in.Pending, 37: in.Tractor, 70: in.Jettison} {
+			cadenceFlag(h, n, v)
+		}
+		h.poke(cadenceOuter(4), uint16(0))
+		if in.Battle {
+			h.poke(cadenceOuter(4), 1)
+		}
+		for n, k := range in.Kinds {
+			h.poke(cadenceGlobal(0xec)+uint32(n*4), 0xab20|uint16(k))
+		}
+		draws := 0
+		levelsSliceWithRandom(h, disk, 0x32e5c, 0x216, 0x216, operandStream+0xd000, &in.Draw, &draws)
+		x := result{Input: in, Fuel: int(int16(h.peek(0x47000))), Current: int(h.peek(cadenceGlobal(0xe1))), Target: int(h.peek(cadenceGlobal(0xe0))), Draws: draws, Closing: int(h.peek(cadenceGlobal(0xd9))), Course: int(h.peek(cadenceGlobal(0xd1))), Refresh: h.peek(cadenceGlobal(0x15)) != 0, Flags: displayFlags(h)}
+		for n := range in.Kinds {
+			x.Words[n] = h.peek(cadenceGlobal(0xec) + uint32(n*4))
+		}
+		want := result{Input: in, Fuel: in.Fuel, Current: in.Current, Target: in.Target, Flags: []uint16{0x2f3f, 0, 0, 0, 0}}
+		setFlag := func(n int, v bool) {
+			want.Flags[n/16] &^= 1 << uint(n%16)
+			if v {
+				want.Flags[n/16] |= 1 << uint(n%16)
+			}
+		}
+		for n, v := range map[int]bool{7: in.Attached, 12: in.Cloak, 25: in.Pending, 37: in.Tractor, 70: in.Jettison} {
+			setFlag(n, v)
+		}
+		for n, k := range in.Kinds {
+			want.Words[n] = 0xab20 | uint16(k)
+		}
+		refill := func() {
+			if want.Fuel <= 0 && in.Attached {
+				for n, w := range want.Words {
+					if w&31 == 1 {
+						want.Fuel += 255
+						want.Words[n] &^= 31
+						break
+					}
+				}
+			}
+			if want.Fuel < 0 {
+				want.Fuel = 0
+			}
+		}
+		if in.Tractor {
+			want.Fuel -= in.Range / 16
+		}
+		if in.Phase == 1 && in.Cloak {
+			want.Fuel -= 6
+		}
+		if in.Phase == 2 && in.Current != in.Target {
+			delta, cost := 0, 0
+			if in.Current < in.Target {
+				want.Draws++
+				if in.Draw%16 < in.WarpStatus {
+					delta = min(8, in.Target-in.Current)
+				}
+				cost = in.Current/64 + 1
+				if in.Current > 223 {
+					cost += 8
+				}
+			} else {
+				delta = max(-4, in.Target-in.Current)
+			}
+			want.Fuel -= cost
+			refill() // 原始付款callee先check_fuel，再寫速度。
+			want.Current = max(0, min(255, want.Current+delta))
+		}
+		if in.Pending && in.DueMinute <= 10 {
+			want.Fuel = 255
+			setFlag(25, false)
+			want.Refresh = true
+			want.Draws++
+			if in.Battle && in.Draw&1 != 0 {
+				want.Closing = 128
+				want.Course = 4
+			}
+		}
+		if in.Jettison {
+			want.Fuel = 255
+			setFlag(70, false)
+		}
+		refill()
+		if in.Fuel > 0 && want.Fuel == 0 {
+			for _, n := range []int{1, 3, 4} {
+				setFlag(n, false)
+				setFlag(n+8, false)
+			}
+			if want.Current < want.Target {
+				setFlag(0, false)
+				setFlag(8, false)
+				want.Target = 0
+			}
+		}
+		report.Cases++
+		report.Groups[in.Group]++
+		report.Native = append(report.Native, x)
+		if !reflect.DeepEqual(x, want) {
+			report.Differences++
+			if report.Differences < 5 {
+				t.Logf("實際%+v 預期%+v", x, want)
+			}
+		}
+	}
+	for phase := 0; phase < 3; phase++ {
+		for _, fuel := range []int{0, 1, 255} {
+			for _, current := range []int{0, 63, 64, 223, 224, 255} {
+				for _, target := range []int{0, 128, 255} {
+					for _, status := range []int{0, 8, 16} {
+						for _, draw := range []int{0, 7, 15} {
+							check(input{Group: "speed", Phase: phase, Fuel: fuel, Current: current, Target: target, WarpStatus: status, Draw: draw, DueMinute: 11})
+						}
+					}
+				}
+			}
+		}
+	}
+	for phase := 0; phase < 3; phase++ {
+		for _, fuel := range []int{0, 1, 6, 255} {
+			for _, distance := range []int{0, 15, 16, 31, 32, 255} {
+				for bits := 0; bits < 4; bits++ {
+					check(input{Group: "tractor-cloak", Phase: phase, Fuel: fuel, Range: distance, Tractor: bits&1 != 0, Cloak: bits&2 != 0, DueMinute: 11})
+				}
+			}
+		}
+	}
+	for _, fuel := range []int{0, 1, 6, 255} {
+		for _, pending := range []bool{false, true} {
+			for _, due := range []int{9, 10, 11} {
+				for _, battle := range []bool{false, true} {
+					for _, draw := range []int{0, 1, 2, 3} {
+						check(input{Group: "distress", Fuel: fuel, Pending: pending, DueMinute: due, Battle: battle, Draw: draw})
+					}
+				}
+			}
+		}
+	}
+	for _, fuel := range []int{0, 1, 6, 255} {
+		for _, jettison := range []bool{false, true} {
+			for _, attached := range []bool{false, true} {
+				for _, kinds := range [][2]int{{0, 0}, {1, 0}, {2, 1}, {1, 1}} {
+					check(input{Group: "jettison", Fuel: fuel, Jettison: jettison, Attached: attached, Kinds: kinds, DueMinute: 11})
+				}
+			}
+		}
+	}
+	for _, fuel := range []int{0, 1, 8} {
+		for _, current := range []int{0, 224} {
+			for _, attached := range []bool{false, true} {
+				for _, kinds := range [][2]int{{0, 0}, {1, 0}, {2, 1}, {1, 1}} {
+					for _, draw := range []int{0, 7, 15} {
+						check(input{Group: "speed-aux", Phase: 2, Fuel: fuel, Current: current, Target: 255, WarpStatus: 8, Draw: draw, Attached: attached, Kinds: kinds, DueMinute: 11})
+					}
+				}
+			}
+		}
+	}
+	for _, fuel := range []int{0, 1, 8} {
+		for _, attached := range []bool{false, true} {
+			for _, kinds := range [][2]int{{0, 0}, {1, 0}, {2, 1}, {1, 1}} {
+				for _, distance := range []int{0, 16} {
+					check(input{Group: "tractor-cloak-aux", Phase: 1, Fuel: fuel, Cloak: true, Tractor: true, Range: distance, Attached: attached, Kinds: kinds, DueMinute: 11})
+				}
+			}
+		}
+	}
+	for _, active := range []bool{false, true} {
+		for _, fitted := range []bool{false, true} {
+			for _, mask := range []uint16{0, 0xffff, 0xaaaa, 0x5555} {
+				h := cadenceHarness(t, disk)
+				for n := 0; n < 5; n++ {
+					h.poke(cadenceGlobal(0x53)+uint32(n*2), mask)
+				}
+				cadenceFlag(h, 12, active)
+				cadenceFlag(h, 20, fitted)
+				x := toggleRow{Active: active, Fitted: fitted, Before: displayFlags(h)}
+				displayRun(h, disk, 0x38600, 0x1003, 0x101d, 0x101d)
+				x.After = displayFlags(h)
+				want := append([]uint16(nil), x.Before...)
+				want[0] &^= 1 << 12
+				if !active && fitted {
+					want[0] |= 1 << 12
+				}
+				report.ToggleCases++
+				report.ToggleNative = append(report.ToggleNative, x)
+				if !reflect.DeepEqual(x.After, want) {
+					report.ToggleDifferences++
+				}
+			}
+		}
+	}
+	raw, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-fuel-energy.json"), append(raw, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 || report.ToggleDifferences != 0 {
+		t.Fatal("完整特殊耗能契約不同", report.Differences, report.Groups)
+	}
+}

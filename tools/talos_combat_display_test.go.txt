@@ -1,0 +1,222 @@
+package m68k
+
+import (
+	"crypto/sha256"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"reflect"
+	"testing"
+)
+
+// 研究入口：docs/atari-st/talos-combat-audit-20260907.md。
+// 只派發原始切片；停止於未納入本切片的 UI／子程序邊界。
+func displayRun(h *harness, disk []byte, base, first, last int, stops ...int) int {
+	// IDA SYSTEM.INTERP base 0，STR 0x064a..0x0666／static-link 0x045e..0x0470。
+	// 程序24的外層 local31 屬於 XDOFIGHT 主程序，不是遊戲全域。
+	h.poke(0x46000, 0x5000)
+	stream := uint32(operandStream + 0x6000)
+	h.startDispatch(disk[base+first:base+last+4], stream)
+	for step := 0; step < 10000; step++ {
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			at := int(h.cpu.State.A[4]-stream) + first
+			for _, stop := range stops {
+				if at == stop {
+					return at
+				}
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatalf("raw base%x slice%x..%x PC%x IP%x A0%x A1%x A6%x SP%x: %v", base, first, last,
+				h.cpu.State.PC-4, h.cpu.State.A[4]-stream+uint32(first), h.cpu.State.A[0],
+				h.cpu.State.A[1], h.cpu.State.A[6], h.cpu.State.SSP, err)
+		}
+	}
+	h.t.Fatal("顯示狀態切片未終止")
+	return 0
+}
+
+func displayFlags(h *harness) []uint16 {
+	x := make([]uint16, 5)
+	for n := range x {
+		x[n] = h.peek(cadenceGlobal(0x53) + uint32(n*2))
+	}
+	return x
+}
+
+func TestSunDogCombatDisplay(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	word := func(at int) int { return int(disk[at])<<8 | int(disk[at+1]) }
+	// 字典尾 word 是程序數；往前第 n 個 word 是 locals 欄位的段內 word 位址。
+	for _, p := range [][4]int{{0x38600, 1, 0xf7c, 0x10f2}, {0x38600, 8, 0x3ea, 0x5ed}, {0x38600, 24, 0xea4, 0xf78}, {0x35200, 1, 0x434, 0x5ae}} {
+		dict := p[0] + word(p[0])*2
+		if word(dict-p[1]*2)*2 != p[2] || word(p[0]+p[2]-2) != p[3] {
+			t.Fatal("原始程序字典定位不同")
+		}
+	}
+	type branchRow struct {
+		Active, G17, Flag47 bool
+		Stop, Mode, Local31 int
+		Before, After       []uint16
+	}
+	type exitRow struct {
+		ModeBefore, ModeAfter, Stop, Local1 int
+		Flag35Before, Flag35After           bool
+		Before, After                       []uint16
+	}
+	type lifecycleRow struct {
+		Phase                         int
+		Paused, Entry, Resumed        uint16
+		EntryFlag35, ResumedFlag35    bool
+		SuppressedCalls, ResumedCalls []parentCall
+	}
+	report := struct {
+		Scope, Randomness                                                                                string
+		InputCase, InputTarget, InputProcedure                                                           int
+		BranchCases, BranchDifferences, ExitCases, ExitDifferences, LifecycleCases, LifecycleDifferences int
+		BranchNative                                                                                     []branchRow
+		ExitNative                                                                                       []exitRow
+		LifecycleNative                                                                                  []lifecycleRow
+	}{Scope: "原始字典定位、XDOFIGHT 輸入案例7原生XJP→CLP24、程序24的G4／G17／bit47門檻與旗標35／顯示寫入、XPILOTAG離開分支及同一研究狀態的父層抑制／恢復。未執行輸入裝置、完整窗口或全部玩家路徑；不以數字推定畫面名稱。", Randomness: "本切片無亂數；父層movement／levels採不改狀態的明示邊界，未宣稱自然時鐘。"}
+	// 原始 XJP 池與標頭；案例7的跳轉由 SYSTEM.INTERP 真正執行。
+	h := cadenceHarness(t, disk)
+	for i, v := range disk[0x38600:0x38620] {
+		h.mem[0x50000+uint32(i)] = v
+	}
+	for i, v := range disk[0x398e8:0x39910] {
+		h.mem[0x512e8+uint32(i)] = v
+	}
+	stream := uint32(operandStream + 0x6000)
+	h.startDispatch(disk[0x395e3:0x3966e], stream)
+	h.cpu.State.A[4] = stream + 0x106a - 0xfe3
+	h.poke(h.cpu.State.SSP, 7)
+	for step := 0; ; step++ {
+		if step >= 2048 {
+			t.Fatal("輸入分派未終止")
+		}
+		if h.cpu.State.PC == interpBase+interpLoop+4 && h.cpu.State.A[4] == stream+0x1021-0xfe3 {
+			break
+		}
+		if _, err = h.cpu.Step(); err != nil {
+			t.Fatalf("輸入分派：%v PC=%x A=%x D=%x SSP=%x", err, h.cpu.State.PC, h.cpu.State.A, h.cpu.State.D, h.cpu.State.SSP)
+		}
+	}
+	if h.mem[h.cpu.State.A[4]] != 0x90 || h.mem[h.cpu.State.A[4]+1] != 24 {
+		t.Fatal("案例7未呼叫原版程序24")
+	}
+	report.InputCase, report.InputTarget, report.InputProcedure = 7, 0x1021, 24
+	for bits := 0; bits < 8; bits++ {
+		for _, mask := range []uint16{0, 0xffff, 0xaaaa, 0x5555} {
+			h := cadenceHarness(t, disk)
+			for n := 0; n < 5; n++ {
+				h.poke(cadenceGlobal(0x53)+uint32(n*2), mask)
+			}
+			x := branchRow{Active: bits&1 != 0, G17: bits&2 != 0, Flag47: bits&4 != 0}
+			if x.Active {
+				h.poke(cadenceOuter(4), 1)
+			}
+			if x.G17 {
+				h.poke(cadenceGlobal(0x17), 1)
+			}
+			cadenceFlag(h, 47, x.Flag47)
+			h.poke(cadenceGlobal(0x32), 0xaacb)
+			h.poke(cadenceGlobal(0xd8), 3)
+			x.Before = displayFlags(h)
+			x.Stop = displayRun(h, disk, 0x38600, 0xea9, 0xf6f, 0xeb2, 0xf3f, 0xf6d, 0xf6f)
+			x.After, x.Mode, x.Local31 = displayFlags(h), int(h.peek(cadenceGlobal(0x32))), int(h.peek(cadenceOuter(31)))
+			stop := 0xf3f
+			if !x.Active {
+				stop = 0xf6f
+			} else if x.G17 {
+				stop = 0xeb2
+			} else if x.Flag47 {
+				stop = 0xf6d
+			}
+			expected := append([]uint16(nil), x.Before...)
+			mode, local31 := 0xaacb, 0
+			if stop == 0xf3f {
+				mode, local31 = 0xa91b, 1
+				expected[2] |= (1 << 3) | (1 << 12)
+				expected[3] &^= 7
+			}
+			report.BranchCases++
+			report.BranchNative = append(report.BranchNative, x)
+			if x.Stop != stop || x.Mode != mode || x.Local31 != local31 || !reflect.DeepEqual(x.After, expected) {
+				report.BranchDifferences++
+			}
+		}
+	}
+	for mode := 0; mode < 16; mode++ {
+		for _, flag35 := range []bool{false, true} {
+			for _, mask := range []uint16{0, 0xffff, 0xaaaa, 0x5555} {
+				h := cadenceHarness(t, disk)
+				for n := 0; n < 5; n++ {
+					h.poke(cadenceGlobal(0x53)+uint32(n*2), mask)
+				}
+				cadenceFlag(h, 35, flag35)
+				h.poke(cadenceGlobal(0x32), uint16(0xa0cb|mode<<8))
+				x := exitRow{ModeBefore: mode, Flag35Before: flag35, Before: displayFlags(h)}
+				x.Stop = displayRun(h, disk, 0x35200, 0x49a, 0x4c3, 0x4c3)
+				x.ModeAfter, x.Flag35After, x.After, x.Local1 = int(h.peek(cadenceGlobal(0x32))), cadenceFlagValue(h, 35), displayFlags(h), int(h.peek(0x4600a))
+				expected := append([]uint16(nil), x.Before...)
+				wantMode, wantLocal := 0xa0cb|mode<<8, 0
+				if mode != 1 {
+					expected[2] &^= 1 << 3
+				} else {
+					wantMode, wantLocal = 0xa0cb, 3
+				}
+				report.ExitCases++
+				report.ExitNative = append(report.ExitNative, x)
+				if x.ModeAfter != wantMode || x.Local1 != wantLocal || !reflect.DeepEqual(x.After, expected) {
+					report.ExitDifferences++
+				}
+			}
+		}
+	}
+	// 設35後，戰術入口先改顯示欄位，再由初始化條件分支清35與44。
+	for phase := 0; phase < 3; phase++ {
+		for _, mask := range []uint16{0, 0xffff, 0xaaaa, 0x5555} {
+			h := cadenceHarness(t, disk)
+			for n := 0; n < 5; n++ {
+				h.poke(cadenceGlobal(0x53)+uint32(n*2), mask)
+			}
+			cadenceFlag(h, 47, false)
+			h.poke(cadenceOuter(4), 1)
+			h.poke(cadenceGlobal(0x32), 0xaacb)
+			displayRun(h, disk, 0x38600, 0xea9, 0xf6f, 0xf3f)
+			x := lifecycleRow{Phase: phase, Paused: h.peek(cadenceGlobal(0x32))}
+			p := parentInput{Phase: phase, Fuel: 127, InitialActive: true, MovementActive: true, LevelsActive: true, InitialFlag35: true, MovementFlag35: true, LevelsFlag35: true}
+			x.SuppressedCalls = parentRunCore(h, disk, p, nil).Calls
+			displayRun(h, disk, 0x38600, 0x3ec, 0x3f3, 0x3f3)
+			displayRun(h, disk, 0x38600, 0x461, 0x50b, 0x50b)
+			x.Entry, x.EntryFlag35 = h.peek(cadenceGlobal(0x32)), cadenceFlagValue(h, 35)
+			displayRun(h, disk, 0x35200, 0x49a, 0x4c3, 0x4c3)
+			x.Resumed, x.ResumedFlag35 = h.peek(cadenceGlobal(0x32)), cadenceFlagValue(h, 35)
+			p.Phase = (phase + 1) % 3
+			p.InitialFlag35, p.MovementFlag35, p.LevelsFlag35 = false, false, false
+			x.ResumedCalls = parentRunCore(h, disk, p, nil).Calls
+			report.LifecycleCases++
+			report.LifecycleNative = append(report.LifecycleNative, x)
+			if x.Paused != 0xa91b || x.Entry != 0xa11b || x.EntryFlag35 || x.Resumed != 0xa01b || x.ResumedFlag35 || len(x.SuppressedCalls) != 2 || len(x.ResumedCalls) != 3 || x.ResumedCalls[2].Procedure != 0x21 {
+				report.LifecycleDifferences++
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-display.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.BranchDifferences+report.ExitDifferences+report.LifecycleDifferences != 0 {
+		t.Fatalf("顯示契約差異：branch=%d exit=%d lifecycle=%d", report.BranchDifferences, report.ExitDifferences, report.LifecycleDifferences)
+	}
+}

@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "tool": "tools/atari_st_new_game_loadout.py",
+  "inputs": {
+    "archive": {
+      "name": "Sundog-Frozen-Legacy_Atari-ST_EN.zip",
+      "sha256": "d555864c5d6e358f18e3cb18bc753e3b0f8aa9a255d7f64bb7e92bbe62dde716"
+    },
+    "disk": {
+      "name": "Sundog - Frozen Legacy v3.0 (1985)(FTL)[a2].st",
+      "size": 368640,
+      "sha256": "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6"
+    },
+    "variant": "[a2]",
+    "itemData": {
+      "path": "docs/atari-st/item-data.json",
+      "sha256": "3d94ed006427a12fdfcacd30a91989c83e3ec03f5e9b56288694308bfa4e37eb"
+    }
+  },
+  "procedure": "XSTARTUP:0x32 utility:set_new_game:new_game:set_up_lockers",
+  "arrayBaseGlobal": "MAINLIB word 0x5b",
+  "writes": [
+    {
+      "rawOffset": "0x3b730",
+      "kind": "fillchar",
+      "stateOffset": "0xb7",
+      "count": 5,
+      "rawValue": "0x17",
+      "itemIndex": "0x17",
+      "itemName": "shunt"
+    },
+    {
+      "rawOffset": "0x3b739",
+      "kind": "randomRange",
+      "stateOffset": "0xc0",
+      "minimum": 13,
+      "span": 4,
+      "maximum": 16,
+      "meaning": "船體",
+      "meaningEvidence": "SHIPLIB:0x21 update_attack 以同一個 byte 當船體，每次打中扣 random() mod 3 + 1；XDOUNITE:0x13 do_depot:repair_ship 也讀它。見 docs/atari-st/ship-rules.md 的「打船體」一節。"
+    },
+    {
+      "rawOffset": "0x3b746",
+      "kind": "fillchar",
+      "stateOffset": "0xc4",
+      "count": 5,
+      "rawValue": "0x0a",
+      "itemIndex": "0x0a",
+      "itemName": "rapidheal"
+    },
+    {
+      "rawOffset": "0x3b74f",
+      "kind": "fillchar",
+      "stateOffset": "0xc9",
+      "count": 5,
+      "rawValue": "0x08",
+      "itemIndex": "0x08",
+      "itemName": "burger"
+    },
+    {
+      "rawOffset": "0x3b758",
+      "kind": "store",
+      "stateOffset": "0xce",
+      "count": 1,
+      "rawValue": "0xeb",
+      "itemIndex": "0x0b",
+      "itemName": "shield",
+      "highBits": "0xe0",
+      "highBitsNote": "高 3 位是剩餘充能次數（0xe0 = 7 次），低 5 位才是物品編號；見本檔 openQuestions 的 high bits 與 ground-rules.md。"
+    },
+    {
+      "rawOffset": "0x3b762",
+      "kind": "store",
+      "stateOffset": "0xcf",
+      "count": 1,
+      "rawValue": "0x0c",
+      "itemIndex": "0x0c",
+      "itemName": "stinger"
+    }
+  ],
+  "evidence": "proven",
+  "notes": [
+    "偏移量是「系統狀態陣列基底起算的 byte 數」，不是 doc/gamestate.md 的 word offset。",
+    "次級文件把船艦 locker 記為 word 0x0af（基底起算 168 bytes）、stores 記為 word 0x0bd（196 bytes），各 20 bytes。填分流器那次寫在 183–187，落在 locker 尾端；0xc0（192）落在兩者之間，兩份記載都涵蓋不到。",
+    "反組譯使用 laanwj/sundog 的 tools/list_pcode.py；位元組與結論出自本專案。"
+  ],
+  "openQuestions": [
+    {
+      "topic": "byte 0xc0",
+      "status": "proven",
+      "detail": "該 byte 是船體：SHIPLIB:0x21 update_attack 打中它時扣 random() mod 3 + 1，XDOUNITE:0x13 do_depot:repair_ship 修它。新遊戲開在 13–16。"
+    },
+    {
+      "topic": "high bits",
+      "status": "proven",
+      "detail": "口袋位元組的低 5 位是物品編號、高 3 位是剩餘充能次數，因此 0xe0 代表 7 次。第二個獨立證據是對話後置碼操作碼 1：對 shield 與 scattergun 擲 rand(1,7) × 32。護盾起始的 7 次與遊戲內文字「absorbs up to seven direct weapon hits!」相符。見 docs/atari-st/ground-rules.md 與 dialog-rendered.md。"
+    }
+  ]
+}

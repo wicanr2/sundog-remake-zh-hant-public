@@ -1,0 +1,327 @@
+package m68k
+
+import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"reflect"
+	"testing"
+)
+
+type flightShipSleepInput struct {
+	Phase, Ticks, Tick, WakeCycle int
+	Energy                        [4]int
+}
+type flightShipSleepRow struct {
+	Input                                                            flightShipSleepInput
+	EnergyAfter                                                      [4]int
+	Conditions                                                       [4]int
+	TimeAfter, Phase, Tick, Mode, Rest, Cycles, ShipUpdates, Minutes int
+	Travel                                                           bool
+	Background                                                       [8][3]int
+	Ship, Location                                                   [6]uint16
+	Trace                                                            foodSleepTrace
+}
+
+func TestSunDogFlightShipSleepParent(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	rows := []flightShipSleepRow{}
+	for _, phase := range []int{0, 1, 2} {
+		for _, ticks := range []int{5, 33} {
+			for _, tick := range []int{0, ticks - 1} {
+				for _, cycle := range []int{32, 120, 1800} {
+					for _, energy := range [][4]int{{255, 128, 64, 64}, {100, 255, 0, 0}} {
+						i := flightShipSleepInput{phase, ticks, tick, cycle, energy}
+						h := foodSleepHarness(t, disk)
+						trace := foodSleepTrace{WakeCycle: cycle}
+						for n := 0; n < 4; n++ {
+							h.mem[cadenceGlobal(0x3d)+uint32(n)] = 255
+						}
+						for n, v := range map[int]int{0x11: 39, 0x32: 0x7727, 0x19: phase, 0xcd: 2, 0xd4: tick, 0xd5: ticks, 0xd6: 10, 0xd7: 6, 0xdd: 20, 0xde: 250, 0x101: 1, 0x102: 0} {
+							h.poke(cadenceGlobal(n), uint16(v))
+						}
+						h.mem[cadenceGlobal(0x5b)+0x34] = 16
+						h.mem[cadenceGlobal(0x5b)+0x50] = 8
+						h.mem[cadenceGlobal(0x5b)+0x88] = 8
+						for _, flag := range []int{1, 2, 4, 7} {
+							cadenceFlag(h, flag, true)
+						}
+						for n, field := range []int{0xe5, 0xe4, 0xe3, 0xe2} {
+							h.poke(cadenceGlobal(field), uint16(energy[n]))
+						}
+						h.poke(cadenceGlobal(0x49), uint16((20+tick*10/ticks)<<8|(250+tick*6/ticks)%256))
+						h.poke(cadenceGlobal(0x43), 30<<8)
+						h.poke(cadenceGlobal(0x44), 0x10)
+						foodSleepRun(h, disk, 0x2e200, 0x311, 0x316, 0, &trace)
+						foodSleepRun(h, disk, 0x2e200, 0x1b4, 0x1b8, 0, &trace)
+						foodSleepRun(h, disk, 0x34800, 0x5b0, 0x768, 0, &trace)
+						x := flightShipSleepRow{Input: i, Trace: trace, Cycles: trace.Cycles, ShipUpdates: trace.ShipUpdates, Minutes: trace.Minutes}
+						x.Phase = int(h.peek(cadenceGlobal(0x19)))
+						x.Tick = int(h.peek(cadenceGlobal(0xd4)))
+						x.Mode = int(h.peek(cadenceGlobal(0xcd)))
+						x.Travel = cadenceFlagValue(h, 1)
+						x.TimeAfter = int(h.peek(cadenceGlobal(0x11))) + 60*int(h.peek(cadenceGlobal(0x12))) + 1440*int(h.peek(cadenceGlobal(0x13)))
+						for n, field := range []int{0xe5, 0xe4, 0xe3, 0xe2} {
+							x.EnergyAfter[n] = int(h.peek(cadenceGlobal(field)))
+						}
+						for n := range x.Conditions {
+							x.Conditions[n] = int(h.mem[cadenceGlobal(0x3d)+uint32(n)])
+						}
+						x.Rest = x.Conditions[1]
+						for n := range x.Background {
+							for k := range x.Background[n] {
+								x.Background[n][k] = int(h.peek(cadenceGlobal(0xa78) + uint32(n*6+k*2)))
+							}
+						}
+						for n := range x.Ship {
+							x.Ship[n] = h.peek(cadenceGlobal(0x49 + n))
+							x.Location[n] = h.peek(cadenceGlobal(0x29 + n))
+						}
+						if x.Cycles != cycle || x.Minutes != cycle/60 || x.ShipUpdates != cycle/32 || x.TimeAfter != 39+cycle/60 || x.Background != [8][3]int{{1, 0, 15}, {2, 0, 8}} {
+							t.Fatalf("完整callback邊界%+v", x)
+						}
+						if x.Tick == ticks && (x.Mode != 0 || x.Travel || x.Trace.ArrivalSounds != 1 || x.Ship[0] != 30<<8 || x.Location[0] != 30<<8) {
+							t.Fatalf("完整抵達writer%+v", x)
+						}
+						rows = append(rows, x)
+					}
+				}
+			}
+		}
+	}
+	data, err := json.MarshalIndent(rows, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-flight-ship-sleep.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("完整航行睡眠父链72案，空貨艙、seed原始雙字(1,0)、原始RND真正執行")
+}
+
+// 原始第四道貨艙閘門。只輸入兩個5-bit商品碼；opaque其餘bits保持。
+func TestSunDogFlightCargoGate(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Codes                   [2]int
+		Allowed                 bool
+		WordsBefore, WordsAfter [2]uint16
+		Counter                 int
+	}
+	rows := []row{}
+	for a := 0; a < 32; a++ {
+		for b := 0; b < 32; b++ {
+			h := foodSleepHarness(t, disk)
+			frame := uint32(0x46000)
+			levelsFrame(h, frame)
+			r := row{Codes: [2]int{a, b}}
+			for n, code := range r.Codes {
+				r.WordsBefore[n] = 0xabe0 | uint16(code)
+				h.poke(cadenceGlobal(0xec)+uint32(n*4), r.WordsBefore[n])
+			}
+			foodSleepRun(h, disk, 0x31e00, 0xafc, 0xb29, 0, &foodSleepTrace{})
+			r.Allowed = h.peek(depotLocal(frame, 7))&1 != 0
+			r.Counter = int(h.peek(depotLocal(frame, 6)))
+			for n := range r.WordsAfter {
+				r.WordsAfter[n] = h.peek(cadenceGlobal(0xec) + uint32(n*4))
+			}
+			want := a > 1 && a < 31 || b > 1 && b < 31
+			if r.Allowed != want || r.Counter != 3 || r.WordsAfter != r.WordsBefore {
+				t.Fatalf("貨艙閘門%+v want%t", r, want)
+			}
+			rows = append(rows, r)
+		}
+	}
+	data, err := json.MarshalIndent(rows, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-flight-cargo-gate.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("原始貨艙閘門1024案，商品0／1／31均排除")
+}
+
+// 入口：ship-rules.md自然航段抵達研究。原始movement writer與父相位
+// 真正執行；受控RND在執行前固定17，不以正式規則供應原版答案。
+func TestSunDogFlightArrivalBoundary(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	rows := []movementResult{}
+	for _, phase := range []int{0, 1, 2} {
+		for _, ticks := range []int{5, 17, 33} {
+			for _, tick := range []int{0, ticks - 1} {
+				for _, delta := range []int{-6, 6} {
+					i := movementInput{Phase: phase, Fuel: 255, Tick: tick, Ticks: ticks, Status: 16, Seed: 17,
+						Angle: 250, Radius: 20, DeltaAngle: delta, DeltaRadius: 10, Travel: true}
+					a, b := movementNative(t, disk, i, true), movementContract(i, true)
+					if !reflect.DeepEqual(a, b) || a.Mode != 0 || a.Travel || a.Tick != ticks {
+						t.Fatalf("抵達actual=%+v model=%+v", a, b)
+					}
+					rows = append(rows, a)
+				}
+			}
+		}
+	}
+	data, err := json.MarshalIndent(rows, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-flight-arrival.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("抵達36案：船記錄／所在地保留欄位／mode0／旗標清除，固定seed17")
+}
+
+// 入口：ship-rules.md的航行ETA與主時鐘研究。真正執行XSHOWMOV:0a
+// 4b7..58a初始化及SHIPLIB:13/14；不供應event、RND或正式規則替身。
+func TestSunDogFlightSetupClock(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type input struct {
+		ID                                     string
+		Time, Angle, Radius, ToAngle, ToRadius int
+	}
+	type formalRow struct{ Input input }
+	var formal []formalRow
+	p := filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-flight-setup.json")
+	data, err := os.ReadFile(p)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = json.Unmarshal(data, &formal); err != nil {
+		t.Fatal(err)
+	}
+	if len(formal) == 0 {
+		t.Fatal("缺少正式等價輸入")
+	}
+	type row struct {
+		Input                                                  input
+		Period, TimeAfter, ETA, Ticks, DeltaAngle, DeltaRadius int
+		ClockBefore, ClockAfter                                [3]int
+		RecordBefore, RecordAfter                              [2]uint16
+		Slots                                                  [8][3]int
+		Trace                                                  foodSleepTrace
+	}
+	rows := []row{}
+	for _, f := range formal {
+		for _, period := range []int{4, 32, 60} {
+			i := f.Input
+			h := foodSleepHarness(t, disk)
+			frame := uint32(0x46000)
+			for n, v := range []int{i.Time % 60, i.Time / 60 % 24, i.Time / 1440} {
+				h.poke(cadenceGlobal(0x11+n), uint16(v))
+			}
+			h.poke(cadenceGlobal(0x49), uint16(i.Radius<<8|i.Angle))
+			h.poke(cadenceGlobal(0x51), 0x40c0)
+			h.poke(cadenceGlobal(0x52), 0xc000)
+			for n, v := range []int{i.ToRadius<<8 | i.ToAngle, 0x3301, 0x3302, 0x3303, 0x3304, 0x3305} {
+				h.poke(0x47000+uint32(n*2), uint16(v))
+			}
+			h.poke(depotLocal(frame, 0x1a), 0x7000)
+			// XSHOWMOV:03 receives a near pointer to its caller's saved period.
+			h.poke(depotLocal(frame, 1), uint16(depotLocal(frame, 2)-0x40000))
+			h.poke(cadenceGlobal(0xa78), 1)
+			h.poke(cadenceGlobal(0xa79), 3)
+			h.poke(cadenceGlobal(0xa7a), 15)
+			h.poke(cadenceGlobal(0xa7b), 2)
+			h.poke(cadenceGlobal(0xa7c), 5)
+			h.poke(cadenceGlobal(0xa7d), uint16(period/4))
+			x := row{Input: i, Period: period, RecordBefore: [2]uint16{h.peek(cadenceGlobal(0x51)), h.peek(cadenceGlobal(0x52))}}
+			for n := range x.ClockBefore {
+				x.ClockBefore[n] = int(h.peek(cadenceGlobal(0x11 + n)))
+			}
+			foodSleepRun(h, disk, 0x37200, 0x52, 0x5b, 0, &x.Trace)
+			saved := h.peek(depotLocal(frame, 2))
+			if int(saved) != period {
+				t.Fatal("停鐘週期", saved, period)
+			}
+			h.poke(depotLocal(frame, 1), saved)
+			foodSleepRun(h, disk, 0x37200, 0x4b7, 0x58a, 0, &x.Trace)
+			x.RecordAfter = [2]uint16{h.peek(cadenceGlobal(0x51)), h.peek(cadenceGlobal(0x52))}
+			x.ETA = int(x.RecordAfter[0]&63) + int(x.RecordAfter[0]>>8)*60 + int(x.RecordAfter[1]&0x3fff)*1440
+			x.Ticks = int(h.peek(cadenceGlobal(0xd5)))
+			x.DeltaAngle = int(int16(h.peek(cadenceGlobal(0xd7))))
+			x.DeltaRadius = int(int16(h.peek(cadenceGlobal(0xd6))))
+			for n := range x.ClockAfter {
+				x.ClockAfter[n] = int(h.peek(cadenceGlobal(0x11 + n)))
+			}
+			x.TimeAfter = x.ClockAfter[0] + 60*x.ClockAfter[1] + 1440*x.ClockAfter[2]
+			for n := range x.Slots {
+				for k := range x.Slots[n] {
+					x.Slots[n][k] = int(h.peek(cadenceGlobal(0xa78) + uint32(n*6+k*2)))
+				}
+			}
+			if h.cpu.State.SSP != stackTop || x.Trace.Minutes != 0 || x.Trace.ShipUpdates != 0 || len(x.Trace.Random) != 0 {
+				t.Fatal("航行初始化範圍", x.Trace)
+			}
+			rows = append(rows, x)
+		}
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{
+		Scope:      "XSHOWMOV:03停槽2 → XSHOWMOV:0a 4b7..58a完整數值初始化 → SHIPLIB:14/13真正set_time/add_time與MAINLIB:30恢復槽。",
+		Boundaries: "固定控制輸入；不含設定畫面前綴、HUD尾端、event、RND、整段world/warp路徑或原版GUI；不將預估抵達時間當成主時鐘。", Rows: rows}
+	data, err = json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-flight-setup.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("原始航行初始化%d案", len(rows))
+}
+
+func TestSunDogFlightExitMenu(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Before, After                                    uint16
+		Local2, G3                                       int
+		TravelBefore, TravelAfter, SubcBefore, SubcAfter bool
+		FieldsBefore, FieldsAfter                        [14]uint16
+	}
+	rows := []row{}
+	for _, original := range []uint16{0x0007, 0xc027, 0x7027, 0xf027} {
+		for _, l2 := range []int{0, 1} {
+			for _, g3 := range []int{0, 1} {
+				h := foodSleepHarness(t, disk)
+				frame := uint32(0x46000)
+				levelsFrame(h, frame)
+				h.poke(cadenceGlobal(0x32), original)
+				h.poke(cadenceGlobal(3), uint16(g3))
+				h.poke(depotLocal(frame, 2), uint16(l2))
+				cadenceFlag(h, 1, true)
+				cadenceFlag(h, 2, true)
+				fields := []int{0x19, 0xcd, 0xd4, 0xd5, 0xd6, 0xd7, 0xdd, 0xde, 0x43, 0x44, 0x49, 0x4a, 0xe4, 0xe5}
+				r := row{Before: original, Local2: l2, G3: g3, TravelBefore: true, SubcBefore: true}
+				for n, f := range fields {
+					h.poke(cadenceGlobal(f), uint16(n*13+1))
+					r.FieldsBefore[n] = h.peek(cadenceGlobal(f))
+				}
+				foodSleepRun(h, disk, 0x35200, 0x4dd, 0x4ed, 0, &foodSleepTrace{})
+				r.After = h.peek(cadenceGlobal(0x32))
+				r.TravelAfter = cadenceFlagValue(h, 1)
+				r.SubcAfter = cadenceFlagValue(h, 2)
+				for n, f := range fields {
+					r.FieldsAfter[n] = h.peek(cadenceGlobal(f))
+				}
+				want := original
+				if l2 == 0 && g3 == 0 {
+					want = original&0xf0ff | 0x200
+				}
+				if r.After != want || r.FieldsBefore != r.FieldsAfter || !r.TravelAfter || !r.SubcAfter {
+					t.Fatalf("exit %+v want%x", r, want)
+				}
+				rows = append(rows, r)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(rows, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-flight-exit.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("XPILOTAG exit writer %d controlled cases; all flight fields/Travel/Subc preserved", len(rows))
+}

@@ -1,0 +1,84 @@
+package main
+
+import (
+	"encoding/json"
+	"os"
+	"testing"
+
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/wicanr2/sundog-remake/internal/game"
+	"github.com/wicanr2/sundog-remake/internal/localization"
+	"golang.org/x/image/font"
+	"golang.org/x/image/font/opentype"
+)
+
+func TestHDNavigationRendererReview(t *testing.T) {
+	t.Chdir("/src")
+	raw, err := os.ReadFile(os.Getenv("HD_REVIEW_MODEL"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var model struct {
+		State game.State `json:"state"`
+	}
+	if err = json.Unmarshal(raw, &model); err != nil {
+		t.Fatal(err)
+	}
+	reducer, err := game.NewReducer()
+	if err != nil {
+		t.Fatal(err)
+	}
+	languages, err := loadLanguagePacks("docs/i18n/apple2-text-catalog.json", "docs/i18n/sundog-ui-zh-Hant.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	bytes, err := os.ReadFile("assets/fonts/NotoSansCJKtc-Regular.otf")
+	if err != nil {
+		t.Fatal(err)
+	}
+	data, err := opentype.Parse(bytes)
+	if err != nil {
+		t.Fatal(err)
+	}
+	newFace := func(size int) font.Face {
+		face, e := opentype.NewFace(data, &opentype.FaceOptions{Size: float64(size), DPI: 72, Hinting: font.HintingFull})
+		if e != nil {
+			t.Fatal(e)
+		}
+		t.Cleanup(func() { face.Close() })
+		return face
+	}
+	a := app{reducer: reducer, state: model.State, languages: languages, face: newFace(8), newFace: newFace}
+	setPanelLayout(a.state.Layout)
+	frames, labels := 0, 0
+	for _, locale := range []localization.Locale{"zh-Hant", "zh-Hans", "ja", "en"} {
+		a.applyLocale(locale)
+		for _, scale := range []int{4, 5} {
+			a.scale = scale
+			screen := ebiten.NewImage(320*scale, 200*scale)
+			before, _ := json.Marshal(a.state)
+			if !a.drawHDNavigationReview(screen) {
+				t.Fatalf("native renderer overflow: %s %dx", locale, scale)
+			}
+			after, _ := json.Marshal(a.state)
+			if string(before) != string(after) {
+				t.Fatal("renderer mutated typed state")
+			}
+			screen.Dispose()
+			frames++
+			for _, destination := range reducer.World.Destinations() {
+				a.state.NavigationTargetID = destination.ID
+				for i, label := range a.screenPanelLines() {
+					p := hdReviewPainter{a: &a, scale: float32(scale)}
+					p.text(label, stMenuX0+2.5, float32(stMenuY0+i*stMenuPitch+2), float32(stMenuX1-stMenuX0+1-5), stMenuH-4, 8, 6, 0xffffff, true)
+					if p.err != "" {
+						t.Fatalf("native selector ink: %s %dx %s", locale, scale, label)
+					}
+					labels++
+				}
+			}
+			a.state = model.State
+		}
+	}
+	t.Logf("PASS %d native renderer states, %d native font fixtures; source state unchanged", frames, labels)
+}

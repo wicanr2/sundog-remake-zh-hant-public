@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "locale": "zh-Hant",
+  "translationStatus": "draft",
+  "displayFormat": "{zh}({source})",
+  "policy": [
+    "敵艦型號是專有名詞，一律「中文(原文)」並排顯示，原文置於半形括號內，與地名同一規則。",
+    "語意明確的英文詞用意譯：Vector、Annihilator、Phantom、UNKNOWN。",
+    "虛構造詞音譯：Voton。",
+    "純型號代碼保留代碼本身，只補上分類詞：VW-69。",
+    "Mk 後的羅馬數字改寫成中文序數：Mk IV=四型、Mk X=十型。",
+    "來源名稱是 Atari ST 防拷軌資料表的原始 ASCII，不得為了配合譯名而改寫。"
+  ],
+  "ships": {
+    "VW-69": "VW-69 型",
+    "Z1 Vector": "Z1 向量",
+    "Annihilator": "殲滅者",
+    "Voton Mk IV": "沃頓四型",
+    "Voton Mk X": "沃頓十型",
+    "Phantom UL": "幻影 UL",
+    "UNKNOWN": "未知"
+  }
+}

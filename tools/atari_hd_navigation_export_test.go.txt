@@ -1,0 +1,137 @@
+package main
+
+// Review-only overlay: exports the existing shell's view model. This file
+// is not a production renderer and never writes a save or changes a rule.
+import (
+	"encoding/json"
+	"fmt"
+	"golang.org/x/image/font"
+	"golang.org/x/image/font/opentype"
+	"os"
+	"testing"
+
+	"github.com/wicanr2/sundog-remake/internal/game"
+	"github.com/wicanr2/sundog-remake/internal/localization"
+	"github.com/wicanr2/sundog-remake/internal/theme"
+)
+
+func TestHDNavigationReviewExport(t *testing.T) {
+	t.Chdir("/src")
+	input, err := os.ReadFile(os.Getenv("HD_REVIEW_INPUT"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var receipt struct {
+		States []struct {
+			Name  string     `json:"name"`
+			State game.State `json:"state"`
+		} `json:"states"`
+	}
+	if err := json.Unmarshal(input, &receipt); err != nil {
+		t.Fatal(err)
+	}
+	var state game.State
+	for _, row := range receipt.States {
+		if row.Name == "navigation" {
+			state = row.State
+		}
+	}
+	if state.Screen != game.ScreenNavigation {
+		t.Fatal("normal navigation state missing")
+	}
+	before, _ := json.Marshal(state)
+	reducer, err := game.NewReducer()
+	if err != nil {
+		t.Fatal(err)
+	}
+	languages, err := loadLanguagePacks("/src/docs/i18n/apple2-text-catalog.json", "/src/docs/i18n/sundog-ui-zh-Hant.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	fontBytes, err := os.ReadFile("/src/assets/fonts/NotoSansCJKtc-Regular.otf")
+	if err != nil {
+		t.Fatal(err)
+	}
+	fontData, err := opentype.Parse(fontBytes)
+	if err != nil {
+		t.Fatal(err)
+	}
+	face, err := opentype.NewFace(fontData, &opentype.FaceOptions{Size: 8, DPI: 72, Hinting: font.HintingNone})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer face.Close()
+	a := app{reducer: reducer, state: state, languages: languages, face: face}
+	setPanelLayout(state.Layout)
+	var hotspots []map[string]any
+	var hitFixtures []map[string]any
+	for _, spot := range panelMouseHotspots() {
+		if spot.screen != game.ScreenNavigation {
+			continue
+		}
+		hotspots = append(hotspots, map[string]any{"rect": []int{spot.minX, spot.minY, spot.maxX, spot.maxY}, "action": spot.action})
+		for _, point := range [][2]int{{spot.minX, spot.minY}, {spot.maxX - 1, spot.maxY - 1}, {spot.maxX, spot.minY}, {spot.minX, spot.maxY}, {(spot.minX + spot.maxX) / 2, (spot.minY + spot.maxY) / 2}} {
+			action, ok := remakePanelMouseAction(game.ScreenNavigation, point[0], point[1])
+			hitFixtures = append(hitFixtures, map[string]any{"x": point[0], "y": point[1], "action": action, "active": ok})
+		}
+	}
+	var stars []map[string]any
+	for _, system := range reducer.World.Systems() {
+		c, ok := reducer.SystemCoordinate(state, system.ID)
+		if !ok {
+			t.Fatal(system.ID)
+		}
+		stars = append(stars, map[string]any{"id": system.ID, "x": stMapOriginX + stSectorInset + c[0]*stSectorStepX, "y": stMapOriginY + stSectorInset + c[1]*stSectorStepY, "r": 6 - c[2]/2, "current": system.ID == state.SystemID, "coordinate": c})
+	}
+	var lights [][]int
+	for _, system := range state.ShipSystems {
+		var row []int
+		for cell := 0; cell < 4; cell++ {
+			row = append(row, game.ShipSystemRowStatus(system, cell))
+		}
+		lights = append(lights, row)
+	}
+	cost, hasCost := reducer.RouteCost(state)
+	warp := 0
+	if hasCost {
+		warp = cost.JumpDistance
+	}
+	model := map[string]any{
+		"schema": "sundog-hd-navigation-review-1", "status": "DRAFT-sector-view-only",
+		"canvas": []int{320, 200}, "state": state, "stars": stars, "rowStatuses": lights,
+		"warpSuccess": game.WarpSuccessPercent(state), "warpGauge": warp,
+		"clock":    fmt.Sprintf("%03d/%02d:%02d", state.TimeMinutes/(24*60), state.TimeMinutes/60%24, state.TimeMinutes%60),
+		"hotspots": hotspots, "hitFixtures": hitFixtures,
+		"regions":         map[string][]int{"viewport": {frameViewportX, frameViewportY, frameViewportW, frameViewportH}, "left": {frameLeftX, frameLeftY, frameLeftW, frameLeftH}, "gauges": {frameGaugeX, frameGaugeY, frameGaugeW, frameGaugeH}, "message": {frameMessageX, frameMessageY, frameMessageW, frameMessageH}, "systems": {frameMenuX, frameMenuY, frameMenuW, frameMenuH}},
+		"selectorRects":   [][]int{{stMenuX0, stMenuY0, stMenuX1 - stMenuX0 + 1, stMenuH}, {stMenuX0, stMenuY0 + stMenuPitch, stMenuX1 - stMenuX0 + 1, stMenuH}, {stMenuX0, stMenuY0 + 2*stMenuPitch, stMenuX1 - stMenuX0 + 1, stMenuH}},
+		"navigateHitRect": []int{frameViewportX, frameViewportY, frameViewportX + frameViewportW, frameViewportY + frameViewportH},
+	}
+	var packs []map[string]any
+	for _, locale := range []localization.Locale{"zh-Hant", "zh-Hans", "ja", "en"} {
+		if !a.applyLocale(locale) {
+			t.Fatal(locale)
+		}
+		localized := localization.Destination(a.labels, state.NavigationTargetID, state.NavigationTarget)
+		var allSelectors [][]string
+		for _, destination := range reducer.World.Destinations() {
+			// Width stress fixtures only; no gameplay action or save mutation.
+			a.state.NavigationTargetID = destination.ID
+			allSelectors = append(allSelectors, a.screenPanelLines())
+		}
+		a.state = state
+		packs = append(packs, map[string]any{"locale": locale, "selectors": a.screenPanelLines(), "selectorWidthFixtures": allSelectors, "message": a.messageLine(), "target": fmt.Sprintf("%s：%s", a.lookup("ui.navigation_target"), localized), "cost": a.routeCostLine(), "keys": footerLabel(a.labels, state), "help": footerHelp(a.labels, state, theme.Group{})})
+	}
+	model["languages"] = packs
+	after, _ := json.Marshal(state)
+	if string(before) != string(after) {
+		t.Fatal("export changed source state")
+	}
+	model["sourceStateUnchanged"] = true
+	data, err := json.MarshalIndent(model, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(os.Getenv("HD_REVIEW_OUTPUT"), append(data, '\n'), 0644); err != nil {
+		t.Fatal(err)
+	}
+}

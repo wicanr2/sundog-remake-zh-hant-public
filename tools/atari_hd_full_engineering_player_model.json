@@ -1,0 +1,3800 @@
+{
+  "hand": {
+    "cx": 97,
+    "cy": 94,
+    "h": 16,
+    "w": 16,
+    "x": 89,
+    "y": 86
+  },
+  "hitChecks": 480,
+  "limits": "Existing formal geometry/rules,not original GUI parity. Engineering extraction has no tracked system origin;return by same legal slot.",
+  "manOutline": [
+    [
+      1,
+      20
+    ],
+    [
+      6,
+      20
+    ],
+    [
+      9,
+      23
+    ],
+    [
+      9,
+      29
+    ],
+    [
+      4,
+      33
+    ],
+    [
+      10,
+      35
+    ],
+    [
+      10,
+      36
+    ],
+    [
+      21,
+      47
+    ],
+    [
+      17,
+      51
+    ],
+    [
+      9,
+      43
+    ],
+    [
+      9,
+      52
+    ],
+    [
+      1,
+      52
+    ]
+  ],
+  "partsBox": [
+    111,
+    66,
+    119,
+    84
+  ],
+  "pockets": [
+    {
+      "cx": 100,
+      "cy": 122,
+      "h": 16,
+      "index": 0,
+      "w": 16,
+      "x": 92,
+      "y": 114
+    },
+    {
+      "cx": 82,
+      "cy": 125,
+      "h": 16,
+      "index": 1,
+      "w": 16,
+      "x": 74,
+      "y": 117
+    },
+    {
+      "cx": 82,
+      "cy": 142,
+      "h": 16,
+      "index": 2,
+      "w": 16,
+      "x": 74,
+      "y": 134
+    },
+    {
+      "cx": 100,
+      "cy": 142,
+      "h": 16,
+      "index": 3,
+      "w": 16,
+      "x": 92,
+      "y": 134
+    }
+  ],
+  "sourceSave": "/src/workplace/hd-ship-ground-review-20261015/followup1600/r1/save.json",
+  "sourceSaveSHA256": "860e35d5f29272a37896edd8137d2c513f3eb4bb6f23798eb5b75998f1a48fda",
+  "state": {
+    "schema": 44,
+    "screen": "engineering",
+    "character": "zed",
+    "characterDraft": "",
+    "attributePoints": 0,
+    "attributeSelected": 0,
+    "attributeWasteWarned": false,
+    "location": "Jondd／Jondd／Drahew",
+    "systemId": "jondd",
+    "planetId": "jondd",
+    "cityId": "drahew",
+    "position": {
+      "x": 1,
+      "y": 0
+    },
+    "groundWorld": false,
+    "groundView": {
+      "valid": false,
+      "origin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchor": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "shipCityId": "drahew",
+    "shipPosition": {
+      "x": 1,
+      "y": 0
+    },
+    "cash": 218,
+    "bank": 32908,
+    "gems": 0,
+    "fuel": 238,
+    "weaponCharge": 255,
+    "shieldLevel": 100,
+    "hullCondition": 16,
+    "shipSystems": [
+      {
+        "id": "warp-drive",
+        "rows": [
+          [
+            31,
+            28,
+            26,
+            30
+          ],
+          [
+            31,
+            28,
+            26,
+            30
+          ],
+          [
+            31,
+            28,
+            26,
+            30
+          ],
+          [
+            31,
+            0,
+            26,
+            30
+          ]
+        ],
+        "lastHitSlot": 0,
+        "status": 12
+      },
+      {
+        "id": "subc-engine",
+        "rows": [
+          [
+            31,
+            28,
+            30,
+            24
+          ],
+          [
+            31,
+            28,
+            30,
+            24
+          ],
+          [
+            31,
+            28,
+            30,
+            24
+          ],
+          [
+            31,
+            28,
+            30,
+            24
+          ]
+        ],
+        "lastHitSlot": 0,
+        "status": 16
+      },
+      {
+        "id": "ship-guns",
+        "rows": [
+          [
+            31,
+            23,
+            26,
+            29
+          ],
+          [
+            31,
+            24,
+            26,
+            23
+          ],
+          [
+            31,
+            24,
+            26,
+            29
+          ],
+          [
+            31,
+            24,
+            26,
+            29
+          ]
+        ],
+        "lastHitSlot": 0,
+        "status": 14
+      },
+      {
+        "id": "tactical-display",
+        "rows": [
+          [
+            31,
+            27,
+            25,
+            26
+          ],
+          [
+            31,
+            23,
+            25,
+            26
+          ],
+          [
+            31,
+            27,
+            25,
+            26
+          ],
+          [
+            31,
+            27,
+            25,
+            26
+          ]
+        ],
+        "lastHitSlot": 0,
+        "status": 15
+      },
+      {
+        "id": "force-shields",
+        "rows": [
+          [
+            31,
+            23,
+            28,
+            28
+          ],
+          [
+            31,
+            24,
+            28,
+            28
+          ],
+          [
+            31,
+            24,
+            28,
+            28
+          ],
+          [
+            31,
+            24,
+            7,
+            28
+          ]
+        ],
+        "lastHitSlot": 0,
+        "status": 11
+      },
+      {
+        "id": "pilotage",
+        "rows": [
+          [
+            31,
+            25,
+            27,
+            25
+          ],
+          [
+            31,
+            25,
+            27,
+            25
+          ],
+          [
+            31,
+            25,
+            23,
+            25
+          ],
+          [
+            0,
+            25,
+            27,
+            25
+          ]
+        ],
+        "lastHitSlot": 0,
+        "status": 11
+      }
+    ],
+    "selectedSystemIndex": 0,
+    "shunts": 5,
+    "parts": [
+      8,
+      8,
+      8,
+      8
+    ],
+    "stores": [
+      10,
+      10,
+      10,
+      10,
+      10,
+      0,
+      0,
+      0,
+      0,
+      0,
+      235,
+      12,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "selectedPartIndex": 9,
+    "shieldsActive": true,
+    "shieldSetting": 100,
+    "shipControls": {
+      "warp": false,
+      "subc": false,
+      "guns": true,
+      "tactical": false,
+      "pilotage": false,
+      "secondary": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    "shipPhase": 1,
+    "currentSpeed": 0,
+    "targetSpeed": 0,
+    "groundMode": "foot",
+    "cargoAttached": true,
+    "cargoCityId": "drahew",
+    "cargoPosition": {
+      "x": 1,
+      "y": 0
+    },
+    "tractorActive": false,
+    "fuelRescuePending": false,
+    "fuelRescueDue": 0,
+    "fuelJettisonPending": false,
+    "shipRefresh": false,
+    "enemyClosing": 0,
+    "fuelPurchase": {
+      "kind": "",
+      "baseFuel": 0,
+      "initialQuantity": 0,
+      "quantity": 0,
+      "unitPrice": 0,
+      "funds": 0,
+      "initialBank": 0,
+      "initialCash": 0,
+      "sourceCode": 0
+    },
+    "jumpRange": 8,
+    "combatRolls": 98,
+    "vigor": 251,
+    "rest": 247,
+    "health": 255,
+    "nourishment": 249,
+    "foodUnits": 0,
+    "foodItemKey": "apple2.ship.food",
+    "holds": [
+      {
+        "sourceCode": 0
+      },
+      {
+        "sourceCode": 0
+      }
+    ],
+    "suppliesDelivered": 0,
+    "cryogensDelivered": 0,
+    "missionComplete": false,
+    "colony": {
+      "initialized": false,
+      "phase": 0,
+      "nextPhase": 0,
+      "accumulated": 0,
+      "remaining": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "colonySite": {
+      "pending": true,
+      "position": {
+        "x": 31,
+        "y": 7
+      }
+    },
+    "bankBalances": {
+      "enlie": 0,
+      "ferr": 4490,
+      "glory": 3324,
+      "hepa": 4381,
+      "jadul": 5502,
+      "jondd": 32908,
+      "kalmandaa": 4946,
+      "lafser": 4742,
+      "new-shoot": 5647,
+      "shoot": 5555,
+      "sosai": 5996,
+      "woremed": 3325
+    },
+    "visitedDestinations": [
+      "drahew"
+    ],
+    "dialogBlock": 0,
+    "dialogLine": 0,
+    "dialogVerb": 0,
+    "dialogVariant": 0,
+    "dialogSaid": "",
+    "navigationTargetId": "banville",
+    "navigationTarget": "Jondd／Jondd／Banville",
+    "navigationView": "sector",
+    "handItem": 0,
+    "handOrigin": {
+      "kind": "",
+      "index": 0
+    },
+    "heading": "west",
+    "streetRolls": 419,
+    "streetEasterEggSeen": false,
+    "streetPending": 0,
+    "streetAsk": 0,
+    "statusReturn": "shipboard",
+    "sleep": {
+      "active": false,
+      "forced": false,
+      "wakeRequested": false,
+      "minuteCycles": 0,
+      "shipCycles": 0,
+      "elapsedMinutes": 0,
+      "shipActive": false
+    },
+    "awakeClock": {
+      "source": {
+        "ticks": 5821,
+        "enabled": true,
+        "eventCountdown": 3
+      },
+      "background": {
+        "waitEvents": 6,
+        "slots": [
+          {
+            "callback": 1,
+            "remaining": 0,
+            "period": 15
+          },
+          {
+            "callback": 2,
+            "remaining": 1,
+            "period": 8
+          },
+          {
+            "callback": 0,
+            "remaining": 0,
+            "period": 0
+          },
+          {
+            "callback": 0,
+            "remaining": 0,
+            "period": 0
+          },
+          {
+            "callback": 0,
+            "remaining": 0,
+            "period": 0
+          },
+          {
+            "callback": 0,
+            "remaining": 0,
+            "period": 0
+          },
+          {
+            "callback": 0,
+            "remaining": 0,
+            "period": 0
+          },
+          {
+            "callback": 0,
+            "remaining": 0,
+            "period": 0
+          }
+        ]
+      },
+      "ground": {
+        "deadline": 5789,
+        "updates": 2
+      },
+      "shipActive": true,
+      "minutePause": 0,
+      "shipPause": 0
+    },
+    "sleepTheftProtected": true,
+    "enemyHull": 0,
+    "enemyMaxHull": 0,
+    "enemyType": 0,
+    "enemyFireCountdown": 0,
+    "combatRange": 127,
+    "enemyCourseMode": 0,
+    "enemyBearing": 0,
+    "enemyPitch": 0,
+    "enemyDriftBearing": 0,
+    "enemyDriftPitch": 0,
+    "tradeSession": {
+      "active": false,
+      "cityId": "",
+      "systemId": "",
+      "initialCash": 0,
+      "initialBank": 0,
+      "funds": 0
+    },
+    "tradeSaleSlot": 0,
+    "tradeSalePrice": 0,
+    "warehouses": {
+      "abran": [
+        {
+          "sourceCode": 32,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "abundan": [
+        {
+          "sourceCode": 30,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "alram": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "arlenair": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "aylika": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "bantin": [
+        {
+          "sourceCode": 10,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "banville": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "barnum": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "bedollug": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "calidac": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "corian": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "d-esgid": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "dajasyron": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "darvilton": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "drahew": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "dramming": [
+        {
+          "sourceCode": 4,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "dreider": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "einkolt": [
+        {
+          "sourceCode": 42,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "esposito": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "essoit": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "feriolah": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "ferring": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "ft-lyon": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "ft-savon": [
+        {
+          "sourceCode": 8,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "haiapolis": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "helord": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "icebox": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "illdono": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "industron": [
+        {
+          "sourceCode": 13,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "jemba": [
+        {
+          "sourceCode": 35,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "knuth": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "kolbe": [
+        {
+          "sourceCode": 25,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "lagosal": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "lightning": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "llorrac": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "lonax": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "malesti": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "mortown": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "n-ljones": [
+        {
+          "sourceCode": 38,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "new-temol": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "notweneki": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "obburg": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "paleko": [
+        {
+          "sourceCode": 56,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "paran": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "plepa": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "poelter": [
+        {
+          "sourceCode": 51,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "sheol": [
+        {
+          "sourceCode": 47,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "sheshco": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "shoothan": [
+        {
+          "sourceCode": 21,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "surrell": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "temlonton": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "the-mines": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "tram-el": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "tuie": [
+        {
+          "sourceCode": 17,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "velamie": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "waslat": [
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "wildera": [
+        {
+          "sourceCode": 53,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "zadansa": [
+        {
+          "sourceCode": 45,
+          "goods": 31,
+          "quality": 7,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "sourceCode": 0,
+          "goods": 0,
+          "quality": 0,
+          "price": 0
+        }
+      ]
+    },
+    "tradeClassShift": 9,
+    "flightAngle": 90,
+    "flightRadius": 20,
+    "flightFromAngle": 0,
+    "flightFromRadius": 0,
+    "flightDeltaAngle": 0,
+    "flightDeltaRadius": 0,
+    "flightTick": 0,
+    "flightTicks": 0,
+    "flightTargetId": "",
+    "planetAngles": [
+      228,
+      61,
+      77,
+      170,
+      154,
+      253,
+      135,
+      104,
+      177,
+      199,
+      42,
+      113,
+      7,
+      244,
+      224,
+      61,
+      77,
+      178
+    ],
+    "orbitDay": 0,
+    "podParkedAt": -1,
+    "systemHeat": null,
+    "systemCoordinates": {
+      "enlie": [
+        12,
+        5,
+        15
+      ],
+      "ferr": [
+        10,
+        4,
+        6
+      ],
+      "glory": [
+        1,
+        8,
+        2
+      ],
+      "hepa": [
+        12,
+        1,
+        3
+      ],
+      "jadul": [
+        10,
+        6,
+        4
+      ],
+      "jondd": [
+        6,
+        9,
+        6
+      ],
+      "kalmandaa": [
+        3,
+        1,
+        0
+      ],
+      "lafser": [
+        7,
+        7,
+        9
+      ],
+      "new-shoot": [
+        3,
+        4,
+        1
+      ],
+      "shoot": [
+        4,
+        7,
+        6
+      ],
+      "sosai": [
+        6,
+        2,
+        6
+      ],
+      "woremed": [
+        6,
+        5,
+        6
+      ]
+    },
+    "combatActive": false,
+    "combatVictory": false,
+    "timeMinutes": 177,
+    "theme": "atari-st-original",
+    "tileset": "atari-st-tiles",
+    "layout": "atari-st",
+    "attributes": [
+      30,
+      30,
+      30,
+      30,
+      30
+    ],
+    "attributeMax": [
+      30,
+      30,
+      30,
+      30,
+      30
+    ],
+    "banvilleCargo": 0,
+    "deaths": 0,
+    "interior": {
+      "active": false,
+      "kind": 0,
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "width": 0,
+      "height": 0,
+      "counter": {
+        "x": 0,
+        "y": 0
+      },
+      "booths": null,
+      "hasSlots": false,
+      "slotsAt": {
+        "x": 0,
+        "y": 0
+      },
+      "customers": 0,
+      "customerCap": 0,
+      "arrivalDivisor": 0,
+      "rolls": 0,
+      "returnPosition": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "slots": {
+      "bet": 0,
+      "reels": [
+        0,
+        0,
+        0
+      ],
+      "spun": false,
+      "matched": 0,
+      "matchedFace": 0,
+      "payout": 0,
+      "rolls": 0
+    },
+    "arena": {
+      "active": false,
+      "hitPoints": 0,
+      "speed": 0,
+      "gun": 0,
+      "shots": 0,
+      "shieldSlot": 0,
+      "shieldCharges": 0,
+      "thugs": null,
+      "rolls": 0,
+      "won": false,
+      "lost": false,
+      "playerX": 0,
+      "playerY": 0,
+      "targetX": 0,
+      "targetY": 0,
+      "halted": false,
+      "cooldown": 0,
+      "mode": 0,
+      "fleeing": false,
+      "downPending": false,
+      "fireLatch": false,
+      "pulls": 0,
+      "escaped": false,
+      "robbed": false,
+      "history": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "historyAt": 0,
+      "ticks": 0,
+      "shot": {
+        "live": false,
+        "fromX": 0,
+        "fromY": 0,
+        "toX": 0,
+        "toY": 0,
+        "colour": 0,
+        "hit": 0
+      }
+    },
+    "landing": {
+      "phase": "",
+      "descending": false,
+      "frame": 0,
+      "horizon": 0,
+      "cityId": "",
+      "skyline": null
+    },
+    "groundReturn": "ground",
+    "messageKey": "ui.message.engineering",
+    "outcomeKey": "",
+    "saved": false,
+    "quitRequested": true
+  },
+  "status": "READY-formal-geometry-fixture-not-GUI",
+  "strip": [
+    73,
+    152,
+    158,
+    10
+  ],
+  "systems": [
+    {
+      "id": "warp-drive",
+      "index": 0,
+      "labels": [
+        {
+          "locale": "zh-Hant",
+          "title": "躍遷驅動"
+        },
+        {
+          "locale": "zh-Hans",
+          "title": "跃迁驱动"
+        },
+        {
+          "locale": "ja",
+          "title": "ジャンプドライブ"
+        },
+        {
+          "locale": "en",
+          "title": "Jump Drive"
+        }
+      ],
+      "slots": [
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 89,
+          "h": 16,
+          "item": 31,
+          "row": 0,
+          "w": 16,
+          "x": 116,
+          "y": 81
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 89,
+          "h": 16,
+          "item": 28,
+          "row": 0,
+          "w": 16,
+          "x": 138,
+          "y": 81
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 89,
+          "h": 16,
+          "item": 26,
+          "row": 0,
+          "w": 16,
+          "x": 160,
+          "y": 81
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 89,
+          "h": 16,
+          "item": 30,
+          "row": 0,
+          "w": 16,
+          "x": 182,
+          "y": 81
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 106,
+          "h": 16,
+          "item": 31,
+          "row": 1,
+          "w": 16,
+          "x": 116,
+          "y": 98
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 106,
+          "h": 16,
+          "item": 28,
+          "row": 1,
+          "w": 16,
+          "x": 138,
+          "y": 98
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 106,
+          "h": 16,
+          "item": 26,
+          "row": 1,
+          "w": 16,
+          "x": 160,
+          "y": 98
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 106,
+          "h": 16,
+          "item": 30,
+          "row": 1,
+          "w": 16,
+          "x": 182,
+          "y": 98
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 123,
+          "h": 16,
+          "item": 31,
+          "row": 2,
+          "w": 16,
+          "x": 116,
+          "y": 115
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 123,
+          "h": 16,
+          "item": 28,
+          "row": 2,
+          "w": 16,
+          "x": 138,
+          "y": 115
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 123,
+          "h": 16,
+          "item": 26,
+          "row": 2,
+          "w": 16,
+          "x": 160,
+          "y": 115
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 123,
+          "h": 16,
+          "item": 30,
+          "row": 2,
+          "w": 16,
+          "x": 182,
+          "y": 115
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 140,
+          "h": 16,
+          "item": 31,
+          "row": 3,
+          "w": 16,
+          "x": 116,
+          "y": 132
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 140,
+          "h": 16,
+          "item": 0,
+          "row": 3,
+          "w": 16,
+          "x": 138,
+          "y": 132
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 140,
+          "h": 16,
+          "item": 26,
+          "row": 3,
+          "w": 16,
+          "x": 160,
+          "y": 132
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 140,
+          "h": 16,
+          "item": 30,
+          "row": 3,
+          "w": 16,
+          "x": 182,
+          "y": 132
+        }
+      ],
+      "statuses": [
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 0,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 85
+        },
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 1,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 102
+        },
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 2,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 119
+        },
+        {
+          "h": 7,
+          "pen": 0,
+          "row": 3,
+          "status": 0,
+          "w": 7,
+          "x": 133,
+          "y": 136
+        }
+      ]
+    },
+    {
+      "id": "subc-engine",
+      "index": 1,
+      "labels": [
+        {
+          "locale": "zh-Hant",
+          "title": "亞光速引擎"
+        },
+        {
+          "locale": "zh-Hans",
+          "title": "亚光速引擎"
+        },
+        {
+          "locale": "ja",
+          "title": "サブライトエンジン"
+        },
+        {
+          "locale": "en",
+          "title": "Sublight Engine"
+        }
+      ],
+      "slots": [
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 89,
+          "h": 16,
+          "item": 31,
+          "row": 0,
+          "w": 16,
+          "x": 116,
+          "y": 81
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 89,
+          "h": 16,
+          "item": 28,
+          "row": 0,
+          "w": 16,
+          "x": 138,
+          "y": 81
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 89,
+          "h": 16,
+          "item": 30,
+          "row": 0,
+          "w": 16,
+          "x": 160,
+          "y": 81
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 89,
+          "h": 16,
+          "item": 24,
+          "row": 0,
+          "w": 16,
+          "x": 182,
+          "y": 81
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 106,
+          "h": 16,
+          "item": 31,
+          "row": 1,
+          "w": 16,
+          "x": 116,
+          "y": 98
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 106,
+          "h": 16,
+          "item": 28,
+          "row": 1,
+          "w": 16,
+          "x": 138,
+          "y": 98
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 106,
+          "h": 16,
+          "item": 30,
+          "row": 1,
+          "w": 16,
+          "x": 160,
+          "y": 98
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 106,
+          "h": 16,
+          "item": 24,
+          "row": 1,
+          "w": 16,
+          "x": 182,
+          "y": 98
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 123,
+          "h": 16,
+          "item": 31,
+          "row": 2,
+          "w": 16,
+          "x": 116,
+          "y": 115
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 123,
+          "h": 16,
+          "item": 28,
+          "row": 2,
+          "w": 16,
+          "x": 138,
+          "y": 115
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 123,
+          "h": 16,
+          "item": 30,
+          "row": 2,
+          "w": 16,
+          "x": 160,
+          "y": 115
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 123,
+          "h": 16,
+          "item": 24,
+          "row": 2,
+          "w": 16,
+          "x": 182,
+          "y": 115
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 140,
+          "h": 16,
+          "item": 31,
+          "row": 3,
+          "w": 16,
+          "x": 116,
+          "y": 132
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 140,
+          "h": 16,
+          "item": 28,
+          "row": 3,
+          "w": 16,
+          "x": 138,
+          "y": 132
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 140,
+          "h": 16,
+          "item": 30,
+          "row": 3,
+          "w": 16,
+          "x": 160,
+          "y": 132
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 140,
+          "h": 16,
+          "item": 24,
+          "row": 3,
+          "w": 16,
+          "x": 182,
+          "y": 132
+        }
+      ],
+      "statuses": [
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 0,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 85
+        },
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 1,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 102
+        },
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 2,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 119
+        },
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 3,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 136
+        }
+      ]
+    },
+    {
+      "id": "ship-guns",
+      "index": 2,
+      "labels": [
+        {
+          "locale": "zh-Hant",
+          "title": "船艦武器"
+        },
+        {
+          "locale": "zh-Hans",
+          "title": "船舰武器"
+        },
+        {
+          "locale": "ja",
+          "title": "船の武器"
+        },
+        {
+          "locale": "en",
+          "title": "Ship Weapons"
+        }
+      ],
+      "slots": [
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 89,
+          "h": 16,
+          "item": 31,
+          "row": 0,
+          "w": 16,
+          "x": 116,
+          "y": 81
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 89,
+          "h": 16,
+          "item": 23,
+          "row": 0,
+          "w": 16,
+          "x": 138,
+          "y": 81
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 89,
+          "h": 16,
+          "item": 26,
+          "row": 0,
+          "w": 16,
+          "x": 160,
+          "y": 81
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 89,
+          "h": 16,
+          "item": 29,
+          "row": 0,
+          "w": 16,
+          "x": 182,
+          "y": 81
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 106,
+          "h": 16,
+          "item": 31,
+          "row": 1,
+          "w": 16,
+          "x": 116,
+          "y": 98
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 106,
+          "h": 16,
+          "item": 24,
+          "row": 1,
+          "w": 16,
+          "x": 138,
+          "y": 98
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 106,
+          "h": 16,
+          "item": 26,
+          "row": 1,
+          "w": 16,
+          "x": 160,
+          "y": 98
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 106,
+          "h": 16,
+          "item": 23,
+          "row": 1,
+          "w": 16,
+          "x": 182,
+          "y": 98
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 123,
+          "h": 16,
+          "item": 31,
+          "row": 2,
+          "w": 16,
+          "x": 116,
+          "y": 115
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 123,
+          "h": 16,
+          "item": 24,
+          "row": 2,
+          "w": 16,
+          "x": 138,
+          "y": 115
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 123,
+          "h": 16,
+          "item": 26,
+          "row": 2,
+          "w": 16,
+          "x": 160,
+          "y": 115
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 123,
+          "h": 16,
+          "item": 29,
+          "row": 2,
+          "w": 16,
+          "x": 182,
+          "y": 115
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 140,
+          "h": 16,
+          "item": 31,
+          "row": 3,
+          "w": 16,
+          "x": 116,
+          "y": 132
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 140,
+          "h": 16,
+          "item": 24,
+          "row": 3,
+          "w": 16,
+          "x": 138,
+          "y": 132
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 140,
+          "h": 16,
+          "item": 26,
+          "row": 3,
+          "w": 16,
+          "x": 160,
+          "y": 132
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 140,
+          "h": 16,
+          "item": 29,
+          "row": 3,
+          "w": 16,
+          "x": 182,
+          "y": 132
+        }
+      ],
+      "statuses": [
+        {
+          "h": 7,
+          "pen": 13,
+          "row": 0,
+          "status": 3,
+          "w": 7,
+          "x": 133,
+          "y": 85
+        },
+        {
+          "h": 7,
+          "pen": 13,
+          "row": 1,
+          "status": 3,
+          "w": 7,
+          "x": 133,
+          "y": 102
+        },
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 2,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 119
+        },
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 3,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 136
+        }
+      ]
+    },
+    {
+      "id": "tactical-display",
+      "index": 3,
+      "labels": [
+        {
+          "locale": "zh-Hant",
+          "title": "戰術顯示"
+        },
+        {
+          "locale": "zh-Hans",
+          "title": "战术显示"
+        },
+        {
+          "locale": "ja",
+          "title": "戦術ディスプレイ"
+        },
+        {
+          "locale": "en",
+          "title": "Tactical Display"
+        }
+      ],
+      "slots": [
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 89,
+          "h": 16,
+          "item": 31,
+          "row": 0,
+          "w": 16,
+          "x": 116,
+          "y": 81
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 89,
+          "h": 16,
+          "item": 27,
+          "row": 0,
+          "w": 16,
+          "x": 138,
+          "y": 81
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 89,
+          "h": 16,
+          "item": 25,
+          "row": 0,
+          "w": 16,
+          "x": 160,
+          "y": 81
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 89,
+          "h": 16,
+          "item": 26,
+          "row": 0,
+          "w": 16,
+          "x": 182,
+          "y": 81
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 106,
+          "h": 16,
+          "item": 31,
+          "row": 1,
+          "w": 16,
+          "x": 116,
+          "y": 98
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 106,
+          "h": 16,
+          "item": 23,
+          "row": 1,
+          "w": 16,
+          "x": 138,
+          "y": 98
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 106,
+          "h": 16,
+          "item": 25,
+          "row": 1,
+          "w": 16,
+          "x": 160,
+          "y": 98
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 106,
+          "h": 16,
+          "item": 26,
+          "row": 1,
+          "w": 16,
+          "x": 182,
+          "y": 98
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 123,
+          "h": 16,
+          "item": 31,
+          "row": 2,
+          "w": 16,
+          "x": 116,
+          "y": 115
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 123,
+          "h": 16,
+          "item": 27,
+          "row": 2,
+          "w": 16,
+          "x": 138,
+          "y": 115
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 123,
+          "h": 16,
+          "item": 25,
+          "row": 2,
+          "w": 16,
+          "x": 160,
+          "y": 115
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 123,
+          "h": 16,
+          "item": 26,
+          "row": 2,
+          "w": 16,
+          "x": 182,
+          "y": 115
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 140,
+          "h": 16,
+          "item": 31,
+          "row": 3,
+          "w": 16,
+          "x": 116,
+          "y": 132
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 140,
+          "h": 16,
+          "item": 27,
+          "row": 3,
+          "w": 16,
+          "x": 138,
+          "y": 132
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 140,
+          "h": 16,
+          "item": 25,
+          "row": 3,
+          "w": 16,
+          "x": 160,
+          "y": 132
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 140,
+          "h": 16,
+          "item": 26,
+          "row": 3,
+          "w": 16,
+          "x": 182,
+          "y": 132
+        }
+      ],
+      "statuses": [
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 0,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 85
+        },
+        {
+          "h": 7,
+          "pen": 13,
+          "row": 1,
+          "status": 3,
+          "w": 7,
+          "x": 133,
+          "y": 102
+        },
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 2,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 119
+        },
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 3,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 136
+        }
+      ]
+    },
+    {
+      "id": "force-shields",
+      "index": 4,
+      "labels": [
+        {
+          "locale": "zh-Hant",
+          "title": "力場護盾"
+        },
+        {
+          "locale": "zh-Hans",
+          "title": "力场护盾"
+        },
+        {
+          "locale": "ja",
+          "title": "フォースシールド"
+        },
+        {
+          "locale": "en",
+          "title": "Force Shield"
+        }
+      ],
+      "slots": [
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 89,
+          "h": 16,
+          "item": 31,
+          "row": 0,
+          "w": 16,
+          "x": 116,
+          "y": 81
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 89,
+          "h": 16,
+          "item": 23,
+          "row": 0,
+          "w": 16,
+          "x": 138,
+          "y": 81
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 89,
+          "h": 16,
+          "item": 28,
+          "row": 0,
+          "w": 16,
+          "x": 160,
+          "y": 81
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 89,
+          "h": 16,
+          "item": 28,
+          "row": 0,
+          "w": 16,
+          "x": 182,
+          "y": 81
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 106,
+          "h": 16,
+          "item": 31,
+          "row": 1,
+          "w": 16,
+          "x": 116,
+          "y": 98
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 106,
+          "h": 16,
+          "item": 24,
+          "row": 1,
+          "w": 16,
+          "x": 138,
+          "y": 98
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 106,
+          "h": 16,
+          "item": 28,
+          "row": 1,
+          "w": 16,
+          "x": 160,
+          "y": 98
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 106,
+          "h": 16,
+          "item": 28,
+          "row": 1,
+          "w": 16,
+          "x": 182,
+          "y": 98
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 123,
+          "h": 16,
+          "item": 31,
+          "row": 2,
+          "w": 16,
+          "x": 116,
+          "y": 115
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 123,
+          "h": 16,
+          "item": 24,
+          "row": 2,
+          "w": 16,
+          "x": 138,
+          "y": 115
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 123,
+          "h": 16,
+          "item": 28,
+          "row": 2,
+          "w": 16,
+          "x": 160,
+          "y": 115
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 123,
+          "h": 16,
+          "item": 28,
+          "row": 2,
+          "w": 16,
+          "x": 182,
+          "y": 115
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 140,
+          "h": 16,
+          "item": 31,
+          "row": 3,
+          "w": 16,
+          "x": 116,
+          "y": 132
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 140,
+          "h": 16,
+          "item": 24,
+          "row": 3,
+          "w": 16,
+          "x": 138,
+          "y": 132
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 140,
+          "h": 16,
+          "item": 7,
+          "row": 3,
+          "w": 16,
+          "x": 160,
+          "y": 132
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 140,
+          "h": 16,
+          "item": 28,
+          "row": 3,
+          "w": 16,
+          "x": 182,
+          "y": 132
+        }
+      ],
+      "statuses": [
+        {
+          "h": 7,
+          "pen": 13,
+          "row": 0,
+          "status": 3,
+          "w": 7,
+          "x": 133,
+          "y": 85
+        },
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 1,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 102
+        },
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 2,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 119
+        },
+        {
+          "h": 7,
+          "pen": 0,
+          "row": 3,
+          "status": 0,
+          "w": 7,
+          "x": 133,
+          "y": 136
+        }
+      ]
+    },
+    {
+      "id": "pilotage",
+      "index": 5,
+      "labels": [
+        {
+          "locale": "zh-Hant",
+          "title": "駕駛系統"
+        },
+        {
+          "locale": "zh-Hans",
+          "title": "驾驶系统"
+        },
+        {
+          "locale": "ja",
+          "title": "操縦系統"
+        },
+        {
+          "locale": "en",
+          "title": "Pilotage"
+        }
+      ],
+      "slots": [
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 89,
+          "h": 16,
+          "item": 31,
+          "row": 0,
+          "w": 16,
+          "x": 116,
+          "y": 81
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 89,
+          "h": 16,
+          "item": 25,
+          "row": 0,
+          "w": 16,
+          "x": 138,
+          "y": 81
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 89,
+          "h": 16,
+          "item": 27,
+          "row": 0,
+          "w": 16,
+          "x": 160,
+          "y": 81
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 89,
+          "h": 16,
+          "item": 25,
+          "row": 0,
+          "w": 16,
+          "x": 182,
+          "y": 81
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 106,
+          "h": 16,
+          "item": 31,
+          "row": 1,
+          "w": 16,
+          "x": 116,
+          "y": 98
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 106,
+          "h": 16,
+          "item": 25,
+          "row": 1,
+          "w": 16,
+          "x": 138,
+          "y": 98
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 106,
+          "h": 16,
+          "item": 27,
+          "row": 1,
+          "w": 16,
+          "x": 160,
+          "y": 98
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 106,
+          "h": 16,
+          "item": 25,
+          "row": 1,
+          "w": 16,
+          "x": 182,
+          "y": 98
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 123,
+          "h": 16,
+          "item": 31,
+          "row": 2,
+          "w": 16,
+          "x": 116,
+          "y": 115
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 123,
+          "h": 16,
+          "item": 25,
+          "row": 2,
+          "w": 16,
+          "x": 138,
+          "y": 115
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 123,
+          "h": 16,
+          "item": 23,
+          "row": 2,
+          "w": 16,
+          "x": 160,
+          "y": 115
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 123,
+          "h": 16,
+          "item": 25,
+          "row": 2,
+          "w": 16,
+          "x": 182,
+          "y": 115
+        },
+        {
+          "column": 0,
+          "cx": 124,
+          "cy": 140,
+          "h": 16,
+          "item": 0,
+          "row": 3,
+          "w": 16,
+          "x": 116,
+          "y": 132
+        },
+        {
+          "column": 1,
+          "cx": 146,
+          "cy": 140,
+          "h": 16,
+          "item": 25,
+          "row": 3,
+          "w": 16,
+          "x": 138,
+          "y": 132
+        },
+        {
+          "column": 2,
+          "cx": 168,
+          "cy": 140,
+          "h": 16,
+          "item": 27,
+          "row": 3,
+          "w": 16,
+          "x": 160,
+          "y": 132
+        },
+        {
+          "column": 3,
+          "cx": 190,
+          "cy": 140,
+          "h": 16,
+          "item": 25,
+          "row": 3,
+          "w": 16,
+          "x": 182,
+          "y": 132
+        }
+      ],
+      "statuses": [
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 0,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 85
+        },
+        {
+          "h": 7,
+          "pen": 11,
+          "row": 1,
+          "status": 4,
+          "w": 7,
+          "x": 133,
+          "y": 102
+        },
+        {
+          "h": 7,
+          "pen": 13,
+          "row": 2,
+          "status": 3,
+          "w": 7,
+          "x": 133,
+          "y": 119
+        },
+        {
+          "h": 7,
+          "pen": 0,
+          "row": 3,
+          "status": 0,
+          "w": 7,
+          "x": 133,
+          "y": 136
+        }
+      ]
+    }
+  ],
+  "titleSafe": [
+    74,
+    68,
+    156,
+    9
+  ],
+  "window": [
+    72,
+    64,
+    160,
+    100
+  ]
+}

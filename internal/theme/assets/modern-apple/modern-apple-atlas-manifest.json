@@ -1,0 +1,222 @@
+{
+  "schema": 1,
+  "assetVersion": "2026-08-12-v1",
+  "theme": "modern-apple",
+  "atlas": "modern-apple-atlas.png",
+  "atlasSha256": "5d499851f6a2753474acabc27e112350afc558315d1d02ee511d4bc473949553",
+  "atlasWidth": 512,
+  "atlasHeight": 256,
+  "cellSize": 128,
+  "logicalTileSize": 20,
+  "filter": "linear",
+  "provenance": "original high-resolution 2D raster redesign approved by the user on 2026-08-12",
+  "sourceStatus": "official Modern Apple production asset; original Apple II graphic consumer and exact source-frame mapping remain unknown",
+  "boundaries": {
+    "appleII": "Apple II is the sole original visual/game-semantic oracle; its RAM/HGR is never used as remake runtime, save, or asset format.",
+    "atariST": "Atari ST remains an asset-research source only and does not replace Apple II semantic evidence.",
+    "originalMedia": "No Apple II, Atari ST, FTL, SunDog, or other original game image was copied into this atlas.",
+    "gameplay": "This atlas must not change map semantics, collision, secrets, state, or save data."
+  },
+  "build": {
+    "tool": "tools/build_modern_apple_atlas.py",
+    "chromaKey": "#ff00ff",
+    "chromaKeyHelper": "remove_chroma_key.py with border auto-key, soft matte, thresholds 12/220, despill",
+    "sourceArtifactAvailability": "imagegen source images are external inputs; only their basenames and SHA-256 values are recorded here"
+  },
+  "sourceArtifacts": {
+    "grass": {
+      "basename": "exec-4a4d65e5-3a6b-4347-a1be-298a0872c8f4.png",
+      "sha256": "f1428de1e39102e969e74516d7f9b823f90f2beb71caef9c24a82d8554ec45a3",
+      "kind": "terrain",
+      "transform": "ImageOps.fit 1254px source to a full-bleed 128x128 terrain tile using Lanczos",
+      "alpha": {
+        "transparentPixels": 0,
+        "partialAlphaPixels": 0,
+        "opaquePixels": 16384
+      }
+    },
+    "water": {
+      "basename": "exec-b4b18129-4962-4380-a703-e3b0d3768947.png",
+      "sha256": "b436d4690ef04116824019380e9c7a40241211cef91ef96b0fd41c87e5f55cd1",
+      "kind": "terrain",
+      "transform": "ImageOps.fit 1254px source to a full-bleed 128x128 terrain tile using Lanczos",
+      "alpha": {
+        "transparentPixels": 0,
+        "partialAlphaPixels": 0,
+        "opaquePixels": 16384
+      }
+    },
+    "road": {
+      "basename": "exec-2d6d6061-90b9-404d-9734-cfd233916817.png",
+      "sha256": "7e3a855c3e84285f29766a6551c72209afb8a2208aa071a73ac17cb01ae301b6",
+      "kind": "terrain",
+      "transform": "ImageOps.fit 1254px source to a full-bleed 128x128 terrain tile using Lanczos",
+      "alpha": {
+        "transparentPixels": 0,
+        "partialAlphaPixels": 0,
+        "opaquePixels": 16384
+      }
+    },
+    "wall": {
+      "basename": "exec-0e478db7-48dd-4791-b2fc-25bc53229427.png",
+      "sha256": "667ac479ad2d93e6f1fd869e6c5bf27117daf5d81f061bda2442c9d5fd5a1ebe",
+      "kind": "terrain",
+      "transform": "ImageOps.fit 1254px source to a full-bleed 128x128 terrain tile using Lanczos",
+      "alpha": {
+        "transparentPixels": 0,
+        "partialAlphaPixels": 0,
+        "opaquePixels": 16384
+      }
+    },
+    "ship": {
+      "basename": "exec-0f08a938-36ae-42eb-8e89-08191b22c710.png",
+      "sha256": "f4935b321a4612eafa572885547a112ed655e99f7e851b085109e12944c221bd",
+      "kind": "sprite",
+      "transform": "chroma-key alpha removal then centered Lanczos normalization at 0.91 cell occupancy",
+      "chromaKey": "#ff00ff",
+      "chromaKeyResidualPixels": 0,
+      "alpha": {
+        "transparentPixels": 9458,
+        "partialAlphaPixels": 1210,
+        "opaquePixels": 5716
+      },
+      "visibleBounds": [
+        6,
+        6,
+        122,
+        121
+      ]
+    },
+    "cargo": {
+      "basename": "exec-e1d62e9c-5c41-4fc6-9562-8c1ca9764428.png",
+      "sha256": "4d0b327f8fa88901b2e7c001c2e0fb68af1cb625217e8c621275466c9410d28d",
+      "kind": "sprite",
+      "transform": "chroma-key alpha removal then centered Lanczos normalization at 0.70 cell occupancy",
+      "chromaKey": "#ff00ff",
+      "chromaKeyResidualPixels": 0,
+      "alpha": {
+        "transparentPixels": 8965,
+        "partialAlphaPixels": 988,
+        "opaquePixels": 6431
+      },
+      "visibleBounds": [
+        20,
+        19,
+        107,
+        109
+      ]
+    },
+    "city": {
+      "basename": "exec-230f80f0-8534-44da-96d5-a5540e9e1f09.png",
+      "sha256": "69ec40c68a5d105ab3fc82e530f8e4533f4ecafee46a8b7e0bcd92993b91d725",
+      "kind": "sprite",
+      "transform": "chroma-key alpha removal then centered Lanczos normalization at 0.84 cell occupancy",
+      "chromaKey": "#ff00ff",
+      "chromaKeyResidualPixels": 0,
+      "alpha": {
+        "transparentPixels": 7347,
+        "partialAlphaPixels": 1213,
+        "opaquePixels": 7824
+      },
+      "visibleBounds": [
+        15,
+        10,
+        112,
+        118
+      ]
+    },
+    "player": {
+      "basename": "exec-50ee4811-e265-41d2-b8f1-32dfe9efec7d.png",
+      "sha256": "1fbec716cf8d22efb915eb2bc9fce01de078e11602f2d76eb3e4c8b2d5fd79f3",
+      "kind": "sprite",
+      "transform": "chroma-key alpha removal then centered Lanczos normalization at 0.72 cell occupancy",
+      "chromaKey": "#ff00ff",
+      "chromaKeyResidualPixels": 0,
+      "alpha": {
+        "transparentPixels": 13206,
+        "partialAlphaPixels": 857,
+        "opaquePixels": 2321
+      },
+      "visibleBounds": [
+        37,
+        18,
+        90,
+        110
+      ]
+    }
+  },
+  "tiles": {
+    "grass": {
+      "x": 0,
+      "y": 0,
+      "width": 128,
+      "height": 128,
+      "source": "remake-owned original high-resolution raster design",
+      "evidenceLevel": "hypothesis",
+      "layer": "terrain"
+    },
+    "water": {
+      "x": 128,
+      "y": 0,
+      "width": 128,
+      "height": 128,
+      "source": "remake-owned original high-resolution raster design",
+      "evidenceLevel": "hypothesis",
+      "layer": "terrain"
+    },
+    "road": {
+      "x": 256,
+      "y": 0,
+      "width": 128,
+      "height": 128,
+      "source": "remake-owned original high-resolution raster design",
+      "evidenceLevel": "hypothesis",
+      "layer": "terrain"
+    },
+    "wall": {
+      "x": 384,
+      "y": 0,
+      "width": 128,
+      "height": 128,
+      "source": "remake-owned original high-resolution raster design",
+      "evidenceLevel": "hypothesis",
+      "layer": "terrain"
+    },
+    "ship": {
+      "x": 0,
+      "y": 128,
+      "width": 128,
+      "height": 128,
+      "source": "remake-owned original high-resolution raster design",
+      "evidenceLevel": "hypothesis",
+      "layer": "sprite"
+    },
+    "cargo": {
+      "x": 128,
+      "y": 128,
+      "width": 128,
+      "height": 128,
+      "source": "remake-owned original high-resolution raster design",
+      "evidenceLevel": "hypothesis",
+      "layer": "sprite"
+    },
+    "city": {
+      "x": 256,
+      "y": 128,
+      "width": 128,
+      "height": 128,
+      "source": "remake-owned original high-resolution raster design",
+      "evidenceLevel": "hypothesis",
+      "layer": "sprite"
+    },
+    "player": {
+      "x": 384,
+      "y": 128,
+      "width": 128,
+      "height": 128,
+      "source": "remake-owned original high-resolution raster design",
+      "evidenceLevel": "hypothesis",
+      "layer": "sprite"
+    }
+  }
+}

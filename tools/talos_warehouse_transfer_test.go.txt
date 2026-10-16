@@ -1,0 +1,257 @@
+package m68k
+
+import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"testing"
+)
+
+// XDOTRADI:10 真正倉庫操作，非:1a通用lot selector。
+func TestSunDogWarehouseTransfer(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Mode, WarehouseMask, PodMask, SelectedWarehouse, SelectedPod int
+		Before, After                                                [6][2]uint16
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{
+		Scope:      "XDOTRADI raw44200:0741..0814，Store/Fetch/Swap分派及完整六槽record搬運；empty finder:0d 058e..05e6真正執行。",
+		Boundaries: "原版SYSTEM.INTERP與XJP/MOV執行。已由picker接受的有效selector或取消為執行前固定輸入；:0f繪字／輸入邊界只回selector。FILLCHAR嚴格ABI；滿槽的:0e重畫、MAINLIB:1b訊息及:2c等待只記邊界，不繪圖或等待。停在0814，未執行cargo名稱重畫、外層選單／完整GUI或磁碟I/O。WH有效record為Goods31/Q7/Price0，pod為一般Goods9/10。",
+	}
+	for mode := 1; mode <= 3; mode++ {
+		for wm := 0; wm < 16; wm++ {
+			for pm := 0; pm < 4; pm++ {
+				for wh := -1; wh <= 4; wh++ {
+					if wh == 0 || wh > 0 && wm&(1<<(wh-1)) == 0 {
+						continue
+					}
+					for pod := -1; pod <= 2; pod++ {
+						if pod == 0 || pod > 0 && pm&(1<<(pod-1)) == 0 {
+							continue
+						}
+						h := banvilleHarness(t, disk)
+						r := row{Mode: mode, WarehouseMask: wm, PodMask: pm, SelectedWarehouse: wh, SelectedPod: pod}
+						ptrs := [6]uint32{}
+						for i := 0; i < 6; i++ {
+							p := cadenceOuter(0x39) + uint32(i*4)
+							if i >= 4 {
+								p = cadenceGlobal(0xec) + uint32((i-4)*4)
+							}
+							ptrs[i] = p
+							if i < 4 && wm&(1<<i) != 0 {
+								r.Before[i] = [2]uint16{uint16((17+i)<<8 | 7<<5 | 31), 0}
+							}
+							if i >= 4 && pm&(1<<(i-4)) != 0 {
+								r.Before[i] = [2]uint16{uint16((34+i-4)<<8 | 4<<5 | 9 + i - 4), uint16(30 + i - 4)}
+							}
+							h.poke(p, r.Before[i][0])
+							h.poke(p+2, r.Before[i][1])
+						}
+						h.poke(depotLocal(0x46000, 2), uint16(mode))
+						stream := uint32(operandStream + 0x8000)
+						h.startDispatch(disk[0x44200+0x741:0x44200+0x818], stream)
+						stopped := false
+						at := 0
+						for step := 0; step < 100000; step++ {
+							if h.cpu.State.PC == interpBase+interpLoop+4 {
+								ip, sp := h.cpu.State.A[4], h.cpu.State.SSP
+								at = int(ip-stream) + 0x741
+								if at == 0x814 {
+									stopped = true
+									break
+								}
+								op, proc := h.mem[ip], h.mem[ip+1]
+								if at == 0x74a && op == 0x70 && proc == 0x15 {
+									p := depotLocal(0x46000, 9)
+									if h.peek(sp) != 0 || h.peek(sp+2) != 4 || h.peek(sp+4) != 0 || h.peek(sp+6) != uint16(p-0x40000) {
+										t.Fatal("transfer FILLCHAR ABI")
+									}
+									for i := uint32(0); i < 4; i++ {
+										h.mem[p+i] = 0
+									}
+									h.cpu.State.SSP = sp + 8
+								} else if op == 0xef && proc == 0x0f && (at == 0x756 || at == 0x764 || at == 0x7c6) {
+									choice := wh
+									wantFlag := uint16(0)
+									target := depotLocal(0x46000, 7)
+									if at == 0x756 {
+										choice = pod
+										wantFlag = 1
+										target = depotLocal(0x46000, 8)
+									}
+									if h.peek(sp) != 0 || h.peek(sp+2) != 0 || h.peek(sp+4) != wantFlag || h.peek(sp+6) != uint16(target-0x40000) {
+										t.Fatal("picker ABI")
+									}
+									h.poke(target, uint16(choice))
+									h.cpu.State.SSP = sp + 8
+								} else if op == 0xef && proc == 0x0d && (at == 0x76a || at == 0x7cf) {
+									old := h.cpu.State.A[0]
+									child := uint32(0x48000)
+									for i := uint32(0); i < 80; i++ {
+										h.mem[child+i] = 0
+									}
+									h.poke(child, 0x5000)
+									h.poke(depotLocal(child, 2), h.peek(sp))
+									h.poke(depotLocal(child, 3), h.peek(sp+2))
+									if h.peek(sp) != 0 && h.peek(sp) != 1 {
+										t.Fatal("empty finder boolean")
+									}
+									levelsFrame(h, child)
+									_, stop := banvilleRunDepth(h, disk, 0x44200, 0x58e, 0x5e6, 1)
+									if stop != 0x5e6 {
+										t.Fatal("empty finder stop")
+									}
+									levelsFrame(h, old)
+									h.cpu.State.SSP = sp + 4
+								} else if op == 0xef && proc == 0x0e && (at == 0x7b2 || at == 0x801) {
+									if h.peek(sp) != 0 || h.peek(sp+2) != 0 {
+										t.Fatal("container redraw ABI")
+									}
+									h.cpu.State.SSP = sp + 4
+								} else if op == 0x73 && proc == 0x1b && (at == 0x7b9 || at == 0x808) {
+									// LCO與LPR仍由原版執行；只省略字串render。
+									h.cpu.State.SSP = sp + 2
+								} else if op == 0x73 && proc == 0x2c && (at == 0x7be || at == 0x80d) {
+									if h.peek(sp) != 300 {
+										t.Fatal("full-container delay ABI")
+									}
+									h.cpu.State.SSP = sp + 2
+								} else {
+									if _, err := h.cpu.Step(); err != nil {
+										t.Fatal(err)
+									}
+									continue
+								}
+								h.cpu.State.A[4] = ip + 2
+								h.start(interpLoop)
+								continue
+							}
+							if _, err := h.cpu.Step(); err != nil {
+								t.Fatalf("transfer at%x: %v", at, err)
+							}
+						}
+						if !stopped {
+							t.Fatal("transfer did not stop")
+						}
+						want := r.Before
+						free := func(a, z int) int {
+							for i := a; i < z; i++ {
+								if want[i][0]&31 == 0 {
+									return i
+								}
+							}
+							return -1
+						}
+						if mode == 1 && pod > 0 {
+							i := free(0, 4)
+							if i >= 0 {
+								want[i] = want[pod+3]
+								want[pod+3] = [2]uint16{}
+							}
+						}
+						if mode == 2 && wh > 0 {
+							i := free(4, 6)
+							if i >= 0 {
+								want[i] = want[wh-1]
+								want[wh-1] = [2]uint16{}
+							}
+						}
+						if mode == 3 && wh > 0 && pod > 0 {
+							want[wh-1], want[pod+3] = want[pod+3], want[wh-1]
+						}
+						for i, p := range ptrs {
+							r.After[i] = [2]uint16{h.peek(p), h.peek(p + 2)}
+						}
+						if r.After != want {
+							t.Fatalf("mode%d wm%d pm%d wh%d pod%d got%v want%v", mode, wm, pm, wh, pod, r.After, want)
+						}
+						report.Rows = append(report.Rows, r)
+					}
+				}
+			}
+		}
+	}
+	raw, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-warehouse-transfer.json"), append(raw, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+}
+
+// 真正city warehouse reader/writer，64是原始CHK端點；兩word lot×四槽。
+func TestSunDogWarehousePersistence(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		City                    int
+		Before, Loaded, Written [4][2]uint16
+		OtherCityBytesPreserved bool
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{
+		Scope:      "XDOTRADI raw44200:031f..0331與0484..0496，64個city索引的16-byte倉庫record讀取／写回。",
+		Boundaries: "持久3072-byte heap buffer／磁碟I/O與native moveram為外部邊界；本測試從outer1a5倉庫表讀寫，非完整磁碟存檔驗收。",
+	}
+	for city := 1; city <= 64; city++ {
+		h := banvilleHarness(t, disk)
+		base := cadenceOuter(0x1a5)
+		for i := uint32(0); i < 1024; i++ {
+			h.mem[base+i] = byte(i*13 + 7)
+		}
+		r := row{City: city}
+		at := base + uint32((city-1)*16)
+		for i := 0; i < 4; i++ {
+			r.Before[i] = [2]uint16{uint16((city&63)<<8 | 7<<5 | 31), uint16(i * 17)}
+			h.poke(at+uint32(i*4), r.Before[i][0])
+			h.poke(at+uint32(i*4+2), r.Before[i][1])
+		}
+		before := make([]byte, 1024)
+		for i := range before {
+			before[i] = h.mem[base+uint32(i)]
+		}
+		h.poke(cadenceOuter(0x15), uint16(city-1))
+		banvilleRun(h, disk, 0x44200, 0x31f, 0x331)
+		for i := 0; i < 4; i++ {
+			p := cadenceOuter(0x39) + uint32(i*4)
+			r.Loaded[i] = [2]uint16{h.peek(p), h.peek(p + 2)}
+		}
+		if r.Loaded != r.Before {
+			t.Fatal("warehouse load differs")
+		}
+		// 模擬已取得第一格，寫回正確四byte全零；其他三格保留。
+		h.poke(cadenceOuter(0x39), 0)
+		h.poke(cadenceOuter(0x39)+2, 0)
+		banvilleRun(h, disk, 0x44200, 0x484, 0x496)
+		for i := 0; i < 4; i++ {
+			r.Written[i] = [2]uint16{h.peek(at + uint32(i*4)), h.peek(at + uint32(i*4+2))}
+		}
+		want := r.Before
+		want[0] = [2]uint16{}
+		if r.Written != want {
+			t.Fatal("warehouse write differs")
+		}
+		r.OtherCityBytesPreserved = true
+		for i, b := range before {
+			if i < (city-1)*16 || i >= city*16 {
+				r.OtherCityBytesPreserved = r.OtherCityBytesPreserved && h.mem[base+uint32(i)] == b
+			}
+		}
+		if !r.OtherCityBytesPreserved {
+			t.Fatal("other city changed")
+		}
+		report.Rows = append(report.Rows, r)
+	}
+	raw, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-warehouse-persistence.json"), append(raw, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+}

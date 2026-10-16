@@ -1,0 +1,27 @@
+package m68k
+import("testing";"os";"encoding/json";"crypto/sha256";"fmt")
+func TestSunDogNativePixelCollision(t *testing.T){
+ disk,e:=os.ReadFile("/src/dist-all/v.1.0.8-20260908/full/data/sundog.st");if e!=nil{t.Fatal(e)}
+ if fmt.Sprintf("%x",sha256.Sum256(disk))!="f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6"{t.Fatal("wrong disk")}
+ interp:=loadInterp(t)
+ for _,side:=range []string{"south","east"}{
+ raw,e:=os.ReadFile("/out/sundog-collision-"+side+".json");if e!=nil{t.Fatal(e)}
+ var f struct{Indices []byte;Blocked uint16;Samples []struct{Pattern,X,Y int;Pass bool}};if e=json.Unmarshal(raw,&f);e!=nil{t.Fatal(e)};if len(f.Indices)!=64000||len(f.Samples)!=324{t.Fatal("wrong fixture shape")}
+ const off=0x6000;const base=interpBase+off;const screen=0x50000;const globals=0x40000
+ planes:=make([]byte,32000)
+ for i,c:=range f.Indices{x,y:=i%320,i/320;for plane:=0;plane<4;plane++{if c&(1<<plane)!=0{at:=y*160+(x/16)*8+plane*2+(x%16)/8;planes[at]|=1<<uint(7-x%8)}}}
+ passed,blocked:=0,0
+ for _,c:=range f.Samples{
+ h:=newHarness(t,interp);for i,b:=range disk[0x2fe00:0x31200]{h.mem[base+uint32(i)]=b};for i,b:=range planes{h.mem[screen+uint32(i)]=b};for i:=0;i<16;i++{h.mem[globals+0x468+uint32(i)]=0;if f.Blocked&(1<<i)!=0{h.mem[globals+0x468+uint32(i)]=1}}
+ h.cpu.State.A[6]=globals;h.poke(stackTop,uint16(sentinel>>16));h.poke(stackTop+2,uint16(sentinel&0xffff));h.poke(stackTop+4,uint16(c.Y));h.poke(stackTop+6,uint16(c.X));h.poke(stackTop+8,uint16(c.Pattern));h.poke(stackTop+10,0xffff)
+ h.start(off+0x636);steps,traps:=0,0
+ for h.cpu.State.PC!=sentinel+4&&steps<3000{
+ if h.cpu.State.PC==base+0x64a+4{if h.peek(h.cpu.State.SSP)!=3{t.Fatal("wrong XBIOS function")};h.cpu.State.D[0]=screen;h.start(off+0x64c);traps++;continue}
+ if _,e:=h.cpu.Step();e!=nil{t.Fatalf("%s %+v pc=%x: %v",side,c,h.cpu.State.PC,e)};steps++
+ }
+ result:=h.peek(stackTop+10);if steps>=3000||traps!=1||result>1||(result==0)!=c.Pass{t.Fatalf("%s %+v native=%d steps=%d traps=%d pc=%x",side,c,result,steps,traps,h.cpu.State.PC)}
+ if result==0{passed++}else{blocked++}
+ }
+ t.Logf("%s: %d pass, %d blocked; all 324 native results match",side,passed,blocked)
+ }
+}

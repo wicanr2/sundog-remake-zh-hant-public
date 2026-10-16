@@ -1,0 +1,256 @@
+package m68k
+
+import (
+ "crypto/sha256"
+ "encoding/json"
+ "fmt"
+ "os"
+ "path/filepath"
+ "testing"
+)
+
+// 證據契約與完整原版流程限制見 docs/atari-st/walker-timing-spec.md。
+func sundogWalkerDisk(t *testing.T) []byte {
+ t.Helper()
+ disk,err:=os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+ if err!=nil {t.Fatal(err)}
+ if len(disk)!=368640 || fmt.Sprintf("%x",sha256.Sum256(disk))!="f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {t.Fatal("磁碟身分不符")}
+ return disk
+}
+
+const sundogWalkerOffset = 0x6000
+const sundogWalkerBase = interpBase+sundogWalkerOffset
+
+func sundogWalkerNative(t *testing.T,disk []byte) *harness {
+ t.Helper()
+ h:=newHarness(t,loadInterp(t))
+ for i,b:=range disk[0x2fe00:0x31200] {h.mem[sundogWalkerBase+uint32(i)]=b}
+ for at:=uint32(stackTop-256);at<stackTop+64;at++ {h.mem[at]=0}
+ return h
+}
+
+func sundogWalkerUntil(t *testing.T,h *harness,offset uint32) {
+ t.Helper()
+ for steps:=0;h.cpu.State.PC!=sundogWalkerBase+offset+4;steps++ {
+  if steps>=2048 {t.Fatalf("沒有到達 native %x",offset)}
+  if _,err:=h.cpu.Step();err!=nil {t.Fatalf("native PC %x: %v",h.cpu.State.PC-4,err)}
+ }
+}
+
+func TestSunDogNativeWalkerAxisStep(t *testing.T) {
+ disk:=sundogWalkerDisk(t)
+ cases:=0
+ for _,dx:=range []int{-100,-3,-2,-1,0,1,2,3,100} {
+  for _,dy:=range []int{-100,-3,-2,-1,0,1,2,3,100} {
+   h:=sundogWalkerNative(t,disk)
+   h.cpu.State.D[1]=uint32(150+dx);h.cpu.State.D[2]=uint32(100+dy)
+   h.cpu.State.D[3]=150;h.cpu.State.D[4]=100
+   h.start(sundogWalkerOffset+0xbc0)
+   sundogWalkerUntil(t,h,0xbf0)
+   wantX,wantY:=max(-2,min(2,dx)),max(-2,min(2,dy))
+   if x,y:=int(int16(h.cpu.State.D[1])),int(int16(h.cpu.State.D[2]));x!=wantX||y!=wantY {t.Fatalf("delta %d/%d = %d/%d want %d/%d",dx,dy,x,y,wantX,wantY)}
+   cases++
+  }
+ }
+ t.Logf("原版目標錨點減目前錨點、限制 ±2：%d 案通過",cases)
+}
+
+func TestSunDogNativeWalkerFacingFamilies(t *testing.T) {
+ disk:=sundogWalkerDisk(t)
+ cases:=[][3]int{{0,-2,0},{0,2,0},{-2,0,2},{2,0,2},{-2,-2,3},{2,2,3},{-2,2,1},{2,-2,1}}
+ for _,family:=range []struct{entry,end uint32;base int}{{0xcd4,0xcfc,0},{0xd2c,0xd54,6}} {
+  for _,c:=range cases {
+   h:=sundogWalkerNative(t,disk);h.cpu.State.D[1]=uint32(int32(c[0]));h.cpu.State.D[2]=uint32(int32(c[1]))
+   h.start(sundogWalkerOffset+family.entry);sundogWalkerUntil(t,h,family.end)
+   if got:=int(h.cpu.State.D[0]&0xffff);got!=family.base+c[2] {t.Fatalf("family %d direction %v pattern %d",family.base,c,got)}
+  }
+ }
+ t.Log("原始兩個方向家族各八方向通過；地面步行固定圖樣 4 不屬於這兩個家族")
+}
+
+func TestSunDogNativeCollisionCandidateOrder(t *testing.T) {
+ disk:=sundogWalkerDisk(t);total:=0
+ for _,delta:=range [][2]int{{2,2},{2,-2},{-2,2},{-2,-2},{2,0},{0,2}} {
+  expected:=[][2]int{}
+  sx,sy:=delta[0],delta[1]
+  for round:=0;round<2;round++ {
+   expected=append(expected,[2]int{sx,sy})
+   if sy!=0 {expected=append(expected,[2]int{0,sy})}
+   if sx!=0 {expected=append(expected,[2]int{sx,0})}
+   sx,sy=max(-1,min(1,sx)),max(-1,min(1,sy))
+  }
+  for success:=0;success<=len(expected);success++ {
+   h:=sundogWalkerNative(t,disk)
+   h.cpu.State.D[1]=uint32(int32(delta[0]));h.cpu.State.D[2]=uint32(int32(delta[1]))
+   h.cpu.State.A[3]=0x34000;h.cpu.State.A[0]=0x35000;h.cpu.State.A[5]=0x40000
+   h.poke(0x34000,0x4a58);h.poke(0x34002,0x4e75) // tst.w (a0)+; rts
+   h.poke(0x34004,0x4e71);h.poke(0x34006,0x4e71) // 68000 預取邊界
+   h.poke(0x4000a,1)
+   for i:=range expected {v:=uint16(1);if i==success {v=0};h.poke(0x35000+uint32(i*2),v)}
+   h.start(sundogWalkerOffset+0xc0c);seen:=[][2]int{}
+   for steps:=0;h.cpu.State.PC!=sundogWalkerBase+0xc5c+4;steps++ {
+    if steps>=2048 {t.Fatal("候選順序超時")}
+    switch h.cpu.State.PC-4-sundogWalkerBase {case 0xc0c,0xc1a,0xc2a,0xc38,0xc44,0xc52:
+     seen=append(seen,[2]int{int(int16(h.cpu.State.D[1])),int(int16(h.cpu.State.D[2]))})
+    }
+    if _,err:=h.cpu.Step();err!=nil {t.Fatal(err)}
+   }
+   n:=min(success+1,len(expected))
+   if len(seen)!=n {t.Fatalf("方向 %v 成功 %d：候選 %v",delta,success,seen)}
+   for i,c:=range seen {if c!=expected[i] {t.Fatalf("方向 %v：候選 %v want %v",delta,seen,expected[:n])}}
+   wantFlag:=uint16(1);if success==len(expected) {wantFlag=0xffff}
+   if h.peek(0x4000a)!=wantFlag {t.Fatal("全部失敗的移動旗標不符")}
+   total++
+  }
+ }
+ t.Logf("原始候選分派 %d 案通過；僅用替身供應碰撞返回值，不是像素碰撞對拍",total)
+}
+
+func TestSunDogNativeWalkerSequences(t *testing.T) {
+ disk:=sundogWalkerDisk(t)
+ raw,err:=os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"),"walker-sequences.json"))
+ if err!=nil {t.Fatal(err)}
+ type point struct {X,Y int}
+ type frame struct {Held bool;Anchor point}
+ type sequence struct {Current,Target point;Frames []frame}
+ var fixture struct {Schema int;Randomness string;Sequences []sequence}
+ if err:=json.Unmarshal(raw,&fixture);err!=nil {t.Fatal(err)}
+ if fixture.Schema!=1 || len(fixture.Sequences)!=81 {t.Fatal("序列契約不符")}
+ report:=struct {
+  Scope,FixtureSHA256 string
+  Updates,Differences int
+  Native []sequence
+ }{Scope:"same-input fixed blank framebuffer / native move-halt and collision; no VBL scheduling or drawing parity",FixtureSHA256:fmt.Sprintf("%x",sha256.Sum256(raw))}
+ for _,seq:=range fixture.Sequences {
+  h:=sundogWalkerNative(t,disk)
+  const record=0x421e0
+  for i:=uint32(0);i<128;i++ {h.mem[record+i]=0}
+  h.poke(record,4);h.poke(record+2,uint16(seq.Current.X));h.poke(record+4,uint16(seq.Current.Y))
+  for i:=uint32(0);i<32000;i++ {h.mem[0x50000+i]=0}
+  for i:=uint32(0);i<16;i++ {h.mem[0x40468+i]=0}
+  actual:=sequence{Current:seq.Current,Target:seq.Target}
+  for _,f:=range seq.Frames {
+   h.cpu.State.A[3]=interpBase // native handler 使用 a3；回到直譯器前恢復其分派基底。
+   h.cpu.State.A[6]=0x40000;h.cpu.State.A[1]=0x42000;h.cpu.State.A[0]=0x48000
+   h.cpu.State.SSP=stackTop
+   if f.Held {
+    h.poke(0x4800c,uint16(seq.Target.Y));h.poke(0x4800e,uint16(seq.Target.X));h.poke(0x48010,0)
+    h.startDispatch(disk[0x301bf:0x301d5],operandStream);h.runPCode(16,2048)
+   } else {
+    h.poke(0x4800a,0);h.startDispatch(disk[0x3020a:0x30214],operandStream);h.runPCode(6,1024)
+   }
+   h.cpu.State.A[5]=record;h.cpu.State.A[4]=sundogWalkerBase+0x636
+   h.start(sundogWalkerOffset+0xb74)
+   for steps:=0;h.cpu.State.PC!=sundogWalkerBase+0xc5c+4 && h.cpu.State.PC!=sundogWalkerBase+0xc74+4;steps++ {
+    if steps>=4096 {t.Fatal("原版位置更新超時")}
+    if h.cpu.State.PC==sundogWalkerBase+0xbf0+4 {
+     // 僅略過抹除／重畫 helper；這個固定空白畫布沒有前景 sprite。
+     h.start(sundogWalkerOffset+0xc0c)
+     continue
+    }
+    if h.cpu.State.PC==sundogWalkerBase+0x64a+4 {
+     if h.peek(h.cpu.State.SSP)!=3 {t.Fatal("非預期 XBIOS")}
+     h.cpu.State.D[0]=0x50000;h.start(sundogWalkerOffset+0x64c);continue
+    }
+    if _,err:=h.cpu.Step();err!=nil {t.Fatalf("PC %x: %v",h.cpu.State.PC-4,err)}
+   }
+   p:=point{int(h.peek(record+2)),int(h.peek(record+4))}
+   actual.Frames=append(actual.Frames,frame{f.Held,p})
+   report.Updates++
+   if p!=f.Anchor {
+    report.Differences++
+    if report.Differences<=5 {t.Errorf("target %v held=%v native=%v remake=%v",seq.Target,f.Held,p,f.Anchor)}
+   }
+  }
+  report.Native=append(report.Native,actual)
+ }
+ data,err:=json.MarshalIndent(report,"","  ");if err!=nil {t.Fatal(err)}
+ if err:=os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"),"native-walker-comparison.json"),append(data,'\n'),0600);err!=nil {t.Fatal(err)}
+ if report.Updates!=810 {t.Fatal("更新數不符")}
+ t.Logf("相同目標／固定空白場景：%d 次更新，%d 位置差異",report.Updates,report.Differences)
+}
+
+func sundogSpriteSchedule(t *testing.T,disk []byte,gate1,gate2 uint16,initialGroup uint16) (*harness,[]int) {
+ t.Helper()
+ h:=sundogWalkerNative(t,disk)
+ putLong:=func(at,value uint32) {h.poke(at,uint16(value>>16));h.poke(at+2,uint16(value))}
+ // 原版初始化待填的絕對地址／指標，均是合成測試地址，不改閘門邏輯。
+ putLong(sundogWalkerBase+0xb42,0x40010)
+ putLong(sundogWalkerBase+0xb4c,0x40012)
+ putLong(sundogWalkerBase+0xb5c,sundogWalkerBase+0xc98)
+ putLong(sundogWalkerBase+0xc9e,0x42000)
+ putLong(sundogWalkerBase+0xca2,sundogWalkerBase+0x636)
+ putLong(sundogWalkerBase+0xca6,0x40000)
+ putLong(sundogWalkerBase+0xc9a,0x40014)
+ h.poke(0x40010,gate1);h.poke(0x40012,gate2)
+ h.poke(sundogWalkerBase+0xc98,initialGroup)
+ for i:=uint32(0);i<128;i++ {h.mem[0x42000+i]=0}
+ h.start(sundogWalkerOffset+0xb40);records:=[]int{}
+ for steps:=0;h.cpu.State.PC!=sundogWalkerBase+0xc8a+4;steps++ {
+  if steps>=2048 {t.Fatal("排程切片超時")}
+  switch h.cpu.State.PC {
+  case sundogWalkerBase+0xb60+4:h.start(sundogWalkerOffset+0xb62);continue
+  case sundogWalkerBase+0xc84+4:h.start(sundogWalkerOffset+0xc86);continue
+  case sundogWalkerBase+0xb74+4:records=append(records,int((h.cpu.State.A[5]-0x42000)/16))
+  }
+  if _,err:=h.cpu.Step();err!=nil {t.Fatalf("PC %x: %v",h.cpu.State.PC-4,err)}
+ }
+ if h.cpu.State.SSP!=stackTop {t.Fatalf("背景保存／恢復後 SSP %x want %x",h.cpu.State.SSP,stackTop)}
+ return h,records
+}
+
+func TestSunDogNativeSpriteGroupSchedule(t *testing.T) {
+ disk:=sundogWalkerDisk(t);group:=uint16(0)
+ for update:=0;update<8;update++ {
+  h,records:=sundogSpriteSchedule(t,disk,1,0,group)
+  want:=[]int{1,3,5,7};if update%2==1 {want=[]int{0,2,4,6}}
+  if fmt.Sprint(records)!=fmt.Sprint(want) {t.Fatalf("update %d records %v want %v",update,records,want)}
+  group=h.peek(sundogWalkerBase+0xc98)
+ }
+ t.Log("八次有效背景更新的奇偶四筆分組通過；未模擬 Line-A 或完整中斷")
+}
+
+func TestSunDogNativeSpriteUpdateGates(t *testing.T) {
+ disk:=sundogWalkerDisk(t)
+ for _,g:=range [][2]uint16{{0,0},{0,1},{1,1},{0xffff,1},{1,0},{0xffff,0}} {
+  h,records:=sundogSpriteSchedule(t,disk,g[0],g[1],0)
+  active:=g[0]!=0 && g[1]==0
+  want:=uint16(0);if active {want=0x10}
+  if h.peek(sundogWalkerBase+0xc98)!=want || (len(records)==4)!=active {t.Fatalf("gates %v records %v group %x",g,records,h.peek(sundogWalkerBase+0xc98))}
+ }
+ t.Log("六組原版閘門通過；被跳過的呼叫不消耗更新分組")
+}
+
+func TestSunDogSpriteMoveHaltWrites(t *testing.T) {
+ disk:=sundogWalkerDisk(t)
+ cases:=0
+ for record:=0;record<8;record++ {
+  for _,target:=range [][2]uint16{{0,0},{319,199},{150,101},{80,180}} {
+   h:=newHarness(t,loadInterp(t))
+   h.cpu.State.A[6]=0x40000
+   h.cpu.State.A[1]=0x42000
+   h.cpu.State.A[0]=0x48000
+   original:=[64]uint16{}
+   for i:=range original {original[i]=uint16(0x100+i);h.poke(0x421e0+uint32(i*2),original[i])}
+   h.poke(0x4800c,target[1])
+   h.poke(0x4800e,target[0])
+   h.poke(0x48010,uint16(record))
+   h.startDispatch(disk[0x301bf:0x301d5],operandStream)
+   h.runPCode(16,2048)
+   check:=func(halted bool) {
+    t.Helper()
+    for i,want:=range original {
+     switch i-record*8 {case 3:want=target[0];case 4:want=target[1];case 5:want=1;if halted {want=0}}
+     if got:=h.peek(0x421e0+uint32(i*2));got!=want {t.Fatalf("record %d word %d halted=%v: %04x want %04x",record,i,halted,got,want)}
+    }
+   }
+   check(false)
+   h.poke(0x4800a,uint16(record))
+   h.startDispatch(disk[0x3020a:0x30214],operandStream)
+   h.runPCode(6,1024)
+   check(true)
+   cases++
+  }
+ }
+ t.Logf("原始 move/halt p-code：%d 組，全部八筆記錄及未修改欄位通過",cases)
+}

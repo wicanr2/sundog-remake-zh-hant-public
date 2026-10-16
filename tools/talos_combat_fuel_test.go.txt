@@ -1,0 +1,407 @@
+package m68k
+
+import (
+	"crypto/sha256"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"reflect"
+	"testing"
+)
+
+// 研究入口：docs/atari-st/talos-combat-audit-20260907.md；不加入runtime。
+type fuelInput struct {
+	OldFuel, RawFuel, CurrentSpeed, TargetSpeed, Setting int
+	Attached                                             bool
+	Kinds                                                [2]int
+}
+type fuelResult struct {
+	Input                      fuelInput
+	Fuel, TargetSpeed, Setting int
+	Kinds                      [2]int
+	Words                      [2]uint16
+	Flags                      []uint16
+}
+
+func fuelNative(t *testing.T, disk []byte, r fuelInput) fuelResult {
+	h := cadenceHarness(t, disk)
+	for _, frame := range []uint32{0x47000, 0x4a000, 0x4c000} {
+		for n := uint32(0); n < 128; n++ {
+			h.mem[frame+n] = 0
+		}
+	}
+	// 原始常數池也供給ASTR；不以新字串代替Empty標籤。
+	for n, b := range disk[0x31e00:0x33600] {
+		h.mem[0x50000+uint32(n)] = b
+	}
+	levelsFrame(h, 0x4a000)
+	h.poke(0x4a000, 0x5000)
+	h.poke(0x4a026, 0x7000)
+	h.poke(0x47000, uint16(r.RawFuel))
+	h.poke(interpBase+0x1b70, 4)
+	h.poke(interpBase+0x1b72, 0x5000)
+	for n, v := range map[int]int{0xe5: r.OldFuel, 0xe1: r.CurrentSpeed, 0xe0: r.TargetSpeed, 0xe2: r.Setting} {
+		h.poke(cadenceGlobal(n), uint16(v))
+	}
+	for n := 0; n < 5; n++ {
+		cadenceFlag(h, n, true)
+		cadenceFlag(h, n+8, true)
+	}
+	cadenceFlag(h, 7, r.Attached)
+	for n, kind := range r.Kinds {
+		h.poke(cadenceGlobal(0xec)+uint32(n*4), 0xab20|uint16(kind))
+	}
+	// 原版最後的check_fuel與關閉流程，保留callee、packed寫回及ASTR真正執行。
+	levelsSlice(h, disk, 0x33020, 0x52, 0x52, operandStream+0xb000)
+	x := fuelResult{Input: r, Fuel: int(int16(h.peek(0x47000))), TargetSpeed: int(h.peek(cadenceGlobal(0xe0))), Setting: int(h.peek(cadenceGlobal(0xe2))), Flags: displayFlags(h)}
+	for n := range r.Kinds {
+		x.Words[n] = h.peek(cadenceGlobal(0xec) + uint32(n*4))
+		x.Kinds[n] = int(x.Words[n] & 31)
+	}
+	return x
+}
+func fuelContract(r fuelInput) fuelResult {
+	x := fuelResult{Input: r, Fuel: r.RawFuel, TargetSpeed: r.TargetSpeed, Setting: r.Setting, Kinds: r.Kinds, Flags: []uint16{0x1f1f, 0, 0, 0, 0}}
+	if r.Attached {
+		x.Flags[0] |= 1 << 7
+	}
+	if x.Fuel <= 0 && r.Attached {
+		for i, kind := range x.Kinds {
+			if kind == 1 {
+				x.Fuel += 255
+				x.Kinds[i] = 0
+				break
+			}
+		}
+	}
+	x.Fuel = max(0, x.Fuel)
+	if x.Fuel == 0 && r.OldFuel > 0 {
+		for _, n := range []int{1, 3, 4} {
+			x.Flags[0] &^= (1 << n) | (1 << (n + 8))
+		}
+		if r.CurrentSpeed < r.TargetSpeed {
+			x.Flags[0] &^= 1 | (1 << 8)
+			x.TargetSpeed = 0
+		}
+		x.Setting = 0
+	}
+	for i, kind := range x.Kinds {
+		x.Words[i] = 0xab20 | uint16(kind)
+	}
+	return x
+}
+
+// 船艙與能量末段的補油規則分開驗證；不把研究結果直接掛接到正式排程。
+type auxPodInput struct {
+	Fuel     int
+	Attached bool
+	Kinds    [2]int
+}
+type auxPodResult struct {
+	Input             auxPodInput
+	Fuel              int
+	Words, PriceWords [2]uint16
+	Labels            [2][16]byte
+	Flags             []uint16
+}
+
+func auxPodInitial(r auxPodInput) auxPodResult {
+	x := auxPodResult{Input: r, Fuel: r.Fuel, PriceWords: [2]uint16{0x1357, 0x2468}, Flags: []uint16{0x1f1f, 0, 0, 0, 0}}
+	if r.Attached {
+		x.Flags[0] |= 1 << 7
+	}
+	for i, k := range r.Kinds {
+		x.Words[i] = 0xab20 | uint16(k)
+		for j := range x.Labels[i] {
+			x.Labels[i][j] = byte(0x40 + i*16 + j)
+		}
+		x.Labels[i][0] = 5
+	}
+	return x
+}
+func auxPodContract(r auxPodInput) auxPodResult {
+	x := auxPodInitial(r)
+	if x.Fuel < 5 {
+		for i, k := range r.Kinds {
+			if k == 1 {
+				x.Fuel = 255
+				x.Words[i] &^= 31
+				x.Labels[i][0] = 0 // 原始LCO0xa是長度0字串，ASTR只複製長度byte。
+				break
+			}
+		}
+	}
+	return x
+}
+func auxPodNative(t *testing.T, disk []byte, r auxPodInput) auxPodResult {
+	h := cadenceHarness(t, disk)
+	for i, b := range disk[0x37e00:0x38600] {
+		h.mem[0x50000+uint32(i)] = b
+	}
+	h.poke(interpBase+0x1b70, 4)
+	h.poke(interpBase+0x1b72, 0x5000)
+	x := auxPodInitial(r)
+	h.poke(cadenceGlobal(0xe5), uint16(r.Fuel))
+	for i, v := range x.Flags {
+		h.poke(cadenceGlobal(0x53)+uint32(i*2), v)
+	}
+	for i := range r.Kinds {
+		h.poke(cadenceGlobal(0xec)+uint32(i*4), x.Words[i])
+		h.poke(cadenceGlobal(0xec)+uint32(i*4+2), x.PriceWords[i])
+		for j, b := range x.Labels[i] {
+			h.mem[cadenceGlobal(0xf0)+uint32(i*16+j)] = b
+		}
+	}
+	levelsSlice(h, disk, 0x38150, 0x4f, 0x4f, operandStream+0xc000)
+	x.Fuel = int(int16(h.peek(cadenceGlobal(0xe5))))
+	x.Flags = displayFlags(h)
+	for i := range r.Kinds {
+		x.Words[i] = h.peek(cadenceGlobal(0xec) + uint32(i*4))
+		x.PriceWords[i] = h.peek(cadenceGlobal(0xec) + uint32(i*4+2))
+		for j := range x.Labels[i] {
+			x.Labels[i][j] = h.mem[cadenceGlobal(0xf0)+uint32(i*16+j)]
+		}
+	}
+	return x
+}
+func TestSunDogCombatAuxPod(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不同")
+	}
+	// 字典locals=0x34e、end=0x39f，正文從0x350到RPU前；不執行玩家輸入。
+	word := func(at int) int { return int(disk[at])<<8 | int(disk[at+1]) }
+	dict := 0x37e00 + word(0x37e00)*2
+	if word(dict-8*2)*2 != 0x34e || word(0x37e00+0x34e-2) != 0x39f || disk[0x38462] != 0 {
+		t.Fatal("原始程序／空標籤定位不同")
+	}
+	report := struct {
+		Scope, Randomness                                                                    string
+		Cases, Differences, AttachmentCases, AttachmentDifferences                           int
+		FormalCases, FormalFuelDifferences, FormalKindDifferences, FormalConsumedDifferences int
+		CallerCases, CallerDifferences                                                       int
+		CallerNative                                                                         []struct {
+			Word         uint16
+			Stop, Outer4 int
+		}
+		Native           []auxPodResult
+		AttachmentNative []struct {
+			Base, First, Last int
+			Initial, Result   uint16
+			Value             bool
+		}
+	}{Scope: "原始XMOVEONS:0x08 0x350..0x39f船艙補油，含原始兩槽掃描、STP與ASTR；零長度清標籤及其他record bytes保留。另驗旗標7三個直接寫入切片；非完整玩家附件生命週期、正式排程或GUI。", Randomness: "無亂數呼叫；明示邊界初態。"}
+	for _, f := range []int{-6, -1, 0, 1, 4, 5, 6, 100, 254, 255} {
+		for _, attached := range []bool{false, true} {
+			for _, a := range []int{0, 1, 2, 31} {
+				for _, b := range []int{0, 1, 2, 31} {
+					r := auxPodInput{f, attached, [2]int{a, b}}
+					x := auxPodNative(t, disk, r)
+					report.Native = append(report.Native, x)
+					report.Cases++
+					if !reflect.DeepEqual(x, auxPodContract(r)) {
+						report.Differences++
+						if report.Differences < 4 {
+							t.Logf("實際=%+v 預期=%+v", x, auxPodContract(r))
+						}
+					}
+				}
+			}
+		}
+	}
+	for _, s := range []struct {
+		Base, First, Last int
+		Value             bool
+	}{{0x39c00, 0x1c56, 0x1c5f, true}, {0x37e00, 0x1a3, 0x1ac, false}, {0x40000, 0xcc3, 0xcd0, true}} {
+		for _, initial := range []uint16{0, 0x80, 0x1f1f, 0xffff} {
+			h := cadenceHarness(t, disk)
+			h.poke(cadenceGlobal(0x53), initial)
+			displayRun(h, disk, s.Base, s.First, s.Last, s.Last)
+			v := h.peek(cadenceGlobal(0x53))
+			expected := initial &^ (1 << 7)
+			if s.Value {
+				expected |= 1 << 7
+			}
+			report.AttachmentCases++
+			if v != expected {
+				report.AttachmentDifferences++
+			}
+			report.AttachmentNative = append(report.AttachmentNative, struct {
+				Base, First, Last int
+				Initial, Result   uint16
+				Value             bool
+			}{s.Base, s.First, s.Last, initial, v, s.Value})
+		}
+	}
+	// 0x43c的bit13決定走0x44e補油呼叫，或0x45c另一條路。
+	// 停在get_place前，不合成它的座標，也不宣稱整個check_move已執行。
+	for _, base := range []uint16{0, 0x1357, 0xefff, 0xffff} {
+		for _, bit := range []bool{false, true} {
+			v := base &^ (1 << 13)
+			if bit {
+				v |= 1 << 13
+			}
+			h := cadenceHarness(t, disk)
+			h.poke(cadenceGlobal(0x32), v)
+			stop := displayRun(h, disk, 0x37e00, 0x43c, 0x466, 0x448, 0x45c)
+			outer := int(h.peek(cadenceOuter(4)))
+			expected := 0x448
+			if bit {
+				expected = 0x45c
+			}
+			report.CallerCases++
+			if stop != expected || (!bit && outer != 2) {
+				report.CallerDifferences++
+			}
+			report.CallerNative = append(report.CallerNative, struct {
+				Word         uint16
+				Stop, Outer4 int
+			}{v, stop, outer})
+		}
+	}
+	if data, err := os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-aux-pod.json")); err == nil {
+		var rows []struct {
+			Fuel        int
+			Kinds       [2]int
+			ResultFuel  int
+			ResultKinds [2]int
+			Consumed    bool
+		}
+		if err = json.Unmarshal(data, &rows); err != nil {
+			t.Fatal(err)
+		}
+		for _, r := range rows {
+			x := auxPodNative(t, disk, auxPodInput{r.Fuel, false, r.Kinds})
+			kinds := [2]int{int(x.Words[0] & 31), int(x.Words[1] & 31)}
+			report.FormalCases++
+			if x.Fuel != r.ResultFuel {
+				report.FormalFuelDifferences++
+			}
+			if kinds != r.ResultKinds {
+				report.FormalKindDifferences++
+			}
+			if (kinds != r.Kinds) != r.Consumed {
+				report.FormalConsumedDifferences++
+			}
+		}
+	} else if !os.IsNotExist(err) {
+		t.Fatal(err)
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-aux-pod.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 || report.AttachmentDifferences != 0 || report.CallerDifferences != 0 {
+		t.Fatalf("補油差異%d/%d，附件%d/%d", report.Differences, report.Cases, report.AttachmentDifferences, report.AttachmentCases)
+	}
+}
+func TestSunDogCombatFuel(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	report := struct {
+		Scope, Randomness        string
+		Cases, Differences       int
+		Native                   []fuelResult
+		GUICases, GUIDifferences int
+		GUIScope                 string
+		GUINative                []fuelResult
+	}{Scope: "原始SHIPLIB 0x1220..0x1272末段，真正執行check_fuel 0x0f88..0x0ff7與補油／packed貨艙寫回／ASTR／零燃料關閉。明示舊燃料、耗能後signed燃料、速度與掛接旗標；非完整levels或正式玩家流程。", Randomness: "本切片無亂數，遇到未納入呼叫即失敗。"}
+	for _, old := range []int{0, 1, 5} {
+		for _, raw := range []int{-6, -1, 0, 1, 4, 5} {
+			for _, speeds := range [][2]int{{0, 0}, {0, 1}, {1, 0}} {
+				for _, attached := range []bool{false, true} {
+					for _, first := range []int{0, 1, 2, 31} {
+						for _, second := range []int{0, 1, 2, 31} {
+							r := fuelInput{old, raw, speeds[0], speeds[1], 100, attached, [2]int{first, second}}
+							x := fuelNative(t, disk, r)
+							report.Native = append(report.Native, x)
+							report.Cases++
+							if !reflect.DeepEqual(x, fuelContract(r)) {
+								report.Differences++
+								if report.Differences < 4 {
+									t.Logf("actual=%+v expected=%+v", x, fuelContract(r))
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	if gui := os.Getenv("SUNDOG_PARITY_FUEL_GUI"); gui != "" {
+		data, err := os.ReadFile(gui)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var receipt struct {
+			Status         string
+			FuelExhaustion *struct{ Steps int } `json:"fuel_exhaustion"`
+		}
+		if err = json.Unmarshal(data, &receipt); err != nil {
+			t.Fatal(err)
+		}
+		if receipt.Status != "PASS" || receipt.FuelExhaustion == nil || receipt.FuelExhaustion.Steps < 1 {
+			t.Fatal("缺少正常耗盡收據")
+		}
+		data, err = os.ReadFile(filepath.Join(filepath.Dir(gui), "observations.json"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var states []struct {
+			Fuel          int
+			ShieldSetting int
+			ShieldsActive bool
+			Holds         []struct{ Kind string }
+		}
+		if err = json.Unmarshal(data, &states); err != nil {
+			t.Fatal(err)
+		}
+		for i := 1; i < len(states); i++ {
+			before, after := states[i-1], states[i]
+			if before.Fuel <= 0 || after.Fuel != 0 {
+				continue
+			}
+			if !before.ShieldsActive {
+				t.Fatal("正常耗盡樣本護盾原已停用")
+			}
+			for _, h := range before.Holds {
+				if h.Kind == "fuel" {
+					t.Fatal("正常耗盡投影不涵蓋備用油")
+				}
+			}
+			r := fuelInput{OldFuel: before.Fuel, RawFuel: after.Fuel, Setting: before.ShieldSetting}
+			x := fuelNative(t, disk, r)
+			report.GUINative = append(report.GUINative, x)
+			report.GUICases++
+			if x.Fuel != after.Fuel || x.Setting != after.ShieldSetting || (x.Flags[0]&(1<<4) != 0) != after.ShieldsActive {
+				report.GUIDifferences++
+			}
+		}
+		if report.GUICases != 1 {
+			t.Fatalf("須有且僅有一案耗盡投影，實際%d", report.GUICases)
+		}
+		report.GUIScope = "正常GUI非零→零燃料樣本，只投影無備用油末段的Fuel／護盾設定／旗標4；速度相等與其他啟用旗標是明示研究隔離條件，不宣稱完整原版三相玩家流程或貨艙標籤一致。"
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-fuel.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 || report.GUIDifferences != 0 {
+		t.Fatalf("燃料研究契約差異%d/%d", report.Differences, report.Cases)
+	}
+}

@@ -1,0 +1,99 @@
+package main
+
+import (
+	"bytes"
+	"encoding/json"
+	"os"
+	"testing"
+
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/wicanr2/sundog-remake/internal/game"
+	"github.com/wicanr2/sundog-remake/internal/localization"
+	"github.com/wicanr2/sundog-remake/internal/source/atarist/originalmedia"
+	"golang.org/x/image/font"
+)
+
+func TestHDEngineeringReview(t *testing.T) {
+	a, _ := hdMapsTestApp(t)
+	var model struct {
+		State game.State `json:"state"`
+	}
+	raw, err := os.ReadFile(os.Getenv("HD_ENGINEERING_MODEL"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = json.Unmarshal(raw, &model); err != nil {
+		t.Fatal(err)
+	}
+	a.originalDisk, err = originalmedia.Open(os.Getenv("HD_WORLD_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	a.originalTiles = map[int]*originalTileCache{}
+	clone := func(s game.State) game.State {
+		b, e := json.Marshal(s)
+		if e != nil {
+			t.Fatal(e)
+		}
+		var copy game.State
+		if e = json.Unmarshal(b, &copy); e != nil {
+			t.Fatal(e)
+		}
+		return copy
+	}
+	var scenes []map[string]any
+	count := 0
+	for index, system := range model.State.ShipSystems {
+		base := clone(model.State)
+		base.SelectedSystemIndex = index
+		held, ok := a.reducer.MoveHandToSlot(base, 0, 0)
+		if !ok || held.HandItem != 31 {
+			t.Fatal("held source")
+		}
+		blasted := clone(base)
+		blasted.ShipSystems[index].Rows[0][0] = 0x9f
+		unknown := clone(base)
+		unknown.ShipSystems[index].Rows[0][0] = 235
+		for _, locale := range []localization.Locale{"zh-Hant", "zh-Hans", "ja", "en"} {
+			a.applyLocale(locale)
+			for _, scale := range []int{4, 5} {
+				a.scale = scale
+				for variant, state := range []game.State{base, held, blasted, unknown} {
+					a.state = state
+					a.textLayer = nil
+					a.uiLayer = nil
+					before, _ := json.Marshal(a.state)
+					target := ebiten.NewImage(320*scale, 200*scale)
+					if !a.drawHDEngineeringReview(target) {
+						t.Fatal("fallback", index, locale, scale, variant)
+					}
+					after, _ := json.Marshal(a.state)
+					if !bytes.Equal(before, after) {
+						t.Fatal("render changed state")
+					}
+					w := stZoomFor(game.ScreenEngineering, 0, 0, 0)
+					rect := hdStoresTitleSafe(w)
+					p := hdReviewPainter{a: a, screen: target, scale: float32(scale)}
+					value := a.lookup(game.ShipSystemLabelKey(system.ID))
+					ink, _ := font.BoundString(p.face(8), value)
+					iw, ih := (ink.Max.X - ink.Min.X).Ceil(), (ink.Max.Y - ink.Min.Y).Ceil()
+					if iw > rect[2]*scale || ih > rect[3]*scale {
+						t.Fatal("title ink", system.ID, locale, iw, ih, rect)
+					}
+					scenes = append(scenes, map[string]any{"system": system.ID, "systemIndex": index, "locale": locale, "scale": scale, "variant": variant, "title": value, "safe": rect, "inkPixels": []int{iw, ih}, "handItem": state.HandItem, "firstSlot": state.ShipSystems[index].Rows[0][0]})
+					target.Dispose()
+					count++
+				}
+			}
+		}
+	}
+	result := map[string]any{"status": "PASS-native-queued-draw-state-and-title-ink;GPU-separate", "cases": count, "scenes": scenes, "variants": []string{"actual source", "reducer held31/source empty", "fixture blasted159->31/red frame", "fixture unknown235->107 blank/red frame,not Stores11"}, "limits": "Fixtures are not normal player input or original GUI parity. No footer added. Formal draw order preserved."}
+	data, err := json.MarshalIndent(result, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(os.Getenv("HD_ENGINEERING_SCENES"), append(data, '\n'), 0644); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("PASS%d cases;6systems x4locales x2sizes x4states;actual font ink/state", count)
+}

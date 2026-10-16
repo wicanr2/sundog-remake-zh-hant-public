@@ -1,0 +1,235 @@
+// #9 的字型與正常同步截圖量測；由 verify_trade_marquee.py 複製到 workplace 後執行。
+// 只量測，不修改遊戲、保存或圖片。原版執行另由 verify_talos_banville.py 負責。
+package main
+
+import (
+	"encoding/json"
+	"flag"
+	"fmt"
+	"github.com/wicanr2/sundog-remake/internal/game"
+	"github.com/wicanr2/sundog-remake/internal/localization"
+	"golang.org/x/image/font"
+	"golang.org/x/image/font/opentype"
+	"golang.org/x/image/math/fixed"
+	"image"
+	"image/color"
+	"image/png"
+	"os"
+	"path/filepath"
+	"strings"
+)
+
+func read(path string) []byte {
+	b, e := os.ReadFile(path)
+	if e != nil {
+		panic(e)
+	}
+	return b
+}
+func decode(path string, v any) {
+	if e := json.Unmarshal(read(path), v); e != nil {
+		panic(e)
+	}
+}
+func face(f *opentype.Font, size float64, hint font.Hinting) font.Face {
+	v, e := opentype.NewFace(f, &opentype.FaceOptions{Size: size, DPI: 72, Hinting: hint})
+	if e != nil {
+		panic(e)
+	}
+	return v
+}
+func labels(locale string) map[string]string {
+	var cat struct {
+		Entries []struct{ Key, Translation string }
+	}
+	decode(filepath.Join("docs/i18n", "sundog-ui-"+locale+".json"), &cat)
+	out := map[string]string{}
+	for _, e := range cat.Entries {
+		out[e.Key] = e.Translation
+	}
+	return out
+}
+func reducer(locale string) game.Reducer {
+	r, e := game.NewReducer()
+	if e != nil {
+		panic(e)
+	}
+	cat := labels(locale)
+	return r.WithLocalizer(func(k, f string) string {
+		if s, ok := cat[k]; ok {
+			return s
+		}
+		return f
+	})
+}
+func window(ring []rune, offset int) string {
+	out := make([]rune, 22)
+	for i := range out {
+		out[i] = ring[(offset+i)%len(ring)]
+	}
+	return string(out)
+}
+func main() {
+	library := flag.String("library", "", "正常保存庫")
+	shotPath := flag.String("shot", "", "正常 F12 截圖")
+	locale := flag.String("locale", "zh-Hant", "語言")
+	left := flag.Int("left", 465, "實體像素文字左緣")
+	baseline := flag.Int("baseline", 531, "實體像素 baseline")
+	scale := flag.Int("scale", 3, "視窗縮放")
+	flag.Parse()
+	if _, e := os.Stat("/.dockerenv"); e != nil {
+		panic("只能在 Docker 執行")
+	}
+	f, e := opentype.Parse(read("assets/fonts/NotoSansCJKtc-Regular.otf"))
+	if e != nil {
+		panic(e)
+	}
+	layout := face(f, 8, font.HintingNone)
+	defer layout.Close()
+	type failure struct {
+		Locale, Text                string
+		Goods, Price, Offset, Scale int
+		Width                       float64
+		Bounds                      [4]int
+	}
+	metrics := struct {
+		Cases, InkCases, WidthFailures, InkFailures int
+		MaximumWidth                                float64
+		Failures                                    []failure
+	}{}
+	display := map[int]font.Face{}
+	for _, s := range []int{1, 2, 3, 4, 6} {
+		display[s] = face(f, float64(8*s), font.HintingFull)
+		defer display[s].Close()
+	}
+	// 所有 31 貨種、四語及五個價格；同一最長名稱首尾相接，逐字檢查 22 字窗口。
+	for _, lang := range []string{"zh-Hant", "en", "zh-Hans", "ja"} {
+		r := reducer(lang)
+		for goods := 1; goods <= 31; goods++ {
+			for _, price := range []int{0, 1, 103, 9999, 32767} {
+				cell := r.MarqueeText(game.Lot{Goods: goods, Price: price})
+				if cell == "" {
+					panic(fmt.Sprint("缺貨種", goods))
+				}
+				ring := []rune(cell)
+				for offset := range ring {
+					text := window(ring, offset)
+					w := float64(font.MeasureString(layout, text)) / 64
+					metrics.Cases++
+					if w > metrics.MaximumWidth {
+						metrics.MaximumWidth = w
+					}
+					if localization.FitText(layout, text, 154) != text {
+						metrics.WidthFailures++
+						metrics.Failures = append(metrics.Failures, failure{Locale: lang, Text: text, Goods: goods, Price: price, Offset: offset, Width: w})
+					}
+					for s, df := range display {
+						bounds, _ := font.BoundString(df, text)
+						metrics.InkCases++
+						// 原版 baseline 在底緣上方 2px，文字左緣在邊框右方 3px。
+						if bounds.Max.Y > fixed.I(2*s) || bounds.Min.X < fixed.I(-2*s) || bounds.Max.X > fixed.I(155*s) {
+							metrics.InkFailures++
+							metrics.Failures = append(metrics.Failures, failure{Locale: lang, Text: text, Goods: goods, Price: price, Offset: offset, Scale: s, Width: w, Bounds: [4]int{int(bounds.Min.X), int(bounds.Min.Y), int(bounds.Max.X), int(bounds.Max.Y)}})
+						}
+					}
+				}
+			}
+		}
+	}
+	report := map[string]any{"font": metrics, "scope": "字型 fixture 與 remake 正常同步截圖；原版字型／圖形 primitive、時序、全畫面 parity 未驗"}
+	if *library != "" && *shotPath != "" {
+		var lib struct {
+			Slots map[string]game.State `json:"slots"`
+		}
+		decode(*library, &lib)
+		ring := []rune{}
+		r := reducer(*locale)
+		for _, q := range lib.Slots["slot-1"].Quotes {
+			ring = append(ring, []rune(r.MarqueeText(q))...)
+		}
+		if len(ring) == 0 {
+			panic("空報價環")
+		}
+		file, e := os.Open(*shotPath)
+		if e != nil {
+			panic(e)
+		}
+		shot, e := png.Decode(file)
+		file.Close()
+		if e != nil {
+			panic(e)
+		}
+		df := face(f, float64(8**scale), font.HintingFull)
+		defer df.Close()
+		region := image.Rect(*left-3, (*baseline - 11**scale), *left+155**scale, *baseline+2**scale)
+		// 找相位只用正常保存的報價；不重擲或選擇另一組遊戲狀態。
+		best := int(^uint(0) >> 1)
+		bestOffset := 0
+		bestText := ""
+		var bestRef *image.RGBA
+		for offset := range ring {
+			text := window(ring, offset)
+			text = localization.FitText(layout, text, 154)
+			ref := image.NewRGBA(shot.Bounds())
+			drawer := font.Drawer{Dst: ref, Src: image.White, Face: df, Dot: fixed.P(*left, *baseline)}
+			drawer.DrawString(text)
+			mismatch := 0
+			for y := region.Min.Y; y < region.Max.Y; y++ {
+				for x := region.Min.X; x < region.Max.X; x++ {
+					c := color.RGBAModel.Convert(ref.At(x, y)).(color.RGBA)
+					rr, gg, bb, _ := shot.At(x, y).RGBA()
+					target := rr == gg && gg == bb && rr > 0x8000
+					if (c.A > 128) != target {
+						mismatch++
+					}
+				}
+			}
+			if mismatch < best {
+				best = mismatch
+				bestOffset = offset
+				bestText = text
+				bestRef = ref
+			}
+		}
+		missing, maxError, inkPixels := 0, 0, 0
+		bbox := image.Rectangle{}
+		missingRows := map[int]int{}
+		for y := region.Min.Y - 4**scale; y < region.Max.Y+4**scale; y++ {
+			for x := region.Min.X - 4**scale; x < region.Max.X+4**scale; x++ {
+				c := color.RGBAModel.Convert(bestRef.At(x, y)).(color.RGBA)
+				if c.A < 32 {
+					continue
+				}
+				inkPixels++
+				pt := image.Rect(x, y, x+1, y+1)
+				if bbox.Empty() {
+					bbox = pt
+				} else {
+					bbox = bbox.Union(pt)
+				}
+				rr, gg, bb, _ := shot.At(x, y).RGBA()
+				v := int(rr >> 8)
+				if rr != gg || gg != bb || v == 0 {
+					missing++
+					missingRows[y]++
+				}
+				err := int(c.R) - v
+				if err < 0 {
+					err = -err
+				}
+				if err > maxError {
+					maxError = err
+				}
+			}
+		}
+		report["pixel"] = map[string]any{"ringLength": len(ring), "offset": bestOffset, "visibleText": bestText, "left": *left, "baseline": *baseline, "scale": *scale, "symmetricMaskDifference": best, "referenceInkPixelsAbove32": inkPixels, "missingInkPixelsAbove32": missing, "missingRows": missingRows, "referenceInkBounds": bbox, "maximumGrayscaleError": maxError, "fitInsertedEllipsis": strings.Contains(bestText, "…")}
+	}
+	raw, e := json.MarshalIndent(report, "", "  ")
+	if e != nil {
+		panic(e)
+	}
+	fmt.Println(string(raw))
+	if metrics.WidthFailures != 0 || metrics.InkFailures != 0 {
+		os.Exit(1)
+	}
+}

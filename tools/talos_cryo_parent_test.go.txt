@@ -1,0 +1,229 @@
+package m68k
+
+import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"testing"
+)
+
+// 原始世界表的來源區間不由軌道／系統旗標初始化改寫。
+func TestSunDogCryoParentFields(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type systemRow struct{ System, Before, After, TailBefore, TailAfter int }
+	type planetRow struct {
+		Initial, RandomCalls int
+		Before, After        [18][2]uint16
+	}
+	report := struct {
+		Scope, Boundaries string
+		Systems           []systemRow
+		Planets           []planetRow
+	}{Scope: "XSTARTUP raw39c00，系統旗標writer153b..154b及完整行星初始化:29 1640..1682。來源firstPlanet與firstCity/count不變。", Boundaries: "系統只執行直接旗標writer，完整座標／銀行初始化未執行。行星range RND執行前固定：初值0..255，每顆先回前值再回前值加16 mod256，核對拒絕及接受兩分支；未執行自然RNG或完整新局。"}
+	for system := 0; system < 12; system++ {
+		h := banvilleHarness(t, disk)
+		p := cadenceGlobal(0x11f) + uint32(system*20)
+		for i, b := range disk[0x5800+system*20 : 0x5800+(system+1)*20] {
+			h.mem[p+uint32(i)] = b
+		}
+		// 設旗標驗清除，不改來源firstPlanet bits2..6。
+		h.poke(p+10, h.peek(p+10)|0x80)
+		h.poke(p+18, h.peek(p+18)|0xf000)
+		r := systemRow{System: system + 1, Before: int(h.peek(p + 10)), TailBefore: int(h.peek(p + 18))}
+		h.poke(depotLocal(0x46000, 5), uint16(p-0x40000))
+		banvilleRun(h, disk, 0x39c00, 0x153b, 0x154b)
+		r.After, r.TailAfter = int(h.peek(p+10)), int(h.peek(p+18))
+		if r.After != r.Before&^0x80 || r.TailAfter != r.TailBefore&0x0fff || r.Before>>2&31 != r.After>>2&31 {
+			t.Fatalf("system source field changed: %+v", r)
+		}
+		report.Systems = append(report.Systems, r)
+	}
+	for initial := 0; initial <= 255; initial++ {
+		h := banvilleHarness(t, disk)
+		r := planetRow{Initial: initial}
+		for i, b := range disk[0x58f0:0x5a10] {
+			h.mem[cadenceGlobal(0x197)+uint32(i)] = b
+		}
+		for i := 0; i < 18; i++ {
+			p := cadenceGlobal(0x197) + uint32(i*16)
+			h.poke(p+14, h.peek(p+14)|0x8000)
+			r.Before[i] = [2]uint16{h.peek(p + 12), h.peek(p + 14)}
+		}
+		stream := uint32(operandStream + 0x8000)
+		h.startDispatch(disk[0x39c00+0x1640:0x39c00+0x1686], stream)
+		stopped := false
+		for steps := 0; steps < 100000; steps++ {
+			if h.cpu.State.PC == interpBase+interpLoop+4 {
+				ip, sp := h.cpu.State.A[4], h.cpu.State.SSP
+				at := int(ip-stream) + 0x1640
+				if at == 0x1682 {
+					stopped = true
+					break
+				}
+				if (at == 0x1644 || at == 0x1667) && h.mem[ip] == 0x73 && h.mem[ip+1] == 0x0c {
+					if h.peek(sp) != 255 || h.peek(sp+2) != 0 || h.peek(sp+4) != 0 {
+						t.Fatal("planet range RND ABI")
+					}
+					value := (initial + 16*(r.RandomCalls/2)) & 255
+					h.poke(sp+4, uint16(value))
+					h.cpu.State.SSP = sp + 4
+					r.RandomCalls++
+					h.cpu.State.A[4] = ip + 2
+					h.start(interpLoop)
+					continue
+				}
+			}
+			if _, err := h.cpu.Step(); err != nil {
+				t.Fatal(err)
+			}
+		}
+		if !stopped || r.RandomCalls != 37 {
+			t.Fatalf("planet initialization stop/calls: %+v", r)
+		}
+		for i := 0; i < 18; i++ {
+			p := cadenceGlobal(0x197) + uint32(i*16)
+			r.After[i] = [2]uint16{h.peek(p + 12), h.peek(p + 14)}
+			want := [2]uint16{r.Before[i][0]&0xff00 | uint16((initial+16*(i+1))&255), r.Before[i][1] & 0x7fff}
+			if r.After[i] != want {
+				t.Fatalf("planet%d source range changed: %+v want%v", i+1, r, want)
+			}
+		}
+		report.Planets = append(report.Planets, r)
+	}
+	tradeClassExport(t, "native-cryo-parent-fields.json", report)
+}
+
+// 已知執行期memcpy／地址橋接只提供嚴格標準邊界；規則與MOV仍執行原版。
+func cryoHeapBoundary(t *testing.T, h *harness, disk []byte, first, last int, heap uint32) {
+	t.Helper()
+	stream := uint32(operandStream + 0x8000)
+	h.startDispatch(disk[0x44200+first:0x44200+last+4], stream)
+	for steps := 0; steps < 100000; steps++ {
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip, sp := h.cpu.State.A[4], h.cpu.State.SSP
+			at := int(ip-stream) + first
+			if at == last {
+				return
+			}
+			if h.mem[ip] == 0x72 && h.mem[ip+1] == 5 && at == 0x26c {
+				if h.peek(sp) != uint16(cadenceOuter(0x7c0)-0x40000) || h.peek(sp+2) != uint16(cadenceOuter(0x1a5)-0x40000) {
+					t.Fatal("laddress callsite ABI")
+				}
+				p := cadenceOuter(0x1a5)
+				h.poke(cadenceOuter(0x7c0), uint16(p>>16))
+				h.poke(cadenceOuter(0x7c0)+2, uint16(p))
+				h.cpu.State.SSP = sp + 4
+			} else if h.mem[ip] == 0x72 && h.mem[ip+1] == 4 && (at == 0x279 || at == 0x4b4) {
+				from, to := cadenceGlobal(0x433), cadenceOuter(0x7c0)
+				wantFrom, wantTo := heap, cadenceOuter(0x1a5)
+				if at == 0x4b4 {
+					from, to = to, from
+					wantFrom, wantTo = wantTo, wantFrom
+				}
+				if h.peek(sp) != 3072 || h.peek(sp+2) != uint16(to-0x40000) || h.peek(sp+4) != uint16(from-0x40000) {
+					t.Fatal("moveram callsite ABI")
+				}
+				fp := uint32(h.peek(from))<<16 | uint32(h.peek(from+2))
+				tp := uint32(h.peek(to))<<16 | uint32(h.peek(to+2))
+				if fp != wantFrom || tp != wantTo {
+					t.Fatal("moveram pointer direction")
+				}
+				buf := make([]byte, 3072)
+				for i := range buf {
+					buf[i] = h.mem[fp+uint32(i)]
+				}
+				for i, b := range buf {
+					h.mem[tp+uint32(i)] = b
+				}
+				h.cpu.State.SSP = sp + 6
+			} else {
+				if _, err := h.cpu.Step(); err != nil {
+					t.Fatal(err)
+				}
+				continue
+			}
+			h.cpu.State.A[4] = ip + 2
+			h.start(interpLoop)
+			continue
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			t.Fatal(err)
+		}
+	}
+	t.Fatal("heap callsite did not stop")
+}
+
+func TestSunDogCryoWarehouseRoundtrip(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	var native struct {
+		Rows []struct {
+			Lots []struct{ City, Slot, Goods, Quality, Source, Price int }
+		}
+	}
+	b, err := os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-cryo-source.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = json.Unmarshal(b, &native); err != nil || len(native.Rows) != 57 || len(native.Rows[0].Lots) != 17 {
+		t.Fatal("requires original child initialization receipt")
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []struct{ City, Goods, Quality, Source, Price, Destination, OtherBytesPreserved int }
+	}{Scope: "原版冷凍人初始化第一組17筆→3072-byte全域buffer→活躍城市→真正Fetch MOV／clear→寫回全域buffer→重載城市。XDOTRADI raw44200。", Boundaries: "0264..027b／04a9..04b6的laddress／moveram採既有標準地址／memcpy契約與嚴格callsite ABI，不執行native橋接或磁碟I/O。031f..0331及0484..0496原版讀寫、058e..05e6空槽搜尋、07d1..07fd原版Fetch MOV／clear真正執行。picker已接受城市第一槽，零scratch為已核定初態；不含完整新局、選單、GUI或磁碟存檔。"}
+	for _, lot := range native.Rows[0].Lots {
+		h := banvilleHarness(t, disk)
+		heap := uint32(0x4a000)
+		for i := 0; i < 3072; i++ {
+			h.mem[heap+uint32(i)] = byte(i*13 + 7)
+			if i < 1024 {
+				h.mem[heap+uint32(i)] = 0
+			}
+		}
+		for _, l := range native.Rows[0].Lots {
+			p := heap + uint32((l.City-1)*16)
+			h.poke(p, uint16(l.Goods|l.Quality<<5|l.Source<<8))
+			h.poke(p+2, uint16(l.Price))
+		}
+		before := make([]byte, 3072)
+		for i := range before {
+			before[i] = h.mem[heap+uint32(i)]
+		}
+		h.poke(cadenceGlobal(0x433), uint16(heap>>16))
+		h.poke(cadenceGlobal(0x433)+2, uint16(heap))
+		h.poke(cadenceOuter(0x15), uint16(lot.City-1))
+		cryoHeapBoundary(t, h, disk, 0x264, 0x27b, heap)
+		banvilleRun(h, disk, 0x44200, 0x31f, 0x331)
+		h.poke(depotLocal(0x46000, 7), 1)
+		child := uint32(0x48000)
+		h.poke(child, 0x5000)
+		h.poke(depotLocal(child, 2), 1)
+		h.poke(depotLocal(child, 3), uint16(depotLocal(0x46000, 8)-0x40000))
+		levelsFrame(h, child)
+		banvilleRun(h, disk, 0x44200, 0x58e, 0x5e6)
+		levelsFrame(h, 0x46000)
+		banvilleRun(h, disk, 0x44200, 0x7d1, 0x7fd)
+		word := h.peek(cadenceGlobal(0xec))
+		if int(word&31) != lot.Goods || int(word>>5&7) != lot.Quality || int(word>>8) != lot.Source || int(h.peek(cadenceGlobal(0xec)+2)) != lot.Price {
+			t.Fatal("Fetch lost cold lot record")
+		}
+		banvilleRun(h, disk, 0x44200, 0x484, 0x496)
+		cryoHeapBoundary(t, h, disk, 0x4a9, 0x4b6, heap)
+		for i := 0; i < 3072; i++ {
+			want := before[i]
+			if i >= (lot.City-1)*16 && i < (lot.City-1)*16+4 {
+				want = 0
+			}
+			if h.mem[heap+uint32(i)] != want {
+				t.Fatalf("city%d changed unrelated byte%d", lot.City, i)
+			}
+		}
+		cryoHeapBoundary(t, h, disk, 0x264, 0x27b, heap)
+		banvilleRun(h, disk, 0x44200, 0x31f, 0x331)
+		if h.peek(cadenceOuter(0x39)) != 0 || h.peek(cadenceOuter(0x39)+2) != 0 {
+			t.Fatal("reloaded city restored fetched cold lot")
+		}
+		report.Rows = append(report.Rows, struct{ City, Goods, Quality, Source, Price, Destination, OtherBytesPreserved int }{lot.City, lot.Goods, lot.Quality, lot.Source, lot.Price, 1, 3068})
+	}
+	tradeClassExport(t, "native-cryo-warehouse-roundtrip.json", report)
+}

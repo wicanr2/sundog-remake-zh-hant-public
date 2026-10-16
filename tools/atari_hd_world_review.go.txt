@@ -1,0 +1,241 @@
+package main
+
+// Review-only visual layer. Source collision indices remain owned by the
+// original renderer/update path; none of the colours below are rule inputs.
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/wicanr2/sundog-remake/internal/game"
+)
+
+type hdWorldArt struct {
+	CabinClosed    []hdMapNode              `json:"cabinClosed"`
+	CabinLit       []hdMapNode              `json:"cabinLit"`
+	GroundBackdrop []hdMapNode              `json:"groundBackdrop"`
+	Tiles          map[string][][]hdMapNode `json:"tiles"`
+}
+
+var hdWorldArtCache *hdWorldArt
+var hdWorldSpriteCache = map[string]*ebiten.Image{}
+var hdWorldGroundImage *ebiten.Image
+var hdWorldGroundKey string
+
+func hdWorldAssets() *hdWorldArt {
+	if hdWorldArtCache == nil {
+		var art hdWorldArt
+		if err := json.Unmarshal(hdWorldArtJSON, &art); err != nil {
+			panic(err)
+		}
+		hdWorldArtCache = &art
+	}
+	return hdWorldArtCache
+}
+
+func (a *app) hdWorldSprite(key string, w, h int, nodes []hdMapNode) *ebiten.Image {
+	cacheKey := fmt.Sprintf("%s/%d", key, a.viewScale())
+	if sprite := hdWorldSpriteCache[cacheKey]; sprite != nil {
+		return sprite
+	}
+	if len(nodes) == 0 {
+		return nil
+	}
+	sprite := ebiten.NewImage(w*a.viewScale(), h*a.viewScale())
+	local := *a
+	local.originX = 0
+	local.originY = 0
+	p := hdReviewPainter{a: &local, screen: sprite, scale: float32(a.viewScale())}
+	p.drawHDMapScene(hdMapScene{Nodes: nodes})
+	if p.err != "" {
+		log.Printf("HD world review: %s", p.err)
+		sprite.Dispose()
+		return nil
+	}
+	for _, op := range p.operations {
+		op()
+	}
+	hdWorldSpriteCache[cacheKey] = sprite
+	return sprite
+}
+
+func hdWorldBlit(target, source *ebiten.Image, x, y int) {
+	if source == nil {
+		return
+	}
+	op := &ebiten.DrawImageOptions{}
+	op.GeoM.Translate(float64(x), float64(y))
+	target.DrawImage(source, op)
+}
+
+func (a *app) hdWorldGround() *ebiten.Image {
+	scene := a.stGroundScene
+	if scene == nil || !a.groundWalker.ready || scene.cityID != "drahew" || scene.world {
+		return nil
+	}
+	key := fmt.Sprintf("%s/%d/%d/%d/%d", scene.cityID, scene.scrollX, scene.scrollY, scene.rebuilds, a.viewScale())
+	if hdWorldGroundKey == key && hdWorldGroundImage != nil {
+		return hdWorldGroundImage
+	}
+	art := hdWorldAssets()
+	scale := a.viewScale()
+	background := a.hdWorldSprite("ground", 40, 40, art.GroundBackdrop)
+	if background == nil {
+		return nil
+	}
+	canvas := ebiten.NewImage(320*scale, 200*scale)
+	canvas.Fill(hdReviewColour(0x020508))
+	buildings := map[[2]int]int{}
+	for _, b := range game.GroundCityBuildings(a.state, a.state.CityID) {
+		buildings[[2]int{b.Row, b.Column}] = b.Code
+	}
+	roll := newGroundRoller(a.state.CityID, scene.scrollX, scene.scrollY, scene.rebuilds)
+	for row := 0; row < stGroundRows; row++ {
+		for column := 0; column < stGroundColumns; column++ {
+			cell := game.GroundWrap(a.state, game.Position{X: scene.scrollX + column, Y: scene.scrollY + row})
+			code, _, ok := game.GroundTerrainCode(a.state, a.state.CityID, cell.X, cell.Y)
+			px, py := column*stGroundPitch, row*stGroundPitch
+			if ok && code == stGroundSolidCode {
+				continue
+			}
+			hdWorldBlit(canvas, background, px*scale, py*scale)
+			if !ok {
+				continue
+			}
+			look := roll()
+			if b, found := buildings[[2]int{cell.X, cell.Y}]; found {
+				code, look = b, 0
+			}
+			if code != 0 && code != 1 {
+				variants, found := art.Tiles[fmt.Sprint(code)]
+				if !found || len(variants) != 4 {
+					log.Printf("HD world review: missing code %d", code)
+					canvas.Dispose()
+					return nil
+				}
+				tile := a.hdWorldSprite(fmt.Sprintf("tile/%d/%d", code, look), 32, 32, variants[look])
+				if tile == nil {
+					log.Printf("HD world review: empty code %d/%d", code, look)
+					canvas.Dispose()
+					return nil
+				}
+				hdWorldBlit(canvas, tile, (px+stGroundInset)*scale, (py+stGroundInset)*scale)
+			}
+			if code == stGroundPodCode {
+				a.rollSTGroundPods(nil, px, py, roll)
+			}
+		}
+	}
+	if hdWorldGroundImage != nil {
+		hdWorldGroundImage.Dispose()
+	}
+	hdWorldGroundImage = canvas
+	hdWorldGroundKey = key
+	return canvas
+}
+
+func (p *hdReviewPainter) worldPerson(x, y int, pod bool, phase int) {
+	if pod {
+		p.rect(float32(x)+2, float32(y), 3, 6, 0xf3f6fa)
+		p.rect(float32(x)+2.5, float32(y)+1, 2, 2, 0x203f5a)
+		return
+	}
+	p.rect(float32(x)+2, float32(y), 3, 2, 0xf3f6fa)
+	p.rect(float32(x)+2, float32(y)+2, 3, 2.5, 0xf3f6fa)
+	p.line(float32(x)+.7, float32(y)+2.3, float32(x)+6, float32(y)+3.8, .8, 0xf3f6fa)
+	if phase%2 == 0 {
+		p.line(float32(x)+2.7, float32(y)+4, float32(x)+1.7, float32(y)+6.4, 1, 0xf3f6fa)
+		p.line(float32(x)+4.3, float32(y)+4, float32(x)+5.3, float32(y)+6.4, 1, 0xf3f6fa)
+	} else {
+		p.line(float32(x)+2.7, float32(y)+4, float32(x)+3.1, float32(y)+6.4, 1, 0xf3f6fa)
+		p.line(float32(x)+4.3, float32(y)+4, float32(x)+4, float32(y)+6.4, 1, 0xf3f6fa)
+	}
+}
+
+func (p *hdReviewPainter) parkedShip(x, y int) {
+	// Independent horizontal redraw inside the 12x8 source glyph pair bounds.
+	xf, yf := float32(x)-3, float32(y)-4
+	p.line(xf, yf+4, xf+3, yf+1, 1.2, 0xf3f6fa)
+	p.line(xf, yf+4, xf+3, yf+7, 1.2, 0xf3f6fa)
+	p.rect(xf+2, yf+2, 5, 4, 0xdde7ee)
+	p.rect(xf+5, yf+1, 6, 1, 0xf3f6fa)
+	p.rect(xf+5, yf+6, 6, 1, 0xf3f6fa)
+	p.rect(xf+5, yf+3, 3, 2, 0x020508)
+}
+
+func (a *app) drawHDWorldReview(screen *ebiten.Image) bool {
+	if !a.usesSTLayout() {
+		return false
+	}
+	ship := a.state.Screen == game.ScreenShipboard && a.usesSTShipboard()
+	ground := a.state.Screen == game.ScreenGround && a.state.CityID == "drahew" && !a.state.GroundWorld && a.usesSTGround()
+	if !ship && !ground {
+		return false
+	}
+	scale := a.viewScale()
+	p := hdReviewPainter{a: a, screen: screen, scale: float32(scale)}
+	if ship {
+		art := hdWorldAssets()
+		key, nodes := "cabin-closed", art.CabinClosed
+		if a.frames/8%5 == 1 {
+			key, nodes = "cabin-lit", art.CabinLit
+		}
+		image := a.hdWorldSprite(key, 320, 200, nodes)
+		if image == nil {
+			log.Print("HD world review: missing cabin")
+			return false
+		}
+		hdWorldBlit(screen, image, a.originX, a.originY)
+		sweep := int(a.frames) / 8 % 10
+		if left := 132 - 6*sweep; left >= 0 {
+			p.rect(float32(left), 126, 1, 2, 0xf4f7fa)
+		}
+		if right := 218 + 6*sweep; right <= 319 {
+			p.rect(float32(right), 126, 1, 2, 0xf4f7fa)
+		}
+		if a.shipWalker.ready {
+			p.worldPerson(a.shipWalker.x, a.shipWalker.y, false, int(a.frames)/4)
+		}
+		if station, ok := a.shipWalker.stationUnder(); ok && station.labelKey != "" {
+			label := a.lookup(station.labelKey)
+			x := station.x1 + 3
+			if x+a.textWidth(label) > logicalWidth-2 {
+				x = station.x0 - 3 - a.textWidth(label)
+			}
+			y := (station.y0+station.y1)/2 - 4
+			p.rect(float32(x-1), float32(y), float32(a.textWidth(label)+2), 9, 0x020508)
+		}
+		if a.stSceneMessageFresh() {
+			p.rect(stShipMessageX0, stShipMessageY0, stShipMessageW, stShipMessageH, 0x020508)
+			p.line(stShipMessageX0, stShipMessageY0, stShipMessageX0+stShipMessageW, stShipMessageY0, .6, 0xf3f6fa)
+			p.line(stShipMessageX0, stShipMessageY0+stShipMessageH-1, stShipMessageX0+stShipMessageW, stShipMessageY0+stShipMessageH-1, .6, 0xf3f6fa)
+		}
+	} else {
+		image := a.hdWorldGround()
+		if image == nil {
+			log.Print("HD world review: ground missing")
+			return false
+		}
+		hdWorldBlit(screen, image, a.originX, a.originY)
+		for _, m := range a.stGroundScene.marks {
+			switch m.ch {
+			case stCharShipGroundNose:
+				p.parkedShip(m.x, m.y)
+			case stCharShipGroundTail:
+			case 0:
+				p.rect(float32(m.x)-2, float32(m.y)-3, 3, 6, 0xf3f6fa)
+			}
+		}
+		p.worldPerson(a.groundWalker.x, a.groundWalker.y, a.state.GroundMode == game.GroundInPod, int(a.frames)/4)
+		if a.stSceneMessageFresh() {
+			p.rect(stGroundMessageX0, stGroundMessageY0, stGroundMessageW, stGroundMessageH, 0x020508)
+			p.line(stGroundMessageX0, stGroundMessageY0, stGroundMessageX0+stGroundMessageW, stGroundMessageY0, .6, 0xf3f6fa)
+			p.line(stGroundMessageX0, stGroundMessageY0+stGroundMessageH-1, stGroundMessageX0+stGroundMessageW, stGroundMessageY0+stGroundMessageH-1, .6, 0xf3f6fa)
+		}
+	}
+	for _, op := range p.operations {
+		op()
+	}
+	return true
+}

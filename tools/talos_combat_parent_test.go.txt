@@ -1,0 +1,488 @@
+package m68k
+
+import (
+	"crypto/sha256"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"reflect"
+	"testing"
+)
+
+// 僅研究用邊界輸入，不加入正式規則或存檔；入口見既有戰鬥研究文件。
+type parentInput struct {
+	Phase, Fuel, MovementDelta, LevelsDelta                                                  int
+	InitialActive, InitialFlag35, MovementActive, MovementFlag35, LevelsActive, LevelsFlag35 bool
+}
+type parentCall struct {
+	Offset, Procedure, Phase, Fuel int
+	Active, Flag35                 bool
+	Args                           []int
+}
+type parentResult struct {
+	Input       parentInput
+	Phase, Fuel int
+	Calls       []parentCall
+}
+
+func parentContract(r parentInput) parentResult {
+	phase := (r.Phase + 1) % 3
+	fuel := r.Fuel
+	x := parentResult{Input: r, Phase: phase}
+	call := func(at, proc int, active, flag35 bool, args ...int) {
+		x.Calls = append(x.Calls, parentCall{at, proc, phase, fuel, active, flag35, args})
+	}
+	call(0x1295, 0x1f, r.InitialActive, r.InitialFlag35, 0x600a)
+	fuel += r.MovementDelta
+	call(0x1298, 0x23, r.MovementActive, r.MovementFlag35, 0x600a)
+	fuel += r.LevelsDelta
+	if r.LevelsActive && !r.LevelsFlag35 {
+		call(0x12a8, 0x21, r.LevelsActive, r.LevelsFlag35)
+	}
+	if fuel != r.Fuel {
+		call(0x12b5, 0x0d, r.LevelsActive, r.LevelsFlag35, 10, 0, fuel, 11)
+	}
+	x.Fuel = fuel
+	return x
+}
+
+// 原版父層核心，僅movement／levels與顯示子程序採明示邊界替身。
+// attack可接原版前綴；傳參考位址、相位、條件分派及燃料回寫全由原版指令執行。
+func parentRunCore(h *harness, disk []byte, r parentInput, attack func()) parentResult {
+	h.poke(cadenceGlobal(0x19), uint16(r.Phase))
+	h.poke(cadenceGlobal(0xe5), uint16(r.Fuel))
+	if r.InitialActive {
+		h.poke(cadenceOuter(4), 1)
+	} else {
+		h.poke(cadenceOuter(4), 0)
+	}
+	cadenceFlag(h, 35, r.InitialFlag35)
+	x := parentResult{Input: r}
+	stream := uint32(operandStream + 0x2000)
+	h.startDispatch(disk[0x33086:0x330c0], stream)
+	for step := 0; ; step++ {
+		if step >= 10000 {
+			h.t.Fatal("父層核心未終止")
+		}
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip := h.cpu.State.A[4]
+			if ip == stream+0x12bc-0x1286 {
+				break
+			}
+			if h.mem[ip] == 0x91 {
+				at := int(ip-stream) + 0x1286
+				proc := int(h.mem[ip+1])
+				fuel := int(int16(h.peek(0x4600a)))
+				c := parentCall{Offset: at, Procedure: proc, Phase: int(h.peek(cadenceGlobal(0x19))), Fuel: fuel, Active: h.peek(cadenceOuter(4)) != 0, Flag35: cadenceFlagValue(h, 35)}
+				sp := h.cpu.State.SSP
+				switch proc {
+				case 0x1f, 0x23:
+					if h.peek(sp) != 0x600a {
+						h.t.Fatal("原版燃料參考未指向父層local1")
+					}
+					c.Args = []int{int(h.peek(sp))}
+					h.cpu.State.SSP += 2
+					delta, active, flag35 := r.MovementDelta, r.MovementActive, r.MovementFlag35
+					if proc == 0x23 {
+						delta, active, flag35 = r.LevelsDelta, r.LevelsActive, r.LevelsFlag35
+					}
+					h.poke(0x4600a, uint16(fuel+delta))
+					if active {
+						h.poke(cadenceOuter(4), 1)
+					} else {
+						h.poke(cadenceOuter(4), 0)
+					}
+					cadenceFlag(h, 35, flag35)
+				case 0x21:
+					if attack != nil {
+						attack()
+					}
+				case 0x0d:
+					for n := uint32(0); n < 8; n += 2 {
+						c.Args = append(c.Args, int(int16(h.peek(sp+n))))
+					}
+					if !reflect.DeepEqual(c.Args, []int{10, 0, fuel, 11}) {
+						h.t.Fatal("原版燃料顯示參數不符", c.Args)
+					}
+					h.cpu.State.SSP += 8
+				default:
+					h.t.Fatalf("未知父層子程序%x", proc)
+				}
+				x.Calls = append(x.Calls, c)
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatal(err)
+		}
+	}
+	x.Phase = int(h.peek(cadenceGlobal(0x19)))
+	x.Fuel = int(int16(h.peek(cadenceGlobal(0xe5))))
+	return x
+}
+
+type parentAttackInput struct {
+	Mode, Phase, CourseTimer, Cooldown, Range, Display, Seed int
+	Ready, Flag44, Flag12                                    bool
+}
+type parentAttackResult struct {
+	Input                                                                                                             parentAttackInput
+	Phase, CourseTimer, Cooldown, Range, Bearing, Pitch, BearingDrift, PitchDrift, Aux8, Aux9, Closing, Counter, Stop int
+	Ready, Flag43, Flag44, Flag29, Flag46, Flag69                                                                     bool
+	Draws                                                                                                             []combatDraw
+}
+
+func parentAttackContract(r parentAttackInput, disk []byte) parentAttackResult {
+	x := parentAttackResult{Input: r, Phase: (r.Phase + 1) % 3, CourseTimer: r.CourseTimer, Cooldown: r.Cooldown, Range: r.Range, Bearing: 512, Pitch: 512, BearingDrift: 3, PitchDrift: -3, Aux8: 2, Aux9: 1, Closing: -1, Counter: r.Seed, Ready: r.Ready, Flag44: r.Flag44, Flag29: true}
+	if x.CourseTimer > 0 {
+		x.CourseTimer--
+		if r.Display != 1 {
+			x.Bearing -= 12
+			x.Pitch -= 12
+		}
+		x.Range--
+		if x.Range < 10 {
+			x.Range = 10
+		}
+	} else {
+		c := courseContract(courseInput{Mode: r.Mode, Range: r.Range, BearingDrift: 3, PitchDrift: -3, Aux8: 2, Aux9: 1, Closing: -1, Phase: x.Phase, Hull: 200, Seed: x.Counter, HelperLocal2: 20, HelperLocal3: -1, Flag12: r.Flag12})
+		x.CourseTimer, x.BearingDrift, x.PitchDrift, x.Aux8, x.Aux9, x.Closing, x.Counter = c.Timer, c.BearingDrift, c.PitchDrift, c.Aux8, c.Aux9, c.Closing, c.Counter
+		x.Flag44, x.Flag29, x.Flag46 = c.Flag44 && r.Flag44, c.Flag29, c.Flag46
+		x.Draws = append(x.Draws, c.Draws...)
+	}
+	rand := func(low, high int) int { return cadenceDraw(&x.Counter, low, high, &x.Draws) }
+	if x.Ready {
+		x.Cooldown = rand(5, 10)
+		x.Ready = false
+		x.Flag43 = true
+		x.Stop = 0xda3
+	} else {
+		if x.Cooldown > 0 {
+			x.Cooldown -= int(disk[0x4000+(r.Mode%7)*4+3])
+		}
+		if x.Cooldown < 1 && x.Flag44 && !r.Flag12 {
+			switch r.Mode {
+			case 0:
+				x.Ready = rand(0, 99) > x.Range
+			case 2:
+				bit := rand(0, 1)
+				x.Ready = x.Range < 80 && bit != 0 && x.Phase == 0
+			case 6:
+				x.Ready = x.Range < rand(40, 70) && (x.PitchDrift > 3 || x.PitchDrift < -3)
+			default:
+				x.Ready = x.Range < rand(40, 80)
+			}
+		}
+		x.Flag69 = x.Ready
+		x.Stop = 0xf32
+	}
+	return x
+}
+
+func parentAttackRun(h *harness, disk []byte, r parentAttackInput) parentAttackResult {
+	for n, v := range map[int]int{0xce: r.Mode, 0xd8: r.Mode % 7, 0xda: 200, 0xd9: r.CourseTimer, 0xdb: r.Range, 0xd0: 512, 0xcf: 512, 0xd3: 3, 0xd2: -3, 0xd1: -1, 0x32: r.Display << 8} {
+		h.poke(cadenceGlobal(n), uint16(v))
+	}
+	for n, v := range map[int]int{8: 2, 9: 1, 10: r.Cooldown} {
+		h.poke(cadenceOuter(n), uint16(v))
+	}
+	if r.Ready {
+		h.poke(cadenceOuter(5), 1)
+	}
+	cadenceFlag(h, 44, r.Flag44)
+	cadenceFlag(h, 12, r.Flag12)
+	cadenceFlag(h, 29, true)
+	h.poke(0x4800c, 20)
+	h.poke(0x4800e, 0xffff) // 明示原版退避未初始化frame值，不當runtime預設。
+	return parentAttackAdvance(h, disk, r)
+}
+
+// 不重設任何敵艦欄位或ready，供相同原版狀態的連續更新。
+func parentAttackAdvance(h *harness, disk []byte, r parentAttackInput) parentAttackResult {
+	x := parentAttackResult{Input: r, Counter: r.Seed}
+	p := parentInput{Phase: r.Phase, Fuel: 127, InitialActive: true, MovementActive: true, LevelsActive: true}
+	actual := parentRunCore(h, disk, p, func() {
+		oldA0, oldSP := h.cpu.State.A[0], h.cpu.State.SSP
+		h.cpu.State.A[0] = 0x4a000
+		h.poke(interpBase+0x1b6c, 4)
+		h.poke(interpBase+0x1b6e, 0xa000)
+		stream := uint32(operandStream + 0x3000)
+		cadenceRunAtStops(h, disk, 0xd23, 0xf32, stream, []int{0xda3, 0xf32}, &x.Counter, &x.Draws)
+		x.Stop = int(h.cpu.State.A[4]-stream) + 0xd23
+		h.cpu.State.A[0], h.cpu.State.SSP = oldA0, oldSP
+		h.poke(interpBase+0x1b6c, uint16(oldA0>>16))
+		h.poke(interpBase+0x1b6e, uint16(oldA0))
+	})
+	if !reflect.DeepEqual(actual, parentContract(p)) {
+		h.t.Fatal("整合父層調度不同")
+	}
+	g := func(n int) int { return int(int16(h.peek(cadenceGlobal(n)))) }
+	o := func(n int) int { return int(int16(h.peek(cadenceOuter(n)))) }
+	x.Phase, x.CourseTimer, x.Cooldown, x.Range, x.Bearing, x.Pitch = g(0x19), g(0xd9), o(10), g(0xdb), g(0xd0), g(0xcf)
+	x.BearingDrift, x.PitchDrift, x.Aux8, x.Aux9, x.Closing = g(0xd3), g(0xd2), o(8), o(9), g(0xd1)
+	x.Ready, x.Flag43, x.Flag44, x.Flag29, x.Flag46, x.Flag69 = o(5) != 0, cadenceFlagValue(h, 43), cadenceFlagValue(h, 44), cadenceFlagValue(h, 29), cadenceFlagValue(h, 46), cadenceFlagValue(h, 69)
+	return x
+}
+
+func parentCloakToggle(h *harness, disk []byte) {
+	stream := uint32(operandStream + 0x4000)
+	h.startDispatch(disk[0x39603:0x39621], stream)
+	for step := 0; !(h.cpu.State.PC == interpBase+interpLoop+4 && h.cpu.State.A[4] == stream+0x1a); step++ {
+		if step >= 2048 {
+			h.t.Fatal("旗標12切片未終止")
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatal(err)
+		}
+	}
+}
+
+func TestSunDogCombatParent(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	report := struct {
+		Scope, Randomness                                                                                               string
+		CoreCases, CoreDifferences, AttackCases, AttackDifferences, ShotPrefixCases, PreparedCases, ExplicitHelperCases int
+		CoreNative                                                                                                      []parentResult
+		AttackNative                                                                                                    []parentAttackResult
+		LifecycleCases, LifecycleDifferences, PreparedThenCloakedCases                                                  int
+		LifecycleNative                                                                                                 []struct{ First, Second parentAttackResult }
+	}{Scope: "原版父層1286..12bc核心分派，movement／levels採明示子程序邊界狀態輸入；另由父層進原版attack d23..da3或f32，執行完整course／退避／set_fire及ready消費。傷害、提示音HUD及平台封裝省略，正式排程仍DRAFT，非原版完整正常路徑。", Randomness: "純父層無亂數；整合前綴各案執行前固定Seed0/1/17/41，原版決定請求界限，以同counter受控序列供應。"}
+	for phase := 0; phase < 3; phase++ {
+		for _, fuel := range []int{1, 127, 254} {
+			for mask := 0; mask < 64; mask++ {
+				for _, delta := range [][2]int{{0, 0}, {-1, 1}, {1, 1}} {
+					bit := func(n int) bool { return mask&(1<<n) != 0 }
+					in := parentInput{Phase: phase, Fuel: fuel, MovementDelta: delta[0], LevelsDelta: delta[1], InitialActive: bit(0), InitialFlag35: bit(1), MovementActive: bit(2), MovementFlag35: bit(3), LevelsActive: bit(4), LevelsFlag35: bit(5)}
+					h := cadenceHarness(t, disk)
+					actual := parentRunCore(h, disk, in, nil)
+					report.CoreCases++
+					report.CoreNative = append(report.CoreNative, actual)
+					if !reflect.DeepEqual(actual, parentContract(in)) {
+						report.CoreDifferences++
+						if report.CoreDifferences < 4 {
+							t.Logf("父層actual=%+v expected=%+v", actual, parentContract(in))
+						}
+					}
+				}
+			}
+		}
+	}
+	for mode := 0; mode < 8; mode++ {
+		for phase := 0; phase < 3; phase++ {
+			for _, ready := range []bool{false, true} {
+				for _, timer := range []int{0, 1} {
+					for mask := 0; mask < 4; mask++ {
+						for _, seed := range []int{0, 1, 17, 41} {
+							in := parentAttackInput{Mode: mode, Phase: phase, CourseTimer: timer, Cooldown: []int{1, 10}[seed%2], Range: []int{39, 70, 100}[(mode+phase)%3], Display: seed%2 + 1, Seed: seed, Ready: ready, Flag44: mask&1 != 0, Flag12: mask&2 != 0}
+							h := cadenceHarness(t, disk)
+							actual := parentAttackRun(h, disk, in)
+							expected := parentAttackContract(in, disk)
+							report.AttackCases++
+							report.AttackNative = append(report.AttackNative, actual)
+							if actual.Stop == 0xda3 {
+								report.ShotPrefixCases++
+							} else {
+								report.PreparedCases++
+							}
+							if mode == 0 && phase == 2 && timer == 0 && in.Flag12 {
+								report.ExplicitHelperCases++
+							}
+							if !reflect.DeepEqual(actual, expected) {
+								report.AttackDifferences++
+								if report.AttackDifferences < 5 {
+									t.Logf("整合前綴actual=%+v expected=%+v", actual, expected)
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	for mode := 0; mode < 8; mode++ {
+		for _, seed := range []int{0, 1, 17, 41} {
+			in := parentAttackInput{Mode: mode, Phase: 2, CourseTimer: 1, Cooldown: 1, Range: 39, Display: 1, Seed: seed, Flag44: true}
+			h := cadenceHarness(t, disk)
+			first := parentAttackRun(h, disk, in)
+			if !reflect.DeepEqual(first, parentAttackContract(in, disk)) {
+				t.Fatal("連續更新第一步不符")
+			}
+			cadenceFlag(h, 20, true)
+			parentCloakToggle(h, disk)
+			if !cadenceFlagValue(h, 12) {
+				t.Fatal("原版旗標12未切換")
+			}
+			next := parentAttackInput{Mode: mode, Phase: first.Phase, CourseTimer: first.CourseTimer, Cooldown: first.Cooldown, Range: first.Range, Display: 1, Seed: first.Counter, Ready: first.Ready, Flag44: first.Flag44, Flag12: true}
+			second := parentAttackAdvance(h, disk, next)
+			expected := parentAttackContract(next, disk)
+			if first.Ready {
+				expected.Flag69 = first.Flag69
+			}
+			report.LifecycleCases++
+			report.LifecycleNative = append(report.LifecycleNative, struct{ First, Second parentAttackResult }{first, second})
+			if first.Ready {
+				report.PreparedThenCloakedCases++
+				if second.Stop != 0xda3 || second.Ready || !second.Flag43 {
+					t.Fatal("已準備的射擊被旗標12切換錯誤阻斷")
+				}
+			}
+			if !reflect.DeepEqual(second, expected) {
+				report.LifecycleDifferences++
+				if report.LifecycleDifferences < 4 {
+					t.Logf("連續更新actual=%+v expected=%+v", second, expected)
+				}
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-parent.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.CoreDifferences != 0 || report.AttackDifferences != 0 || report.LifecycleDifferences != 0 {
+		t.Fatalf("父層%d/%d、整合前綴%d/%d、連續更新%d/%d不同", report.CoreDifferences, report.CoreCases, report.AttackDifferences, report.AttackCases, report.LifecycleDifferences, report.LifecycleCases)
+	}
+	t.Logf("父層%d／整合前綴%d案通過；原版ready分支射擊前綴%d、準備%d", report.CoreCases, report.AttackCases, report.ShotPrefixCases, report.PreparedCases)
+}
+
+func TestSunDogCombatCloakFlag(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	type row struct {
+		OldFlag12, Capability20, NewFlag12 bool
+		Before, After                      []uint16
+	}
+	report := struct {
+		Scope              string
+		Cases, Differences int
+		Native             []row
+	}{Scope: "原版XDOFIGHT raw base38600、1003..101d的旗標12切換；停於顯示呼叫前。能力位20來源已有替代零件表證據，尚非正常玩家選單可達性驗收。"}
+	for _, old := range []bool{false, true} {
+		for _, capable := range []bool{false, true} {
+			for _, mask := range []uint16{0, 0xffff, 0xaaaa, 0x5555} {
+				h := cadenceHarness(t, disk)
+				for n := 0; n < 5; n++ {
+					h.poke(cadenceGlobal(0x53)+uint32(n*2), mask)
+				}
+				cadenceFlag(h, 12, old)
+				cadenceFlag(h, 20, capable)
+				x := row{OldFlag12: old, Capability20: capable}
+				for n := 0; n < 5; n++ {
+					x.Before = append(x.Before, h.peek(cadenceGlobal(0x53)+uint32(n*2)))
+				}
+				parentCloakToggle(h, disk)
+				x.NewFlag12 = cadenceFlagValue(h, 12)
+				for n := 0; n < 5; n++ {
+					x.After = append(x.After, h.peek(cadenceGlobal(0x53)+uint32(n*2)))
+				}
+				expected := append([]uint16(nil), x.Before...)
+				expected[0] &^= 1 << 12
+				if !old && capable {
+					expected[0] |= 1 << 12
+				}
+				report.Cases++
+				report.Native = append(report.Native, x)
+				if x.NewFlag12 != (!old && capable) || !reflect.DeepEqual(x.After, expected) {
+					report.Differences++
+				}
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-cloak-flag.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 {
+		t.Fatalf("旗標12不同%d/%d", report.Differences, report.Cases)
+	}
+}
+
+func TestSunDogCombatFlag44Writes(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	type row struct {
+		RawOffset, SegmentOffset int
+		Segment                  string
+		Value                    bool
+		Before, After            []uint16
+	}
+	report := struct {
+		Scope              string
+		Cases, Differences int
+		Native             []row
+	}{Scope: "九個直接旗標44常數寫入位置的原版10-byte切片；驗常數、單一位元與其他旗標不變，不宣稱全分支可達或沒有間接寫入。SHIPLIB／XDOFIGHT各保留原始raw及段內定位。"}
+	for _, at := range []int{0x32423, 0x329d6, 0x387de, 0x38b01, 0x38b4e, 0x38ea1, 0x39414, 0x39517, 0x39685} {
+		if !reflect.DeepEqual(disk[at:at+8], []byte{0x9b, 4, 0x53, 0x80, 0x2c, 0xd8, 0x10, 1}) || disk[at+8] > 1 || disk[at+9] != 0xca {
+			t.Fatal("旗標44寫入簽章不符")
+		}
+		for _, mask := range []uint16{0, 0xffff, 0xaaaa, 0x5555} {
+			h := cadenceHarness(t, disk)
+			x := row{RawOffset: at, SegmentOffset: at - 0x31e00, Segment: "SHIPLIB", Value: disk[at+8] != 0}
+			if at >= 0x38600 {
+				x.SegmentOffset = at - 0x38600
+				x.Segment = "XDOFIGHT"
+			}
+			for n := 0; n < 5; n++ {
+				h.poke(cadenceGlobal(0x53)+uint32(n*2), mask)
+				x.Before = append(x.Before, mask)
+			}
+			stream := uint32(operandStream + 0x5000)
+			h.startDispatch(disk[at:at+14], stream)
+			for step := 0; !(h.cpu.State.PC == interpBase+interpLoop+4 && h.cpu.State.A[4] == stream+10); step++ {
+				if step >= 2048 {
+					t.Fatal("旗標44寫入未終止")
+				}
+				if _, err = h.cpu.Step(); err != nil {
+					t.Fatal(err)
+				}
+			}
+			for n := 0; n < 5; n++ {
+				x.After = append(x.After, h.peek(cadenceGlobal(0x53)+uint32(n*2)))
+			}
+			expected := append([]uint16(nil), x.Before...)
+			expected[2] &^= 1 << 12
+			if x.Value {
+				expected[2] |= 1 << 12
+			}
+			report.Cases++
+			report.Native = append(report.Native, x)
+			if !reflect.DeepEqual(x.After, expected) {
+				report.Differences++
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-flag44-writes.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 {
+		t.Fatalf("旗標44寫入不同%d/%d", report.Differences, report.Cases)
+	}
+}

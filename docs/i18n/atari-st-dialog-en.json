@@ -1,0 +1,2638 @@
+{
+  "schema": 1,
+  "locale": "en",
+  "translationStatus": "reviewed once; official AI language pack; 2026-08-31",
+  "policy": [
+    "對話是組合出來的，不是完成句：譯文保留來源的引用 `{hh}` 與變體結構，執行時才展開。",
+    "同一個 stock phrase 的多個變體要譯成語氣或用詞不同、但語意等價的說法，那是原版語句變化的來源。",
+    "引用在句中的位置可依中文語序移動，但不得增減；缺一個引用就是漏掉一段會被代入的文字。",
+    "空白與標點依中文習慣調整；來源的英文前後空格不必逐字保留。",
+    "來源字串由 tools/scaffold_dialog_translation.py 從 evidence 重新產生，不要手改。"
+  ],
+  "stockPhrases": {
+    "0x00": {
+      "rawOffset": "0x06c41",
+      "alternatives": [
+        {
+          "source": "yes",
+          "translation": "yes"
+        },
+        {
+          "source": "no",
+          "translation": "no"
+        },
+        {
+          "source": "accept",
+          "translation": "accept"
+        },
+        {
+          "source": "discuss it",
+          "translation": "discuss it"
+        },
+        {
+          "source": "threaten",
+          "translation": "threaten"
+        },
+        {
+          "source": "charm",
+          "translation": "charm"
+        },
+        {
+          "source": "bluff",
+          "translation": "bluff"
+        },
+        {
+          "source": "bribe",
+          "translation": "bribe"
+        },
+        {
+          "source": "buy",
+          "translation": "buy"
+        },
+        {
+          "source": "sell",
+          "translation": "sell"
+        },
+        {
+          "source": "information",
+          "translation": "information"
+        },
+        {
+          "source": "offer",
+          "translation": "offer"
+        },
+        {
+          "source": "agree",
+          "translation": "agree"
+        },
+        {
+          "source": "refuse",
+          "translation": "refuse"
+        },
+        {
+          "source": "fast talk",
+          "translation": "fast talk"
+        },
+        {
+          "source": "need fuel",
+          "translation": "need fuel"
+        },
+        {
+          "source": "help",
+          "translation": "help"
+        },
+        {
+          "source": "claim no cash",
+          "translation": "claim no cash"
+        },
+        {
+          "source": "junk",
+          "translation": "junk"
+        },
+        {
+          "source": "forget it",
+          "translation": "forget it"
+        },
+        {
+          "source": "search",
+          "translation": "search"
+        },
+        {
+          "source": "nothing",
+          "translation": "nothing"
+        },
+        {
+          "source": "recommend",
+          "translation": "recommend"
+        },
+        {
+          "source": "uh huh",
+          "translation": "uh huh"
+        },
+        {
+          "source": "dunno",
+          "translation": "dunno"
+        }
+      ]
+    },
+    "0x01": {
+      "rawOffset": "0x06cd9",
+      "alternatives": [
+        {
+          "source": "go",
+          "translation": "go"
+        },
+        {
+          "source": "are",
+          "translation": "are"
+        }
+      ]
+    },
+    "0x02": {
+      "rawOffset": "0x06cde",
+      "alternatives": [
+        {
+          "source": "discuss",
+          "translation": "discuss"
+        },
+        {
+          "source": "talk about",
+          "translation": "talk about"
+        }
+      ]
+    },
+    "0x03": {
+      "rawOffset": "0x06cee",
+      "alternatives": [
+        {
+          "source": "serve",
+          "translation": "serve"
+        },
+        {
+          "source": "get",
+          "translation": "get"
+        },
+        {
+          "source": "bring",
+          "translation": "bring"
+        }
+      ]
+    },
+    "0x04": {
+      "rawOffset": "0x06cfb",
+      "alternatives": [
+        {
+          "source": "stop",
+          "translation": "stop"
+        },
+        {
+          "source": "quit",
+          "translation": "quit"
+        }
+      ]
+    },
+    "0x05": {
+      "rawOffset": "0x06d03",
+      "alternatives": [
+        {
+          "source": "stalling",
+          "translation": "stalling"
+        },
+        {
+          "source": "wasting time",
+          "translation": "wasting time"
+        },
+        {
+          "source": "spacing out",
+          "translation": "spacing out"
+        }
+      ]
+    },
+    "0x06": {
+      "rawOffset": "0x06d20",
+      "alternatives": [
+        {
+          "source": "buy",
+          "translation": "buy"
+        },
+        {
+          "source": "order",
+          "translation": "order"
+        }
+      ]
+    },
+    "0x07": {
+      "rawOffset": "0x06d28",
+      "alternatives": [
+        {
+          "source": "thanks for",
+          "translation": "thanks for"
+        },
+        {
+          "source": "I appreciate",
+          "translation": "I appreciate"
+        }
+      ]
+    },
+    "0x08": {
+      "rawOffset": "0x06d3c",
+      "alternatives": [
+        {
+          "source": "what",
+          "translation": "what"
+        },
+        {
+          "source": "how much",
+          "translation": "how much"
+        }
+      ]
+    },
+    "0x09": {
+      "rawOffset": "0x06d47",
+      "alternatives": [
+        {
+          "source": "type",
+          "translation": "type"
+        },
+        {
+          "source": "kind",
+          "translation": "kind"
+        },
+        {
+          "source": "sort",
+          "translation": "sort"
+        }
+      ]
+    },
+    "0x0a": {
+      "rawOffset": "0x06d53",
+      "alternatives": [
+        {
+          "source": "offer",
+          "translation": "offer"
+        },
+        {
+          "source": "pay",
+          "translation": "pay"
+        },
+        {
+          "source": "give",
+          "translation": "give"
+        }
+      ]
+    },
+    "0x0b": {
+      "rawOffset": "0x06d5f",
+      "alternatives": [
+        {
+          "source": "chat",
+          "translation": "chat"
+        },
+        {
+          "source": "conversation",
+          "translation": "conversation"
+        },
+        {
+          "source": "talk",
+          "translation": "talk"
+        },
+        {
+          "source": "discourse",
+          "translation": "discourse"
+        }
+      ]
+    },
+    "0x0c": {
+      "rawOffset": "0x06d7c",
+      "alternatives": [
+        {
+          "source": "see",
+          "translation": "see"
+        },
+        {
+          "source": "catch",
+          "translation": "catch"
+        },
+        {
+          "source": "talk to",
+          "translation": "talk to"
+        }
+      ]
+    },
+    "0x0d": {
+      "rawOffset": "0x06d8a",
+      "alternatives": [
+        {
+          "source": "wish",
+          "translation": "wish"
+        },
+        {
+          "source": "want",
+          "translation": "want"
+        },
+        {
+          "source": "need",
+          "translation": "need"
+        }
+      ]
+    },
+    "0x0e": {
+      "rawOffset": "0x06d96",
+      "alternatives": [
+        {
+          "source": "bless {2b}",
+          "translation": "bless {2b}"
+        },
+        {
+          "source": "many thanks",
+          "translation": "many thanks"
+        },
+        {
+          "source": "thanks",
+          "translation": "thanks"
+        },
+        {
+          "source": "thank {2b}",
+          "translation": "thank {2b}"
+        }
+      ]
+    },
+    "0x0f": {
+      "rawOffset": "0x06db3",
+      "alternatives": [
+        {
+          "source": "{22},",
+          "translation": "{22},"
+        },
+        {
+          "source": "all right,",
+          "translation": "all right,"
+        }
+      ]
+    },
+    "0x10": {
+      "rawOffset": "0x06dbf",
+      "alternatives": [
+        {
+          "source": "smart",
+          "translation": "smart"
+        },
+        {
+          "source": "wise",
+          "translation": "wise"
+        },
+        {
+          "source": "good",
+          "translation": "good"
+        }
+      ]
+    },
+    "0x11": {
+      "rawOffset": "0x06dcc",
+      "alternatives": [
+        {
+          "source": "decision",
+          "translation": "decision"
+        },
+        {
+          "source": "choice",
+          "translation": "choice"
+        },
+        {
+          "source": "move",
+          "translation": "move"
+        }
+      ]
+    },
+    "0x12": {
+      "rawOffset": "0x06dde",
+      "alternatives": [
+        {
+          "source": "ground hog",
+          "translation": "ground hog"
+        },
+        {
+          "source": "laser brain",
+          "translation": "laser brain"
+        },
+        {
+          "source": "monkey boy",
+          "translation": "monkey boy"
+        },
+        {
+          "source": "dirt man",
+          "translation": "dirt man"
+        },
+        {
+          "source": "crater face",
+          "translation": "crater face"
+        },
+        {
+          "source": "retro breath",
+          "translation": "retro breath"
+        }
+      ]
+    },
+    "0x13": {
+      "rawOffset": "0x06e16",
+      "alternatives": [
+        {
+          "source": "laser brain",
+          "translation": "laser brain"
+        },
+        {
+          "source": "moon man",
+          "translation": "moon man"
+        },
+        {
+          "source": "low grav",
+          "translation": "low grav"
+        },
+        {
+          "source": "fly boy",
+          "translation": "fly boy"
+        },
+        {
+          "source": "vacuum head",
+          "translation": "vacuum head"
+        }
+      ]
+    },
+    "0x14": {
+      "rawOffset": "0x06e3e",
+      "alternatives": [
+        {
+          "source": "sorry",
+          "translation": "sorry"
+        },
+        {
+          "source": "too bad",
+          "translation": "too bad"
+        },
+        {
+          "source": "tough luck",
+          "translation": "tough luck"
+        }
+      ]
+    },
+    "0x15": {
+      "rawOffset": "0x06e52",
+      "alternatives": [
+        {
+          "source": "can I {03} {2b}",
+          "translation": "can I {03} {2b}"
+        },
+        {
+          "source": "do {2b} {0d}",
+          "translation": "do {2b} {0d}"
+        }
+      ]
+    },
+    "0x16": {
+      "rawOffset": "0x06e5d",
+      "alternatives": [
+        {
+          "source": "something",
+          "translation": "something"
+        },
+        {
+          "source": "anything",
+          "translation": "anything"
+        }
+      ]
+    },
+    "0x17": {
+      "rawOffset": "0x06e6e",
+      "alternatives": [
+        {
+          "source": "heard",
+          "translation": "heard"
+        },
+        {
+          "source": "was told",
+          "translation": "was told"
+        }
+      ]
+    },
+    "0x18": {
+      "rawOffset": "0x06e7a",
+      "alternatives": [
+        {
+          "source": "pardon",
+          "translation": "pardon"
+        },
+        {
+          "source": "excuse",
+          "translation": "excuse"
+        }
+      ]
+    },
+    "0x19": {
+      "rawOffset": "0x06e86",
+      "alternatives": [
+        {
+          "source": "good bye",
+          "translation": "good bye"
+        },
+        {
+          "source": "good day",
+          "translation": "good day"
+        },
+        {
+          "source": "so long",
+          "translation": "so long"
+        }
+      ]
+    },
+    "0x1a": {
+      "rawOffset": "0x06e9a",
+      "alternatives": [
+        {
+          "source": "talk",
+          "translation": "talk"
+        },
+        {
+          "source": "speak",
+          "translation": "speak"
+        }
+      ]
+    },
+    "0x1b": {
+      "rawOffset": "0x06ea3",
+      "alternatives": [
+        {
+          "source": "hello",
+          "translation": "hello"
+        },
+        {
+          "source": "good day",
+          "translation": "good day"
+        },
+        {
+          "source": "greetings",
+          "translation": "greetings"
+        }
+      ]
+    },
+    "0x1c": {
+      "rawOffset": "0x06eb8",
+      "alternatives": [
+        {
+          "source": "can",
+          "translation": "can"
+        },
+        {
+          "source": "may",
+          "translation": "may"
+        }
+      ]
+    },
+    "0x1d": {
+      "rawOffset": "0x06ebe",
+      "alternatives": [
+        {
+          "source": "get lost",
+          "translation": "get lost"
+        },
+        {
+          "source": "boost it",
+          "translation": "boost it"
+        },
+        {
+          "source": "warp off",
+          "translation": "warp off"
+        }
+      ]
+    },
+    "0x1e": {
+      "rawOffset": "0x06ed3",
+      "alternatives": [
+        {
+          "source": "else",
+          "translation": "else"
+        },
+        {
+          "source": "more",
+          "translation": "more"
+        }
+      ]
+    },
+    "0x1f": {
+      "rawOffset": "0x06edb",
+      "alternatives": [
+        {
+          "source": "here",
+          "translation": "here"
+        },
+        {
+          "source": "there",
+          "translation": "there"
+        }
+      ]
+    },
+    "0x26": {
+      "rawOffset": "0x06ee4",
+      "alternatives": [
+        {
+          "source": "we",
+          "translation": "we"
+        },
+        {
+          "source": "I",
+          "translation": "I"
+        }
+      ]
+    },
+    "0x28": {
+      "rawOffset": "0x06ee7",
+      "alternatives": [
+        {
+          "source": "us",
+          "translation": "us"
+        },
+        {
+          "source": "me",
+          "translation": "me"
+        }
+      ]
+    },
+    "0x29": {
+      "rawOffset": "0x06eeb",
+      "alternatives": [
+        {
+          "source": " or not",
+          "translation": " or not"
+        }
+      ]
+    },
+    "0x2a": {
+      "rawOffset": "0x06ef1",
+      "alternatives": [
+        {
+          "source": "what",
+          "translation": "what"
+        }
+      ]
+    },
+    "0x2b": {
+      "rawOffset": "0x06ef5",
+      "alternatives": [
+        {
+          "source": "you",
+          "translation": "you"
+        }
+      ]
+    },
+    "0x2d": {
+      "rawOffset": "0x06ef8",
+      "alternatives": [
+        {
+          "source": "{13}",
+          "translation": "{13}"
+        },
+        {
+          "source": "{13}",
+          "translation": "{13}"
+        },
+        {
+          "source": "{32}",
+          "translation": "{32}"
+        },
+        {
+          "source": "{32}",
+          "translation": "{32}"
+        },
+        {
+          "source": "{31}",
+          "translation": "{31}"
+        }
+      ]
+    },
+    "0x2f": {
+      "rawOffset": "0x06f01",
+      "alternatives": [
+        {
+          "source": "buy",
+          "translation": "buy"
+        },
+        {
+          "source": "sell",
+          "translation": "sell"
+        }
+      ]
+    },
+    "0x30": {
+      "rawOffset": "0x06f08",
+      "alternatives": [
+        {
+          "source": "{32}",
+          "translation": "{32}"
+        },
+        {
+          "source": "{12}",
+          "translation": "{12}"
+        }
+      ]
+    },
+    "0x31": {
+      "rawOffset": "0x06f0b",
+      "alternatives": [
+        {
+          "source": "sir",
+          "translation": "sir"
+        },
+        {
+          "source": "captain",
+          "translation": "captain"
+        },
+        {
+          "source": "friend",
+          "translation": "friend"
+        }
+      ]
+    },
+    "0x32": {
+      "rawOffset": "0x06f1b",
+      "alternatives": [
+        {
+          "source": "mac",
+          "translation": "mac"
+        },
+        {
+          "source": "buddy",
+          "translation": "buddy"
+        },
+        {
+          "source": "fella",
+          "translation": "fella"
+        },
+        {
+          "source": "pal",
+          "translation": "pal"
+        }
+      ]
+    },
+    "0x33": {
+      "rawOffset": "0x06f2b",
+      "alternatives": [
+        {
+          "source": "dummy",
+          "translation": "dummy"
+        },
+        {
+          "source": "dummy",
+          "translation": "dummy"
+        },
+        {
+          "source": "dummy",
+          "translation": "dummy"
+        },
+        {
+          "source": "dummy",
+          "translation": "dummy"
+        },
+        {
+          "source": "dummy",
+          "translation": "dummy"
+        },
+        {
+          "source": "dummy",
+          "translation": "dummy"
+        },
+        {
+          "source": "dummy",
+          "translation": "dummy"
+        },
+        {
+          "source": "dummy",
+          "translation": "dummy"
+        }
+      ]
+    }
+  },
+  "blocks": {
+    "0x10": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x070a8",
+          "alternatives": [
+            {
+              "source": "please",
+              "translation": "please"
+            },
+            {
+              "source": "go",
+              "translation": "go"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{2a} {15}, {31}{3f} ",
+          "translation": "{2a} {15}, {31}{3f} ",
+          "rawOffset": "0x070b2"
+        },
+        {
+          "source": "{15} {16} {1e}{3f} ",
+          "translation": "{15} {16} {1e}{3f} ",
+          "rawOffset": "0x070b8"
+        },
+        {
+          "source": "{16} {1e}, {32}{3f} ",
+          "translation": "{16} {1e}, {32}{3f} ",
+          "rawOffset": "0x070be"
+        },
+        {
+          "source": "{2a} now, {13}{3f} ",
+          "translation": "{2a} now, {13}{3f} ",
+          "rawOffset": "0x070c4"
+        },
+        {
+          "source": "{1f} {2b} {01}, {31}. ",
+          "translation": "{1f} {2b} {01}, {31}. ",
+          "rawOffset": "0x070cc"
+        },
+        {
+          "source": "{0f} {32}, take it! ",
+          "translation": "{0f} {32}, take it! ",
+          "rawOffset": "0x070d4"
+        },
+        {
+          "source": "Take it, {13}! ",
+          "translation": "Take it, {13}! ",
+          "rawOffset": "0x070e0"
+        },
+        {
+          "source": "Hey, {32}! {2b} want this {25}{29}{3f} ",
+          "translation": "Hey, {32}! {2b} want this {25}{29}{3f} ",
+          "rawOffset": "0x070ea"
+        },
+        {
+          "source": "{1c} I help {2b}{29}{3f} ",
+          "translation": "{1c} I help {2b}{29}{3f} ",
+          "rawOffset": "0x070fe"
+        },
+        {
+          "source": "{04} {05}. Do {2b} want to {06}{29}{3f} ",
+          "translation": "{04} {05}. Do {2b} want to {06}{29}{3f} ",
+          "rawOffset": "0x07108"
+        },
+        {
+          "source": "{0f} {13}, order or {1d}! ",
+          "translation": "{0f} {13}, order or {1d}! ",
+          "rawOffset": "0x07118"
+        },
+        {
+          "source": "If {2b}'ll {18} me... ",
+          "translation": "If {2b}'ll {18} me... ",
+          "rawOffset": "0x07126"
+        },
+        {
+          "source": "Why don't {2b} run along, {32}{3f} ",
+          "translation": "Why don't {2b} run along, {32}{3f} ",
+          "rawOffset": "0x07134"
+        },
+        {
+          "source": "{1d}, {13}, {2b}'re wasting my time! ",
+          "translation": "{1d}, {13}, {2b}'re wasting my time! ",
+          "rawOffset": "0x0714a"
+        },
+        {
+          "source": "{08} is it worth to {2b}{3f} ",
+          "translation": "{08} is it worth to {2b}{3f} ",
+          "rawOffset": "0x07162"
+        },
+        {
+          "source": "{07} the tip! ",
+          "translation": "{07} the tip! ",
+          "rawOffset": "0x07172"
+        },
+        {
+          "source": "{2a} {09} of info do {2b} {0d}{3f} ",
+          "translation": "{2a} {09} of info do {2b} {0d}{3f} ",
+          "rawOffset": "0x0717c"
+        },
+        {
+          "source": "Show me {2a} {2b} {0d} to sell. ",
+          "translation": "Show me {2a} {2b} {0d} to sell. ",
+          "rawOffset": "0x0718a"
+        },
+        {
+          "source": "{34} wait in a booth. I'll send someone over. ",
+          "translation": "{34} wait in a booth. I'll send someone over. ",
+          "rawOffset": "0x0719c"
+        },
+        {
+          "source": "{2a} do {2b} {0d} to buy{3f} ",
+          "translation": "{2a} do {2b} {0d} to buy{3f} ",
+          "rawOffset": "0x071c0"
+        },
+        {
+          "source": "{14}, {2d}. Try somewhere else. ",
+          "translation": "{14}, {2d}. Try somewhere else. ",
+          "rawOffset": "0x071cc"
+        },
+        {
+          "source": "{07} the {0b}, {32}. I'll {0c} {2b} later. ",
+          "translation": "{07} the {0b}, {32}. I'll {0c} {2b} later. ",
+          "rawOffset": "0x071e2"
+        },
+        {
+          "source": "Hmm... ",
+          "translation": "Hmm... ",
+          "rawOffset": "0x071f8"
+        }
+      ]
+    },
+    "0x20": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x072e0",
+          "alternatives": [
+            {
+              "source": "I~ll",
+              "translation": "I~ll"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x072e6",
+          "alternatives": [
+            {
+              "source": "can~t",
+              "translation": "can~t"
+            },
+            {
+              "source": "won~t",
+              "translation": "won~t"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x072f2",
+          "alternatives": [
+            {
+              "source": "over",
+              "translation": "over"
+            },
+            {
+              "source": "more than",
+              "translation": "more than"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x07300",
+          "alternatives": [
+            {
+              "source": "last",
+              "translation": "last"
+            },
+            {
+              "source": "final",
+              "translation": "final"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x0730a",
+          "alternatives": [
+            {
+              "source": "accept",
+              "translation": "accept"
+            },
+            {
+              "source": "take",
+              "translation": "take"
+            }
+          ]
+        },
+        "0x39": {
+          "rawOffset": "0x07316",
+          "alternatives": [
+            {
+              "source": "leave",
+              "translation": "leave"
+            },
+            {
+              "source": "run along",
+              "translation": "run along"
+            }
+          ]
+        },
+        "0x3a": {
+          "rawOffset": "0x07324",
+          "alternatives": [
+            {
+              "source": "interest",
+              "translation": "interest"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "I {17} {2b} {0d} to {2f} a {25}. ",
+          "translation": "I {17} {2b} {0d} to {2f} a {25}. ",
+          "rawOffset": "0x0732e"
+        },
+        {
+          "source": "{34} sell {2b} a {25} for {24}. ",
+          "translation": "{34} sell {2b} a {25} for {24}. ",
+          "rawOffset": "0x0733a"
+        },
+        {
+          "source": "{34} {38} {24}. ",
+          "translation": "{34} {38} {24}. ",
+          "rawOffset": "0x07348"
+        },
+        {
+          "source": "{24} is my {37} offer. ",
+          "translation": "{24} is my {37} offer. ",
+          "rawOffset": "0x0734e"
+        },
+        {
+          "source": "{24} take it or leave it! ",
+          "translation": "{24} take it or leave it! ",
+          "rawOffset": "0x0735c"
+        },
+        {
+          "source": "{34} {0a} {24} for {2b}r {25}. ",
+          "translation": "{34} {0a} {24} for {2b}r {25}. ",
+          "rawOffset": "0x0736e"
+        },
+        {
+          "source": "I {35} {0a} {36} {24}. ",
+          "translation": "I {35} {0a} {36} {24}. ",
+          "rawOffset": "0x0737a"
+        },
+        {
+          "source": "Do {2b} {0d} to {2f} the {25}{29}. ",
+          "translation": "Do {2b} {0d} to {2f} the {25}{29}. ",
+          "rawOffset": "0x07382"
+        },
+        {
+          "source": "Discuss {2a}{3f} ",
+          "translation": "Discuss {2a}{3f} ",
+          "rawOffset": "0x07390"
+        },
+        {
+          "source": "Hand it over! ",
+          "translation": "Hand it over! ",
+          "rawOffset": "0x0739a"
+        },
+        {
+          "source": "Take it! ",
+          "translation": "Take it! ",
+          "rawOffset": "0x073a6"
+        },
+        {
+          "source": "Do we have a deal{29}{3f} ",
+          "translation": "Do we have a deal{29}{3f} ",
+          "rawOffset": "0x073ae"
+        },
+        {
+          "source": "{18} me, {31}. {1c} I {1a} to {2b}{3f} ",
+          "translation": "{18} me, {31}. {1c} I {1a} to {2b}{3f} ",
+          "rawOffset": "0x073be"
+        },
+        {
+          "source": "{1b}, fine {31}. {1c} I {3a} {2b} in a deal{3f} ",
+          "translation": "{1b}, fine {31}. {1c} I {3a} {2b} in a deal{3f} ",
+          "rawOffset": "0x073cc"
+        },
+        {
+          "source": "{18} me {31} I must {39}. ",
+          "translation": "{18} me {31} I must {39}. ",
+          "rawOffset": "0x073e2"
+        },
+        {
+          "source": "Would {2b} be {3a}ed in a {25}{3f} ",
+          "translation": "Would {2b} be {3a}ed in a {25}{3f} ",
+          "rawOffset": "0x073ee"
+        }
+      ]
+    },
+    "0x30": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x07486",
+          "alternatives": [
+            {
+              "source": "on the way",
+              "translation": "on the way"
+            },
+            {
+              "source": "coming",
+              "translation": "coming"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x07496",
+          "alternatives": [
+            {
+              "source": "an old",
+              "translation": "an old"
+            },
+            {
+              "source": "a poor",
+              "translation": "a poor"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x074a2",
+          "alternatives": [
+            {
+              "source": "man",
+              "translation": "man"
+            },
+            {
+              "source": "woman",
+              "translation": "woman"
+            },
+            {
+              "source": "orphan",
+              "translation": "orphan"
+            },
+            {
+              "source": "beggar",
+              "translation": "beggar"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x074b8",
+          "alternatives": [
+            {
+              "source": "discover",
+              "translation": "discover"
+            },
+            {
+              "source": "find",
+              "translation": "find"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x074c6",
+          "alternatives": [
+            {
+              "source": "nearby",
+              "translation": "nearby"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "See {2b} later {32}. {2b} can have the table! ",
+          "translation": "See {2b} later {32}. {2b} can have the table! ",
+          "rawOffset": "0x074ce"
+        },
+        {
+          "source": "Sorry pal, I'm just leaving. ",
+          "translation": "Sorry pal, I'm just leaving. ",
+          "rawOffset": "0x074ec"
+        },
+        {
+          "source": "Hey {13}! I was sitting here! ",
+          "translation": "Hey {13}! I was sitting here! ",
+          "rawOffset": "0x07506"
+        },
+        {
+          "source": "Can {2b} spare {24} for {35} {36}{3f} ",
+          "translation": "Can {2b} spare {24} for {35} {36}{3f} ",
+          "rawOffset": "0x0751c"
+        },
+        {
+          "source": "Traffic Control here. {2a}'s {2b}r problem{3f} ",
+          "translation": "Traffic Control here. {2a}'s {2b}r problem{3f} ",
+          "rawOffset": "0x0752e"
+        },
+        {
+          "source": "{0f} SunDog, it's {34}. We're docking {2b} {24}, though. ",
+          "translation": "{0f} SunDog, it's {34}. We're docking {2b} {24}, though. ",
+          "rawOffset": "0x07550"
+        },
+        {
+          "source": "It'll cost {2b} {24}, SunDog, but it's {34}. ",
+          "translation": "It'll cost {2b} {24}, SunDog, but it's {34}. ",
+          "rawOffset": "0x07576"
+        },
+        {
+          "source": "Total charges are {24}, SunDog. It should be there in a while. ",
+          "translation": "Total charges are {24}, SunDog. It should be there in a while. ",
+          "rawOffset": "0x07594"
+        },
+        {
+          "source": "A quick search turns up {24}. ",
+          "translation": "A quick search turns up {24}. ",
+          "rawOffset": "0x075c6"
+        },
+        {
+          "source": "{2b} find {24}. ",
+          "translation": "{2b} find {24}. ",
+          "rawOffset": "0x075dc"
+        },
+        {
+          "source": "{24} is found in a wallet. ",
+          "translation": "{24} is found in a wallet. ",
+          "rawOffset": "0x075e4"
+        },
+        {
+          "source": "{38} {2b} {37} a {25}. ",
+          "translation": "{38} {2b} {37} a {25}. ",
+          "rawOffset": "0x075f8"
+        }
+      ]
+    },
+    "0x40": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x076a8",
+          "alternatives": [
+            {
+              "source": "give {28}",
+              "translation": "give {28}"
+            },
+            {
+              "source": "hand over",
+              "translation": "hand over"
+            },
+            {
+              "source": "cough up",
+              "translation": "cough up"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x076be",
+          "alternatives": [
+            {
+              "source": "give {28}",
+              "translation": "give {28}"
+            },
+            {
+              "source": "jettison",
+              "translation": "jettison"
+            },
+            {
+              "source": "{26} want",
+              "translation": "{26} want"
+            },
+            {
+              "source": "dump",
+              "translation": "dump"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x076d6",
+          "alternatives": [
+            {
+              "source": "blast {2b}",
+              "translation": "blast {2b}"
+            },
+            {
+              "source": "open fire",
+              "translation": "open fire"
+            },
+            {
+              "source": "vaporize {2b}",
+              "translation": "vaporize {2b}"
+            },
+            {
+              "source": "blow {2b} away",
+              "translation": "blow {2b} away"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{35} {2b}r cargo, or {26}'ll {36}! ",
+          "translation": "{35} {2b}r cargo, or {26}'ll {36}! ",
+          "rawOffset": "0x076fa"
+        },
+        {
+          "source": "{2b} have one minute before {26} {36}! ",
+          "translation": "{2b} have one minute before {26} {36}! ",
+          "rawOffset": "0x0770c"
+        },
+        {
+          "source": "Do it now, or {26}'ll {36}! ",
+          "translation": "Do it now, or {26}'ll {36}! ",
+          "rawOffset": "0x07724"
+        },
+        {
+          "source": "{0f} {30}, {2b}'re free to go. ",
+          "translation": "{0f} {30}, {2b}'re free to go. ",
+          "rawOffset": "0x07736"
+        },
+        {
+          "source": "{0f} {30}, it's {2b}r funeral! ",
+          "translation": "{0f} {30}, it's {2b}r funeral! ",
+          "rawOffset": "0x07748"
+        },
+        {
+          "source": "Hope {2b} can breathe vacuum, {30}! ",
+          "translation": "Hope {2b} can breathe vacuum, {30}! ",
+          "rawOffset": "0x0775a"
+        },
+        {
+          "source": "{02} {2a}{3f} ",
+          "translation": "{02} {2a}{3f} ",
+          "rawOffset": "0x07774"
+        },
+        {
+          "source": "{2a}'s to {02}{3f} ",
+          "translation": "{2a}'s to {02}{3f} ",
+          "rawOffset": "0x07778"
+        },
+        {
+          "source": "How will {2b} stop {28}{3f} ",
+          "translation": "How will {2b} stop {28}{3f} ",
+          "rawOffset": "0x07780"
+        },
+        {
+          "source": "{34} {2b}r cash or die! ",
+          "translation": "{34} {2b}r cash or die! ",
+          "rawOffset": "0x07790"
+        },
+        {
+          "source": "Why not{3f} ",
+          "translation": "Why not{3f} ",
+          "rawOffset": "0x0779e"
+        },
+        {
+          "source": "{26}'ll just have a look... ",
+          "translation": "{26}'ll just have a look... ",
+          "rawOffset": "0x077a6"
+        },
+        {
+          "source": "{0f} {1d}! ",
+          "translation": "{0f} {1d}! ",
+          "rawOffset": "0x077bc"
+        },
+        {
+          "source": "{0f} {13}, {26}'ll get it the hard way. ",
+          "translation": "{0f} {13}, {26}'ll get it the hard way. ",
+          "rawOffset": "0x077c0"
+        },
+        {
+          "source": "Last chance, {13}... ",
+          "translation": "Last chance, {13}... ",
+          "rawOffset": "0x077d8"
+        },
+        {
+          "source": "{10} {11}, {32}. ",
+          "translation": "{10} {11}, {32}. ",
+          "rawOffset": "0x077e8"
+        },
+        {
+          "source": "{0f} {13}, {2b} asked for it... ",
+          "translation": "{0f} {13}, {2b} asked for it... ",
+          "rawOffset": "0x077ee"
+        }
+      ]
+    },
+    "0x50": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x078d0",
+          "alternatives": [
+            {
+              "source": "I don~t have any",
+              "translation": "I don~t have any"
+            },
+            {
+              "source": "I~m fresh out",
+              "translation": "I~m fresh out"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x078ea",
+          "alternatives": [
+            {
+              "source": "take it",
+              "translation": "take it"
+            },
+            {
+              "source": "here it is",
+              "translation": "here it is"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x078fa",
+          "alternatives": [
+            {
+              "source": "other",
+              "translation": "other"
+            },
+            {
+              "source": "better",
+              "translation": "better"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x07906",
+          "alternatives": [
+            {
+              "source": "wasting my time",
+              "translation": "wasting my time"
+            },
+            {
+              "source": "boring me",
+              "translation": "boring me"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x0791c",
+          "alternatives": [
+            {
+              "source": "something else",
+              "translation": "something else"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{2a} {15}, {2d}{3f} ",
+          "translation": "{2a} {15}, {2d}{3f} ",
+          "rawOffset": "0x0792a"
+        },
+        {
+          "source": "{2a} else can I show {2b}. ",
+          "translation": "{2a} else can I show {2b}. ",
+          "rawOffset": "0x07930"
+        },
+        {
+          "source": "{16} {1e}, {32}{3f} ",
+          "translation": "{16} {1e}, {32}{3f} ",
+          "rawOffset": "0x07940"
+        },
+        {
+          "source": "{2a} else, {13}{3f} ",
+          "translation": "{2a} else, {13}{3f} ",
+          "rawOffset": "0x07946"
+        },
+        {
+          "source": "{1f} {2b} {01}, {31}. ",
+          "translation": "{1f} {2b} {01}, {31}. ",
+          "rawOffset": "0x07950"
+        },
+        {
+          "source": "{0f} {32}, {35}! ",
+          "translation": "{0f} {32}, {35}! ",
+          "rawOffset": "0x07958"
+        },
+        {
+          "source": "{35}, {13}! ",
+          "translation": "{35}, {13}! ",
+          "rawOffset": "0x0795e"
+        },
+        {
+          "source": "Hey, {32}! {2b} want this {25}{29}{3f} ",
+          "translation": "Hey, {32}! {2b} want this {25}{29}{3f} ",
+          "rawOffset": "0x07964"
+        },
+        {
+          "source": "{1c} I help {2b}{29}{3f} ",
+          "translation": "{1c} I help {2b}{29}{3f} ",
+          "rawOffset": "0x07978"
+        },
+        {
+          "source": "{04} {05}. Do {2b} want to {06}{29}{3f} ",
+          "translation": "{04} {05}. Do {2b} want to {06}{29}{3f} ",
+          "rawOffset": "0x07982"
+        },
+        {
+          "source": "{0f} {13}, order or {1d}! ",
+          "translation": "{0f} {13}, order or {1d}! ",
+          "rawOffset": "0x07992"
+        },
+        {
+          "source": "If {2b}'ll {18} me... ",
+          "translation": "If {2b}'ll {18} me... ",
+          "rawOffset": "0x079a0"
+        },
+        {
+          "source": "run along, {32}, I've got {36} things to do! ",
+          "translation": "run along, {32}, I've got {36} things to do! ",
+          "rawOffset": "0x079ae"
+        },
+        {
+          "source": "{1d}, {13}, {2b}'re {37}! ",
+          "translation": "{1d}, {13}, {2b}'re {37}! ",
+          "rawOffset": "0x079ce"
+        },
+        {
+          "source": "Sorry, {34}! ",
+          "translation": "Sorry, {34}! ",
+          "rawOffset": "0x079da"
+        },
+        {
+          "source": "a {25} costs {24}. ",
+          "translation": "a {25} costs {24}. ",
+          "rawOffset": "0x079e4"
+        },
+        {
+          "source": "that will be {24} for a {25}. ",
+          "translation": "that will be {24} for a {25}. ",
+          "rawOffset": "0x079ee"
+        }
+      ]
+    },
+    "0x60": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x07aae",
+          "alternatives": [
+            {
+              "source": "looking for",
+              "translation": "looking for"
+            },
+            {
+              "source": "need",
+              "translation": "need"
+            },
+            {
+              "source": "can I get {2b}",
+              "translation": "can I get {2b}"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x07ac6",
+          "alternatives": [
+            {
+              "source": "{2b}r room awaits",
+              "translation": "{2b}r room awaits"
+            },
+            {
+              "source": "please check out by noon",
+              "translation": "please check out by noon"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x07ae8",
+          "alternatives": [
+            {
+              "source": "now",
+              "translation": "now"
+            },
+            {
+              "source": "at the moment",
+              "translation": "at the moment"
+            },
+            {
+              "source": "currently",
+              "translation": "currently"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x07b00",
+          "alternatives": [
+            {
+              "source": "another time",
+              "translation": "another time"
+            },
+            {
+              "source": "tomorrow",
+              "translation": "tomorrow"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x07b14",
+          "alternatives": [
+            {
+              "source": "fine",
+              "translation": "fine"
+            },
+            {
+              "source": "thank {2b}",
+              "translation": "thank {2b}"
+            }
+          ]
+        },
+        "0x39": {
+          "rawOffset": "0x07b20",
+          "alternatives": [
+            {
+              "source": "quite",
+              "translation": "quite"
+            },
+            {
+              "source": " ",
+              "translation": " "
+            }
+          ]
+        },
+        "0x3a": {
+          "rawOffset": "0x07b26",
+          "alternatives": [
+            {
+              "source": "business",
+              "translation": "business"
+            },
+            {
+              "source": "customers",
+              "translation": "customers"
+            },
+            {
+              "source": "things to do",
+              "translation": "things to do"
+            }
+          ]
+        },
+        "0x3b": {
+          "rawOffset": "0x07b42",
+          "alternatives": [
+            {
+              "source": "shows insufficient funds",
+              "translation": "shows insufficient funds"
+            },
+            {
+              "source": "can~t cover the charge",
+              "translation": "can~t cover the charge"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "Welcome {31}. {34} a room{3f} ",
+          "translation": "Welcome {31}. {34} a room{3f} ",
+          "rawOffset": "0x07b6c"
+        },
+        {
+          "source": "Room, {31}{3f} ",
+          "translation": "Room, {31}{3f} ",
+          "rawOffset": "0x07b7e"
+        },
+        {
+          "source": "well, then, if {2b}'ll {18} me I have other {3a}. ",
+          "translation": "well, then, if {2b}'ll {18} me I have other {3a}. ",
+          "rawOffset": "0x07b86"
+        },
+        {
+          "source": "I'm sorry, but we're {39}full {36}. perhaps {37}. ",
+          "translation": "I'm sorry, but we're {39}full {36}. perhaps {37}. ",
+          "rawOffset": "0x07ba6"
+        },
+        {
+          "source": "{38}, that will be {24}, in advance. ",
+          "translation": "{38}, that will be {24}, in advance. ",
+          "rawOffset": "0x07bc8"
+        },
+        {
+          "source": "Thank {2b}, {31}. {35}. ",
+          "translation": "Thank {2b}, {31}. {35}. ",
+          "rawOffset": "0x07be2"
+        },
+        {
+          "source": "Sorry, {2b}r account {3b}! ",
+          "translation": "Sorry, {2b}r account {3b}! ",
+          "rawOffset": "0x07bee"
+        }
+      ]
+    },
+    "0x70": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x07c48",
+          "alternatives": [
+            {
+              "source": "cheap jerk",
+              "translation": "cheap jerk"
+            },
+            {
+              "source": "tightwad",
+              "translation": "tightwad"
+            },
+            {
+              "source": "greedy goon",
+              "translation": "greedy goon"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x07c64",
+          "alternatives": [
+            {
+              "source": "mother",
+              "translation": "mother"
+            },
+            {
+              "source": "father",
+              "translation": "father"
+            },
+            {
+              "source": "brother",
+              "translation": "brother"
+            },
+            {
+              "source": "sister",
+              "translation": "sister"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x07c7e",
+          "alternatives": [
+            {
+              "source": "glasses",
+              "translation": "glasses"
+            },
+            {
+              "source": "new shoes",
+              "translation": "new shoes"
+            },
+            {
+              "source": "an operation",
+              "translation": "an operation"
+            },
+            {
+              "source": "into dental school",
+              "translation": "into dental school"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "well remember, charity begins at home! ",
+          "translation": "well remember, charity begins at home! ",
+          "rawOffset": "0x07caa"
+        },
+        {
+          "source": "just remember, {2b} reap {2a} {2b} sow!! ",
+          "translation": "just remember, {2b} reap {2a} {2b} sow!! ",
+          "rawOffset": "0x07ccc"
+        },
+        {
+          "source": "{2b}'ll regret it someday! ",
+          "translation": "{2b}'ll regret it someday! ",
+          "rawOffset": "0x07ce6"
+        },
+        {
+          "source": "well, next time I'll be watching for {2b}! ",
+          "translation": "well, next time I'll be watching for {2b}! ",
+          "rawOffset": "0x07cfc"
+        },
+        {
+          "source": "{22} {13}, we'll see who laughs last! ",
+          "translation": "{22} {13}, we'll see who laughs last! ",
+          "rawOffset": "0x07d1e"
+        },
+        {
+          "source": "next time, don't walk the streets alone! ",
+          "translation": "next time, don't walk the streets alone! ",
+          "rawOffset": "0x07d38"
+        },
+        {
+          "source": "may all {2b}r travels end on Woremed! ",
+          "translation": "may all {2b}r travels end on Woremed! ",
+          "rawOffset": "0x07d5c"
+        },
+        {
+          "source": "thanks for nothing {13}! ",
+          "translation": "thanks for nothing {13}! ",
+          "rawOffset": "0x07d7a"
+        },
+        {
+          "source": "{2a} a {34}! ",
+          "translation": "{2a} a {34}! ",
+          "rawOffset": "0x07d8e"
+        },
+        {
+          "source": "I hope {2b} catch a laser burst! ",
+          "translation": "I hope {2b} catch a laser burst! ",
+          "rawOffset": "0x07d94"
+        },
+        {
+          "source": "Oh! Bless {2b} kind {31}! ",
+          "translation": "Oh! Bless {2b} kind {31}! ",
+          "rawOffset": "0x07dac"
+        },
+        {
+          "source": "Thanks {32}, I'll never forget it! ",
+          "translation": "Thanks {32}, I'll never forget it! ",
+          "rawOffset": "0x07dbc"
+        },
+        {
+          "source": "Thank {2b}! Now my {35} can get {36}! ",
+          "translation": "Thank {2b}! Now my {35} can get {36}! ",
+          "rawOffset": "0x07dd8"
+        },
+        {
+          "source": "boy, what a sucker! ",
+          "translation": "boy, what a sucker! ",
+          "rawOffset": "0x07dee"
+        }
+      ]
+    },
+    "0x80": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x07ecc",
+          "alternatives": [
+            {
+              "source": "busy",
+              "translation": "busy"
+            },
+            {
+              "source": "just leaving",
+              "translation": "just leaving"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x07edc",
+          "alternatives": [
+            {
+              "source": "to buy or sell",
+              "translation": "to buy or sell"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x07ee8",
+          "alternatives": [
+            {
+              "source": "something",
+              "translation": "something"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x07ef2",
+          "alternatives": [
+            {
+              "source": "do {2b} want",
+              "translation": "do {2b} want"
+            },
+            {
+              "source": "would {2b} like",
+              "translation": "would {2b} like"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x07f04",
+          "alternatives": [
+            {
+              "source": "to sell",
+              "translation": "to sell"
+            }
+          ]
+        },
+        "0x39": {
+          "rawOffset": "0x07f0c",
+          "alternatives": [
+            {
+              "source": "sorry, I~m",
+              "translation": "sorry, I~m"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "do {2b} {0d} {36}{3f} ",
+          "translation": "do {2b} {0d} {36}{3f} ",
+          "rawOffset": "0x07f16"
+        },
+        {
+          "source": "is there {36} I can do for {2b}{3f} ",
+          "translation": "is there {36} I can do for {2b}{3f} ",
+          "rawOffset": "0x07f1e"
+        },
+        {
+          "source": "can I help {2b} with {36}{3f} ",
+          "translation": "can I help {2b} with {36}{3f} ",
+          "rawOffset": "0x07f32"
+        },
+        {
+          "source": "looking {35} {36}{3f} ",
+          "translation": "looking {35} {36}{3f} ",
+          "rawOffset": "0x07f42"
+        },
+        {
+          "source": "are {2b} buying or selling{3f} ",
+          "translation": "are {2b} buying or selling{3f} ",
+          "rawOffset": "0x07f4e"
+        },
+        {
+          "source": "{37} {35} {36}{3f} ",
+          "translation": "{37} {35} {36}{3f} ",
+          "rawOffset": "0x07f64"
+        },
+        {
+          "source": "{2a} {37} {38}{3f} ",
+          "translation": "{2a} {37} {38}{3f} ",
+          "rawOffset": "0x07f6a"
+        },
+        {
+          "source": "{39} not interested. Anything {1e} {38}{3f} ",
+          "translation": "{39} not interested. Anything {1e} {38}{3f} ",
+          "rawOffset": "0x07f70"
+        },
+        {
+          "source": "hey!, {2b} got {36} {38}{29}{3f} ",
+          "translation": "hey!, {2b} got {36} {38}{29}{3f} ",
+          "rawOffset": "0x07f8c"
+        },
+        {
+          "source": "{37} to {1a} to me{29}{3f} ",
+          "translation": "{37} to {1a} to me{29}{3f} ",
+          "rawOffset": "0x07f9a"
+        },
+        {
+          "source": "{39} {34}! ",
+          "translation": "{39} {34}! ",
+          "rawOffset": "0x07fa6"
+        },
+        {
+          "source": "then I'll {0c} {2b} later ",
+          "translation": "then I'll {0c} {2b} later ",
+          "rawOffset": "0x07faa"
+        },
+        {
+          "source": "then please {18} me! ",
+          "translation": "then please {18} me! ",
+          "rawOffset": "0x07fba"
+        },
+        {
+          "source": "{1b}. Care to sit down{3f} ",
+          "translation": "{1b}. Care to sit down{3f} ",
+          "rawOffset": "0x07fca"
+        },
+        {
+          "source": "Hi {32}. Care to chat{3f} ",
+          "translation": "Hi {32}. Care to chat{3f} ",
+          "rawOffset": "0x07fdc"
+        },
+        {
+          "source": "Have a seat {31}. {37} to talk{3f} ",
+          "translation": "Have a seat {31}. {37} to talk{3f} ",
+          "rawOffset": "0x07fec"
+        }
+      ]
+    },
+    "0x90": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x0806e",
+          "alternatives": [
+            {
+              "source": "t least one",
+              "translation": "t least one"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x08078",
+          "alternatives": [
+            {
+              "source": "hand",
+              "translation": "hand"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x0807e",
+          "alternatives": [
+            {
+              "source": "tell {2b} about",
+              "translation": "tell {2b} about"
+            },
+            {
+              "source": "help {2b} with",
+              "translation": "help {2b} with"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{2a} can I {36}{3f} ",
+          "translation": "{2a} can I {36}{3f} ",
+          "rawOffset": "0x08092"
+        },
+        {
+          "source": "Another question{3f} ",
+          "translation": "Another question{3f} ",
+          "rawOffset": "0x0809a"
+        },
+        {
+          "source": "{16} else I can {36}{3f} ",
+          "translation": "{16} else I can {36}{3f} ",
+          "rawOffset": "0x080ac"
+        },
+        {
+          "source": "I suggest {2b} pack a{34} shield and some {09} of {35} weapon! ",
+          "translation": "I suggest {2b} pack a{34} shield and some {09} of {35} weapon! ",
+          "rawOffset": "0x080b8"
+        },
+        {
+          "source": "Our {25}s are guaranteed to restore health, but {2b} may need several if {2b}'re badly hurt! ",
+          "translation": "Our {25}s are guaranteed to restore health, but {2b} may need several if {2b}'re badly hurt! ",
+          "rawOffset": "0x080e0"
+        },
+        {
+          "source": "The Mark IV body {25} is a real lifesaver! absorbs up to seven direct weapon hits! ",
+          "translation": "The Mark IV body {25} is a real lifesaver! absorbs up to seven direct weapon hits! ",
+          "rawOffset": "0x08126"
+        },
+        {
+          "source": "Fine piece of hardware, the Nelson {25}, good for unlimited shots, but not as deadly as a scattergun! ",
+          "translation": "Fine piece of hardware, the Nelson {25}, good for unlimited shots, but not as deadly as a scattergun! ",
+          "rawOffset": "0x08168"
+        },
+        {
+          "source": "Ah! Yes, a {25} is a great way to even up the odds, but beware . . . it's shots are limited!",
+          "translation": "Ah! Yes, a {25} is a great way to even up the odds, but beware . . . it's shots are limited!",
+          "rawOffset": "0x081ba"
+        }
+      ]
+    },
+    "0xa0": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x08254",
+          "alternatives": [
+            {
+              "source": "extended",
+              "translation": "extended"
+            },
+            {
+              "source": "self lub",
+              "translation": "self lub"
+            },
+            {
+              "source": "oversize",
+              "translation": "oversize"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x0826c",
+          "alternatives": [
+            {
+              "source": "ports",
+              "translation": "ports"
+            },
+            {
+              "source": "jacks",
+              "translation": "jacks"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x08278",
+          "alternatives": [
+            {
+              "source": "reliable",
+              "translation": "reliable"
+            },
+            {
+              "source": "popular",
+              "translation": "popular"
+            },
+            {
+              "source": "rugged",
+              "translation": "rugged"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x0828e",
+          "alternatives": [
+            {
+              "source": "that~s a",
+              "translation": "that~s a"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x08296",
+          "alternatives": [
+            {
+              "source": "warp drive or sub c engines",
+              "translation": "warp drive or sub c engines"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{2a} can I tell {2b} about{3f} ",
+          "translation": "{2a} can I tell {2b} about{3f} ",
+          "rawOffset": "0x082ae"
+        },
+        {
+          "source": "{2a} else{3f} ",
+          "translation": "{2a} else{3f} ",
+          "rawOffset": "0x082c0"
+        },
+        {
+          "source": "{37} General Industron {25}. ",
+          "translation": "{37} General Industron {25}. ",
+          "rawOffset": "0x082c8"
+        },
+        {
+          "source": "{37}n MBI {25} switching circuit. It fits tac and pilot bays. ",
+          "translation": "{37}n MBI {25} switching circuit. It fits tac and pilot bays. ",
+          "rawOffset": "0x082dc"
+        },
+        {
+          "source": "{37} {25} for {38}. ",
+          "translation": "{37} {25} for {38}. ",
+          "rawOffset": "0x0830a"
+        },
+        {
+          "source": "{37} {25}. Not as accurate as a G {25}, but it'll get ya into Starports. ",
+          "translation": "{37} {25}. Not as accurate as a G {25}, but it'll get ya into Starports. ",
+          "rawOffset": "0x08312"
+        },
+        {
+          "source": "{37} {25} for shields, {38}. ",
+          "translation": "{37} {25} for shields, {38}. ",
+          "rawOffset": "0x08344"
+        },
+        {
+          "source": "That's our custom made {25} with {34} {35}! ",
+          "translation": "That's our custom made {25} with {34} {35}! ",
+          "rawOffset": "0x08354"
+        },
+        {
+          "source": "{37} TecCo Space Time distorter. Very {36}! ",
+          "translation": "{37} TecCo Space Time distorter. Very {36}! ",
+          "rawOffset": "0x08370"
+        },
+        {
+          "source": "{37} standard MicroP {25}. Ya can't shunt it so pack a few spares! ",
+          "translation": "{37} standard MicroP {25}. Ya can't shunt it so pack a few spares! ",
+          "rawOffset": "0x08390"
+        },
+        {
+          "source": "{37} general purpose {25}. It'll replace most parts, but it's not as reliable! ",
+          "translation": "{37} general purpose {25}. It'll replace most parts, but it's not as reliable! ",
+          "rawOffset": "0x083c2"
+        }
+      ]
+    },
+    "0xb0": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x08482",
+          "alternatives": [
+            {
+              "source": "weather",
+              "translation": "weather"
+            },
+            {
+              "source": "day",
+              "translation": "day"
+            },
+            {
+              "source": "place",
+              "translation": "place"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x08492",
+          "alternatives": [
+            {
+              "source": "nice",
+              "translation": "nice"
+            },
+            {
+              "source": "great",
+              "translation": "great"
+            },
+            {
+              "source": "terrific",
+              "translation": "terrific"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x084a4",
+          "alternatives": [
+            {
+              "source": "game",
+              "translation": "game"
+            },
+            {
+              "source": "show",
+              "translation": "show"
+            },
+            {
+              "source": "festival",
+              "translation": "festival"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x084b6",
+          "alternatives": [
+            {
+              "source": "furs",
+              "translation": "furs"
+            },
+            {
+              "source": "droids",
+              "translation": "droids"
+            },
+            {
+              "source": "organics",
+              "translation": "organics"
+            },
+            {
+              "source": "meats",
+              "translation": "meats"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x084ce",
+          "alternatives": [
+            {
+              "source": "back",
+              "translation": "back"
+            },
+            {
+              "source": "in",
+              "translation": "in"
+            }
+          ]
+        },
+        "0x39": {
+          "rawOffset": "0x084d6",
+          "alternatives": [
+            {
+              "source": "here",
+              "translation": "here"
+            },
+            {
+              "source": "in town",
+              "translation": "in town"
+            },
+            {
+              "source": "around here",
+              "translation": "around here"
+            }
+          ]
+        },
+        "0x3a": {
+          "rawOffset": "0x084ec",
+          "alternatives": [
+            {
+              "source": "last week",
+              "translation": "last week"
+            },
+            {
+              "source": "yesterday",
+              "translation": "yesterday"
+            },
+            {
+              "source": "last night",
+              "translation": "last night"
+            },
+            {
+              "source": "today",
+              "translation": "today"
+            }
+          ]
+        },
+        "0x3b": {
+          "rawOffset": "0x0850c",
+          "alternatives": [
+            {
+              "source": "pirate activity",
+              "translation": "pirate activity"
+            },
+            {
+              "source": "action",
+              "translation": "action"
+            }
+          ]
+        },
+        "0x3c": {
+          "rawOffset": "0x08522",
+          "alternatives": [
+            {
+              "source": "going",
+              "translation": "going"
+            },
+            {
+              "source": "heading",
+              "translation": "heading"
+            },
+            {
+              "source": "boosting",
+              "translation": "boosting"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{35} {34} eh{3f} ",
+          "translation": "{35} {34} eh{3f} ",
+          "rawOffset": "0x08538"
+        },
+        {
+          "source": "I just got {38} from {23} {3a}! ",
+          "translation": "I just got {38} from {23} {3a}! ",
+          "rawOffset": "0x0853e"
+        },
+        {
+          "source": "{2b} new {39}{3f} ",
+          "translation": "{2b} new {39}{3f} ",
+          "rawOffset": "0x08550"
+        },
+        {
+          "source": "{2b} come here often{3f} ",
+          "translation": "{2b} come here often{3f} ",
+          "rawOffset": "0x08558"
+        },
+        {
+          "source": "I just delivered some {37} to {23}. ",
+          "translation": "I just delivered some {37} to {23}. ",
+          "rawOffset": "0x08568"
+        },
+        {
+          "source": "{2b}r ship is the SunDog isn't it{3f} ",
+          "translation": "{2b}r ship is the SunDog isn't it{3f} ",
+          "rawOffset": "0x08580"
+        },
+        {
+          "source": "Boy! That was sure a {35} {36} {3a}, eh{3f} ",
+          "translation": "Boy! That was sure a {35} {36} {3a}, eh{3f} ",
+          "rawOffset": "0x0859a"
+        },
+        {
+          "source": "Are {2b} {3c} out soon{3f} ",
+          "translation": "Are {2b} {3c} out soon{3f} ",
+          "rawOffset": "0x085b2"
+        },
+        {
+          "source": "Lot of {3b} on Woremed, isn't there{3f} ",
+          "translation": "Lot of {3b} on Woremed, isn't there{3f} ",
+          "rawOffset": "0x085c0"
+        },
+        {
+          "source": "do {2b} want to talk to me{29}{3f} ",
+          "translation": "do {2b} want to talk to me{29}{3f} ",
+          "rawOffset": "0x085dc"
+        },
+        {
+          "source": "Hey! Are {2b} awake{3f} ",
+          "translation": "Hey! Are {2b} awake{3f} ",
+          "rawOffset": "0x085f0"
+        }
+      ]
+    },
+    "0xc0": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x0863a",
+          "alternatives": [
+            {
+              "source": "how many",
+              "translation": "how many"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x08642",
+          "alternatives": [
+            {
+              "source": "does it take to",
+              "translation": "does it take to"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x08650",
+          "alternatives": [
+            {
+              "source": "hah, hah, hah . . .",
+              "translation": "hah, hah, hah . . ."
+            },
+            {
+              "source": "har, har . . .",
+              "translation": "har, har . . ."
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x0866a",
+          "alternatives": [
+            {
+              "source": "one to",
+              "translation": "one to"
+            }
+          ]
+        },
+        "0x38": {
+          "rawOffset": "0x08670",
+          "alternatives": [
+            {
+              "source": "change a glow globe",
+              "translation": "change a glow globe"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "Hey! Why didn't the sand shark eat the Rithan{3f} ",
+          "translation": "Hey! Why didn't the sand shark eat the Rithan{3f} ",
+          "rawOffset": "0x08682"
+        },
+        {
+          "source": "Professional courtesy! {36} ",
+          "translation": "Professional courtesy! {36} ",
+          "rawOffset": "0x086aa"
+        },
+        {
+          "source": "{34} repair techs {35} plug in a shunt{3f} ",
+          "translation": "{34} repair techs {35} plug in a shunt{3f} ",
+          "rawOffset": "0x086c2"
+        },
+        {
+          "source": "five! {37} force it with a hammer and four to go for spares! {36} ",
+          "translation": "five! {37} force it with a hammer and four to go for spares! {36} ",
+          "rawOffset": "0x086de"
+        },
+        {
+          "source": "{34} Rithans {35} open a Uniteller account! ",
+          "translation": "{34} Rithans {35} open a Uniteller account! ",
+          "rawOffset": "0x0870e"
+        },
+        {
+          "source": "Ten! {37} open the account and nine to steal the money! {36} ",
+          "translation": "Ten! {37} open the account and nine to steal the money! {36} ",
+          "rawOffset": "0x0872e"
+        },
+        {
+          "source": "{34} street traders {35} make a deal{3f} ",
+          "translation": "{34} street traders {35} make a deal{3f} ",
+          "rawOffset": "0x0875a"
+        },
+        {
+          "source": "four! {37} deal and three to protect him from muggers! {36} ",
+          "translation": "four! {37} deal and three to protect him from muggers! {36} ",
+          "rawOffset": "0x08774"
+        },
+        {
+          "source": "{34} New Faith Society Members {35} {38}{3f} ",
+          "translation": "{34} New Faith Society Members {35} {38}{3f} ",
+          "rawOffset": "0x087a0"
+        },
+        {
+          "source": "None. They're all frozen! {36} ",
+          "translation": "None. They're all frozen! {36} ",
+          "rawOffset": "0x087bc"
+        },
+        {
+          "source": "{34} bureaucrats {35} {38}{3f} ",
+          "translation": "{34} bureaucrats {35} {38}{3f} ",
+          "rawOffset": "0x087d4"
+        },
+        {
+          "source": "two! {37} screw it in, {37} screw it up! {36} ",
+          "translation": "two! {37} screw it in, {37} screw it up! {36} ",
+          "rawOffset": "0x087e4"
+        }
+      ]
+    },
+    "0xd0": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x089a2",
+          "alternatives": [
+            {
+              "source": "{2b}~re not serious",
+              "translation": "{2b}~re not serious"
+            },
+            {
+              "source": "I am wasting my time",
+              "translation": "I am wasting my time"
+            },
+            {
+              "source": "{2b}~re not interested",
+              "translation": "{2b}~re not interested"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x089d2",
+          "alternatives": [
+            {
+              "source": "obviously,",
+              "translation": "obviously,"
+            },
+            {
+              "source": "I can see",
+              "translation": "I can see"
+            },
+            {
+              "source": "it~s clear",
+              "translation": "it~s clear"
+            },
+            {
+              "source": "evidently",
+              "translation": "evidently"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{35} {34}. {19}, {32}. ",
+          "translation": "{35} {34}. {19}, {32}. ",
+          "rawOffset": "0x089f8"
+        }
+      ]
+    },
+    "0xe0": {
+      "phrases": {
+        "0x34": {
+          "rawOffset": "0x08a7c",
+          "alternatives": [
+            {
+              "source": "pretty neat, huh",
+              "translation": "pretty neat, huh"
+            }
+          ]
+        },
+        "0x35": {
+          "rawOffset": "0x08a8c",
+          "alternatives": [
+            {
+              "source": "hi! my name is",
+              "translation": "hi! my name is"
+            }
+          ]
+        },
+        "0x36": {
+          "rawOffset": "0x08a98",
+          "alternatives": [
+            {
+              "source": "I wrote the",
+              "translation": "I wrote the"
+            }
+          ]
+        },
+        "0x37": {
+          "rawOffset": "0x08aa2",
+          "alternatives": [
+            {
+              "source": "for this game",
+              "translation": "for this game"
+            }
+          ]
+        }
+      },
+      "lines": [
+        {
+          "source": "{35} Wayne Holder. {36} dialog {2b}'re reading here. Pretty great game, huh{3f} ",
+          "translation": "{35} Wayne Holder. {36} dialog {2b}'re reading here. Pretty great game, huh{3f} ",
+          "rawOffset": "0x08aae"
+        },
+        {
+          "source": "{35} Bruce Webster. {36} original SunDog. {34}{3f} ",
+          "translation": "{35} Bruce Webster. {36} original SunDog. {34}{3f} ",
+          "rawOffset": "0x08ae8"
+        },
+        {
+          "source": "{35} Donald Geddis. {36} dialog compiler {37}. {34}{3f} ",
+          "translation": "{35} Donald Geddis. {36} dialog compiler {37}. {34}{3f} ",
+          "rawOffset": "0x08b0a"
+        },
+        {
+          "source": "{35} Mike Newton. {36} ship modules {37}. {34}{3f} ",
+          "translation": "{35} Mike Newton. {36} ship modules {37}. {34}{3f} ",
+          "rawOffset": "0x08b2c"
+        },
+        {
+          "source": "{35} Doug Bell. {36} library {37} and integrated the rest. {34}{3f} ",
+          "translation": "{35} Doug Bell. {36} library {37} and integrated the rest. {34}{3f} ",
+          "rawOffset": "0x08b4a"
+        },
+        {
+          "source": "{35} Andy Jaros. I designed the graphics {37}. {34}{3f} ",
+          "translation": "{35} Andy Jaros. I designed the graphics {37}. {34}{3f} ",
+          "rawOffset": "0x08b76"
+        },
+        {
+          "source": "Glad {2b} like it! Oh, by the way here's {24}. Enjoy it! ",
+          "translation": "Glad {2b} like it! Oh, by the way here's {24}. Enjoy it! ",
+          "rawOffset": "0x08b9a"
+        },
+        {
+          "source": "Well, {2b}'ve got no class. Just for that {2b} won't get the {24} I was going to give {2b}! ",
+          "translation": "Well, {2b}'ve got no class. Just for that {2b} won't get the {24} I was going to give {2b}! ",
+          "rawOffset": "0x08bc2"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,4311 @@
+{
+  "schema": 1,
+  "catalog": "SunDog remake prototype UI overlay",
+  "locale": "ja",
+  "sourceStatus": "remake-owned UI overlay; not an assertion about original bytes",
+  "translationStatus": "reviewed once; official AI language pack; 2026-08-31",
+  "entries": [
+    {
+      "key": "ui.about_sundog",
+      "translation": "SunDogについて（オリジナル生産リスト）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.distress",
+      "translation": "緊急給油を要請",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.hail",
+      "translation": "相手に電話してください",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.jettison",
+      "translation": "貨物を放棄してくださいホールド",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.pay_fine",
+      "translation": "違法駐車の罰金を支払う",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.tractor",
+      "translation": "トラクタービーム",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.tube",
+      "translation": "パイロットトラムに乗る",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.airlock",
+      "translation": "エアロック",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.barehanded",
+      "translation": "素手",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.hitpoints",
+      "translation": "スタミナ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.opponents",
+      "translation": "はい手",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.shield",
+      "translation": "シールド",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.title",
+      "translation": "ストリート戦闘",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.weapon",
+      "translation": "武器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.ch",
+      "translation": "カリスマ性",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.dx",
+      "translation": "敏捷性",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.hidden",
+      "translation": "??",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.iq",
+      "translation": "知力",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.lk",
+      "translation": "幸運",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.st",
+      "translation": "強さ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute_allocation",
+      "translation": "能力値の配分",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.attribute_allocation_note",
+      "translation": "上下で選択、左右で調整、Enterで完了。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.attribute_points_remaining",
+      "translation": "残りポイント",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.aux_fuel",
+      "translation": "補助燃料",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.back",
+      "translation": "戻る",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.bank",
+      "translation": "銀行預金",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.buy",
+      "translation": "貨物の購入",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.buy_part",
+      "translation": "選択した部品の購入",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo",
+      "translation": "貨物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.antimatter",
+      "source": "antimatter",
+      "translation": "反物質",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.art-objects",
+      "source": "art objects",
+      "translation": "美術品",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.biochips",
+      "source": "biochips",
+      "translation": "バイオチップ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.cadcams",
+      "source": "cadcams",
+      "translation": "CAD/CAM機器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.chronographs",
+      "source": "chronographs",
+      "translation": "クロノグラフ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.clothing",
+      "source": "clothing",
+      "translation": "衣類",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.comgear",
+      "source": "comgear",
+      "translation": "コムギア",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.cryogens",
+      "source": "cryogens",
+      "translation": "寒剤",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.droids",
+      "source": "droids",
+      "translation": "ドロイド",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.exotic-metals",
+      "source": "exotic metals",
+      "translation": "エキゾチック金属",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.fruits-vegs",
+      "source": "fruits/vegs",
+      "translation": "果物/野菜",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.fuel",
+      "source": "fuel",
+      "translation": "燃料",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.furs-silks",
+      "source": "furs/silks",
+      "translation": "毛皮/絹",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.gems-crystals",
+      "source": "gems/crystals",
+      "translation": "宝石/クリスタル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.gold",
+      "source": "gold",
+      "translation": "金",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.grains-cereals",
+      "source": "grains/cereals",
+      "translation": "穀物/シリアル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.hand-weapons",
+      "source": "hand weapons",
+      "translation": "手武器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.meats",
+      "source": "meats",
+      "translation": "肉",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.nothing",
+      "source": "nothing",
+      "translation": "何も",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.nullgravs",
+      "source": "nullgravs",
+      "translation": "無重力装置",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.organics",
+      "source": "organics",
+      "translation": "有機物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.pharmaceuticals",
+      "source": "pharmaceuticals",
+      "translation": "医薬品",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.radioactives",
+      "source": "radioactives",
+      "translation": "放射性物質",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.rare-earths",
+      "source": "rare earths",
+      "translation": "希少土",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.salvage_lots",
+      "translation": "牽引収入",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.seeds-sprouts",
+      "source": "seeds/sprouts",
+      "translation": "種子/新芽",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.silichips",
+      "source": "silichips",
+      "translation": "シリチップ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.spices-herbs",
+      "source": "spices/herbs",
+      "translation": "スパイス/ハーブ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.stimulants",
+      "source": "stimulants",
+      "translation": "興奮剤",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.stock-embryos",
+      "source": "stock embryos",
+      "translation": "在庫胚",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.sunsuns",
+      "source": "sunsuns",
+      "translation": "サンサン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.synthesizers",
+      "source": "synthesizers",
+      "translation": "シンセサイザー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.unknown",
+      "translation": "不明の貨物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.woods-fibers",
+      "source": "woods/fibers",
+      "translation": "木材/繊維",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo_hold",
+      "translation": "貨物ホルダー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo_pod",
+      "translation": "貨物ホルダー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo_units",
+      "translation": "貨物ホルダーの容量",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.carry",
+      "translation": "アイテムを運ぶ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cash",
+      "translation": "現金",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character",
+      "translation": "キャラクター",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_creation",
+      "translation": "キャラクター作成",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_creation_note",
+      "translation": "Enterで名前を確定し、続けて能力値を配分します。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.character_library",
+      "translation": "キャラクター保管ライブラリ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_name",
+      "translation": "キャラクター名",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_name_confirm",
+      "translation": "確認コーナー カラー名",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_name_prompt",
+      "translation": "キャラクター名を入力してください",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_status",
+      "translation": "キャラクターステータスウィンドウ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city",
+      "translation": "都市",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.abran",
+      "source": "Abran",
+      "translation": "アブラン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.abundan",
+      "source": "Abundan",
+      "translation": "アブンダン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.alram",
+      "source": "Alram",
+      "translation": "アルルam",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.arlenair",
+      "source": "Arlenair",
+      "translation": "アーレンエア",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.aylika",
+      "source": "Aylika",
+      "translation": "アイリカ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.bantin",
+      "source": "Bantin",
+      "translation": "バンティン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.banville",
+      "source": "Banville",
+      "translation": "バンヴィル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.barnum",
+      "source": "Barnum",
+      "translation": "バーナム",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.bedollug",
+      "source": "Bedollug",
+      "translation": "ベドルグ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.calidac",
+      "source": "Calidac",
+      "translation": "カルイダック",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.corian",
+      "source": "Corian",
+      "translation": "コーリアン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.d-esgid",
+      "source": "D'esgid",
+      "translation": "デスギッド",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.dajasyron",
+      "source": "Dajasyron",
+      "translation": "ダジャシュロン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.darvilton",
+      "source": "Darvilton",
+      "translation": "ダービルトン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.drahew",
+      "source": "Drahew",
+      "translation": "ドラヒュー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.dramming",
+      "source": "Dramming",
+      "translation": "ドラミンg",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.dreider",
+      "source": "Dreider",
+      "translation": "ドレイダー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.einkolt",
+      "source": "Einkolt",
+      "translation": "アインコルト",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.esposito",
+      "source": "Esposito",
+      "translation": "エスポジート",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.essoit",
+      "source": "Essoit",
+      "translation": "エッソイト",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.feriolah",
+      "source": "Feriolah",
+      "translation": "フェリオラ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.ferring",
+      "source": "Ferring",
+      "translation": "フェリング",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.ft-lyon",
+      "source": "Ft. Lyon",
+      "translation": "フォート。リヨン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.ft-savon",
+      "source": "Ft. Savon",
+      "translation": "フォート。サボン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.haiapolis",
+      "source": "Haiapolis",
+      "translation": "ハイアポリス",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.helord",
+      "source": "Helord",
+      "translation": "ヘロード",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.icebox",
+      "source": "Icebox",
+      "translation": "アイスボックス",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.illdono",
+      "source": "Illdono",
+      "translation": "イルドノ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.industron",
+      "source": "Industron",
+      "translation": "インダストロン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.jemba",
+      "source": "Jemba",
+      "translation": "ジェンバ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.knuth",
+      "source": "Knuth",
+      "translation": "クヌース",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.kolbe",
+      "source": "Kolbe",
+      "translation": "コルベ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.lagosal",
+      "source": "Lagosal",
+      "translation": "ラゴサル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.lightning",
+      "source": "Lightning",
+      "translation": "ライトニング",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.llorrac",
+      "source": "Llorrac",
+      "translation": "ロラック",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.lonax",
+      "source": "Lonax",
+      "translation": "ロナックス",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.malesti",
+      "source": "Malesti",
+      "translation": "マレスティ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.mortown",
+      "source": "Mortown",
+      "translation": "モータウン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.n-ljones",
+      "source": "N'ljones",
+      "translation": "ンジョネス",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.new-temol",
+      "source": "New Temol",
+      "translation": "新規テモル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.notweneki",
+      "source": "Notweneki",
+      "translation": "ノトウェネキ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.obburg",
+      "source": "Obburg",
+      "translation": "オブブルグ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.paleko",
+      "source": "Paleko",
+      "translation": "パレコ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.paran",
+      "source": "Paran",
+      "translation": "パラン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.plepa",
+      "source": "Plepa",
+      "translation": "プレパ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.poelter",
+      "source": "Poelter",
+      "translation": "ポールター",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.sheol",
+      "source": "Sheol",
+      "translation": "シェオル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.sheshco",
+      "source": "Sheshco",
+      "translation": "シェシュコ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.shoothan",
+      "source": "Shoothan",
+      "translation": "シューサン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.surrell",
+      "source": "Surrell",
+      "translation": "サレル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.temlonton",
+      "source": "Temlonton",
+      "translation": "テムロントン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.the-mines",
+      "source": "The Mines",
+      "translation": "ザ鉱山",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.tram-el",
+      "source": "Tram'el",
+      "translation": "トラムエル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.tuie",
+      "source": "Tuie",
+      "translation": "トゥイエ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.velamie",
+      "source": "Velamie",
+      "translation": "ベラミー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.waslat",
+      "source": "Waslat",
+      "translation": "ワスラット",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.wildera",
+      "source": "Wildera",
+      "translation": "ウィルデラ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.zadansa",
+      "source": "Zadansa",
+      "translation": "ザダンサ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.combat_range",
+      "translation": "交戦距離",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.combat_status",
+      "translation": "戦闘状態インジケーター",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.compass",
+      "translation": "コンパス",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.credits.director",
+      "translation": "ディレクター",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.ftl_production",
+      "translation": "Faster Than Light 制作",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.graphics",
+      "translation": "グラフィック",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.original_concept",
+      "translation": "原案・Apple II 版制作",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.producer",
+      "translation": "プロデューサー",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.ship_sound_effects",
+      "translation": "宇宙船・音響・特殊効果",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.studios",
+      "translation": "FTL Studios / Studio B",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.cryogens",
+      "translation": "フリーズ職員",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.delete_game",
+      "translation": "x><x>セーブゲームを削除",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.deliver_mission",
+      "translation": "植民地化ミッションの貨物を配達",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.deposit",
+      "translation": "現金をすべて預けてください",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.depot_aux",
+      "translation": "3：予備燃料を購入",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.depot_refuel",
+      "translation": "1：船に給油",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.depot_repair",
+      "translation": "2：船体を修理",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.depot_title",
+      "translation": "船のサービス拠点",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.destination.abran",
+      "source": "Glory/Glory I/Abran",
+      "translation": "グローリー/グローリー I/アブラン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.abundan",
+      "source": "Glory/Glory I/Abundan",
+      "translation": "グローリー/グローリー私 / アバンダン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.alram",
+      "source": "Woremed/W'orrad/Alram",
+      "translation": "ウォメド / ウォレメド / ウィオラド / アルラム",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.arlenair",
+      "source": "Hepa/Hepah/Arlenair",
+      "translation": "ヘパ / ヘパ / アーレンエア",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.aylika",
+      "source": "Woremed/W'orrad/Aylika",
+      "translation": "ウォメド / ウィオラド / アイリカ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.bantin",
+      "source": "Ferr/Ferr/Bantin",
+      "translation": "フェル / フェル / バントン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.banville",
+      "source": "Jondd/Jondd/Banville",
+      "translation": "ジョーンズ / ジョン / バンヴィル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.barnum",
+      "source": "Ferr/Ferr/Barnum",
+      "translation": "フェール/フェール/バーナム",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.bedollug",
+      "source": "KalManDaa/Kala/Bedollug",
+      "translation": "カルマンダー/カラ/ベドルグ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.calidac",
+      "source": "New Shoot/New Shoot/Calidac",
+      "translation": "新しいシュート/新しいシュート/カリダック",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.corian",
+      "source": "Glory/Glory I/Corian",
+      "translation": "栄光/栄光私 / コーリアン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.d-esgid",
+      "source": "Jadul/Krakorum/D'esgid",
+      "translation": "ジャドゥル / クラコルム / デスギッド",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.dajasyron",
+      "source": "KalManDaa/Kala/Dajasyron",
+      "translation": "カルマンダー / カーラ / ダジャシュロン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.darvilton",
+      "source": "Jondd/Jondd/Darvilton",
+      "translation": "ジョンド / ジョンド / ダービルトン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.drahew",
+      "source": "Jondd/Jondd/Drahew",
+      "translation": "ジョンド / ジョンド / ドラヒュー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.dramming",
+      "source": "Jondd/Jondd/Dramming",
+      "translation": "ジョンド/ジョンド/ドラミング",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.dreider",
+      "source": "Glory/Glory II/Dreider",
+      "translation": "グローリー/グローリー II/ドライダー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.einkolt",
+      "source": "Lafser/Tcana/Einkolt",
+      "translation": "ラフサー/ティカナ/アインコルト",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.esposito",
+      "source": "Jondd/Jondd/Esposito",
+      "translation": "ジョンド/ジョンド/エスポジート",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.essoit",
+      "source": "Hepa/Hepah/Essoit",
+      "translation": "ヘパ/ヘパ/エソイト",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.feriolah",
+      "source": "New Shoot/New Shoot/Feriolah",
+      "translation": "ニューシュート/新規シュート/フェリオラ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.ferring",
+      "source": "Ferr/Ferr/Ferring",
+      "translation": "フェール/フェール/フェリング",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.ft-lyon",
+      "source": "Jondd/Heavy/Ft. Lyon",
+      "translation": "ジョンド/ヘビー/フィート。ライオン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.ft-savon",
+      "source": "Jondd/Heavy/Ft. Savon",
+      "translation": "ジョンド/ヘビー/フィート。サボン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.haiapolis",
+      "source": "Lafser/Tcana/Haiapolis",
+      "translation": "ラフサー / ティカナ / ハイアポリス",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.helord",
+      "source": "Sosai/Vahevela/Helord",
+      "translation": "ソウサイ / ヴァヘベラ / ヘロード",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.icebox",
+      "source": "Ferr/Snowball/Icebox",
+      "translation": "フェル / スノーボール / アイスボックス",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.illdono",
+      "source": "Jadul/Krakorum/Illdono",
+      "translation": "ジャドゥル / クラコルム / イルドノ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.industron",
+      "source": "Ferr/Ferrwerk/Industron",
+      "translation": "フェル / フェルヴェルク / インダストロン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.jemba",
+      "source": "Glory/Glory II/Jemba",
+      "translation": "グローリー / グローリー II / ジェンバ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.knuth",
+      "source": "Shoot/Shoot/Knuth",
+      "translation": "シュート/シュート/クヌース",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.kolbe",
+      "source": "KalManDaa/Kala/Kolbe",
+      "translation": "カルマンダー/カラ/コルベ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.lagosal",
+      "source": "Glory/Glory I/Lagosal",
+      "translation": "グローリー/グローリー I/ラゴサル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.lightning",
+      "source": "Jondd/Heavy/Lightning",
+      "translation": "ジョンド/ヘビー/ライトニング",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.llorrac",
+      "source": "Glory/Glory II/Llorrac",
+      "translation": "グローリー/グローリーII/ロラック",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.lonax",
+      "source": "Ferr/Ferr/Lonax",
+      "translation": "フェル/フェル/ロナックス",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.malesti",
+      "source": "Jadul/Krakorum/Malesti",
+      "translation": "ジャドゥル/クラコルム/マレスティ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.mortown",
+      "source": "Sosai/Vahevela/Mortown",
+      "translation": "ソウサイ/バヘベラ/モータウン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.n-ljones",
+      "source": "Sosai/Vahevela/N'ljones",
+      "translation": "ソウサイ/バヘベラ/ヌルジョーネス",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.new-temol",
+      "source": "New Shoot/New Shoot/New Temol",
+      "translation": "新しいシュート/新しいシュート/新しいテモル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.notweneki",
+      "source": "KalManDaa/Kala/Notweneki",
+      "translation": "カルマンダー/カラ/ノトウェネキ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.obburg",
+      "source": "Jondd/Jondd/Obburg",
+      "translation": "ジョンド/ジョンド/オブブルグ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.paleko",
+      "source": "Jadul/Krakorum/Paleko",
+      "translation": "ジャドゥル/クラコルム/パレコ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.paran",
+      "source": "Glory/Glory I/Paran",
+      "translation": "グローリー/グローリー I/パラン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.plepa",
+      "source": "Enlie/Enliah/Plepa",
+      "translation": "エンリー/エンリア/プレパ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.poelter",
+      "source": "New Shoot/New Shoot/Poelter",
+      "translation": "新しいシュート/新しいシュート/ポルター",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.sheol",
+      "source": "New Shoot/Hell/Sheol",
+      "translation": "新しい撃つ/地獄/シェオル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.sheshco",
+      "source": "Woremed/W'orrad/Sheshco",
+      "translation": "ウォーメド/ウォメッド/ウォラド/シェシュコ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.shoothan",
+      "source": "Shoot/Shoot/Shoothan",
+      "translation": "撃つ/撃つ/シュータン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.surrell",
+      "source": "Glory/Glory III/Surrell",
+      "translation": "グローリー/グローリー III/サレル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.temlonton",
+      "source": "Shoot/Shoot/Temlonton",
+      "translation": "撃つ/撃つ/テムロントン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.the-mines",
+      "source": "Ferr/Ferrwerk/The Mines",
+      "translation": "フェル/フェルワーク/鉱山",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.tram-el",
+      "source": "New Shoot/New Shoot/Tram'el",
+      "translation": "新しい撃つ/新しいシュート/トラムエル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.tuie",
+      "source": "Enlie/Enliah/Tuie",
+      "translation": "エンリー/エンリア/トゥイエ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.velamie",
+      "source": "Hepa/Hepah/Velamie",
+      "translation": "ヘパ/ヘパ/ベラミー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.waslat",
+      "source": "Shoot/Shoot/Waslat",
+      "translation": "シュート/シュート/ワスラット",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.wildera",
+      "source": "New Shoot/New Shoot/Wildera",
+      "translation": "新しいシュート/新しいシュート/ウィルデラ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.zadansa",
+      "source": "Woremed/W'orrad/Zadansa",
+      "translation": "ウォーメド/W&#x27;orrad/ザダンサ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination_next",
+      "translation": "次へ",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.destination_previous",
+      "translation": "前へ",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.dialog",
+      "translation": "話す",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.dialog.ok",
+      "translation": "わかりました",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.dialog_said",
+      "translation": "あなたは言いました",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.dialog_say",
+      "translation": "選択した単語を言う",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.dialog_verb",
+      "translation": "言いたいこと",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.eat",
+      "translation": "食べる",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.annihilator",
+      "source": "Annihilator",
+      "translation": "アナイアレイター",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.phantom-ul",
+      "source": "Phantom UL",
+      "translation": "ファントム UL",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.unknown",
+      "source": "UNKNOWN",
+      "translation": "不明",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.voton-mk-iv",
+      "source": "Voton Mk IV",
+      "translation": "ヴォトン Mk IV",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.voton-mk-x",
+      "source": "Voton Mk X",
+      "translation": "ヴォトン Mk X",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.vw-69",
+      "source": "VW-69",
+      "translation": "VW-69",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.z1-vector",
+      "source": "Z1 Vector",
+      "translation": "Z1ベクター",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy_hull",
+      "translation": "敵船の船体",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy_ship",
+      "translation": "敵船の模型",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.engineering",
+      "translation": "機関室",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.engineering_fuel_system",
+      "translation": "燃料/エンジン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.engineering_hull_system",
+      "translation": "船体のステータス",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.engineering_shield_system",
+      "translation": "シールドシステム",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.engineering_weapon_system",
+      "translation": "武器システム",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.equipment",
+      "translation": "装備データ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.equipment_note",
+      "translation": "元のオフセットで並べ替えます。効果を検証する必要がある。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.equipment_unavailable",
+      "translation": "Apple II デバイスのソース カタログがロードされていません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facilities",
+      "translation": "現在の施設",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.colony",
+      "translation": "コロニー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.exchange",
+      "translation": "取引所",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.none",
+      "translation": "なし",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.spaceport",
+      "translation": "宇宙港",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.uniteller",
+      "translation": "銀行",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.warehouse",
+      "translation": "倉庫",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.fire",
+      "translation": "発射",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.flight",
+      "translation": "星系内のナビゲーション",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.flight_distress_key",
+      "translation": "D 給油要請",
+      "translationStatus": "remake-owned UI; reviewed 2026-10-05"
+    },
+    {
+      "key": "ui.flight_engage_key",
+      "translation": "E: ずっと飛行",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.flight_progress",
+      "translation": "航海の進行",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.flight_resume_key",
+      "translation": "R 航行再開",
+      "translationStatus": "remake-owned UI; reviewed 2026-10-05"
+    },
+    {
+      "key": "ui.flight_tick",
+      "translation": "航海スケール",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.flight_tick_key",
+      "translation": "入力: 一瞬進みます",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.food",
+      "translation": "食糧",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.footer.failure",
+      "translation": "S：セーブ　Q：終了　表示：%s",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.footer.normal",
+      "translation": "左：ボタン／地図　右：%s　F8：%s",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.ftl_install",
+      "translation": "FTL ブーストを取り付ける",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.ftl_price",
+      "translation": "取付費用",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.ftl_range",
+      "translation": "航続距離",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.ftl_title",
+      "translation": "FTL 整備",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.fuel",
+      "translation": "燃料量",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.fuel_available",
+      "translation": "使用可能資金",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_buy_full",
+      "translation": "1 満量まで購入",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_buy_one",
+      "translation": "2 一単位購入",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_cancel",
+      "translation": "3 終了",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_purchase",
+      "translation": "船のサービス",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_quantity",
+      "translation": "数量",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_unavailable",
+      "translation": "ここでは購入不可",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_unit_price",
+      "translation": "単価",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.full_shields",
+      "translation": "シールド全体",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.gauge.fuel",
+      "translation": "燃料",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.gauge.guns",
+      "translation": "火力",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.gauge.hull",
+      "translation": "船体",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.gauge.shield",
+      "translation": "シールド",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.ground",
+      "translation": "地上移動",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.guns",
+      "translation": "武器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.hand",
+      "translation": "手持ちのアイテム",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.hand_empty",
+      "translation": "空の手",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.hand_key",
+      "translation": "← → H",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.heading.east",
+      "translation": "東",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.heading.north",
+      "translation": "北",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.heading.south",
+      "translation": "南",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.heading.west",
+      "translation": "西",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.health",
+      "translation": "健康",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.arrows",
+      "translation": "方向キー：移動／選択",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.cards",
+      "translation": "F1：ヘルプ　F2：設定（言語、配色、タイル、ディスク）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.close",
+      "translation": "F1 または ESC でもう一度閉じる",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.confirm",
+      "translation": "ENTER／SPACE：主要操作を決定",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.depot",
+      "translation": "1 給油　2 修理　3 予備燃料　4 工学（Banville）　Esc 戻る",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.help.engineering_shortcuts",
+      "translation": "←／→：系統 E：修理 W：武器 S：シールド R：船体 I：装備",
+      "translationStatus": "remake control mapping verified; GUI layout pending"
+    },
+    {
+      "key": "ui.help.equipment_back",
+      "translation": "ESC／右クリック：戻る",
+      "translationStatus": "操作對應已核對；畫面待驗"
+    },
+    {
+      "key": "ui.help.escape",
+      "translation": "ESC：キャンセル／戻る",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.ftl",
+      "translation": "1／Enter：取付　右クリック／Esc：戻る",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.help.fuel_purchase",
+      "translation": "1：満量　2：一単位　3／ESC：終了",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.help.ground_parts",
+      "translation": "Y：倉庫の船用部品売場　P：入植物資を積み込む",
+      "translationStatus": "remake control mapping verified; GUI layout pending"
+    },
+    {
+      "key": "ui.help.ground_save",
+      "translation": "F5：ライブラリでセーブ／ロード（数字で選択）　S：南へ移動",
+      "translationStatus": "remake control mapping verified; GUI layout pending"
+    },
+    {
+      "key": "ui.help.ground_shortcuts",
+      "translation": "T：交易 U：銀行 R：燃料 P：物資 K：冷凍者 V：納品 O：予備燃料",
+      "translationStatus": "remake control mapping verified; GUI layout pending"
+    },
+    {
+      "key": "ui.help.library_save",
+      "translation": "F5：ライブラリでセーブ／ロード（8スロット、数字で選択）",
+      "translationStatus": "remake control mapping verified; GUI layout pending"
+    },
+    {
+      "key": "ui.help.mouse",
+      "translation": "左クリック：ボタン／地図　右クリック：戻る／状態",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.presentation",
+      "translation": "F8：表示切替（Atari ST オリジナル／Apple II オリジナル／リメイク・モダン）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.presentation_persists",
+      "translation": "　　配色・タイル・配置は一緒に変わる。選んだ表示は次回起動時も保持される",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.quit",
+      "translation": "F10：自動セーブして終了",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.save_load",
+      "translation": "S クイックセーブ　L ロード　F5 ライブラリ（8 スロット、数字キーで選択）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.sleep",
+      "translation": "Space／Enter／クリック：起きる　F5：保存　F10：終了",
+      "translationStatus": "reviewed once; remake sleep controls; 2026-10-04"
+    },
+    {
+      "key": "ui.help.sound",
+      "translation": "F7：ミュート切替",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.tactical",
+      "translation": "戦術：G レーザー　T 牽引　J／K 第 1／2 区画を投棄　B 両方　H 通信",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.tactical_aim",
+      "translation": "M：照準　マウス移動：旋回　左クリック：発射",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.help.tactical_fire",
+      "translation": "F／Enter：発射　R：充電　ESC：照準終了",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.help.tactical_shields",
+      "translation": "O：シールド停止　U：シールド全開",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.help.teller_commit",
+      "translation": "銀行：金額画面を出ると確定。Cで金額を消して取消",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.help.title",
+      "translation": "操作方法",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.title_keys",
+      "translation": "タイトル：P 開始　C ライブラリ　L ロード　O 設定　A 情報",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.hull_condition",
+      "translation": "船体のステータス",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.install_part",
+      "translation": "壊れたものを部品と交換",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior",
+      "translation": "内装",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.booth",
+      "translation": "キャビン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.counter",
+      "translation": "カウンター",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.customers",
+      "translation": "ゲスト",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.door",
+      "translation": "ドア",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.kind.bar",
+      "translation": "酒場",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.kind.equipment",
+      "translation": "ギアショップ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.kind.hotel",
+      "translation": "ホテル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.kind.parts",
+      "translation": "船の部品ショップ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.kind.unknown",
+      "translation": "看板のないドア",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.slots",
+      "translation": "スロット",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.beer",
+      "source": "beer",
+      "translation": "ビール",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.burger",
+      "source": "burger",
+      "translation": "バーガー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.charmer",
+      "source": "charmer",
+      "translation": "チャーマー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.cloaker",
+      "source": "cloaker",
+      "translation": "クローカー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.concentrator",
+      "source": "concentrator",
+      "translation": "コンセントレーター",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.control-node",
+      "source": "control node",
+      "translation": "コントロールノード",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.cryofuse",
+      "source": "cryofuse",
+      "translation": "クライオフューズ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.dead-part",
+      "source": "(dead part)",
+      "translation": "（死んだ部分）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.decloaker",
+      "source": "decloaker",
+      "translation": "デクローカー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.dexboost",
+      "source": "dexboost",
+      "translation": "敏捷増幅器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.flux-modulator",
+      "source": "flux modulator",
+      "translation": "フラックス変調器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.freeze-quit",
+      "source": "(freeze/quit)",
+      "translation": "(フリーズ/終了)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.ground-scanner",
+      "source": "ground scanner",
+      "translation": "地上スキャナ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.j-junc-module",
+      "source": "j-junc module",
+      "translation": "j-junc モジュール",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.location",
+      "source": "(location)",
+      "translation": "(場所)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.money",
+      "source": "(money)",
+      "translation": "(お金)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.next-frame",
+      "source": "(next frame)",
+      "translation": "(次のフレーム)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.nothing",
+      "source": "(nothing)",
+      "translation": "(何もない)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.nutrapack",
+      "source": "nutrapack",
+      "translation": "ニュートラパック",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.peptab",
+      "source": "peptab",
+      "translation": "ペプタブ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.photon-bridge",
+      "source": "photon bridge",
+      "translation": "フォトンブリッジ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.plasma-tube",
+      "source": "plasma tube",
+      "translation": "プラズマチューブ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.rapidheal",
+      "source": "rapidheal",
+      "translation": "ラピッドヒール",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.reserved",
+      "source": "(reserved)",
+      "translation": "(予約済み)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.s-t-distorter",
+      "source": "s/t distorter",
+      "translation": "s/t ディストーター",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.scanner",
+      "source": "scanner",
+      "translation": "スキャナー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.scattergun",
+      "source": "scattergun",
+      "translation": "散弾銃",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.shield",
+      "source": "shield",
+      "translation": "シールド",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.shunt",
+      "source": "shunt",
+      "translation": "シャント",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.stinger",
+      "source": "stinger",
+      "translation": "スティンガー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.time",
+      "source": "(time)",
+      "translation": "(タイム)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.trash",
+      "source": "(trash)",
+      "translation": "(ゴミ箱)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.layout.atari_st",
+      "translation": "Atari ST",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.layout.remake",
+      "translation": "リメイク",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_delete",
+      "translation": "削除",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_load",
+      "translation": "読込",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_make",
+      "translation": "作成",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_new",
+      "translation": "新規",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_pick",
+      "translation": "1–8 選択",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_store",
+      "translation": "保存",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_not_created",
+      "translation": "まだ作成されていません",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_slot",
+      "translation": "ライブラリ スロットを保存",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_slot_empty",
+      "translation": "空のスロット",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.load_aux_fuel",
+      "translation": "O: 補助燃料をロード",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.load_cargo",
+      "translation": "貨物をロード",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.load_cryogens",
+      "translation": "冷凍要員をロード",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.load_game",
+      "translation": "ロード",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.load_supplies",
+      "translation": "植民地物資をロード",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.locale.en",
+      "translation": "英語",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.locale.ja",
+      "translation": "日本語",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.locale.zh-Hans",
+      "translation": "簡体字中国語",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.locale.zh-Hant",
+      "translation": "繁体字中国語",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.location",
+      "translation": "場所",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.make_library",
+      "translation": "保存ライブラリを作成",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.market_quote",
+      "translation": "貨物を売買",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.market_unknown",
+      "translation": "不明",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.about_needs_disk",
+      "translation": "制作者一覧は原版ディスクに収録されています。設定でディスクのパスを指定してから、もう一度開いてください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.action_rejected",
+      "translation": "アクションは拒否されました:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_ammo_out",
+      "translation": "ショットガンは空で、手は 1 対だけ残っています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_exchange",
+      "translation": "双方は 1 ラウンドを争った。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_fled",
+      "translation": "もう問題はありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_hit",
+      "translation": "攻撃を受けました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_lost",
+      "translation": "あなたは倒れました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_over",
+      "translation": "完了です。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_won",
+      "translation": "残った人々は逃げ出した。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.at_booth",
+      "translation": "あなたはブースの隣に立っていました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.at_counter",
+      "translation": "あなたはカウンターの前に立っています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.at_door",
+      "translation": "ドアはすぐ隣にあります。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.at_slots",
+      "translation": "隅にある機械が点滅しています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.ate",
+      "translation": "食べ物を少し食べると、満腹度が高まります。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.attribute_points",
+      "translation": "キャラクターの能力ポイントを配分してください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.message.attribute_waste",
+      "translation": "未使用ポイントがあります。このまま進むにはもう一度確定してください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.message.aux_fuel_drained",
+      "translation": "補助燃料がメイン燃料タンクに注入されました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.aux_fuel_dropped",
+      "translation": "補助燃料のスロットがドロップされました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.aux_fuel_loaded",
+      "translation": "補助燃料のタンクが貨物倉に設置されています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.back",
+      "translation": "前の画面に戻ります。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.beyond_maximum_jump",
+      "translation": "ワープドライブの最大ジャンプ距離を超えました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.boarded",
+      "translation": "あなたはヤンドッグに乗りました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.bolts_armed",
+      "translation": "船室の投擲ボルトが爆発し、貨物倉が空になった。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.bought",
+      "translation": "1 つの商品が購入されました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cannon_missed",
+      "translation": "大砲のミス: 敵船が照準許容範囲内にありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cannot_move",
+      "translation": "正面は通行不可です。通行可能な地面に沿って移動してください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cargo",
+      "translation": "貨物倉タンクが開けられました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cargo_full",
+      "translation": "貨物室がいっぱいです。マニュアルにはプロトタイプの容量が 2 つの貨物として記載されています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cargo_loaded",
+      "translation": "1 つの荷物が積み込まれました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cargo_unloaded",
+      "translation": "荷物が降ろされました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.carry_full",
+      "translation": "キャリーコンパートメントがいっぱいで、置くことができません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.character_created",
+      "translation": "キャラクターが作成され、Yang Dog に搭乗する準備ができました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.character_name",
+      "translation": "キャラクター名を入力してください。これはリマスターされたプロトタイプの命名プロセスです。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.character_name_invalid",
+      "translation": "ロール名を空白にすることはできません。再入力してください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.collapsed",
+      "translation": "疲労で倒れた。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-04"
+    },
+    {
+      "key": "ui.message.comm_jammed",
+      "translation": "通信チャネルが妨害されています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cryogens_loaded",
+      "translation": "冷凍の乗組員が地上倉庫から積み込まれました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.defeat",
+      "translation": "これ以上続行できません。このエンディングを保存するか、ゲームを終了することができます。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.delivery_at_exchange",
+      "translation": "Banville の交易所で必要な品物を納品してください。",
+      "translationStatus": "remake operation hint; 2026-10-03"
+    },
+    {
+      "key": "ui.message.deposited",
+      "translation": "現金は現在のシステムの地元銀行に入金されました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.destination_selected",
+      "translation": "次のナビゲーション目的地が選択されました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.dialog_ended",
+      "translation": "会話が終わり、通りに戻ります。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.dialog_opened",
+      "translation": "相手はあなたを見つめ、あなたが話すのを待っています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.dialog_said",
+      "translation": "相手はあなたの言葉に反応しました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.dialog_unavailable",
+      "translation": "ここには話す人がいません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.distress_unavailable",
+      "translation": "ここでは救援給油を要請できません。",
+      "translationStatus": "remake-owned UI; reviewed 2026-10-05"
+    },
+    {
+      "key": "ui.message.enemy_destroyed",
+      "translation": "敵船は破壊されました。戦闘プロトタイプノードが完成しました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.enemy_fired_hull",
+      "translation": "敵艦はシールドを貫通し、船体に衝突しました。修理のために機関室に入ってください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.enemy_fired_shields",
+      "translation": "敵船が攻撃します。シールドがショットを吸収し、レベルが低下します。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.enemy_fired_system",
+      "translation": "敵艦が攻撃を受け、艦艇システムの一部が損傷しました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.enemy_holding",
+      "translation": "敵艦はまだ積載中であり、この時点では発砲していません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.enemy_missed",
+      "translation": "敵艦が砲撃を開始しましたが、外れました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.engineering",
+      "translation": "エンジニアリングキャビンがオープンしました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.entered_city",
+      "translation": "街に入りました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.equipment",
+      "translation": "デバイスのデータがオンになっています。この名前は、現在認証されている Apple II ソース カタログからのものです。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.exchange",
+      "translation": "取引所が開かれました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.failure_terminal",
+      "translation": "これは失敗したエンディングです。エンディングを保存することも、ゲームを終了することもできます。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.fetched",
+      "translation": "バッチは貨物倉から回収されました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.fine_paid",
+      "translation": "違法駐車の罰金は支払われています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.fired",
+      "translation": "解雇されました。武器のチャージが減少しました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.ftl_installed",
+      "translation": "FTL ブーストは取り付け済みで正常です。",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.message.ftl_insufficient",
+      "translation": "銀行残高と現金が不足しているため、FTL ブーストを取り付けられません。",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.message.ftl_quote",
+      "translation": "ハイパードライブを強化できます。費用を確認してください。",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.message.ftl_ship_absent",
+      "translation": "取り付けには宇宙船をこの街に停めてください。",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.message.fuel_full",
+      "translation": "燃料は満タンなので補充する必要はありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.fuel_purchase",
+      "translation": "数量を選んでください。終了時に精算します。",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.message.full_shields",
+      "translation": "シールドは完全に開いています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.game_deleted",
+      "translation": "保存されたゲームは削除されました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.game_stored",
+      "translation": "ゲームはリマスターされたセーブ ライブラリに保存されました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.ground",
+      "translation": "貨物モジュールが地上移動エリアに到着しました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.ground_scanner_required",
+      "translation": "主要都市以外への着陸には地上スキャナーの装備が必要です。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.guns_blown",
+      "translation": "船の主砲は損傷しており、発砲できません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.hailing",
+      "translation": "相手の船が接続されました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.hull_repaired",
+      "translation": "船体修理の精算が完了。",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.message.in_hand",
+      "translation": "手元にあります。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.insufficient_cash",
+      "translation": "現金が不足しています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.insufficient_fuel",
+      "translation": "このプロトタイプのナビゲーションを完成するには燃料が不足しています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.insufficient_funds",
+      "translation": "銀行預金と現金の合計では燃料を購入するには不十分です。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.jettison_empty",
+      "translation": "貨物室は空で、投げるものは何もありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.landed",
+      "translation": "着陸。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.landing",
+      "translation": "地平線が昇ります。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.laser_fired",
+      "translation": "レーザーが発射されました。武器のチャージが減少しました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.laser_missed",
+      "translation": "レーザーが外れました。武器のチャージが切れた。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.left_building",
+      "translation": "あなたは通りに戻ります。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.left_city",
+      "translation": "街を出て惑星の地表に入りました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library",
+      "translation": "キャラクターセーブライブラリがオープンしました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library_created",
+      "translation": "ライブラリのリマスター版が作成されました。元のライブラリ ディスク形式はまだ互換性があると宣言されていません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library_list_rejected",
+      "translation": "リポジトリ リストが拒否されました:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library_missing",
+      "translation": "リマスターされたリポジトリはまだ作成されていません。最初にリポジトリを作成することを選択してください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library_rejected",
+      "translation": "ライブラリの保存操作が拒否されました:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library_slot_selected",
+      "translation": "ライブラリの保存スロットが選択されました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.load_failed",
+      "translation": "読み込みに失敗しました。利用可能なリマスターされたセーブ スロットが見つかりません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.load_rejected",
+      "translation": "ロードが拒否されました:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.load_requested",
+      "translation": "リマスターされたセーブスロットからゲームをロードしています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.loaded",
+      "translation": "ゲームはリマスターされたセーブスロットからロードされました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.mission_cargo_missing",
+      "translation": "植民地化ミッションには、少なくとも 1 つの補給物資と 1 人の極低温職員が必要です。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.mission_complete",
+      "translation": "植民地化ミッションの貨物が配達されました。これはリメイクプロトタイプの終了ノードです。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.moved",
+      "translation": "カーソルの方向に移動します。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.navigated",
+      "translation": "ナビゲーションが完了しました。候補目標に達しました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.navigation",
+      "translation": "ナビゲーション画面が開きました。ターゲットを選択して確定します。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_colony",
+      "translation": "まずコロニー施設まで歩いてからミッション物資を届けてください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_depot",
+      "translation": "燃料は補給所で購入してください。",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.message.need_exchange",
+      "translation": "取引所に行ってから取引を行ってください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_spaceport",
+      "translation": "まず宇宙港に行ってから燃料を購入してください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_tube_station",
+      "translation": "このマスにチューブ駅はない。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_uniteller",
+      "translation": "銀行取引を行う前に、まずユニテラーまで歩いてください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_warehouse",
+      "translation": "まず倉庫まで歩いてから商品を積み込んでください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.new_game",
+      "translation": "Zed というキャラクターを使った新しいゲームが作成されました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.new_game_discards",
+      "translation": "新しいゲームを始めると、ライブラリに保存していない進行状況は失われます。もう一度押すと確定します。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-04"
+    },
+    {
+      "key": "ui.message.no_aux_fuel",
+      "translation": "貨物倉には補助燃料がありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_bank_balance",
+      "translation": "現在、地元の銀行では引き出し可能な預金はありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_cargo",
+      "translation": "販売可能な商品はありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_cash",
+      "translation": "預ける現金がありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_credit",
+      "translation": "この賭けをするのに十分な現金がありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_door_here",
+      "translation": "このスペースにはドアがありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_enemy",
+      "translation": "現在、攻撃できる敵艦船はありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_fine",
+      "translation": "現在、保留中の罰金はありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_food",
+      "translation": "食べられる食べ物はありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_funds",
+      "translation": "この金額を支払うのに十分なお金がありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_lots",
+      "translation": "ここで販売できるバッチはありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_matching_part",
+      "translation": "本体には壊れたスロットに収まる部品がありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_ship_to_hail",
+      "translation": "近くに寄港できる船がありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_shunt",
+      "translation": "シャントが利用できない場合、現在のシステムを迅速に修復する方法はありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.nobody_here",
+      "translation": "この場所には話し相手がいません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.not_at_booth",
+      "translation": "隣にはブースがありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.not_at_counter",
+      "translation": "カウンターが近くにありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.not_at_door",
+      "translation": "外に出るにはドアまで行かなければなりません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.not_at_slots",
+      "translation": "機械が近くにありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.nothing_to_hold",
+      "translation": "手に入るものは何もありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.old_save_unsupported",
+      "translation": "旧セーブには対応していません。新しいゲームを開始してください。新形式のセーブのみ読み込めます。",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.message.out_of_fuel",
+      "translation": "燃料がなくなり、離陸できなくなります。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.part_bought",
+      "translation": "部品は購入され、搭載されています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.part_installed",
+      "translation": "パーツはそのセルにロードされ、列は動作を再開します。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.part_selected",
+      "translation": "パーツが選択されました。価格と納品数量は以下に表示されます。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.parts_counter",
+      "translation": "すでに倉庫の船舶部品カウンターにあります。パーツを選んでご購入いただけます。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.pod_exit",
+      "translation": "貨物ポッドを切り離して船から降りました。",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.message.pod_full",
+      "translation": "貨物倉が満杯です。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.presentation_changed",
+      "translation": "表示を切り替えました。ルールとセーブ状態は変わらず、次回起動時もこの表示です。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.quit",
+      "translation": "ゲームを終了する準備をしてください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.ready",
+      "translation": "アクションを選択してください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.refuel_eta",
+      "translation": "給油予定：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.refueled",
+      "translation": "宇宙港で燃料が補充されました。最初に地元の銀行から引き落とし、次に現金で支払います。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.repair_not_needed",
+      "translation": "現在のシステム ステータスはフルであり、修復の必要はありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.repaired",
+      "translation": "ダイバーターが消費され、船体が 25 ポイント回復しました (リマスターされたプロトタイプの値)。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.rested",
+      "translation": "休息を終えました。",
+      "translationStatus": "reviewed for v1 release; 2026-10-15"
+    },
+    {
+      "key": "ui.message.save_failed",
+      "translation": "保存に失敗しました。書き込み可能なリマスター セーブ スロットを確認してください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.saved",
+      "translation": "ゲームはリマスターされた保存スロットに保存されました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.score",
+      "translation": "決済フォーム。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.shields_off",
+      "translation": "シールドが外れました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.shields_off_for_flight",
+      "translation": "離陸前にシールドと隠蔽装置をオフにしてください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.shields_repaired",
+      "translation": "シャントが消費され、シールドレベルが 25 ポイント回復します (リマスタープロトタイプ値)。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.shunt_does_not_fit",
+      "translation": "壊れているのはコントロールノードで、スプリッターを取り付けることができません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.sleeping",
+      "translation": "睡眠中。入力すると目を覚まします。",
+      "translationStatus": "reviewed once; remake sleep controls; 2026-10-04"
+    },
+    {
+      "key": "ui.message.slots_jackpot",
+      "translation": "3 つが同じ場合、マシンは賞金を吐き出します。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.slots_lost",
+      "translation": "3 つはすべて異なります。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.slots_open",
+      "translation": "コインスロットが点灯し、ベット数はこの銀河によって決まります。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.slots_pair",
+      "translation": "どちらも同じですが、少しリサイクルするだけです。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.sold",
+      "translation": "1 個の商品が販売されました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.sound_off",
+      "translation": "効果音はミュートされています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.sound_on",
+      "translation": "効果音はオンになっています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.status",
+      "translation": "キャラクターステータスウィンドウが開きました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.stored",
+      "translation": "商品のバッチは倉庫に保管されています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.stowed",
+      "translation": "キャリーコンパートメントに戻されました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.street_beggar",
+      "translation": "街角で誰かが手を差し伸べてお金を要求します。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.street_dealer",
+      "translation": "誰かがやって来て、あなたとビジネス取引について話し合いたいと言いました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.street_mugger",
+      "translation": "誰かが道の真ん中に立ってお金を要求しました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.subc_engines_blown",
+      "translation": "サブライトエンジンが損傷しており、航行できません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.supplies_loaded",
+      "translation": "コロニーの供給品が地上倉庫から積み込まれました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.system_repaired",
+      "translation": "シャントが消耗し、システムの壊れた部分が置き換えられました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.system_selected",
+      "translation": "エンジニアリングキャビンシステムが選択されました。ステータス列には、現在選択されているプロジェクトが表示されます。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tactical",
+      "translation": "戦術画面が開きました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tactical_empty_pod",
+      "translation": "貨物室が空だ。空荷の船を襲う海賊はいない。スキャナーには何も映らない。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tactical_moved",
+      "translation": "戦術的位置が移動されました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tactical_slewing",
+      "translation": "マウス照準：中心から離すほど旋回速度が上がります。左クリックで発射、右クリック／ESCで照準終了。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.teller_amount",
+      "translation": "キーボードを使用して量を設定し、右クリックするか ESC で完了します。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.teller_nothing",
+      "translation": "金額はゼロであり、何も移動されていません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.too_hungry",
+      "translation": "お腹が空いている場合は、先に食事をしてから休んでください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tractor_no_room",
+      "translation": "貨物倉がいっぱいで、入れる余地がありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tractor_out_of_range",
+      "translation": "ターゲットは牽引範囲内にありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.trade_confirm_sale",
+      "translation": "選んだ品物を確認してください。",
+      "translationStatus": "remake operation hint; 2026-10-03"
+    },
+    {
+      "key": "ui.message.trade_not_needed",
+      "translation": "この品物は引き取れません。",
+      "translationStatus": "remake operation hint; 2026-10-03"
+    },
+    {
+      "key": "ui.message.trade_passed",
+      "translation": "この発送を放棄してください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.trade_purchase_destination",
+      "translation": "保管先を選択。1：倉庫、2：ポッド。",
+      "translationStatus": "remake wording for source-backed purchase destination semantics; original wording unverified; 2026-10-03"
+    },
+    {
+      "key": "ui.message.trade_quote",
+      "translation": "相場の交換: 買うか諦めるか。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.trade_sell_which",
+      "translation": "どのロットを売りたいですか?",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.transfer_same_system",
+      "translation": "選択された宛先はまだ現在の銀河内にあり、銀河間転送は必要ありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.transferred",
+      "translation": "システムの現在の銀行残高が、選択したシステムに転送されました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_arrived",
+      "translation": "トラムはあなたを別の都市に連れて行きました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_confirm",
+      "translation": "乗車を押せば出発する。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_insufficient",
+      "translation": "手持ちの現金では運賃を払えない。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_no_destination",
+      "translation": "この惑星には他に通じている都市がない。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_off_planet",
+      "translation": "路面電車は地球上の都市のみを通過します。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_station",
+      "translation": "チューブ駅は同じ惑星の他都市への乗車券を売っている。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.under_way",
+      "translation": "セーリング;船は極ルートに沿って目的地に近づいています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.uniteller",
+      "translation": "ユニテラーが有効になっています。これは現在のシステムのローカル バンクを処理します。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.unknown_command",
+      "translation": "このコマンドは現在の画面では無効です。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.unpaid_debts",
+      "translation": "離陸許可が拒否されました: この星系ではまだ借金があります。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.verb_selected",
+      "translation": "言いたいことを選択しました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.walk_to_ship",
+      "translation": "船に戻るには、船のいるマスまで歩く。",
+      "translationStatus": "added 2026-09-03 with re_enter_ship boarding"
+    },
+    {
+      "key": "ui.message.warehouse_empty",
+      "translation": "そのセルは空です。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.warehouse_full",
+      "translation": "倉庫に空きがありません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.warp_engines_blown",
+      "translation": "ワープ エンジンが損傷しているため、ジャンプできません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.weapon_empty",
+      "translation": "武器は充電されていないため、発射できません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.weapon_recharged",
+      "translation": "武器の充電を有効にしました。",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.message.weapon_repaired",
+      "translation": "シャントが消費され、武器のチャージが 25 ポイント回復します (リマスターされたプロトタイプの値)。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.withdrawn",
+      "translation": "現在のシステムでは、預金は地元の銀行から引き落とされています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.wrong_destination",
+      "translation": "現在、植民地候補地にいないため、ミッション物資を配達できません。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.minutes",
+      "translation": "分",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.mission_complete",
+      "translation": "植民地化ミッション完了",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.move",
+      "translation": "移動",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.navigate",
+      "translation": "航行確定",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.navigation",
+      "translation": "航法／操縦",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.navigation_target",
+      "translation": "ナビゲーションターゲット",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.new_game",
+      "translation": "新しいゲームの開始",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.nourishment",
+      "translation": "飽和度",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.open_parts",
+      "translation": "船パーツカウンター",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options",
+      "translation": "オプション",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.audio_note",
+      "translation": "効果音は事前取込が必要。同梱の操作説明を参照",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.options.detect",
+      "translation": "再検出ディスク",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.detect_where",
+      "translation": "標準フォルダーから .st を検索",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk",
+      "translation": "Atari ST ディスク",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_bootstrap_hint",
+      "translation": "↑↓ 選択　ENTER 決定・有効な原版ディスクが必要です",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.options.disk_bootstrap_note",
+      "translation": "正規に所有する SunDog Atari ST の .st ディスクを選択してください。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.options.disk_cleared",
+      "translation": "ディスクは置かれ、私自身のアートのリマスター バージョンと置き換えられました",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_failed",
+      "translation": "これは SunDog の Atari ST ディスクではありません",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_loaded",
+      "translation": "元のディスクが読み取られています。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_none",
+      "translation": "ディスクが通常の場所に見つかりません。設定ディレクトリまたは実行可能ファイルの横に .st を置くか、パスを直接入力します。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_note",
+      "translation": "独自のオリジナル ディスクを提供する場合、表面、キャビン、およびアイテムのアイコンはオリジナルのピクセルになります。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_unset",
+      "translation": "未設定（リメイク画像）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.hint",
+      "translation": "↑↓ 選択　←→ 変更　ENTER 適用　F2/ESC 閉じる",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.language",
+      "translation": "言語",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.language_changed",
+      "translation": "すぐに言語が切り替わりました",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.look_bootstrap_hint",
+      "translation": "↑↓ で選択、ENTER で決定",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.look_bootstrap_note",
+      "translation": "F8 でいつでも変更でき、F2 の設定からも変えられます。選択は記憶されます。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.look_bootstrap_title",
+      "translation": "表示を選んでください",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.presentation",
+      "translation": "表示",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.outcome",
+      "translation": "契約結果",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.outcome.failure",
+      "translation": "ミッション失敗：キャラクターまたはサンドッグは続行不能です。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.outcome.success",
+      "translation": "契約完了: 植民地物資と極低温の人員が届けられました。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.outcome_failure_terminal",
+      "translation": "失敗したエンディング: S を押してエンディングを保存するか、Q を押してゲームを終了します。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.outcome_return",
+      "translation": "Return キーを押して Yang Dog に戻り、ステータスの確認またはリロードを続行します。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.parts_carried",
+      "translation": "持ち込んだ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.parts_counter",
+      "translation": "船パーツカウンター",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.parts_price",
+      "translation": "価格",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.parts_select",
+      "translation": "前/次のパーツを選択",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.pilotage",
+      "translation": "操縦",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet",
+      "translation": "惑星",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.enliah",
+      "source": "Enliah",
+      "translation": "エンリア",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.ferr",
+      "source": "Ferr",
+      "translation": "フェル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.ferrwerk",
+      "source": "Ferrwerk",
+      "translation": "フェルヴェルク",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.glory-i",
+      "source": "Glory I",
+      "translation": "グローリー I",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.glory-ii",
+      "source": "Glory II",
+      "translation": "グローリー II",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.glory-iii",
+      "source": "Glory III",
+      "translation": "グローリーIII",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.heavy",
+      "source": "Heavy",
+      "translation": "ヘビー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.hell",
+      "source": "Hell",
+      "translation": "ヘル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.hepah",
+      "source": "Hepah",
+      "translation": "ヘパ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.jondd",
+      "source": "Jondd",
+      "translation": "ジョンド",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.kala",
+      "source": "Kala",
+      "translation": "カラ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.krakorum",
+      "source": "Krakorum",
+      "translation": "クラコルム",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.new-shoot",
+      "source": "New Shoot",
+      "translation": "新しいシュート",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.shoot",
+      "source": "Shoot",
+      "translation": "シュート",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.snowball",
+      "source": "Snowball",
+      "translation": "スノーボール",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.tcana",
+      "source": "Tcana",
+      "translation": "トカナ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.vahevela",
+      "source": "Vahevela",
+      "translation": "ヴァヘベラ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.w-orrad",
+      "source": "W'orrad",
+      "translation": "W&#x27;orrad",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.play_sundog",
+      "translation": "SunDog のプレイを開始",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.pod_driver",
+      "translation": "貨物ドックステーション",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.pod_exit",
+      "translation": "E 貨物ポッドで降りる",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.pod_locker",
+      "translation": "貨物タンク",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.position",
+      "translation": "座標",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.apple2",
+      "translation": "Apple II オリジナル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.apple2.note",
+      "translation": "Apple II の配色とタイルを、リメイク版のウィンドウ配置で",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.atari_st",
+      "translation": "Atari ST オリジナル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.atari_st.note",
+      "translation": "原版の全画面レイアウト。画面は手持ちのディスクから描く",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.atari_st_hd",
+      "translation": "Atari ST HD版",
+      "translationStatus": "user-authorised Atari ST HD identity"
+    },
+    {
+      "key": "ui.presentation.remake_modern",
+      "translation": "リメイク・モダン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.remake_modern.note",
+      "translation": "リメイク版が描き起こした高解像度タイルと配置",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.quit",
+      "translation": "ゲームを終了",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.recharge",
+      "translation": "武器リチャージ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.refuel",
+      "translation": "燃料を購入",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.repair",
+      "translation": "船体を修理",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.repair_hull",
+      "translation": "船体を修理",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.repair_shields",
+      "translation": "シールドを修理",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.repair_system",
+      "translation": "選択したシステムを修理",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.repair_weapon",
+      "translation": "武器を修理",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.rest",
+      "translation": "休憩",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.route_cost",
+      "translation": "航路",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.route_jump",
+      "translation": "ジャンプ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.route_jump_unit",
+      "translation": "光年",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.save_game",
+      "translation": "ゲームを保存",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.banville_cargo",
+      "translation": "バンビルGoods",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.bonus_note",
+      "translation": "オリジナルのバージョンではこの行が印刷されていましたが、全体のスコアには含まれていませんでした。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.no_death_bonus",
+      "translation": "死亡報酬なし",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.restart_penalty",
+      "translation": "リスタートペナルティ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.time_penalty",
+      "translation": "タイムペナルティ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.title",
+      "translation": "精算",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.total",
+      "translation": "合計スコア",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.select_game",
+      "translation": "ライブラリ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.sell",
+      "translation": "商品の販売",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shield_level",
+      "translation": "シールドレベル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shields",
+      "translation": "シールド",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shields_off",
+      "translation": "シールドを閉じる",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.ship_locker",
+      "translation": "船上のロッカー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.ship_stores",
+      "translation": "マテリアルボード",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shipboard",
+      "translation": "船内の移動",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shipboard_hint",
+      "translation": "右側のウィンドウで船室をクリックします。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shunts",
+      "translation": "シャント",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.sleep_forced",
+      "translation": "強制睡眠",
+      "translationStatus": "reviewed once; remake sleep controls; 2026-10-04"
+    },
+    {
+      "key": "ui.slots.bet",
+      "translation": "賭け金",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.artifact",
+      "translation": "レリック",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.cell",
+      "translation": "バッテリー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.circuit",
+      "translation": "回路",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.crystal",
+      "translation": "スパー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.grain",
+      "translation": "グレイン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.medicine",
+      "translation": "製薬",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.ore",
+      "translation": "鉱石",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.sundog",
+      "translation": "サンドッグ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.payout",
+      "translation": "ボーナス",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.spin",
+      "translation": "回す",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.title",
+      "translation": "スロットマシン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.store_game",
+      "translation": "ゲームをライブラリに保存",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.stores_keys",
+      "translation": "矢印：選択  Enter：移動",
+      "translationStatus": "2026-10-04 Stores controls; remake-owned"
+    },
+    {
+      "key": "ui.stores_short_keys",
+      "translation": "← → Enter H E",
+      "translationStatus": "2026-10-04 Stores controls; remake-owned"
+    },
+    {
+      "key": "ui.subc_engine",
+      "translation": "サブライトエンジン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.supplies",
+      "translation": "植民地物資",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system",
+      "translation": "星系",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.system.enlie",
+      "source": "Enlie",
+      "translation": "エンリー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.ferr",
+      "source": "Ferr",
+      "translation": "フェール",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.glory",
+      "source": "Glory",
+      "translation": "グローリー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.hepa",
+      "source": "Hepa",
+      "translation": "ヘパ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.jadul",
+      "source": "Jadul",
+      "translation": "ジャドゥル",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.jondd",
+      "source": "Jondd",
+      "translation": "ジョンド",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.kalmandaa",
+      "source": "KalManDaa",
+      "translation": "カルマンダー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.lafser",
+      "source": "Lafser",
+      "translation": "ラフサー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.new-shoot",
+      "source": "New Shoot",
+      "translation": "ニューシュート",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.shoot",
+      "source": "Shoot",
+      "translation": "シュート",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.sosai",
+      "source": "Sosai",
+      "translation": "ソサイ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.woremed",
+      "source": "Woremed",
+      "translation": "ウォーメド",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_force_shields",
+      "translation": "フォースシールド",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_pilotage",
+      "translation": "操縦系統",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_previous_next",
+      "translation": "前/次のシステムを選択",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_rows",
+      "translation": "各コラム",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_ship_guns",
+      "translation": "船の武器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_subc_engine",
+      "translation": "サブライトエンジン",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_tactical_display",
+      "translation": "戦術ディスプレイ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_unknown",
+      "translation": "未知のシステム",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_warp_drive",
+      "translation": "ジャンプドライブ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tactical",
+      "translation": "戦術ディスプレイ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tactical.damage",
+      "translation": "ダメージ：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tactical_move",
+      "translation": "戦術的な動き",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.talk",
+      "translation": "人々と話す",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_city_previous_next",
+      "translation": "都市を切り替える",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_planet_next",
+      "translation": "次の惑星",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_planet_previous",
+      "translation": "前の惑星",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_planet_previous_next",
+      "translation": "スイッチ プラネット",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_system_next",
+      "translation": "次の星系",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.target_system_previous",
+      "translation": "前の星系",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.target_system_previous_next",
+      "translation": "星系を切替",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.teller.all",
+      "translation": "すべて",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.amount",
+      "translation": "金額:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.available",
+      "translation": "利用可能:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.clear",
+      "translation": "クリア",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.commit_hint",
+      "translation": "ESC：確定　C：消去",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.teller.deposit",
+      "translation": "現金を預金",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.header",
+      "translation": "UNITELLER &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.in_bank",
+      "translation": "銀行預金:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.on_hand",
+      "translation": "手持ちの現金:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.others",
+      "translation": "その他",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.pay_fine",
+      "translation": "違約金の支払い",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.title",
+      "translation": "%s 銀行",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.transfer",
+      "translation": "送金",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.transfer_to",
+      "translation": "%s への送金",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.withdraw",
+      "translation": "現金の引き出し",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.theme",
+      "translation": "アート テーマ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.theme.apple2",
+      "translation": "Apple II",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.theme.atari_st",
+      "translation": "Atari ST",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.theme_cycle",
+      "translation": "スイッチ インターフェイス カラー",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tileset.apple2",
+      "translation": "Apple II",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tileset.atari_st",
+      "translation": "Atari ST",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tileset.remake_modern",
+      "translation": "Remake Modern",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tileset_cycle",
+      "translation": "スイッチ タイル設定",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.time",
+      "translation": "時間",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.title",
+      "translation": "サンドッグ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.accept",
+      "translation": "承諾",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.asking",
+      "translation": "希望価格:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.aux_tank",
+      "translation": "補助燃料タンク",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.buy",
+      "translation": "購入",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.contents",
+      "translation": "内容:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.deliver",
+      "translation": "納品",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.demand",
+      "translation": "需要：",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.exchange",
+      "translation": "交換",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.exit",
+      "translation": "終了",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.fetch",
+      "translation": "回収",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.fetch_which",
+      "translation": "どのバッチを取るべきですか?",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.lots_now_selling",
+      "translation": "現在販売されているバッチ:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.nothing",
+      "translation": "空",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.offer",
+      "translation": "提示額：",
+      "translationStatus": "remake operation hint; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.pass",
+      "translation": "放棄",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.pod",
+      "translation": "貨物室",
+      "translationStatus": "source-backed Warehouse/Pod sale picker; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.pod_contents",
+      "translation": "貨物倉の内容:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.price_on_goods",
+      "translation": "商品の見積もり",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.quality",
+      "translation": "グレード:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.salvage",
+      "translation": "サルベージ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.sell",
+      "translation": "販売",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.sell_from",
+      "translation": "どこから売りますか？",
+      "translationStatus": "source-backed Warehouse/Pod sale picker; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.store",
+      "translation": "入金",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.store_to",
+      "translation": "どこに保管しますか？",
+      "translationStatus": "remake wording for source-backed purchase destination semantics; original wording unverified; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.store_which",
+      "translation": "に保管されていますか?",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.title",
+      "translation": "%s 交換",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.to_be_delivered",
+      "translation": "納品する品物",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.warehouse",
+      "translation": "倉庫",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.warehouse_title",
+      "translation": "どのバッチが倉庫",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.withdraw",
+      "translation": "取り消す",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.withhold",
+      "translation": "見送る",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.your_limit",
+      "translation": "上限:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade_exchange",
+      "translation": "交換",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.transfer",
+      "translation": "選択したシステムに転送",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.city",
+      "translation": "都市：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.cost",
+      "translation": "運賃：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.credits",
+      "translation": " Cr",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.destination",
+      "translation": "行き先",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.insufficient",
+      "translation": "資金不足",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.planet",
+      "translation": "惑星：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.select_1",
+      "translation": "行き先の",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.select_2",
+      "translation": "都市を選ぶ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.system",
+      "translation": "星系：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.title",
+      "translation": "チューブ駅",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.transport",
+      "translation": "乗車",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube_short",
+      "translation": "パイロットトラム",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.uniteller",
+      "translation": "ユニテラー銀行",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.unload_aux_fuel",
+      "translation": "O: 補助燃料を投下",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.unload_cargo",
+      "translation": "貨物を降ろす",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.verb_previous_next",
+      "translation": "話す内容を切り替える",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.vigor",
+      "translation": "活力",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.wake",
+      "translation": "起きる",
+      "translationStatus": "reviewed once; remake sleep controls; 2026-10-04"
+    },
+    {
+      "key": "ui.warp_drive",
+      "translation": "ワープドライブ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.weapon_charge",
+      "translation": "武器チャージ",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.withdraw",
+      "translation": "すべての入金を引き出す",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    }
+  ]
+}

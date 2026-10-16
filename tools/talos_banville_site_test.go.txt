@@ -1,0 +1,872 @@
+package m68k
+
+import (
+	"crypto/sha256"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"testing"
+)
+
+// 原版出城前段接重新分派；外部圖形／配置及整機GUI不是本探針的範圍。
+func TestSunDogBanvilleSitePlayerEntry(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type parentRow struct {
+		Current, Next, Effective              int
+		Reload, InitCalled, WorldMapRequested bool
+	}
+	type exitRow struct {
+		City                           int
+		PendingBefore, PendingAfter    bool
+		Before, After                  uint16
+		PlayerColumn, PlayerRow, Draws int
+	}
+	type cellRow struct {
+		Index, Base, Code  int
+		Occupied, Eligible bool
+	}
+	type candidateRow struct {
+		Candidate, Selected, Draws, RedrawDraws int
+	}
+	report := struct {
+		Scope, Randomness                   string
+		Parents                             []parentRow
+		Exits                               []exitRow
+		SourceExits                         []exitRow
+		Cells                               []cellRow
+		Candidates                          []candidateRow
+		PlanetRecordSHA256, CityTableSHA256 string
+		FirstCity, CityCount, EligibleCount int
+	}{Scope: "XMOVEONG raw基底0x40000:093d..0980出城模式與舊城市座標、1f6e..1f89及1fc5..1fcc父模式分派、1e9f..1eab配置前guard，接已核定1d9c..1e4d選址。第一行星960 mapped地形以原始1c5c..1cc0單格writer生成，再執行1d0f..1d9b真實普通城市覆蓋與960受控候選。mapped地形解碼由已審查來源轉換提供；未執行完整解碼／配置／父流程或原版GUI。",
+		Randomness: "每格外觀RND固定為(index*37)mod32768；每個候選序列執行前固定為[candidate,首個合法格]，不是自然RNG同序。重畫沒有輸入，抽值即失敗。"}
+	const grid = uint32(0x47800)
+	city := cadenceGlobal(0x227) + 59*12 + 10
+	loadCities := func(h *harness) {
+		for n, b := range disk[0x5a10 : 0x5a10+720] {
+			h.mem[cadenceGlobal(0x227)+uint32(n)] = b
+		}
+	}
+	fixture := func() *harness {
+		h := banvilleSiteFixture(t, disk)
+		// SLDO1／STR1的父框是XMOVEONG外層，不是段header或零位址。
+		h.poke(0x46000, 0x5000)
+		return h
+	}
+	for current := 0; current < 16; current++ {
+		for next := 0; next < 16; next++ {
+			for _, reload := range []bool{false, true} {
+				h := fixture()
+				h.poke(cadenceGlobal(0x32), uint16(0xa005|current<<4|next<<8))
+				h.poke(cadenceOuter(0x35), 0x7000)
+				if reload {
+					h.poke(0x47000, 1)
+				} else {
+					h.poke(0x47000, 0)
+				}
+				banvilleSiteRun(t, h, disk, 0x1f6e, 0x1f8a, nil)
+				effective := current
+				if reload {
+					effective = next
+				}
+				if int(h.peek(cadenceGlobal(0x32))) != 0xa005|effective<<4|next<<8 || (h.peek(cadenceOuter(1)) != 0) != (next == 4) {
+					t.Fatal("父模式前段不同")
+				}
+				_, stop := banvilleSiteRun(t, h, disk, 0x1fc5, 0x1fd2, nil, 0x1fcd)
+				init := stop == 0x1fcd
+				if init != (next == 4) {
+					t.Fatal("父模式init分派不同")
+				}
+				world := false
+				if init {
+					_, stop = banvilleSiteRun(t, h, disk, 0x1e9f, 0x1ebc, nil, 0x1eac, 0x1eba)
+					world = stop == 0x1eac
+					if world != (effective == 2 || effective == 3 || effective == 11) {
+						t.Fatal("父子世界地圖分派不同")
+					}
+				}
+				if !cadenceFlagValue(h, 112) {
+					t.Fatal("模式分派清pending")
+				}
+				report.Parents = append(report.Parents, parentRow{current, next, effective, reload, init, world})
+			}
+		}
+	}
+	for _, number := range []int{1, 60} {
+		for _, pending := range []bool{false, true} {
+			h := fixture()
+			loadCities(h)
+			before := h.peek(city)
+			oldCity := h.peek(cadenceGlobal(0x227) + uint32((number-1)*12+10))
+			h.poke(cadenceGlobal(0x2a), uint16(0x11|number<<9))
+			h.poke(cadenceGlobal(0x32), 0xa335)
+			h.poke(cadenceGlobal(0x2b), 0xabcd)
+			h.poke(cadenceGlobal(0x2c), 0xd2ac)
+			cadenceFlag(h, 112, pending)
+			banvilleSiteRun(t, h, disk, 0x93d, 0x981, nil)
+			if h.peek(cadenceGlobal(0x32)) != 0xa435 || h.peek(cadenceGlobal(0x2b)) != 0xabcd&^63|oldCity&63 || h.peek(cadenceGlobal(0x2c)) != 0xd2ac&^31|(oldCity>>6)&31 {
+				t.Fatal("出城模式或舊位置不同")
+			}
+			h.poke(cadenceOuter(0x35), 0x7000)
+			h.poke(0x47000, 0)
+			banvilleSiteRun(t, h, disk, 0x1f6e, 0x1f8a, nil)
+			_, stop := banvilleSiteRun(t, h, disk, 0x1fc5, 0x1fd2, nil, 0x1fcd)
+			if stop != 0x1fcd {
+				t.Fatal("出城未分派init")
+			}
+			_, stop = banvilleSiteRun(t, h, disk, 0x1e9f, 0x1ebc, nil, 0x1eac, 0x1eba)
+			if stop != 0x1eac {
+				t.Fatal("出城未分派世界地圖")
+			}
+			values := []int{}
+			if pending {
+				values = []int{123}
+			}
+			draws, _ := banvilleSiteRun(t, h, disk, 0x1d9c, 0x1e4e, values)
+			if h.peek(cadenceGlobal(0x2b))&63 != oldCity&63 || h.peek(cadenceGlobal(0x2c))&31 != oldCity>>6&31 {
+				t.Fatal("選址搬動出城人物")
+			}
+			after := h.peek(city)
+			if draws != len(values) || cadenceFlagValue(h, 112) || !pending && after != before || pending && after&0x7ff != 3|3<<6 {
+				t.Fatal("出城選址鏈不同")
+			}
+			report.Exits = append(report.Exits, exitRow{number, pending, cadenceFlagValue(h, 112), before, after, int(oldCity & 63), int(oldCity >> 6 & 31), draws})
+		}
+	}
+	h := fixture()
+	loadCities(h)
+	planet := disk[0x58f0:0x5900]
+	for n, b := range planet {
+		h.mem[cadenceGlobal(0x197)+uint32(n)] = b
+	}
+	h.poke(depotLocal(0x46000, 0x107), uint16(cadenceGlobal(0x197)-0x40000))
+	h.poke(cadenceGlobal(0x2a), 0x11)
+	const header = uint32(0x47600)
+	for n, b := range disk[0xaa00:0xaa10] {
+		h.mem[header+uint32(n)] = b
+	}
+	h.poke(depotLocal(0x46000, 0x22), uint16(header-0x40000))
+	// 已審查14x4 mapped轉換；完整磁碟解碼有獨立來源／56定址案，不在此重寫為oracle。
+	transitions := [14][4]int{{6, 7, 9, 0}, {2, 3, 10, 13}, {1, 8, 11, 11}, {4, 5, 12, 12}, {2, 3, 10, 13}, {6, 7, 9, 0}, {4, 5, 12, 12}, {1, 8, 11, 11}, {6, 7, 9, 0}, {2, 3, 10, 13}, {6, 7, 9, 0}, {1, 8, 11, 11}, {4, 5, 12, 12}, {2, 3, 10, 13}}
+	bases := [960]int{}
+	for y := 0; y < 24; y++ {
+		base := 0
+		for x := 0; x < 40; x++ {
+			n := y*40 + x
+			at := 0xaa10 + y*10 + (x/8)*2
+			word := int(disk[at])<<8 | int(disk[at+1])
+			symbol := word >> (x % 8 * 2) & 3
+			base = transitions[base][symbol]
+			bases[n] = base
+			h.poke(depotLocal(0x46000, 1), uint16(base))
+			h.poke(depotLocal(0x46000, 2), uint16(y))
+			h.poke(depotLocal(0x46000, 3), uint16(x))
+			values := []int{n * 37 % 32768}
+			if base == 0 && h.peek(header+4) != 0 {
+				values = nil
+			}
+			banvilleSiteRun(t, h, disk, 0x1c5c, 0x1cc1, values)
+		}
+	}
+	banvilleSiteRun(t, h, disk, 0x1d0f, 0x1d9c, nil)
+	occupied := [960]bool{}
+	layout := int(planet[14])<<8 | int(planet[15])
+	first, count := layout>>9&63, layout&7
+	if first != 1 || count != 5 {
+		t.Fatal("第一行星城市布局不同")
+	}
+	report.FirstCity, report.CityCount = first, count
+	for c := first; c < first+count; c++ {
+		p := h.peek(cadenceGlobal(0x227) + uint32((c-1)*12+10))
+		n := int(p>>6&31)*40 + int(p&63)
+		occupied[n] = true
+		want := byte(33)
+		if c == first {
+			want = 32
+		}
+		if h.mem[grid+uint32(n)] != want {
+			t.Fatal("真實城市marker不同")
+		}
+	}
+	codes := [960]byte{}
+	fallback := -1
+	for n := 0; n < 960; n++ {
+		code := int(h.mem[grid+uint32(n)])
+		codes[n] = byte(code)
+		eligible := code == 13 || code == 29 || code >= 34 && code <= 42
+		want := !occupied[n] && (bases[n] == 13 || bases[n] == 0 && h.peek(header+4) == 0)
+		if eligible != want {
+			t.Fatalf("來源mapped資格 n%d base%d code%d occupied%v", n, bases[n], code, occupied[n])
+		}
+		if eligible && fallback < 0 {
+			fallback = n
+		}
+		if eligible {
+			report.EligibleCount++
+		}
+		report.Cells = append(report.Cells, cellRow{n, bases[n], code, occupied[n], eligible})
+	}
+	if fallback < 0 {
+		t.Fatal("來源沒有合法候選")
+	}
+	original := h.peek(city)
+	for n := 0; n < 960; n++ {
+		h.poke(city, original)
+		cadenceFlag(h, 112, true)
+		draws, _ := banvilleSiteRun(t, h, disk, 0x1d9c, 0x1e4e, []int{n, fallback})
+		selected := int(h.peek(city)&63) + int(h.peek(city)>>6&31)*40
+		want, drawCount := fallback, 2
+		if report.Cells[n].Eligible {
+			want, drawCount = n, 1
+		}
+		if selected != want || draws != drawCount || cadenceFlagValue(h, 112) {
+			t.Fatal("真實世界圖選址不同")
+		}
+		redraw, _ := banvilleSiteRun(t, h, disk, 0x1d9c, 0x1e4e, nil)
+		if redraw != 0 || h.mem[grid+uint32(selected)] != 33 {
+			t.Fatal("真實世界圖重畫不同")
+		}
+		for other := 0; other < 960; other++ {
+			if other != selected && h.mem[grid+uint32(other)] != codes[other] {
+				t.Fatal("選址改其他格")
+			}
+		}
+		report.Candidates = append(report.Candidates, candidateRow{n, selected, draws, redraw})
+		h.mem[grid+uint32(selected)] = codes[selected]
+	}
+	// 保留舊均勻候選圖 Exits；另在真實來源外觀／普通城市覆蓋上重跑出城。
+	for _, number := range []int{1, 60} {
+		for _, pending := range []bool{false, true} {
+			h := fixture()
+			loadCities(h)
+			for n, code := range codes {
+				h.mem[grid+uint32(n)] = code
+			}
+			before := h.peek(city)
+			oldCity := h.peek(cadenceGlobal(0x227) + uint32((number-1)*12+10))
+			h.poke(cadenceGlobal(0x2a), uint16(0x11|number<<9))
+			h.poke(cadenceGlobal(0x32), 0xa335)
+			cadenceFlag(h, 112, pending)
+			banvilleSiteRun(t, h, disk, 0x93d, 0x981, nil)
+			h.poke(cadenceOuter(0x35), 0x7000)
+			h.poke(0x47000, 0)
+			banvilleSiteRun(t, h, disk, 0x1f6e, 0x1f8a, nil)
+			_, stop := banvilleSiteRun(t, h, disk, 0x1fc5, 0x1fd2, nil, 0x1fcd)
+			if stop != 0x1fcd {
+				t.Fatal("真實地表出城未分派init")
+			}
+			_, stop = banvilleSiteRun(t, h, disk, 0x1e9f, 0x1ebc, nil, 0x1eac, 0x1eba)
+			if stop != 0x1eac {
+				t.Fatal("真實地表出城未分派世界圖")
+			}
+			values := []int{}
+			if pending {
+				values = []int{123, fallback}
+			}
+			draws, _ := banvilleSiteRun(t, h, disk, 0x1d9c, 0x1e4e, values)
+			after := h.peek(city)
+			if h.peek(cadenceGlobal(0x2b))&63 != oldCity&63 || h.peek(cadenceGlobal(0x2c))&31 != oldCity>>6&31 || cadenceFlagValue(h, 112) || draws != len(values) {
+				t.Fatal("真實地表選址搬動人物或抽值不同")
+			}
+			if !pending && after != before || pending && int(after&63)+int(after>>6&31)*40 != fallback {
+				t.Fatal("真實地表選址不同")
+			}
+			report.SourceExits = append(report.SourceExits, exitRow{number, pending, cadenceFlagValue(h, 112), before, after, int(oldCity & 63), int(oldCity >> 6 & 31), draws})
+		}
+	}
+	planetSHA, citySHA := sha256.Sum256(planet), sha256.Sum256(disk[0x5a10:0x5a10+720])
+	report.PlanetRecordSHA256 = fmt.Sprintf("%x", planetSHA)
+	report.CityTableSHA256 = fmt.Sprintf("%x", citySHA)
+	if len(report.Parents) != 512 || len(report.Exits) != 4 || len(report.Cells) != 960 || len(report.Candidates) != 960 {
+		t.Fatal("父流程／來源資格案數不同")
+	}
+	if output := os.Getenv("SUNDOG_PARITY_OUTPUT"); output != "" {
+		data, err := json.MarshalIndent(report, "", "  ")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err = os.WriteFile(filepath.Join(output, "native-banville-site-player-entry.json"), append(data, '\n'), 0600); err != nil {
+			t.Fatal(err)
+		}
+	}
+	t.Log("PASS:512 parent mode transitions;4 exit-to-site chains;960 source cells;960 candidate/redraw chains")
+}
+
+// 原始 get_clim 輸出接到城市地形／建築 writer；不重建外觀 RND。
+func TestSunDogBanvilleGrowthMask(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Colony                                         bool
+		Phase, X, Y, Code, TerrainAfter, BuildingAfter int
+	}
+	report := struct {
+		Scope, Randomness string
+		Native            []row
+	}{Scope: "XMOVEONG raw基底0x40000；真正0x1146..0x1198尺寸輸出，0x18c7..0x190b地形writer及0x1961..0x198e建築writer。外觀轉換後Code為明示研究輸入；不含素材讀取、外觀RND、實體GUI或正常城市成長。",
+		Randomness: "本切片不抽RND；全部階段、格子在執行前固定，不重擲。"}
+	const grid = uint32(0x47800)
+	for scenario := 0; scenario <= 10; scenario++ {
+		colony, phase := scenario < 10, scenario
+		if !colony {
+			phase = 0
+		}
+		h := banvilleHarness(t, disk)
+		h.mem[cadenceGlobal(0x10b)+1] = byte(phase)
+		for local := 1; local <= 4; local++ {
+			h.poke(depotLocal(0x46000, local), uint16(0x7000+(local-1)*2))
+		}
+		_, stop := banvilleRun(h, disk, 0x40000, 0x1146, 0x1199)
+		if stop != 0x1199 {
+			t.Fatal("尺寸未返回")
+		}
+		bounds := [4]uint16{h.peek(0x47000), h.peek(0x47002), h.peek(0x47004), h.peek(0x47006)}
+		for local, value := range bounds {
+			h.poke(depotLocal(0x46000, local+1), value)
+		}
+		h.poke(cadenceOuter(3), 0)
+		if colony {
+			h.poke(cadenceOuter(3), 1)
+		}
+		h.poke(cadenceGlobal(0x3a1), uint16(grid-0x40000))
+		for y := 6; y <= 17; y++ {
+			for x := 10; x <= 29; x++ {
+				code := (x + 3*y) % 34
+				p := grid + uint32(y*40+x)
+				for n := uint32(0); n < 960; n++ {
+					h.mem[grid+n] = 0xbb
+				}
+				h.mem[grid-1], h.mem[grid+960] = 0xa5, 0x5a
+				h.poke(depotLocal(0x46000, 5), uint16(code))
+				h.poke(depotLocal(0x46000, 6), uint16(y))
+				h.poke(depotLocal(0x46000, 7), uint16(x))
+				_, stop = banvilleRun(h, disk, 0x40000, 0x18c7, 0x190c)
+				if stop != 0x190c {
+					t.Fatal("地形分支未返回")
+				}
+				terrain := int(h.mem[p])
+				h.mem[p] = 0xbb
+				_, stop = banvilleRun(h, disk, 0x40000, 0x1961, 0x198f)
+				if stop != 0x198f {
+					t.Fatal("建築分支未返回")
+				}
+				building := int(h.mem[p])
+				inside := !colony || x > int(bounds[3]) && x < int(bounds[2]) && y > int(bounds[1]) && y < int(bounds[0])
+				wantTerrain, wantBuilding := 0, 0xbb
+				if inside {
+					wantTerrain, wantBuilding = code, code
+				}
+				if terrain != wantTerrain || building != wantBuilding {
+					t.Fatalf("colony%v phase%d cell%d,%d terrain%d building%d", colony, phase, x, y, terrain, building)
+				}
+				for n := uint32(0); n < 960; n++ {
+					if grid+n != p && h.mem[grid+n] != 0xbb {
+						t.Fatalf("越界寫格%d", n)
+					}
+				}
+				if h.mem[grid-1] != 0xa5 || h.mem[grid+960] != 0x5a {
+					t.Fatal("寫出地圖範圍")
+				}
+				report.Native = append(report.Native, row{colony, phase, x - 10, y - 6, code, terrain, building})
+			}
+		}
+	}
+	if len(report.Native) != 2640 {
+		t.Fatal("成長遮罩研究覆蓋不同")
+	}
+	if output := os.Getenv("SUNDOG_PARITY_OUTPUT"); output != "" {
+		data, err := json.MarshalIndent(report, "", "  ")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err = os.WriteFile(filepath.Join(output, "native-banville-growth-mask.json"), append(data, '\n'), 0600); err != nil {
+			t.Fatal(err)
+		}
+	}
+	t.Logf("PASS:%d unique inputs; terrain and building writers with native extents", len(report.Native))
+}
+
+// 入口：docs/atari-st/banville-restoration-spec.md。
+// 真正執行XMOVEONG選址迴圈；MAINLIB RND回傳值是明示受控輸入。
+func TestSunDogBanvilleSite(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Candidate, Terrain, X, Y, Draws, RedrawDraws int
+		Before, After                                uint16
+		FlagAfter                                    bool
+	}
+	report := struct {
+		Scope, Randomness string
+		Native            []row
+	}{
+		Scope:      "XMOVEONG磁碟raw基底0x40000，完整0x1da7..0x1e4d；第60筆城市取址、flag112讀清、mod960座標、真正LDC/INN拒絕迴圈與碼33落點writer。畫面圖塊格為明示研究輸入；不含完整地圖外觀生成或正常玩家初始化。",
+		Randomness: "MAINLIB:0b回傳值於執行前固定；不執行內部RND、不重擲、不挑選。重畫使用同一狀態，受控輸入為空，若再抽即失敗。",
+	}
+	const grid = uint32(0x47800)
+	const original = uint16(0xf800 | 7<<6 | 31)
+	city := cadenceGlobal(0x227) + 59*12 + 10
+	run := func(h *harness, values []int) int {
+		draws, _ := banvilleSiteRun(t, h, disk, 0x1da7, 0x1e4e, values)
+		return draws
+	}
+	fixture := func() *harness { return banvilleSiteFixture(t, disk) }
+	check := func(candidate, terrain int, values []int) {
+		h := fixture()
+		h.mem[grid+uint32(candidate%960)] = byte(terrain)
+		draws := run(h, values)
+		last := values[draws-1] % 960
+		packed := h.peek(city)
+		r := row{candidate, terrain, int(packed & 63), int(packed >> 6 & 31), draws, 0, original, packed, cadenceFlagValue(h, 112)}
+		if r.X != last%40 || r.Y != last/40 || packed&0xf800 != original&0xf800 || r.FlagAfter || h.mem[grid+uint32(last)] != 33 {
+			t.Fatalf("site %+v", r)
+		}
+		for n := 0; n < 960; n++ {
+			want := byte(13)
+			if n == candidate%960 {
+				want = byte(terrain)
+			}
+			if n == last {
+				want = 33
+			}
+			if h.mem[grid+uint32(n)] != want {
+				t.Fatalf("越界寫圖塊%d", n)
+			}
+		}
+		r.RedrawDraws = run(h, nil)
+		if r.RedrawDraws != 0 || h.peek(city) != packed || cadenceFlagValue(h, 112) {
+			t.Fatal("重畫改選址")
+		}
+		report.Native = append(report.Native, r)
+	}
+	for candidate := 0; candidate < 960; candidate++ {
+		check(candidate, 13, []int{candidate})
+	}
+	for code := 0; code < 256; code++ {
+		if code == 13 { // 已包含在960個候選中，避免重複初態。
+			continue
+		}
+		values := []int{0}
+		if code != 13 && code != 29 && (code < 34 || code > 42) {
+			values = append(values, 959)
+		}
+		check(0, code, values)
+	}
+	for _, candidate := range []int{960, 1927, 32767} {
+		check(candidate, 13, []int{candidate})
+	}
+	if len(report.Native) != 1218 {
+		t.Fatal("選址研究覆蓋不同")
+	}
+	if output := os.Getenv("SUNDOG_PARITY_OUTPUT"); output != "" {
+		data, err := json.MarshalIndent(report, "", "  ")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err = os.WriteFile(filepath.Join(output, "native-banville-site.json"), append(data, '\n'), 0600); err != nil {
+			t.Fatal(err)
+		}
+	}
+	t.Logf("PASS:%d native site loops and no-RND redraws", len(report.Native))
+}
+
+func banvilleSiteFixture(t *testing.T, disk []byte) *harness {
+	const grid = uint32(0x47800)
+	const original = uint16(0xf800 | 7<<6 | 31)
+	city := cadenceGlobal(0x227) + 59*12 + 10
+	h := cadenceHarness(t, disk)
+	// LDC會檢查p-system堆疊與heap間距；沿用已通過集合探針的高位址堆疊。
+	h.cpu.State.SSP = 0x4f000
+	for at := uint32(0x4ec00); at < 0x4f100; at++ {
+		h.mem[at] = 0
+	}
+	// 使用已核定的原版LDC段目錄與常數池定位，不重建集合。
+	for at := uint32(0x41000); at < 0x43200; at++ {
+		h.mem[at] = 0
+	}
+	h.poke(0x41008, 0x2000)
+	h.poke(0x42000, 0x3000)
+	h.poke(interpBase+0x1b8c, 0x2500)
+	h.poke(interpBase+0x1b8e, 0x2300)
+	h.poke(0x42302, 0x1000)
+	h.poke(0x41004, 0x2000)
+	h.poke(0x42004, 0x2100)
+	h.cpu.State.A[2] = 0x50000
+	// LAE在此切片會用到外部段快取，沿用banvilleHarness的段4契約。
+	h.poke(interpBase+0x1b70, 4)
+	h.poke(interpBase+0x1b72, 0x5000)
+	h.poke(0x42102, 0x5000)
+	h.poke(0x42116, 0x5000)
+	for i, b := range disk[0x40000:0x40020] {
+		h.mem[0x50000+uint32(i)] = b
+	}
+	// 原始header給常數池0x1473 words；SET在word offset0xf8。
+	for i, b := range disk[0x42ad6:0x42adc] {
+		h.mem[0x52ad6+uint32(i)] = b
+	}
+	h.poke(cadenceGlobal(0x3a0), uint16(grid-0x40000))
+	h.poke(city, original)
+	cadenceFlag(h, 112, true)
+	for n := uint32(0); n < 960; n++ {
+		h.mem[grid+n] = 13
+	}
+	return h
+}
+
+// 只執行原始指令；MAINLIB RND輸出在執行前給定，其他呼叫一律拒絕。
+func banvilleSiteRun(t *testing.T, h *harness, disk []byte, first, last int, values []int, stops ...int) (int, int) {
+	stream := uint32(operandStream + 0x8000)
+	h.startDispatch(disk[0x40000+first:0x40000+last+4], stream)
+	draws := 0
+	for steps := 0; steps < 100000; steps++ {
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip := h.cpu.State.A[4]
+			at := int(ip-stream) + first
+			if at == last {
+				return draws, at
+			}
+			for _, stop := range stops {
+				if at == stop {
+					return draws, at
+				}
+			}
+			if h.mem[ip] == 0x73 && h.mem[ip+1] == 0x0b {
+				if (at != 0x1dd5 && at != 0x1c74 && at != 0x1c9d) || draws >= len(values) || values[draws] < 0 || values[draws] > 32767 {
+					t.Fatal("非預期亂數呼叫")
+				}
+				h.poke(h.cpu.State.SSP, uint16(values[draws]))
+				draws++
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if h.mem[ip] == 0x70 || h.mem[ip] == 0x73 || h.mem[ip] == 0x90 || h.mem[ip] == 0xef {
+				t.Fatalf("未核定選址呼叫%x", at)
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			t.Fatalf("site PC%x IP%x A0%x A1%x SL%x parent35%x: %v", h.cpu.State.PC-4, int(h.cpu.State.A[4]-stream)+first, h.cpu.State.A[0], h.cpu.State.A[1], h.peek(0x46000), h.peek(cadenceOuter(0x35)), err)
+		}
+	}
+	t.Fatal("選址切片未終止")
+	return 0, 0
+}
+
+func TestSunDogBanvilleSiteLifecycle(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type startupRow struct {
+		FlagsBefore, FlagsAfter uint16
+		PhaseAfter, NextAfter   int
+	}
+	type modeRow struct {
+		Mode                                   int
+		PendingBefore, PendingAfter, WorldPath bool
+		Stop                                   int
+	}
+	type planetRow struct {
+		Planet                      int
+		PendingBefore, PendingAfter bool
+		Draws, RedrawDraws          int
+		Before, After               uint16
+	}
+	type lookRow struct {
+		Base, Blank, Random, Code, Draws, SiteDraws int
+		OwnCell                                     bool
+	}
+	report := struct {
+		Scope, Randomness string
+		Startup           []startupRow
+		Modes             []modeRow
+		Planets           []planetRow
+		Looks             []lookRow
+	}{
+		Scope:      "XSTARTUP raw基底0x39c00:1872..1889待選址／進度writer；XMOVEONG raw基底0x40000:1e9f..1eba模式guard，止於配置／子程序前；1d9c..1e4d行星guard及選址；1c5c..1cc0既解碼單格外觀接完整選址。不是原版完整新局、解碼／城市覆蓋或玩家GUI。",
+		Randomness: "RND輸出執行前固定；不執行內部RND，不重擲。重畫輸入為空，若抽即失敗。",
+	}
+	const grid = uint32(0x47800)
+	city := cadenceGlobal(0x227) + 59*12 + 10
+	// 字典entry是原始段內offset；名稱只用原始procedure ID。
+	for _, entry := range []struct{ base, directory, procedure, locals int }{
+		{0x39c00, 0x3aa8, 0x25, 0x1cbe}, {0x39c00, 0x3aa8, 0x2d, 0x1870}, {0x39c00, 0x3aa8, 0x2e, 0x1968}, {0x39c00, 0x3aa8, 0x30, 0x1b6e},
+		{0x40000, 0x2c34, 0x24, 0x1cda}, {0x40000, 0x2c34, 0x27, 0x1e8c},
+	} {
+		p := entry.base + entry.directory - entry.procedure*2
+		if (int(disk[p])<<8|int(disk[p+1]))*2 != entry.locals {
+			t.Fatal("原始程序字典不同")
+		}
+	}
+	for _, flags := range []uint16{0, 0xffff, 0xaaaa, 0x5555} {
+		h := banvilleSiteFixture(t, disk)
+		for n := uint32(0); n < 16; n += 2 {
+			h.poke(cadenceGlobal(0x53)+n, flags)
+		}
+		h.mem[cadenceGlobal(0x10b)+1], h.mem[cadenceGlobal(0x10b)+2] = 7, 9
+		before := h.peek(cadenceGlobal(0x53) + 14)
+		_, stop := banvilleRun(h, disk, 0x39c00, 0x1872, 0x188a)
+		after := h.peek(cadenceGlobal(0x53) + 14)
+		if stop != 0x188a || after != before|1 || !cadenceFlagValue(h, 112) || h.mem[cadenceGlobal(0x10b)+1] != 0 || h.mem[cadenceGlobal(0x10b)+2] != 0 {
+			t.Fatal("新局待選址writer不同")
+		}
+		for n := uint32(0); n < 14; n += 2 {
+			if h.peek(cadenceGlobal(0x53)+n) != flags {
+				t.Fatal("改寫其他旗標")
+			}
+		}
+		report.Startup = append(report.Startup, startupRow{before, after, 0, 0})
+	}
+	for mode := 0; mode < 16; mode++ {
+		for _, pending := range []bool{false, true} {
+			h := banvilleSiteFixture(t, disk)
+			cadenceFlag(h, 112, pending)
+			h.poke(cadenceGlobal(0x32), uint16(0xa50a|mode<<4))
+			draws, stop := banvilleSiteRun(t, h, disk, 0x1e9f, 0x1ebc, nil, 0x1eac, 0x1eba)
+			world := mode == 2 || mode == 3 || mode == 11
+			if draws != 0 || (stop == 0x1eac) != world || stop != 0x1eac && stop != 0x1eba || cadenceFlagValue(h, 112) != pending {
+				t.Fatal("地圖模式guard不同")
+			}
+			report.Modes = append(report.Modes, modeRow{mode, pending, cadenceFlagValue(h, 112), world, stop})
+		}
+	}
+	for planet := 1; planet <= 18; planet++ {
+		for _, pending := range []bool{false, true} {
+			h := banvilleSiteFixture(t, disk)
+			cadenceFlag(h, 112, pending)
+			h.poke(cadenceGlobal(0x2a), uint16(0xe00a|planet<<4))
+			before := h.peek(city)
+			inputs := []int{}
+			if pending && planet == 1 {
+				inputs = []int{123}
+			}
+			draws, _ := banvilleSiteRun(t, h, disk, 0x1d9c, 0x1e4e, inputs)
+			after := h.peek(city)
+			wantPending := pending && planet != 1
+			if cadenceFlagValue(h, 112) != wantPending || draws != len(inputs) {
+				t.Fatal("行星guard誤抽或清旗標")
+			}
+			if len(inputs) == 0 && after != before {
+				t.Fatal("行星guard改選址")
+			}
+			if len(inputs) > 0 && after&0x7ff != uint16(3|3<<6) {
+				t.Fatal("受控候選不同")
+			}
+			redraw, _ := banvilleSiteRun(t, h, disk, 0x1d9c, 0x1e4e, nil)
+			if redraw != 0 || h.peek(city) != after || cadenceFlagValue(h, 112) != wantPending {
+				t.Fatal("同狀態重畫重抽")
+			}
+			report.Planets = append(report.Planets, planetRow{planet, pending, wantPending, draws, redraw, before, after})
+		}
+	}
+	values := []int{}
+	for n := 0; n < 17; n++ {
+		values = append(values, n)
+	}
+	values = append(values, 17, 32767)
+	for base := 0; base <= 13; base++ {
+		for _, blank := range []int{0, 5} {
+			inputs := values
+			if base == 0 && blank != 0 {
+				inputs = []int{-1}
+			}
+			for _, random := range inputs {
+				h := banvilleSiteFixture(t, disk)
+				header := uint32(0x47600)
+				h.poke(depotLocal(0x46000, 0x22), uint16(header-0x40000))
+				h.poke(header+4, uint16(blank))
+				h.poke(depotLocal(0x46000, 1), uint16(base))
+				h.poke(depotLocal(0x46000, 2), 11)
+				h.poke(depotLocal(0x46000, 3), 7)
+				rnd := []int{random}
+				if random < 0 {
+					rnd = nil
+				}
+				draws, _ := banvilleSiteRun(t, h, disk, 0x1c5c, 0x1cc1, rnd)
+				code := int(h.mem[grid+447])
+				if draws != len(rnd) {
+					t.Fatal("外觀呼叫數不同")
+				}
+				want := base
+				if base == 0 && blank != 0 {
+					want = 0
+				} else if base == 0 || base == 13 {
+					choice := random % 17
+					if choice < 4 {
+						want = 13
+					} else if choice < 8 {
+						want = 29
+					} else {
+						want = choice + 26
+					}
+				} else if random&1 == 0 {
+					want = base + 16
+				}
+				if code != want {
+					t.Fatalf("外觀 base%d blank%d random%d code%d want%d", base, blank, random, code, want)
+				}
+				for n := uint32(0); n < 960; n++ {
+					if n != 447 && h.mem[grid+n] != 13 {
+						t.Fatal("單格外觀越界")
+					}
+				}
+				siteDraws, _ := banvilleSiteRun(t, h, disk, 0x1da7, 0x1e4e, []int{447, 959})
+				own := h.peek(city)&0x7ff == uint16(7|11<<6)
+				eligible := base == 13 || base == 0 && blank == 0
+				if own != eligible || siteDraws != 1 && eligible || siteDraws != 2 && !eligible {
+					t.Fatal("既解碼地形的選址資格不同")
+				}
+				redraw, _ := banvilleSiteRun(t, h, disk, 0x1da7, 0x1e4e, nil)
+				if redraw != 0 {
+					t.Fatal("外觀後重畫又選址")
+				}
+				report.Looks = append(report.Looks, lookRow{base, blank, random, code, draws, siteDraws, own})
+			}
+		}
+	}
+	if len(report.Startup) != 4 || len(report.Modes) != 32 || len(report.Planets) != 36 || len(report.Looks) != 514 {
+		t.Fatal("生命週期案數不同")
+	}
+	if output := os.Getenv("SUNDOG_PARITY_OUTPUT"); output != "" {
+		data, err := json.MarshalIndent(report, "", "  ")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err = os.WriteFile(filepath.Join(output, "native-banville-site-lifecycle.json"), append(data, '\n'), 0600); err != nil {
+			t.Fatal(err)
+		}
+	}
+	t.Log("PASS:4 startup writers;32 mode guards;36 planet guards;514 base-look-site chains")
+}
+
+// XDOUNITE選單呼叫前綴與pick_location標籤迴圈；格式／繪圖呼叫只記錄參數。
+// 不模擬原版完整GUI或transport，保留原始raw基底與段內位址。
+func TestSunDogTubeDestinationRange(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		City, First, Count, Excluded, Kind int
+		Labels                             []int
+	}
+	type distanceRow struct {
+		From, To, Column, Row, DistanceSquared, Multiplier int
+	}
+	report := struct {
+		Scope, Randomness string
+		Rows              []row
+		Distances         []distanceRow
+	}{
+		Scope:      "XDOUNITE raw基底0x42e00:046d..0492取行星record與pick_location參數，0100..0139計算清單數量，0195..01c0標籤迴圈。止於formatter／draw呼叫；追加0314..0354車資原始record讀取止於isqrt前，不含原版GUI／搭乘；測Jondd五個普通城市與第60城Banville。",
+		Randomness: "本切片不抽RND；初態使用真實磁碟record，執行前固定，不重擲。",
+	}
+	run := func(h *harness, first, last int, label func(int)) {
+		stream := uint32(operandStream + 0x8000)
+		h.startDispatch(disk[0x42e00+first:0x42e00+last+4], stream)
+		for steps := 0; steps < 100000; steps++ {
+			if h.cpu.State.PC == interpBase+interpLoop+4 {
+				ip := h.cpu.State.A[4]
+				at := int(ip-stream) + first
+				if at == last {
+					return
+				}
+				if at == 0x01b0 {
+					if h.mem[ip] != 0xef || h.mem[ip+1] != 4 || label == nil {
+						t.Fatal("非預期標籤呼叫")
+					}
+					// top: string pointer, city number, name kind.
+					label(int(h.peek(h.cpu.State.SSP + 2)))
+					h.cpu.State.SSP += 6
+					h.cpu.State.A[4] = ip + 2
+					h.start(interpLoop)
+					continue
+				}
+				if at == 0x01b6 {
+					if h.mem[ip] != 0x74 || h.mem[ip+1] != 0x14 {
+						t.Fatal("非預期繪字呼叫")
+					}
+					h.cpu.State.SSP += 6
+					h.cpu.State.A[4] = ip + 2
+					h.start(interpLoop)
+					continue
+				}
+				if h.mem[ip] == 0x70 || h.mem[ip] == 0x73 || h.mem[ip] == 0x74 || h.mem[ip] == 0x90 || h.mem[ip] == 0xef {
+					t.Fatalf("未核定Tube呼叫%x", at)
+				}
+			}
+			if _, err := h.cpu.Step(); err != nil {
+				t.Fatalf("Tube PC%x IP%x: %v", h.cpu.State.PC-4, int(h.cpu.State.A[4]-stream)+first, err)
+			}
+		}
+		t.Fatal("Tube切片未終止")
+	}
+	for _, current := range []int{1, 2, 3, 4, 5, 60} {
+		h := banvilleSiteFixture(t, disk)
+		for n, b := range disk[0x58f0:0x5a10] {
+			h.mem[cadenceGlobal(0x197)+uint32(n)] = b
+		}
+		h.poke(cadenceGlobal(0x2a), uint16(1<<4|current<<9))
+		run(h, 0x046d, 0x0492, nil)
+		row := row{City: current, Kind: int(h.peek(h.cpu.State.SSP)),
+			Excluded: int(h.peek(h.cpu.State.SSP + 2)), Count: int(h.peek(h.cpu.State.SSP + 4)), First: int(h.peek(h.cpu.State.SSP + 6))}
+		if row.Kind != 1 || row.Excluded != current || row.Count != 5 || row.First != 1 {
+			t.Fatalf("Tube原始參數不符:%+v", row)
+		}
+		h.cpu.State.SSP = 0x4f000
+		for n, v := range map[int]int{0x11: row.Kind, 0x12: row.Excluded, 0x13: row.Count, 0x14: row.First, 0x15: 0x7000} {
+			h.poke(depotLocal(0x46000, n), uint16(v))
+		}
+		run(h, 0x0100, 0x0139, nil)
+		if h.peek(depotLocal(0x46000, 5)) != 4 {
+			t.Fatal("普通城市的選單數量不符")
+		}
+		h.poke(depotLocal(0x46000, 1), uint16(row.First))
+		h.poke(depotLocal(0x46000, 6), h.peek(depotLocal(0x46000, 5)))
+		run(h, 0x0195, 0x01c0, func(n int) { row.Labels = append(row.Labels, n) })
+		want := []int{}
+		for n := 1; n <= 5; n++ {
+			if n != current && len(want) < 4 {
+				want = append(want, n)
+			}
+		}
+		if fmt.Sprint(row.Labels) != fmt.Sprint(want) {
+			t.Fatalf("原版清單不符:%+v want%v", row, want)
+		}
+		report.Rows = append(report.Rows, row)
+	}
+	// 原始車資讀取前綴，止於MAINLIB isqrt前；不以Go平方根冒充原版執行。
+	for _, list := range report.Rows {
+		positions := [][2]int{{int(disk[0x5a10+(list.City-1)*12+10+1] & 0x3f), 0}}
+		word := int(disk[0x5a10+(list.City-1)*12+10])<<8 | int(disk[0x5a10+(list.City-1)*12+11])
+		positions[0] = [2]int{word & 63, (word >> 6) & 31}
+		if list.City == 60 {
+			positions = append(positions, [2]int{2, 4}, [2]int{37, 9})
+		}
+		for _, position := range positions {
+			for _, target := range list.Labels {
+				h := banvilleSiteFixture(t, disk)
+				for n, b := range disk[0x5a10 : 0x5a10+720] {
+					h.mem[cadenceGlobal(0x227)+uint32(n)] = b
+				}
+				current := cadenceGlobal(0x227) + uint32((list.City-1)*12)
+				if list.City == 60 {
+					h.poke(current+10, uint16(word&0xf800|position[1]<<6|position[0]))
+				}
+				h.poke(0x46000, 0x5000)
+				h.poke(0x45000, 0x8000)
+				h.poke(depotLocal(0x48000, 8), uint16(disk[0x5813]&15))
+				h.poke(depotLocal(0x48000, 0x0b), uint16(target))
+				h.poke(depotLocal(0x46000, 0x12), uint16(current-0x40000))
+				run(h, 0x0314, 0x0354, nil)
+				report.Distances = append(report.Distances, distanceRow{
+					From: list.City, To: target, Column: position[0], Row: position[1],
+					DistanceSquared: int(h.peek(h.cpu.State.SSP)), Multiplier: int(h.peek(h.cpu.State.SSP + 4)),
+				})
+			}
+		}
+	}
+	out := os.Getenv("SUNDOG_PARITY_OUTPUT")
+	if out != "" {
+		raw, err := json.MarshalIndent(report, "", "  ")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(out, "native-tube-destination-range.json"), append(raw, '\n'), 0644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	t.Logf("PASS:%d原生Tube選城前綴與標籤迴圈", len(report.Rows))
+}

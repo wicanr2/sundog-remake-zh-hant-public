@@ -1,0 +1,178 @@
+package m68k
+
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"testing"
+)
+
+// 原版 XSTARTUP:2d，磁碟基底39c00。只研究初始化；不作正式RNG或玩家路徑。
+func TestSunDogCryoSourceInitialization(t *testing.T) {
+	cryoSourceInitialization(t, 0, "native-cryo-source.json")
+}
+
+func TestSunDogCryoSourceVariedInitialization(t *testing.T) {
+	for random := 1; random <= 3; random++ {
+		cryoSourceInitialization(t, random, fmt.Sprintf("native-cryo-source-rnd-%d.json", random))
+	}
+}
+
+func cryoSourceInitialization(t *testing.T, random int, filename string) {
+	disk := sundogWalkerDisk(t)
+	type lot struct{ City, Slot, Goods, Quality, Source, Price int }
+	type row struct {
+		Initial, RandomCalls, FixedCity, ExcludedFirst, ExcludedLast int
+		Lots                                                         []lot
+		CopyLengths                                                  []int
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{
+		Scope:      "XSTARTUP:2d 1872..1962 原始初始化指令；57個受控起點，各分配17筆Goods31倉庫record。",
+		Boundaries: "SYSTEM.INTERP由Talos MC68000執行。FILLCHAR/MOVE採嚴格標準ABI；MAINLIB:0c範圍RND及:0b RND是執行前固定的受控輸入，:0b每次回0，不比較自然骰序。world tables取原始磁碟；未執行外層初始化、磁碟I/O、交易取貨或原版GUI。",
+	}
+	if random != 0 {
+		report.Boundaries = fmt.Sprintf("SYSTEM.INTERP／SRS／INN真正執行。FILLCHAR/MOVE嚴格ABI；執行前固定range起點1..57，普通RND每次回%d。不比較自然骰序、完整新局、磁碟I/O或GUI。", random)
+	}
+	for initial := 1; initial <= 57; initial++ {
+		h := banvilleHarness(t, disk)
+		// IDA base0 SRS:b8c→stack-check:380..3a2比較A6以上的task stack。
+		// 通用fixture stackTop=30100低於A6=40000，必然觸發原版overflow。
+		// 本切片將operand stack放在frame/data之後，保留真實SRS／INN執行。
+		h.cpu.State.SSP = 0x4f000
+		for n := uint32(0x4ee00); n < 0x4f040; n++ {
+			h.mem[n] = 0
+		}
+		for i, b := range disk[0x5800:0x58f0] {
+			h.mem[cadenceGlobal(0x11f)+uint32(i)] = b
+		}
+		for i, b := range disk[0x58f0:0x5a10] {
+			h.mem[cadenceGlobal(0x197)+uint32(i)] = b
+		}
+		// 原始LDA3鏈，僅提供外層block buffer；每層仍有明確原始定位。
+		h.poke(0x46000, 0x5000)
+		h.poke(0x45000, 0x8000)
+		h.poke(0x48000, 0x9000)
+		parent := depotLocal(0x49000, 0x13)
+		for n := uint32(0); n < 4096; n++ {
+			h.mem[parent+n] = 0xa5
+		}
+		for n := uint32(0); n < 1024; n++ {
+			h.mem[depotLocal(0x46000, 8)+n] = 0xa5
+		}
+		r := row{Initial: initial}
+		stream := uint32(operandStream + 0x8000)
+		h.startDispatch(disk[0x39c00+0x1872:0x39c00+0x1966], stream)
+		stopped := false
+		lastAt := 0
+		for step := 0; step < 1000000; step++ {
+			if h.cpu.State.PC == interpBase+interpLoop+4 {
+				ip, sp := h.cpu.State.A[4], h.cpu.State.SSP
+				at := int(ip-stream) + 0x1872
+				lastAt = at
+				if at == 0x1962 {
+					stopped = true
+					break
+				}
+				op, proc := h.mem[ip], h.mem[ip+1]
+				if op == 0x70 && proc == 0x15 && at == 0x1890 {
+					if h.peek(sp) != 0 || h.peek(sp+2) != 1024 || h.peek(sp+4) != 0 || h.peek(sp+6) != uint16(depotLocal(0x46000, 8)-0x40000) {
+						t.Fatal("cryo FILLCHAR ABI")
+					}
+					for n := uint32(0); n < 1024; n++ {
+						h.mem[depotLocal(0x46000, 8)+n] = 0
+					}
+					h.cpu.State.SSP = sp + 8
+				} else if op == 0x73 && proc == 0x0c && at == 0x18e3 {
+					if h.peek(sp) != 57 || h.peek(sp+2) != 1 || h.peek(sp+4) != 0 {
+						t.Fatal("range RND ABI")
+					}
+					h.cpu.State.SSP = sp + 4
+					h.poke(sp+4, uint16(initial))
+				} else if op == 0x73 && proc == 0x0b && at == 0x18ef {
+					if h.peek(sp) != 0 {
+						t.Fatal("RND return slot")
+					}
+					h.poke(sp, uint16(random))
+					r.RandomCalls++
+				} else if op == 0x70 && proc == 0x0f && (at == 0x194d || at == 0x1960) {
+					n := int(h.peek(sp))
+					to := uint32(h.peek(sp+4)) + 0x40000 + uint32(h.peek(sp+2))
+					from := uint32(h.peek(sp+8)) + 0x40000 + uint32(h.peek(sp+6))
+					wantFrom, wantTo, wantN := parent+3072+384, depotLocal(0x46000, 8)+960, 32
+					if at == 0x1960 {
+						wantFrom, wantTo, wantN = depotLocal(0x46000, 8), parent+512, 1024
+					}
+					if from != wantFrom || to != wantTo || n != wantN {
+						t.Fatalf("cryo MOVE ABI at%x from%x to%x n%d", at, from, to, n)
+					}
+					buf := make([]byte, n)
+					for i := range buf {
+						buf[i] = h.mem[from+uint32(i)]
+					}
+					for i, b := range buf {
+						h.mem[to+uint32(i)] = b
+					}
+					r.CopyLengths = append(r.CopyLengths, n)
+					h.cpu.State.SSP = sp + 10
+				} else {
+					if _, err := h.cpu.Step(); err != nil {
+						t.Fatalf("at%x PC%x IP%x A0%x A1%x: %v", at, h.cpu.State.PC, h.cpu.State.A[4], h.cpu.State.A[0], h.cpu.State.A[1], err)
+					}
+					continue
+				}
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if _, err := h.cpu.Step(); err != nil {
+				t.Fatalf("at%x PC%x IP%x A0%x A1%x: %v", lastAt, h.cpu.State.PC, h.cpu.State.A[4], h.cpu.State.A[0], h.cpu.State.A[1], err)
+			}
+		}
+		if !stopped {
+			t.Fatalf("initial%d did not stop", initial)
+		}
+		r.FixedCity = int(h.peek(depotLocal(0x46000, 3)))
+		r.ExcludedFirst = int(h.peek(depotLocal(0x46000, 4)))
+		r.ExcludedLast = r.FixedCity
+		for city := 1; city <= 60; city++ {
+			for slot := 1; slot <= 4; slot++ {
+				p := depotLocal(0x46000, 8) + uint32((city-1)*16+(slot-1)*4)
+				w := h.peek(p)
+				if w != 0 {
+					r.Lots = append(r.Lots, lot{city, slot, int(w & 31), int(w >> 5 & 7), int(w >> 8), int(h.peek(p + 2))})
+				}
+			}
+		}
+		// 原始Enliah layout word2082：first16/count2，所以固定最後一城17 Tuie。
+		if r.FixedCity != 17 || r.ExcludedFirst != 16 || len(r.Lots) != 17 || len(r.CopyLengths) != 2 {
+			t.Fatalf("unexpected allocation: %+v", r)
+		}
+		fixed := false
+		for _, x := range r.Lots {
+			if x.Slot != 1 || x.Goods != 31 || x.Quality != 7 || x.Source != x.City || x.Price != 0 || x.City > 57 || x.City == 16 {
+				t.Fatalf("bad record: %+v", x)
+			}
+			fixed = fixed || x.City == 17
+		}
+		if !fixed {
+			t.Fatal("missing Tuie lot")
+		}
+		for i := 0; i < 1024; i++ {
+			if h.mem[parent+512+uint32(i)] != h.mem[depotLocal(0x46000, 8)+uint32(i)] {
+				t.Fatal("warehouse outer copy differs")
+			}
+		}
+		report.Rows = append(report.Rows, r)
+	}
+	raw, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), filename), append(raw, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+}

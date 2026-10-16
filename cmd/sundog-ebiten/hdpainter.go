@@ -1,0 +1,267 @@
+package main
+
+// Native Atari ST HD presentation.
+import (
+	"fmt"
+	"image/color"
+	"log"
+	"strings"
+	"unicode"
+
+	"github.com/hajimehoshi/ebiten/v2"
+	ebitentext "github.com/hajimehoshi/ebiten/v2/text"
+	"github.com/hajimehoshi/ebiten/v2/vector"
+	"github.com/wicanr2/sundog-remake/internal/game"
+	"github.com/wicanr2/sundog-remake/internal/localization"
+	"github.com/wicanr2/sundog-remake/internal/theme"
+	"golang.org/x/image/font"
+)
+
+type hdReviewPainter struct {
+	a          *app
+	screen     *ebiten.Image
+	scale      float32
+	operations []func()
+	err        string
+}
+
+func hdReviewColour(value uint32) color.RGBA {
+	return color.RGBA{R: byte(value >> 16), G: byte(value >> 8), B: byte(value), A: 255}
+}
+
+func (p *hdReviewPainter) rect(x, y, w, h float32, c uint32) {
+	p.operations = append(p.operations, func() {
+		vector.FillRect(p.screen, float32(p.a.originX)+x*p.scale, float32(p.a.originY)+y*p.scale, w*p.scale, h*p.scale, hdReviewColour(c), false)
+	})
+}
+
+func (p *hdReviewPainter) stroke(x, y, w, h, width float32, c uint32) {
+	p.rect(x, y, w, width, c)
+	p.rect(x, y+h-width, w, width, c)
+	p.rect(x, y, width, h, c)
+	p.rect(x+w-width, y, width, h, c)
+}
+
+func (p *hdReviewPainter) panel(x, y, w, h float32, c uint32) {
+	p.rect(x, y, w, h, 0x1c2630)
+	p.rect(x, y, w, .6, 0xedf1f4)
+	p.rect(x, y, .6, h, 0xedf1f4)
+	p.rect(x+w-.6, y, .6, h, 0x59616a)
+	p.rect(x, y+h-.6, w, .6, 0x59616a)
+	p.rect(x+.7, y+.7, w-1.4, h-1.4, 0x020508)
+	p.stroke(x+.7, y+.7, w-1.4, h-1.4, .55, c)
+}
+
+func (p *hdReviewPainter) line(x0, y0, x1, y1, width float32, c uint32) {
+	p.operations = append(p.operations, func() {
+		vector.StrokeLine(p.screen, float32(p.a.originX)+x0*p.scale, float32(p.a.originY)+y0*p.scale, float32(p.a.originX)+x1*p.scale, float32(p.a.originY)+y1*p.scale, width*p.scale, hdReviewColour(c), true)
+	})
+}
+
+func (p *hdReviewPainter) face(size float32) font.Face {
+	px := int(size*p.scale + .5)
+	if p.a.hdFaces == nil {
+		p.a.hdFaces = map[int]font.Face{}
+	}
+	if f, ok := p.a.hdFaces[px]; ok {
+		return f
+	}
+	f := p.a.newFace(px)
+	p.a.hdFaces[px] = f
+	return f
+}
+
+func (p *hdReviewPainter) text(value string, x, y, w, h, preferred, minimum float32, c uint32, center bool) {
+	if p.err != "" {
+		return
+	}
+	for size := preferred; size >= minimum; size -= .25 {
+		face := p.face(size)
+		bounds, _ := font.BoundString(face, value)
+		inkW, inkH := (bounds.Max.X - bounds.Min.X).Ceil(), (bounds.Max.Y - bounds.Min.Y).Ceil()
+		if float32(inkW) > w*p.scale || float32(inkH) > h*p.scale {
+			continue
+		}
+		left, top := float32(p.a.originX)+x*p.scale, float32(p.a.originY)+y*p.scale
+		if center {
+			left += (w*p.scale - float32(inkW)) / 2
+			top += (h*p.scale - float32(inkH)) / 2
+		}
+		dx, dy := int(left+.5)-bounds.Min.X.Floor(), int(top+.5)-bounds.Min.Y.Floor()
+		p.operations = append(p.operations, func() { ebitentext.Draw(p.screen, value, face, dx, dy, hdReviewColour(c)) })
+		return
+	}
+	p.err = "text-safe rectangle overflow: " + value
+}
+
+func hdReviewTokens(value string) []string {
+	var out []string
+	var current strings.Builder
+	space := false
+	for _, r := range value {
+		next := unicode.IsSpace(r)
+		if current.Len() > 0 && next != space {
+			out = append(out, current.String())
+			current.Reset()
+		}
+		current.WriteRune(r)
+		space = next
+	}
+	if current.Len() > 0 {
+		out = append(out, current.String())
+	}
+	return out
+}
+
+func (p *hdReviewPainter) wrapped(value string, x, y, w float32, c uint32) {
+	face := p.face(8)
+	var lines []string
+	current := ""
+	for _, token := range hdReviewTokens(value) {
+		if float32(font.MeasureString(face, current+token).Ceil()) > w*p.scale && current != "" {
+			lines = append(lines, strings.TrimRightFunc(current, unicode.IsSpace))
+			current = strings.TrimLeftFunc(token, unicode.IsSpace)
+		} else {
+			current += token
+		}
+	}
+	if current != "" {
+		lines = append(lines, strings.TrimRightFunc(current, unicode.IsSpace))
+	}
+	if len(lines) > 2 {
+		p.err = "message needs more than two rows: " + value
+		return
+	}
+	for i, line := range lines {
+		p.text(line, x, y+float32(i)*9, w, 8.5, 8, 6, c, false)
+	}
+}
+
+func (a *app) drawHDNavigation(screen *ebiten.Image) bool {
+	if !a.usesSTLayout() || a.state.Screen != game.ScreenNavigation {
+		return false
+	}
+	p := hdReviewPainter{a: a, screen: screen, scale: float32(a.viewScale())}
+	p.rect(0, 0, 320, 200, 0xa7afb8)
+	for _, r := range [][4]float32{{frameLeftX, frameLeftY, frameLeftW, frameLeftH}, {frameGaugeX, frameGaugeY, frameGaugeW, frameGaugeH}, {frameMessageX, frameMessageY, frameMessageW, frameMessageH}, {frameMenuX, frameMenuY, frameMenuW, frameMenuH}} {
+		p.panel(r[0], r[1], r[2], r[3], 0xf1df00)
+	}
+	p.panel(frameViewportX, frameViewportY, frameViewportW, frameViewportH, 0x1258ff)
+	p.rect(stMapOriginX, stMapOriginY, frameViewportW-4, frameViewportH-4, 0x020508)
+	p.text("CONDITION", 16, 0, 56, 5, 5, 4.5, 0xf3f6fa, true)
+	p.text("WARP", 278, 0, 25, 5, 5, 4.5, 0xf3f6fa, true)
+	p.panel(15, 5, 59, 13, 0x1258ff)
+	conditionColour := uint32(0x20ef14)
+	if a.state.CombatActive {
+		conditionColour = 0xf4242d
+	}
+	p.rect(16, 6, 57, 11, conditionColour)
+	p.panel(277, 5, 28, 13, 0x1258ff)
+	p.text(fmt.Sprintf("%03d", game.WarpSuccessPercent(a.state)), 278, 6, 25, 11, 8, 6, 0xf3f6fa, true)
+	for i, label := range a.screenPanelLines() {
+		y := float32(stMenuY0 + i*stMenuPitch)
+		w := float32(stMenuX1 - stMenuX0 + 1)
+		p.rect(stMenuX0, y, w, stMenuH, 0x1762ff)
+		p.rect(stMenuX0+2, y+2, w-4, stMenuH-4, 0x030609)
+		p.text(label, stMenuX0+2.5, y+2, w-5, stMenuH-4, 8, 6, 0xf3f6fa, true)
+	}
+	if a.state.NavigationView == game.NavigationSector {
+		target, hasTarget := a.reducer.World.Destination(a.state.NavigationTargetID)
+		for _, system := range a.reducer.World.Systems() {
+			c, _ := a.reducer.SystemCoordinate(a.state, system.ID)
+			x, y := float32(stMapOriginX+stSectorInset+c[0]*stSectorStepX), float32(stMapOriginY+stSectorInset+c[1]*stSectorStepY)
+			r := float32(6 - c[2]/2)
+			if r > 0 {
+				p.operations = append(p.operations, func() {
+					vector.StrokeCircle(screen, float32(a.originX)+x*p.scale, float32(a.originY)+y*p.scale, r*p.scale, .6*p.scale, hdReviewColour(0xf4f7fa), true)
+				})
+			} else {
+				p.line(x, y-2, x+2, y, .6, 0xf4f7fa)
+				p.line(x+2, y, x, y+2, .6, 0xf4f7fa)
+				p.line(x, y+2, x-2, y, .6, 0xf4f7fa)
+				p.line(x-2, y, x, y-2, .6, 0xf4f7fa)
+			}
+			rr := r + 1
+			if rr < 2 {
+				rr = 2
+			}
+			if system.ID == a.state.SystemID {
+				p.stroke(x-rr, y-rr, 2*rr+1, 2*rr+1, .6, 0x1762ff)
+			}
+			if hasTarget && system.ID == target.SystemID && system.ID != a.state.SystemID && a.frames/15%2 == 0 {
+				p.stroke(x-rr, y-rr, 2*rr+1, 2*rr+1, .6, 0xf4242d)
+			}
+		}
+	} else {
+		p.drawNavigationMaps(a)
+	}
+	p.rect(141, 120, 72, 10, 0x020508)
+	minutes := a.state.TimeMinutes
+	p.text(fmt.Sprintf("%03d/%02d:%02d", minutes/(24*60), minutes/60%24, minutes%60), 144, 121, 66, 8, 8, 6, 0xf3f6fa, true)
+	for _, r := range [][2]float32{{144, -1}, {210, 1}} {
+		x, d := r[0], r[1]
+		p.line(x, 122, x+3*d, 125, 1, 0x2ddad9)
+		p.line(x+3*d, 125, x, 128, 1, 0x2ddad9)
+	}
+	warp := 0
+	if cost, ok := a.reducer.RouteCost(a.state); ok {
+		warp = cost.JumpDistance
+	}
+	values, maxima := [4]int{a.state.Fuel, a.state.WeaponCharge, a.state.ShieldLevel, warp}, [4]int{255, 255, 255, 10}
+	colours := [4]uint32{0x1762ff, 0xf4242d, 0x20ef14, 0xed22ee}
+	for i, label := range [4]string{"FUEL", "GUNS", "SHLD", "WARP"} {
+		x := float32(stGaugeX[i])
+		p.rect(x, 26, 7, 60, 0x071018)
+		h := float32(clampInt(values[i]*60/maxima[i], 0, 60))
+		if h > 0 {
+			p.rect(x, 86-h, 7, h, colours[i])
+		}
+		for j, c := range label {
+			p.text(string(c), x, 88+float32(j)*8, 7, 7.8, 7, 6, colours[i], true)
+		}
+	}
+	hull := clampInt(a.state.HullCondition*2, 0, 32)
+	p.rect(279, 134, 4, 32, 0x071018)
+	hullColour := uint32(0xf4242d)
+	if hull > 30 {
+		hullColour = 0x20ef14
+	} else if hull > 10 {
+		hullColour = 0xf1df00
+	}
+	if hull > 0 {
+		p.rect(279, float32(166-hull), 4, float32(hull), hullColour)
+	}
+	for i, c := range "HULL" {
+		p.text(string(c), 274, 142+float32(i)*8, 4.5, 7, 6, 5, 0xf3f6fa, true)
+	}
+	for i, label := range [6]string{"WARP", "SUB-C", "GUNS", "TAC", "SHLDS", "PILOT"} {
+		p.text(label, 288, 131+float32(i)*11, 28, 6, 5.5, 5, 0xf3f6fa, true)
+		for j := 0; j < 4; j++ {
+			status := game.ShipSystemRowStatus(a.state.ShipSystems[i], j)
+			c := uint32(0x020508)
+			if status > 0 && status < 3 {
+				c = 0xf4242d
+			} else if status == 3 {
+				c = 0xf1df00
+			} else if status > 3 {
+				c = 0x20ef14
+			}
+			p.rect(float32(289+j*7), float32(137+i*11), 4, 4, c)
+		}
+	}
+	second := fmt.Sprintf("%s：%s", a.lookup("ui.navigation_target"), localization.Destination(a.labels, a.state.NavigationTargetID, a.state.NavigationTarget))
+	for i, text := range []string{a.messageLine(), second, a.routeCostLine()} {
+		p.text(text, 9, 135+float32(i)*9, 259, 8.5, 8, 6, 0xf3f6fa, false)
+	}
+	p.wrapped(footerLabel(a.labels, a.state), 9, 162, 259, 0xff714e)
+	p.wrapped(footerHelp(a.labels, a.state, theme.Group{}), 9, 180, 259, 0xf3f6fa)
+	if p.err != "" {
+		log.Print("HD review: " + p.err)
+		return false
+	}
+	screen.Fill(hdReviewColour(0x101820))
+	for _, operation := range p.operations {
+		operation()
+	}
+	return true
+}

@@ -1,0 +1,348 @@
+package m68k
+
+import (
+	"crypto/sha256"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"reflect"
+	"testing"
+)
+
+// 僅研究用有型別契約；完整範圍與未知欄位見既有戰鬥研究入口。
+type courseInput struct {
+	Mode, Range, BearingDrift, PitchDrift, Aux8, Aux9, Closing, Phase, Hull, Seed int
+	HelperLocal2, HelperLocal3                                                    int
+	Flag12                                                                        bool
+}
+type courseResult struct {
+	Input                                                         courseInput
+	BearingDrift, PitchDrift, Aux8, Aux9, Closing, Timer, Counter int
+	Flag44, Flag29, Flag46                                        bool
+	Draws                                                         []combatDraw
+}
+
+func courseContract(r courseInput) courseResult {
+	x := courseResult{Input: r, BearingDrift: r.BearingDrift, PitchDrift: r.PitchDrift, Aux8: r.Aux8, Aux9: r.Aux9, Closing: r.Closing, Counter: r.Seed, Flag44: true, Flag29: true}
+	rand := func(low, high int) int { return cadenceDraw(&x.Counter, low, high, &x.Draws) }
+	switch r.Mode {
+	case 0:
+		x.BearingDrift = rand(-2, 2)
+		x.PitchDrift = rand(-2, 2)
+		x.Closing = -2
+		x.Timer = r.Range / 16
+	case 1:
+		x.PitchDrift = rand(-1, 1)
+		x.BearingDrift = rand(-1, 1)
+		x.Closing = -1
+		if r.Range < 70 {
+			x.Closing = rand(-2, 2)
+		}
+		x.Timer = r.Range / 10
+	case 2:
+		x.Closing = -2
+		if r.Range <= 90 {
+			x.Closing = -1
+			if r.Range < 60 {
+				x.Closing = 1
+			}
+		}
+		x.BearingDrift++
+		if x.BearingDrift > 4 {
+			x.BearingDrift = -4
+		}
+		x.PitchDrift--
+		if x.PitchDrift < -4 {
+			x.PitchDrift = 4
+		}
+		x.Timer = 20
+	case 3:
+		x.BearingDrift = rand(-4, 4)
+		x.PitchDrift = rand(-4, 4)
+		if r.Range > 90 {
+			x.Closing = -3
+		} else if r.Range < 50 || r.Range > 80 {
+			x.Closing = 0
+		}
+		if x.Closing == 0 {
+			x.Aux8--
+		}
+		if x.Aux8 < 1 {
+			if x.Aux9 == 0 {
+				x.Closing = rand(-3, -1)
+				x.Aux9 = 1
+			} else {
+				x.Closing = rand(1, 3)
+				x.Aux9 = 0
+			}
+			x.Aux8 = rand(2, 10)
+		}
+		x.Timer = 20
+	case 4:
+		x.BearingDrift = -x.BearingDrift
+		if rand(0, 4) == 0 {
+			x.BearingDrift++
+			x.PitchDrift = -x.PitchDrift + 1
+		}
+		x.Timer = 40
+		x.Closing = -1
+		if r.Range <= 80 {
+			x.Closing = rand(-2, 1)
+		}
+	case 5:
+		x.Closing = -2
+		if r.Range <= 70 {
+			x.Closing = rand(-2, 1)
+		}
+		if rand(0, 1) != 0 {
+			x.BearingDrift = -x.BearingDrift
+		} else {
+			x.PitchDrift = -x.PitchDrift
+		}
+		x.Timer = rand(5, 20)
+	case 6:
+		x.BearingDrift = rand(-4, 0)
+		x.PitchDrift = rand(-4, 4)
+		x.Timer = 30
+		x.Closing = -2
+		if r.Range <= 60 {
+			x.Closing = 0
+		}
+	case 7:
+		if x.BearingDrift == 4 || x.BearingDrift == -4 {
+			x.Aux9 = -x.Aux9
+		}
+		// 原始 0x086c 讀 Gd3，不能自行改成另一條軸。
+		if x.PitchDrift == 4 || x.BearingDrift == -4 {
+			x.Aux8 = -x.Aux8
+		}
+		x.BearingDrift += x.Aux9
+		x.PitchDrift += x.Aux8
+		if r.Range > 100 {
+			x.Closing = -3
+		} else if r.Range > 60 {
+			x.Closing = rand(-2, 2)
+		}
+		x.Timer = 20
+	default:
+		panic("未知航向模式")
+	}
+	clip := func(v int) int {
+		if v < -4 {
+			return -4
+		}
+		if v > 4 {
+			return 4
+		}
+		return v
+	}
+	x.BearingDrift = clip(x.BearingDrift)
+	x.PitchDrift = clip(x.PitchDrift)
+	if r.Range < 40 {
+		x.Closing = 1
+	}
+	if r.Phase == 0 {
+		retreat := false
+		closing, timer := r.HelperLocal3, r.HelperLocal2
+		switch r.Mode {
+		case 0: // 原版跳表 min=1；local2/3 未被賦值，保留明示測試 frame 輸入。
+		case 1:
+			retreat = r.Hull < rand(10, 120)
+			closing, timer = 3, 45
+		case 2:
+			retreat = r.Hull < 80
+			closing, timer = 1, 130
+		case 3:
+			retreat = r.Hull < rand(30, 60)
+			closing, timer = 3, 40
+		case 4, 5, 6:
+			retreat = r.Hull < rand(60, 100)
+			closing, timer = 2, 65
+		case 7:
+			retreat = r.Hull < rand(40, 80)
+			closing, timer = 1, 130
+		}
+		if retreat || r.Flag12 {
+			x.Closing, x.Timer = closing, timer
+			x.Flag44, x.Flag29 = false, false
+			if r.Flag12 {
+				x.Flag46 = true
+			}
+		}
+	}
+	return x
+}
+
+func TestSunDogCombatCourse(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	configs := [][5]int{{0, 0, 0, 0, 0}, {4, 4, 1, 1, -3}, {-4, -4, -1, -1, 3}, {5, -5, 2, 1, 1}, {-5, 5, 1, -1, -1}, {3, -3, 10, 0, 0}}
+	inputs := []courseInput{}
+	for mode := 0; mode < 8; mode++ {
+		for _, distance := range []int{10, 39, 40, 49, 50, 59, 60, 69, 70, 79, 80, 89, 90, 99, 100, 101, 128} {
+			for ci, c := range configs {
+				for _, seed := range []int{0, 1, 17, 41} {
+					inputs = append(inputs, courseInput{mode, distance, c[0], c[1], c[2], c[3], c[4], 1 + (mode+distance+ci+seed)%2, 200, seed, 45 + ci, 3 + seed%2, false})
+				}
+			}
+		}
+	}
+	for mode := 0; mode < 8; mode++ {
+		for _, distance := range []int{39, 60, 100} {
+			for _, hull := range []int{0, 9, 10, 29, 30, 39, 40, 59, 60, 79, 80, 99, 100, 119, 120, 255} {
+				for _, seed := range []int{0, 1, 17, 41} {
+					for _, flag12 := range []bool{false, true} {
+						ci := (hull + seed) % len(configs)
+						c := configs[ci]
+						inputs = append(inputs, courseInput{mode, distance, c[0], c[1], c[2], c[3], c[4], 0, hull, seed, 45 + ci, 3 + seed%2, flag12})
+					}
+				}
+			}
+		}
+	}
+	var formal []struct {
+		Input                                      courseInput
+		BearingDrift, PitchDrift, Closing, Counter int
+	}
+	raw, err := os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-course.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = json.Unmarshal(raw, &formal); err != nil || len(formal) != 3264 {
+		t.Fatal("正式航向投影矩陣不符")
+	}
+	report := struct {
+		Scope, Randomness                                                                                                                string
+		Cases, Differences, AmbiguousFrameCases, FormalCases, FormalDriftDifferences, FormalClosingDifferences, FormalCounterDifferences int
+		Native                                                                                                                           []courseResult
+	}{Scope: "原版完整 set_course 0x0650..0x08e4，含原始跳表、漂移夾限、近距離接近率、原版0x1d子程序0x05a0..0x064a；只省略通用呼叫frame/RPU，保留明示helper初值。現行比較為兩個正式helper的隔離組合，非玩家每拍呼叫或完整同狀態。", Randomness: "每案執行前固定Seed=0/1/17/41；rand上下限與random() mod5/最低位由原版指令決定，以同counter受控抽值供應，非原版自然RNG。"}
+	for i, r := range inputs {
+		h := cadenceHarness(t, disk)
+		for n, v := range map[int]int{0xce: r.Mode, 0xdb: r.Range, 0xd3: r.BearingDrift, 0xd2: r.PitchDrift, 0xd1: r.Closing, 0xd9: 99, 0x19: r.Phase, 0xda: r.Hull} {
+			h.poke(cadenceGlobal(n), uint16(v))
+		}
+		h.poke(cadenceOuter(8), uint16(r.Aux8))
+		h.poke(cadenceOuter(9), uint16(r.Aux9))
+		h.poke(0x4800c, uint16(r.HelperLocal2))
+		h.poke(0x4800e, uint16(r.HelperLocal3))
+		cadenceFlag(h, 12, r.Flag12)
+		cadenceFlag(h, 44, true)
+		cadenceFlag(h, 29, true)
+		actual := courseResult{Input: r, Counter: r.Seed}
+		cadenceRun(h, disk, 0x650, 0x8e4, &actual.Counter, &actual.Draws)
+		read := func(n int) int { return int(int16(h.peek(cadenceGlobal(n)))) }
+		actual.BearingDrift, actual.PitchDrift = read(0xd3), read(0xd2)
+		actual.Closing, actual.Timer = read(0xd1), read(0xd9)
+		actual.Aux8, actual.Aux9 = int(int16(h.peek(cadenceOuter(8)))), int(int16(h.peek(cadenceOuter(9))))
+		actual.Flag44, actual.Flag29, actual.Flag46 = cadenceFlagValue(h, 44), cadenceFlagValue(h, 29), cadenceFlagValue(h, 46)
+		want := courseContract(r)
+		report.Cases++
+		report.Native = append(report.Native, actual)
+		if !reflect.DeepEqual(actual, want) {
+			report.Differences++
+			if report.Differences < 6 {
+				t.Logf("航向不同：native=%+v contract=%+v", actual, want)
+			}
+		}
+		if r.Mode == 0 && r.Phase == 0 && r.Flag12 {
+			report.AmbiguousFrameCases++
+		}
+		if i < len(formal) {
+			f := formal[i]
+			if f.Input != r {
+				t.Fatal("正式投影輸入不同")
+			}
+			report.FormalCases++
+			if f.BearingDrift != actual.BearingDrift || f.PitchDrift != actual.PitchDrift {
+				report.FormalDriftDifferences++
+			}
+			if f.Closing != actual.Closing {
+				report.FormalClosingDifferences++
+			}
+			if f.Counter != actual.Counter {
+				report.FormalCounterDifferences++
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-course.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 {
+		t.Fatalf("完整航向契約差異 %d/%d", report.Differences, report.Cases)
+	}
+	t.Logf("完整原生航向 %d 案通過；其中 %d 案的helper未初始化欄位只在明示frame輸入下核定", report.Cases, report.AmbiguousFrameCases)
+}
+
+func TestSunDogCombatCourseBounds(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	type row struct{ Mode, Range, Seed, Closing, Counter int }
+	var formal []row
+	raw, err := os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-course-bounds.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = json.Unmarshal(raw, &formal); err != nil || len(formal) != 192 {
+		t.Fatal("正式接近率矩陣不符")
+	}
+	type result struct {
+		Input            row
+		Closing, Counter int
+		Draws            []combatDraw
+	}
+	report := struct {
+		Scope, Randomness  string
+		Cases, Differences int
+		Native             []result
+	}{Scope: "正式setEnemyCourse模式4/5之40..80或40..70距離抽樣，原版0x07d4..0x07de及0x07f2..0x07fc；不含完整排程、漂移、近於40覆寫或退避。", Randomness: "執行前固定Seed=0..31；兩側同counter供應一次原版rand請求，非自然RNG。"}
+	for _, r := range formal {
+		if (r.Mode != 4 && r.Mode != 5) || r.Seed < 0 || r.Seed > 31 || r.Range < 40 || r.Range > 80 || (r.Mode == 5 && r.Range > 70) {
+			t.Fatal("接近率矩陣輸入不符")
+		}
+		h := cadenceHarness(t, disk)
+		actual := result{Input: r, Counter: r.Seed}
+		first, last := 0x7d4, 0x7de
+		if r.Mode == 5 {
+			first, last = 0x7f2, 0x7fc
+		}
+		cadenceRun(h, disk, first, last, &actual.Counter, &actual.Draws)
+		actual.Closing = int(int16(h.peek(cadenceGlobal(0xd1))))
+		if len(actual.Draws) != 1 || actual.Draws[0].Low != -2 || actual.Draws[0].High != 1 {
+			t.Fatal("原版接近率請求不是已核定[-2,1]")
+		}
+		report.Cases++
+		report.Native = append(report.Native, actual)
+		if actual.Closing != r.Closing || actual.Counter != r.Counter {
+			report.Differences++
+			if report.Differences < 5 {
+				t.Logf("正式接近率不同：%+v native=%+v", r, actual)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-course-bounds.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 {
+		t.Fatalf("正式接近率差異 %d/%d", report.Differences, report.Cases)
+	}
+	t.Logf("正式接近率 %d 案原生零差異", report.Cases)
+}

@@ -1,0 +1,197 @@
+package m68k
+
+import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"testing"
+)
+
+// 原始選單建構及真正XJP；不執行繪字、hit testing或輸入裝置。
+// 入口與原始定位：docs/atari-st/talos-combat-audit-20260907.md。
+func TestSunDogCombatPlayerInput(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type item struct {
+		Code, RawStringOffset int
+		Label                 string
+	}
+	type menu struct {
+		StatusInput                           int
+		Attached, CloakInstalled, CloakActive bool
+		Items                                 []item
+	}
+	type cloakCourse struct {
+		HelperTimer, HelperClosing, Range, Mode, Phase int
+		CloakAfterToggle, AllowedAfter, RetreatAfter   bool
+		TimerAfter, ClosingAfter, Counter              int
+		Draws                                          []combatDraw
+	}
+	report := struct {
+		Scope, Randomness string
+		Menus             []menu
+		Dispatch          map[int]int
+		CloakCourse       []cloakCourse
+	}{Scope: "XDOFIGHT原始程序16 submenu0建構，真正LCO/LPR、條件與set_box參數；同項目代碼的XJP分派及原版隱形切換接模式0航向的明示frame鏈。set_box字串參數按原始XDOFIGHT段內常數定位；WINDOWLI new_menu/set_box/put_menu與繪圖採明示邊界，不宣稱實體鍵鼠、正常開局frame殘值或全機畫面。", Randomness: "選單／分派無RND；兩條cloak/course鏈均在執行前固定Seed/counter0，原版請求的抽值以相同受控counter供應並逐筆記錄，非原版自然RNG。", Dispatch: map[int]int{}}
+	for _, status := range []int{0, 2, 3, 16} {
+		for bits := 0; bits < 8; bits++ {
+			h := cadenceHarness(t, disk)
+			h.poke(0x46000, 0x5000)
+			h.mem[0x40001] = 0
+			h.poke(interpBase+0x1b8c, 0x7400)
+			for n := uint32(0); n < 32; n++ {
+				h.mem[0x47400+n] = 0
+			}
+			for i, b := range disk[0x38600:0x39c00] {
+				h.mem[0x50000+uint32(i)] = b
+			}
+			h.poke(interpBase+0x1b70, 4)
+			h.poke(interpBase+0x1b72, 0x5000)
+			h.poke(0x4100a, 0x2100)
+			h.poke(0x42100, 0x4000)
+			for n := uint32(0); n < 0x200; n++ {
+				h.mem[0x44000+n] = 0
+			}
+			h.mem[cadenceGlobal(0x5b)+0x6c] = byte(status)
+			displayRun(h, disk, 0x38600, 0x3ec, 0x3fc, 0x3fc)
+			if int(h.peek(cadenceOuter(24))) != status {
+				t.Fatal("init status source differs")
+			}
+			h.poke(cadenceOuter(23), 0)
+			h.poke(cadenceOuter(24), uint16(status))
+			x := menu{StatusInput: status, Attached: bits&1 != 0, CloakInstalled: bits&2 != 0, CloakActive: bits&4 != 0}
+			cadenceFlag(h, 7, x.Attached)
+			cadenceFlag(h, 20, x.CloakInstalled)
+			cadenceFlag(h, 12, x.CloakActive)
+			stream := uint32(operandStream + 0x6000)
+			h.startDispatch(disk[0x38f5c:0x390c7], stream)
+			created := 0
+			for steps := 0; ; steps++ {
+				if steps >= 10000 {
+					t.Fatal("menu did not terminate")
+				}
+				if h.cpu.State.PC == interpBase+interpLoop+4 {
+					ip, sp := h.cpu.State.A[4], h.cpu.State.SSP
+					if int(ip-stream)+0x95c == 0xac7 {
+						break
+					}
+					if h.mem[ip] == 0x74 {
+						switch h.mem[ip+1] {
+						case 0x13:
+							if h.peek(sp) != 4 {
+								t.Fatal("not menu4")
+							}
+							h.cpu.State.SSP += 2
+						case 0x14:
+							if h.peek(sp) != 0 {
+								t.Fatal("unexpected font pointer")
+							}
+							ptr := uint32(h.peek(sp+2)) + 0x50000
+							n := int(h.mem[ptr])
+							label := make([]byte, n)
+							for i := range label {
+								label[i] = h.mem[ptr+1+uint32(i)]
+							}
+							x.Items = append(x.Items, item{int(h.peek(sp + 4)), int(ptr-0x50000) + 0x38600, string(label)})
+							created++
+							h.poke(0x44008+0x87*2, uint16(created))
+							h.cpu.State.SSP += 6
+						default:
+							t.Fatalf("unhandled WINDOWLI call%x", h.mem[ip+1])
+						}
+						h.cpu.State.A[4] = ip + 2
+						h.start(interpLoop)
+						continue
+					}
+					if h.mem[ip] == 0x73 || h.mem[ip] == 0x91 || h.mem[ip] == 0x90 || h.mem[ip] == 0xef {
+						t.Fatalf("unhandled menu call at%x", int(ip-stream)+0x95c)
+					}
+				}
+				if _, err := h.cpu.Step(); err != nil {
+					t.Fatalf("menu PC%x IP%x: %v", h.cpu.State.PC-4, h.cpu.State.A[4], err)
+				}
+			}
+			foundComm, foundCloak := false, false
+			for _, i := range x.Items {
+				if i.Code == 7 {
+					if i.Label != "COMM" || i.RawStringOffset != 0x39760 {
+						t.Fatalf("bad COMM %+v", i)
+					}
+					foundComm = true
+				}
+				if i.Code == 5 {
+					if i.Label != "CLOAK" || i.RawStringOffset != 0x3975a {
+						t.Fatalf("bad CLOAK %+v", i)
+					}
+					foundCloak = true
+				}
+			}
+			if !foundComm || foundCloak != (status > 2 && x.CloakInstalled) {
+				t.Fatalf("menu flags %+v", x)
+			}
+			report.Menus = append(report.Menus, x)
+		}
+	}
+	for _, code := range []int{5, 7} {
+		h := cadenceHarness(t, disk)
+		for i, b := range disk[0x38600:0x38620] {
+			h.mem[0x50000+uint32(i)] = b
+		}
+		for i, b := range disk[0x398e8:0x39910] {
+			h.mem[0x512e8+uint32(i)] = b
+		}
+		stream := uint32(operandStream + 0x6000)
+		h.startDispatch(disk[0x395e3:0x3966e], stream)
+		h.cpu.State.A[4] = stream + 0x106a - 0xfe3
+		h.poke(h.cpu.State.SSP, uint16(code))
+		for steps := 0; ; steps++ {
+			if steps >= 2048 {
+				t.Fatal("dispatch did not terminate")
+			}
+			if h.cpu.State.PC == interpBase+interpLoop+4 && h.cpu.State.A[4] != stream+0x106a-0xfe3 {
+				report.Dispatch[code] = int(h.cpu.State.A[4]-stream) + 0xfe3
+				break
+			}
+			if _, err := h.cpu.Step(); err != nil {
+				t.Fatal(err)
+			}
+		}
+	}
+	if report.Dispatch[5] != 0x1003 || report.Dispatch[7] != 0x1021 {
+		t.Fatal("unexpected input dispatch", report.Dispatch)
+	}
+	// 已核定玩家切換接同一研究狀態的航向程序。兩次只改未初始化
+	// helper frame 殘值，證實輸出依賴它；不宣稱任一殘值是正式開局值。
+	for _, frame := range [][2]int{{45, 3}, {130, 1}} {
+		h := cadenceHarness(t, disk)
+		for n, v := range map[int]int{0xce: 0, 0xdb: 60, 0x19: 0, 0xda: 255} {
+			h.poke(cadenceGlobal(n), uint16(v))
+		}
+		cadenceFlag(h, 12, false)
+		cadenceFlag(h, 20, true)
+		cadenceFlag(h, 44, true)
+		displayRun(h, disk, 0x38600, 0x1003, 0x101d, 0x101d)
+		x := cloakCourse{HelperTimer: frame[0], HelperClosing: frame[1], Range: 60,
+			CloakAfterToggle: cadenceFlagValue(h, 12)}
+		if !x.CloakAfterToggle {
+			t.Fatal("player cloak did not activate")
+		}
+		h.poke(0x4800c, uint16(frame[0]))
+		h.poke(0x4800e, uint16(frame[1]))
+		cadenceRun(h, disk, 0x650, 0x8e4, &x.Counter, &x.Draws)
+		x.TimerAfter = int(int16(h.peek(cadenceGlobal(0xd9))))
+		x.ClosingAfter = int(int16(h.peek(cadenceGlobal(0xd1))))
+		x.AllowedAfter, x.RetreatAfter = cadenceFlagValue(h, 44), cadenceFlagValue(h, 46)
+		if x.TimerAfter != frame[0] || x.ClosingAfter != frame[1] || x.AllowedAfter || !x.RetreatAfter {
+			t.Fatalf("mode0 cloak did not expose helper frame %+v", x)
+		}
+		report.CloakCourse = append(report.CloakCourse, x)
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-combat-player-input.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("32 original menus and COMM/CLOAK dispatch proven")
+}

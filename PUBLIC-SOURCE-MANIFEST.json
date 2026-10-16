@@ -1,0 +1,3489 @@
+{
+  "schema": 1,
+  "boundary": "Fresh source snapshot; no original Git objects, disks, scans, original pixels or sounds. Private oracle images and full local packages excluded.",
+  "gameVersion": "v.1.1.0-20261015",
+  "screenshots": [
+    {
+      "path": "docs/screenshots/hd-shipboard.png",
+      "sha256": "5a8d8a1aad3f26ff44c67648ffe0b93cafc92200fa0bf4924c085ae4d6f52c9e",
+      "kind": "independently drawn HD; normal player capture",
+      "captureDate": "2026-10-15"
+    },
+    {
+      "path": "docs/screenshots/hd-ground.png",
+      "sha256": "6108fc6c52f1098e5c94da43887753e5585957fc5a381a9a43e27b821320c6f7",
+      "kind": "independently drawn HD; normal player capture",
+      "captureDate": "2026-10-15"
+    },
+    {
+      "path": "docs/screenshots/hd-system.png",
+      "sha256": "596504b0d90e1c26b1047918e1993be67c5ad0fc06e4c67a9bc39eca683f79a7",
+      "kind": "independently drawn HD; normal player capture",
+      "captureDate": "2026-10-15"
+    },
+    {
+      "path": "docs/screenshots/hd-engineering.png",
+      "sha256": "8c7694bf617947de5485721a7f51512a7c9518e3f3bed21bb84467ba1439e622",
+      "kind": "independently drawn HD; normal player capture",
+      "captureDate": "2026-10-15"
+    },
+    {
+      "path": "docs/screenshots/hd-stores.png",
+      "sha256": "5f5109f0fceee4a8b9bb0e08529eba570aa8c0a5606b9c220486591b902154e3",
+      "kind": "independently drawn HD; normal player capture",
+      "captureDate": "2026-10-15"
+    }
+  ],
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 352,
+      "sha256": "4bf932c261d9d5a7856f0347c18f2b77926ae8cbb38e6c40e74396af98699a01"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 942,
+      "sha256": "a574606db8d6d6afaad8fe69f55280881c16b4cf547fd0c14e201cddb95f2471"
+    },
+    {
+      "path": "CONTEXT.md",
+      "bytes": 722,
+      "sha256": "e89d05fcb0115bc57c779c02b50b9f940e44a24049666858eb1d98ac9fe3dcf1"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 21576,
+      "sha256": "3ef1db51e2434c5691153a152d3912f72ada30b7d268e972f08b486e9a2880b2"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5515,
+      "sha256": "0b6311f63b73a11ffa7d6640883f4904f9dc17d166437e112c74131ec65013df"
+    },
+    {
+      "path": "WORKLOG.md",
+      "bytes": 1081,
+      "sha256": "a1da32c84da335f05c7341dad342be83ba6c33f84c6881ba39cb655e0de869cd"
+    },
+    {
+      "path": "assets/fonts/ASSET-MANIFEST.md",
+      "bytes": 2162,
+      "sha256": "9ad8c4fc973cb10a6283a9adda3532130c845bcfb6c93718ccd37eccaa8fdce1"
+    },
+    {
+      "path": "assets/fonts/LICENSE_ARPHIC.txt",
+      "bytes": 6901,
+      "sha256": "3a5e90c0957524a89e48203febcd4492ca4393678abaa7e5b4d70f3ff32b386d"
+    },
+    {
+      "path": "assets/fonts/LICENSE_ARPHIC_zh-Hant.txt",
+      "bytes": 5812,
+      "sha256": "7f709381dd578588d8c5b32ee2c9fa2a4995b991ed120605075fe6d2c7951e2a"
+    },
+    {
+      "path": "assets/fonts/LICENSE_OFL.txt",
+      "bytes": 4301,
+      "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2"
+    },
+    {
+      "path": "assets/fonts/NotoSansCJKtc-Regular.otf",
+      "bytes": 16435884,
+      "sha256": "dce08bd4fd91aa8aa76ed8fea4b694c2dfb8550f67871e326843212ddbeb88b4"
+    },
+    {
+      "path": "assets/fonts/README.md",
+      "bytes": 623,
+      "sha256": "0ea8818ffa23a63ddbc71f142078e6405bbfb67f34a13ef0e77946f2c67c0089"
+    },
+    {
+      "path": "assets/fonts/UKaiTW-SunDogTitleSubset.ttf",
+      "bytes": 26492,
+      "sha256": "13a1894f2dde2bd950274da775d0becf28adb0a3be6c3f92990cb20d957c6aa8"
+    },
+    {
+      "path": "assets/icons/sundog-remake.png",
+      "bytes": 43880,
+      "sha256": "989ee5ff0c7e0c87b42e75379d5081415144f198dddd697f56da3e62e17fa25b"
+    },
+    {
+      "path": "cmd/apple2-directory/main.go",
+      "bytes": 1108,
+      "sha256": "03b5bdbd5ed1fa5e80f82e2376289e9aa285e567bbfb606a356c635494f1d1ab"
+    },
+    {
+      "path": "cmd/apple2-system-data/main.go",
+      "bytes": 3933,
+      "sha256": "5c1923093828f771650ddef1fbe426824587287703ca91d1ccaa0e0a63487469"
+    },
+    {
+      "path": "cmd/apple2-world-map-crosscheck/main.go",
+      "bytes": 17882,
+      "sha256": "1e5afa5134d4af6bb709a82fff71df76f1380cc31f88e2fb39f884fc2f34eb5e"
+    },
+    {
+      "path": "cmd/apple2-world-map-crosscheck/main_test.go",
+      "bytes": 2991,
+      "sha256": "53b10da8d5ee9cfc69aa9fa7b6c662124ce4aa6cefe15efb6e017f19e545563e"
+    },
+    {
+      "path": "cmd/atari-tile-probe/main.go",
+      "bytes": 1066,
+      "sha256": "43ce2d9a3cf0dbc48a72d597a152ec7989b3dd79f8cffec79a4b4bae9d92057a"
+    },
+    {
+      "path": "cmd/dosound-lists/main.go",
+      "bytes": 1084,
+      "sha256": "19040eb86d2b8b3e5193fca8d7b328d471ac6a3bb5e4b154be2200077973367a"
+    },
+    {
+      "path": "cmd/sundog/main.go",
+      "bytes": 34222,
+      "sha256": "f3951a2e8fe60dbdc44f9a3f9ff4e9ac8d4e6499ede2d10b81231193e869b869"
+    },
+    {
+      "path": "cmd/sundog-dialog/main.go",
+      "bytes": 1812,
+      "sha256": "20f04767ed601b108a9c3c8480836a56362d7ba3414ab6b6475d15ba9e2327c4"
+    },
+    {
+      "path": "cmd/sundog-ebiten/fuel_purchase_test.go",
+      "bytes": 10749,
+      "sha256": "c838f33db00e056896999e1f02de1a3c09ada096b5d6916a44f2e682fc3f2de6"
+    },
+    {
+      "path": "cmd/sundog-ebiten/ground_route_test.go",
+      "bytes": 2345,
+      "sha256": "ab731f840121fed7bda1cc1b6601212eafd8eca3062b670e3dae2744d356a3e9"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdassets/cabin-cabin-closed-4.png",
+      "bytes": 23247,
+      "sha256": "79e08980fb8f1c3a1ebfab11900913d4b58f3b46d96b1c0a9069015aa4a1e4bf"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdassets/cabin-cabin-closed-5.png",
+      "bytes": 29493,
+      "sha256": "c4881b27074f562a3e5a88453e4466731b6714a6173e0f37fb3c21e3b0afb82f"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdassets/cabin-cabin-lit-4.png",
+      "bytes": 23275,
+      "sha256": "cd89dd7d771c33913f8ddff6de53da526325d3394884452358ac508422f9c764"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdassets/cabin-cabin-lit-5.png",
+      "bytes": 29518,
+      "sha256": "8a11de14fd4eed33ff58588445ba349c57d40a917f002e1772223be0137e9435"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdassets/complete.json",
+      "bytes": 681085,
+      "sha256": "68dc7dde4c5f2ffc4133b44beab6c355fcd7f2a228e960330a6981623872c6d9"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdassets/engineering-4.png",
+      "bytes": 2884,
+      "sha256": "02c154ae45d10aa243c6533deed0b880a3ed5d8275442dcdb56eb5926403f550"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdassets/engineering-5.png",
+      "bytes": 3796,
+      "sha256": "bc60b33950c4b7362452c5b061da0910ca94935662ecf02c8cc1a767ce00b9ec"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdassets/engineering.json",
+      "bytes": 6016,
+      "sha256": "d5970a279eb391b3c7bfac965d75c28ad46fd6007d50a77b78b132382be4c635"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdassets/stores-icons-4.png",
+      "bytes": 12594,
+      "sha256": "16e503aa0935950fae65e2181e48b076bade4cc3d977abd8f5a2f8c520a79dc6"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdassets/stores-icons-5.png",
+      "bytes": 15304,
+      "sha256": "947875a96c76ae557287453e95d12a64a0a84a04c605b861a39bb38ee202f8f5"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdassets/stores-window-4.png",
+      "bytes": 2905,
+      "sha256": "2bbeb6a2533197795c881f602ed507ad5e64d2696bbac1e73e5bbcd2afc53279"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdassets/stores-window-5.png",
+      "bytes": 3829,
+      "sha256": "e5d16dac6e65e58da57242b29942b35f806701730c450a1c4c4bb9162e8d2037"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdassets/stores.json",
+      "bytes": 111107,
+      "sha256": "1a0c2144f8a856dd7012e4c07184d587727eafc0f947bec73327ead2ec07b064"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdassets/world.json",
+      "bytes": 588254,
+      "sha256": "6efc6cc54201730f6ede4fff54e3d7f0590eacc07c040138b6d7714dcd161912"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdbitmap.go",
+      "bytes": 5142,
+      "sha256": "bc7358b4088d8f07edc6b8d243eb19be3f701e785dc4b30d6b3cee14c1b70f23"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdcanvas.go",
+      "bytes": 1424,
+      "sha256": "daca92a261bfee1bc1a4608340c212cfbc11d9137d2e89fb2a072986b17ded3f"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdengineering.go",
+      "bytes": 3625,
+      "sha256": "ab4b67189ddce92ad398800510fe97ba47797b22a06e00e6947b49345460a138"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdmaps.go",
+      "bytes": 10628,
+      "sha256": "15eb09de709bece68bb2ac7b8802df2ba21029a55870b1b2f9baf8646701e15f"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdpainter.go",
+      "bytes": 9099,
+      "sha256": "a5e43b6827e022c085fb57ecf73591f85025049dd534da5966ca0faf6e4eaaed"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdproduction.go",
+      "bytes": 14482,
+      "sha256": "355ac910b9e29182d518b502aa7ab2b4832bafd3f3829562cd39e6f97b51267e"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdproduction_test.go",
+      "bytes": 9137,
+      "sha256": "e199582da4e9cf12456f27ea9ed0a1cde1c6a882d509f3dcbd64fa227b2013b2"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdstores.go",
+      "bytes": 3401,
+      "sha256": "b0f4d06de6c7737720bb148bd3bc3b2199bcb1ebc16672e87715589508e4f6ed"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdterrain.go",
+      "bytes": 6807,
+      "sha256": "c4533aa2c15318891a9e653ef7ca9c3f107ed1f14a5efece1e5966ccb3361633"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdtitleart.go",
+      "bytes": 5328,
+      "sha256": "1b2e3803a66b11400e3a2ec5754bc5f9e66437aa60ac5ce29d8bc01cdb3e774c"
+    },
+    {
+      "path": "cmd/sundog-ebiten/hdworld.go",
+      "bytes": 2932,
+      "sha256": "5bc3fc1a739f1bd8bc38ff5d2f4e4ed1ce183514a7aa9d0c5ee4994677029e19"
+    },
+    {
+      "path": "cmd/sundog-ebiten/main.go",
+      "bytes": 193006,
+      "sha256": "882e45c42da22bf2f4ecd505c59f2146bc294e0a1a04a91e1e3ea7d1788e426e"
+    },
+    {
+      "path": "cmd/sundog-ebiten/main_test.go",
+      "bytes": 50037,
+      "sha256": "2bc9420742bacae4402acc9ddb2a785b4838db1e305a611d46d85f689f17c700"
+    },
+    {
+      "path": "cmd/sundog-ebiten/options.go",
+      "bytes": 17450,
+      "sha256": "2d151e25ec0f0a85f43088a777276ec7e59d12fa3fb8ed4de108c9416fab47d7"
+    },
+    {
+      "path": "cmd/sundog-ebiten/options_test.go",
+      "bytes": 10513,
+      "sha256": "ae539c9265bd554167c7e7b217badbc47b0e8e4f573ef52a7d4c43db218247f9"
+    },
+    {
+      "path": "cmd/sundog-ebiten/originaltitle.go",
+      "bytes": 10649,
+      "sha256": "311a0b37802ce97fbf58469d2d799a1bdf9a02a0ecfe3d02a613d7a7ed4113f6"
+    },
+    {
+      "path": "cmd/sundog-ebiten/originaltitle_test.go",
+      "bytes": 3550,
+      "sha256": "61a3920085e7b03f2ac8a0db5fac08e7fd94574eea73c99304312cb1b85b2aff"
+    },
+    {
+      "path": "cmd/sundog-ebiten/ship_ground_anchor_test.go",
+      "bytes": 821,
+      "sha256": "9b7afd320dd8c4e44a3fc9bcf55bd97c81b04f3f12eafccdc6213a7e85ed4964"
+    },
+    {
+      "path": "cmd/sundog-ebiten/sound.go",
+      "bytes": 13079,
+      "sha256": "c64b55d269b7b6c4b1e9a6c200eea42c93c92e432c5b6789c2db99109555ce8b"
+    },
+    {
+      "path": "cmd/sundog-ebiten/sound_test.go",
+      "bytes": 7217,
+      "sha256": "2b628170a65463e693674ac501530f2795e49b3d35e0917347c89eb472007041"
+    },
+    {
+      "path": "cmd/sundog-ebiten/starena.go",
+      "bytes": 5237,
+      "sha256": "1df9a5be86f17ae2daed6806285ababa9f8c7ad2accdb42b6a6842aafbd2283c"
+    },
+    {
+      "path": "cmd/sundog-ebiten/stground.go",
+      "bytes": 31522,
+      "sha256": "91fb4c04eb6f406528210b2c9aefa2ed993131fda70e6ca632ed8706e587628f"
+    },
+    {
+      "path": "cmd/sundog-ebiten/stground_test.go",
+      "bytes": 5449,
+      "sha256": "a2185b351aba786b23501e87ce299a915361498cf98c16aa523d8957fa6fe5f5"
+    },
+    {
+      "path": "cmd/sundog-ebiten/stinterior.go",
+      "bytes": 6442,
+      "sha256": "e228d7039c3638943e9642f0147f5dd0ad97da1b8dc6112126afbaf6ef597906"
+    },
+    {
+      "path": "cmd/sundog-ebiten/stlayout.go",
+      "bytes": 58873,
+      "sha256": "6d0fd67617aebd25c1896bccc3ae2e7d75c6510f05311b20dfab5e8acf97af78"
+    },
+    {
+      "path": "cmd/sundog-ebiten/stlayout_test.go",
+      "bytes": 27340,
+      "sha256": "b23ff9342e0c139649f5f24d36c1386fd0c6b38845d64d8760f8fc395762ba34"
+    },
+    {
+      "path": "cmd/sundog-ebiten/strepair.go",
+      "bytes": 7704,
+      "sha256": "b78570c8915624c2eaeb9c5e25dfb275a4d5ec424b1d7a150a2b9aeda0164f95"
+    },
+    {
+      "path": "cmd/sundog-ebiten/stshop.go",
+      "bytes": 33526,
+      "sha256": "57333e14e72fcb78d185c4cdff60c2434219916142568918c3062e4f1f6b0971"
+    },
+    {
+      "path": "cmd/sundog-ebiten/ststores.go",
+      "bytes": 3180,
+      "sha256": "29497cbf7f67cd83999662421ebf4defd6ec4c05a1467507dd043d26e56fbea4"
+    },
+    {
+      "path": "cmd/sundog-ebiten/stsurface.go",
+      "bytes": 4362,
+      "sha256": "538bb98fe980f2affaa4468d2b89d2964034e2ded67aab774f0eef71e529f768"
+    },
+    {
+      "path": "cmd/sundog-ebiten/stwalker.go",
+      "bytes": 23047,
+      "sha256": "de8b7d2c2d03845781bf2f80f3e34c3caa13e2e94adf381f765abf2429032c50"
+    },
+    {
+      "path": "cmd/sundog-ebiten/stwalker_test.go",
+      "bytes": 12896,
+      "sha256": "80359e414c2818612ba3a75904c31cd30de39fbde215d24d23332893b1ac1e6c"
+    },
+    {
+      "path": "cmd/sundog-ebiten/talos_collision_fixture_test.go",
+      "bytes": 8986,
+      "sha256": "6723da296c8d5ac83540ad5d013a46454f007b389dbbe3689678c6ae7138ad66"
+    },
+    {
+      "path": "cmd/sundog-ebiten/talos_walker_fixture_test.go",
+      "bytes": 2579,
+      "sha256": "7c88ddf9ad445e6815cdd999ea814975562bad5efdef4437d8337163237e6a23"
+    },
+    {
+      "path": "cmd/sundog-ebiten/walker_target_test.go",
+      "bytes": 7360,
+      "sha256": "5121ab3c7fb03e931d3bf07364045b6683018a0dd73838beae05239c16c69bbe"
+    },
+    {
+      "path": "cmd/sundog-preview/main.go",
+      "bytes": 1712,
+      "sha256": "e1319b50e1bbe9dc2109ea13074f499d75ce418f1af258e1953593d67290b3b7"
+    },
+    {
+      "path": "cmd/sundog-sound-export/main.go",
+      "bytes": 4498,
+      "sha256": "57f72ea1e8e085ec50bbd46c79cc9c419f0df51cd35fe1466e7bbe6904f64c6d"
+    },
+    {
+      "path": "docker/apple2-docs/Dockerfile",
+      "bytes": 420,
+      "sha256": "9171544a72e9be0a0e90d69c48ae94f45de2325b063f1324164540e8ba0a87c8"
+    },
+    {
+      "path": "docker/apple2-docs/README.md",
+      "bytes": 866,
+      "sha256": "2463ab4168ac9243615e31a60ac7683a0efdbef0e380e78f992ee28b02c544fc"
+    },
+    {
+      "path": "docker/apple2-oracle/Dockerfile",
+      "bytes": 327,
+      "sha256": "073e1452cd6ece3bcdef119afe89c986de3b2f86a60871bad7737225f163f07b"
+    },
+    {
+      "path": "docker/apple2-oracle/README.md",
+      "bytes": 2302,
+      "sha256": "779e8f034f2f278225f6fd92b61b74c1b18f7a9b73e87aa08ab5249ba9df9e98"
+    },
+    {
+      "path": "docker/atari-st-oracle/Dockerfile",
+      "bytes": 543,
+      "sha256": "247e47002ab41f10fc9b4ac69592da5ee6abad2d92630318140270cf8bd14cdc"
+    },
+    {
+      "path": "docker/atari-st-oracle/README.md",
+      "bytes": 4225,
+      "sha256": "64d502320a149a3e67713b52c61424018682d8628698d24836847227a5f869d0"
+    },
+    {
+      "path": "docker/sundog-port-oracle/Dockerfile",
+      "bytes": 581,
+      "sha256": "39f030dea0a110c8a37b114d74953823baf966bad3e517e0b8d7d531bced6223"
+    },
+    {
+      "path": "docker/sundog-port-oracle/README.md",
+      "bytes": 1624,
+      "sha256": "dbbcb79606d0b02e46c7ede9842ab93e9411348fc9a622659d23b2feb9842422"
+    },
+    {
+      "path": "docker/sundog-remake-build/Dockerfile",
+      "bytes": 1513,
+      "sha256": "ecad4d03b5e0e9ba83478d48932f01b0ad3e053fb7aee944888d48bea1970c5c"
+    },
+    {
+      "path": "docker/sundog-remake-build/Dockerfile.osxcross",
+      "bytes": 772,
+      "sha256": "73ea971cfba9cc9d8f5a77985e76d6239d095411785be69bef73753b5fb90941"
+    },
+    {
+      "path": "docs/atari-st/city-maps.json",
+      "bytes": 257397,
+      "sha256": "d6460566b33cf474ee8dacf2c9b9f2546fb5541a6702678dab24e1e95b460c1a"
+    },
+    {
+      "path": "docs/atari-st/dialog-rendered.json",
+      "bytes": 60801,
+      "sha256": "3fd06f99bb5ab88812f5ec71836823de1402945aa33e1db694599b32665660c5"
+    },
+    {
+      "path": "docs/atari-st/dialog-text.json",
+      "bytes": 215376,
+      "sha256": "5691d5500929725332bba84074686b692ec9b9867771ad32fbfa64651778e9eb"
+    },
+    {
+      "path": "docs/atari-st/enemy-ships.json",
+      "bytes": 25994,
+      "sha256": "18e092a930475d1ccb089f1e165e643eed48eb4fe731d381197f426f2d606e89"
+    },
+    {
+      "path": "docs/atari-st/flight-arrival-parity-20261004.json",
+      "bytes": 2762847,
+      "sha256": "ff74b6759290a26375fc11f514a52832c5d84639cc472f0918c0a928dbec1d45"
+    },
+    {
+      "path": "docs/atari-st/flight-setup-clock-parity-20261004.json",
+      "bytes": 1004494,
+      "sha256": "fe3d8179a494f9ae5f2acb4932ffcf3736b3d6dae4cef6f1f8f2f7a848aee6a5"
+    },
+    {
+      "path": "docs/atari-st/flight-ship-parent-parity-20261004.json",
+      "bytes": 568899,
+      "sha256": "8eecbaae18d3c89c9aa8d59cccf165ba3428d6db0631123ce6f1ba87f8557c2d"
+    },
+    {
+      "path": "docs/atari-st/fuel-rescue-parity-20261005.json",
+      "bytes": 14377619,
+      "sha256": "f6353501a7460355e59475ee458d3644241ef9b0e3b964a406c1abe9f38bf11d"
+    },
+    {
+      "path": "docs/atari-st/item-data.json",
+      "bytes": 22452,
+      "sha256": "d648a998d27e96fe949df539509cf2cc8a067b54cd6fee7a6f40e0fc1490d1df"
+    },
+    {
+      "path": "docs/atari-st/new-game-loadout.json",
+      "bytes": 3564,
+      "sha256": "ec4662476fc546ed04ca90173e8f83b338a536d4af58cd2eda826362bcb2439e"
+    },
+    {
+      "path": "docs/atari-st/ship-rules.json",
+      "bytes": 82519,
+      "sha256": "498b5bcd01ec38fa65d903b6c65ba001f9653d5169aead0dd530837579d6fefe"
+    },
+    {
+      "path": "docs/atari-st/ship-systems.json",
+      "bytes": 7618,
+      "sha256": "a20d997470c901d16f2bd04024b86b4699e1df82a8a78dd4d086dd8a3052f804"
+    },
+    {
+      "path": "docs/atari-st/sine-table.json",
+      "bytes": 4763,
+      "sha256": "219f822eaf5dd84165cc7a4d5723c9c1d6355b15a98886267b4bcab13617d844"
+    },
+    {
+      "path": "docs/atari-st/trade-classes.json",
+      "bytes": 24076,
+      "sha256": "4018e8bb9ccaecb6255bbb2027fc7092a874a44a613e123ba244882bdf926683"
+    },
+    {
+      "path": "docs/atari-st/window-menu-tables.json",
+      "bytes": 27952,
+      "sha256": "d8100cc8f719125bd70c5863d20d2c6d943391aa58039686c7cb361d44914a98"
+    },
+    {
+      "path": "docs/atari-st/world-data.json",
+      "bytes": 120540,
+      "sha256": "b05cf62f518a256919bf019a7479898ada8005cd8a6c7a9c31aa9c5ecfc1ab69"
+    },
+    {
+      "path": "docs/build.md",
+      "bytes": 2503,
+      "sha256": "01993b3323d58b3bf1959699122771a5e04e964a2f0cbf5e0d94781d02cb1538"
+    },
+    {
+      "path": "docs/i18n/REVIEW-2026-08-31.md",
+      "bytes": 1899,
+      "sha256": "b399211879c1653acb832c7579f53222f0657548d16cda8d2a204b176df0c1ed"
+    },
+    {
+      "path": "docs/i18n/apple2-startup-candidates.json",
+      "bytes": 11391,
+      "sha256": "7f52ecd9cf10678472131e79e54bce010938e8840fee283fe28286ce5df664ef"
+    },
+    {
+      "path": "docs/i18n/apple2-text-catalog.json",
+      "bytes": 13130,
+      "sha256": "1538793ec1461b8993986b4a55d0a82888c260fbbe612a4730e7c1b33822c6b8"
+    },
+    {
+      "path": "docs/i18n/apple2-text-en.json",
+      "bytes": 13067,
+      "sha256": "51e1f885c195d02a67a1b31fa13eea7c621cb95d36536fe136a16aa279b25f25"
+    },
+    {
+      "path": "docs/i18n/apple2-text-ja.json",
+      "bytes": 13296,
+      "sha256": "4cede309358fca024073e5b55ae1b083ca23ab2cc10f6cf85f887758281216f0"
+    },
+    {
+      "path": "docs/i18n/apple2-text-zh-Hans.json",
+      "bytes": 13130,
+      "sha256": "224f9f6e706927edcb22f214083aa0058a16496813c5104f762af41038fa3b10"
+    },
+    {
+      "path": "docs/i18n/apple2-word-boundary-candidates.json",
+      "bytes": 9627,
+      "sha256": "950dd58441a7c3aafbbbdbf73d57da62afab900e0921aca317a84afbf250b6f4"
+    },
+    {
+      "path": "docs/i18n/atari-st-dialog-en.json",
+      "bytes": 69482,
+      "sha256": "9c5e03c1a1e1b27529a3a8f1bd8a2fbac55fdf748ab655538700e8000538a895"
+    },
+    {
+      "path": "docs/i18n/atari-st-dialog-ja.json",
+      "bytes": 73720,
+      "sha256": "c4f387a43f0123668cd9f83151cc19138836906ad4be1a76caf83d9cd8af28ae"
+    },
+    {
+      "path": "docs/i18n/atari-st-dialog-zh-Hans.json",
+      "bytes": 69711,
+      "sha256": "80dd6f5dc085e95f46bc779a63efd75014c80a7778bde41555e29f5344e64127"
+    },
+    {
+      "path": "docs/i18n/atari-st-dialog-zh-Hant.json",
+      "bytes": 69711,
+      "sha256": "49dfca2cdda6f2bf949462f5c626c74c729557b60803fd22d043cbdaa4557d2a"
+    },
+    {
+      "path": "docs/i18n/atari-st-enemy-ship-names-zh-Hant.json",
+      "bytes": 875,
+      "sha256": "48d3b6733c4e4363ab0e5daf0746576260b9a5e9b11d4cd91c03f0ac958dbbc1"
+    },
+    {
+      "path": "docs/i18n/atari-st-item-names-zh-Hant.json",
+      "bytes": 2722,
+      "sha256": "bc5bf2c2890d3cd3d6b3668e45179b6d0c83de3a7b0d726777cd1d0f28bd458c"
+    },
+    {
+      "path": "docs/i18n/atari-st-world-names-zh-Hant.json",
+      "bytes": 3218,
+      "sha256": "7988e806cbfaa8831c974c6fa9d1967ad4580c842f8d0d544348abba8ebeeddc"
+    },
+    {
+      "path": "docs/i18n/sundog-ui-en.json",
+      "bytes": 153765,
+      "sha256": "f9e62640add0f777fcfab3c14d661154ab7303029c993f6cd5db55aba04fa450"
+    },
+    {
+      "path": "docs/i18n/sundog-ui-ja.json",
+      "bytes": 162611,
+      "sha256": "b6616f94082a0af7d8b611bc99276534f6cdf588de5727757fc0a4e9122d326e"
+    },
+    {
+      "path": "docs/i18n/sundog-ui-zh-Hans.json",
+      "bytes": 153429,
+      "sha256": "f0179c947f6fb097199c3a9a2c73b509b8b47b769d2829b3c758ec9ec69ef042"
+    },
+    {
+      "path": "docs/i18n/sundog-ui-zh-Hant.json",
+      "bytes": 153414,
+      "sha256": "b207c0f39e593fef29306f528b766bd55cdd4bd3f9321b92ae25ece710e4b4cc"
+    },
+    {
+      "path": "docs/index.md",
+      "bytes": 1129,
+      "sha256": "32eddb8ad4f2e7a8d8c08e5da5a945cd7e59ccec790637e4d792aa95e261906e"
+    },
+    {
+      "path": "docs/manual/remake-controls-zh-Hant.md",
+      "bytes": 14753,
+      "sha256": "1e536a15c8995062bbbe7d3d3440acbd98cac08e1f916b12729cda94ff7056df"
+    },
+    {
+      "path": "docs/screenshots/hd-engineering.png",
+      "bytes": 25376,
+      "sha256": "8c7694bf617947de5485721a7f51512a7c9518e3f3bed21bb84467ba1439e622"
+    },
+    {
+      "path": "docs/screenshots/hd-ground.png",
+      "bytes": 11831,
+      "sha256": "6108fc6c52f1098e5c94da43887753e5585957fc5a381a9a43e27b821320c6f7"
+    },
+    {
+      "path": "docs/screenshots/hd-shipboard.png",
+      "bytes": 36328,
+      "sha256": "5a8d8a1aad3f26ff44c67648ffe0b93cafc92200fa0bf4924c085ae4d6f52c9e"
+    },
+    {
+      "path": "docs/screenshots/hd-stores.png",
+      "bytes": 33479,
+      "sha256": "5f5109f0fceee4a8b9bb0e08529eba570aa8c0a5606b9c220486591b902154e3"
+    },
+    {
+      "path": "docs/screenshots/hd-system.png",
+      "bytes": 137880,
+      "sha256": "596504b0d90e1c26b1047918e1993be67c5ad0fc06e4c67a9bc39eca683f79a7"
+    },
+    {
+      "path": "go.mod",
+      "bytes": 630,
+      "sha256": "431bf44f5e6d9f2132f76617c99899faa4b0bc1018c311e61d456fe73cdf68b9"
+    },
+    {
+      "path": "go.sum",
+      "bytes": 2446,
+      "sha256": "529c7628cc190b0971ac5cc3b654718de7e7fb8b495608272cdc0a97cc0d40f2"
+    },
+    {
+      "path": "internal/appdir/appdir.go",
+      "bytes": 3455,
+      "sha256": "7aa274a48dd078b79fb5501ae03c9dd607f77cfd9cf1a64e303440543c9d0d10"
+    },
+    {
+      "path": "internal/appdir/appdir_test.go",
+      "bytes": 3026,
+      "sha256": "a9263a3262777849622fd86a7ec56275b4b2d448b131886f04284ef7aa080fd0"
+    },
+    {
+      "path": "internal/audio/dosound.go",
+      "bytes": 2995,
+      "sha256": "6bf66d23e6c85d6e3fbb631760c232db0ce0ace301de27d532f06ca713546bb3"
+    },
+    {
+      "path": "internal/audio/dosound_test.go",
+      "bytes": 3235,
+      "sha256": "323549c17be3885736462cc252108890ca2c6137861eafc0634da9f29d098c9b"
+    },
+    {
+      "path": "internal/audio/library.go",
+      "bytes": 2806,
+      "sha256": "65d2896fde8790185249136881745d7b525d9e9e3d36558e14e915e2cfb68b4f"
+    },
+    {
+      "path": "internal/audio/library_test.go",
+      "bytes": 1934,
+      "sha256": "bf13c04f8c14a3b93af11e8e4358c753192593780e6ddbde18c44a22b8c0d444"
+    },
+    {
+      "path": "internal/audio/ym2149.go",
+      "bytes": 7603,
+      "sha256": "dba2648ae7203478803b2eb9692003bd918c2cb38fdf14b1e445c0c24c2c6ad5"
+    },
+    {
+      "path": "internal/audio/ym2149_test.go",
+      "bytes": 4987,
+      "sha256": "fa112f48f84720e964530ac096a2f82429c61eb19808ef2ce353ce6dd6ae33a5"
+    },
+    {
+      "path": "internal/catalog/catalog.go",
+      "bytes": 2150,
+      "sha256": "3da015ff7492ca3f54334ac2025736f226e86aa9caf8e3de68029c10b3424df4"
+    },
+    {
+      "path": "internal/catalog/catalog_test.go",
+      "bytes": 828,
+      "sha256": "8ac087cad11b30f15bcde2c4db8dc1b2edfa7605512b3a27d06e6a7a1f11cc64"
+    },
+    {
+      "path": "internal/game/arena.go",
+      "bytes": 11285,
+      "sha256": "ea56b9965829aae8fc7b908dc8c657f7ef56935e402a05599e22fa9fa7071305"
+    },
+    {
+      "path": "internal/game/arena_realtime.go",
+      "bytes": 24564,
+      "sha256": "a4f3653ac6c7d8533c50d09d140c05144518c15f301298f2c791e603e4482e21"
+    },
+    {
+      "path": "internal/game/arena_realtime_test.go",
+      "bytes": 14516,
+      "sha256": "b7b1475c9b3e33a800a65a70a539e5799fbc2330cb3ec4d8d14c7de2e47adf25"
+    },
+    {
+      "path": "internal/game/attributes.go",
+      "bytes": 3422,
+      "sha256": "df76b2f44937f332b5da8f9b3aa689094df491910b0ef8d719dd4da952591fbb"
+    },
+    {
+      "path": "internal/game/attributes_clock_test.go",
+      "bytes": 388,
+      "sha256": "66f32b752be06b5b252257863e6b6baa74ed8de84533933fe6e3d4985a221f48"
+    },
+    {
+      "path": "internal/game/aux_fuel.go",
+      "bytes": 2139,
+      "sha256": "4a26cfaecf25ab2a696f16b9bffec76e65fbcd19136c9b661dd4ab4c29afc732"
+    },
+    {
+      "path": "internal/game/aux_fuel_test.go",
+      "bytes": 6903,
+      "sha256": "dcfcb5cb1a395a477920f3583794779627ff7ef24b8fbb68efce03210a0c0b97"
+    },
+    {
+      "path": "internal/game/awake_clock.go",
+      "bytes": 5511,
+      "sha256": "6605ea870cdebbe957658c7eb9f402326bbad43ef0ee9cec04e4e257188bd78c"
+    },
+    {
+      "path": "internal/game/awake_clock_integration_native_test.go",
+      "bytes": 5175,
+      "sha256": "894aa1e0565419b448fff32c0054b259c811f63b12ced1fdcd6b61f317f2d7a3"
+    },
+    {
+      "path": "internal/game/awake_clock_native_parity_test.go",
+      "bytes": 5702,
+      "sha256": "ace9f1621af7587733f01926c6e6d67b4ee35be70855ef261eebc170a0512dfa"
+    },
+    {
+      "path": "internal/game/awake_clock_state.go",
+      "bytes": 5316,
+      "sha256": "7261aca5f3a575d1a5b81bcb142197dbde8810b529afbbc0b514f126ee7b4d27"
+    },
+    {
+      "path": "internal/game/awake_clock_state_test.go",
+      "bytes": 3565,
+      "sha256": "38b2307f5c85ad3cea7743542555133b8ff9d76b8fcd6e6c4ac467b60e027937"
+    },
+    {
+      "path": "internal/game/awake_clock_test.go",
+      "bytes": 4254,
+      "sha256": "68aa359cf2a5d2cd03b37dd6522a5f52a1fa6275b4a7ff8bdab349938f419ffe"
+    },
+    {
+      "path": "internal/game/banville_price_parity_test.go",
+      "bytes": 6240,
+      "sha256": "25a45c912c6622052de48bf157b18f22eb2289d7f9c3594497363e21e0195f5b"
+    },
+    {
+      "path": "internal/game/cargo.go",
+      "bytes": 4525,
+      "sha256": "9da68b656106e098b08681a7436c44eac439f146d57c72f3eddc95dcf6d5f915"
+    },
+    {
+      "path": "internal/game/city_subsystems_test.go",
+      "bytes": 17295,
+      "sha256": "59246ced1d776c3e47e35cb8e72c17d9cc37de98385c68b0dd381815b40f4d97"
+    },
+    {
+      "path": "internal/game/colony.go",
+      "bytes": 8226,
+      "sha256": "33003cc10393d4cb3e88268d68f6222c587ef1c9136b94036257e742b315826c"
+    },
+    {
+      "path": "internal/game/colony_market_test.go",
+      "bytes": 2512,
+      "sha256": "34bc7d35236893301f834417848432b6a2302527fd3e81902d2f8ad4f99f2e50"
+    },
+    {
+      "path": "internal/game/colony_test.go",
+      "bytes": 23454,
+      "sha256": "ccf0c3bacd9bc550fd370ac8575e6b69f4526180c05c5df7f8bb87d519e5e5fb"
+    },
+    {
+      "path": "internal/game/combat.go",
+      "bytes": 25714,
+      "sha256": "44c3fbd52dc0fa13eba9569ce660606543c9ec55476e5c194cdf5ef4edd08efa"
+    },
+    {
+      "path": "internal/game/combat_test.go",
+      "bytes": 13471,
+      "sha256": "4cb167ec38194082db63673d68c3d762496fbf43a9a9a3a92ed35a8453155392"
+    },
+    {
+      "path": "internal/game/condition.go",
+      "bytes": 4305,
+      "sha256": "08ce97c78657b3f3c6c0be33dd6533f78b417a3bf3e9690e928716966839875c"
+    },
+    {
+      "path": "internal/game/condition_test.go",
+      "bytes": 7860,
+      "sha256": "b2b5a205fbd04e9379469b1479197d51146a55bd848d1a42fa7ef4872af8e596"
+    },
+    {
+      "path": "internal/game/cryo_source.go",
+      "bytes": 3166,
+      "sha256": "ab19e2f07746d38bd093dbcb1503ac7f43880c02d3a0f9efcb5b58d6021bc1b3"
+    },
+    {
+      "path": "internal/game/cryo_source_native_parity_test.go",
+      "bytes": 3729,
+      "sha256": "34768ab4ed0055c18c05f0ebabbc55d68a110715fc7139f6632da2bb45e692b0"
+    },
+    {
+      "path": "internal/game/cryo_source_test.go",
+      "bytes": 2391,
+      "sha256": "e168389b52e16b45350f4acd6ba094f428beb3ef181eedc04413bc4c959536b1"
+    },
+    {
+      "path": "internal/game/depot_repair_test.go",
+      "bytes": 3438,
+      "sha256": "c757c82de28699e96b1684334306f6ad87e6af0b195b1af0544f593430af46b7"
+    },
+    {
+      "path": "internal/game/dialog.go",
+      "bytes": 11678,
+      "sha256": "c049eaf31311a4d13ca55bbbc8740e00416ac0bb6c569791bc059e0fbad5ab90"
+    },
+    {
+      "path": "internal/game/dialog_frames.go",
+      "bytes": 2261,
+      "sha256": "1d4767ae7c6bea747f75a89b690e225b0c41f5cee5ff0de52569e0bb3d493dcf"
+    },
+    {
+      "path": "internal/game/dialog_frames_test.go",
+      "bytes": 4533,
+      "sha256": "9c06d3983620dc032f2dd049891918ce5aeb8d58491925c2a66d1634e21777a6"
+    },
+    {
+      "path": "internal/game/distress.go",
+      "bytes": 1636,
+      "sha256": "765e5a1af29c59cf74c35c6b72a7e67d35a9e6d1f2f0656b171fef16de998dd7"
+    },
+    {
+      "path": "internal/game/enemy_angles_test.go",
+      "bytes": 3601,
+      "sha256": "1f1afa0ad4b4ea4eb12e808f50038b5f0d4e644cd89260554374dca6e5056c4d"
+    },
+    {
+      "path": "internal/game/exchange.go",
+      "bytes": 25554,
+      "sha256": "1191cdf65ba43464436b3fdd7439d7bf9356708351c3df47f6756f5bcb278e0b"
+    },
+    {
+      "path": "internal/game/fine.go",
+      "bytes": 2471,
+      "sha256": "eebf1d50d8efb4b05f5d2112b1f790be3a9a37a9e3a7f9f0ed77a32dff5cfcae"
+    },
+    {
+      "path": "internal/game/fine_test.go",
+      "bytes": 4638,
+      "sha256": "3c4c791c1035878319a6886fadee412b208112fcd3f6f96eee17717d32a40116"
+    },
+    {
+      "path": "internal/game/flight.go",
+      "bytes": 12415,
+      "sha256": "e98abb539867458e25e972992e7c2131758a07670bc730dbbf7182d063044349"
+    },
+    {
+      "path": "internal/game/flight_back_test.go",
+      "bytes": 1947,
+      "sha256": "df8225af126892d08b1ec5dcfeb2910d9f7911f8b0a254b4f0e8af16bfa42c10"
+    },
+    {
+      "path": "internal/game/flight_test.go",
+      "bytes": 18152,
+      "sha256": "2b140cf207589e102079f49d5828d5a4431de50acd5ec5bdf855a4080ef5ed42"
+    },
+    {
+      "path": "internal/game/food_native_parity_test.go",
+      "bytes": 9481,
+      "sha256": "457c5a5d1bc8b77234d40fb76db1273a9ff365e59c90d979e85ac581d8de7199"
+    },
+    {
+      "path": "internal/game/ftl_boost.go",
+      "bytes": 1463,
+      "sha256": "6635e46453f5c1301f807bf50036e63ea1f8d8315aba1a2467204a45861dd90f"
+    },
+    {
+      "path": "internal/game/ftl_boost_test.go",
+      "bytes": 2662,
+      "sha256": "9337c317d39195846cb6cb8128743debf0a71fb17f5f0266136e8dd054ecff5c"
+    },
+    {
+      "path": "internal/game/fuel_purchase.go",
+      "bytes": 4761,
+      "sha256": "c301086831ecd8cb0e3d54a88f5aa57c3fd84888c3ab48c0611ba9625dd1ac71"
+    },
+    {
+      "path": "internal/game/fuel_rescue_native_parity_test.go",
+      "bytes": 9216,
+      "sha256": "fbd1cef5e677bc00c3a1319c57c240c01d8bed6865514252453304267667ef6c"
+    },
+    {
+      "path": "internal/game/fuel_state.go",
+      "bytes": 1653,
+      "sha256": "c910ecadbcb64e8da590b27a0de614129c69112d5c1a29c331fbf84407cc0acf"
+    },
+    {
+      "path": "internal/game/geography.go",
+      "bytes": 4693,
+      "sha256": "12427d355731657a8c8038f805e6c405fad7ed096c914c327aec2da027e85012"
+    },
+    {
+      "path": "internal/game/ground_route.go",
+      "bytes": 10377,
+      "sha256": "c546879d9e58cba632573a80e48cbc9d2036df4247b416945e4691001c8e0c86"
+    },
+    {
+      "path": "internal/game/ground_route_test.go",
+      "bytes": 5155,
+      "sha256": "25cdb99fe97409ffcc0d6ab95ef6d88e4884cef30d4ebb3288d4ace014bcd5fc"
+    },
+    {
+      "path": "internal/game/hand_test.go",
+      "bytes": 2887,
+      "sha256": "79854c6d307e6f3f44772212b9f936263dac734d9cc6c70f1541a285355c2974"
+    },
+    {
+      "path": "internal/game/heat.go",
+      "bytes": 2752,
+      "sha256": "b286d230d5ca89742451ee3c475d9455a2cf57358edb694653b02ab276bf2746"
+    },
+    {
+      "path": "internal/game/heat_test.go",
+      "bytes": 5159,
+      "sha256": "0c8300d3e9b5e3e01921c0e03f6b2bb3f507c1f52c3a589739024bdb98e33d69"
+    },
+    {
+      "path": "internal/game/hold.go",
+      "bytes": 7095,
+      "sha256": "b8fa90ec7d48f459e7ad499e8e854a0104129021a4068ab6141052c4e4346a35"
+    },
+    {
+      "path": "internal/game/hold_test.go",
+      "bytes": 4081,
+      "sha256": "338a2d76c05ca63ab5477159ce8d87a6686799de41e6d48b0353121b91e9c480"
+    },
+    {
+      "path": "internal/game/interior.go",
+      "bytes": 9811,
+      "sha256": "dd2d80c1f6b431eb0a96d7f27142e347d9ed1f7ad102d172c111b35a5a5ccf7a"
+    },
+    {
+      "path": "internal/game/items.go",
+      "bytes": 3690,
+      "sha256": "6249dcca64b98e4026ba53c28b072d9b2e72a53113ac853403f8257e95884d3b"
+    },
+    {
+      "path": "internal/game/landing.go",
+      "bytes": 5836,
+      "sha256": "c2f05c448a8a819430015e317ce38f9e9a401a88a526d71b0f1f99428fbc73ad"
+    },
+    {
+      "path": "internal/game/landing_test.go",
+      "bytes": 1090,
+      "sha256": "f851a49360e3208163c212aada7958c50b0eec13ea2c8d305e0e1478ee1caff9"
+    },
+    {
+      "path": "internal/game/locker.go",
+      "bytes": 10764,
+      "sha256": "9f8feff3c5ab2222d120befde102ed77d98b08dc0eaec7299920ce39c95c6306"
+    },
+    {
+      "path": "internal/game/locker_test.go",
+      "bytes": 8694,
+      "sha256": "4d187a3ee22e6b514c7b1148c6123403f41f46cddeaaf5cf4a5a0540bce4125a"
+    },
+    {
+      "path": "internal/game/main_test.go",
+      "bytes": 367,
+      "sha256": "2e75112d7b11fe9eb239a60d4f4cc50fbbecc2068e8a2b9ba36f095a8e95a6c9"
+    },
+    {
+      "path": "internal/game/new_game_fuel_test.go",
+      "bytes": 5546,
+      "sha256": "4568b2d576e1cc6f0a891a00eb87d64458e65295e47d2f790fd5e158d8915983"
+    },
+    {
+      "path": "internal/game/orbit.go",
+      "bytes": 3785,
+      "sha256": "05eb2b729ed50d337a0e78b741ae36b83e28c5272efb18b11e3137d07dcb201d"
+    },
+    {
+      "path": "internal/game/orbit_test.go",
+      "bytes": 5261,
+      "sha256": "696ec1a32922765ec8f037ffd9889c72f8e6252dcf047d5b7bb3c986f777129a"
+    },
+    {
+      "path": "internal/game/price_scale_test.go",
+      "bytes": 5318,
+      "sha256": "6805a61f04b085adf98bf46bc0cc7bdfa4f02c8927786c57d39580da7bca1f2e"
+    },
+    {
+      "path": "internal/game/reducer.go",
+      "bytes": 79589,
+      "sha256": "6b97478137a2c6034bd50d845c977a7740592d37ce2287007294d853da6a9d3c"
+    },
+    {
+      "path": "internal/game/reducer_test.go",
+      "bytes": 72343,
+      "sha256": "4c9b35a59f02948b89e6d02ae0c0132f76ab2a088b1705da5f99e2f7dbc02ea3"
+    },
+    {
+      "path": "internal/game/repair_slots.go",
+      "bytes": 3210,
+      "sha256": "46b4f775efd8f4bdad965283268c5a2021f557839fe6a7d6d191205fd53fbcfc"
+    },
+    {
+      "path": "internal/game/salvage.go",
+      "bytes": 5083,
+      "sha256": "aea682e5928ccb8849f5b7b1603950a9c40c2039203adadcbe59f0c823023df2"
+    },
+    {
+      "path": "internal/game/salvage_test.go",
+      "bytes": 6389,
+      "sha256": "7942bf241cad6d33fe15f1cb3e22e3d0e30d5fde16e6cf7de32f218a4d7913c7"
+    },
+    {
+      "path": "internal/game/scanner_install_route_test.go",
+      "bytes": 2269,
+      "sha256": "0142623e8a88f8e9c2d722803b172967c80ff5c9384e13f4104514ff592b7001"
+    },
+    {
+      "path": "internal/game/score.go",
+      "bytes": 2890,
+      "sha256": "5efa5a4654dc3e932ce744a89215ac1448d57ae7640906d0327d4c10f91d2cf3"
+    },
+    {
+      "path": "internal/game/sector.go",
+      "bytes": 7097,
+      "sha256": "690cee740b0e0f66115852f67cadea8f7d8320db974e90cf6e905c489640969c"
+    },
+    {
+      "path": "internal/game/sector_test.go",
+      "bytes": 4058,
+      "sha256": "4d3f2d158158aa90e82275f23a534dfe0a1177f57c02fe9328a55c06f600f0da"
+    },
+    {
+      "path": "internal/game/ship_damage_test.go",
+      "bytes": 4929,
+      "sha256": "436e18f48b5dff870dd2897a7429cc7fdd6dc1088d7db52e95bc2219dcfd1bcc"
+    },
+    {
+      "path": "internal/game/ship_energy.go",
+      "bytes": 4760,
+      "sha256": "c6d15eb1b3c1239be9668f0ec0ccbd37c207c87970af17af253a01cae141199a"
+    },
+    {
+      "path": "internal/game/ship_parking_test.go",
+      "bytes": 5030,
+      "sha256": "decd520efcb820062e21e94938cd08c46f7195c437add1c854c9c23593ffc63a"
+    },
+    {
+      "path": "internal/game/ship_system.go",
+      "bytes": 15775,
+      "sha256": "88effc7577bd76be0966ed360d52722aab469d67e0df41934325e23cdae6de64"
+    },
+    {
+      "path": "internal/game/sleep.go",
+      "bytes": 4869,
+      "sha256": "28436361e77715309816bbb2617b8552acdfc377bf42714e859117c3a56590a6"
+    },
+    {
+      "path": "internal/game/sleep_native_parity_test.go",
+      "bytes": 9624,
+      "sha256": "b3dc850f815a7d8084a725eb90e46fd109cbfa71f4e0ac77ed27956483e84448"
+    },
+    {
+      "path": "internal/game/sleep_test.go",
+      "bytes": 7423,
+      "sha256": "02a579e155ac74ec4ea4e6a82279086d71f4e6c0901d57db83fcc91bff0493b1"
+    },
+    {
+      "path": "internal/game/slew.go",
+      "bytes": 3573,
+      "sha256": "4ef374c470c9c0ff29be75c6777ef6abb330df200af806e579427ff0cba1259b"
+    },
+    {
+      "path": "internal/game/slots.go",
+      "bytes": 6606,
+      "sha256": "03217e5875eb80fe4b19c538d228f075bf02209f20a837c499576edfd8f2de17"
+    },
+    {
+      "path": "internal/game/state.go",
+      "bytes": 40569,
+      "sha256": "604fbcbc22c142c40b644126698225cf8751be240f424f756b7887088f081651"
+    },
+    {
+      "path": "internal/game/street.go",
+      "bytes": 12726,
+      "sha256": "cfc2a228cc64650e02344ca9f2ec875e49038bdd08a17ea181a90733bac6f907"
+    },
+    {
+      "path": "internal/game/street_test.go",
+      "bytes": 11804,
+      "sha256": "d56c7e224cb7d7c434a9d7f582e3be03d04a0ddc00636fb6d9fad7255585dd1a"
+    },
+    {
+      "path": "internal/game/talos_combat_cadence_fixture_test.go",
+      "bytes": 13979,
+      "sha256": "ffb870e69d9aaeabaf7534933db2a433e1c88557eea2d43a1280f473dcde3bf0"
+    },
+    {
+      "path": "internal/game/talos_combat_fixture_test.go",
+      "bytes": 11985,
+      "sha256": "c5b0c64301aa239002e837e1c542c8abdcd8bad552d0f45530d92988662c6f34"
+    },
+    {
+      "path": "internal/game/talos_flight_setup_fixture_test.go",
+      "bytes": 17517,
+      "sha256": "4e6901254a29402568f0e6ceeb57a6591cb3b268870da8ed6240b56db19a2dd7"
+    },
+    {
+      "path": "internal/game/talos_fuel_depot_fixture_test.go",
+      "bytes": 5428,
+      "sha256": "4b30719aaea70bdabbd01e91a6b62fdb439986fe353b0733ff082988ffdd6e2f"
+    },
+    {
+      "path": "internal/game/talos_fuel_energy_fixture_test.go",
+      "bytes": 18220,
+      "sha256": "3c4c0360d515f509fe14ea2f21455a60c59945a967fbede55711dfa5a6629573"
+    },
+    {
+      "path": "internal/game/teller.go",
+      "bytes": 5099,
+      "sha256": "adf301addc6ca29be1d66264110f4fbb5e4d6b42c64b07a8001b03fa828753f4"
+    },
+    {
+      "path": "internal/game/teller_pick_test.go",
+      "bytes": 2491,
+      "sha256": "b4b0525682802cc426f7c20a9fc36cfc11e69c3e6c5efce8a01ee298ef449835"
+    },
+    {
+      "path": "internal/game/trade_classes_test.go",
+      "bytes": 2534,
+      "sha256": "a76e5de8139048d1133d89d0f8b863b61098dd702caafb4fe7f1b3f0a22843ba"
+    },
+    {
+      "path": "internal/game/trade_native_parity_test.go",
+      "bytes": 24045,
+      "sha256": "9e83110564b3328fae775de34380a8930bf5913aa5ed865c1130dea96019849b"
+    },
+    {
+      "path": "internal/game/trade_session.go",
+      "bytes": 4264,
+      "sha256": "f071f5948788f160a8c37924c107ac7375ed574906dc1faefcb9d8f61d078147"
+    },
+    {
+      "path": "internal/game/tube.go",
+      "bytes": 7360,
+      "sha256": "23818f8b288e298620ead89c78724ffa73c03838077d208e365d43a22bbf18d2"
+    },
+    {
+      "path": "internal/game/tube_test.go",
+      "bytes": 14961,
+      "sha256": "9d1435a6862ac661b7ce5df67b457ccd902a67c7174bddd5331f974f691157c1"
+    },
+    {
+      "path": "internal/game/warehouse_native_parity_test.go",
+      "bytes": 2804,
+      "sha256": "b589b03ce67df80d169510674a10b7c5b821b6001416b47d5efcd13016cc8b27"
+    },
+    {
+      "path": "internal/input/semantic.go",
+      "bytes": 747,
+      "sha256": "6cae4ecd3f1c9e4302264080711c666d8c9766c76cc5d087f22251cd4992e490"
+    },
+    {
+      "path": "internal/input/semantic_test.go",
+      "bytes": 888,
+      "sha256": "6df128453aab612380a8a73ce3af3598fae614df57ee470ee6d59f6ec199501c"
+    },
+    {
+      "path": "internal/localization/display.go",
+      "bytes": 1286,
+      "sha256": "01d9199ceae29092a9d56c6f8ee0bec27587fe8b108e41edf158ef2848f61a96"
+    },
+    {
+      "path": "internal/localization/display_test.go",
+      "bytes": 919,
+      "sha256": "ecd8ff55b21076edf9a27909a3a2f1489c8dec9464baf0a4d01f40036ce6805a"
+    },
+    {
+      "path": "internal/localization/layout.go",
+      "bytes": 3358,
+      "sha256": "5cd0ad31caf45b817264c83a0a123465451eed74fd0dc5c6050e4750f1edaeb6"
+    },
+    {
+      "path": "internal/localization/layout_test.go",
+      "bytes": 2361,
+      "sha256": "220051a941853b7cfb3417769feb688ce5a4f43595f8227bea95929fdfb1aab4"
+    },
+    {
+      "path": "internal/localization/locale.go",
+      "bytes": 1080,
+      "sha256": "e0e961b8ff0278a5bcc81adc122d29f2ccbc33f56e71b035cc384c2140530c69"
+    },
+    {
+      "path": "internal/localization/locale_test.go",
+      "bytes": 682,
+      "sha256": "0159534aa56e7e06cce722f15dcb850e80c40599b31648891c4a503173e567d0"
+    },
+    {
+      "path": "internal/prefs/prefs.go",
+      "bytes": 4739,
+      "sha256": "1dba397a38657a83a6c8cb7c15024efc087af710ac715787b29980226575b197"
+    },
+    {
+      "path": "internal/prefs/prefs_test.go",
+      "bytes": 1118,
+      "sha256": "904b8a3373a7992c3302e427e34928e45251966b6707d0ca0200882e7723a145"
+    },
+    {
+      "path": "internal/render/render.go",
+      "bytes": 8172,
+      "sha256": "c0e18db3d311c13aa0d5b3b259a89c40e79e32e01d49f2713a8acf137a864fad"
+    },
+    {
+      "path": "internal/render/render_test.go",
+      "bytes": 3409,
+      "sha256": "ecf2f555500d3514a07c2669710a6fa9dde782991c3e20b180cf1e7adfea7758"
+    },
+    {
+      "path": "internal/render/space_scene.go",
+      "bytes": 7851,
+      "sha256": "170e93c0459e37dad0db81f06a937daae1e0626752aa75b5a4087350bcbdcb90"
+    },
+    {
+      "path": "internal/render/space_starfield_test.go",
+      "bytes": 1280,
+      "sha256": "89f4f087f05a14343093b9bf0ec40df69e3c73619ac54cae93e27024017160cf"
+    },
+    {
+      "path": "internal/source/apple2/directory.go",
+      "bytes": 7746,
+      "sha256": "d727effe56ef14e7d49c1e3266f2576a9aa8dcf480f4874bf8e34d37ae7f925c"
+    },
+    {
+      "path": "internal/source/apple2/directory_test.go",
+      "bytes": 2661,
+      "sha256": "6e6355198e88f3eea8f68fb85b4b969436a7dfc1f8817623f42c96a824a45dae"
+    },
+    {
+      "path": "internal/source/apple2/system_data.go",
+      "bytes": 3324,
+      "sha256": "3a50497bb90d315562dd04746e850124a9c3c4622346bcad42615a22f0b5f515"
+    },
+    {
+      "path": "internal/source/apple2/system_data_test.go",
+      "bytes": 1106,
+      "sha256": "28b9da5ed514180e9f42fe59e82f7e43b11506ab2580bdf7073dbe86dfedca33"
+    },
+    {
+      "path": "internal/source/apple2/text_catalog.go",
+      "bytes": 3686,
+      "sha256": "849babd6b948aefe9705ea7647da12129ee8de020426505251f1de1fbfbfe230"
+    },
+    {
+      "path": "internal/source/apple2/text_catalog_test.go",
+      "bytes": 1958,
+      "sha256": "59e2b570ca7b88158edf30bbfe381a4e77c8bea4ef6e53ad363e0ed499310b35"
+    },
+    {
+      "path": "internal/source/atarist/assets/city-maps.json",
+      "bytes": 257397,
+      "sha256": "d6460566b33cf474ee8dacf2c9b9f2546fb5541a6702678dab24e1e95b460c1a"
+    },
+    {
+      "path": "internal/source/atarist/assets/colony-phases.json",
+      "bytes": 5960,
+      "sha256": "d5e57cec43c594ad83fd033b7b7ee698ee672ba4f9596a9d975404ba057f7549"
+    },
+    {
+      "path": "internal/source/atarist/assets/dialog-text.json",
+      "bytes": 215376,
+      "sha256": "5691d5500929725332bba84074686b692ec9b9867771ad32fbfa64651778e9eb"
+    },
+    {
+      "path": "internal/source/atarist/assets/dialog-zh-Hant.json",
+      "bytes": 69686,
+      "sha256": "381ba78c5749687996f00ce45fd94369950626541ace794bc2ec5d126423f711"
+    },
+    {
+      "path": "internal/source/atarist/assets/enemy-ships.json",
+      "bytes": 25994,
+      "sha256": "18e092a930475d1ccb089f1e165e643eed48eb4fe731d381197f426f2d606e89"
+    },
+    {
+      "path": "internal/source/atarist/assets/item-data.json",
+      "bytes": 22452,
+      "sha256": "d648a998d27e96fe949df539509cf2cc8a067b54cd6fee7a6f40e0fc1490d1df"
+    },
+    {
+      "path": "internal/source/atarist/assets/new-game-loadout.json",
+      "bytes": 3564,
+      "sha256": "ec4662476fc546ed04ca90173e8f83b338a536d4af58cd2eda826362bcb2439e"
+    },
+    {
+      "path": "internal/source/atarist/assets/planet-maps.json",
+      "bytes": 42286,
+      "sha256": "77cdff373be05635fdaa57352ae84c39f426c36b5bcfa1f9530923bdb6f62b96"
+    },
+    {
+      "path": "internal/source/atarist/assets/ship-rules.json",
+      "bytes": 82519,
+      "sha256": "498b5bcd01ec38fa65d903b6c65ba001f9653d5169aead0dd530837579d6fefe"
+    },
+    {
+      "path": "internal/source/atarist/assets/ship-systems.json",
+      "bytes": 7618,
+      "sha256": "a20d997470c901d16f2bd04024b86b4699e1df82a8a78dd4d086dd8a3052f804"
+    },
+    {
+      "path": "internal/source/atarist/assets/sine-table.json",
+      "bytes": 4763,
+      "sha256": "219f822eaf5dd84165cc7a4d5723c9c1d6355b15a98886267b4bcab13617d844"
+    },
+    {
+      "path": "internal/source/atarist/assets/trade-classes.json",
+      "bytes": 24076,
+      "sha256": "4018e8bb9ccaecb6255bbb2027fc7092a874a44a613e123ba244882bdf926683"
+    },
+    {
+      "path": "internal/source/atarist/assets/world-data.json",
+      "bytes": 120540,
+      "sha256": "b05cf62f518a256919bf019a7479898ada8005cd8a6c7a9c31aa9c5ecfc1ab69"
+    },
+    {
+      "path": "internal/source/atarist/city_maps.go",
+      "bytes": 7596,
+      "sha256": "27805c2f26886bf9974a188d0559d8bfa2d3debcddc72642a09a74995931186a"
+    },
+    {
+      "path": "internal/source/atarist/city_maps_test.go",
+      "bytes": 4780,
+      "sha256": "364c1d27f4c9c71999b3ff580dd838304ce540503a9b44d96d73e99c067050d5"
+    },
+    {
+      "path": "internal/source/atarist/colony_phases.go",
+      "bytes": 2562,
+      "sha256": "9688b8bbcd51709617a2effcc7a4402b3e5ab3c3c442e720945ffd06cadf5775"
+    },
+    {
+      "path": "internal/source/atarist/colony_phases_test.go",
+      "bytes": 1222,
+      "sha256": "f8a6ebcdcc05cdc746aa80a0a2a56b1b150fbed81db19e79fc510d4f22a1fd1e"
+    },
+    {
+      "path": "internal/source/atarist/dialog.go",
+      "bytes": 14990,
+      "sha256": "d7fb49bd54765c1098063c31b26bbfe5b947272e04d6ad2552588e28b219de60"
+    },
+    {
+      "path": "internal/source/atarist/dialog_test.go",
+      "bytes": 7777,
+      "sha256": "936ac0cec61b36b0b4020b71877758be31fbc56a2371864f30774303f2891f26"
+    },
+    {
+      "path": "internal/source/atarist/dialog_translation.go",
+      "bytes": 8411,
+      "sha256": "ff69802a501e36c21b9ff4dad05f6c5366eebfff8b9faf54b3c144f0d6dbf948"
+    },
+    {
+      "path": "internal/source/atarist/embedded.go",
+      "bytes": 7293,
+      "sha256": "0fb52e71f1a4d4b0c12039c7d1a39f79e1b23c41f22501c1079017311247c408"
+    },
+    {
+      "path": "internal/source/atarist/enemy_ships.go",
+      "bytes": 4815,
+      "sha256": "24bfbc65d15efbe51f7b928e7f5f18157e0fb59ab42cf760aa3bd5c03c91cff8"
+    },
+    {
+      "path": "internal/source/atarist/enemy_ships_test.go",
+      "bytes": 2914,
+      "sha256": "392e3825f27acf5c4f32738487ccd7d3d35c2d496c47050087277056a593f656"
+    },
+    {
+      "path": "internal/source/atarist/items.go",
+      "bytes": 6301,
+      "sha256": "56586152c5e866cee1af1cd5be1d07bc05fb3890b2d37d87aeaae13794f6e823"
+    },
+    {
+      "path": "internal/source/atarist/items_test.go",
+      "bytes": 3125,
+      "sha256": "d6933d14599ec8fe2872fb9aa0cf30d561132dcc5078c95fe02cfbe726641a2e"
+    },
+    {
+      "path": "internal/source/atarist/loadout.go",
+      "bytes": 6774,
+      "sha256": "c20c72aca74bc1704cf5533ad9760f54868ff14f8a6d546dd5c8f4a998b07854"
+    },
+    {
+      "path": "internal/source/atarist/loadout_test.go",
+      "bytes": 2137,
+      "sha256": "6a7f7d305e7be9012b5428079c6d2743e4b6e00de6a65042e530d0e9fd158520"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/collide.go",
+      "bytes": 4472,
+      "sha256": "2e51a45c31a99505644ac9bcb7165c2ff21760c542ea0bbed66d944bb6b4ba8e"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/collide_test.go",
+      "bytes": 3122,
+      "sha256": "b227a0d61ff2a0dcddcccbfc8771ba0e064d2958f4b4c7c5056a91d67d5479b3"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/disk.go",
+      "bytes": 7899,
+      "sha256": "e918a7726885a912796b3ce51ee8e776c96a44e197a0dd696275c61552f5f78b"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/disk_test.go",
+      "bytes": 3913,
+      "sha256": "48e6af47017093072e40d1f7b93d2339248910c571639e54cb6414e2675f3c8d"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/font.go",
+      "bytes": 2926,
+      "sha256": "0f92649f108fc4bcfc514d25383464520d72c3498ca45c03e769e282b56c68c1"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/font_test.go",
+      "bytes": 1372,
+      "sha256": "9b04a302503f678a517b63f2a36128cad81425025f2c0645dc9ad4ce1fbf9dbe"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/ground_sprites.go",
+      "bytes": 1568,
+      "sha256": "a1230633023bef72e447da7525db9cadf1c6d408ded52fe40e9a8597b51764a1"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/ground_sprites_test.go",
+      "bytes": 1222,
+      "sha256": "5dc04d4698a51b72e0d6de97750cb245334eff0d60d06c047d0fb4b7c2df2cc8"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/icons.go",
+      "bytes": 3538,
+      "sha256": "7fa62ffad2d8f3bb8c4d3898eb48af7d94f012b67a92c6d95815d6259f2ea6fd"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/icons_test.go",
+      "bytes": 2557,
+      "sha256": "7d36bfc516f3fa00449fc70101609187ff75706bf298d0ef17893e2ef4b05e01"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/interiors.go",
+      "bytes": 3682,
+      "sha256": "d623dd3b7c12adf5dc619aac7bb4e4fc5d88dc3ae3ef1c1026ce67bc9b71ebcd"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/interiors_test.go",
+      "bytes": 2125,
+      "sha256": "2677f8c1dadcf965e0263c7bebad8a73c8da7c6352f59c96a6b2eaa188f75cdb"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/planet_tiles_test.go",
+      "bytes": 771,
+      "sha256": "6e390a3a1855b7c6ee610ef6dc374a07ff89dc85c15e349d2769e38a67294b54"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/sound.go",
+      "bytes": 7326,
+      "sha256": "102a253c12019e443ebe3e2393b27b5a6520c7baba2958371332516e5d83c074"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/sound_test.go",
+      "bytes": 4067,
+      "sha256": "54e95bb0c1c06fd0b6fa9e58aefd5d47eb256e0f0504c3e3b0f069a9dd2d5d95"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/tiles.go",
+      "bytes": 8652,
+      "sha256": "0ecaf7264950026981950f0918a07e8234185c1e428204f658afe082fd5c9ba9"
+    },
+    {
+      "path": "internal/source/atarist/originalmedia/tiles_test.go",
+      "bytes": 2570,
+      "sha256": "abb3017957985a6eebd25e8ba735d2eebba66f4db027776efc7ae23774d5e5fe"
+    },
+    {
+      "path": "internal/source/atarist/planet_maps.go",
+      "bytes": 2247,
+      "sha256": "6172cc8567fb5829f54e9e0248eb52b3f8ae86d5aa3a34a135e53871841379db"
+    },
+    {
+      "path": "internal/source/atarist/planet_maps_test.go",
+      "bytes": 1551,
+      "sha256": "989a7747985ed1d76cf26613a991c13e957946800a00b63d2acf7c87223169ba"
+    },
+    {
+      "path": "internal/source/atarist/rules.go",
+      "bytes": 4527,
+      "sha256": "a21b31496155a386b551cfa30661fa96d4fe6bad40a8e63eb4686eec0ef65712"
+    },
+    {
+      "path": "internal/source/atarist/rules_test.go",
+      "bytes": 2293,
+      "sha256": "3582da42f4dcb9772d618c880041eabd88c1277582da636cb6be8bda712044d4"
+    },
+    {
+      "path": "internal/source/atarist/ship_systems.go",
+      "bytes": 8227,
+      "sha256": "0971e1db32797e7cad1c4b0121095ee3085e0d7c748266e852bb8d96a315a331"
+    },
+    {
+      "path": "internal/source/atarist/ship_systems_test.go",
+      "bytes": 4640,
+      "sha256": "095d2a55e840da6cc304e4e4f64cef8c0962f9291172878b317166352c30b1b4"
+    },
+    {
+      "path": "internal/source/atarist/sine_table.go",
+      "bytes": 3382,
+      "sha256": "41f3b3d116f261bf906c8a59466ad7cc479598b4ca06b6a94aedffb71159fb70"
+    },
+    {
+      "path": "internal/source/atarist/sine_table_test.go",
+      "bytes": 2430,
+      "sha256": "141d55e31f061b7822767edb2ea39768025b10d158a316429e4a7c023870de71"
+    },
+    {
+      "path": "internal/source/atarist/trade_classes.go",
+      "bytes": 5322,
+      "sha256": "bfc570a4eda254d106474443aad279e2a4e1fcc5e6eb7a55df5e95e913aa492a"
+    },
+    {
+      "path": "internal/source/atarist/world.go",
+      "bytes": 21283,
+      "sha256": "2e6816eb1a387a1531e4e94149e85826edc94b75af79e76be9170a32c134ff18"
+    },
+    {
+      "path": "internal/source/atarist/world_test.go",
+      "bytes": 5884,
+      "sha256": "0cfe8a066a5fd70147805a934f494de2e611f33e5deb8b284f607836680d606a"
+    },
+    {
+      "path": "internal/storage/attributes_test.go",
+      "bytes": 2521,
+      "sha256": "89fa75307d21791ad8ec0a8866a15cf8f490a132e7223bc942c7a2166e605666"
+    },
+    {
+      "path": "internal/storage/awake_clock_test.go",
+      "bytes": 4390,
+      "sha256": "ba9755998a975a1106650d106c5813fc1b1fd60c70a63c43d85147f5c4593559"
+    },
+    {
+      "path": "internal/storage/combat_reentry_test.go",
+      "bytes": 5251,
+      "sha256": "6faf53ac8d404095f68afa38215709d807104df1b9adda60e4d428c5efa17f78"
+    },
+    {
+      "path": "internal/storage/current_state.go",
+      "bytes": 6989,
+      "sha256": "b810e473b1c5962c4c91ccbffbdd07b6ced4338d42be94e52b9ba1bc6a392703"
+    },
+    {
+      "path": "internal/storage/fuel_state_test.go",
+      "bytes": 6970,
+      "sha256": "2019de45d34e00cd1d2eedf8d085a1a2db078bac87b0df0748f136b0bf243f22"
+    },
+    {
+      "path": "internal/storage/ground_route_test.go",
+      "bytes": 5898,
+      "sha256": "6b7cf11c38ed50bdca105484f4e21239ff17c7306a8345a406aed78002c09f12"
+    },
+    {
+      "path": "internal/storage/items_test.go",
+      "bytes": 3178,
+      "sha256": "101b51973e5434ca435fdd6313fc0b25548915b8d7102f6deddb6bd93e52b845"
+    },
+    {
+      "path": "internal/storage/library.go",
+      "bytes": 6982,
+      "sha256": "63bf5cf523a6fc2c09279f8b034d0f54a90fc8075a64392b884daa675b45fd95"
+    },
+    {
+      "path": "internal/storage/library_test.go",
+      "bytes": 2105,
+      "sha256": "faaeefaa1e9b40107b93ca8ba9a2a4e768152761b28e125e49c8b7f1cac3430d"
+    },
+    {
+      "path": "internal/storage/save.go",
+      "bytes": 4527,
+      "sha256": "17eed336a3eefeeb8c4709ba7d1edd4a76ca1f6ddecffc5970a799934fea0321"
+    },
+    {
+      "path": "internal/storage/save_test.go",
+      "bytes": 25049,
+      "sha256": "182d990c90abfa8d028fc7ac13b778dea71bb4e07380b08132247139e891442c"
+    },
+    {
+      "path": "internal/storage/sleep_test.go",
+      "bytes": 5460,
+      "sha256": "104a7c152b0b54bbfa13cae978b2e34d733a2cfc8867925dd6d3c8898e875332"
+    },
+    {
+      "path": "internal/theme/assets/modern-apple/README.md",
+      "bytes": 1230,
+      "sha256": "bc598410246b34a504d3226db41c4aa90ff7c1ad3d2d5bf7c1ddd2d3f3e58d39"
+    },
+    {
+      "path": "internal/theme/assets/modern-apple/modern-apple-atlas-contact.png",
+      "bytes": 187426,
+      "sha256": "ac6d678c552779c7d5f4748e43ed9ca3552063a5eefa982dd2da219701ac7b1c"
+    },
+    {
+      "path": "internal/theme/assets/modern-apple/modern-apple-atlas-manifest.json",
+      "bytes": 7214,
+      "sha256": "d74918944ee8a9fe30e1541e73ceddffcc4e0259fe9f0fb8b2ea08c9bc10b8aa"
+    },
+    {
+      "path": "internal/theme/assets/modern-apple/modern-apple-atlas.png",
+      "bytes": 190780,
+      "sha256": "5d499851f6a2753474acabc27e112350afc558315d1d02ee511d4bc473949553"
+    },
+    {
+      "path": "internal/theme/atlas.go",
+      "bytes": 9732,
+      "sha256": "cebf1cf8fa7799487a65048b3f3144134fa62d09ce0da1e6d4c3f53677293ae4"
+    },
+    {
+      "path": "internal/theme/atlas_test.go",
+      "bytes": 4504,
+      "sha256": "dd0c9ba54e6b46c9b22595b0f5cc8d6624f45a850ff2bca564de8408b4ad8860"
+    },
+    {
+      "path": "internal/theme/modern.go",
+      "bytes": 3960,
+      "sha256": "b1efb2322d60661cfff10c971208a45541013dd7d0580421e73080ba78bffc65"
+    },
+    {
+      "path": "internal/theme/pattern.go",
+      "bytes": 3645,
+      "sha256": "fe246caf2ac49408b41cbb56ad74d4dd94ed26275c9b6305c9c7b5c93c08438e"
+    },
+    {
+      "path": "internal/theme/presentation.go",
+      "bytes": 4519,
+      "sha256": "baf0630b50f987a87aeb5be579332b03753178919bc42cf7f212433348cdf687"
+    },
+    {
+      "path": "internal/theme/presentation_test.go",
+      "bytes": 3474,
+      "sha256": "1bb58cc386b29992701f6c61910abe745165b976d8c9cedbf6df48459eb5df34"
+    },
+    {
+      "path": "internal/theme/raster.go",
+      "bytes": 7487,
+      "sha256": "e7adaf76398d02362a9ad4020d889fae624e8a28b959537048290311cdb65575"
+    },
+    {
+      "path": "internal/theme/theme.go",
+      "bytes": 17434,
+      "sha256": "61431030b3fade51d33fd05fa0328a6df52ba6b62fa703930b478d340b1825ea"
+    },
+    {
+      "path": "internal/theme/theme_test.go",
+      "bytes": 7565,
+      "sha256": "1b151291608e08cefbbeb6961d629d5fd9ce1f72b2a5b073fdb61ec9757a97a6"
+    },
+    {
+      "path": "internal/world/facilities.go",
+      "bytes": 8134,
+      "sha256": "8c79d9804f012cde1d03fb3c8a5dff7f2721a2373a66638aa3f8ac32cfe26ed5"
+    },
+    {
+      "path": "internal/world/map.go",
+      "bytes": 10783,
+      "sha256": "04f1adff753bf02722982f47a638241e1e4d9596f44904f8de47d00650973aa6"
+    },
+    {
+      "path": "internal/world/map_test.go",
+      "bytes": 5387,
+      "sha256": "477f99027155eee6aa544b7a398e2a36eb33b35abe8316b142e9ad48ad38717e"
+    },
+    {
+      "path": "internal/world/navigation_map_test.go",
+      "bytes": 3143,
+      "sha256": "38937497fcf778a807f3c98b2e32edd2dd86890201a6036c3cd763c8e093ec44"
+    },
+    {
+      "path": "internal/world/teller_tiles_test.go",
+      "bytes": 1011,
+      "sha256": "f8856d20b53337157b47414ca638570a67fb267958787c8b778aeb0b78b3fd7f"
+    },
+    {
+      "path": "internal/world/trade_classes.go",
+      "bytes": 2261,
+      "sha256": "3d91494c23c2c966b8abfa1e79c9a1f4e738623927007c4a5a4d7399f69e3d04"
+    },
+    {
+      "path": "internal/world/world.go",
+      "bytes": 19942,
+      "sha256": "aabd95325f5ae8ef441a64eb63f430e6ecd81f5f90fbf6441143cf2295a9a07b"
+    },
+    {
+      "path": "internal/world/world_test.go",
+      "bytes": 8116,
+      "sha256": "f7ca22dc9536860a298fc84a6e1270a2f1004df988e45e445cf0801bd30c1a3c"
+    },
+    {
+      "path": "tools/apple2_boot_probe.py",
+      "bytes": 5913,
+      "sha256": "3014976ba0042febfa1aaf02b6cea210ea976a859c5564f5dff05421fba65d16"
+    },
+    {
+      "path": "tools/apple2_directory_span_probe.py",
+      "bytes": 5335,
+      "sha256": "cefef47893f22de13e72ff48ce829b81358e9bdf1f178df6f9a20be1b88b0c1a"
+    },
+    {
+      "path": "tools/apple2_dsk_inventory.py",
+      "bytes": 8529,
+      "sha256": "f53281505614896a123882a4790c382657b51a8664aa927a0365ea4ced74c9dc"
+    },
+    {
+      "path": "tools/apple2_hgr_page_render.py",
+      "bytes": 2798,
+      "sha256": "1a12eb013988eb003a59f8d808ee7f1baafa02707846359985c16e16ace8a9a5"
+    },
+    {
+      "path": "tools/apple2_hgr_probe.py",
+      "bytes": 5047,
+      "sha256": "ba4c60917f7aaa8c9f8fff3c2de010597f2ad952b6406b69f51b00ab387430ee"
+    },
+    {
+      "path": "tools/apple2_mame_display_page_trace.lua",
+      "bytes": 12922,
+      "sha256": "5162e2cc9aa77b8e5f0b540886f2f83b2180712e8342e56f04b7d782e3f4c607"
+    },
+    {
+      "path": "tools/apple2_mame_engineering_label_trace.lua",
+      "bytes": 6879,
+      "sha256": "fe83b56b400d1a430b0c948d6aa4a16ce6dd2b14d9187aa798a3322f12be59c5"
+    },
+    {
+      "path": "tools/apple2_mame_hgr_code_provenance.lua",
+      "bytes": 8399,
+      "sha256": "25ee71ddfef835a8680334ca1368552035b4386a59f4e05ecc2ba8c839f035a7"
+    },
+    {
+      "path": "tools/apple2_mame_hgr_writer_pc_trace.lua",
+      "bytes": 8145,
+      "sha256": "c8d4fbbc23ee8e799e63505f03904c3ee89a93ad1af94462df399d5c2abfa6b0"
+    },
+    {
+      "path": "tools/apple2_mame_player_oracle.lua",
+      "bytes": 2755,
+      "sha256": "8e289a31f531d13eb32a0942e6386ba57f628429cbc1fe19acc11f4dd6f55fb8"
+    },
+    {
+      "path": "tools/apple2_mame_ship_interaction_probe.lua",
+      "bytes": 3963,
+      "sha256": "dd737490f17af18efd6c568d74c1155ca8e48a5f25cea2eea4477dc8484e30c2"
+    },
+    {
+      "path": "tools/apple2_mame_ship_probe.lua",
+      "bytes": 3928,
+      "sha256": "94c92eb957e88c95bb8084690dbe62e66eea782f7ca63b10b44d3ecd691dd5a5"
+    },
+    {
+      "path": "tools/apple2_mame_ship_walk_probe.lua",
+      "bytes": 2797,
+      "sha256": "e4410251c13468d4820a46f6c529cd2efa9963cbdeca3139cdf90360b35dbd8c"
+    },
+    {
+      "path": "tools/apple2_mame_status_label_trace.lua",
+      "bytes": 7421,
+      "sha256": "52906f8716b5dbb6a1d1566f36ee2f489d8792808feb4a91062701aac8724081"
+    },
+    {
+      "path": "tools/apple2_mame_status_sleep_oracle.lua",
+      "bytes": 2721,
+      "sha256": "6f6ec36c67810d47010230efa8bf2f76c1666bcbf8feed06ad55aa134cba0aca"
+    },
+    {
+      "path": "tools/apple2_pascal_directory_candidate.py",
+      "bytes": 4551,
+      "sha256": "0366e1f37c3ce7322aa78b17529fca9479cf38443240ad51b54c2231521ba783"
+    },
+    {
+      "path": "tools/apple2_pascal_directory_scan.py",
+      "bytes": 3832,
+      "sha256": "1973575a26cd4b88320f773313d423c2d0d48d5da53bf50123790a5b66e084df"
+    },
+    {
+      "path": "tools/apple2_pascal_text_candidates.py",
+      "bytes": 2842,
+      "sha256": "ba893e276d7ebdcc44721e3ba3e24a5a2159d7a31b272cb0f9841c1c103292e3"
+    },
+    {
+      "path": "tools/apple2_pascal_volume_probe.py",
+      "bytes": 10638,
+      "sha256": "32972dbe09be66f0254ea1e886dde48da1da7effc3d8af11b0ec8b409496210c"
+    },
+    {
+      "path": "tools/apple2_runtime_code_provenance.py",
+      "bytes": 9029,
+      "sha256": "3bccfcdb5dbce86a6fb631462339a3510b23d56d1c698ce572ae174b9c9801da"
+    },
+    {
+      "path": "tools/apple2_span_strings.py",
+      "bytes": 3450,
+      "sha256": "80dd9cfb5b55127ec1082ace3c77735abcc3f46ff790fb19b29c9eef46a94e61"
+    },
+    {
+      "path": "tools/apple2_word_boundary_candidates.py",
+      "bytes": 4981,
+      "sha256": "665e0ef3585170dacc0f84794089021c6c31f59dfa5ba139df3b8d01e7bf0e6e"
+    },
+    {
+      "path": "tools/atari_hd_collision_export_test.go.txt",
+      "bytes": 5760,
+      "sha256": "475c93e82d7509e11b925ad00eaa4b3f7607c929e6727d8229957b47d031f2a9"
+    },
+    {
+      "path": "tools/atari_hd_engineering_export_test.go.txt",
+      "bytes": 3967,
+      "sha256": "25169728dd85480519c533a47e64dd2b82fe0330049c4a601adcc8ac53c8b5bb"
+    },
+    {
+      "path": "tools/atari_hd_engineering_review.go.txt",
+      "bytes": 4047,
+      "sha256": "7c176e590ae2eb3b61ac66fa72895d763d0044c7637ee6653fa4028badab66fe"
+    },
+    {
+      "path": "tools/atari_hd_engineering_review_test.go.txt",
+      "bytes": 3516,
+      "sha256": "d1807d0d050bbf5726f032c73922a56c9d80568f9a2c4cb3ad6f491b83d2b3fe"
+    },
+    {
+      "path": "tools/atari_hd_full_bank_fine_r5_player.go.txt",
+      "bytes": 404,
+      "sha256": "c6be1df442bc7641a18da2b4f2f8c1036bd16eed12c70c2acfe138d9f9463aa7"
+    },
+    {
+      "path": "tools/atari_hd_full_bank_fine_r5_player.py",
+      "bytes": 13118,
+      "sha256": "17945e7c87a10453e1d1eac98bea19f1e9c5bbb8b883be33bbe76cddd6225e86"
+    },
+    {
+      "path": "tools/atari_hd_full_bank_player.go.txt",
+      "bytes": 404,
+      "sha256": "c6be1df442bc7641a18da2b4f2f8c1036bd16eed12c70c2acfe138d9f9463aa7"
+    },
+    {
+      "path": "tools/atari_hd_full_bank_player.py",
+      "bytes": 12775,
+      "sha256": "c5e07231e5557bb9afc57fd6b9465b7b4e161ad714b29398fb5b623d2f365ee8"
+    },
+    {
+      "path": "tools/atari_hd_full_cabin_player.go.txt",
+      "bytes": 404,
+      "sha256": "c6be1df442bc7641a18da2b4f2f8c1036bd16eed12c70c2acfe138d9f9463aa7"
+    },
+    {
+      "path": "tools/atari_hd_full_cabin_player.py",
+      "bytes": 14503,
+      "sha256": "b3efd2f03cbf6540c9d6706e1f4c62caa825fd093851076a46d17ee104a54fad"
+    },
+    {
+      "path": "tools/atari_hd_full_defeat_player.go.txt",
+      "bytes": 404,
+      "sha256": "c6be1df442bc7641a18da2b4f2f8c1036bd16eed12c70c2acfe138d9f9463aa7"
+    },
+    {
+      "path": "tools/atari_hd_full_defeat_player.py",
+      "bytes": 10899,
+      "sha256": "a5f6703f302031711ea6c4e9d91990c9299aa7841e73316cb82a2fe3a8afadfe"
+    },
+    {
+      "path": "tools/atari_hd_full_depot_player.go.txt",
+      "bytes": 404,
+      "sha256": "c6be1df442bc7641a18da2b4f2f8c1036bd16eed12c70c2acfe138d9f9463aa7"
+    },
+    {
+      "path": "tools/atari_hd_full_depot_player.py",
+      "bytes": 12775,
+      "sha256": "c5e07231e5557bb9afc57fd6b9465b7b4e161ad714b29398fb5b623d2f365ee8"
+    },
+    {
+      "path": "tools/atari_hd_full_engineering_player_model.json",
+      "bytes": 68588,
+      "sha256": "a1c1dcc5c967354b1bdd3e7c58a457575fee96a1d0f406708f8a40fd266b582a"
+    },
+    {
+      "path": "tools/atari_hd_full_ftl_player.go.txt",
+      "bytes": 404,
+      "sha256": "c6be1df442bc7641a18da2b4f2f8c1036bd16eed12c70c2acfe138d9f9463aa7"
+    },
+    {
+      "path": "tools/atari_hd_full_ftl_player.py",
+      "bytes": 13629,
+      "sha256": "a9b1c4c1c5c8f37a21ce18478b4d744474e478d3283a054c7e3ed1a76a183db4"
+    },
+    {
+      "path": "tools/atari_hd_full_interior_player.py",
+      "bytes": 13294,
+      "sha256": "7ae7281b65bff5781095a4c8968ede2bafd05afcb91a6f85b6b3af4f1da97e82"
+    },
+    {
+      "path": "tools/atari_hd_full_interior_replay.go.txt",
+      "bytes": 404,
+      "sha256": "c6be1df442bc7641a18da2b4f2f8c1036bd16eed12c70c2acfe138d9f9463aa7"
+    },
+    {
+      "path": "tools/atari_hd_full_newgame_ground_player.go.txt",
+      "bytes": 483,
+      "sha256": "e73d76fa2c0315b940ea52f9f5af7e545c89d8c2c9b14e696286b33f5eddfff5"
+    },
+    {
+      "path": "tools/atari_hd_full_newgame_ground_player.py",
+      "bytes": 15202,
+      "sha256": "de4ba04f435645cd95963f4fa84e6d559599974ec5530c10c55cd93c0c07ad5e"
+    },
+    {
+      "path": "tools/atari_hd_full_newgame_prefix_player.py",
+      "bytes": 14860,
+      "sha256": "88cf4c12caf30af345aba1c15c6aad360f64142098c92d13e6c9a7c590cae73f"
+    },
+    {
+      "path": "tools/atari_hd_full_parts_player.go.txt",
+      "bytes": 404,
+      "sha256": "c6be1df442bc7641a18da2b4f2f8c1036bd16eed12c70c2acfe138d9f9463aa7"
+    },
+    {
+      "path": "tools/atari_hd_full_parts_player.py",
+      "bytes": 12775,
+      "sha256": "c5e07231e5557bb9afc57fd6b9465b7b4e161ad714b29398fb5b623d2f365ee8"
+    },
+    {
+      "path": "tools/atari_hd_full_score_player.go.txt",
+      "bytes": 404,
+      "sha256": "c6be1df442bc7641a18da2b4f2f8c1036bd16eed12c70c2acfe138d9f9463aa7"
+    },
+    {
+      "path": "tools/atari_hd_full_score_player.py",
+      "bytes": 9982,
+      "sha256": "4fec9a19393ad57376e9f440fb66ad9f89190fa601db61c3beb10f39ced77d18"
+    },
+    {
+      "path": "tools/atari_hd_full_title_player.py",
+      "bytes": 13539,
+      "sha256": "b0e653f9ee4531cccf5d4ff15620fab7744690c6f3942f256bad473b924ed191"
+    },
+    {
+      "path": "tools/atari_hd_full_trade_player.py",
+      "bytes": 12601,
+      "sha256": "9d98cbcf673496c07f2f1e11b29791f30481c5e790caaf2a60bf2b3c1996369c"
+    },
+    {
+      "path": "tools/atari_hd_full_trade_replay.go.txt",
+      "bytes": 404,
+      "sha256": "c6be1df442bc7641a18da2b4f2f8c1036bd16eed12c70c2acfe138d9f9463aa7"
+    },
+    {
+      "path": "tools/atari_hd_full_tube_facts.go.txt",
+      "bytes": 596,
+      "sha256": "ed0c4cec4a09a0a0603d70190a1821610a4978b7b1a4d43860ce1ae19d9519c5"
+    },
+    {
+      "path": "tools/atari_hd_full_tube_insufficient_player.py",
+      "bytes": 13560,
+      "sha256": "d59e9ff633a8a0da348d839bd80dd88d0b30754025cf7932588ce5d250513621"
+    },
+    {
+      "path": "tools/atari_hd_full_tube_replay.go.txt",
+      "bytes": 404,
+      "sha256": "c6be1df442bc7641a18da2b4f2f8c1036bd16eed12c70c2acfe138d9f9463aa7"
+    },
+    {
+      "path": "tools/atari_hd_full_tube_ride_player.py",
+      "bytes": 13677,
+      "sha256": "f349fc0df58a220eebee3da171b87e483c2eb38a0b6eae754acb28f2e3595653"
+    },
+    {
+      "path": "tools/atari_hd_full_wake_player.go.txt",
+      "bytes": 483,
+      "sha256": "e73d76fa2c0315b940ea52f9f5af7e545c89d8c2c9b14e696286b33f5eddfff5"
+    },
+    {
+      "path": "tools/atari_hd_full_wake_player.py",
+      "bytes": 15383,
+      "sha256": "c0adc8d9d08ca79ac0f633e472d65e1d5e27887c0f79061c689d62b879b9b076"
+    },
+    {
+      "path": "tools/atari_hd_full_world_player.py",
+      "bytes": 12119,
+      "sha256": "961896b18b1ee6bd13e116b5526698418d0b85c4ef247e725ecc33aea398965c"
+    },
+    {
+      "path": "tools/atari_hd_full_world_replay.go.txt",
+      "bytes": 404,
+      "sha256": "c6be1df442bc7641a18da2b4f2f8c1036bd16eed12c70c2acfe138d9f9463aa7"
+    },
+    {
+      "path": "tools/atari_hd_full_world_route_player.go.txt",
+      "bytes": 3531,
+      "sha256": "c2edbb2c75067db2c0b3535e6a80f2c4a8552dd43cd159dbd2d64d2c5b71a5b7"
+    },
+    {
+      "path": "tools/atari_hd_navigation_export_test.go.txt",
+      "bytes": 5626,
+      "sha256": "31fad20f2d9df62eb12e07178638f9b90382f85ab290594b82c2fcf6d95700ca"
+    },
+    {
+      "path": "tools/atari_hd_navigation_game.go.txt",
+      "bytes": 9070,
+      "sha256": "1744a4a8369c42115d1a1d9bd0da025052105afa965edde93d69ca9ae81ab3eb"
+    },
+    {
+      "path": "tools/atari_hd_navigation_game_test.go.txt",
+      "bytes": 2485,
+      "sha256": "1e94fc9fe24b6861297833e16f2911662a4ed11fe39d490be4fd2f1d53b35f8e"
+    },
+    {
+      "path": "tools/atari_hd_navigation_maps.go.txt",
+      "bytes": 10495,
+      "sha256": "e843ed5e0d8f9a8f05aa321a3b93af862d48615971a3a8d6e6288b0c166d5b42"
+    },
+    {
+      "path": "tools/atari_hd_navigation_maps_test.go.txt",
+      "bytes": 7229,
+      "sha256": "77d00092e1973eca32019f98321b3d2c81a0be51d4ebb6b2cf1ebff1eb8e496d"
+    },
+    {
+      "path": "tools/atari_hd_stores_export_test.go.txt",
+      "bytes": 5733,
+      "sha256": "0a9b2d3250caf865ffa5d34cdcdd2329d4b189659a3f1469a1bee034624d8692"
+    },
+    {
+      "path": "tools/atari_hd_stores_review.go.txt",
+      "bytes": 3829,
+      "sha256": "efa47388b57eadfc93171da1a91d00583465fdcbf247e9e1d86b154f63049fa5"
+    },
+    {
+      "path": "tools/atari_hd_stores_review_test.go.txt",
+      "bytes": 3422,
+      "sha256": "0fffe1dd2a0f4da2c644cbf76f742ca13d0b0bf7c1a864bfc68c861e1aefd7a6"
+    },
+    {
+      "path": "tools/atari_hd_world_review.go.txt",
+      "bytes": 7978,
+      "sha256": "d13c7f592251165d1ee55b12e93e89a83fb161453317fd6a84bb168f63c91872"
+    },
+    {
+      "path": "tools/atari_hd_world_review_test.go.txt",
+      "bytes": 4418,
+      "sha256": "9cb4c22ddf8e0427e6a2ff3316776ca14b9a13f705de92ba1f3259db8b2ef1da"
+    },
+    {
+      "path": "tools/atari_st_archive_inventory.py",
+      "bytes": 2453,
+      "sha256": "cf843c3a12f15db6e35a4ab02889f8b69d7cfeabbf1fdce394b345110e33fc5d"
+    },
+    {
+      "path": "tools/atari_st_city_maps.py",
+      "bytes": 11700,
+      "sha256": "9eaeb9cc1ca6225aeeeb53d3683112d138f9089d78dda0a5f34a2cdbe520eeb2"
+    },
+    {
+      "path": "tools/atari_st_city_subsystems.py",
+      "bytes": 38724,
+      "sha256": "19f9251c2c3524fd2700d8c56e71644edf0cda7c6a6eb50a608100108fdf8561"
+    },
+    {
+      "path": "tools/atari_st_colony_phases.py",
+      "bytes": 2316,
+      "sha256": "4f361879e37faf330eb239137abbb5d6e67aaa2554a77c69d066aaf34daf2f1e"
+    },
+    {
+      "path": "tools/atari_st_dialog_frames.py",
+      "bytes": 14722,
+      "sha256": "1b46630eeadf9608751c96d5a24fcb38042a1a633e0006ee5cf8ecfad37fe3fd"
+    },
+    {
+      "path": "tools/atari_st_dialog_render.py",
+      "bytes": 14235,
+      "sha256": "685ecfc4bead30cbf6a2c5ca17f9fc1e6077c74499c0dca1d79ff3b5c5507006"
+    },
+    {
+      "path": "tools/atari_st_dialog_text.py",
+      "bytes": 15365,
+      "sha256": "6c9f3baeaad7f9ee4173daa767002e8bf1a8b6c9379effb09e027bd10a807df5"
+    },
+    {
+      "path": "tools/atari_st_dialog_vm.py",
+      "bytes": 12066,
+      "sha256": "27900de953f9f8316a41276ecc97d9702e6795f5aa3d3b633683e467467c5b34"
+    },
+    {
+      "path": "tools/atari_st_enemy_ships.py",
+      "bytes": 14280,
+      "sha256": "c643bde34f6e813714dafe70607fc5203a8c6c40ea99ae755aad78560ec3b8cc"
+    },
+    {
+      "path": "tools/atari_st_fat_inventory.py",
+      "bytes": 7606,
+      "sha256": "3cea0fe1a06dc3d6578e9841254629c7ffc8ab59953f1b1c7b85bec8d5dae9c0"
+    },
+    {
+      "path": "tools/atari_st_font_strip.py",
+      "bytes": 3055,
+      "sha256": "ef474b6264da6b1ce465b91a4dcfee3db8e46648c29b063065dfec8fd4178a15"
+    },
+    {
+      "path": "tools/atari_st_ground_rules.py",
+      "bytes": 44248,
+      "sha256": "0ae62850e817bcc203a8975d8f51ac7c0fd621c66b32f2f71f6145dc8d6a9902"
+    },
+    {
+      "path": "tools/atari_st_ida_mark_68000.idc",
+      "bytes": 838,
+      "sha256": "0a247fb111730a376bde4ce0c31a26077236fe196fb2aec8bf47bd22d2231148"
+    },
+    {
+      "path": "tools/atari_st_image_directory.py",
+      "bytes": 7630,
+      "sha256": "45ad290d5170ea6933c6dfc5531c2fc53dd490fc2fe52ac63a46d558a257fd7f"
+    },
+    {
+      "path": "tools/atari_st_item_data.py",
+      "bytes": 8370,
+      "sha256": "e4c607862e362a95ad44849047eb9d23d55b98e4cc5e315581fef8d446c766f4"
+    },
+    {
+      "path": "tools/atari_st_item_icons.py",
+      "bytes": 14781,
+      "sha256": "13b2d64803b350102b850d964b4df4b903ad180df723d24c74932afd02bf7ae5"
+    },
+    {
+      "path": "tools/atari_st_new_game_loadout.py",
+      "bytes": 12389,
+      "sha256": "5dc4b6636f12315cb8f9e0ea386875a93c6defdc6837d99f96ea1681f0853c9e"
+    },
+    {
+      "path": "tools/atari_st_planet_maps.py",
+      "bytes": 1903,
+      "sha256": "14fbfff80738d1ceeba5f35fe03d721e7c2c6fd9489d9c24312618641cb8a480"
+    },
+    {
+      "path": "tools/atari_st_prg_inventory.py",
+      "bytes": 7162,
+      "sha256": "47e228c6566380ccdeec4a4470e53f84f96bbdb0e4a6c069d1accc316682b89a"
+    },
+    {
+      "path": "tools/atari_st_psystem_files.py",
+      "bytes": 6746,
+      "sha256": "7275a9264b1d06757990a5472d00b07096395456c253ae5c4933a557d72ce49b"
+    },
+    {
+      "path": "tools/atari_st_screen_geometry.py",
+      "bytes": 29391,
+      "sha256": "2aaa4b07e4a9f95f5b83248a60f5af705ce5b3709a06c01778c44aef2c6f6ce6"
+    },
+    {
+      "path": "tools/atari_st_ship_rules.py",
+      "bytes": 93001,
+      "sha256": "1a0622b7d79b7c4917fadffede378fd1186430d3a0fc43e6cd33d7e34123b7af"
+    },
+    {
+      "path": "tools/atari_st_ship_systems.py",
+      "bytes": 13729,
+      "sha256": "4fef5c81595430a121498302157be5a389cba52f5131182f77957f0544b9f95f"
+    },
+    {
+      "path": "tools/atari_st_sine_table.py",
+      "bytes": 10711,
+      "sha256": "e16cc7931f2e5b0422bd2cd48741f860450e9eec9909e6c980359d31fab7817a"
+    },
+    {
+      "path": "tools/atari_st_sound_bank.py",
+      "bytes": 9027,
+      "sha256": "57159cf6b46f0b1decbe07c3a2256f18edf23ac0bd3d66f5ddf2145fdb1c4743"
+    },
+    {
+      "path": "tools/atari_st_sound_events.py",
+      "bytes": 26329,
+      "sha256": "300272a632b6964cd31f4dbe4ffcc9bef52e1f0801fadc4bff05e073b4961b00"
+    },
+    {
+      "path": "tools/atari_st_trade_classes.py",
+      "bytes": 13316,
+      "sha256": "ea5dee41cf709cff2a3f7ac00fb5d3faf37fe4ad4d41996737033d1ee9bbcb00"
+    },
+    {
+      "path": "tools/atari_st_ui_frame.py",
+      "bytes": 3942,
+      "sha256": "139765bfb014f95af046b9a8b721b46572e8bc5ec506e8d393e739e333ec2444"
+    },
+    {
+      "path": "tools/atari_st_window_menu_tables.py",
+      "bytes": 9990,
+      "sha256": "49501cd8d15d61fe727fd71b6710c100ce96f851e9bf80e413d26a2b56b15c24"
+    },
+    {
+      "path": "tools/atari_st_world_data.py",
+      "bytes": 38400,
+      "sha256": "c8895e9f8cf9c8e24d8560f57f036c3a648ad8b8e439955199ae64f68baa01b1"
+    },
+    {
+      "path": "tools/atari_stx_inventory.py",
+      "bytes": 7310,
+      "sha256": "82c14e6dbad48be82a9545e6a4934285c00db1d958d60a2606040aaf495c1fe6"
+    },
+    {
+      "path": "tools/build_app_icon.py",
+      "bytes": 1642,
+      "sha256": "573810daace77db3dc80bcfa81d814b283befc74bbf3c97a905a22ed099fe04b"
+    },
+    {
+      "path": "tools/build_atari_hd_cabin_raster_review.py",
+      "bytes": 4462,
+      "sha256": "f3c67e2f5feebd9b9cba7b33721e8bbb02f295fcff863c3d2053f8257c7a7a7e"
+    },
+    {
+      "path": "tools/build_atari_hd_collision_review.py",
+      "bytes": 10948,
+      "sha256": "c49cb35036748e6cb31f61c8291e4ac7f9e3b37ffbecde9cc6ecbdabcc1fe63f"
+    },
+    {
+      "path": "tools/build_atari_hd_complete_art.py",
+      "bytes": 16856,
+      "sha256": "1f2f9f90300cac5d6b53fae178ac03547240611a1e8bf9f314304e9203bdfceb"
+    },
+    {
+      "path": "tools/build_atari_hd_engineering_review.py",
+      "bytes": 3571,
+      "sha256": "452930b0b051f4c6f5fb04f0d37a8ca9a4817631eb98b54ded94846b5da2c3a6"
+    },
+    {
+      "path": "tools/build_atari_hd_game_review.py",
+      "bytes": 2232,
+      "sha256": "cec0fb3f99a8f4de4f33273f8a2196fae0bf1eeca2d16268194213cc1d682de6"
+    },
+    {
+      "path": "tools/build_atari_hd_inventory.py",
+      "bytes": 7724,
+      "sha256": "6454295e15f05b8e91c649a3cc7d5f413eccf24241d43a37097d82a3ed227acd"
+    },
+    {
+      "path": "tools/build_atari_hd_navigation_maps_prototype.py",
+      "bytes": 7212,
+      "sha256": "a4519bd6b6659325458b17dcfcf26bcfdfb684d9ba99f39f59672530154371d4"
+    },
+    {
+      "path": "tools/build_atari_hd_navigation_maps_review.py",
+      "bytes": 2907,
+      "sha256": "9eb1d68f9c159c62da14ac267f9dae7bf06557b318c34be67f9590ff5db2029e"
+    },
+    {
+      "path": "tools/build_atari_hd_navigation_prototype.py",
+      "bytes": 12280,
+      "sha256": "c3c30787414a2fb3e1b0e460eb4c35dc9f91b6375819b42d3a4e29f16b883fdf"
+    },
+    {
+      "path": "tools/build_atari_hd_stores_art.py",
+      "bytes": 10705,
+      "sha256": "a3db9b45b45afbf677f8ee99a35856c048e07397695b45afd955c09f05362093"
+    },
+    {
+      "path": "tools/build_atari_hd_stores_review.py",
+      "bytes": 3090,
+      "sha256": "39211a00362db538e11d7ea08895507d042cdcdffad3afa0e8cd740e4ad0f8db"
+    },
+    {
+      "path": "tools/build_atari_hd_world_art.py",
+      "bytes": 8285,
+      "sha256": "5f6f24733caa5be0c10858b4a035b9d13318a7bdcd41a8771ee1cb92f503fd7d"
+    },
+    {
+      "path": "tools/build_atari_hd_world_review.py",
+      "bytes": 3692,
+      "sha256": "51e81e1158eca493b8892b529d57586e34b381248f1da9cf55684cf4172298a4"
+    },
+    {
+      "path": "tools/build_atari_st_candidate_atlas.py",
+      "bytes": 4127,
+      "sha256": "07fbf8f61ca836efe4c2d2549c773d53447f82b98737670839cdab142e0a8359"
+    },
+    {
+      "path": "tools/build_enemy_ship_name_catalog.py",
+      "bytes": 4114,
+      "sha256": "f1d691e99dd7edc1e4e862fcaa581b59e0622cc24a00d2d039f793c69619cdea"
+    },
+    {
+      "path": "tools/build_functional_promo.py",
+      "bytes": 8136,
+      "sha256": "f9766e3fbc3ed1af9e769e78ada717a84c5185cd857576ed2d1d222207b327b7"
+    },
+    {
+      "path": "tools/build_hd_promo.py",
+      "bytes": 5167,
+      "sha256": "2456a28af10377f607839a2e18b3c93307f68191cdc401a5272da0e6d9446952"
+    },
+    {
+      "path": "tools/build_item_name_catalog.py",
+      "bytes": 3793,
+      "sha256": "e06ce96d4e21c21c284551325e57cb6bc85c179dbd397eb2ddf37ae6853f75f4"
+    },
+    {
+      "path": "tools/build_modern_apple_atlas.py",
+      "bytes": 13223,
+      "sha256": "60608b99deca701a6b64d7d2fe78ef4a8d7fe45829265d1b7f7f9782f74761f7"
+    },
+    {
+      "path": "tools/build_private_full.sh",
+      "bytes": 2819,
+      "sha256": "25b7e60486ec0802141cbeaf82deb3b31194a8b49f17cdfce6604f10704f0df9"
+    },
+    {
+      "path": "tools/build_promo_cards.py",
+      "bytes": 17254,
+      "sha256": "312dd764267ef83c3bbdb90bbb949e148d318863e369fd0365f7b15d4faf6ae2"
+    },
+    {
+      "path": "tools/build_promo_video.sh",
+      "bytes": 7861,
+      "sha256": "0f164a199ff7ac8bfa24b899fdbf430883e42aeddec2aee4c0ffedf1321dc89d"
+    },
+    {
+      "path": "tools/build_release.sh",
+      "bytes": 7083,
+      "sha256": "046f58263576237bc7c4d47a0e14c06f6a3d09ffdfab613e53e6bcf01ba46c21"
+    },
+    {
+      "path": "tools/build_world_name_catalog.py",
+      "bytes": 7278,
+      "sha256": "1a781145cf9861799c02ca143854e9f08c181679e2b18d205c2528b26cd460d8"
+    },
+    {
+      "path": "tools/capture_appimage_screens.sh",
+      "bytes": 5860,
+      "sha256": "017454365a577b56f294e53a2969f71aa213cefa9265db106a6a2be5047d8c8c"
+    },
+    {
+      "path": "tools/capture_atari_readme.py",
+      "bytes": 7259,
+      "sha256": "2d89011a3d27263580f3aab12cc2d0b8c85529512a9b74716a901d9471980392"
+    },
+    {
+      "path": "tools/capture_modern_apple_ground.sh",
+      "bytes": 2270,
+      "sha256": "90a779251f4844b05ae3627460c3890f0f429b67065910fad45ce812caa36401"
+    },
+    {
+      "path": "tools/capture_readme_screenshots.sh",
+      "bytes": 845,
+      "sha256": "ddd64fd5820a70a60a626eb06dd2c6e36173ed67f5e86b7724538ff3d408793b"
+    },
+    {
+      "path": "tools/check_atari_hd_engineering_review.py",
+      "bytes": 2157,
+      "sha256": "dc575c48fc8816ca9282ea7f0496594235041645b7b53b9a072de0aee3475128"
+    },
+    {
+      "path": "tools/check_atari_hd_stores_review.py",
+      "bytes": 2245,
+      "sha256": "c8b14fde93c5d04bc58e26b8e273caf68f3d867fe26da5132baa040976073af6"
+    },
+    {
+      "path": "tools/check_atari_hd_world_review.py",
+      "bytes": 1953,
+      "sha256": "20c80330e62da353faa7797699935cb7b482e9879d0f5edfbe717a760e2edf1e"
+    },
+    {
+      "path": "tools/check_city_map_runtime.py",
+      "bytes": 8967,
+      "sha256": "aa3e4565b923c74412706df88d734e5bd80daabec645408344f78aba52a4ac72"
+    },
+    {
+      "path": "tools/check_ground_cells.py",
+      "bytes": 3691,
+      "sha256": "545ce8115ef54a186fd6134143f73323b681b588dec8392ca7af99fb2fdd5870"
+    },
+    {
+      "path": "tools/check_locker_icons.py",
+      "bytes": 7864,
+      "sha256": "df8b4dd2078c19f42000e790993b4c9fd64421e9b47b5e256cb6b26a36bc6cb5"
+    },
+    {
+      "path": "tools/check_render_parity.py",
+      "bytes": 3892,
+      "sha256": "c0278b77785a2d1a432b05533193e7e1c3af63aae326bfc12adb51140535898b"
+    },
+    {
+      "path": "tools/check_shop_window.py",
+      "bytes": 5588,
+      "sha256": "93aadff98ad33ed5da2b5359c37ce594a93d42007565afa011d80f2fdda4b0bd"
+    },
+    {
+      "path": "tools/check_sound_export.py",
+      "bytes": 4366,
+      "sha256": "8aa40c28c7f7caf91061409edb025d9bbdfc9e050a2f0e71370f46e63b6f6919"
+    },
+    {
+      "path": "tools/check_star_map_grid.py",
+      "bytes": 4204,
+      "sha256": "9ccef83575776326dfc5692da3b077c08f268a2d98359f8c2cd32ec55bb83b31"
+    },
+    {
+      "path": "tools/check_title_pixel_parity.py",
+      "bytes": 6134,
+      "sha256": "b70ca4e8481e926a37cc6c2cebbc6ac5182e247b2f8f52d7d51dbe5aac9bcfc2"
+    },
+    {
+      "path": "tools/check_ux_target_shots.py",
+      "bytes": 1513,
+      "sha256": "f77b610b59129d893e8d3367f923628b6464825bd498ef7c716b16a157e2e9b6"
+    },
+    {
+      "path": "tools/compare_appimage_to_original.py",
+      "bytes": 19195,
+      "sha256": "8dbff6d83b38385ad45a1181c21b2283bff4b9931e8bcd123882a03e2202b6fd"
+    },
+    {
+      "path": "tools/compare_dosound_oracle.sh",
+      "bytes": 2813,
+      "sha256": "77eecee36fefde8ee51ebe0ba89b0549b255ba23080fd9d9077aa417697a3ef2"
+    },
+    {
+      "path": "tools/compare_wav.py",
+      "bytes": 2278,
+      "sha256": "ad2e180186e91c06057241c1cf4e86320589d271bb196cc0f514146ad0f6214d"
+    },
+    {
+      "path": "tools/cross_platform_render_parity.sh",
+      "bytes": 2521,
+      "sha256": "4f4f992f9f623d8f45afc84efa113d004fd7372979018fe007a805ed3f5dfa32"
+    },
+    {
+      "path": "tools/crosscheck_dialog_against_oracle.py",
+      "bytes": 5759,
+      "sha256": "6e76cdc5c6028b5fe7725616342bb03453b4b4bd2a89ca5e4e72c86da1f35bb4"
+    },
+    {
+      "path": "tools/cryo_source_interp_export.py",
+      "bytes": 1518,
+      "sha256": "21f3661077128c1607fd175a90991b067e14c90eeabc52dda28628a6c5a6ecc1"
+    },
+    {
+      "path": "tools/decode_atari_st_images.py",
+      "bytes": 15706,
+      "sha256": "ed01c505bd6e721ec30fc6b3641592811c961f86fffc1db2032931d12e164bcc"
+    },
+    {
+      "path": "tools/detail_atari_hd_cabin.py",
+      "bytes": 9092,
+      "sha256": "1770da7f48e0e4792f226b820ba50692121f7fba7291db5b1ad0151e1c5d8458"
+    },
+    {
+      "path": "tools/detail_atari_hd_stores.py",
+      "bytes": 10407,
+      "sha256": "9e81d3638328d89ad6f5a09a3ae11fd042c396415378594985cc09926354d569"
+    },
+    {
+      "path": "tools/disassemble_6502.py",
+      "bytes": 8929,
+      "sha256": "25a61eb2359c0ef4e0e6be81891cc32cd69ce4653185fe157186062935e5b4f1"
+    },
+    {
+      "path": "tools/docker/google-translate/Dockerfile",
+      "bytes": 111,
+      "sha256": "1453959fb35a036b18a0fce3787bc616548c8e1c0449d705327a0c672d47ce04"
+    },
+    {
+      "path": "tools/finalize_language_pack_review.py",
+      "bytes": 1324,
+      "sha256": "3ba430fb1f72a28ffa3f0d97d6daf19d6f3e56a3a61904e0c9d4aa23ac2c6b6d"
+    },
+    {
+      "path": "tools/generate_language_packs.py",
+      "bytes": 10068,
+      "sha256": "e2711e327633462f53699037f2951fe1be84a4edaf9545eb8da3b181ab3372f5"
+    },
+    {
+      "path": "tools/gui_combat_reentry_clock_test.go.txt",
+      "bytes": 2401,
+      "sha256": "c4b4855ea888b3ad212a052ca5466d1393b5494390b8a22eab1fb435514f0658"
+    },
+    {
+      "path": "tools/hatari-live-run/README.md",
+      "bytes": 8512,
+      "sha256": "8885fd92af8bf4e62371adc2939d13d1688ffed66d95958c1f974d8914a7b79d"
+    },
+    {
+      "path": "tools/hatari-live-run/analyze_enc.py",
+      "bytes": 5805,
+      "sha256": "c51048a2e8ab8d9c77a964ec21ed090d43838dc4400211017d03220398bbafed"
+    },
+    {
+      "path": "tools/hatari-live-run/boot-emutos.sh",
+      "bytes": 1606,
+      "sha256": "86fb60d33d7b0655dd679cb9db32fb641702c39cdef0bd1d6df620c51ab2052c"
+    },
+    {
+      "path": "tools/hatari-live-run/boot-fresh.sh",
+      "bytes": 604,
+      "sha256": "fae06f9bfb9f1f7a5e388621cf200eb14e33f03f7b3fd21f908e55e3010164be"
+    },
+    {
+      "path": "tools/hatari-live-run/boot-restore.sh",
+      "bytes": 475,
+      "sha256": "15ba5fe110b3f46daf584ee5b510bd6e0d82e48df4eb6080a60ac46478bc1725"
+    },
+    {
+      "path": "tools/hatari-live-run/decode_vram.py",
+      "bytes": 2085,
+      "sha256": "120bcf21d88cba83256df9e9a1cba0b0046cea80c264635a8c0efc1c307e93e9"
+    },
+    {
+      "path": "tools/hatari-live-run/drive.py",
+      "bytes": 5727,
+      "sha256": "4b538feafde973e9c4af6338ad5499ec92c7a860cd56bae50de16e2fbe756b5b"
+    },
+    {
+      "path": "tools/hatari-live-run/fetch-emutos.sh",
+      "bytes": 1516,
+      "sha256": "f58f5f63a326c72aec943c3cf1b763aa68ff0b010654538db42f5a375a471001"
+    },
+    {
+      "path": "tools/hatari-live-run/fwd_city.py",
+      "bytes": 5061,
+      "sha256": "f9bb4a4ed031922f1c66453dab9c503be7cedd7234cac28c63597a57ded16b57"
+    },
+    {
+      "path": "tools/hatari-live-run/star_map.py",
+      "bytes": 3949,
+      "sha256": "665148aecc39ecdac32dca5f36c8434c26f9d9a1a9bb806e65bd8a0a0a6b4981"
+    },
+    {
+      "path": "tools/hatari-live-run/sys_records.py",
+      "bytes": 772,
+      "sha256": "bb223be2b76282f31fea306d4dc9738b1e5e0669182853bfd2c73d81782d67e8"
+    },
+    {
+      "path": "tools/ida_combat_interp_export.py",
+      "bytes": 3268,
+      "sha256": "473b392c4b2c4e5f7e44fcbb0e4b631985213610c364e63d6b1bf22205bfdce8"
+    },
+    {
+      "path": "tools/ida_fuel_depot_interp_export.py",
+      "bytes": 1378,
+      "sha256": "ce2814a4153f2b62296695117add096a97b3204db3fed9ab03607cb55fed1c40"
+    },
+    {
+      "path": "tools/ida_walker_native_export.py",
+      "bytes": 2710,
+      "sha256": "17100ed2755f438f490e87f9b727909b7468e0e8f712fbc18825dc55c27bdb61"
+    },
+    {
+      "path": "tools/measure_zoom_window_colours.py",
+      "bytes": 1932,
+      "sha256": "48bdbdac039019dbc66e82b43e38f2ade51310d230e36939593f01d0ee7eb1df"
+    },
+    {
+      "path": "tools/pack_private_full.py",
+      "bytes": 7461,
+      "sha256": "86eed8b6ed70b495da9b55c20f8e34a9fbee954763c5543fac1a67c3ca117b64"
+    },
+    {
+      "path": "tools/package_public.py",
+      "bytes": 4947,
+      "sha256": "f2dcf170a7aff1ede6b6ad86603e4e9fb35ab7ad182f1cb81a1544cf045df07c"
+    },
+    {
+      "path": "tools/package_release.py",
+      "bytes": 20487,
+      "sha256": "94d9d95d202d57c231591f04e874ac27a63f96014843bc25e612bb9d5374f2e4"
+    },
+    {
+      "path": "tools/port_oracle_building_plan.py",
+      "bytes": 10775,
+      "sha256": "ba0acf292d1fcc680e6ae19dcd74abd8e7d094a083fef9549cdbb0a10b20ab00"
+    },
+    {
+      "path": "tools/port_oracle_building_probe.sh",
+      "bytes": 9353,
+      "sha256": "5f0483c6b51164dbc3d9354ea360a84faa57068a07b1c651c4681d6bb247fe63"
+    },
+    {
+      "path": "tools/port_oracle_capture.sh",
+      "bytes": 11881,
+      "sha256": "590d81d3b5a9b6b3711c0efbbe4af7f19119096883f31ab9900d5c0ada26398f"
+    },
+    {
+      "path": "tools/port_oracle_combat_probe.sh",
+      "bytes": 8278,
+      "sha256": "4e1a5913faeaecff036b58af0818f85ac3f777a2846c089a169ad1a5a53881e0"
+    },
+    {
+      "path": "tools/port_oracle_dump.sh",
+      "bytes": 3643,
+      "sha256": "19495993bd7f702e4dea1c5f72cf3c02106fe7d42c06549d732dbe144269abe3"
+    },
+    {
+      "path": "tools/port_oracle_grid_probe.sh",
+      "bytes": 4819,
+      "sha256": "84a485be6de870d264b36bb3352a1a41468129a5c10afb2c724af7442b3cc30f"
+    },
+    {
+      "path": "tools/port_oracle_station_probe.sh",
+      "bytes": 5423,
+      "sha256": "39356b4d673b3f1818e1e27dc345f0c93ab2c1e98d35616f583d87a2784b0add"
+    },
+    {
+      "path": "tools/port_oracle_tube_refusal.sh",
+      "bytes": 3197,
+      "sha256": "9dbcd0cfcbcb1432f2c3c543de54d22ff78207afe596e0f95b604138dc4e109b"
+    },
+    {
+      "path": "tools/port_oracle_vigor_probe.sh",
+      "bytes": 4932,
+      "sha256": "5de88111bc6b43b67f3824468fec25f69bbfdb9c143de006e823f933506745d4"
+    },
+    {
+      "path": "tools/port_oracle_walk.py",
+      "bytes": 13351,
+      "sha256": "3ef8f72e9f27bde21a4cf1ebb61aef7fa7418bac591f07bf354a1861789707cb"
+    },
+    {
+      "path": "tools/prepare_modern_apple_adjustment_prototype.py",
+      "bytes": 7167,
+      "sha256": "9471e6545a727a4811d7b98a5bdf3ad4ad60af9ecac276a7ad09fc1ee5ff6b1e"
+    },
+    {
+      "path": "tools/prepare_public_repository.py",
+      "bytes": 4942,
+      "sha256": "a148d84e67e5e54fdf1c7fd53f56eafd7cff6c13a6629625661c8759816c06b7"
+    },
+    {
+      "path": "tools/psys_disasm.py",
+      "bytes": 13688,
+      "sha256": "3174b81877f42f2ef152c6243d611a1d7e6b819ee339cde8ea25066715129398"
+    },
+    {
+      "path": "tools/psys_oracle.c",
+      "bytes": 4908,
+      "sha256": "590e88a9144a42f62f203bbeea46db151746812836d3464dcd1e752bdfefe9aa"
+    },
+    {
+      "path": "tools/psys_oracle.sh",
+      "bytes": 1233,
+      "sha256": "5cbb6d16426f5be4b6fc9c38d1025ba5e94a985d72077a58f65c4d83f73c1f0e"
+    },
+    {
+      "path": "tools/public-source/.gitignore",
+      "bytes": 352,
+      "sha256": "4bf932c261d9d5a7856f0347c18f2b77926ae8cbb38e6c40e74396af98699a01"
+    },
+    {
+      "path": "tools/public-source/AGENTS.md",
+      "bytes": 942,
+      "sha256": "a574606db8d6d6afaad8fe69f55280881c16b4cf547fd0c14e201cddb95f2471"
+    },
+    {
+      "path": "tools/public-source/CONTEXT.md",
+      "bytes": 722,
+      "sha256": "e89d05fcb0115bc57c779c02b50b9f940e44a24049666858eb1d98ac9fe3dcf1"
+    },
+    {
+      "path": "tools/public-source/README.md",
+      "bytes": 5515,
+      "sha256": "0b6311f63b73a11ffa7d6640883f4904f9dc17d166437e112c74131ec65013df"
+    },
+    {
+      "path": "tools/public-source/WORKLOG.md",
+      "bytes": 1081,
+      "sha256": "a1da32c84da335f05c7341dad342be83ba6c33f84c6881ba39cb655e0de869cd"
+    },
+    {
+      "path": "tools/public-source/docs/build.md",
+      "bytes": 2503,
+      "sha256": "01993b3323d58b3bf1959699122771a5e04e964a2f0cbf5e0d94781d02cb1538"
+    },
+    {
+      "path": "tools/public-source/docs/index.md",
+      "bytes": 1129,
+      "sha256": "32eddb8ad4f2e7a8d8c08e5da5a945cd7e59ccec790637e4d792aa95e261906e"
+    },
+    {
+      "path": "tools/record_hd_promo.py",
+      "bytes": 4608,
+      "sha256": "c1b7820b605fd963f6f5f2aad2e392ccf2bd803e74789749df080f18281f28cf"
+    },
+    {
+      "path": "tools/record_modern_apple_runtime_evidence.py",
+      "bytes": 6051,
+      "sha256": "ea0f037f24585af235aeed5e72dfc434cacb6c03acf096df307a2de9620693bb"
+    },
+    {
+      "path": "tools/record_original_oracle.sh",
+      "bytes": 2194,
+      "sha256": "8552a7b9c337807335c7e49e7cdfc946e348e898894fc1aa23211b4d3844b386"
+    },
+    {
+      "path": "tools/record_promo.sh",
+      "bytes": 16150,
+      "sha256": "8abfc274e3e9dd59095c9f00c965b59e4ab4bace4c515b5954ad465f07cb8f18"
+    },
+    {
+      "path": "tools/refine_atari_hd_cabin.py",
+      "bytes": 8078,
+      "sha256": "989dcc662d1fd5ba3621a97cef201292513ddba52a85c9426cd18909637f24d1"
+    },
+    {
+      "path": "tools/render_atari_hd_stores_review.py",
+      "bytes": 4334,
+      "sha256": "8e3fc76aa29bea125088bbbae3d77815e9aa5be6552c30da4d51f6362ddb8f49"
+    },
+    {
+      "path": "tools/render_atari_hd_world_art.py",
+      "bytes": 1847,
+      "sha256": "beaa7c8d149e031fa66358299a89d466080215198d2e080db23c430704644cb8"
+    },
+    {
+      "path": "tools/replay_atari_st_combat.py",
+      "bytes": 18595,
+      "sha256": "b416a8eabf41719f2bdfbc06c36d9c11d5ba7a43be791c3ac9940cfd7ccce04c"
+    },
+    {
+      "path": "tools/replay_atari_st_ux_fixtures.sh",
+      "bytes": 5662,
+      "sha256": "fc4b54a08c27757717a56d0d4f6a3cba2878c1cb22d65248ddd892aaddd9ab57"
+    },
+    {
+      "path": "tools/replay_atari_st_walker_anchor.py",
+      "bytes": 5754,
+      "sha256": "f7d368f57ac7f6a80707a0953b188df564679176ccef017eb9e3ec17e4c51123"
+    },
+    {
+      "path": "tools/replay_ebiten_cargo_cycle_path.sh",
+      "bytes": 7987,
+      "sha256": "fc9ed60ae21472adc0df65cefac2cbb50dc23ed06be6c5624fbcc7015e935641"
+    },
+    {
+      "path": "tools/replay_ebiten_character_creation_status_path.sh",
+      "bytes": 11840,
+      "sha256": "c604bda7d1d498b8dc407b3948cf61a23d43db21f13aa958a4748349cb0c6d9c"
+    },
+    {
+      "path": "tools/replay_ebiten_engineering_equipment_path.sh",
+      "bytes": 8600,
+      "sha256": "15cac9b3e375c5b36740bfee422a05e4932135cf8765ab8cad9d809bf9094312"
+    },
+    {
+      "path": "tools/replay_ebiten_failure_outcome_path.sh",
+      "bytes": 8973,
+      "sha256": "6763c3832a3397002cdbeff23ce00df3428fcea7a431a60ba79c1563507be120"
+    },
+    {
+      "path": "tools/replay_ebiten_flight_path.sh",
+      "bytes": 7894,
+      "sha256": "d029988836e18fb7eaefe1b81332dc5130c6fb7c75f7c37575b10e25985258c4"
+    },
+    {
+      "path": "tools/replay_ebiten_normal_outcome_path.sh",
+      "bytes": 8971,
+      "sha256": "de0522408f0d074f6e71150c3ad44f15be7e120902f8170c5df1732a49b650a3"
+    },
+    {
+      "path": "tools/replay_ebiten_presentation_path.sh",
+      "bytes": 8577,
+      "sha256": "90c4d76df7926b8c9e2729f35bd12bdc5b9af8964c910669e9941a06234798f0"
+    },
+    {
+      "path": "tools/replay_ebiten_shipboard_subc_click.sh",
+      "bytes": 2700,
+      "sha256": "9bc11370976596065aac92eaf6dced398aed9d65516944befa83f8cdb507f1d6"
+    },
+    {
+      "path": "tools/replay_ebiten_tactical_victory_path.sh",
+      "bytes": 8762,
+      "sha256": "cb192bb01cd44ad2b2b7ecd057f6b1881fd6c0900b272ca9386e44de35a43996"
+    },
+    {
+      "path": "tools/replay_ebiten_title_to_engineering_mouse_path.sh",
+      "bytes": 4131,
+      "sha256": "8c1f0452f95d66d4677c48c29e121c42f444768e37ac40003a342a40261efc29"
+    },
+    {
+      "path": "tools/replay_ebiten_trade_cycle_path.sh",
+      "bytes": 8212,
+      "sha256": "128c5ec53bf6bf47be1c2d40271ff7d4b170a933711cb0b2d3ce7a5f916cd848"
+    },
+    {
+      "path": "tools/replay_ebiten_uniteller_cycle_path.sh",
+      "bytes": 9437,
+      "sha256": "7e20d811412acc1bb8054f1ef423124e66da892fd4e71bcda2254b09083734cf"
+    },
+    {
+      "path": "tools/replay_engineering_targets.sh",
+      "bytes": 2438,
+      "sha256": "6a98c7c5043f1b31749380a2c7440360cd7bdd6c542214571553cad34d80fc12"
+    },
+    {
+      "path": "tools/replay_fuel_failure_paths.py",
+      "bytes": 10968,
+      "sha256": "73ab69c0d7389ad88bb2f1eb7644c247137abd83676b040de0ac025deed1b2fb"
+    },
+    {
+      "path": "tools/replay_normal_path.sh",
+      "bytes": 624,
+      "sha256": "77187d6ba5bfd9aec2434b470c374ff53f1ce6ae4d050b3ff16ca4dc651693ce"
+    },
+    {
+      "path": "tools/scaffold_dialog_translation.py",
+      "bytes": 5457,
+      "sha256": "246274e8218d519efe35f426f18e56867364a045869c13e139deb8e43ffe8c9e"
+    },
+    {
+      "path": "tools/talos_banville_price_test.go.txt",
+      "bytes": 56948,
+      "sha256": "a3402adae7c067f238ce3106cfa7aa23366dc824d1e4eef72b4eeb2acb707483"
+    },
+    {
+      "path": "tools/talos_banville_site_test.go.txt",
+      "bytes": 32498,
+      "sha256": "ae0cc5116800a469252994463596ca08fe2cbf75caeefb9411072c62b662acb0"
+    },
+    {
+      "path": "tools/talos_banville_test.go.txt",
+      "bytes": 41449,
+      "sha256": "574e5049d9eb4109ee7f3f28a70083ff4776e3c8a28b493eb046fc3279739c07"
+    },
+    {
+      "path": "tools/talos_combat_aim_test.go.txt",
+      "bytes": 31670,
+      "sha256": "8a281babf765f5fb85662259170a5b369a02d07cfd5c6d325367edcc74fd4022"
+    },
+    {
+      "path": "tools/talos_combat_cadence_test.go.txt",
+      "bytes": 15030,
+      "sha256": "ff0442d0214fd08c5493bf76ec04a18875af180058dd7e301621591c874e304b"
+    },
+    {
+      "path": "tools/talos_combat_course_test.go.txt",
+      "bytes": 11402,
+      "sha256": "fc217fb3532bd0c0a008a5fa5dced0fe6b805b2b2923c21843ebaae2696ef169"
+    },
+    {
+      "path": "tools/talos_combat_display_test.go.txt",
+      "bytes": 9028,
+      "sha256": "a986c5e417808fea30a69eed8647a2272a1d5dfc514b90828b1cc56b2e9a5622"
+    },
+    {
+      "path": "tools/talos_combat_fuel_test.go.txt",
+      "bytes": 13564,
+      "sha256": "f010524d2e204e827130c0a4408cea9e1428fa9ccd1245bd067f45b67a873c00"
+    },
+    {
+      "path": "tools/talos_combat_init_test.go.txt",
+      "bytes": 13812,
+      "sha256": "81edb04eaa21483bd68bfc9fd549b42a52e8a27554b240a5ec2ff5408fc149aa"
+    },
+    {
+      "path": "tools/talos_combat_levels_test.go.txt",
+      "bytes": 13124,
+      "sha256": "60ac32c129cc55e4a784b4ca2530ded320a4116eb2609b8d3a5da7f2cdda81a2"
+    },
+    {
+      "path": "tools/talos_combat_movement_test.go.txt",
+      "bytes": 11099,
+      "sha256": "99a457d70419d15108fd30a03cf18304791f4f3272fe6ffa9b2a907115a8aae0"
+    },
+    {
+      "path": "tools/talos_combat_parent_test.go.txt",
+      "bytes": 19135,
+      "sha256": "fe4af0cf297d44825a4d24b7cac748fec5791ca2703c419d7d6050bbb1b64d1a"
+    },
+    {
+      "path": "tools/talos_combat_player_input_test.go.txt",
+      "bytes": 7026,
+      "sha256": "7cb601026395aa1bb28d0bdcd86b1058c1707f66f5f96dacd9c127cb6263432b"
+    },
+    {
+      "path": "tools/talos_cryo_parent_test.go.txt",
+      "bytes": 8832,
+      "sha256": "788d063c26344090cd333d9daa6c8eb6e7462b42cd8713004498971ba6a11640"
+    },
+    {
+      "path": "tools/talos_cryo_source_test.go.txt",
+      "bytes": 6522,
+      "sha256": "30d289be0e9f339985457340ff615904b8afb17687c0409cfa50f8e114fd5807"
+    },
+    {
+      "path": "tools/talos_flight_clock_test.go.txt",
+      "bytes": 13063,
+      "sha256": "41017def9adf5b3e2531d471be6aacc309d0ac6f19f0b1c4de63e6ad95ba810f"
+    },
+    {
+      "path": "tools/talos_food_test.go.txt",
+      "bytes": 90267,
+      "sha256": "8e9a098858c57e6372c135b1a02794ec9f336dfb731305e70165f4c1affd817b"
+    },
+    {
+      "path": "tools/talos_fuel_depot_test.go.txt",
+      "bytes": 35514,
+      "sha256": "06bf2e45b722b79950e7e600406ad9cc5ebc3b43c32af4c3b89abb055bdf40a5"
+    },
+    {
+      "path": "tools/talos_fuel_entry_test.go.txt",
+      "bytes": 31450,
+      "sha256": "53bc57f1ee3dbf0e409fad3575cda1dce9ceb666f5969bff2e8ee6185f0f599c"
+    },
+    {
+      "path": "tools/talos_fuel_ground_gate_test.go.txt",
+      "bytes": 5860,
+      "sha256": "212e65f6751be7a870fb4b4107b03f2fb560681e9c5a78f329451ce531962610"
+    },
+    {
+      "path": "tools/talos_fuel_rescue_test.go.txt",
+      "bytes": 11672,
+      "sha256": "53e09dc84c11b584990a644b2630c46d54000491ba3f7ae1357689087675d637"
+    },
+    {
+      "path": "tools/talos_ground_collision_test.go.txt",
+      "bytes": 5579,
+      "sha256": "e3cef61a7552f0970a203fa3e9c01bae392ec1bd4ed8612a000e203215af6bf1"
+    },
+    {
+      "path": "tools/talos_ground_marks_test.go.txt",
+      "bytes": 1121,
+      "sha256": "c19d8de13784fac7b511cd456d3b1d900d284105373a02dda3c3026c0742ef40"
+    },
+    {
+      "path": "tools/talos_native_pixel_collision_test.go.txt",
+      "bytes": 2161,
+      "sha256": "43043a236678aa3252ce472e532144714ed2c16c63dff4a48daaa31b261fcf03"
+    },
+    {
+      "path": "tools/talos_pod_collision_colors_test.go.txt",
+      "bytes": 4044,
+      "sha256": "f26a6b38968771cc962d1e596432ebd01ebd446dc55ad159889c376c84d2d5f4"
+    },
+    {
+      "path": "tools/talos_trade_classes_test.go.txt",
+      "bytes": 4464,
+      "sha256": "0b689428fe54ba0f211d664ef83df1e898ff2e8d3dfcb3fcbc19085990e2026e"
+    },
+    {
+      "path": "tools/talos_walker_slices_test.go.txt",
+      "bytes": 11345,
+      "sha256": "8cdf946b00f38dbb684b53ca4fe5e00a699085cd036b35e792cc1163033f33b4"
+    },
+    {
+      "path": "tools/talos_warehouse_transfer_test.go.txt",
+      "bytes": 8721,
+      "sha256": "0899d9a527375038ba3f4dd0410ec252ceea96238a8ff74241d911349ba0144c"
+    },
+    {
+      "path": "tools/test_apple2_boot_probe.py",
+      "bytes": 1670,
+      "sha256": "b353326f5540c6011c75dcaa3859a273d124eccda2475317fa24c9d3a38539a7"
+    },
+    {
+      "path": "tools/test_apple2_dsk_inventory.py",
+      "bytes": 2630,
+      "sha256": "8d40e425f6391cbd6c8dd8e4f94d27618036efb05bf2f812285f8a8b738ab05e"
+    },
+    {
+      "path": "tools/test_apple2_hgr_page_render.py",
+      "bytes": 1699,
+      "sha256": "f14e05f50628f1110ef47e2c48c95311cc681a25323bbcf083e66c6df99f7409"
+    },
+    {
+      "path": "tools/test_apple2_hgr_probe.py",
+      "bytes": 1140,
+      "sha256": "d6bb77bc306100cbb1f9b4cbe73eea88973f1ee22a706d94f2b3a2139477ad4b"
+    },
+    {
+      "path": "tools/test_apple2_pascal_volume_probe.py",
+      "bytes": 3105,
+      "sha256": "c57edbf1b87338e12a3517a4ec95f2cf497f32bb4bb66f25f9a42222d484c053"
+    },
+    {
+      "path": "tools/test_apple2_runtime_code_provenance.py",
+      "bytes": 3284,
+      "sha256": "08702790c0d606501c67be79f0cf66311724922fa96a6b23023f3d052a1d3590"
+    },
+    {
+      "path": "tools/test_atari_st_city_maps.py",
+      "bytes": 5487,
+      "sha256": "217f8861a98ef1aec79da99d030040594d3ebb23058f9b27a98d1f5ec8cf388d"
+    },
+    {
+      "path": "tools/test_atari_st_city_subsystems.py",
+      "bytes": 3112,
+      "sha256": "37f7379558ee8858f016ff996a451e54cca85a957d143a868384c450c4853a5b"
+    },
+    {
+      "path": "tools/test_atari_st_colony_phases.py",
+      "bytes": 1387,
+      "sha256": "99526e970163dca94b45999d10c8006ad156b8083ea7eb9579a803efde5c760f"
+    },
+    {
+      "path": "tools/test_atari_st_dialog_frames.py",
+      "bytes": 8561,
+      "sha256": "b10c36150ae01665be8af0f9b332410b673c75c4836dde057e1848b6f27d6ab5"
+    },
+    {
+      "path": "tools/test_atari_st_dialog_text.py",
+      "bytes": 6570,
+      "sha256": "05311d66a1a20c85eddb93b77178259306afe0942b6f2a0f8e07d78cbd70c5b7"
+    },
+    {
+      "path": "tools/test_atari_st_dialog_vm.py",
+      "bytes": 2357,
+      "sha256": "60975e5391e5502100854692a05215105233ef8965b097bbba9ede40f39a9160"
+    },
+    {
+      "path": "tools/test_atari_st_enemy_ships.py",
+      "bytes": 5288,
+      "sha256": "37657bbe4c915c910ee1c359465aeb26476edeb9c97d42cab963b07ca0ca1b32"
+    },
+    {
+      "path": "tools/test_atari_st_ground_rules.py",
+      "bytes": 4347,
+      "sha256": "48fc933a063df837d6d108df55bbae0eac1fb3b570d17412a42f1ec7ae9da0c4"
+    },
+    {
+      "path": "tools/test_atari_st_image_decoder.py",
+      "bytes": 3529,
+      "sha256": "aa5421c9434b0c99649e6d334392ab7d193ec68ffc5dfe9880d28f7939c242f4"
+    },
+    {
+      "path": "tools/test_atari_st_image_directory.py",
+      "bytes": 3720,
+      "sha256": "b43dee0bf4cec79ba608aa4344f5dcf53aee025a03e4b1ba0864b6cad5097968"
+    },
+    {
+      "path": "tools/test_atari_st_item_icons.py",
+      "bytes": 6036,
+      "sha256": "595ae2342ff6b58a6c096368cf68fd0bc686c901691bf876bff37a554fe01d2d"
+    },
+    {
+      "path": "tools/test_atari_st_new_game_loadout.py",
+      "bytes": 3458,
+      "sha256": "11e2235dce1eac6ee0e73d3a2f4c1f3d321d5192df36a3b9d5158ace909a8c8e"
+    },
+    {
+      "path": "tools/test_atari_st_planet_maps.py",
+      "bytes": 984,
+      "sha256": "e674a2e33a3524055a9f579953f72c7ac38d29b52fab8c286dbf0fd15d7e7b6d"
+    },
+    {
+      "path": "tools/test_atari_st_screen_geometry.py",
+      "bytes": 3124,
+      "sha256": "7b6c99fc12afd5371a3cd7581ba3dd6a56b9b3b0911a343b1a6a8476a3fe5e7e"
+    },
+    {
+      "path": "tools/test_atari_st_ship_rules.py",
+      "bytes": 1648,
+      "sha256": "157e6f81d356ad49d2b08e0ba3e3bebdb4398fa96db1221202b69a165e98aefa"
+    },
+    {
+      "path": "tools/test_atari_st_ship_systems.py",
+      "bytes": 5043,
+      "sha256": "7fddcbb729ea64e3f5e63b695e0708cf1e56bac426f332d9d3b1dc2f057edbec"
+    },
+    {
+      "path": "tools/test_atari_st_sine_table.py",
+      "bytes": 4105,
+      "sha256": "550a60267872362c9f24566e6e11241550b6a52db1c50cee94f83bd06d30ee6d"
+    },
+    {
+      "path": "tools/test_atari_st_sound_events.py",
+      "bytes": 5531,
+      "sha256": "374cc963e8255b32797254a0529d7698e69619f2f00ee2df69919d090a1338df"
+    },
+    {
+      "path": "tools/test_atari_st_trade_classes.py",
+      "bytes": 2070,
+      "sha256": "02e02f4c6b4ac14813f6c3cc4acc42f414b30435e836ac11bd0ca15acca83404"
+    },
+    {
+      "path": "tools/test_atari_st_ui_frame.py",
+      "bytes": 1774,
+      "sha256": "1a579c14ec2849e5920f87cfc645173650403aafb56bdaec85b13ce0b9a96157"
+    },
+    {
+      "path": "tools/test_atari_st_window_menu_tables.py",
+      "bytes": 3085,
+      "sha256": "fe4076fd0dfc73e6b5c3afdc0743ecabe78a9d726931c76d2295d4637cff6f31"
+    },
+    {
+      "path": "tools/test_atari_st_world_data.py",
+      "bytes": 11287,
+      "sha256": "8c26876080f6d09cb86cc688072c58e396ea97428d251020c19bcd9be2698077"
+    },
+    {
+      "path": "tools/test_build_promo_cards.py",
+      "bytes": 3785,
+      "sha256": "9427359c2319ce07585ff9972814f5992a59c1999ab1964d715f0cfcfed766fe"
+    },
+    {
+      "path": "tools/test_build_world_name_catalog.py",
+      "bytes": 3569,
+      "sha256": "01f4c51fe0e5424aad0711625e38db1096ae4233f8ee916c9e1778ff91c96a3e"
+    },
+    {
+      "path": "tools/test_check_city_map_runtime.py",
+      "bytes": 6048,
+      "sha256": "a0c5a28943ab08d87deefe5e9e121658a0ed66b8f1e777addc40d3ff86525dc2"
+    },
+    {
+      "path": "tools/test_check_ground_cells.py",
+      "bytes": 3198,
+      "sha256": "092f62ed15c03bdc6a2819a2102a8d8983444ec811b382dd12846bcfc7dbaa5f"
+    },
+    {
+      "path": "tools/test_check_locker_icons.py",
+      "bytes": 6280,
+      "sha256": "cb89ca7710b7a8dfb21d294f997aa0e3209e9b346cf0616d93ca5e6b91bc615c"
+    },
+    {
+      "path": "tools/test_check_render_parity.py",
+      "bytes": 3314,
+      "sha256": "1a715433cfae8b4b1c30dcc689c15a1192d9e98b9686952cd4445f62a89dac68"
+    },
+    {
+      "path": "tools/test_check_shop_window.py",
+      "bytes": 3740,
+      "sha256": "5b0bcafb68dcf9b1ae12e0f12b7300eed2accd1800094eba54f0a22793ff80e1"
+    },
+    {
+      "path": "tools/test_check_sound_export.py",
+      "bytes": 2654,
+      "sha256": "b11f31c19454e608409bba045650a78502a940b2174d04fad6f2906f53920dec"
+    },
+    {
+      "path": "tools/test_check_star_map_grid.py",
+      "bytes": 2039,
+      "sha256": "a1209c36f6caa176f6b0c195e4a2eaa23274f8676cd5152e8eb195bbfc7f6528"
+    },
+    {
+      "path": "tools/test_check_title_pixel_parity.py",
+      "bytes": 6256,
+      "sha256": "84be89c408cb2d1828d216bac19114e89618a04555373db5fd49e6f9db037cc0"
+    },
+    {
+      "path": "tools/test_crosscheck_dialog_against_oracle.py",
+      "bytes": 2962,
+      "sha256": "7038a5be29571a66baa94c79c0f893bbc1d5e396023dd4cd0061534c355e9673"
+    },
+    {
+      "path": "tools/test_package_public.py",
+      "bytes": 6076,
+      "sha256": "4d7844f4cca1918edc1e4a6fb9ad21a7c8be6e081843ee8342fe518e4d955832"
+    },
+    {
+      "path": "tools/test_package_release.py",
+      "bytes": 4175,
+      "sha256": "5462152f149d4175cda79052f41fd36f87a5cc265c0a4c761817e2cebc4774bb"
+    },
+    {
+      "path": "tools/test_port_oracle_building_plan.py",
+      "bytes": 8930,
+      "sha256": "8925c589009c89a3450b5f3ee76bfed8d62608601b07496fbf82fa66ef46bc20"
+    },
+    {
+      "path": "tools/test_psys_disasm.py",
+      "bytes": 4556,
+      "sha256": "c8099fae4d07cabd951fd1c2e39eb9c9d06427209c39d2636575402b528fe186"
+    },
+    {
+      "path": "tools/test_validate_apple2_display_page_evidence.py",
+      "bytes": 5011,
+      "sha256": "b654b2bccb08dfb2299df46a708b1283c4a7ebd2076cf3338236dbe25e48ef52"
+    },
+    {
+      "path": "tools/test_validate_apple2_engineering_label_evidence.py",
+      "bytes": 1724,
+      "sha256": "599ac616d3f3761fa5b694e53d546b632beb846bee6197b2e23ec61aab6bed15"
+    },
+    {
+      "path": "tools/test_validate_apple2_hgr_code_provenance.py",
+      "bytes": 5399,
+      "sha256": "456712c021064612b2af98f0a2a8a0faf923247042944c9c2099ebd3f1275c54"
+    },
+    {
+      "path": "tools/test_validate_apple2_hgr_writer_pc_evidence.py",
+      "bytes": 6403,
+      "sha256": "a728590dddad8d383ccea79be5dc1b7fb058f878353027f855244787f938f063"
+    },
+    {
+      "path": "tools/test_validate_apple2_status_label_evidence.py",
+      "bytes": 2106,
+      "sha256": "fb94e3480ee3ce6fb920e040a7de1bb01f828d743de01a1c91cd710ac49974f2"
+    },
+    {
+      "path": "tools/test_validate_manual_ui_terms.py",
+      "bytes": 2156,
+      "sha256": "944d7a8f521281378a169dd9cbe2b31d2efc6f861745ddaedabfcfaad1871f82"
+    },
+    {
+      "path": "tools/test_verify_talos_combat_cadence.py",
+      "bytes": 5181,
+      "sha256": "a46e82cef44c178de8582e56f3d427322699591a4048fca8639150b55d068b84"
+    },
+    {
+      "path": "tools/test_verify_talos_fuel_depot.py",
+      "bytes": 3503,
+      "sha256": "3d49e37d3adc9317698e18e752ccdfe6f9e9ff1587b61fadb1246587082edb94"
+    },
+    {
+      "path": "tools/trade_marquee_probe.go.txt",
+      "bytes": 7325,
+      "sha256": "15c84c0cdb1425c81b59c19e3e81ef70b8a4db54a10f65316e9de5bfc91526b5"
+    },
+    {
+      "path": "tools/validate_apple2_boot_evidence.py",
+      "bytes": 4791,
+      "sha256": "7904bf241087b52372f855055c63d738c5d6d4bd781cd3ede3efd884d43c378c"
+    },
+    {
+      "path": "tools/validate_apple2_display_page_evidence.py",
+      "bytes": 6967,
+      "sha256": "a96851cb01da9a1383cea29a9bc7efcce09ab3fd9eec14403c4c2251ded52fb3"
+    },
+    {
+      "path": "tools/validate_apple2_engineering_label_evidence.py",
+      "bytes": 3109,
+      "sha256": "3a6b2c4bc62354929bbc1b7532823a10ef0ef25a6d439bd6847836f8403eb0cb"
+    },
+    {
+      "path": "tools/validate_apple2_hgr_code_provenance.py",
+      "bytes": 9329,
+      "sha256": "64052e8044d8fd36e3475cc4afb05f6a87bb04f6862760fa3a49e4261ed1c7f5"
+    },
+    {
+      "path": "tools/validate_apple2_hgr_writer_pc_evidence.py",
+      "bytes": 7652,
+      "sha256": "a653e61a3ef6eb1be3f571c9fbeb676981897392bdeaa59116fef1fe41895015"
+    },
+    {
+      "path": "tools/validate_apple2_startup_catalog.py",
+      "bytes": 5259,
+      "sha256": "10e1fe1fbf69f813ca6833fe35bd1539caf40954ee02f0575a4b94bac1c565ea"
+    },
+    {
+      "path": "tools/validate_apple2_status_label_evidence.py",
+      "bytes": 3251,
+      "sha256": "17c573217184f279e2dd744ebbd8f9a9ce8d80ec1f2125bfda1fcec27f11338d"
+    },
+    {
+      "path": "tools/validate_apple2_system_apple_evidence.py",
+      "bytes": 4447,
+      "sha256": "00af49b8f5f0cdb993fd99ab85a25a64bcf609868351d750cffed1810c7c6921"
+    },
+    {
+      "path": "tools/validate_apple2_word_boundary_catalog.py",
+      "bytes": 3001,
+      "sha256": "02076c3ab979bd22c24fd2763f77bffb9eecf5f6be1d927357bb2ec5c57b20f7"
+    },
+    {
+      "path": "tools/validate_atari_st_dialog_text.py",
+      "bytes": 6269,
+      "sha256": "fa4dade927bf114ab8aecf70df7c0827078cd646f768f2ea5a014adab07e41f0"
+    },
+    {
+      "path": "tools/validate_atari_st_sound_bank.py",
+      "bytes": 4516,
+      "sha256": "f4086f7dd53c3423d03b25a5a7d7e278219ca6bcc44eb6f43fffb86117eae233"
+    },
+    {
+      "path": "tools/validate_atari_st_world_data.py",
+      "bytes": 7070,
+      "sha256": "e5f213014fd8a857553a87704d71513478d422461525b9ba6cfefb6cb382aa57"
+    },
+    {
+      "path": "tools/validate_cjk_font_coverage.py",
+      "bytes": 2392,
+      "sha256": "374e2aa108633f1394b0f8859911ed732494bb3cadeac26274d6550fb9938621"
+    },
+    {
+      "path": "tools/validate_dialog_translation.py",
+      "bytes": 6782,
+      "sha256": "42f3e006b2a54108645d4bc8f9ade16e43ba60e0446266effd32df2416102ea0"
+    },
+    {
+      "path": "tools/validate_i18n_catalog.py",
+      "bytes": 4348,
+      "sha256": "1290e2de6cf2c78e460882b31292a8b847be952777b6a0d605d5918b3ca8368b"
+    },
+    {
+      "path": "tools/validate_language_packs.py",
+      "bytes": 5809,
+      "sha256": "ba223c1cfd44576a9b0b4a6fa6f851d994e014381d4fbb2599b1e2c42efc7075"
+    },
+    {
+      "path": "tools/validate_manual_coverage.py",
+      "bytes": 4040,
+      "sha256": "89cdd8bb00447eb752d16c42cedb1a5d839ddc591b79537911b690f07beecd26"
+    },
+    {
+      "path": "tools/validate_manual_ui_terms.py",
+      "bytes": 3250,
+      "sha256": "82e5055f17e974c3d5ecbb33657f1097f1cc4adcfb7c0e569942be00ae0cdaad"
+    },
+    {
+      "path": "tools/validate_player_text_zh_hant.py",
+      "bytes": 2307,
+      "sha256": "812a42e35b50a28e80159f0996ae15819a5205d9c63ce6a49c585a74aec40826"
+    },
+    {
+      "path": "tools/validate_runtime_localization.py",
+      "bytes": 2354,
+      "sha256": "f7cb86751a842e2a0a88094b9f4f459e82d5c68458946ef05f54e5cbc0e558e5"
+    },
+    {
+      "path": "tools/validate_ui_catalog.py",
+      "bytes": 2707,
+      "sha256": "f28fe58e1073a7926d2942f967ce885d66d6d42e12073675c142ddbeb854a8c4"
+    },
+    {
+      "path": "tools/verify_atari_hd_collision_browser.mjs",
+      "bytes": 4072,
+      "sha256": "2c80b1b1df669e7c995be0d619b7cb55ca20fc5aa18361db089ae36284ecadc0"
+    },
+    {
+      "path": "tools/verify_atari_hd_navigation_browser.mjs",
+      "bytes": 3480,
+      "sha256": "a605284f15d4fa9b458e26b62771d1d3e37a90382f10fc99d1647371c69d19ea"
+    },
+    {
+      "path": "tools/verify_atari_hd_navigation_maps_browser.mjs",
+      "bytes": 3688,
+      "sha256": "d197fce76190e9e8030fa62865233a25b4ce314831988bd828552bab86bee2f9"
+    },
+    {
+      "path": "tools/verify_banville_growth_player.py",
+      "bytes": 180069,
+      "sha256": "fa302991a8013304c42af336f089ee5941d9a0f0555f7bc3b4ae8d12e02f3cae"
+    },
+    {
+      "path": "tools/verify_combat_outcome_player.py",
+      "bytes": 9604,
+      "sha256": "0fee662bec7d4e9bad49468d6462089a19be49ecea3662119236ee5c87fc6ea3"
+    },
+    {
+      "path": "tools/verify_depot_repair_player.py",
+      "bytes": 10833,
+      "sha256": "350ae688d95c041017f607ef7eb64b25fe8f6f7b3ca0fe047b54a87cb05af0af"
+    },
+    {
+      "path": "tools/verify_final_score_player.py",
+      "bytes": 4549,
+      "sha256": "6ed1ac2678e79502f738af5150698d3a448bac3b31e38e19e7414dccc7c4c2b5"
+    },
+    {
+      "path": "tools/verify_fuel_rescue_player.py",
+      "bytes": 11654,
+      "sha256": "711d123b01bba6e6c95e1a2377f8cb471a2f852b3375e4bf9afd14bccfb53c58"
+    },
+    {
+      "path": "tools/verify_release_packages.py",
+      "bytes": 11798,
+      "sha256": "08726e034b648cf5c093d345ecf9130b00291be91622170804e4b6840d00c130"
+    },
+    {
+      "path": "tools/verify_sleep_interrupt_player.py",
+      "bytes": 9960,
+      "sha256": "3b42f1023c1c6fb8c725326cf5e7dd2a96839187852284d45dd5d7e950d69d7a"
+    },
+    {
+      "path": "tools/verify_stores_player.py",
+      "bytes": 43683,
+      "sha256": "a2fd4103b0eaf94320bb4a1fe7974bc21e73f41383bb8cc4c73b4fbcfb86b9fd"
+    },
+    {
+      "path": "tools/verify_talos_banville.py",
+      "bytes": 51239,
+      "sha256": "79e3df9ea492caaae4ec540371ccba60e87265a5fcff2c69baf284d5754e0f90"
+    },
+    {
+      "path": "tools/verify_talos_combat_aim.py",
+      "bytes": 6385,
+      "sha256": "f3889fc7e4de4556bd55fc9deefe46a8003657d5069763d86430485d16873a7c"
+    },
+    {
+      "path": "tools/verify_talos_combat_cadence.py",
+      "bytes": 42725,
+      "sha256": "4ff8106f73b385fca7f4768410f9b9e0734df442f48ea3b8b7b69692d17bb666"
+    },
+    {
+      "path": "tools/verify_talos_cryo_source.py",
+      "bytes": 12874,
+      "sha256": "8f52afbaaa26f9e2aacf7083e81984bc31eb8a09ce92bef1b4ef2ba58ac831cc"
+    },
+    {
+      "path": "tools/verify_talos_food.py",
+      "bytes": 66400,
+      "sha256": "7a4aac95dcb22ebe5dcc21793f5cd8067c4eee5d6e963317e0ebbceb41f56dfd"
+    },
+    {
+      "path": "tools/verify_talos_ftl_boost.py",
+      "bytes": 4131,
+      "sha256": "a5ee3ac29bb6580c9379bf4be365ca5054799ac7a20fbbbf3265b51f78cf815e"
+    },
+    {
+      "path": "tools/verify_talos_fuel_depot.py",
+      "bytes": 14206,
+      "sha256": "ea64dff9de9efd70ae550779f1b962194b158263ddb83343960c260627d55858"
+    },
+    {
+      "path": "tools/verify_talos_fuel_rescue.py",
+      "bytes": 5037,
+      "sha256": "39fe2808994fabd4d56d2a1ec794ddd5fc283500e0e03b9d8445f6922fd2ec54"
+    },
+    {
+      "path": "tools/verify_talos_ground_collision.py",
+      "bytes": 8817,
+      "sha256": "ac65b2df693f5af6543adca961519b07fa4fc7ec3113aa0acfe07e0a18376328"
+    },
+    {
+      "path": "tools/verify_talos_walker_slices.py",
+      "bytes": 6070,
+      "sha256": "c354750cdeaa3ba23865980d50b1fdbd2a89a0a91302edc308c47b03071587cd"
+    },
+    {
+      "path": "tools/verify_talos_warehouse.py",
+      "bytes": 6089,
+      "sha256": "8fa3e6890695c6df5bddd9bf86c7a63d0c6d4100f7092cbae0c361f0252d33c3"
+    },
+    {
+      "path": "tools/verify_trade_marquee.py",
+      "bytes": 3129,
+      "sha256": "9569394eb4985d331e34acd61bff97769e4e28edefb08617ccba5373557c668f"
+    }
+  ]
+}

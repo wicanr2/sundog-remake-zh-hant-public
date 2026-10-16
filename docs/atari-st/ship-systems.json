@@ -1,0 +1,259 @@
+{
+  "schema": 1,
+  "tool": "tools/atari_st_ship_systems.py",
+  "inputs": {
+    "archive": {
+      "name": "Sundog-Frozen-Legacy_Atari-ST_EN.zip",
+      "sha256": "d555864c5d6e358f18e3cb18bc753e3b0f8aa9a255d7f64bb7e92bbe62dde716"
+    },
+    "disk": {
+      "name": "Sundog - Frozen Legacy v3.0 (1985)(FTL)[a2].st",
+      "size": 368640,
+      "sha256": "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6"
+    },
+    "variant": "[a2]",
+    "itemData": {
+      "path": "docs/atari-st/item-data.json",
+      "sha256": "3d94ed006427a12fdfcacd30a91989c83e3ec03f5e9b56288694308bfa4e37eb"
+    }
+  },
+  "recordLayout": {
+    "arrayBaseGlobal": "MAINLIB word 0x5b",
+    "systemStride": 28,
+    "rowCount": 5,
+    "rowStride": 5,
+    "partColumns": 4,
+    "templateRow": 4,
+    "statusOffset": 24,
+    "reservedOffset": 25,
+    "alternateItemOffset": 26,
+    "alternateColumnOffset": 27,
+    "maxSystemStatus": 16
+  },
+  "rules": [
+    {
+      "topic": "row status",
+      "status": "proven",
+      "detail": "SHIPLIB:0x0e update_system 由 4 起算逐欄檢查：裝了 shunt（0x17）且不是第 0 欄，狀態減 1；裝的不是樣板列該欄的零件（或替代零件）則整列歸 0。"
+    },
+    {
+      "topic": "system status",
+      "status": "proven",
+      "detail": "系統總狀態寫在 [24]，等於四個實際列的狀態和，最大 0x10。XSTARTUP:0x31 初始化時先把五列狀態加總再減 4，扣掉的正是樣板列那一列。"
+    },
+    {
+      "topic": "shunt placement",
+      "status": "proven",
+      "detail": "XDOREPAI:0x0a fits 允許 shunt 裝進第 0 欄以外的任一欄；第 0 欄（control node）不能被 shunt 取代。"
+    },
+    {
+      "topic": "alternate part",
+      "status": "proven",
+      "detail": "fits 與 update_system 都額外檢查 [26]／[27] 這組「替代零件＋欄位」。替代零件裝上時該列仍算完好，並另外設一個旗標。"
+    },
+    {
+      "topic": "new game damage",
+      "status": "proven",
+      "detail": "新遊戲每一實際列有 1/3 機率帶缺陷：隨機挑一欄，若挑到第 0 欄或再一次亂數為真，該格變成空（0）或壞掉的零件（0x07）且該列狀態 0；否則裝上 shunt（0x17）、狀態 3。"
+    }
+  ],
+  "systems": [
+    {
+      "index": 0,
+      "rawOffset": "0x3b868",
+      "columns": [
+        {
+          "column": 0,
+          "itemIndex": "0x1f",
+          "itemName": "control node"
+        },
+        {
+          "column": 1,
+          "itemIndex": "0x1c",
+          "itemName": "flux modulator"
+        },
+        {
+          "column": 2,
+          "itemIndex": "0x1a",
+          "itemName": "photon bridge"
+        },
+        {
+          "column": 3,
+          "itemIndex": "0x1e",
+          "itemName": "s/t distorter"
+        }
+      ],
+      "indexEvidence": "此呼叫的系統編號由全域值供給，不是常數；其餘五個呼叫恰為 1..5，六套系統中只剩 0，因此以消去法認定。",
+      "alternate": null
+    },
+    {
+      "index": 1,
+      "rawOffset": "0x3b870",
+      "columns": [
+        {
+          "column": 0,
+          "itemIndex": "0x1f",
+          "itemName": "control node"
+        },
+        {
+          "column": 1,
+          "itemIndex": "0x1c",
+          "itemName": "flux modulator"
+        },
+        {
+          "column": 2,
+          "itemIndex": "0x1e",
+          "itemName": "s/t distorter"
+        },
+        {
+          "column": 3,
+          "itemIndex": "0x18",
+          "itemName": "cryofuse"
+        }
+      ],
+      "alternate": null
+    },
+    {
+      "index": 2,
+      "rawOffset": "0x3b878",
+      "columns": [
+        {
+          "column": 0,
+          "itemIndex": "0x1f",
+          "itemName": "control node"
+        },
+        {
+          "column": 1,
+          "itemIndex": "0x18",
+          "itemName": "cryofuse"
+        },
+        {
+          "column": 2,
+          "itemIndex": "0x1a",
+          "itemName": "photon bridge"
+        },
+        {
+          "column": 3,
+          "itemIndex": "0x1d",
+          "itemName": "plasma tube"
+        }
+      ],
+      "alternate": {
+        "itemIndex": "0x13",
+        "itemName": "concentrator",
+        "column": 2
+      }
+    },
+    {
+      "index": 3,
+      "rawOffset": "0x3b880",
+      "columns": [
+        {
+          "column": 0,
+          "itemIndex": "0x1f",
+          "itemName": "control node"
+        },
+        {
+          "column": 1,
+          "itemIndex": "0x1b",
+          "itemName": "scanner"
+        },
+        {
+          "column": 2,
+          "itemIndex": "0x19",
+          "itemName": "j-junc module"
+        },
+        {
+          "column": 3,
+          "itemIndex": "0x1a",
+          "itemName": "photon bridge"
+        }
+      ],
+      "alternate": {
+        "itemIndex": "0x14",
+        "itemName": "decloaker",
+        "column": 2
+      }
+    },
+    {
+      "index": 4,
+      "rawOffset": "0x3b888",
+      "columns": [
+        {
+          "column": 0,
+          "itemIndex": "0x1f",
+          "itemName": "control node"
+        },
+        {
+          "column": 1,
+          "itemIndex": "0x18",
+          "itemName": "cryofuse"
+        },
+        {
+          "column": 2,
+          "itemIndex": "0x1c",
+          "itemName": "flux modulator"
+        },
+        {
+          "column": 3,
+          "itemIndex": "0x1c",
+          "itemName": "flux modulator"
+        }
+      ],
+      "alternate": {
+        "itemIndex": "0x15",
+        "itemName": "cloaker",
+        "column": 1
+      }
+    },
+    {
+      "index": 5,
+      "rawOffset": "0x3b890",
+      "columns": [
+        {
+          "column": 0,
+          "itemIndex": "0x1f",
+          "itemName": "control node"
+        },
+        {
+          "column": 1,
+          "itemIndex": "0x19",
+          "itemName": "j-junc module"
+        },
+        {
+          "column": 2,
+          "itemIndex": "0x1b",
+          "itemName": "scanner"
+        },
+        {
+          "column": 3,
+          "itemIndex": "0x19",
+          "itemName": "j-junc module"
+        }
+      ],
+      "alternate": {
+        "itemIndex": "0x16",
+        "itemName": "ground scanner",
+        "column": 2
+      }
+    }
+  ],
+  "evidence": "proven",
+  "notes": [
+    "本表的數字是 p-code 的呼叫參數，不是資料區的 record；工具因此比對呼叫點的位元組形狀而非表格版面。",
+    "次級文件 laanwj/sundog doc/gamestate.md 把 Ship's Guns 第 2 欄記成 concentrator（0x13）；呼叫參數顯示該欄的樣板零件是 photon bridge（0x1a），concentrator 是它的替代零件。Force Shields 的 cloaker（0x15）與 Pilotage 的 ground scanner（0x16）兩組替代零件則是次級文件沒有的。",
+    "反組譯使用 laanwj/sundog 的 tools/list_pcode.py；位元組與結論出自本專案。"
+  ],
+  "openQuestions": [
+    {
+      "topic": "system names",
+      "status": "proven",
+      "detail": "六套系統的顯示名稱在 XDOREPAI 的常數池（段內 0x06a2 起，長度前綴字串）：Warp Drives、Sub-c Engines、Ship's Guns、Tactical Disply、Force Shields、Pilotage，後面接著 Ship's Locker 與 Ship's Stores。「Tactical Disply」是原版自己的拼寫。"
+    },
+    {
+      "topic": "damage sources",
+      "status": "proven",
+      "detail": "SHIPLIB:0x21 update_attack 是唯一會打壞零件的來源，見 docs/atari-st/ship-rules.md。XDOFIGHT 對 MAINLIB_G5b 的寫入只有 0xbf（戰鬥暫存）與 0xc1（敵艦護盾），不碰六套系統那一段；航行本身也沒有損耗零件的寫入點。這是掃過全段 p-code 的**有界否定觀察**：零件只會被戰鬥打壞。"
+    }
+  ]
+}

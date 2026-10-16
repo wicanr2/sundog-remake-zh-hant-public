@@ -1,0 +1,31 @@
+# 原始媒體與私人證據不得進入公開來源。
+*.st
+*.ST
+*.stx
+*.STX
+*.dsk
+*.DSK
+*.rom
+*.bin
+*.img
+*.rar
+*.zip
+*.pdf
+*.wav
+*.ogg
+*.mp4
+*.jpg
+*.jpeg
+/assets/title/
+/docs/atari-st/parity-shots/
+/docs/art/prototypes/
+**/*manual-ocr*
+
+# 本機建置、存檔與研究輸出。
+/workplace/
+/dist-all/
+/bin/
+*.test
+__pycache__/
+*.py[cod]
+.DS_Store

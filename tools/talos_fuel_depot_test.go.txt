@@ -1,0 +1,955 @@
+package m68k
+
+import (
+	"crypto/sha256"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"testing"
+)
+
+// 研究入口：docs/atari-st/talos-combat-audit-20260907.md。
+// 原版金額與購量指令真正執行；繪字、選單與輸入裝置採明示邊界。
+func depotLocal(frame uint32, n int) uint32 { return frame + 8 + uint32(n*2) }
+
+func depotMoney(h *harness, at uint32) int {
+	return int(int16(h.peek(at)))*1000 + int(int16(h.peek(at+2)))
+}
+
+func depotPutMoney(h *harness, at uint32, value int) {
+	h.poke(at, uint16(value/1000))
+	h.poke(at+2, uint16(value%1000))
+}
+
+type depotMenuOption struct {
+	Number int
+	Text   string
+}
+
+var depotMenuTrace *[]depotMenuOption
+
+// MAINLIB raw base0x2e800；位置從原始程序字典核對，非規則替身。
+func depotRun(h *harness, disk []byte, base, first, last, depth int, choices *[]int) {
+	stream := uint32(operandStream + 0xd000 + depth*0x800)
+	h.startDispatch(disk[base+first:base+last+4], stream)
+	for step := 0; step < 100000; step++ {
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip, sp, oldFrame := h.cpu.State.A[4], h.cpu.State.SSP, h.cpu.State.A[0]
+			at := int(ip-stream) + first
+			if at == last {
+				return
+			}
+			// 大小寫轉換只供顯示；本研究不合成價格或付款。
+			if base == 0x42e00 && at == 0xa24 {
+				h.cpu.State.A[4] = stream + uint32(0xa4a-first)
+				h.start(interpLoop)
+				continue
+			}
+			op, proc := h.mem[ip], h.mem[ip+1]
+			if op == 0x73 || op == 0x91 || op == 0x90 {
+				entry, end, args, result, resultLocal := 0, 0, 0, false, 0
+				callBase := 0x2e800
+				frame := uint32(0x48000 + depth*0x100)
+				for n := uint32(0); n < 160; n++ {
+					h.mem[frame+n] = 0
+				}
+				set := func(local, offset int) { h.poke(depotLocal(frame, local), h.peek(sp+uint32(offset*2))) }
+				if base == 0x42e00 && op == 0x90 && proc == 0x11 {
+					h.poke(frame, uint16(oldFrame-0x40000))
+					levelsFrame(h, frame)
+					depotRun(h, disk, 0x42e00, 0x92c, 0x9a9, depth+1, choices)
+					levelsFrame(h, oldFrame)
+					h.cpu.State.SSP = sp
+					h.cpu.State.A[4] = ip + 2
+					h.start(interpLoop)
+					continue
+				}
+				switch {
+				case base == 0x42e00 && op == 0x90 && proc == 0x14:
+					callBase, entry, end, args = 0x42e00, 0xbf0, 0xc10, 3
+					set(2, 0)
+					set(3, 1)
+					set(4, 2)
+				case base == 0x42e00 && op == 0x90 && proc == 0x15:
+					callBase, entry, end, args, result, resultLocal = 0x42e00, 0xbd2, 0xbe9, 3, true, 4
+					for n := 1; n <= 4; n++ {
+						set(n, n-1)
+					}
+				case (op == 0x73 || op == 0x91) && proc == 0x0d:
+					entry, end, args = 0x686, 0x6b7, 3
+					for n := 1; n <= 3; n++ {
+						set(n, n-1)
+					}
+				case op == 0x73 && proc == 0x0e:
+					entry, end, args, result, resultLocal = 0x6be, 0x6d6, 2, true, 7
+					set(5, 0)
+					set(6, 1)
+					set(7, 2)
+				case (op == 0x73 || op == 0x91) && proc == 0x0f:
+					entry, end, args = 0x6fa, 0x74c, 2
+					set(3, 0)
+					set(4, 1)
+				case op == 0x73 && proc == 0x10:
+					entry, end, args = 0x752, 0x767, 2
+					set(3, 0)
+					set(4, 1)
+				case op == 0x91 && proc == 0x08:
+					entry, end, args, result, resultLocal = 0x5c4, 0x5d8, 1, true, 2
+					set(1, 0)
+					set(2, 1)
+				case op == 0x90 && proc == 0x51:
+					entry, end, args, result, resultLocal = 0x6dc, 0x6f3, 1, true, 4
+					set(3, 0)
+					set(4, 1)
+				}
+				if entry != 0 {
+					levelsFrame(h, frame)
+					depotRun(h, disk, callBase, entry, end, depth+1, choices)
+					levelsFrame(h, oldFrame)
+					h.cpu.State.SSP = sp + uint32(args*2)
+					if result {
+						h.poke(h.cpu.State.SSP, h.peek(depotLocal(frame, resultLocal)))
+					}
+					h.cpu.State.A[4] = ip + 2
+					h.start(interpLoop)
+					continue
+				}
+			}
+			if base == 0x42e00 && op == 0xef && proc == 0x10 {
+				frame := uint32(0x48000 + depth*0x100)
+				for n := uint32(0); n < 160; n++ {
+					h.mem[frame+n] = 0
+				}
+				h.poke(frame, 0x6000) // 兩個購油caller與購量程序同屬do_depot。
+				for n := 0; n < 10; n++ {
+					h.poke(depotLocal(frame, 63+n), h.peek(sp+uint32(n*2)))
+				}
+				levelsFrame(h, frame)
+				depotRun(h, disk, 0x42e00, 0x9d2, 0xb74, depth+1, choices)
+				levelsFrame(h, oldFrame)
+				h.cpu.State.SSP = sp + 20
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			// 明示的顯示／輸入邊界；只有原版 MAINLIB 決定金額與是否可購。
+			pop, handled := 0, false
+			if base == 0x42e00 && op == 0x73 {
+				switch proc {
+				case 0x02, 0x16, 0x17:
+					handled = true
+				case 0x1b:
+					pop, handled = 2, true
+				case 0x37:
+					pop, handled = 2, true
+				case 0x1d, 0x1f:
+					pop, handled = 3, true
+				case 0x2c, 0x27, 0x1a, 0x20, 0x21:
+					pop, handled = 1, true
+				case 0x28:
+					h.poke(sp, 1)
+					handled = true
+				}
+			} else if base == 0x42e00 && op == 0x74 {
+				switch proc {
+				case 0x13, 0x0f:
+					pop, handled = 1, true
+				case 0x14:
+					if depotMenuTrace != nil {
+						// WINDOWLI text argument is a segment-relative LCO, not
+						// a Pascal data-space pointer. XDOUNITE is loaded at 0x50000.
+						at := uint32(0x50000) + uint32(h.peek(sp+2))
+						size := uint32(h.mem[at])
+						label := make([]byte, size)
+						for i := range label {
+							label[i] = h.mem[at+1+uint32(i)]
+						}
+						*depotMenuTrace = append(*depotMenuTrace, depotMenuOption{int(h.peek(sp + 4)), string(label)})
+					}
+					pop, handled = 3, true
+				case 0x12:
+					if choices == nil || len(*choices) == 0 {
+						h.t.Fatal("未指定購量選單輸入")
+					}
+					h.poke(sp+4, uint16((*choices)[0]))
+					*choices = (*choices)[1:]
+					pop, handled = 2, true
+				}
+			} else if base == 0x42e00 && op == 0x72 && proc == 0x1f {
+				h.poke(sp+2, 0)
+				pop, handled = 1, true
+			} else if base == 0x42e00 && op == 0x72 && proc == 0x16 {
+				pop, handled = 1, true
+			}
+			if handled {
+				h.cpu.State.SSP = sp + uint32(pop*2)
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if op == 0x73 || op == 0x74 || op == 0x72 || op == 0x91 || op == 0x90 || op == 0xef {
+				h.t.Fatalf("未納入呼叫 base=%x at=%x op=%x proc=%x", base, at, op, proc)
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatalf("購油原生 base=%x PC=%x IP=%x：%v", base, h.cpu.State.PC, h.cpu.State.A[4], err)
+		}
+	}
+	h.t.Fatal("購油原生切片未終止")
+}
+
+// 原始 ENGINEERING 子程序。UI 裝置與顯示為邊界，價格、門檻、
+// 扣款與航距寫入均由 SYSTEM.INTERP 執行，沒有規則替身。
+func TestSunDogDepotMenu(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	type row struct {
+		City    int
+		Options []depotMenuOption
+	}
+	report := struct {
+		Scope  string
+		Cases  int
+		Native []row
+	}{Scope: "XDOUNITE:0x0f 0xe2e..0xe68，原始選單建構與城市60限制；WINDOWLI選項輸出為觀察邊界，不模擬裝置。"}
+	defer func() { depotMenuTrace = nil }()
+	for city := 1; city <= 63; city++ {
+		h := depotHarness(t, disk)
+		h.poke(cadenceGlobal(0x2a), uint16(1|7<<4|city<<9))
+		levelsFrame(h, 0x45000)
+		depotRun(h, disk, 0x42e00, 0xea6, 0xee8, 0, nil)
+		levelsFrame(h, 0x46000)
+		r := row{City: city}
+		depotMenuTrace = &r.Options
+		sp := h.cpu.State.SSP
+		depotRun(h, disk, 0x42e00, 0xe2e, 0xe68, 0, nil)
+		want := []string{"REFUEL SHIP", "REPAIR SHIP", "BUY AUX FUEL"}
+		if city == 60 {
+			want = append(want, "ENGINEERING")
+		}
+		if len(r.Options) != len(want) || h.cpu.State.SSP != sp {
+			t.Fatal("選單或堆疊不同", r)
+		}
+		for i, v := range r.Options {
+			if v.Number != i+1 || v.Text != want[i] {
+				t.Fatal("選單不同", r)
+			}
+		}
+		report.Cases++
+		report.Native = append(report.Native, r)
+	}
+	data, _ := json.MarshalIndent(report, "", "  ")
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-depot-menu.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestSunDogDepotRepair(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不同")
+	}
+	type row struct{ System, Hull, ShipCity, Bank, Cash, Menu, UnitPrice, ResultHull, ResultBank, ResultCash int }
+	report := struct {
+		Scope              string
+		Cases, Differences int
+		Native             []row
+	}{Scope: "XDOUNITE:0x13 0xc16..0xc6b，含0x14／0x15原始價格因子、購量及資金結算；裝置／顯示為明示邊界，非原版完整GUI。無RND。"}
+	factor := func(p, a, b int) int {
+		delta := a - b
+		if delta < 0 {
+			delta = -delta
+		}
+		n, d := 8+delta, 8
+		if a < b {
+			n, d = d, n
+		}
+		if 32767/n <= p {
+			return n * (p / d)
+		}
+		return n * p / d
+	}
+	for system := 1; system <= 12; system++ {
+		for _, hull := range []int{0, 1, 3, 4, 7, 8, 11, 12, 15, 16} {
+			for _, ship := range []int{7, 8} {
+				for _, money := range [][2]int{{0, 0}, {0, 500}, {100000, 123}} {
+					for _, menu := range []int{1, 2, 3} {
+						r := row{System: system, Hull: hull, ShipCity: ship, Bank: money[0], Cash: money[1], Menu: menu}
+						h := depotHarness(t, disk)
+						h.poke(cadenceGlobal(0x2a), uint16(system|7<<4|7<<9))
+						h.poke(cadenceGlobal(0x4a), uint16(ship<<9))
+						h.mem[cadenceGlobal(0x5b)+0xc0] = byte(hull)
+						depotPutMoney(h, cadenceGlobal(0x11f)+uint32((system-1)*20+12), r.Bank)
+						depotPutMoney(h, cadenceGlobal(0x33), r.Cash)
+						levelsFrame(h, 0x45000)
+						depotRun(h, disk, 0x42e00, 0xea6, 0xee8, 0, nil)
+						levelsFrame(h, 0x46000)
+						depotRun(h, disk, 0x42e00, 0xe21, 0xe2e, 0, nil)
+						depotRun(h, disk, 0x42e00, 0x1a, 0x5b, 0, nil)
+						levelsFrame(h, 0x49000)
+						depotRun(h, disk, 0x42e00, 0xc16, 0xc44, 0, nil)
+						r.UnitPrice = int(int16(h.peek(depotLocal(0x49000, 2))))
+						choices := []int{menu, 3}
+						depotRun(h, disk, 0x42e00, 0xc44, 0xc6b, 0, &choices)
+						r.ResultHull = int(h.mem[cadenceGlobal(0x5b)+0xc0])
+						levelsFrame(h, 0x46000)
+						depotRun(h, disk, 0x42e00, 0x62, 0xba, 0, nil)
+						r.ResultBank = depotMoney(h, cadenceGlobal(0x11f)+uint32((system-1)*20+12))
+						r.ResultCash = depotMoney(h, cadenceGlobal(0x33))
+						off := 0x5800 + (system-1)*20
+						streetRating := (int(disk[off+19]) >> 4) & 15
+						priceLevel := int(disk[off+19]) & 15
+						price := factor(factor(250*((16-hull)/4+1), 12, streetRating), priceLevel, 11)
+						if ship != 7 {
+							price = -1
+						}
+						bought := 0
+						if price > 0 && menu != 3 {
+							bought = min(16-hull, (max(0, r.Bank)+r.Cash)/price)
+							if menu == 2 {
+								bought = min(bought, 1)
+							}
+						}
+						spent := bought * max(0, price)
+						bs := min(max(0, r.Bank), spent)
+						if r.UnitPrice != price || r.ResultHull != hull+bought || r.ResultBank != r.Bank-bs || r.ResultCash != r.Cash-spent+bs {
+							report.Differences++
+							if report.Differences < 5 {
+								t.Logf("修船差異 %+v price%d bought%d", r, price, bought)
+							}
+						}
+						report.Cases++
+						report.Native = append(report.Native, r)
+					}
+				}
+			}
+		}
+	}
+	data, _ := json.MarshalIndent(report, "", "  ")
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-depot-repair.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 {
+		t.Fatal("修船原生差異", report.Differences)
+	}
+}
+
+func TestSunDogFTLBoost(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不同")
+	}
+	word := func(at int) int { return int(disk[at])<<8 | int(disk[at+1]) }
+	dict := 0x42e00 + word(0x42e00)*2
+	if word(dict-23*2)*2 != 0xd1a || word(0x42e00+0xd18) != 0xdf3 {
+		t.Fatal("ENGINEERING 字典不同")
+	}
+	type row struct{ Phase, Range, ShipCity, Bank, Cash, Menu, Price, ResultRange, ResultBank, ResultCash int }
+	report := struct {
+		Scope              string
+		Cases, Differences int
+		Native             []row
+	}{Scope: "XDOUNITE:0x17 0xd1c..0xdf3及原始資金預留／結算；明示選單輸入，顯示與裝置呼叫為邊界，非全機GUI。無RND。"}
+	for phase := 0; phase <= 9; phase++ {
+		price := (290 - (phase-5)*30) * 1000
+		for _, jump := range []int{8, 9} {
+			for _, ship := range []int{59, 60} {
+				for _, menu := range []int{1, -1} {
+					for _, money := range [][2]int{{0, price - 1}, {0, price}, {price - 1, 1}, {price, 123}, {-1, price}} {
+						r := row{Phase: phase, Range: jump, ShipCity: ship, Bank: money[0], Cash: money[1], Menu: menu, Price: price}
+						h := depotHarness(t, disk)
+						h.poke(cadenceGlobal(0x2a), uint16(1|7<<4|60<<9))
+						h.poke(cadenceGlobal(0x4a), uint16(ship<<9))
+						h.mem[cadenceGlobal(0x10b)+1] = byte(phase)
+						h.mem[cadenceGlobal(0x5b)+0xc2] = byte(jump)
+						depotPutMoney(h, cadenceGlobal(0x11f)+12, r.Bank)
+						depotPutMoney(h, cadenceGlobal(0x33), r.Cash)
+						levelsFrame(h, 0x45000)
+						depotRun(h, disk, 0x42e00, 0xea6, 0xee8, 0, nil)
+						levelsFrame(h, 0x46000)
+						depotRun(h, disk, 0x42e00, 0xe21, 0xe2e, 0, nil)
+						depotRun(h, disk, 0x42e00, 0x1a, 0x5b, 0, nil)
+						levelsFrame(h, 0x49000)
+						choices := []int{menu}
+						depotRun(h, disk, 0x42e00, 0xd1c, 0xdf3, 0, &choices)
+						r.ResultRange = int(h.mem[cadenceGlobal(0x5b)+0xc2])
+						levelsFrame(h, 0x46000)
+						depotRun(h, disk, 0x42e00, 0x62, 0xba, 0, nil)
+						r.ResultBank = depotMoney(h, cadenceGlobal(0x11f)+12)
+						r.ResultCash = depotMoney(h, cadenceGlobal(0x33))
+						spent := 0
+						wantRange := jump
+						if menu == 1 && ship == 60 && max(r.Bank, 0)+r.Cash >= price && jump == 8 {
+							spent = price
+							wantRange = 9
+						}
+						bankSpend := min(max(r.Bank, 0), spent)
+						if r.ResultRange != wantRange || r.ResultBank != r.Bank-bankSpend || r.ResultCash != r.Cash-spent+bankSpend {
+							report.Differences++
+							t.Logf("FTL差異 %+v", r)
+						}
+						report.Cases++
+						report.Native = append(report.Native, r)
+					}
+				}
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-ftl-boost.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Cases != 400 || report.Differences != 0 {
+		t.Fatalf("FTL cases%d differences%d", report.Cases, report.Differences)
+	}
+}
+
+func TestSunDogFuelDepotChain(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不同")
+	}
+	type fuelRow struct{ System, Fuel, ShipCity, Bank, Cash, Menu, UnitPrice, Bought, ResultFuel, ResultBank, ResultCash int }
+	type auxRow struct {
+		System                                                  int
+		Kinds                                                   [2]int
+		Bit13                                                   bool
+		Bank, Cash, Menu, Price, Bought, ResultBank, ResultCash int
+		Words, PriceWords                                       [2]uint16
+		Labels                                                  [2][16]byte
+	}
+	report := struct {
+		Scope                                                string
+		FuelCases, FuelDifferences, AuxCases, AuxDifferences int
+		FuelNative                                           []fuelRow
+		AuxNative                                            []auxRow
+	}{Scope: "真正購油caller 0xb7a..0xbcc／備用槽0xc72..0xd15呼叫原始購量／付款，再原版do_depot結算。選單與文字仍是明示研究邊界；非正常GUI或正式燃料鏈完成。"}
+	setup := func(system, shipCity, bank, cash int) *harness {
+		h := depotHarness(t, disk)
+		h.poke(cadenceGlobal(0x2a), uint16(system|7<<4|7<<9))
+		h.poke(cadenceGlobal(0x4a), uint16(shipCity<<9))
+		depotPutMoney(h, cadenceGlobal(0x11f)+uint32((system-1)*20+12), bank)
+		depotPutMoney(h, cadenceGlobal(0x33), cash)
+		levelsFrame(h, 0x45000)
+		depotRun(h, disk, 0x42e00, 0xea6, 0xee8, 0, nil)
+		levelsFrame(h, 0x46000)
+		depotRun(h, disk, 0x42e00, 0xe21, 0xe2e, 0, nil)
+		depotRun(h, disk, 0x42e00, 0x1a, 0x5b, 0, nil)
+		return h
+	}
+	settle := func(h *harness, system int) (int, int) {
+		levelsFrame(h, 0x46000)
+		depotRun(h, disk, 0x42e00, 0x62, 0xba, 0, nil)
+		return depotMoney(h, cadenceGlobal(0x11f)+uint32((system-1)*20+12)), depotMoney(h, cadenceGlobal(0x33))
+	}
+	factor := func(system int) int {
+		off := 0x5800 + (system-1)*20
+		w8 := int(disk[off+16])<<8 | int(disk[off+17])
+		w9 := int(disk[off+18])<<8 | int(disk[off+19])
+		return (w8 >> 12) + (w9 & 15) + 16 - ((w9 >> 4) & 15)
+	}
+	buyCount := func(capacity, price, bank, cash, menu int) int {
+		q := min(capacity, (max(bank, 0)+cash)/price)
+		if menu == 2 {
+			q = min(q, 1)
+		}
+		if menu == 3 {
+			q = 0
+		}
+		return q
+	}
+	pay := func(bank, cash, cost int) (int, int) { b := min(max(bank, 0), cost); return bank - b, cash - cost + b }
+	for _, system := range []int{1, 12} {
+		for _, fuel := range []int{0, 14, 15, 31, 254, 255} {
+			for _, shipCity := range []int{7, 8} {
+				for _, money := range [][2]int{{0, 0}, {0, 200}, {2000, 200}} {
+					for _, menu := range []int{1, 2, 3} {
+						price := 100 * factor(system) / 14
+						r := fuelRow{System: system, Fuel: fuel, ShipCity: shipCity, Bank: money[0], Cash: money[1], Menu: menu, UnitPrice: price}
+						h := setup(system, shipCity, r.Bank, r.Cash)
+						levelsFrame(h, 0x49000)
+						h.poke(cadenceGlobal(0xe5), uint16(fuel))
+						choices := []int{menu, 3}
+						depotRun(h, disk, 0x42e00, 0xb7a, 0xbcc, 0, &choices)
+						r.ResultFuel = int(h.peek(cadenceGlobal(0xe5)))
+						r.ResultBank, r.ResultCash = settle(h, system)
+						r.Bought = (r.Bank + r.Cash - r.ResultBank - r.ResultCash) / price
+						quantity := (fuel + 1) / 16
+						count := buyCount(16-quantity, price, r.Bank, r.Cash, menu)
+						if shipCity != 7 {
+							count = 0
+						}
+						expectedBank, expectedCash := pay(r.Bank, r.Cash, count*price)
+						expectedFuel := min(255, fuel%16+16*(quantity+count))
+						report.FuelCases++
+						report.FuelNative = append(report.FuelNative, r)
+						if r.Bought != count || r.ResultFuel != expectedFuel || r.ResultBank != expectedBank || r.ResultCash != expectedCash {
+							report.FuelDifferences++
+							if report.FuelDifferences < 4 {
+								t.Logf("主燃料完整切片差異 %+v 預期Fuel%d／Bank%d／Cash%d", r, expectedFuel, expectedBank, expectedCash)
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	for _, system := range []int{1, 12} {
+		for _, a := range []int{0, 1, 2, 31} {
+			for _, b := range []int{0, 1, 2, 31} {
+				for _, bit := range []bool{false, true} {
+					for _, money := range [][2]int{{0, 0}, {0, 200}, {10000, 200}} {
+						for _, menu := range []int{1, 2, 3} {
+							price := 100 * factor(system)
+							r := auxRow{System: system, Kinds: [2]int{a, b}, Bit13: bit, Bank: money[0], Cash: money[1], Menu: menu, Price: price, PriceWords: [2]uint16{0x1357, 0x2468}}
+							h := setup(system, 7, r.Bank, r.Cash)
+							levelsFrame(h, 0x49000)
+							if bit {
+								h.poke(cadenceGlobal(0x32), 1<<13)
+							}
+							for i, k := range r.Kinds {
+								r.Words[i] = uint16(0xab20 | k)
+								h.poke(cadenceGlobal(0xec)+uint32(i*4), r.Words[i])
+								h.poke(cadenceGlobal(0xec)+uint32(i*4+2), r.PriceWords[i])
+								for j := 0; j < 16; j++ {
+									r.Labels[i][j] = byte(0x40 + i*16 + j)
+									h.mem[cadenceGlobal(0xf0)+uint32(i*16+j)] = r.Labels[i][j]
+								}
+							}
+							expected := r
+							free := 0
+							for _, k := range r.Kinds {
+								if k == 0 {
+									free++
+								}
+							}
+							count := buyCount(free, price, r.Bank, r.Cash, menu)
+							if bit {
+								count = 0
+							}
+							expected.Bought = count
+							expected.ResultBank, expected.ResultCash = pay(r.Bank, r.Cash, count*price)
+							remaining := count
+							for i, k := range r.Kinds {
+								if remaining > 0 && k == 0 {
+									expected.Words[i] = 7<<8 | 7<<5 | 1
+									copy(expected.Labels[i][:], []byte{4, 102, 117, 101, 108})
+									remaining--
+								}
+							}
+							choices := []int{menu, 3}
+							depotRun(h, disk, 0x42e00, 0xc72, 0xd15, 0, &choices)
+							r.ResultBank, r.ResultCash = settle(h, system)
+							r.Bought = 0
+							for i := range r.Kinds {
+								r.Words[i] = h.peek(cadenceGlobal(0xec) + uint32(i*4))
+								r.PriceWords[i] = h.peek(cadenceGlobal(0xec) + uint32(i*4+2))
+								for j := 0; j < 16; j++ {
+									r.Labels[i][j] = h.mem[cadenceGlobal(0xf0)+uint32(i*16+j)]
+								}
+								if r.Kinds[i] == 0 && r.Words[i]&31 == 1 {
+									r.Bought++
+								}
+							}
+							report.AuxCases++
+							report.AuxNative = append(report.AuxNative, r)
+							if r != expected {
+								report.AuxDifferences++
+								if report.AuxDifferences < 4 {
+									t.Logf("備用槽完整切片差異 %+v 預期 %+v", r, expected)
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-fuel-depot-chain.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.FuelDifferences+report.AuxDifferences != 0 {
+		t.Fatal("購油完整切片契約不同")
+	}
+}
+
+func TestSunDogFuelDepot(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不同")
+	}
+	word := func(at int) int { return int(disk[at])<<8 | int(disk[at+1]) }
+	for _, p := range [][4]int{{0x42e00, 1, 0xe9c, 0xf20}, {0x42e00, 2, 0x18, 0x5b}, {0x42e00, 3, 0x60, 0xba}, {0x42e00, 15, 0xdf8, 0xe97}, {0x42e00, 16, 0x9ae, 0xb74}, {0x42e00, 17, 0x92a, 0x9a9}, {0x42e00, 18, 0xb78, 0xbcc}, {0x42e00, 22, 0xc70, 0xd15}, {0x2e800, 13, 0x684, 0x6b7}, {0x2e800, 14, 0x6bc, 0x6d6}, {0x2e800, 15, 0x6f8, 0x74c}, {0x2e800, 16, 0x750, 0x767}, {0x2e800, 8, 0x5c2, 0x5d8}, {0x2e800, 81, 0x6da, 0x6f3}} {
+		dict := p[0] + word(p[0])*2
+		if word(dict-p[1]*2)*2 != p[2] || word(p[0]+p[2]-2) != p[3] {
+			t.Fatal("原始字典定位不同", p)
+		}
+	}
+	type buyRow struct{ Price, InitialQuantity, Funds, Request, Quantity, Remaining int }
+	report := struct {
+		Scope              string
+		Cases, Differences int
+		Native             []buyRow
+	}{Scope: "原始購量9d2..b74與MAINLIB金額程序；文字與輸入明示邊界，非完整付款現金分配或GUI。"}
+	for _, r := range []buyRow{{7, 0, 200, 1, 0, 0}, {228, 0, 200, 1, 0, 0}, {228, 0, 2000, 2, 0, 0}, {1000, 15, 1000, 2, 0, 0}, {-1, 0, 2000, 1, 0, 0}, {7, 16, 2000, 1, 0, 0}} {
+		h := cadenceHarness(t, disk)
+		// LPR8的process record保存讀取端，IDA base0 0x3ba..0x3ee。
+		// 明示研究用record，不把位置或平台暫存值接入remake。
+		h.mem[0x40001] = 0
+		h.poke(interpBase+0x1b8c, 0x7400)
+		for n := uint32(0); n < 32; n++ {
+			h.mem[0x47400+n] = 0
+		}
+		for i, b := range disk[0x42e00:0x44200] {
+			h.mem[0x50000+uint32(i)] = b
+		}
+		h.poke(interpBase+0x1b70, 4)
+		h.poke(interpBase+0x1b72, 0x5000)
+		levelsFrame(h, 0x49000)
+		h.poke(0x49000, 0x6000)
+		h.poke(0x46000, 0x5000)
+		h.poke(depotLocal(0x49000, 0x3f), 0x7000)
+		h.poke(depotLocal(0x49000, 0x40), 0x7100)
+		h.poke(0x47000, uint16(r.InitialQuantity))
+		h.poke(0x47100, uint16(r.Price))
+		depotPutMoney(h, depotLocal(0x45000, 5), r.Funds)
+		choices := []int{r.Request, 3}
+		depotRun(h, disk, 0x42e00, 0x9d2, 0xb74, 0, &choices)
+		r.Quantity = int(h.peek(0x47000))
+		r.Remaining = depotMoney(h, depotLocal(0x45000, 5))
+		report.Cases++
+		report.Native = append(report.Native, r)
+		expected := 0
+		if r.Price > 0 && r.InitialQuantity < 16 {
+			expected = min(16-r.InitialQuantity, r.Funds/r.Price)
+			if r.Request == 2 {
+				expected = min(expected, 1)
+			}
+		}
+		if r.Quantity != r.InitialQuantity+expected || r.Remaining != r.Funds-expected*max(r.Price, 0) {
+			report.Differences++
+			t.Logf("購油差異 %+v 預期購量%d", r, expected)
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-fuel-depot.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 {
+		t.Fatal("原版購量契約不同", report.Differences)
+	}
+}
+
+func depotHarness(t *testing.T, disk []byte) *harness {
+	h := cadenceHarness(t, disk)
+	h.mem[0x40001] = 0
+	h.poke(interpBase+0x1b8c, 0x7400)
+	for n := uint32(0); n < 32; n++ {
+		h.mem[0x47400+n] = 0
+	}
+	for i, b := range disk[0x42e00:0x44200] {
+		h.mem[0x50000+uint32(i)] = b
+	}
+	for i, b := range disk[0x5800:0x58f0] {
+		h.mem[cadenceGlobal(0x11f)+uint32(i)] = b
+	}
+	h.poke(interpBase+0x1b70, 4)
+	h.poke(interpBase+0x1b72, 0x5000)
+	h.poke(0x46000, 0x5000)
+	h.poke(0x49000, 0x6000)
+	levelsFrame(h, 0x49000)
+	return h
+}
+
+func TestSunDogFuelDepotMatrix(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不同")
+	}
+	type factorRow struct {
+		Word8, Word9, Factor int
+		Fields               [3]int
+	}
+	type priceRow struct{ System, Fuel, City, ShipCity, Factor, Price, Quantity int }
+	type writeRow struct{ Fuel, Quantity, ResultFuel int }
+	type auxPriceRow struct {
+		Factor          int
+		Kinds           [2]int
+		Bit13           bool
+		Price, Quantity int
+	}
+	type auxWriteRow struct {
+		Kinds         [2]int
+		Bought, Tag   int
+		Words, Prices [2]uint16
+		Labels        [2][16]byte
+	}
+	type paymentRow struct{ Price, InitialQuantity, Bank, Cash, Menu, ReservedBank, Available, Quantity, ResultBank, ResultCash int }
+	report := struct {
+		Scope, Randomness                                                                                        string
+		FactorCases, FactorDifferences, PriceCases, PriceDifferences, WriteCases, WriteDifferences               int
+		AuxPriceCases, AuxPriceDifferences, AuxWriteCases, AuxWriteDifferences, PaymentCases, PaymentDifferences int
+		FactorNative                                                                                             []factorRow
+		PriceNative                                                                                              []priceRow
+		WriteNative                                                                                              []writeRow
+		AuxPriceNative                                                                                           []auxPriceRow
+		AuxWriteNative                                                                                           []auxWriteRow
+		PaymentNative                                                                                            []paymentRow
+	}{Scope: "XDOUNITE價格來源、兩種購量／寫回與do_depot資金預留／結算；原始MAINLIB金額運算及可購量執行。文字、選單與裝置輸入明示邊界，非完整GUI／原版正常玩家鏈或正式255整合。", Randomness: "所驗程序無亂數；packed欄位及選單輸入執行前明示，不挑選結果。"}
+	check := func(ok bool, label string, row any) {
+		if !ok {
+			t.Logf("%s差異 %+v", label, row)
+		}
+	}
+	for _, a := range []int{0, 1, 14, 15} {
+		for _, b := range []int{0, 1, 14, 15} {
+			for _, c := range []int{0, 1, 14, 15} {
+				h := depotHarness(t, disk)
+				r := factorRow{Word8: a<<12 | 0x135, Word9: 0xa000 | c<<4 | b}
+				h.poke(cadenceGlobal(0x11f)+16, uint16(r.Word8))
+				h.poke(cadenceGlobal(0x11f)+18, uint16(r.Word9))
+				h.poke(cadenceGlobal(0x2a), 1|7<<9)
+				levelsFrame(h, 0x45000)
+				depotRun(h, disk, 0x42e00, 0xea6, 0xee8, 0, nil)
+				r.Fields = [3]int{int(h.peek(depotLocal(0x45000, 9))), int(h.peek(depotLocal(0x45000, 8))), int(h.peek(depotLocal(0x45000, 7)))}
+				levelsFrame(h, 0x46000)
+				depotRun(h, disk, 0x42e00, 0xe21, 0xe2e, 0, nil)
+				r.Factor = int(h.peek(depotLocal(0x45000, 10)))
+				report.FactorCases++
+				report.FactorNative = append(report.FactorNative, r)
+				ok := r.Fields == [3]int{a, b, c} && r.Factor == a+b+16-c
+				if !ok {
+					report.FactorDifferences++
+				}
+				check(ok, "因子", r)
+			}
+		}
+	}
+	for system := 1; system <= 12; system++ {
+		for _, fuel := range []int{0, 1, 14, 15, 16, 17, 31, 32, 127, 128, 239, 240, 254, 255} {
+			for _, shipCity := range []int{7, 8} {
+				h := depotHarness(t, disk)
+				h.poke(cadenceGlobal(0x2a), uint16(system|7<<9))
+				h.poke(cadenceGlobal(0x4a), uint16(shipCity<<9))
+				h.poke(cadenceGlobal(0xe5), uint16(fuel))
+				levelsFrame(h, 0x45000)
+				depotRun(h, disk, 0x42e00, 0xea6, 0xee8, 0, nil)
+				city := int(h.peek(depotLocal(0x45000, 11)))
+				levelsFrame(h, 0x46000)
+				depotRun(h, disk, 0x42e00, 0xe21, 0xe2e, 0, nil)
+				factor := int(h.peek(depotLocal(0x45000, 10)))
+				levelsFrame(h, 0x49000)
+				depotRun(h, disk, 0x42e00, 0xb7a, 0xb97, 0, nil)
+				r := priceRow{system, fuel, city, shipCity, factor, int(int16(h.peek(depotLocal(0x49000, 2)))), int(h.peek(depotLocal(0x49000, 1)))}
+				off := 0x5800 + (system-1)*20
+				w8 := int(disk[off+16])<<8 | int(disk[off+17])
+				w9 := int(disk[off+18])<<8 | int(disk[off+19])
+				expectedFactor := (w8 >> 12) + (w9 & 15) + 16 - ((w9 >> 4) & 15)
+				expectedPrice := 100 * expectedFactor / 14
+				if shipCity != 7 {
+					expectedPrice = -1
+				}
+				report.PriceCases++
+				report.PriceNative = append(report.PriceNative, r)
+				ok := city == 7 && factor == expectedFactor && r.Price == expectedPrice && r.Quantity == (fuel+1)/16
+				if !ok {
+					report.PriceDifferences++
+				}
+				check(ok, "主燃料價格", r)
+			}
+		}
+	}
+	for _, fuel := range []int{0, 1, 14, 15, 16, 17, 31, 32, 127, 128, 239, 240, 254, 255} {
+		for qty := 0; qty <= 16; qty++ {
+			h := depotHarness(t, disk)
+			h.poke(cadenceGlobal(0xe5), uint16(fuel))
+			h.poke(depotLocal(0x49000, 1), uint16(qty))
+			depotRun(h, disk, 0x42e00, 0xbaf, 0xbcc, 0, nil)
+			r := writeRow{fuel, qty, int(h.peek(cadenceGlobal(0xe5)))}
+			report.WriteCases++
+			report.WriteNative = append(report.WriteNative, r)
+			ok := r.ResultFuel == min(255, fuel%16+16*qty)
+			if !ok {
+				report.WriteDifferences++
+			}
+			check(ok, "燃料寫回", r)
+		}
+	}
+	for _, factor := range []int{1, 16, 32, 46} {
+		for _, a := range []int{0, 1, 2, 31} {
+			for _, b := range []int{0, 1, 2, 31} {
+				for _, bit := range []bool{false, true} {
+					h := depotHarness(t, disk)
+					h.poke(depotLocal(0x45000, 10), uint16(factor))
+					h.poke(cadenceGlobal(0xec), uint16(0xab20|a))
+					h.poke(cadenceGlobal(0xec)+4, uint16(0xab20|b))
+					if bit {
+						h.poke(cadenceGlobal(0x32), 1<<13)
+					}
+					depotRun(h, disk, 0x42e00, 0xc72, 0xca6, 0, nil)
+					r := auxPriceRow{factor, [2]int{a, b}, bit, int(int16(h.peek(depotLocal(0x49000, 4)))), int(h.peek(depotLocal(0x49000, 3)))}
+					report.AuxPriceCases++
+					report.AuxPriceNative = append(report.AuxPriceNative, r)
+					p := 100 * factor
+					if bit {
+						p = -1
+					}
+					q := 16
+					if a == 0 {
+						q--
+					}
+					if b == 0 {
+						q--
+					}
+					ok := r.Price == p && r.Quantity == q
+					if !ok {
+						report.AuxPriceDifferences++
+					}
+					check(ok, "備用槽價格", r)
+				}
+			}
+		}
+	}
+	for _, a := range []int{0, 1, 2, 31} {
+		for _, b := range []int{0, 1, 2, 31} {
+			free := 0
+			if a == 0 {
+				free++
+			}
+			if b == 0 {
+				free++
+			}
+			for bought := 0; bought <= free; bought++ {
+				for _, tag := range []int{1, 7, 31} {
+					h := depotHarness(t, disk)
+					h.poke(cadenceGlobal(0x2a), uint16(1|tag<<4|9<<9))
+					r := auxWriteRow{Kinds: [2]int{a, b}, Bought: bought, Tag: tag, Prices: [2]uint16{0x1357, 0x2468}}
+					for i, k := range r.Kinds {
+						r.Words[i] = uint16(0xab20 | k)
+						h.poke(cadenceGlobal(0xec)+uint32(i*4), r.Words[i])
+						h.poke(cadenceGlobal(0xec)+uint32(i*4+2), r.Prices[i])
+						for j := 0; j < 16; j++ {
+							r.Labels[i][j] = byte(0x40 + i*16 + j)
+							h.mem[cadenceGlobal(0xf0)+uint32(i*16+j)] = r.Labels[i][j]
+						}
+					}
+					expected := r
+					remaining := bought
+					for i, k := range r.Kinds {
+						if remaining > 0 && k == 0 {
+							expected.Words[i] = uint16(tag<<8 | 7<<5 | 1)
+							copy(expected.Labels[i][:], []byte{4, 102, 117, 101, 108})
+							remaining--
+						}
+					}
+					h.poke(depotLocal(0x49000, 1), uint16(16-free))
+					h.poke(depotLocal(0x49000, 3), uint16(16-free+bought))
+					depotRun(h, disk, 0x42e00, 0xcbe, 0xd15, 0, nil)
+					for i := range r.Kinds {
+						r.Words[i] = h.peek(cadenceGlobal(0xec) + uint32(i*4))
+						r.Prices[i] = h.peek(cadenceGlobal(0xec) + uint32(i*4+2))
+						for j := 0; j < 16; j++ {
+							r.Labels[i][j] = h.mem[cadenceGlobal(0xf0)+uint32(i*16+j)]
+						}
+					}
+					report.AuxWriteCases++
+					report.AuxWriteNative = append(report.AuxWriteNative, r)
+					ok := r == expected
+					if !ok {
+						report.AuxWriteDifferences++
+					}
+					check(ok, "備用槽寫回", r)
+				}
+			}
+		}
+	}
+	for _, price := range []int{7, 228, 1000} {
+		for _, bank := range []int{-1500, -1, 0, 1, 1000, 2000, 20000} {
+			for _, cash := range []int{0, 1, 200, 999, 1000, 2000, 40000} {
+				for _, quantity := range []int{0, 15, 16} {
+					for _, menu := range []int{1, 2, 3} {
+						h := depotHarness(t, disk)
+						h.poke(cadenceGlobal(0x2a), 1)
+						depotPutMoney(h, cadenceGlobal(0x11f)+12, bank)
+						depotPutMoney(h, cadenceGlobal(0x33), cash)
+						levelsFrame(h, 0x46000)
+						depotRun(h, disk, 0x42e00, 0x1a, 0x5b, 0, nil)
+						r := paymentRow{Price: price, InitialQuantity: quantity, Bank: bank, Cash: cash, Menu: menu, ReservedBank: depotMoney(h, cadenceGlobal(0x11f)+12), Available: depotMoney(h, depotLocal(0x45000, 5))}
+						levelsFrame(h, 0x49000)
+						h.poke(depotLocal(0x49000, 0x3f), 0x7000)
+						h.poke(depotLocal(0x49000, 0x40), 0x7100)
+						h.poke(0x47000, uint16(quantity))
+						h.poke(0x47100, uint16(price))
+						choices := []int{menu, 3}
+						depotRun(h, disk, 0x42e00, 0x9d2, 0xb74, 0, &choices)
+						r.Quantity = int(h.peek(0x47000))
+						levelsFrame(h, 0x46000)
+						depotRun(h, disk, 0x42e00, 0x62, 0xba, 0, nil)
+						r.ResultBank = depotMoney(h, cadenceGlobal(0x11f)+12)
+						r.ResultCash = depotMoney(h, cadenceGlobal(0x33))
+						count := min(16-quantity, (max(bank, 0)+cash)/price)
+						if menu == 2 {
+							count = min(count, 1)
+						}
+						if menu == 3 {
+							count = 0
+						}
+						cost := count * price
+						fromBank := min(max(bank, 0), cost)
+						expectedBank := bank - fromBank
+						expectedCash := cash - (cost - fromBank)
+						report.PaymentCases++
+						report.PaymentNative = append(report.PaymentNative, r)
+						reserved := bank
+						if bank > 0 {
+							reserved = 0
+						}
+						ok := r.ReservedBank == reserved && r.Available == max(bank, 0)+cash && r.Quantity == quantity+count && r.ResultBank == expectedBank && r.ResultCash == expectedCash
+						if !ok {
+							report.PaymentDifferences++
+						}
+						check(ok, "付款", r)
+					}
+				}
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-fuel-depot-matrix.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.FactorDifferences+report.PriceDifferences+report.WriteDifferences+report.AuxPriceDifferences+report.AuxWriteDifferences+report.PaymentDifferences != 0 {
+		t.Fatal("原生購油矩陣不同")
+	}
+}

@@ -1,0 +1,888 @@
+package m68k
+
+import (
+	"bytes"
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"reflect"
+	"testing"
+)
+
+// 原始定位、測試記憶體配置及範圍見 docs/atari-st/talos-combat-audit-20260907.md。
+func TestSunDogCombatAim(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(disk) != 368640 || fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	const base = 0x38600
+	signatures := map[int]string{
+		0x3fc: "0f9b043502a7a20a8d",
+		0x1ca: "9a0480d0810002a3e06c9a0480cf810002a3e06b",
+		0x1fe: "ad06d40dad0c9a0480db80208da36a8a0cad0c048c9a0480db0c8da36a2200b3f102006a",
+		0x237: "2423a222b2d55c01",
+	}
+	// DX 核是 15 + MAINLIB_G35 byte 2，再除 10；signature 與 raw 分開保留。
+	for at, s := range signatures {
+		want, _ := hex.DecodeString(s)
+		if !bytes.Equal(disk[base+at:base+at+len(want)], want) {
+			t.Fatalf("原始切片簽章不同：%x", base+at)
+		}
+	}
+	type row struct {
+		DX, Range, Bearing, Pitch int
+		Laser                     bool
+		Window, Error             int
+		Hit                       bool
+	}
+	raw, err := os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-aim.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var fixture struct {
+		Schema int
+		Rows   []row
+	}
+	if err = json.Unmarshal(raw, &fixture); err != nil {
+		t.Fatal(err)
+	}
+	if fixture.Schema != 1 || len(fixture.Rows) != 1280 {
+		t.Fatal("固定輸入矩陣不符")
+	}
+	report := struct {
+		Scope, FixtureSHA256                     string
+		Cases, WindowDifferences, HitDifferences int
+		Native                                   []row
+	}{
+		Scope:         "原版 DX 基數、負容差歸零、兩軸絕對誤差及命中分支；無亂數，未執行傷害／繪圖／全機時間",
+		FixtureSHA256: fmt.Sprintf("%x", sha256.Sum256(raw))}
+	for _, r := range fixture.Rows {
+		h := newHarness(t, loadInterp(t))
+		// IDA 9.4 SYSTEM.INTERP base 0：0x668 外部位址 helper；MAINLIB 索引 4。
+		// 合成 p-system 基底 a6=0x40000，外部表 0x1000 -> 0x2000 -> frame 0x3000。
+		h.cpu.State.A[6] = 0x40000
+		h.cpu.State.A[1] = 0x45000
+		h.cpu.State.A[0] = 0x46000
+		h.poke(interpBase+0x1b8a, 0x1000)
+		h.poke(0x41008, 0x2000)
+		h.poke(0x42000, 0x3000)
+		for at := uint32(stackTop - 512); at < stackTop+64; at++ {
+			h.mem[at] = 0
+		}
+		for at := uint32(0x45000); at < 0x46100; at++ {
+			h.mem[at] = 0
+		}
+		h.poke(0x46000, 0x5000) // IDA 0x45e..0x470：frame 首 word 是靜態鏈，指向外層。
+		global := func(index int) uint32 { return 0x43000 + 8 + uint32(index*2) }
+		local := func(index int) uint32 { return 0x46000 + 8 + uint32(index*2) }
+		outer := func(index int) uint32 { return 0x45000 + 8 + uint32(index*2) }
+		h.mem[global(0x35)+2] = byte(r.DX)
+		h.poke(global(0xdb), uint16(r.Range))
+		h.poke(global(0xd0), uint16(r.Bearing))
+		h.poke(global(0xcf), uint16(r.Pitch))
+		runTo := func(first, last int) {
+			h.cpu.State.SSP = stackTop
+			h.startDispatch(disk[base+first:base+last+4], operandStream)
+			for steps := 0; !(h.cpu.State.PC == interpBase+interpLoop+4 && h.cpu.State.A[4] == operandStream+uint32(last-first)); steps++ {
+				if steps >= 4096 {
+					t.Fatalf("切片 %x..%x 未到達邊界", first, last)
+				}
+				if _, err := h.cpu.Step(); err != nil {
+					t.Fatalf("切片 %x PC %x: %v", first, h.cpu.State.PC-4, err)
+				}
+			}
+		}
+		runTo(0x3fc, 0x405)
+		h.poke(outer(0xc), h.peek(h.cpu.State.SSP))
+		h.poke(outer(6), 0)
+		if r.Laser {
+			h.poke(outer(6), 1)
+		}
+		runTo(0x1ca, 0x1de)
+		nativeError := int(int16(h.peek(local(5)))) + int(int16(h.peek(local(4))))
+		runTo(0x1fe, 0x222)
+		nativeWindow := int(int16(h.peek(local(3))))
+		h.cpu.State.SSP = stackTop
+		h.startDispatch(disk[base+0x237:base+0x23f+4], operandStream)
+		nativeHit := false
+		for steps := 0; ; steps++ {
+			if h.cpu.State.PC == interpBase+interpLoop+4 {
+				ip := h.cpu.State.A[4]
+				if ip == operandStream+0x23f-0x237 {
+					nativeHit = true
+					break
+				}
+				if ip == operandStream+0x39b-0x237 {
+					break
+				}
+			}
+			if steps >= 2048 {
+				t.Fatal("命中分支未結束")
+			}
+			if _, err := h.cpu.Step(); err != nil {
+				t.Fatal(err)
+			}
+		}
+		actual := r
+		actual.Window = nativeWindow
+		actual.Error = nativeError
+		actual.Hit = nativeHit
+		report.Native = append(report.Native, actual)
+		report.Cases++
+		if nativeError != r.Error {
+			t.Fatalf("角度誤差不同：%v 原版 %d", r, nativeError)
+		}
+		if nativeWindow != r.Window {
+			report.WindowDifferences++
+		}
+		if nativeHit != r.Hit {
+			report.HitDifferences++
+			if report.HitDifferences <= 5 {
+				t.Logf("命中不同：DX=%d 距離=%d laser=%v 誤差=%d 原版window=%d hit=%v remakewindow=%d hit=%v", r.DX, r.Range, r.Laser, r.Error, nativeWindow, nativeHit, r.Window, r.Hit)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-aim.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.WindowDifferences != 0 || report.HitDifferences != 0 {
+		t.Fatalf("%d 案：容差差異 %d，命中差異 %d", report.Cases, report.WindowDifferences, report.HitDifferences)
+	}
+	t.Logf("原版完整容差／誤差／命中分支 %d 案零差異", report.Cases)
+}
+
+func TestSunDogCombatSlew(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(disk) != 368640 || fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	want, _ := hex.DecodeString("3c04a2a50d3c80bfb2f10480bfa50d9b0487373c068dd70178a50d9b0487371f3d0a8da3d70178a50e")
+	if !bytes.Equal(disk[0x38d68:0x38d68+len(want)], want) {
+		t.Fatal("原始 slew 簽章不同")
+	}
+	type row struct{ X, Y, Bearing, Pitch int }
+	raw, err := os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-slew.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var rows []row
+	if err = json.Unmarshal(raw, &rows); err != nil {
+		t.Fatal(err)
+	}
+	if len(rows) != 520 {
+		t.Fatal("座標軸矩陣不符")
+	}
+	report := struct {
+		Scope              string
+		Cases, Differences int
+		Native             []row
+	}{Scope: "原版完整 slew 算術與查表；get_mouse 輸入由明示同座標供應，無全機滑鼠輪詢／時間"}
+	for _, r := range rows {
+		h := newHarness(t, loadInterp(t))
+		h.cpu.State.A[6] = 0x40000
+		h.cpu.State.A[1] = 0x45000
+		h.poke(interpBase+0x1b8a, 0x1000)
+		h.poke(0x41008, 0x2000)
+		h.poke(0x42000, 0x3000)
+		for at := uint32(stackTop - 512); at < stackTop+64; at++ {
+			h.mem[at] = 0
+		}
+		h.poke(0x45000+8+13*2, uint16(r.Y))
+		h.poke(0x45000+8+14*2, uint16(r.X))
+		for i, b := range disk[0xd422 : 0xd422+64] {
+			h.mem[0x43000+8+0x737*2+uint32(i)] = b
+		}
+		h.startDispatch(disk[0x38d68:0x38d95], operandStream)
+		for steps := 0; !(h.cpu.State.PC == interpBase+interpLoop+4 && h.cpu.State.A[4] == operandStream+0x791-0x768); steps++ {
+			if steps >= 4096 {
+				t.Fatal("轉向查表未結束")
+			}
+			if _, err := h.cpu.Step(); err != nil {
+				t.Fatal(err)
+			}
+		}
+		actual := row{r.X, r.Y, int(int16(h.peek(0x45000 + 8 + 14*2))), int(int16(h.peek(0x45000 + 8 + 13*2)))}
+		report.Native = append(report.Native, actual)
+		report.Cases++
+		if actual != r {
+			report.Differences++
+			if report.Differences <= 5 {
+				t.Logf("remake=%v original=%v", r, actual)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-slew.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 {
+		t.Fatalf("完整轉向率 %d/%d 差異", report.Differences, report.Cases)
+	}
+	t.Logf("完整 X 320／Y 200 座標軸 %d 案零差異，包含原始截斷分支與磁碟查表", report.Cases)
+}
+
+func TestSunDogCombatDamage(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(disk) != 368640 || fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	const base = 0x38600
+	for at, sig := range map[int]string{
+		0x247: "ad06d4139b045312d81001c9d405802a698a021e698a199b045312d81001c9d40414698a021069",
+		0x26e: "219a0480db118da36921000021038d730ca39a0480e40a8d0aa28c35e781009a0480d8d70201a78d6901618050730a",
+	} {
+		want, _ := hex.DecodeString(sig)
+		if !bytes.Equal(disk[base+at:base+at+len(want)], want) {
+			t.Fatalf("原始傷害切片簽章不同：%x", base+at)
+		}
+	}
+	clampSignature, _ := hex.DecodeString("217822b3f1052122c48a09217820b2f1032120c4")
+	if !bytes.Equal(disk[0x2ee6c:0x2ee6c+len(clampSignature)], clampSignature) {
+		t.Fatal("MAINLIB 夾限主體簽章不同")
+	}
+	type row struct {
+		Enemy, Range, Charge, Seed, Damage, RollsAfter   int
+		InitialHull, HullAfter, ChargeAfter, ActionRolls int
+		Victory                                          bool
+		Laser, Concentrator                              bool
+	}
+	type result struct {
+		Input                                       row
+		NativeDamage, CounterAfter                  int
+		NativeHull, NativeCharge, NativeDamageTotal int
+		NativeDestroyed                             bool
+		Draws                                       []combatDraw
+	}
+	raw, err := os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-damage.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var rows []row
+	if err := json.Unmarshal(raw, &rows); err != nil {
+		t.Fatal(err)
+	}
+	if len(rows) != 5376 {
+		t.Fatalf("傷害矩陣不同：%d", len(rows))
+	}
+	report := struct {
+		Scope, Randomness  string
+		Cases, Differences int
+		Native             []result
+	}{Scope: "原版玩家基數／距離／充能／磁碟護甲／原版夾限、累計傷害／耐久寫回及充能清零；跳過擊毀繪圖與事件，不含完整勝利動態",
+		Randomness: "執行前固定兩側 Seed；原版 MAINLIB rand 呼叫以明示同 counter 的測試序列供應，不執行原版 random()，非亂數產生器對拍"}
+	for _, r := range rows {
+		h := newHarness(t, loadInterp(t))
+		h.cpu.State.A[6], h.cpu.State.A[1], h.cpu.State.A[0] = 0x40000, 0x45000, 0x46000
+		h.poke(interpBase+0x1b8a, 0x1000)
+		h.poke(0x41008, 0x2000)
+		h.poke(0x42000, 0x3000)
+		for at := uint32(stackTop - 1024); at < stackTop+64; at++ {
+			h.mem[at] = 0
+		}
+		for at := uint32(0x45000); at < 0x48100; at++ {
+			h.mem[at] = 0
+		}
+		for at := uint32(0x43000); at < 0x43400; at++ {
+			h.mem[at] = 0
+		}
+		h.poke(0x46000, 0x5000)
+		global := func(n int) uint32 { return 0x43000 + 8 + uint32(n*2) }
+		local := func(n int) uint32 { return 0x46000 + 8 + uint32(n*2) }
+		h.poke(global(0xdb), uint16(r.Range))
+		h.poke(global(0xe4), uint16(r.Charge))
+		h.poke(global(0xd8), uint16(r.Enemy))
+		h.poke(global(0xda), uint16(r.InitialHull))
+		if r.Concentrator {
+			h.poke(global(0x53)+2, 4)
+		}
+		// G6 為測試配置的資料緩衝區指標；實際敵艦表 bytes 取 raw 0x4000。
+		h.poke(0x45000+8+6*2, 0x7000)
+		// XDOFIGHT 的外層第 6 格是武器旗標；表指標讀全域 a1，兩者須分開。
+		// 原版外層靜態鏈另外配置在 0x49000，避免與全域表指標共用。
+		for at := uint32(0x49000); at < 0x49100; at++ {
+			h.mem[at] = 0
+		}
+		h.poke(0x46000, 0x9000)
+		if r.Laser {
+			h.poke(0x49000+8+6*2, 1)
+		}
+		for i, b := range disk[0x4000 : 0x4000+1024] {
+			h.mem[0x47000+512+uint32(i)] = b
+		}
+		counter := r.Seed
+		actual := result{Input: r}
+		runSunDogControlledDamage(h, disk, base, 0x247, 0x29d, &counter, &actual.Draws)
+		actual.NativeDamage = int(int16(h.peek(local(2))))
+		// 原版真假分支決定耐久寫回端；只略過兩端之間的擊毀繪圖與事件。
+		h.startDispatch(disk[base+0x29d:base+0x2ce], operandStream)
+		for n := 0; ; n++ {
+			if h.cpu.State.PC == interpBase+interpLoop+4 {
+				ip := h.cpu.State.A[4]
+				if ip == operandStream+0x2c5-0x29d {
+					actual.NativeDestroyed = true
+					break
+				}
+				if ip == operandStream+0x396-0x29d {
+					break
+				}
+				if h.mem[ip] == 0xef && h.mem[ip+1] == 2 {
+					// XDOFIGHT proc 2 raw 0x38618：累計傷害的 bar 更新，排除畫面呼叫。
+					if h.cpu.State.SSP != stackTop {
+						t.Fatal("bar 更新入口堆疊不同")
+					}
+					h.cpu.State.A[4] = ip + 2
+					h.start(interpLoop)
+					continue
+				}
+			}
+			if n >= 4096 {
+				t.Fatal("原版耐久寫回分支未結束")
+			}
+			if _, err := h.cpu.Step(); err != nil {
+				t.Fatalf("原版耐久寫回 PC=%x IP=%x SSP=%x: %v", h.cpu.State.PC-4, h.cpu.State.A[4], h.cpu.State.SSP, err)
+			}
+		}
+		if actual.NativeDestroyed {
+			runSunDogControlledDamage(h, disk, base, 0x2c5, 0x2ca, &counter, &actual.Draws)
+		} else {
+			runSunDogControlledDamage(h, disk, base, 0x396, 0x39b, &counter, &actual.Draws)
+		}
+		runSunDogControlledDamage(h, disk, base, 0x39b, 0x3a0, &counter, &actual.Draws)
+		actual.NativeHull, actual.NativeCharge = int(h.peek(global(0xda))), int(h.peek(global(0xe4)))
+		actual.NativeDamageTotal = int(h.mem[global(0x5b)+0xbf])
+		actual.CounterAfter = counter
+		report.Cases++
+		report.Native = append(report.Native, actual)
+		if actual.NativeDamage != r.Damage || counter != r.RollsAfter || counter != r.ActionRolls ||
+			actual.NativeHull != r.HullAfter || actual.NativeCharge != r.ChargeAfter || actual.NativeDestroyed != r.Victory {
+			report.Differences++
+			if report.Differences <= 8 {
+				t.Logf("傷害不同 %v 原版=%d counter=%d draws=%v", r, actual.NativeDamage, counter, actual.Draws)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-damage.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 {
+		t.Fatalf("傷害 %d/%d 差異", report.Differences, report.Cases)
+	}
+	t.Logf("原版玩家傷害 %d 案零差異，兩側使用明示相同受控亂數", report.Cases)
+}
+
+// 呼叫界線供應預先固定的測試亂數，夾限另執行原版主體；不替代傷害算術。
+type combatDraw struct{ Low, High, Value, Counter int }
+
+func TestSunDogCombatEnemyDamage(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(disk) != 368640 || fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	const base = 0x31e00
+	for at, sig := range map[int]string{
+		0xda3: "27e781009a0480d8d70202a78064a29a0480db088d8d00018064730cb29fd56a",
+		0xdd3: "9a0480da148d04a26e26268c6e26805ab2f103805a6e27e781009a0480d8d70200a78064a2268c9a0480db038d00198032730ca28d6e1466812c01730a",
+	} {
+		want, _ := hex.DecodeString(sig)
+		if !bytes.Equal(disk[base+at:base+at+len(want)], want) {
+			t.Fatalf("原始敵艦攻擊簽章不同：%x", base+at)
+		}
+	}
+	type row struct {
+		Enemy, Range, Hull, Seed, Damage, RollsAfter int
+		Hit                                          bool
+	}
+	type result struct {
+		Input                      row
+		NativeDamage, CounterAfter int
+		NativeHit                  bool
+		Draws                      []combatDraw
+	}
+	raw, err := os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-enemy-damage.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var rows []row
+	if err := json.Unmarshal(raw, &rows); err != nil {
+		t.Fatal(err)
+	}
+	if len(rows) != 1792 {
+		t.Fatalf("敵艦矩陣不同：%d", len(rows))
+	}
+	report := struct {
+		Scope, Randomness  string
+		Cases, Differences int
+		Native             []result
+	}{Scope: "原版敵艦命中、當前耐久比例、距離／武器及原版傷害夾限；省略命中聲音，不含倒數／系統損壞／完整動態",
+		Randomness: "執行前固定兩側 Seed；原版 rand 呼叫供應同 counter 測試序列，不執行原版 random()"}
+	for _, r := range rows {
+		h := newHarness(t, loadInterp(t))
+		h.cpu.State.A[6], h.cpu.State.A[1], h.cpu.State.A[0] = 0x40000, 0x45000, 0x46000
+		h.poke(interpBase+0x1b8a, 0x1000)
+		h.poke(0x41008, 0x2000)
+		h.poke(0x42000, 0x3000)
+		for at := uint32(stackTop - 1024); at < stackTop+64; at++ {
+			h.mem[at] = 0
+		}
+		for at := uint32(0x43000); at < 0x43400; at++ {
+			h.mem[at] = 0
+		}
+		for at := uint32(0x46000); at < 0x48100; at++ {
+			h.mem[at] = 0
+		}
+		global := func(n int) uint32 { return 0x43000 + 8 + uint32(n*2) }
+		local := func(n int) uint32 { return 0x46000 + 8 + uint32(n*2) }
+		h.poke(global(0xdb), uint16(r.Range))
+		h.poke(global(0xda), uint16(r.Hull))
+		h.poke(global(0xd8), uint16(r.Enemy))
+		h.poke(local(8), 0x7000)
+		for i, b := range disk[0x4000 : 0x4000+1024] {
+			h.mem[0x47000+512+uint32(i)] = b
+		}
+		counter := r.Seed
+		actual := result{Input: r}
+		runSunDogControlledDamage(h, disk, base, 0xda3, 0xdc1, &counter, &actual.Draws)
+		actual.NativeHit = h.peek(h.cpu.State.SSP) != 0
+		if actual.NativeHit {
+			h.cpu.State.SSP = stackTop // 原版條件分支會先消耗命中布林值。
+			runSunDogControlledDamage(h, disk, base, 0xdd3, 0xe10, &counter, &actual.Draws)
+			actual.NativeDamage = int(int16(h.peek(local(7))))
+		}
+		actual.CounterAfter = counter
+		report.Cases++
+		report.Native = append(report.Native, actual)
+		if actual.NativeHit != r.Hit || actual.NativeDamage != r.Damage || actual.CounterAfter != r.RollsAfter {
+			report.Differences++
+			if report.Differences <= 8 {
+				t.Logf("敵艦不同 %v 原版 damage=%d hit=%v counter=%d draws=%v", r, actual.NativeDamage, actual.NativeHit, counter, actual.Draws)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-enemy-damage.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 {
+		t.Fatalf("敵艦攻擊 %d/%d 差異", report.Differences, report.Cases)
+	}
+	t.Logf("原版敵艦命中／傷害 %d 案零差異，兩側明示受控亂數", report.Cases)
+}
+
+func runSunDogControlledDamage(h *harness, disk []byte, base, first, last int, counter *int, draws *[]combatDraw) {
+	h.startDispatch(disk[base+first:base+last+4], operandStream)
+	for steps := 0; ; steps++ {
+		if steps >= 10000 {
+			h.t.Fatal("傷害切片未終止")
+		}
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip := h.cpu.State.A[4]
+			if ip == operandStream+uint32(last-first) {
+				break
+			}
+			if h.mem[ip] == 0x73 {
+				proc := h.mem[ip+1]
+				sp := h.cpu.State.SSP
+				switch proc {
+				case 0x0b:
+					// 本切片緊接 random() mod 3；供應同一明示有界抽值，不核定原版 RNG。
+					if h.mem[ip+2] != 3 || h.mem[ip+3] != 0x8f {
+						h.t.Fatal("未知原版 random() consumer")
+					}
+					(*counter)++
+					mixed := uint32(*counter)*1664525 + 1013904223
+					mixed ^= mixed >> 16
+					value := int(mixed % 3)
+					*draws = append(*draws, combatDraw{0, 2, value, *counter})
+					h.poke(sp, uint16(value))
+				case 0x0c:
+					high, low := int(int16(h.peek(sp))), int(int16(h.peek(sp+2)))
+					if high < low {
+						h.t.Fatal("原版亂數界限反轉")
+					}
+					(*counter)++
+					mixed := uint32(*counter)*1664525 + 1013904223
+					mixed ^= mixed >> 16
+					value := low + int(mixed%uint32(high-low+1))
+					*draws = append(*draws, combatDraw{low, high, value, *counter})
+					h.cpu.State.SSP += 4
+					h.poke(h.cpu.State.SSP, uint16(value))
+				case 0x0a:
+					// 執行原版 MAINLIB clamp 主體；只省略通用呼叫 frame 建構與返回。
+					oldA0, oldSP := h.cpu.State.A[0], h.cpu.State.SSP
+					high, ptr, low := h.peek(sp), h.peek(sp+2), h.peek(sp+4)
+					h.cpu.State.A[0] = 0x48000
+					h.poke(0x48000+10, high)
+					h.poke(0x48000+12, ptr)
+					h.poke(0x48000+14, low)
+					h.startDispatch(disk[0x2ee6c:0x2ee84], operandStream+0x200)
+					for n := 0; !(h.cpu.State.PC == interpBase+interpLoop+4 && h.cpu.State.A[4] == operandStream+0x200+uint32(0x680-0x66c)); n++ {
+						if n >= 2048 {
+							h.t.Fatal("原版夾限未終止")
+						}
+						if _, err := h.cpu.Step(); err != nil {
+							h.t.Fatal(err)
+						}
+					}
+					h.cpu.State.A[0] = oldA0
+					h.cpu.State.SSP = oldSP + 6
+				default:
+					h.t.Fatalf("非預期外部呼叫 %x", proc)
+				}
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatalf("傷害切片 %x PC=%x IP=%x: %v", first, h.cpu.State.PC-4, h.cpu.State.A[4], err)
+		}
+	}
+}
+
+func TestSunDogCombatHullDamage(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(disk) != 368640 || fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	want, _ := hex.DecodeString("9b045b80c0a700730b038feda3692100b3f10200699b045b80c021c8")
+	if !bytes.Equal(disk[0x32c50:0x32c50+len(want)], want) {
+		t.Fatal("原始船體扣損簽章不同")
+	}
+	type row struct{ Hull, Seed, HullAfter, RollsAfter int }
+	type result struct {
+		Input                    row
+		NativeHull, CounterAfter int
+		Draws                    []combatDraw
+	}
+	raw, err := os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-hull-damage.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var rows []row
+	if err = json.Unmarshal(raw, &rows); err != nil {
+		t.Fatal(err)
+	}
+	if len(rows) != 28 {
+		t.Fatal("船體矩陣不同")
+	}
+	report := struct {
+		Scope, Randomness  string
+		Cases, Differences int
+		Native             []result
+	}{
+		Scope:      "原版船體 byte 0xc0 減 1–3、負值歸零及寫回；不含選中船體前的目標抽樣與死亡事件",
+		Randomness: "兩側在執行前固定 Seed；原版 random() mod 3 使用明示同抽值，非原版 RNG／自然亂數對拍"}
+	for _, r := range rows {
+		h := newHarness(t, loadInterp(t))
+		h.cpu.State.A[6], h.cpu.State.A[0] = 0x40000, 0x46000
+		h.poke(interpBase+0x1b8a, 0x1000)
+		h.poke(0x41008, 0x2000)
+		h.poke(0x42000, 0x3000)
+		for at := uint32(stackTop - 512); at < stackTop+64; at++ {
+			h.mem[at] = 0
+		}
+		for at := uint32(0x43000); at < 0x43400; at++ {
+			h.mem[at] = 0
+		}
+		for at := uint32(0x46000); at < 0x46100; at++ {
+			h.mem[at] = 0
+		}
+		hullAddr := uint32(0x43000 + 8 + 0x5b*2 + 0xc0)
+		h.mem[hullAddr] = byte(r.Hull)
+		counter := r.Seed
+		actual := result{Input: r}
+		runSunDogControlledDamage(h, disk, 0x31e00, 0xe50, 0xe6c, &counter, &actual.Draws)
+		actual.NativeHull, actual.CounterAfter = int(h.mem[hullAddr]), counter
+		report.Cases++
+		report.Native = append(report.Native, actual)
+		if actual.NativeHull != r.HullAfter || counter != r.RollsAfter {
+			report.Differences++
+			t.Logf("船體不同 %v native=%v", r, actual)
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-hull-damage.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 {
+		t.Fatalf("船體扣損 %d/%d 差異", report.Differences, report.Cases)
+	}
+	t.Logf("原版船體扣損／寫回 %d 案零差異", report.Cases)
+}
+
+func TestSunDogCombatOverflow(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(disk) != 368640 || fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	type system struct {
+		ID          string  `json:"id"`
+		Rows        [][]int `json:"rows"`
+		LastHitSlot int     `json:"lastHitSlot"`
+		Status      int     `json:"status"`
+	}
+	type row struct {
+		Enemy, Range, Hull, Shield, Seed, ShotSeed, Layout int
+		Before, After                                      []system
+		HullAfter, ShieldAfter, RollsAfter                 int
+		ChargeAfter, SettingAfter                          int
+	}
+	type result struct {
+		Input                 row
+		Native                []system
+		Hull, Shield, Counter int
+		Charge, Setting       int
+		Draws                 []combatDraw
+		Hit                   bool
+	}
+	raw, err := os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-overflow.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var rows []row
+	if err = json.Unmarshal(raw, &rows); err != nil {
+		t.Fatal(err)
+	}
+	if len(rows) != 8064 {
+		t.Fatalf("穿透矩陣不同：%d", len(rows))
+	}
+	report := struct {
+		Scope, Randomness                                                                             string
+		Cases, Differences, HullDifferences, ShieldDifferences, SystemDifferences, CounterDifferences int
+		ChargeDifferences, SettingDifferences                                                         int
+		Native                                                                                        []result
+	}{Scope: "原版命中／傷害、護盾及溢出迴圈、零件／分流器寫回與原版系統重算；省略聲音與 HUD，不含排程、死亡或全機畫面",
+		Randomness: "兩側在執行前固定 Seed；比較命中入口的 ShotSeed=Seed+1，前一抽倒數重設不比較。原版 random consumer 供應明示同有界測試序列，非原版 RNG"}
+	for _, r := range rows {
+		h := newHarness(t, loadInterp(t))
+		h.cpu.State.A[6], h.cpu.State.A[1], h.cpu.State.A[0] = 0x40000, 0x45000, 0x46000
+		h.poke(interpBase+0x1b8a, 0x1000)
+		h.poke(0x41008, 0x2000)
+		h.poke(0x42000, 0x3000)
+		for at := uint32(stackTop - 2048); at < stackTop+64; at++ {
+			h.mem[at] = 0
+		}
+		for at := uint32(0x43000); at < 0x43400; at++ {
+			h.mem[at] = 0
+		}
+		for at := uint32(0x45000); at < 0x48100; at++ {
+			h.mem[at] = 0
+		}
+		for at := uint32(0x4a000); at < 0x4a100; at++ {
+			h.mem[at] = 0
+		}
+		global := func(n int) uint32 { return 0x43000 + 8 + uint32(n*2) }
+		local := func(n int) uint32 { return 0x46000 + 8 + uint32(n*2) }
+		h.poke(global(0xdb), uint16(r.Range))
+		h.poke(global(0xda), 189)
+		h.poke(global(0xd8), uint16(r.Enemy))
+		h.poke(global(0xe3), uint16(r.Shield))
+		h.poke(global(0xe4), 100)
+		h.poke(global(0xe2), 96)
+		h.mem[global(0x5b)+0xc0] = byte(r.Hull)
+		h.poke(local(8), 0x7000)
+		for i, b := range disk[0x4000 : 0x4000+1024] {
+			h.mem[0x47000+512+uint32(i)] = b
+		}
+		for i, s := range r.Before {
+			at := global(0x5b) + uint32(i*28)
+			for row, slots := range s.Rows {
+				for col, item := range slots {
+					h.mem[at+uint32(row*5+col)] = byte(item)
+				}
+			}
+			// 樣板與替代零件從原始 XSTARTUP 常數讀出，不引用 remake 的計算結果。
+			call := 0x3b868 + i*8
+			if disk[call] != 0x90 || disk[call+1] != 0x31 {
+				t.Fatal("系統初始化呼叫不同")
+			}
+			h.mem[at+20] = 31 // 已解出的 control node，SHIPLIB 樣板第零欄。
+			for col := 1; col < 4; col++ {
+				h.mem[at+20+uint32(col)] = disk[call-6+col]
+			}
+			h.mem[at+24] = byte(s.Status)
+			h.mem[at+25] = byte(s.LastHitSlot/4*5 + s.LastHitSlot%4)
+			h.mem[at+26], h.mem[at+27] = disk[call-2], disk[call-1]
+		}
+		actual := result{Input: r, Counter: r.ShotSeed}
+		runSunDogControlledDamage(h, disk, 0x31e00, 0xda3, 0xdc1, &actual.Counter, &actual.Draws)
+		actual.Hit = h.peek(h.cpu.State.SSP) != 0
+		if actual.Hit {
+			h.cpu.State.SSP = stackTop
+			runSunDogControlledDamage(h, disk, 0x31e00, 0xdd3, 0xe10, &actual.Counter, &actual.Draws)
+			runSunDogOverflow(h, disk, &actual.Counter, &actual.Draws)
+		}
+		actual.Hull, actual.Shield = int(h.mem[global(0x5b)+0xc0]), int(h.peek(global(0xe3)))
+		actual.Charge, actual.Setting = int(h.peek(global(0xe4))), int(h.peek(global(0xe2)))
+		for i, s := range r.Before {
+			at := global(0x5b) + uint32(i*28)
+			s.Rows = make([][]int, 4)
+			for row := range s.Rows {
+				s.Rows[row] = make([]int, 4)
+				for col := range s.Rows[row] {
+					s.Rows[row][col] = int(h.mem[at+uint32(row*5+col)])
+				}
+			}
+			slot := int(h.mem[at+25])
+			s.LastHitSlot = slot/5*4 + slot%5
+			s.Status = int(h.mem[at+24])
+			actual.Native = append(actual.Native, s)
+		}
+		bad := false
+		if actual.Hull != r.HullAfter {
+			report.HullDifferences++
+			bad = true
+		}
+		if actual.Shield != r.ShieldAfter {
+			report.ShieldDifferences++
+			bad = true
+		}
+		if !reflect.DeepEqual(actual.Native, r.After) {
+			report.SystemDifferences++
+			bad = true
+		}
+		if actual.Counter != r.RollsAfter {
+			report.CounterDifferences++
+			bad = true
+		}
+		if actual.Charge != r.ChargeAfter {
+			report.ChargeDifferences++
+			bad = true
+		}
+		if actual.Setting != r.SettingAfter {
+			report.SettingDifferences++
+			bad = true
+		}
+		report.Cases++
+		report.Native = append(report.Native, actual)
+		if bad {
+			report.Differences++
+			if report.Differences <= 5 {
+				t.Logf("穿透差異 enemy=%d seed=%d layout=%d shield=%d hull=%d/%d counter=%d/%d systems=%v/%v draws=%v", r.Enemy, r.Seed, r.Layout, r.Shield, actual.Hull, r.HullAfter, actual.Counter, r.RollsAfter, actual.Native, r.After, actual.Draws)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-overflow.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.Differences != 0 {
+		t.Fatalf("穿透 %d/%d 差異", report.Differences, report.Cases)
+	}
+	t.Logf("原版護盾／穿透 %d 案零差異", report.Cases)
+}
+
+func runSunDogOverflow(h *harness, disk []byte, counter *int, draws *[]combatDraw) {
+	const first, last = 0xe10, 0xf25
+	h.startDispatch(disk[0x31e00+first:0x31e00+last+4], operandStream)
+	for steps := 0; ; steps++ {
+		if steps >= 100000 {
+			h.t.Fatal("護盾／穿透未終止")
+		}
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip := h.cpu.State.A[4]
+			if ip == operandStream+last-first {
+				break
+			}
+			if h.mem[ip] == 0x73 {
+				proc, sp := h.mem[ip+1], h.cpu.State.SSP
+				switch proc {
+				case 3: // 音效，參數為音效編號。
+					h.cpu.State.SSP += 2
+				case 0x0b:
+					span := int(h.mem[ip+2])
+					if (span != 3 && span != 4 && span != 7) || h.mem[ip+3] != 0x8f {
+						if h.mem[ip+2] == 0xa1 {
+							span = 2
+						} else {
+							h.t.Fatalf("未知穿透 random consumer %x", ip)
+						}
+					}
+					(*counter)++
+					mixed := uint32(*counter)*1664525 + 1013904223
+					mixed ^= mixed >> 16
+					value := int(mixed % uint32(span))
+					*draws = append(*draws, combatDraw{0, span - 1, value, *counter})
+					h.poke(sp, uint16(value))
+				default:
+					h.t.Fatalf("未知穿透外部呼叫 %x", proc)
+				}
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if h.mem[ip] == 0x91 {
+				proc, oldSP := h.mem[ip+1], h.cpu.State.SSP
+				switch proc {
+				case 0x11: // HUD 更新；消耗系統／船體編號，不代算規則。
+					h.cpu.State.SSP += 2
+				case 0x0e:
+					oldA0 := h.cpu.State.A[0]
+					target := h.peek(oldSP)
+					h.cpu.State.A[0] = 0x4a000
+					h.poke(0x4a000+8+12*2, target)
+					h.startDispatch(disk[0x32036:0x32163], operandStream+0x400)
+					for n := 0; !(h.cpu.State.PC == interpBase+interpLoop+4 && h.cpu.State.A[4] == operandStream+0x400+0x35f-0x236); n++ {
+						if n >= 20000 {
+							h.t.Fatal("原版系統重算未返回")
+						}
+						if _, err := h.cpu.Step(); err != nil {
+							h.t.Fatalf("系統重算 PC=%x IP=%x: %v", h.cpu.State.PC-4, h.cpu.State.A[4], err)
+						}
+					}
+					h.cpu.State.A[0] = oldA0
+					h.cpu.State.SSP = oldSP + 2
+				default:
+					h.t.Fatalf("未知穿透本段呼叫 %x", proc)
+				}
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatalf("穿透 PC=%x IP=%x: %v", h.cpu.State.PC-4, h.cpu.State.A[4], err)
+		}
+	}
+}

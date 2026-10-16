@@ -1,0 +1,177 @@
+package m68k
+
+import (
+	"crypto/sha256"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"testing"
+)
+
+// 此檔透過 Go overlay 加入唯讀 Talos 工作樹；不修改 Talos 或原版指令。
+// 原始定位與 READY 契約見 docs/atari-st/native-collision-entry-20260908.md。
+func TestSunDogGroundCollisionParity(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	const diskHash = "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6"
+	if len(disk) != 368640 || fmt.Sprintf("%x", sha256.Sum256(disk)) != diskHash {
+		t.Fatal("原版磁碟長度／雜湊不符")
+	}
+	root := os.Getenv("SUNDOG_PARITY_OUTPUT")
+	raw, err := os.ReadFile(filepath.Join(root, "collision-fixtures.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var fixture struct {
+		Schema      int
+		DiskSHA256  string
+		Comparison  string
+		Randomness  string
+		PodPatterns bool `json:"podPatterns,omitempty"`
+		Scenes      []struct {
+			Name, CityID, PlanetID string
+			World                  bool
+			Origin                 struct{ X, Y int }
+			Indices                []byte
+			Blocked                uint16
+			Samples                []struct {
+				Pattern, X, Y int
+				Pass          bool
+			}
+		}
+	}
+	if err := json.Unmarshal(raw, &fixture); err != nil {
+		t.Fatal(err)
+	}
+	podPatterns := os.Getenv("SUNDOG_PARITY_POD_PATTERNS") == "1"
+	if fixture.Schema != 1 || fixture.DiskSHA256 != diskHash || len(fixture.Scenes) != 76 || fixture.PodPatterns != podPatterns {
+		t.Fatal("對拍夾具契約不符")
+	}
+	interp := loadInterp(t)
+	const offset = 0x6000
+	const nativeBase = interpBase + offset
+	const screen = 0x50000
+	const globals = 0x40000
+	type sceneResult struct {
+		Name                 string
+		Samples, Pass, Block int
+	}
+	receipt := struct {
+		Comparison    string
+		DiskSHA256    string
+		InterpSHA256  string
+		GEMBINDSHA256 string
+		Entry         string
+		FixtureSHA256 string
+		Samples       int
+		Differences   int
+		Scenes        []sceneResult
+	}{Comparison: fixture.Comparison, DiskSHA256: diskHash, InterpSHA256: interpSHA256,
+		GEMBINDSHA256: fmt.Sprintf("%x", sha256.Sum256(disk[0x2fe00:0x31200])),
+		Entry:         "disk raw 0x2fe00+0x636; synthetic Talos load base 0x26000; OS XBIOS 3 screen base only",
+		FixtureSHA256: fmt.Sprintf("%x", sha256.Sum256(raw))}
+	for _, scene := range fixture.Scenes {
+		if len(scene.Indices) != 64000 || len(scene.Samples) < 416 {
+			t.Fatalf("%s：像素／案例數不符", scene.Name)
+		}
+		planes := make([]byte, 32000)
+		for i, colour := range scene.Indices {
+			if colour > 15 {
+				t.Fatal("夾具色彩索引超過四位元")
+			}
+			x, y := i%320, i/320
+			for plane := 0; plane < 4; plane++ {
+				if colour&(1<<plane) != 0 {
+					at := y*160 + (x/16)*8 + plane*2 + (x%16)/8
+					planes[at] |= 1 << uint(7-x%8)
+				}
+			}
+		}
+		h := newHarness(t, interp)
+		for i, b := range disk[0x2fe00:0x31200] {
+			h.mem[nativeBase+uint32(i)] = b
+		}
+		for i, b := range planes {
+			h.mem[screen+uint32(i)] = b
+		}
+		for i := 0; i < 16; i++ {
+			h.mem[globals+0x468+uint32(i)] = 0
+			if scene.Blocked&(1<<i) != 0 {
+				h.mem[globals+0x468+uint32(i)] = 1
+			}
+		}
+		// 每案恢復完整 CPU 初態，場景與只讀原版指令保持不變。
+		initialCPU := h.cpu
+		result := sceneResult{Name: scene.Name}
+		seen := map[[3]int]bool{}
+		for _, sample := range scene.Samples {
+			validPattern := sample.Pattern == 4 || sample.Pattern >= 6 && sample.Pattern <= 9
+			if podPatterns {
+				validPattern = sample.Pattern >= 0 && sample.Pattern <= 3
+			}
+			if !validPattern || sample.X < 4 || sample.X > 313 || sample.Y < 4 || sample.Y > 193 {
+				t.Fatal("地面取樣超過本次原版螢幕契約")
+			}
+			if podPatterns {
+				key := [3]int{sample.Pattern, sample.X, sample.Y}
+				if seen[key] {
+					t.Fatal("載具取樣重複輸入")
+				}
+				seen[key] = true
+			}
+			h.cpu = initialCPU
+			h.cpu.State.A[6] = globals
+			h.poke(stackTop, uint16(sentinel>>16))
+			h.poke(stackTop+2, uint16(sentinel&0xffff))
+			h.poke(stackTop+4, uint16(sample.Y))
+			h.poke(stackTop+6, uint16(sample.X))
+			h.poke(stackTop+8, uint16(sample.Pattern))
+			h.poke(stackTop+10, 0xffff)
+			h.start(offset + 0x636)
+			steps, traps := 0, 0
+			for h.cpu.State.PC != sentinel+4 && steps < 3000 {
+				if h.cpu.State.PC == nativeBase+0x64a+4 {
+					if h.peek(h.cpu.State.SSP) != 3 {
+						t.Fatal("非預期 XBIOS 呼叫")
+					}
+					h.cpu.State.D[0] = screen
+					h.start(offset + 0x64c)
+					traps++
+					continue
+				}
+				if _, err := h.cpu.Step(); err != nil {
+					t.Fatalf("%s %+v PC=%x：%v", scene.Name, sample, h.cpu.State.PC, err)
+				}
+				steps++
+			}
+			verdict := h.peek(stackTop + 10)
+			if steps >= 3000 || traps != 1 || verdict > 1 {
+				t.Fatalf("%s：原版未正常返回，steps=%d traps=%d result=%d", scene.Name, steps, traps, verdict)
+			}
+			if (verdict == 0) != sample.Pass {
+				receipt.Differences++
+				t.Errorf("%s %+v：原版=%d remake-pass=%v", scene.Name, sample, verdict, sample.Pass)
+			}
+			result.Samples++
+			if verdict == 0 {
+				result.Pass++
+			} else {
+				result.Block++
+			}
+		}
+		receipt.Scenes = append(receipt.Scenes, result)
+		receipt.Samples += result.Samples
+		t.Logf("%s：%d 案，原版可通行 %d／受阻 %d", result.Name, result.Samples, result.Pass, result.Block)
+	}
+	data, err := json.MarshalIndent(receipt, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(root, "native-comparison.json"), data, 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("原始指令合計 %d 案，差異 %d", receipt.Samples, receipt.Differences)
+}

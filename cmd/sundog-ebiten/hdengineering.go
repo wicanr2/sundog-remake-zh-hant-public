@@ -1,0 +1,110 @@
+package main
+
+import (
+	"fmt"
+	"image"
+
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/wicanr2/sundog-remake/internal/game"
+)
+
+var hdEngineeringCache = map[int]*ebiten.Image{}
+
+func hdEngineeringWindow(scale int) *ebiten.Image {
+	return hdEngineeringAsset(scale)
+}
+
+func (a *app) drawHDEngineeringSlot(screen, atlas *ebiten.Image, w stZoomWindow, slot stSlot, item int, selected bool) {
+	scale := a.viewScale()
+	x, y := stRepairSlotRect(w, slot)
+	code := item
+	blasted := game.IsBlastedPart(item)
+	if blasted {
+		code = item & 0x7f
+	}
+	// Engineering uses the formal repair code domain, not Stores' low5 bits.
+	if code >= 0 && code < 32 {
+		sx, sy := code%8*16*scale, code/8*16*scale
+		sprite := atlas.SubImage(image.Rect(sx, sy, sx+16*scale, sy+16*scale)).(*ebiten.Image)
+		hdWorldBlit(screen, sprite, a.originX+x*scale, a.originY+y*scale)
+	}
+	p := hdReviewPainter{a: a, screen: screen, scale: float32(scale)}
+	if blasted {
+		p.stroke(float32(x), float32(y), 16, 16, .6, 0xee3441)
+	}
+	if selected {
+		p.stroke(float32(x-1), float32(y-1), 18, 18, .6, 0xf3f6fa)
+	}
+	for _, op := range p.operations {
+		op()
+	}
+}
+
+func (a *app) drawHDEngineering(screen *ebiten.Image) bool {
+	if a.state.Screen != game.ScreenEngineering || !a.usesSTRepair() {
+		return false
+	}
+	scale := a.viewScale()
+	chrome := hdEngineeringWindow(scale)
+	atlas := hdStoresRaster(fmt.Sprintf("icons/%d", scale))
+	background := a.hdCabinRaster("cabin-closed", 320, 200)
+	if chrome == nil || atlas == nil || background == nil {
+		return false
+	}
+	w := stZoomFor(game.ScreenEngineering, 0, 0, 0)
+	if chrome.Bounds().Dx() != stZoomW*scale || chrome.Bounds().Dy() != (w.y1-w.y0+1)*scale {
+		panic("HD engineering shape")
+	}
+	hdWorldBlit(screen, background, a.originX, a.originY)
+	hdWorldBlit(screen, chrome, a.originX+w.x0*scale, a.originY+w.y0*scale)
+	title := a.lookup(screenTitleKeys[game.ScreenEngineering])
+	system, ok := a.state.SelectedShipSystem()
+	if ok {
+		title = a.lookup(game.ShipSystemLabelKey(system.ID))
+	}
+	rect := hdStoresTitleSafe(w)
+	p := hdReviewPainter{a: a, screen: screen, scale: float32(scale)}
+	p.text(title, float32(rect[0]), float32(rect[1]), float32(rect[2]), float32(rect[3]), 8, 8, 0x1762ff, true)
+	if p.err != "" {
+		panic(p.err)
+	}
+	// Formal high-resolution text is composited last by app.Draw.
+	defer func() {
+		for _, op := range p.operations {
+			op()
+		}
+	}()
+	// Preserve formal repair order: held, pockets, system parts, status blocks.
+	slot := stRepairHand
+	if a.state.HandItem != 0 {
+		cx, cy := a.toLayout(ebiten.CursorPosition())
+		if cx >= w.x0 && cx <= w.x1 && cy >= w.y0 && cy <= w.y1 {
+			slot = stSlot{cx - w.x0 - 1, cy - w.y0 - 1}
+		}
+	}
+	a.drawHDEngineeringSlot(screen, atlas, w, slot, a.state.HandItem, false)
+	for i, slot := range stRepairPockets {
+		item := 0
+		if i < len(a.state.Parts) {
+			item = a.state.Parts[i]
+		}
+		a.drawHDEngineeringSlot(screen, atlas, w, slot, item, i == a.state.SelectedPartIndex && item != 0)
+	}
+	if !ok {
+		return true
+	}
+	for row, parts := range system.Rows {
+		for column, item := range parts {
+			a.drawHDEngineeringSlot(screen, atlas, w, stSlot{stRepairGridX0 + stRepairGridDX*column, stRepairGridY0 + stRepairGridDY*row}, item, false)
+		}
+		pen := stRepairStatusPen(game.ShipSystemRowStatus(system, row))
+		c := stColour(pen)
+		rgb := uint32(c.R)<<16 | uint32(c.G)<<8 | uint32(c.B)
+		q := hdReviewPainter{a: a, screen: screen, scale: float32(scale)}
+		q.rect(float32(w.x0+1+stRepairStatusX0), float32(w.y0+1+stRepairStatusY0+stRepairGridDY*row), stRepairStatusX1-stRepairStatusX0+1, stRepairStatusH+1, rgb)
+		for _, op := range q.operations {
+			op()
+		}
+	}
+	return true
+}

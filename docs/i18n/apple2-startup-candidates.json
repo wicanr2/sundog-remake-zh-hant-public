@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "catalog": "Apple II SYSTEM.STARTUP printable string evidence candidates",
+  "locale": "zh-Hant",
+  "sourceStatus": "raw bytes proven; five status labels have bounded live status-window consumer evidence; their loader and all other entry consumers remain unknown",
+  "translationStatus": "draft; requires original UI／code-path review",
+  "addressSpace": "raw disk byte offsets are 0-based; no logical-block or emulator virtual address is implied",
+  "sourceArchive": {
+    "name": "Sundog-Frozen-Legacy_Apple-II_EN.zip",
+    "sha256": "fbca3ad6a8f5ee048ff394c345ccc3b8684189928496864df1777a49d18317c7"
+  },
+  "disk": {
+    "name": "SUNDOG1.DSK",
+    "sha256": "7dda3a89d4461488c767727d953f8b3ccf5a8b8dd6c323a68f1d213027576e0d"
+  },
+  "span": {
+    "name": "SYSTEM.STARTUP",
+    "baseOffset": "0x00000",
+    "blockSize": 512,
+    "startBlock": 140,
+    "nextBlock": 219,
+    "rawStart": "0x11800",
+    "rawEndExclusive": "0x1b600",
+    "byteLength": 40448,
+    "sha256": "d2e0f7bf420edc3bb58ad5c0b6bcefdb328228b1b32245511ec027a0a476a1cd"
+  },
+  "tool": {
+    "name": "tools/apple2_span_strings.py",
+    "pythonVersion": "3.11.2",
+    "minimumPrintableRun": 4
+  },
+  "entries": [
+    {"key": "apple2.startup.character_name_prompt", "source": "Spell character name", "translation": "輸入角色名稱", "rawOffset": "0x12151", "length": 20, "rawHex": "5370656c6c20636861726163746572206e616d65", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.character_name_done", "source": "Press + when done", "translation": "完成後按 +", "rawOffset": "0x1218b", "length": 17, "rawHex": "5072657373202b207768656e20646f6e65", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.sleep", "source": "Sleep", "translation": "睡眠", "rawOffset": "0x12737", "length": 5, "rawHex": "536c656570", "evidenceLevel": "proven-bytes", "consumerStatus": "status-window-proven", "consumerEvidence": "docs/apple2/mame-status-label-trace-evidence.json", "translationStatus": "draft"},
+    {"key": "apple2.startup.condition", "source": "Condition", "translation": "狀態", "rawOffset": "0x1289a", "length": 9, "rawHex": "436f6e646974696f6e", "evidenceLevel": "proven-bytes", "consumerStatus": "status-window-proven", "consumerEvidence": "docs/apple2/mame-status-label-trace-evidence.json", "translationStatus": "draft"},
+    {"key": "apple2.startup.vigor", "source": "Vigor", "translation": "活力", "rawOffset": "0x128bb", "length": 5, "rawHex": "5669676f72", "evidenceLevel": "proven-bytes", "consumerStatus": "status-window-proven", "consumerEvidence": "docs/apple2/mame-status-label-trace-evidence.json", "translationStatus": "draft"},
+    {"key": "apple2.startup.rest", "source": "Rest", "translation": "休息", "rawOffset": "0x128c1", "length": 4, "rawHex": "52657374", "evidenceLevel": "proven-bytes", "consumerStatus": "status-window-proven", "consumerEvidence": "docs/apple2/mame-status-label-trace-evidence.json", "translationStatus": "draft"},
+    {"key": "apple2.startup.health", "source": "Health", "translation": "健康", "rawOffset": "0x128c7", "length": 6, "rawHex": "4865616c7468", "evidenceLevel": "proven-bytes", "consumerStatus": "status-window-proven", "consumerEvidence": "docs/apple2/mame-status-label-trace-evidence.json", "translationStatus": "draft"},
+    {"key": "apple2.startup.congratulations", "source": "Congratulations", "translation": "恭喜", "rawOffset": "0x12b47", "length": 15, "rawHex": "436f6e67726174756c6174696f6e73", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.contract_complete", "source": "You completed the contract", "translation": "你完成了合約", "rawOffset": "0x12b68", "length": 26, "rawHex": "596f7520636f6d706c657465642074686520636f6e7472616374", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.restart_saved_point", "source": "Restart at last saved point", "translation": "從最後保存點重新開始", "rawOffset": "0x12de5", "length": 27, "rawHex": "52657374617274206174206c61737420736176656420706f696e74", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.character_name_is", "source": "Your character name is", "translation": "你的角色名稱是：", "rawOffset": "0x13073", "length": 22, "rawHex": "596f757220636861726163746572206e616d65206973", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.character_name_required", "source": "You must choose a name", "translation": "你必須選擇名稱", "rawOffset": "0x130d3", "length": 22, "rawHex": "596f75206d7573742063686f6f73652061206e616d65", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.library_game", "source": "Game", "translation": "遊戲", "rawOffset": "0x13805", "length": 4, "rawHex": "47616d65", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.library_status", "source": "Status", "translation": "狀態", "rawOffset": "0x13847", "length": 6, "rawHex": "537461747573", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.library_find_colony", "source": "find colony", "translation": "尋找殖民地", "rawOffset": "0x1385d", "length": 11, "rawHex": "66696e6420636f6c6f6e79", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.library_date", "source": "Date:", "translation": "日期：", "rawOffset": "0x13887", "length": 5, "rawHex": "446174653a", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.library_location", "source": "Loc:", "translation": "位置：", "rawOffset": "0x1389d", "length": 4, "rawHex": "4c6f633a", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.action_status", "source": "STATUS", "translation": "狀態", "rawOffset": "0x145bb", "length": 6, "rawHex": "535441545553", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.action_navigate", "source": "NAVIGATE", "translation": "導航", "rawOffset": "0x145c7", "length": 8, "rawHex": "4e41564947415445", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.action_tactical", "source": "TACTICAL", "translation": "戰術", "rawOffset": "0x145d5", "length": 8, "rawHex": "544143544943414c", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.action_distress", "source": "DISTRESS", "translation": "求救", "rawOffset": "0x145e3", "length": 8, "rawHex": "4449535452455353", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.ship_fuel", "source": "FUEL", "translation": "燃料", "rawOffset": "0x146a3", "length": 4, "rawHex": "4655454c", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.ship_guns", "source": "GUNS", "translation": "武器", "rawOffset": "0x146af", "length": 4, "rawHex": "47554e53", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.ship_shield", "source": "SHLD", "translation": "護盾", "rawOffset": "0x146bd", "length": 4, "rawHex": "53484c44", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.ship_warp", "source": "WARP", "translation": "躍遷", "rawOffset": "0x146c9", "length": 4, "rawHex": "57415250", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.cargo_in_pod", "source": "CARGO IN POD", "translation": "貨運艙內貨物", "rawOffset": "0x14b0a", "length": 12, "rawHex": "434152474f20494e20504f44", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.pilotage", "source": "Pilotage", "translation": "駕駛", "rawOffset": "0x14d0d", "length": 8, "rawHex": "50696c6f74616765", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.ship_locker", "source": "Ship's Locker", "translation": "船上儲物櫃", "rawOffset": "0x14d29", "length": 13, "rawHex": "536869702773204c6f636b6572", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.ship_stores", "source": "Ship's Stores", "translation": "船上物資", "rawOffset": "0x14d41", "length": 13, "rawHex": "5368697027732053746f726573", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.warp_drives", "source": "Warp Drives", "translation": "躍遷驅動器", "rawOffset": "0x14e97", "length": 11, "rawHex": "5761727020447269766573", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.subc_engines", "source": "Sub-c Engines", "translation": "亞光速引擎", "rawOffset": "0x14ead", "length": 13, "rawHex": "5375622d6320456e67696e6573", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.ship_gun_label", "source": "Ship's Guns", "translation": "船艦武器", "rawOffset": "0x14ec5", "length": 11, "rawHex": "5368697027732047756e73", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.tactical_display", "source": "Tactical Disply", "translation": "戰術顯示", "rawOffset": "0x14edb", "length": 15, "rawHex": "546163746963616c20446973706c79", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft", "notes": "原始 bytes 本身為 Disply；保留 source，不靜默修正原文。"},
+    {"key": "apple2.startup.force_shield", "source": "Force Shiel", "translation": "力場護盾", "rawOffset": "0x14ef5", "length": 11, "rawHex": "466f72636520536869656c", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft", "notes": "候選欄位可能受固定寬度截斷；需原版 UI 對拍。"},
+    {"key": "apple2.startup.twelve_star_systems", "source": "twelve star systems", "translation": "十二個星系", "rawOffset": "0x15c83", "length": 19, "rawHex": "7477656c766520737461722073797374656d73", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"},
+    {"key": "apple2.startup.explore_planets", "source": "Land and explore planets", "translation": "降落並探索行星", "rawOffset": "0x15c9f", "length": 24, "rawHex": "4c616e6420616e64206578706c6f726520706c616e657473", "evidenceLevel": "proven-bytes", "consumerStatus": "unknown", "translationStatus": "draft"}
+  ]
+}

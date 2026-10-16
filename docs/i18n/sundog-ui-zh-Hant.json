@@ -1,0 +1,4311 @@
+{
+  "schema": 1,
+  "catalog": "SunDog remake prototype UI overlay",
+  "locale": "zh-Hant",
+  "sourceStatus": "remake-owned UI overlay; not an assertion about original bytes",
+  "translationStatus": "reviewed once; official AI language pack; 2026-08-31",
+  "entries": [
+    {
+      "key": "ui.about_sundog",
+      "translation": "關於 SunDog（原版製作名單）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.distress",
+      "translation": "求救加油",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.hail",
+      "translation": "呼叫對方",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.jettison",
+      "translation": "拋棄貨艙",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.pay_fine",
+      "translation": "繳違停罰金",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.tractor",
+      "translation": "牽引光束",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.tube",
+      "translation": "搭乘領航台電車",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.airlock",
+      "translation": "氣閘",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.barehanded",
+      "translation": "徒手",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.hitpoints",
+      "translation": "體力",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.opponents",
+      "translation": "對手",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.shield",
+      "translation": "護盾",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.title",
+      "translation": "街頭鬥毆",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.weapon",
+      "translation": "武器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.ch",
+      "translation": "魅力",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.dx",
+      "translation": "敏捷",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.hidden",
+      "translation": "??",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.iq",
+      "translation": "智力",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.lk",
+      "translation": "運氣",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.st",
+      "translation": "力量",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute_allocation",
+      "translation": "分配屬性點數",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.attribute_allocation_note",
+      "translation": "上下選擇，左右調整，按 Enter 完成。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.attribute_points_remaining",
+      "translation": "剩餘點數",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.aux_fuel",
+      "translation": "輔助燃料",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.back",
+      "translation": "返回",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.bank",
+      "translation": "銀行存款",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.buy",
+      "translation": "購買貨物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.buy_part",
+      "translation": "購買選定零件",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo",
+      "translation": "貨物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.antimatter",
+      "source": "antimatter",
+      "translation": "反物質",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.art-objects",
+      "source": "art objects",
+      "translation": "藝術品",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.biochips",
+      "source": "biochips",
+      "translation": "生物晶片",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.cadcams",
+      "source": "cadcams",
+      "translation": "電腦輔助設計組",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.chronographs",
+      "source": "chronographs",
+      "translation": "計時儀",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.clothing",
+      "source": "clothing",
+      "translation": "衣物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.comgear",
+      "source": "comgear",
+      "translation": "通訊裝備",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.cryogens",
+      "source": "cryogens",
+      "translation": "冷凍人員",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.droids",
+      "source": "droids",
+      "translation": "機器人",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.exotic-metals",
+      "source": "exotic metals",
+      "translation": "特殊金屬",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.fruits-vegs",
+      "source": "fruits/vegs",
+      "translation": "水果／蔬菜",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.fuel",
+      "source": "fuel",
+      "translation": "燃料",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.furs-silks",
+      "source": "furs/silks",
+      "translation": "毛皮／絲綢",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.gems-crystals",
+      "source": "gems/crystals",
+      "translation": "寶石／晶體",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.gold",
+      "source": "gold",
+      "translation": "黃金",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.grains-cereals",
+      "source": "grains/cereals",
+      "translation": "穀物／穀類",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.hand-weapons",
+      "source": "hand weapons",
+      "translation": "手持武器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.meats",
+      "source": "meats",
+      "translation": "肉類",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.nothing",
+      "source": "nothing",
+      "translation": "無",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.nullgravs",
+      "source": "nullgravs",
+      "translation": "反重力裝置",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.organics",
+      "source": "organics",
+      "translation": "有機物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.pharmaceuticals",
+      "source": "pharmaceuticals",
+      "translation": "藥品",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.radioactives",
+      "source": "radioactives",
+      "translation": "放射性物質",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.rare-earths",
+      "source": "rare earths",
+      "translation": "稀土",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.salvage_lots",
+      "translation": "牽引所得",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.seeds-sprouts",
+      "source": "seeds/sprouts",
+      "translation": "種子／嫩芽",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.silichips",
+      "source": "silichips",
+      "translation": "矽晶片",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.spices-herbs",
+      "source": "spices/herbs",
+      "translation": "香料／藥草",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.stimulants",
+      "source": "stimulants",
+      "translation": "興奮劑",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.stock-embryos",
+      "source": "stock embryos",
+      "translation": "庫存胚胎",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.sunsuns",
+      "source": "sunsuns",
+      "translation": "太陽燈",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.synthesizers",
+      "source": "synthesizers",
+      "translation": "合成器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.unknown",
+      "translation": "不明貨物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.woods-fibers",
+      "source": "woods/fibers",
+      "translation": "木材／纖維",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo_hold",
+      "translation": "貨艙艙櫃",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo_pod",
+      "translation": "貨運艙",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo_units",
+      "translation": "貨艙容量",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.carry",
+      "translation": "攜物格",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cash",
+      "translation": "現金",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character",
+      "translation": "角色",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_creation",
+      "translation": "建立角色",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_creation_note",
+      "translation": "按 Enter 確認姓名，接著分配屬性點數。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.character_library",
+      "translation": "角色保存庫",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_name",
+      "translation": "角色名稱",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_name_confirm",
+      "translation": "確認角色名稱",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_name_prompt",
+      "translation": "請輸入角色名稱",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_status",
+      "translation": "角色狀態視窗",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city",
+      "translation": "城市",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.abran",
+      "source": "Abran",
+      "translation": "阿布蘭(Abran)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.abundan",
+      "source": "Abundan",
+      "translation": "阿本丹(Abundan)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.alram",
+      "source": "Alram",
+      "translation": "阿爾拉姆(Alram)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.arlenair",
+      "source": "Arlenair",
+      "translation": "阿倫奈爾(Arlenair)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.aylika",
+      "source": "Aylika",
+      "translation": "艾莉卡(Aylika)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.bantin",
+      "source": "Bantin",
+      "translation": "班廷(Bantin)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.banville",
+      "source": "Banville",
+      "translation": "班維爾(Banville)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.barnum",
+      "source": "Barnum",
+      "translation": "巴納姆(Barnum)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.bedollug",
+      "source": "Bedollug",
+      "translation": "貝多勒格(Bedollug)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.calidac",
+      "source": "Calidac",
+      "translation": "卡利達克(Calidac)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.corian",
+      "source": "Corian",
+      "translation": "科里安(Corian)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.d-esgid",
+      "source": "D'esgid",
+      "translation": "德斯吉德(D'esgid)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.dajasyron",
+      "source": "Dajasyron",
+      "translation": "達賈西隆(Dajasyron)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.darvilton",
+      "source": "Darvilton",
+      "translation": "達維爾頓(Darvilton)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.drahew",
+      "source": "Drahew",
+      "translation": "德拉修(Drahew)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.dramming",
+      "source": "Dramming",
+      "translation": "德拉明(Dramming)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.dreider",
+      "source": "Dreider",
+      "translation": "德雷德(Dreider)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.einkolt",
+      "source": "Einkolt",
+      "translation": "艾因科爾特(Einkolt)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.esposito",
+      "source": "Esposito",
+      "translation": "埃斯波西托(Esposito)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.essoit",
+      "source": "Essoit",
+      "translation": "埃索特(Essoit)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.feriolah",
+      "source": "Feriolah",
+      "translation": "費里奧拉(Feriolah)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.ferring",
+      "source": "Ferring",
+      "translation": "費林(Ferring)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.ft-lyon",
+      "source": "Ft. Lyon",
+      "translation": "里昂堡(Ft. Lyon)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.ft-savon",
+      "source": "Ft. Savon",
+      "translation": "薩馮堡(Ft. Savon)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.haiapolis",
+      "source": "Haiapolis",
+      "translation": "海亞波利斯(Haiapolis)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.helord",
+      "source": "Helord",
+      "translation": "赫洛德(Helord)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.icebox",
+      "source": "Icebox",
+      "translation": "冰窖(Icebox)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.illdono",
+      "source": "Illdono",
+      "translation": "伊爾多諾(Illdono)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.industron",
+      "source": "Industron",
+      "translation": "工業城(Industron)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.jemba",
+      "source": "Jemba",
+      "translation": "傑姆巴(Jemba)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.knuth",
+      "source": "Knuth",
+      "translation": "克努特(Knuth)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.kolbe",
+      "source": "Kolbe",
+      "translation": "科爾貝(Kolbe)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.lagosal",
+      "source": "Lagosal",
+      "translation": "拉戈薩爾(Lagosal)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.lightning",
+      "source": "Lightning",
+      "translation": "閃電(Lightning)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.llorrac",
+      "source": "Llorrac",
+      "translation": "約拉克(Llorrac)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.lonax",
+      "source": "Lonax",
+      "translation": "洛納克斯(Lonax)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.malesti",
+      "source": "Malesti",
+      "translation": "馬萊斯蒂(Malesti)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.mortown",
+      "source": "Mortown",
+      "translation": "莫爾鎮(Mortown)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.n-ljones",
+      "source": "N'ljones",
+      "translation": "恩爾瓊斯(N'ljones)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.new-temol",
+      "source": "New Temol",
+      "translation": "新特莫爾(New Temol)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.notweneki",
+      "source": "Notweneki",
+      "translation": "諾特溫內基(Notweneki)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.obburg",
+      "source": "Obburg",
+      "translation": "奧伯堡(Obburg)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.paleko",
+      "source": "Paleko",
+      "translation": "帕萊科(Paleko)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.paran",
+      "source": "Paran",
+      "translation": "帕蘭(Paran)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.plepa",
+      "source": "Plepa",
+      "translation": "普勒帕(Plepa)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.poelter",
+      "source": "Poelter",
+      "translation": "珀爾特(Poelter)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.sheol",
+      "source": "Sheol",
+      "translation": "希奧爾(Sheol)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.sheshco",
+      "source": "Sheshco",
+      "translation": "謝什科(Sheshco)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.shoothan",
+      "source": "Shoothan",
+      "translation": "舒坦(Shoothan)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.surrell",
+      "source": "Surrell",
+      "translation": "蘇雷爾(Surrell)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.temlonton",
+      "source": "Temlonton",
+      "translation": "特姆隆頓(Temlonton)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.the-mines",
+      "source": "The Mines",
+      "translation": "礦場(The Mines)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.tram-el",
+      "source": "Tram'el",
+      "translation": "特拉梅爾(Tram'el)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.tuie",
+      "source": "Tuie",
+      "translation": "圖伊(Tuie)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.velamie",
+      "source": "Velamie",
+      "translation": "維拉米(Velamie)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.waslat",
+      "source": "Waslat",
+      "translation": "瓦斯拉特(Waslat)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.wildera",
+      "source": "Wildera",
+      "translation": "懷爾德拉(Wildera)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.zadansa",
+      "source": "Zadansa",
+      "translation": "扎丹薩(Zadansa)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.combat_range",
+      "translation": "接戰距離",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.combat_status",
+      "translation": "戰鬥狀態指示器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.compass",
+      "translation": "指南針",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.credits.director",
+      "translation": "總監",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.ftl_production",
+      "translation": "Faster Than Light 製作",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.graphics",
+      "translation": "美術",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.original_concept",
+      "translation": "原創概念與 Apple II 遊戲",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.producer",
+      "translation": "製作人",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.ship_sound_effects",
+      "translation": "飛船、音效與特效",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.studios",
+      "translation": "製作：FTL Studios／Studio B",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.cryogens",
+      "translation": "冷凍人員",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.delete_game",
+      "translation": "刪除保存庫遊戲",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.deliver_mission",
+      "translation": "交付殖民任務貨物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.deposit",
+      "translation": "存入全部現金",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.depot_aux",
+      "translation": "3：購買備用油",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.depot_refuel",
+      "translation": "1：船艦加油",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.depot_repair",
+      "translation": "2：船體修理",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.depot_title",
+      "translation": "船艦服務站",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.destination.abran",
+      "source": "Glory/Glory I/Abran",
+      "translation": "榮耀一號(Glory I)／阿布蘭(Abran)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.abundan",
+      "source": "Glory/Glory I/Abundan",
+      "translation": "榮耀一號(Glory I)／阿本丹(Abundan)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.alram",
+      "source": "Woremed/W'orrad/Alram",
+      "translation": "沃拉德(W'orrad)／阿爾拉姆(Alram)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.arlenair",
+      "source": "Hepa/Hepah/Arlenair",
+      "translation": "赫帕(Hepah)／阿倫奈爾(Arlenair)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.aylika",
+      "source": "Woremed/W'orrad/Aylika",
+      "translation": "沃拉德(W'orrad)／艾莉卡(Aylika)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.bantin",
+      "source": "Ferr/Ferr/Bantin",
+      "translation": "費爾(Ferr)／班廷(Bantin)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.banville",
+      "source": "Jondd/Jondd/Banville",
+      "translation": "瓊德(Jondd)／班維爾(Banville)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.barnum",
+      "source": "Ferr/Ferr/Barnum",
+      "translation": "費爾(Ferr)／巴納姆(Barnum)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.bedollug",
+      "source": "KalManDaa/Kala/Bedollug",
+      "translation": "卡拉(Kala)／貝多勒格(Bedollug)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.calidac",
+      "source": "New Shoot/New Shoot/Calidac",
+      "translation": "新舒特(New Shoot)／卡利達克(Calidac)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.corian",
+      "source": "Glory/Glory I/Corian",
+      "translation": "榮耀一號(Glory I)／科里安(Corian)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.d-esgid",
+      "source": "Jadul/Krakorum/D'esgid",
+      "translation": "喀拉科倫(Krakorum)／德斯吉德(D'esgid)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.dajasyron",
+      "source": "KalManDaa/Kala/Dajasyron",
+      "translation": "卡拉(Kala)／達賈西隆(Dajasyron)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.darvilton",
+      "source": "Jondd/Jondd/Darvilton",
+      "translation": "瓊德(Jondd)／達維爾頓(Darvilton)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.drahew",
+      "source": "Jondd/Jondd/Drahew",
+      "translation": "瓊德(Jondd)／德拉修(Drahew)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.dramming",
+      "source": "Jondd/Jondd/Dramming",
+      "translation": "瓊德(Jondd)／德拉明(Dramming)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.dreider",
+      "source": "Glory/Glory II/Dreider",
+      "translation": "榮耀二號(Glory II)／德雷德(Dreider)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.einkolt",
+      "source": "Lafser/Tcana/Einkolt",
+      "translation": "特卡納(Tcana)／艾因科爾特(Einkolt)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.esposito",
+      "source": "Jondd/Jondd/Esposito",
+      "translation": "瓊德(Jondd)／埃斯波西托(Esposito)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.essoit",
+      "source": "Hepa/Hepah/Essoit",
+      "translation": "赫帕(Hepah)／埃索特(Essoit)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.feriolah",
+      "source": "New Shoot/New Shoot/Feriolah",
+      "translation": "新舒特(New Shoot)／費里奧拉(Feriolah)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.ferring",
+      "source": "Ferr/Ferr/Ferring",
+      "translation": "費爾(Ferr)／費林(Ferring)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.ft-lyon",
+      "source": "Jondd/Heavy/Ft. Lyon",
+      "translation": "赫維(Heavy)／里昂堡(Ft. Lyon)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.ft-savon",
+      "source": "Jondd/Heavy/Ft. Savon",
+      "translation": "赫維(Heavy)／薩馮堡(Ft. Savon)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.haiapolis",
+      "source": "Lafser/Tcana/Haiapolis",
+      "translation": "特卡納(Tcana)／海亞波利斯(Haiapolis)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.helord",
+      "source": "Sosai/Vahevela/Helord",
+      "translation": "瓦赫維拉(Vahevela)／赫洛德(Helord)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.icebox",
+      "source": "Ferr/Snowball/Icebox",
+      "translation": "雪球(Snowball)／冰窖(Icebox)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.illdono",
+      "source": "Jadul/Krakorum/Illdono",
+      "translation": "喀拉科倫(Krakorum)／伊爾多諾(Illdono)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.industron",
+      "source": "Ferr/Ferrwerk/Industron",
+      "translation": "費爾沃克(Ferrwerk)／工業城(Industron)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.jemba",
+      "source": "Glory/Glory II/Jemba",
+      "translation": "榮耀二號(Glory II)／傑姆巴(Jemba)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.knuth",
+      "source": "Shoot/Shoot/Knuth",
+      "translation": "舒特(Shoot)／克努特(Knuth)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.kolbe",
+      "source": "KalManDaa/Kala/Kolbe",
+      "translation": "卡拉(Kala)／科爾貝(Kolbe)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.lagosal",
+      "source": "Glory/Glory I/Lagosal",
+      "translation": "榮耀一號(Glory I)／拉戈薩爾(Lagosal)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.lightning",
+      "source": "Jondd/Heavy/Lightning",
+      "translation": "赫維(Heavy)／閃電(Lightning)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.llorrac",
+      "source": "Glory/Glory II/Llorrac",
+      "translation": "榮耀二號(Glory II)／約拉克(Llorrac)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.lonax",
+      "source": "Ferr/Ferr/Lonax",
+      "translation": "費爾(Ferr)／洛納克斯(Lonax)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.malesti",
+      "source": "Jadul/Krakorum/Malesti",
+      "translation": "喀拉科倫(Krakorum)／馬萊斯蒂(Malesti)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.mortown",
+      "source": "Sosai/Vahevela/Mortown",
+      "translation": "瓦赫維拉(Vahevela)／莫爾鎮(Mortown)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.n-ljones",
+      "source": "Sosai/Vahevela/N'ljones",
+      "translation": "瓦赫維拉(Vahevela)／恩爾瓊斯(N'ljones)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.new-temol",
+      "source": "New Shoot/New Shoot/New Temol",
+      "translation": "新舒特(New Shoot)／新特莫爾(New Temol)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.notweneki",
+      "source": "KalManDaa/Kala/Notweneki",
+      "translation": "卡拉(Kala)／諾特溫內基(Notweneki)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.obburg",
+      "source": "Jondd/Jondd/Obburg",
+      "translation": "瓊德(Jondd)／奧伯堡(Obburg)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.paleko",
+      "source": "Jadul/Krakorum/Paleko",
+      "translation": "喀拉科倫(Krakorum)／帕萊科(Paleko)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.paran",
+      "source": "Glory/Glory I/Paran",
+      "translation": "榮耀一號(Glory I)／帕蘭(Paran)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.plepa",
+      "source": "Enlie/Enliah/Plepa",
+      "translation": "恩利亞(Enliah)／普勒帕(Plepa)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.poelter",
+      "source": "New Shoot/New Shoot/Poelter",
+      "translation": "新舒特(New Shoot)／珀爾特(Poelter)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.sheol",
+      "source": "New Shoot/Hell/Sheol",
+      "translation": "地獄(Hell)／希奧爾(Sheol)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.sheshco",
+      "source": "Woremed/W'orrad/Sheshco",
+      "translation": "沃拉德(W'orrad)／謝什科(Sheshco)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.shoothan",
+      "source": "Shoot/Shoot/Shoothan",
+      "translation": "舒特(Shoot)／舒坦(Shoothan)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.surrell",
+      "source": "Glory/Glory III/Surrell",
+      "translation": "榮耀三號(Glory III)／蘇雷爾(Surrell)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.temlonton",
+      "source": "Shoot/Shoot/Temlonton",
+      "translation": "舒特(Shoot)／特姆隆頓(Temlonton)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.the-mines",
+      "source": "Ferr/Ferrwerk/The Mines",
+      "translation": "費爾沃克(Ferrwerk)／礦場(The Mines)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.tram-el",
+      "source": "New Shoot/New Shoot/Tram'el",
+      "translation": "新舒特(New Shoot)／特拉梅爾(Tram'el)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.tuie",
+      "source": "Enlie/Enliah/Tuie",
+      "translation": "恩利亞(Enliah)／圖伊(Tuie)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.velamie",
+      "source": "Hepa/Hepah/Velamie",
+      "translation": "赫帕(Hepah)／維拉米(Velamie)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.waslat",
+      "source": "Shoot/Shoot/Waslat",
+      "translation": "舒特(Shoot)／瓦斯拉特(Waslat)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.wildera",
+      "source": "New Shoot/New Shoot/Wildera",
+      "translation": "新舒特(New Shoot)／懷爾德拉(Wildera)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.zadansa",
+      "source": "Woremed/W'orrad/Zadansa",
+      "translation": "沃拉德(W'orrad)／扎丹薩(Zadansa)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination_next",
+      "translation": "下一個目的地",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination_previous",
+      "translation": "上一個目的地",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.dialog",
+      "translation": "交談",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.dialog.ok",
+      "translation": "好",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.dialog_said",
+      "translation": "你說",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.dialog_say",
+      "translation": "說出選定的話",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.dialog_verb",
+      "translation": "你要說的",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.eat",
+      "translation": "進食",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.annihilator",
+      "source": "Annihilator",
+      "translation": "殲滅者(Annihilator)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.phantom-ul",
+      "source": "Phantom UL",
+      "translation": "幻影 UL(Phantom UL)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.unknown",
+      "source": "UNKNOWN",
+      "translation": "未知(UNKNOWN)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.voton-mk-iv",
+      "source": "Voton Mk IV",
+      "translation": "沃頓四型(Voton Mk IV)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.voton-mk-x",
+      "source": "Voton Mk X",
+      "translation": "沃頓十型(Voton Mk X)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.vw-69",
+      "source": "VW-69",
+      "translation": "VW-69 型(VW-69)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.z1-vector",
+      "source": "Z1 Vector",
+      "translation": "Z1 向量(Z1 Vector)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy_hull",
+      "translation": "敵艦船體",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy_ship",
+      "translation": "敵艦型號",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.engineering",
+      "translation": "工程艙",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.engineering_fuel_system",
+      "translation": "燃料／引擎",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.engineering_hull_system",
+      "translation": "船體狀態",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.engineering_shield_system",
+      "translation": "護盾系統",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.engineering_weapon_system",
+      "translation": "武器系統",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.equipment",
+      "translation": "設備資料",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.equipment_note",
+      "translation": "依原始偏移排序；效果待驗證。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.equipment_unavailable",
+      "translation": "尚未載入 Apple II 設備來源 catalog。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facilities",
+      "translation": "目前設施",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.colony",
+      "translation": "殖民地",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.exchange",
+      "translation": "交易所",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.none",
+      "translation": "無",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.spaceport",
+      "translation": "太空港",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.uniteller",
+      "translation": "銀行",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.warehouse",
+      "translation": "倉庫",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.fire",
+      "translation": "開火",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.flight",
+      "translation": "系統內航行",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.flight_distress_key",
+      "translation": "D 求救加油",
+      "translationStatus": "remake-owned UI; reviewed 2026-10-05"
+    },
+    {
+      "key": "ui.flight_engage_key",
+      "translation": "E：一路飛抵",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.flight_progress",
+      "translation": "航程進度",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.flight_resume_key",
+      "translation": "R 恢復航行",
+      "translationStatus": "remake-owned UI; reviewed 2026-10-05"
+    },
+    {
+      "key": "ui.flight_tick",
+      "translation": "航程刻度",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.flight_tick_key",
+      "translation": "Enter：推進一刻",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.food",
+      "translation": "食物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.footer.failure",
+      "translation": "S：存檔　Q：離開　呈現：%s",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.footer.normal",
+      "translation": "滑鼠：按鈕／地圖　右鍵：%s　F8 呈現：%s",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.ftl_install",
+      "translation": "安裝 FTL 增強器",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.ftl_price",
+      "translation": "安裝費用",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.ftl_range",
+      "translation": "航距",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.ftl_title",
+      "translation": "FTL 工程服務",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.fuel",
+      "translation": "燃料量",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.fuel_available",
+      "translation": "可用資金",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_buy_full",
+      "translation": "1 買滿",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_buy_one",
+      "translation": "2 買一單位",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_cancel",
+      "translation": "3 結束",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_purchase",
+      "translation": "船艦服務",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_quantity",
+      "translation": "數量",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_unavailable",
+      "translation": "此處無法購買",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_unit_price",
+      "translation": "單價",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.full_shields",
+      "translation": "全開護盾",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.gauge.fuel",
+      "translation": "燃料",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.gauge.guns",
+      "translation": "火力",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.gauge.hull",
+      "translation": "船體",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.gauge.shield",
+      "translation": "護盾",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.ground",
+      "translation": "地面移動",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.guns",
+      "translation": "武器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.hand",
+      "translation": "手上物品",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.hand_empty",
+      "translation": "空手",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.hand_key",
+      "translation": "← → H",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.heading.east",
+      "translation": "東",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.heading.north",
+      "translation": "北",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.heading.south",
+      "translation": "南",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.heading.west",
+      "translation": "西",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.health",
+      "translation": "健康",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.arrows",
+      "translation": "方向鍵：移動、選單選擇",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.cards",
+      "translation": "F1：說明　F2：選項（語言、配色、圖塊、磁碟）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.close",
+      "translation": "再按 F1 或 ESC 關閉",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.confirm",
+      "translation": "ENTER／SPACE：確認主要動作",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.depot",
+      "translation": "1 加油　2 修船　3 備用油　4 工程（Banville）　Esc 返回",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.help.engineering_shortcuts",
+      "translation": "←／→：選系統 E：修系統 W：武器 S：護盾 R：船體 I：設備",
+      "translationStatus": "remake control mapping verified; GUI layout pending"
+    },
+    {
+      "key": "ui.help.equipment_back",
+      "translation": "ESC／右鍵：返回",
+      "translationStatus": "操作對應已核對；畫面待驗"
+    },
+    {
+      "key": "ui.help.escape",
+      "translation": "ESC：取消，回上一層",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.ftl",
+      "translation": "1／Enter：安裝　右鍵／Esc：返回",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.help.fuel_purchase",
+      "translation": "1：買滿　2：一單位　3／ESC：結束",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.help.ground_parts",
+      "translation": "Y：船艦零件櫃檯（需在倉庫）；P：裝載殖民物資",
+      "translationStatus": "remake control mapping verified; GUI layout pending"
+    },
+    {
+      "key": "ui.help.ground_save",
+      "translation": "F5：保存庫存讀（八槽，數字鍵選擇）；S：向南移動",
+      "translationStatus": "remake control mapping verified; GUI layout pending"
+    },
+    {
+      "key": "ui.help.ground_shortcuts",
+      "translation": "T：交易 U：銀行 R：燃料 P：物資 K：冷凍 V：交付 O：輔助燃料",
+      "translationStatus": "remake control mapping verified; GUI layout pending"
+    },
+    {
+      "key": "ui.help.library_save",
+      "translation": "F5：保存庫存讀（八槽，數字鍵選擇）",
+      "translationStatus": "remake control mapping verified; GUI layout pending"
+    },
+    {
+      "key": "ui.help.mouse",
+      "translation": "滑鼠左鍵：按鈕／地圖　右鍵：返回／角色狀態",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.presentation",
+      "translation": "F8：切換呈現（Atari ST 原版風／Apple II 原版風／重製版現代風）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.presentation_persists",
+      "translation": "　　配色、圖塊與版面一起換；選過就記住，下次開啟仍是這一套",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.quit",
+      "translation": "F10：自動存檔並離開",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.save_load",
+      "translation": "S：快速存檔　L：載入　F5：保存庫（八個存檔槽，數字鍵選）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.sleep",
+      "translation": "空白／Enter／點擊：醒來　F5：保存庫　F10：離開",
+      "translationStatus": "reviewed once; remake sleep controls; 2026-10-04"
+    },
+    {
+      "key": "ui.help.sound",
+      "translation": "F7：靜音開關",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.tactical",
+      "translation": "戰術：G 雷射　T 牽引　J／K 拋第 1／2 格　B 兩格都拋　H 呼叫",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.tactical_aim",
+      "translation": "M 進入瞄準；移動滑鼠轉向，左鍵開火",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.help.tactical_fire",
+      "translation": "F／Enter 開火　R 充能　ESC 離開瞄準",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.help.tactical_shields",
+      "translation": "O 關閉護盾　U 全開護盾",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.help.teller_commit",
+      "translation": "銀行：離開金額頁即提交；C 清零後離開可放棄",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.help.title",
+      "translation": "操作說明",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.title_keys",
+      "translation": "標題：P 開始　C 保存庫　L 載入　O 選項　A 關於",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.hull_condition",
+      "translation": "船體狀態",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.install_part",
+      "translation": "以零件替換壞掉的一格",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior",
+      "translation": "室內",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.booth",
+      "translation": "卡座",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.counter",
+      "translation": "櫃檯",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.customers",
+      "translation": "客人",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.door",
+      "translation": "門",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.kind.bar",
+      "translation": "酒館",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.kind.equipment",
+      "translation": "隨身裝備店",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.kind.hotel",
+      "translation": "旅館",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.kind.parts",
+      "translation": "船艦零件店",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.kind.unknown",
+      "translation": "沒有招牌的門",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.slots",
+      "translation": "吃角子老虎",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.beer",
+      "source": "beer",
+      "translation": "啤酒",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.burger",
+      "source": "burger",
+      "translation": "漢堡",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.charmer",
+      "source": "charmer",
+      "translation": "魅力劑",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.cloaker",
+      "source": "cloaker",
+      "translation": "匿蹤器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.concentrator",
+      "source": "concentrator",
+      "translation": "集中器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.control-node",
+      "source": "control node",
+      "translation": "控制節點",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.cryofuse",
+      "source": "cryofuse",
+      "translation": "冷凍熔絲",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.dead-part",
+      "source": "(dead part)",
+      "translation": "（故障零件）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.decloaker",
+      "source": "decloaker",
+      "translation": "解匿器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.dexboost",
+      "source": "dexboost",
+      "translation": "敏捷增幅",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.flux-modulator",
+      "source": "flux modulator",
+      "translation": "通量調節器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.freeze-quit",
+      "source": "(freeze/quit)",
+      "translation": "（冷凍／離開）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.ground-scanner",
+      "source": "ground scanner",
+      "translation": "地面掃描器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.j-junc-module",
+      "source": "j-junc module",
+      "translation": "J-Junc 模組",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.location",
+      "source": "(location)",
+      "translation": "（位置）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.money",
+      "source": "(money)",
+      "translation": "（金錢）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.next-frame",
+      "source": "(next frame)",
+      "translation": "（下一頁）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.nothing",
+      "source": "(nothing)",
+      "translation": "（無）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.nutrapack",
+      "source": "nutrapack",
+      "translation": "營養包",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.peptab",
+      "source": "peptab",
+      "translation": "提神錠",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.photon-bridge",
+      "source": "photon bridge",
+      "translation": "光子橋",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.plasma-tube",
+      "source": "plasma tube",
+      "translation": "電漿管",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.rapidheal",
+      "source": "rapidheal",
+      "translation": "快速治療",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.reserved",
+      "source": "(reserved)",
+      "translation": "（保留）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.s-t-distorter",
+      "source": "s/t distorter",
+      "translation": "S/T 扭曲器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.scanner",
+      "source": "scanner",
+      "translation": "掃描器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.scattergun",
+      "source": "scattergun",
+      "translation": "散彈槍",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.shield",
+      "source": "shield",
+      "translation": "護盾",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.shunt",
+      "source": "shunt",
+      "translation": "分流器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.stinger",
+      "source": "stinger",
+      "translation": "毒刺",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.time",
+      "source": "(time)",
+      "translation": "（時間）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.trash",
+      "source": "(trash)",
+      "translation": "（丟棄）",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.layout.atari_st",
+      "translation": "Atari ST 版面",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.layout.remake",
+      "translation": "重製版版面",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_delete",
+      "translation": "刪除",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_load",
+      "translation": "載入",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_make",
+      "translation": "建庫",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_new",
+      "translation": "新遊戲",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_pick",
+      "translation": "1–8 選槽",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_store",
+      "translation": "儲存",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_not_created",
+      "translation": "尚未建立",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_slot",
+      "translation": "保存庫槽位",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_slot_empty",
+      "translation": "空槽位",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.load_aux_fuel",
+      "translation": "O：裝載輔助燃料",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.load_cargo",
+      "translation": "裝載貨物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.load_cryogens",
+      "translation": "裝載冷凍人員",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.load_game",
+      "translation": "載入已保存的遊戲",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.load_supplies",
+      "translation": "裝載殖民地物資",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.locale.en",
+      "translation": "English",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.locale.ja",
+      "translation": "日本語",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.locale.zh-Hans",
+      "translation": "简体中文",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.locale.zh-Hant",
+      "translation": "繁體中文",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.location",
+      "translation": "位置",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.make_library",
+      "translation": "建立保存庫",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.market_quote",
+      "translation": "貨物買入／賣出",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.market_unknown",
+      "translation": "未知",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.about_needs_disk",
+      "translation": "製作名單在原版磁碟裡；到選項給磁碟路徑後再看。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.action_rejected",
+      "translation": "動作遭拒：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_ammo_out",
+      "translation": "散彈槍打空了，你只剩一雙手。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_exchange",
+      "translation": "雙方交手一輪。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_fled",
+      "translation": "你脫身了。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_hit",
+      "translation": "你挨了一記。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_lost",
+      "translation": "你倒了下去。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_over",
+      "translation": "已經打完了。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_won",
+      "translation": "剩下的人跑了。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.at_booth",
+      "translation": "你站到卡座旁。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.at_counter",
+      "translation": "你站到櫃檯前。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.at_door",
+      "translation": "門就在旁邊。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.at_slots",
+      "translation": "角落那台機器在閃。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.ate",
+      "translation": "你吃了一份食物，飽食度上升。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.attribute_points",
+      "translation": "請分配角色的屬性點數。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.message.attribute_waste",
+      "translation": "尚有點數未使用；再次確認仍可繼續。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.message.aux_fuel_drained",
+      "translation": "輔助燃料已注入主燃料槽。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.aux_fuel_dropped",
+      "translation": "已拋下一槽輔助燃料。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.aux_fuel_loaded",
+      "translation": "已在貨艙裝上一槽輔助燃料。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.back",
+      "translation": "已返回上一個畫面。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.beyond_maximum_jump",
+      "translation": "超出曲速引擎的最大跳躍距離。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.boarded",
+      "translation": "你登上了陽犬號。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.bolts_armed",
+      "translation": "拋艙螺栓引爆，貨艙已清空。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.bought",
+      "translation": "已購買一份貨物。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cannon_missed",
+      "translation": "加農砲沒有命中：敵艦不在瞄準容差內。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cannot_move",
+      "translation": "前方無法通行；請沿可通行地面移動。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cargo",
+      "translation": "貨艙艙櫃已開啟。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cargo_full",
+      "translation": "貨艙已滿；手冊描述的原型容量是兩份貨物。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cargo_loaded",
+      "translation": "已裝載一份貨物。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cargo_unloaded",
+      "translation": "已卸下一份貨物。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.carry_full",
+      "translation": "攜物格滿了，放不下。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.character_created",
+      "translation": "角色已建立，準備登上陽犬號。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.character_name",
+      "translation": "請輸入角色名稱；這是重製版原型的命名流程。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.character_name_invalid",
+      "translation": "角色名稱不可為空白，請重新輸入。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.collapsed",
+      "translation": "你因疲勞倒下。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-04"
+    },
+    {
+      "key": "ui.message.comm_jammed",
+      "translation": "通訊頻道受到干擾。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cryogens_loaded",
+      "translation": "已從地面倉庫裝載一份冷凍人員。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.defeat",
+      "translation": "你已無法繼續；可保存此終局或離開遊戲。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.delivery_at_exchange",
+      "translation": "請到 Banville 交易所逐批交付當期需求。",
+      "translationStatus": "remake operation hint; 2026-10-03"
+    },
+    {
+      "key": "ui.message.deposited",
+      "translation": "現金已存入目前星系的本地銀行。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.destination_selected",
+      "translation": "已選擇下一個導航目的地。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.dialog_ended",
+      "translation": "對話結束，你回到街上。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.dialog_opened",
+      "translation": "對方看向你，等你開口。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.dialog_said",
+      "translation": "對方回應了你的話。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.dialog_unavailable",
+      "translation": "此處無人可談。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.distress_unavailable",
+      "translation": "此處無法呼叫補油救援。",
+      "translationStatus": "remake-owned UI; reviewed 2026-10-05"
+    },
+    {
+      "key": "ui.message.enemy_destroyed",
+      "translation": "敵艦已摧毀；戰鬥原型節點完成。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.enemy_fired_hull",
+      "translation": "敵艦擊穿護盾命中船體；請進入工程艙修理。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.enemy_fired_shields",
+      "translation": "敵艦命中；護盾吸收了這一發，等級下降。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.enemy_fired_system",
+      "translation": "敵艦命中，船艦系統被打壞了一個零件。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.enemy_holding",
+      "translation": "敵艦尚在裝填，這一拍沒有開火。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.enemy_missed",
+      "translation": "敵艦開火但沒有命中。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.engineering",
+      "translation": "工程艙已開啟。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.entered_city",
+      "translation": "已進入城市。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.equipment",
+      "translation": "設備資料已開啟；名稱來自目前驗證的 Apple II 來源 catalog。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.exchange",
+      "translation": "交易所已開啟。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.failure_terminal",
+      "translation": "這是失敗終局；可保存終局或離開遊戲。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.fetched",
+      "translation": "批貨已取回貨艙。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.fine_paid",
+      "translation": "違規停放罰金已繳清。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.fired",
+      "translation": "已開火；武器充能下降。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.ftl_installed",
+      "translation": "FTL 增強器已安裝，運作正常。",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.message.ftl_insufficient",
+      "translation": "銀行存款與現金合計不足，無法安裝 FTL 增強器。",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.message.ftl_quote",
+      "translation": "可安裝躍遷增強器。請核對費用後確認。",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.message.ftl_ship_absent",
+      "translation": "飛船須停在本城才能安裝增強器。",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.message.fuel_full",
+      "translation": "燃料已滿，不需要補充。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.fuel_purchase",
+      "translation": "選擇購買數量，結束時結算。",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.message.full_shields",
+      "translation": "護盾已全開。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.game_deleted",
+      "translation": "保存庫遊戲已刪除。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.game_stored",
+      "translation": "遊戲已儲存至重製版保存庫。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.ground",
+      "translation": "貨運艙已抵達地面移動區。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.ground_scanner_required",
+      "translation": "降落其他城市需要裝妥地面掃描器。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.guns_blown",
+      "translation": "艦載砲已損毀，無法開火。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.hailing",
+      "translation": "已接通對方船艦。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.hull_repaired",
+      "translation": "船體修理已結算。",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.message.in_hand",
+      "translation": "已拿到手上。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.insufficient_cash",
+      "translation": "現金不足。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.insufficient_fuel",
+      "translation": "燃料不足，無法完成這次原型導航。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.insufficient_funds",
+      "translation": "銀行存款與現金合計不足，無法購買燃料。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.jettison_empty",
+      "translation": "貨艙是空的，沒有東西可拋。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.landed",
+      "translation": "落地。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.landing",
+      "translation": "地平線升了上來。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.laser_fired",
+      "translation": "雷射已開火；武器充能下降。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.laser_missed",
+      "translation": "雷射未命中；武器充能已耗盡。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.left_building",
+      "translation": "你走回街上。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.left_city",
+      "translation": "已走出城市，進入行星地表。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library",
+      "translation": "角色保存庫已開啟。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library_created",
+      "translation": "重製版保存庫已建立；原版 Library Disk 格式仍未宣稱相容。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library_list_rejected",
+      "translation": "保存庫清單遭拒：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library_missing",
+      "translation": "尚未建立重製版保存庫；請先選擇建立保存庫。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library_rejected",
+      "translation": "保存庫操作遭拒：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library_slot_selected",
+      "translation": "已選擇保存庫槽位。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.load_failed",
+      "translation": "載入失敗；找不到可用的重製版存檔槽。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.load_rejected",
+      "translation": "載入遭拒：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.load_requested",
+      "translation": "正在從重製版存檔槽載入遊戲。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.loaded",
+      "translation": "遊戲已從重製版存檔槽載入。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.mission_cargo_missing",
+      "translation": "殖民任務需要至少一份物資與一份冷凍人員。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.mission_complete",
+      "translation": "殖民任務貨物已交付；這是重製版原型結局節點。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.moved",
+      "translation": "你朝游標方向移動。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.navigated",
+      "translation": "導航完成；已抵達候選目標。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.navigation",
+      "translation": "導航畫面已開啟；選擇目標後確認。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_colony",
+      "translation": "請先走到殖民地設施，再交付任務貨物。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_depot",
+      "translation": "請到燃料補給站購買燃料。",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.message.need_exchange",
+      "translation": "請先走到交易所，再進行交易。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_spaceport",
+      "translation": "請先走到太空港，再購買燃料。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_tube_station",
+      "translation": "這一格上沒有電車站。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_uniteller",
+      "translation": "請先走到 Uniteller，再辦理銀行業務。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_warehouse",
+      "translation": "請先走到倉庫，再裝載貨物。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.new_game",
+      "translation": "新遊戲已建立，角色為 Zed。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.new_game_discards",
+      "translation": "開始新遊戲會失去目前尚未存入保存庫的進度。再按一次確認。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-04"
+    },
+    {
+      "key": "ui.message.no_aux_fuel",
+      "translation": "貨艙裡沒有輔助燃料。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_bank_balance",
+      "translation": "目前本地銀行沒有可提領的存款。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_cargo",
+      "translation": "沒有可出售的貨物。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_cash",
+      "translation": "身上沒有可存入的現金。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_credit",
+      "translation": "現金不夠下這一注。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_door_here",
+      "translation": "這一格沒有門。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_enemy",
+      "translation": "目前沒有可攻擊的敵艦。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_fine",
+      "translation": "目前沒有待繳的罰金。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_food",
+      "translation": "沒有可食用的食物。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_funds",
+      "translation": "錢不夠，付不出這筆款。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_lots",
+      "translation": "這裡沒有在賣的批貨。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_matching_part",
+      "translation": "身上沒有可以裝進壞掉那一格的零件。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_ship_to_hail",
+      "translation": "附近沒有可呼叫的船艦。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_shunt",
+      "translation": "沒有可用的分流器，無法快速修理目前系統。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.nobody_here",
+      "translation": "這個位置沒有可交談的人。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.not_at_booth",
+      "translation": "旁邊沒有卡座。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.not_at_counter",
+      "translation": "櫃檯不在旁邊。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.not_at_door",
+      "translation": "要走到門口才出得去。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.not_at_slots",
+      "translation": "機器不在旁邊。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.nothing_to_hold",
+      "translation": "沒有可以拿到手上的東西。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.old_save_unsupported",
+      "translation": "不支援舊存檔，請開始新遊戲。只支援新存檔。",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.message.out_of_fuel",
+      "translation": "燃料耗盡，無法起飛。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.part_bought",
+      "translation": "已買下該零件，收進船上。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.part_installed",
+      "translation": "已把零件裝進那一格，該列恢復運作。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.part_selected",
+      "translation": "已選擇零件；下方顯示價格與已帶數量。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.parts_counter",
+      "translation": "已在倉庫的船艦零件櫃檯；選擇零件後可購買。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.pod_exit",
+      "translation": "貨艙已分離，你乘貨艙下船。",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.message.pod_full",
+      "translation": "貨艙滿了。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.presentation_changed",
+      "translation": "呈現已切換；規則與存檔狀態不變，下次開啟仍是這一套。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.quit",
+      "translation": "準備離開遊戲。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.ready",
+      "translation": "請選擇一個動作。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.refuel_eta",
+      "translation": "補油到期：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.refueled",
+      "translation": "已在太空港補滿燃料；先扣本地銀行，再扣現金。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.repair_not_needed",
+      "translation": "目前系統狀態已滿，不需要修理。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.repaired",
+      "translation": "已消耗一個分流器，船體恢復 25 點（重製版原型值）。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.rested",
+      "translation": "休息結束。",
+      "translationStatus": "reviewed for v1 release; 2026-10-15"
+    },
+    {
+      "key": "ui.message.save_failed",
+      "translation": "保存失敗；請檢查可寫入的重製版存檔槽。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.saved",
+      "translation": "遊戲已保存到重製版存檔槽。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.score",
+      "translation": "結算表。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.shields_off",
+      "translation": "護盾已關閉。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.shields_off_for_flight",
+      "translation": "起飛前關閉護盾與匿蹤裝置。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.shields_repaired",
+      "translation": "已消耗一個分流器，護盾等級恢復 25 點（重製版原型值）。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.shunt_does_not_fit",
+      "translation": "壞掉的是控制節點，分流器裝不上去。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.sleeping",
+      "translation": "睡眠中，可按鍵醒來。",
+      "translationStatus": "reviewed once; remake sleep controls; 2026-10-04"
+    },
+    {
+      "key": "ui.message.slots_jackpot",
+      "translation": "三個一樣，機器把彩金吐出來。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.slots_lost",
+      "translation": "三個都不一樣。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.slots_open",
+      "translation": "投幣口亮著，注碼由這個星系定。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.slots_pair",
+      "translation": "兩個一樣，回收一點。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.sold",
+      "translation": "已出售一份貨物。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.sound_off",
+      "translation": "音效已靜音。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.sound_on",
+      "translation": "音效已開啟。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.status",
+      "translation": "角色狀態視窗已開啟。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.stored",
+      "translation": "批貨已存進倉庫。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.stowed",
+      "translation": "已放回攜物格。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.street_beggar",
+      "translation": "街角有人伸手向你討幾個錢。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.street_dealer",
+      "translation": "有人湊上來，說想跟你談筆生意。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.street_mugger",
+      "translation": "有人擋在路中間，開口就要錢。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.subc_engines_blown",
+      "translation": "亞光速引擎已損毀，無法航行。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.supplies_loaded",
+      "translation": "已從地面倉庫裝載一份殖民地物資。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.system_repaired",
+      "translation": "已消耗一個分流器，替換掉該系統一個壞掉的零件。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.system_selected",
+      "translation": "已選擇工程艙系統；狀態列顯示目前選定項目。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tactical",
+      "translation": "戰術畫面已開啟。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tactical_empty_pod",
+      "translation": "貨艙是空的，沒有海盜來找空船。掃描儀上沒有東西。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tactical_moved",
+      "translation": "戰術位置已移動。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tactical_slewing",
+      "translation": "滑鼠轉向中：游標離視埠中心越遠轉得越快，左鍵開火，右鍵或 ESC 停止。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.teller_amount",
+      "translation": "用鍵盤組金額，按右鍵或 ESC 完成。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.teller_nothing",
+      "translation": "金額是零，什麼都沒動。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.too_hungry",
+      "translation": "太過飢餓，請先進食再休息。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tractor_no_room",
+      "translation": "貨艙已滿，沒有位置放。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tractor_out_of_range",
+      "translation": "目標不在牽引範圍內。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.trade_confirm_sale",
+      "translation": "請確認選中的貨物。",
+      "translationStatus": "remake operation hint; 2026-10-03"
+    },
+    {
+      "key": "ui.message.trade_not_needed",
+      "translation": "此交易所不接受這批貨物。",
+      "translationStatus": "remake operation hint; 2026-10-03"
+    },
+    {
+      "key": "ui.message.trade_passed",
+      "translation": "放棄這批貨。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.trade_purchase_destination",
+      "translation": "選擇存放地點。1：倉庫，2：貨艙。",
+      "translationStatus": "remake wording for source-backed purchase destination semantics; original wording unverified; 2026-10-03"
+    },
+    {
+      "key": "ui.message.trade_quote",
+      "translation": "交易所報價：購買或放棄。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.trade_sell_which",
+      "translation": "要賣哪一批？",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.transfer_same_system",
+      "translation": "選定目的地仍在目前星系，不需要跨星系轉帳。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.transferred",
+      "translation": "目前星系的銀行存款已轉入選定星系。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_arrived",
+      "translation": "電車把你送到另一座城市了。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_confirm",
+      "translation": "按下搭乘就出發。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_insufficient",
+      "translation": "手頭的現金付不起車資。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_no_destination",
+      "translation": "這顆行星上沒有別的城市通車。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_off_planet",
+      "translation": "電車只通這顆行星上的城市。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_station",
+      "translation": "電車站賣的是往同一顆行星其他城市的車票。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.under_way",
+      "translation": "航行中；船艦正沿著極座標航線接近目的地。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.uniteller",
+      "translation": "Uniteller 已開啟；這裡處理目前星系的本地銀行。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.unknown_command",
+      "translation": "這個指令在目前畫面無效。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.unpaid_debts",
+      "translation": "起飛許可遭拒：你在這個星系還欠著錢。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.verb_selected",
+      "translation": "已選定要說的話。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.walk_to_ship",
+      "translation": "要回飛船就走到它停的那一格。",
+      "translationStatus": "added 2026-09-03 with re_enter_ship boarding"
+    },
+    {
+      "key": "ui.message.warehouse_empty",
+      "translation": "那一格是空的。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.warehouse_full",
+      "translation": "倉庫沒有空位。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.warp_engines_blown",
+      "translation": "曲速引擎已損毀，無法跳躍。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.weapon_empty",
+      "translation": "武器尚未充能，無法開火。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.weapon_recharged",
+      "translation": "武器充能已啟用。",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.message.weapon_repaired",
+      "translation": "已消耗一個分流器，武器充能恢復 25 點（重製版原型值）。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.withdrawn",
+      "translation": "已從目前星系的本地銀行提領存款。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.wrong_destination",
+      "translation": "目前不在候選殖民地，無法交付任務貨物。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.minutes",
+      "translation": "分",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.mission_complete",
+      "translation": "殖民任務完成",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.move",
+      "translation": "移動",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.navigate",
+      "translation": "確認導航",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.navigation",
+      "translation": "導航／駕駛",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.navigation_target",
+      "translation": "導航目標",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.new_game",
+      "translation": "開始新遊戲",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.nourishment",
+      "translation": "飽食度",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.open_parts",
+      "translation": "船艦零件櫃檯",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options",
+      "translation": "選項",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.audio_note",
+      "translation": "音效需先匯入；請見包內「操作說明」音效章節",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.options.detect",
+      "translation": "重新偵測磁碟",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.detect_where",
+      "translation": "找設定目錄、執行檔旁、目前目錄的 .st",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk",
+      "translation": "Atari ST 磁碟",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_bootstrap_hint",
+      "translation": "↑↓ 選擇　ENTER 確認；有效原版磁碟是必要條件",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.options.disk_bootstrap_note",
+      "translation": "請選擇自己合法持有的 SunDog Atari ST .st 磁碟。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.options.disk_cleared",
+      "translation": "已放下磁碟，改用重製版自己的美術",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_failed",
+      "translation": "這不是 SunDog 的 Atari ST 磁碟",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_loaded",
+      "translation": "已讀入原版磁碟",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_none",
+      "translation": "慣用位置找不到磁碟；把 .st 放到設定目錄或執行檔旁，或直接輸入路徑",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_note",
+      "translation": "給了自己的原版磁碟，地表、艙內、物品圖示才會是原版的像素。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_unset",
+      "translation": "未設定——用重製版自己的美術",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.hint",
+      "translation": "↑↓ 選列　←→ 切換　ENTER 套用／確認路徑　F2 或 ESC 關閉並記住",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.language",
+      "translation": "語言",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.language_changed",
+      "translation": "語言已立即切換",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.look_bootstrap_hint",
+      "translation": "↑↓ 選擇　ENTER 確認",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.look_bootstrap_note",
+      "translation": "隨時可按 F8 換，或到 F2 選項裡改；選過就會記住。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.look_bootstrap_title",
+      "translation": "選擇呈現方式",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.presentation",
+      "translation": "呈現",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.outcome",
+      "translation": "合約結果",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.outcome.failure",
+      "translation": "任務失敗：角色或陽犬號已無法繼續。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.outcome.success",
+      "translation": "合約完成：殖民地物資與冷凍人員已交付。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.outcome_failure_terminal",
+      "translation": "失敗終局：按 S 保存終局，或按 Q 離開遊戲。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.outcome_return",
+      "translation": "按下返回，回到陽犬號繼續檢查狀態或重新載入。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.parts_carried",
+      "translation": "已帶",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.parts_counter",
+      "translation": "船艦零件櫃檯",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.parts_price",
+      "translation": "價格",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.parts_select",
+      "translation": "選擇上一個／下一個零件",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.pilotage",
+      "translation": "駕駛",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet",
+      "translation": "行星",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.enliah",
+      "source": "Enliah",
+      "translation": "恩利亞(Enliah)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.ferr",
+      "source": "Ferr",
+      "translation": "費爾(Ferr)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.ferrwerk",
+      "source": "Ferrwerk",
+      "translation": "費爾沃克(Ferrwerk)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.glory-i",
+      "source": "Glory I",
+      "translation": "榮耀一號(Glory I)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.glory-ii",
+      "source": "Glory II",
+      "translation": "榮耀二號(Glory II)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.glory-iii",
+      "source": "Glory III",
+      "translation": "榮耀三號(Glory III)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.heavy",
+      "source": "Heavy",
+      "translation": "赫維(Heavy)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.hell",
+      "source": "Hell",
+      "translation": "地獄(Hell)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.hepah",
+      "source": "Hepah",
+      "translation": "赫帕(Hepah)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.jondd",
+      "source": "Jondd",
+      "translation": "瓊德(Jondd)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.kala",
+      "source": "Kala",
+      "translation": "卡拉(Kala)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.krakorum",
+      "source": "Krakorum",
+      "translation": "喀拉科倫(Krakorum)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.new-shoot",
+      "source": "New Shoot",
+      "translation": "新舒特(New Shoot)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.shoot",
+      "source": "Shoot",
+      "translation": "舒特(Shoot)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.snowball",
+      "source": "Snowball",
+      "translation": "雪球(Snowball)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.tcana",
+      "source": "Tcana",
+      "translation": "特卡納(Tcana)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.vahevela",
+      "source": "Vahevela",
+      "translation": "瓦赫維拉(Vahevela)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.w-orrad",
+      "source": "W'orrad",
+      "translation": "沃拉德(W'orrad)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.play_sundog",
+      "translation": "開始遊玩 SunDog",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.pod_driver",
+      "translation": "貨艙駕駛站",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.pod_exit",
+      "translation": "E 乘貨艙下船",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.pod_locker",
+      "translation": "貨艙艙櫃",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.position",
+      "translation": "座標",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.apple2",
+      "translation": "Apple II 原版風",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.apple2.note",
+      "translation": "Apple II 的配色與圖塊，配重製版的視窗版面",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.atari_st",
+      "translation": "Atari ST 原版風",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.atari_st.note",
+      "translation": "原版的滿版版面，畫面直接取自你的磁碟",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.atari_st_hd",
+      "translation": "Atari ST HD 版",
+      "translationStatus": "user-authorised Atari ST HD identity"
+    },
+    {
+      "key": "ui.presentation.remake_modern",
+      "translation": "重製版現代風",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.remake_modern.note",
+      "translation": "重製版自繪的高解析圖塊，配重製版版面",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.quit",
+      "translation": "離開遊戲",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.recharge",
+      "translation": "武器重新充能",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.refuel",
+      "translation": "購買燃料",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.repair",
+      "translation": "修理船體",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.repair_hull",
+      "translation": "修理船體",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.repair_shields",
+      "translation": "修理護盾",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.repair_system",
+      "translation": "修理選定系統",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.repair_weapon",
+      "translation": "修理武器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.rest",
+      "translation": "休息",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.route_cost",
+      "translation": "航程",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.route_jump",
+      "translation": "跳躍",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.route_jump_unit",
+      "translation": "光年",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.save_game",
+      "translation": "保存遊戲",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.banville_cargo",
+      "translation": "Banville 貨物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.bonus_note",
+      "translation": "原版印出這一行，但總分沒有把它算進去。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.no_death_bonus",
+      "translation": "無死亡獎勵",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.restart_penalty",
+      "translation": "重來罰分",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.time_penalty",
+      "translation": "時間罰分",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.title",
+      "translation": "結算",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.total",
+      "translation": "總分",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.select_game",
+      "translation": "選擇遊戲／角色保存庫",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.sell",
+      "translation": "出售貨物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shield_level",
+      "translation": "護盾等級",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shields",
+      "translation": "護盾",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shields_off",
+      "translation": "關閉護盾",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.ship_locker",
+      "translation": "船上儲物櫃",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.ship_stores",
+      "translation": "船上物資",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shipboard",
+      "translation": "船內移動",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shipboard_hint",
+      "translation": "點選右邊視窗裡的艙位。",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shunts",
+      "translation": "分流器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.sleep_forced",
+      "translation": "強制睡眠",
+      "translationStatus": "reviewed once; remake sleep controls; 2026-10-04"
+    },
+    {
+      "key": "ui.slots.bet",
+      "translation": "注碼",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.artifact",
+      "translation": "遺物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.cell",
+      "translation": "電池",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.circuit",
+      "translation": "電路",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.crystal",
+      "translation": "晶石",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.grain",
+      "translation": "穀物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.medicine",
+      "translation": "藥劑",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.ore",
+      "translation": "礦砂",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.sundog",
+      "translation": "陽犬",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.payout",
+      "translation": "彩金",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.spin",
+      "translation": "轉",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.title",
+      "translation": "吃角子老虎",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.store_game",
+      "translation": "儲存遊戲至保存庫",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.stores_keys",
+      "translation": "方向鍵：選槽  Enter：取放",
+      "translationStatus": "2026-10-04 Stores controls; remake-owned"
+    },
+    {
+      "key": "ui.stores_short_keys",
+      "translation": "← → Enter H E",
+      "translationStatus": "2026-10-04 Stores controls; remake-owned"
+    },
+    {
+      "key": "ui.subc_engine",
+      "translation": "亞光速引擎",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.supplies",
+      "translation": "殖民地物資",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system",
+      "translation": "星系",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.enlie",
+      "source": "Enlie",
+      "translation": "恩利(Enlie)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.ferr",
+      "source": "Ferr",
+      "translation": "費爾(Ferr)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.glory",
+      "source": "Glory",
+      "translation": "榮耀(Glory)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.hepa",
+      "source": "Hepa",
+      "translation": "赫帕(Hepa)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.jadul",
+      "source": "Jadul",
+      "translation": "賈杜爾(Jadul)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.jondd",
+      "source": "Jondd",
+      "translation": "瓊德(Jondd)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.kalmandaa",
+      "source": "KalManDaa",
+      "translation": "卡曼達(KalManDaa)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.lafser",
+      "source": "Lafser",
+      "translation": "拉夫瑟(Lafser)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.new-shoot",
+      "source": "New Shoot",
+      "translation": "新舒特(New Shoot)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.shoot",
+      "source": "Shoot",
+      "translation": "舒特(Shoot)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.sosai",
+      "source": "Sosai",
+      "translation": "索賽(Sosai)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.woremed",
+      "source": "Woremed",
+      "translation": "沃瑞米德(Woremed)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_force_shields",
+      "translation": "力場護盾",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_pilotage",
+      "translation": "駕駛系統",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_previous_next",
+      "translation": "選擇上一個／下一個系統",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_rows",
+      "translation": "各列",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_ship_guns",
+      "translation": "船艦武器",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_subc_engine",
+      "translation": "亞光速引擎",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_tactical_display",
+      "translation": "戰術顯示",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_unknown",
+      "translation": "未知系統",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_warp_drive",
+      "translation": "躍遷驅動",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tactical",
+      "translation": "戰術顯示",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tactical.damage",
+      "translation": "損傷：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tactical_move",
+      "translation": "戰術移動",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.talk",
+      "translation": "與人交談",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_city_previous_next",
+      "translation": "切換城市",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_planet_next",
+      "translation": "下一顆行星",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_planet_previous",
+      "translation": "上一顆行星",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_planet_previous_next",
+      "translation": "切換行星",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_system_next",
+      "translation": "下一個星系",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_system_previous",
+      "translation": "上一個星系",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_system_previous_next",
+      "translation": "切換星系",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.all",
+      "translation": "全部",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.amount",
+      "translation": "金額：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.available",
+      "translation": "可用：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.clear",
+      "translation": "清除",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.commit_hint",
+      "translation": "ESC 提交　C 清零",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.teller.deposit",
+      "translation": "存入現金",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.header",
+      "translation": "UNITELLER >>>>>>>>>>",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.in_bank",
+      "translation": "銀行存款：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.on_hand",
+      "translation": "手頭現金：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.others",
+      "translation": "其他",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.pay_fine",
+      "translation": "繳罰款",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.title",
+      "translation": "%s 銀行",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.transfer",
+      "translation": "轉帳",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.transfer_to",
+      "translation": "轉帳到 %s",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.withdraw",
+      "translation": "提領現金",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.theme",
+      "translation": "美術主題",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.theme.apple2",
+      "translation": "Apple II 介面配色",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.theme.atari_st",
+      "translation": "Atari ST 介面配色",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.theme_cycle",
+      "translation": "切換介面配色",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tileset.apple2",
+      "translation": "Apple II 圖塊集",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tileset.atari_st",
+      "translation": "Atari ST 圖塊集",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tileset.remake_modern",
+      "translation": "Remake Modern 圖塊集",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tileset_cycle",
+      "translation": "切換圖塊集",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.time",
+      "translation": "時間",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.title",
+      "translation": "陽犬號 SunDog",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.accept",
+      "translation": "接受",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.asking",
+      "translation": "要價：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.aux_tank",
+      "translation": "輔助燃料槽",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.buy",
+      "translation": "購買",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.contents",
+      "translation": "內容：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.deliver",
+      "translation": "交付",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.demand",
+      "translation": "需求：",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.exchange",
+      "translation": "交易所",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.exit",
+      "translation": "離開",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.fetch",
+      "translation": "取回",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.fetch_which",
+      "translation": "取哪一批？",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.lots_now_selling",
+      "translation": "目前出售的批貨：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.nothing",
+      "translation": "空",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.offer",
+      "translation": "報價：",
+      "translationStatus": "remake operation hint; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.pass",
+      "translation": "放棄",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.pod",
+      "translation": "貨艙",
+      "translationStatus": "source-backed Warehouse/Pod sale picker; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.pod_contents",
+      "translation": "貨艙內容：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.price_on_goods",
+      "translation": "貨物報價",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.quality",
+      "translation": "品級：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.salvage",
+      "translation": "打撈物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.sell",
+      "translation": "出售",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.sell_from",
+      "translation": "從哪裡出售？",
+      "translationStatus": "source-backed Warehouse/Pod sale picker; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.store",
+      "translation": "存入",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.store_to",
+      "translation": "存入哪裡？",
+      "translationStatus": "remake wording for source-backed purchase destination semantics; original wording unverified; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.store_which",
+      "translation": "存哪一批？",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.title",
+      "translation": "%s 交易所",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.to_be_delivered",
+      "translation": "交付貨物",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.warehouse",
+      "translation": "倉庫",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.warehouse_title",
+      "translation": "倉庫",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.withdraw",
+      "translation": "撤回",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.withhold",
+      "translation": "暫不交付",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.your_limit",
+      "translation": "你的上限：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade_exchange",
+      "translation": "交易所",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.transfer",
+      "translation": "轉帳至選定星系",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.city",
+      "translation": "城市：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.cost",
+      "translation": "車資：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.credits",
+      "translation": " Cr",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.destination",
+      "translation": "目的地",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.insufficient",
+      "translation": "錢不夠",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.planet",
+      "translation": "行星：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.select_1",
+      "translation": "選擇",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.select_2",
+      "translation": "目的城市",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.system",
+      "translation": "星系：",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.title",
+      "translation": "電車站",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.transport",
+      "translation": "搭乘",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube_short",
+      "translation": "領航台電車",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.uniteller",
+      "translation": "Uniteller 銀行",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.unload_aux_fuel",
+      "translation": "O：拋下輔助燃料",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.unload_cargo",
+      "translation": "卸下貨物",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.verb_previous_next",
+      "translation": "切換要說的話",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.vigor",
+      "translation": "活力",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.wake",
+      "translation": "醒來",
+      "translationStatus": "reviewed once; remake sleep controls; 2026-10-04"
+    },
+    {
+      "key": "ui.warp_drive",
+      "translation": "躍遷驅動",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.weapon_charge",
+      "translation": "武器充能",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.withdraw",
+      "translation": "提領全部存款",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    }
+  ]
+}

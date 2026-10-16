@@ -1,0 +1,84 @@
+package main
+
+import (
+	"crypto/sha256"
+	"encoding/json"
+	"fmt"
+	"os"
+	"reflect"
+	"testing"
+
+	"github.com/wicanr2/sundog-remake/internal/game"
+	"github.com/wicanr2/sundog-remake/internal/localization"
+)
+
+func TestHDEngineeringExport(t *testing.T) {
+	a, _ := hdMapsTestApp(t)
+	raw, err := os.ReadFile(os.Getenv("HD_ENGINEERING_SOURCE"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var wrapper struct {
+		State game.State `json:"state"`
+	}
+	if err = json.Unmarshal(raw, &wrapper); err != nil {
+		t.Fatal(err)
+	}
+	if wrapper.State.Screen != game.ScreenShipboard {
+		t.Fatal("source not shipboard")
+	}
+	state, err := a.reducer.Step(wrapper.State, game.ActionOpenEngineering)
+	if err != nil || state.Screen != game.ScreenEngineering {
+		t.Fatal(err)
+	}
+	w := stZoomFor(game.ScreenEngineering, 0, 0, 0)
+	var systems []map[string]any
+	checks := 0
+	for index, system := range state.ShipSystems {
+		var slots []map[string]any
+		selected := state
+		selected.SelectedSystemIndex = index
+		for row, parts := range system.Rows {
+			for column, item := range parts {
+				slot := stSlot{stRepairGridX0 + stRepairGridDX*column, stRepairGridY0 + stRepairGridDY*row}
+				x, y := stRepairSlotRect(w, slot)
+				slots = append(slots, map[string]any{"row": row, "column": column, "item": item, "x": x, "y": y, "w": 16, "h": 16, "cx": x + 8, "cy": y + 8})
+				for _, delta := range [][2]int{{0, 0}, {15, 0}, {0, 15}, {15, 15}, {8, 8}} {
+					a.state = selected
+					a.stRepairClick(x+delta[0], y+delta[1])
+					expected, _ := a.reducer.MoveHandToSlot(selected, row, column)
+					if !reflect.DeepEqual(a.state, expected) {
+						t.Fatal("hit-state", index, row, column, delta)
+					}
+					checks++
+				}
+			}
+		}
+		var statuses []map[string]any
+		for row := range system.Rows {
+			value := game.ShipSystemRowStatus(system, row)
+			statuses = append(statuses, map[string]any{"row": row, "status": value, "pen": stRepairStatusPen(value), "x": w.x0 + 1 + stRepairStatusX0, "y": w.y0 + 1 + stRepairStatusY0 + stRepairGridDY*row, "w": stRepairStatusX1 - stRepairStatusX0 + 1, "h": stRepairStatusH + 1})
+		}
+		var labels []map[string]any
+		for _, locale := range []localization.Locale{"zh-Hant", "zh-Hans", "ja", "en"} {
+			a.applyLocale(locale)
+			labels = append(labels, map[string]any{"locale": locale, "title": a.lookup(game.ShipSystemLabelKey(system.ID))})
+		}
+		systems = append(systems, map[string]any{"index": index, "id": system.ID, "slots": slots, "statuses": statuses, "labels": labels})
+	}
+	var pockets []map[string]any
+	for i, slot := range stRepairPockets {
+		x, y := stRepairSlotRect(w, slot)
+		pockets = append(pockets, map[string]any{"index": i, "x": x, "y": y, "w": 16, "h": 16, "cx": x + 8, "cy": y + 8})
+	}
+	hx, hy := stRepairSlotRect(w, stRepairHand)
+	model := map[string]any{"status": "READY-formal-geometry-fixture-not-GUI", "state": state, "sourceSave": os.Getenv("HD_ENGINEERING_SOURCE"), "sourceSaveSHA256": fmt.Sprintf("%x", sha256.Sum256(raw)), "window": []int{w.x0, w.y0, w.x1 - w.x0 + 1, w.y1 - w.y0 + 1}, "manOutline": stManOutline, "partsBox": []int{w.x0 + 1 + stRepairPartsBox.x0, w.y0 + 1 + stRepairPartsBox.y0, stRepairPartsBox.x1 - stRepairPartsBox.x0 + 1, stRepairPartsBox.y1 - stRepairPartsBox.y0 + 1}, "strip": []int{w.x0 + 1 + stRepairStrip.x0, w.y0 + 1 + stRepairStrip.y0, stRepairStrip.x1 - stRepairStrip.x0 + 1, stRepairStrip.y1 - stRepairStrip.y0 + 1}, "systems": systems, "pockets": pockets, "hand": map[string]any{"x": hx, "y": hy, "w": 16, "h": 16, "cx": hx + 8, "cy": hy + 8}, "hitChecks": checks, "titleSafe": hdStoresTitleSafe(w), "limits": "Existing formal geometry/rules,not original GUI parity. Engineering extraction has no tracked system origin;return by same legal slot."}
+	data, err := json.MarshalIndent(model, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(os.Getenv("HD_ENGINEERING_MODEL"), append(data, '\n'), 0644); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("PASS%d systems/%d slot hit-state checks", len(systems), checks)
+}

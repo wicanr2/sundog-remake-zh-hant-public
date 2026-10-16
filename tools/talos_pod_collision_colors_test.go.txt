@@ -1,0 +1,130 @@
+package m68k
+
+import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"testing"
+)
+
+// 原始init_movement及真正collide讀寫同一GEMBIND色彩表。
+// DRAFT／原始定位與consumer對照：docs/atari-st/ship-rules.md。
+func TestSunDogPodCollisionColors(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	interp := loadInterp(t)
+	type row struct {
+		Foot           bool
+		Before, After  [16]byte
+		Pattern, Color int
+		Pass           bool
+	}
+	report := struct {
+		Scope, Randomness string
+		Rows              []row
+		Differences       int
+	}{Scope: "原始XMOVEONG init_movement尾段及GEMBIND collide；同模式及初始色彩旗標，固定均勻色彩像素、0–3圖樣；不含完整初始化／繪圖／父排程。", Randomness: "所有輸入在執行前固定；兩切片無RND"}
+	for _, foot := range []bool{false, true} {
+		for c7 := byte(0); c7 <= 1; c7++ {
+			for c8 := byte(0); c8 <= 1; c8++ {
+				h := cadenceHarness(t, disk)
+				h.poke(0x41006, 0x2100)
+				h.poke(0x42100, 0x4000)
+				mode := uint16(0x320)
+				if foot {
+					mode |= 0x2000
+				}
+				h.poke(cadenceGlobal(0x32), mode)
+				var before, after [16]byte
+				for i, ch := range []byte("0111110001011111") {
+					before[i] = ch - '0'
+				}
+				before[7], before[8] = c7, c8
+				for i, v := range before {
+					h.mem[0x44008+0x230*2+uint32(i)] = v
+				}
+				displayRun(h, disk, 0x40000, 0x1ab2, 0x1ae0, 0x1ae0)
+				for i := range after {
+					after[i] = h.mem[0x44008+0x230*2+uint32(i)]
+				}
+				want := before
+				if !foot {
+					want[7], want[8] = 1, 1
+				}
+				if after != want {
+					t.Fatalf("foot%v: init colors got%v want%v", foot, after, want)
+				}
+				for _, color := range []int{7, 8} {
+					for pattern := 0; pattern < 4; pattern++ {
+						n := newHarness(t, interp)
+						const offset = 0x6000
+						const native = interpBase + offset
+						const screen = 0x50000
+						const globals = 0x44000
+						for i, b := range disk[0x2fe00:0x31200] {
+							n.mem[native+uint32(i)] = b
+						}
+						// 每個像素是相同索引；仍供應真正四平面與原始取樣表。
+						for y := 0; y < 200; y++ {
+							for group := 0; group < 20; group++ {
+								for plane := 0; plane < 4; plane++ {
+									at := screen + uint32(y*160+group*8+plane*2)
+									n.mem[at], n.mem[at+1] = 0, 0
+									if color&(1<<plane) != 0 {
+										n.mem[at], n.mem[at+1] = 255, 255
+									}
+								}
+							}
+						}
+						for i, v := range after {
+							n.mem[globals+0x468+uint32(i)] = v
+						}
+						n.cpu.State.A[6] = globals
+						n.poke(stackTop, uint16(sentinel>>16))
+						n.poke(stackTop+2, uint16(sentinel&0xffff))
+						n.poke(stackTop+4, 100)
+						n.poke(stackTop+6, 100)
+						n.poke(stackTop+8, uint16(pattern))
+						n.poke(stackTop+10, 0xffff)
+						n.start(offset + 0x636)
+						steps, traps := 0, 0
+						for n.cpu.State.PC != sentinel+4 && steps < 3000 {
+							if n.cpu.State.PC == native+0x64a+4 {
+								if n.peek(n.cpu.State.SSP) != 3 {
+									t.Fatal("unexpected XBIOS")
+								}
+								n.cpu.State.D[0] = screen
+								n.start(offset + 0x64c)
+								traps++
+								continue
+							}
+							if _, err := n.cpu.Step(); err != nil {
+								t.Fatal(err)
+							}
+							steps++
+						}
+						verdict := n.peek(stackTop + 10)
+						if steps >= 3000 || traps != 1 || verdict > 1 {
+							t.Fatal("native collide did not return")
+						}
+						pass := verdict == 0
+						if pass != (after[color] == 0) {
+							report.Differences++
+						}
+						report.Rows = append(report.Rows, row{foot, before, after, pattern, color, pass})
+					}
+				}
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-pod-collision-colors.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if len(report.Rows) != 64 || report.Differences != 0 {
+		t.Fatalf("rows%d differences%d", len(report.Rows), report.Differences)
+	}
+	t.Logf("8 complete initial tables, 64 native collision cases, differences%d", report.Differences)
+}

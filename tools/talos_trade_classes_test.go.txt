@@ -1,0 +1,119 @@
+package m68k
+
+import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"testing"
+)
+
+// 入口：docs/atari-st/banville-restoration-spec.md。
+// 原始get_data完整分類複製與兩項行星專屬覆寫；不包含初訪供需RND。
+func TestSunDogTradeClasses(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Planet, Shift, SupplyGoods, DemandGoods int
+		Supply, Demand                          [30]int
+	}
+	report := struct {
+		Scope  string
+		Native []row
+	}{Scope: "磁碟raw基底0x44200，XDOTRADI:07的0x0292..0x031e原始分類選擇／14word複製／word6與word13覆寫；logical block7 raw0x5600原始512bytes。G10b byte3是明示初態，不使用城市圖塊header。供需初訪亂數與正常GUI另列。"}
+	for planet := 1; planet <= 18; planet++ {
+		for shift := 0; shift < 18; shift++ {
+			h := banvilleHarness(t, disk)
+			for i, b := range disk[0x5600:0x5800] {
+				h.mem[depotLocal(0x46000, 3)+uint32(i)] = b
+			}
+			h.poke(cadenceGlobal(0x2a), uint16(1|planet<<4))
+			h.mem[cadenceGlobal(0x10b)+3] = byte(shift)
+			banvilleRun(h, disk, 0x44200, 0x292, 0x31f)
+			r := row{Planet: planet, Shift: shift}
+			home := 0x5600 + (planet-1)*28
+			r.SupplyGoods = int(disk[home+12])<<8 | int(disk[home+13])
+			r.DemandGoods = int(disk[home+26])<<8 | int(disk[home+27])
+			for goods := 0; goods < 30; goods++ {
+				r.Supply[goods] = int(h.peek(cadenceOuter(0x2b)+uint32(goods/5*2))>>uint(goods%5*3)) & 7
+				r.Demand[goods] = int(h.peek(cadenceOuter(0x32)+uint32(goods/5*2))>>uint(goods%5*3)) & 7
+			}
+			if r.SupplyGoods > 0 && (r.Supply[r.SupplyGoods-1] != 7 || r.Demand[r.SupplyGoods-1] != 0) {
+				t.Fatal("本地供給覆寫不同")
+			}
+			if r.DemandGoods > 0 && (r.Supply[r.DemandGoods-1] != 0 || r.Demand[r.DemandGoods-1] != 7) {
+				t.Fatal("本地需求覆寫不同")
+			}
+			report.Native = append(report.Native, r)
+		}
+	}
+	tradeClassExport(t, "native-trade-classes.json", report)
+	t.Logf("PASS:%d original class profiles, both planet-specific overrides", len(report.Native))
+}
+
+func TestSunDogTradeClassShift(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct{ Counter, Random, NextCounter, Shift int }
+	report := struct {
+		Scope, Randomness string
+		Native            []row
+	}{Scope: "XSTARTUP raw基底0x39c00，0x1703..0x1712更新block7 byte0x1f8的啟動計數，0x171d..0x172e寫G10b byte3。block7讀寫呼叫為明示邊界，只執行原始算術與writer。", Randomness: "MAINLIB:0b回傳為執行前固定的受控輸入；不執行原版RND內部或宣稱自然骰序相同。"}
+	for counter := 0; counter < 256; counter++ {
+		for _, random := range []int{0, 1, 2, 32765, 32766, 32767} {
+			h := banvilleHarness(t, disk)
+			for i := uint32(0); i < 512; i++ {
+				h.mem[depotLocal(0x46000, 8)+i] = 0
+			}
+			h.mem[depotLocal(0x46000, 8)+0x1f8] = byte(counter)
+			banvilleRun(h, disk, 0x39c00, 0x1703, 0x1713)
+			stream := uint32(operandStream + 0x8000)
+			h.startDispatch(disk[0x3b31d:0x3b333], stream)
+			calls := 0
+			for steps := 0; steps < 10000; steps++ {
+				if h.cpu.State.PC == interpBase+interpLoop+4 {
+					ip := h.cpu.State.A[4]
+					at := int(ip-stream) + 0x171d
+					if at == 0x172f {
+						break
+					}
+					if h.mem[ip] == 0x73 && h.mem[ip+1] == 0x0b {
+						if at != 0x1726 || calls != 0 {
+							t.Fatal("非預期分類RND")
+						}
+						h.poke(h.cpu.State.SSP, uint16(random))
+						calls++
+						h.cpu.State.A[4] = ip + 2
+						h.start(interpLoop)
+						continue
+					}
+					if h.mem[ip] == 0x70 || h.mem[ip] == 0x73 || h.mem[ip] == 0x90 || h.mem[ip] == 0xef {
+						t.Fatal("未核定分類呼叫")
+					}
+				}
+				if _, err := h.cpu.Step(); err != nil {
+					t.Fatal(err)
+				}
+				if steps == 9999 {
+					t.Fatal("分類初始化未終止")
+				}
+			}
+			if calls != 1 {
+				t.Fatal("分類初始化未呼叫一次RND")
+			}
+			report.Native = append(report.Native, row{counter, random, int(h.mem[depotLocal(0x46000, 8)+0x1f8]), int(h.mem[cadenceGlobal(0x10b)+3])})
+		}
+	}
+	tradeClassExport(t, "native-trade-class-shift.json", report)
+	t.Logf("PASS:%d original startup counter and controlled-RND shift cases", len(report.Native))
+}
+
+func tradeClassExport(t *testing.T, name string, report any) {
+	t.Helper()
+	if output := os.Getenv("SUNDOG_PARITY_OUTPUT"); output != "" {
+		data, err := json.MarshalIndent(report, "", "  ")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err = os.WriteFile(filepath.Join(output, name), append(data, '\n'), 0600); err != nil {
+			t.Fatal(err)
+		}
+	}
+}

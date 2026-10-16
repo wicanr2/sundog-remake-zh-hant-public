@@ -1,0 +1,1073 @@
+package m68k
+
+import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"reflect"
+	"testing"
+)
+
+// #9：原版點號 writer 與走馬燈參數。圖形 API 只收錄參數，不繪製原版 framebuffer。
+// 定位：XDOTRADI 磁碟基底 0x44200；停止於 RPU／計時與新報價呼叫之前。
+func TestSunDogTradeMarquee(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type paddingRow struct {
+		Cell, Padding, IndexAfter int
+		Text                      string
+	}
+	type drawRow struct {
+		Offset, OffsetAfter, X, Y int
+		Full                      bool
+		Text                      string
+		Copy                      []int
+	}
+	report := struct {
+		Scope   string
+		Padding []paddingRow
+		Draws   []drawRow
+	}{
+		Scope: "XDOTRADI raw 0x44200:0d82..0da3 的21字剩餘量與點號填充；133f..13ce 完整／增量字元讀取、座標及環偏移。168-byte ASCII 環為受控輸入；圖形 SCXG4:19/1a、SCXG3:1c/16 明示攔截，只記參數；兩次 LAE3:52 圖形 descriptor 位址查找以 0x70ac 受控指標替代。未執行名稱／價格格式化、外部圖形段查找、圖形 primitive、計時、新報價、完整父流程或原版 GUI。",
+	}
+	for cell := 0; cell < 8; cell++ {
+		for padding := 0; padding <= 21; padding++ {
+			h := banvilleHarness(t, disk)
+			p := depotLocal(0x45000, 0x41)
+			for i := 0; i < 168; i++ {
+				h.mem[p+uint32(i)] = 'A'
+			}
+			h.poke(depotLocal(0x46000, 5), uint16(21-padding))
+			h.poke(depotLocal(0x46000, 6), uint16(cell*21+21-padding))
+			stream := uint32(operandStream + 0x8000)
+			h.startDispatch(disk[0x44200+0xd82:0x44200+0xda7], stream)
+			stopped := false
+			for n := 0; n < 100000; n++ {
+				if h.cpu.State.PC == interpBase+interpLoop+4 && h.cpu.State.A[4] == stream+0xda3-0xd82 {
+					stopped = true
+					break
+				}
+				if _, err := h.cpu.Step(); err != nil {
+					t.Fatal(err)
+				}
+			}
+			if !stopped || int(h.peek(depotLocal(0x46000, 6))) != (cell+1)*21 {
+				t.Fatal("點號 writer 未正常停止或索引不符")
+			}
+			for i := 0; i < 168; i++ {
+				want := byte('A')
+				if i >= cell*21+21-padding && i < (cell+1)*21 {
+					want = '.'
+				}
+				if h.mem[p+uint32(i)] != want {
+					t.Fatalf("點號範圍不符 cell%d pad%d index%d", cell, padding, i)
+				}
+			}
+			text := make([]byte, 21)
+			for i := range text {
+				text[i] = h.mem[p+uint32(cell*21+i)]
+			}
+			report.Padding = append(report.Padding, paddingRow{cell, padding, (cell + 1) * 21, string(text)})
+		}
+	}
+	for offset := 0; offset < 168; offset++ {
+		for _, full := range []bool{false, true} {
+			h := banvilleSiteFixture(t, disk)
+			h.poke(0x46000, 0x5000)
+			h.poke(0x45000, 0x8000)
+			parent := uint32(0x48000)
+			h.poke(depotLocal(parent, 0xa), 153)
+			h.poke(depotLocal(parent, 8), 179)
+			h.poke(depotLocal(parent, 4), uint16(offset))
+			h.poke(depotLocal(0x46000, 3), 0)
+			if full {
+				h.poke(depotLocal(0x46000, 3), 1)
+			}
+			p := depotLocal(parent, 0x41)
+			for i := 0; i < 168; i++ {
+				h.mem[p+uint32(i)] = byte('A' + i%26)
+			}
+			row := drawRow{Offset: offset, Full: full}
+			stream := uint32(operandStream + 0x8000)
+			h.startDispatch(disk[0x44200+0x133f:0x44200+0x13d2], stream)
+			stopped := false
+			gotos, styles := 0, 0
+			for n := 0; n < 100000; n++ {
+				if h.cpu.State.PC == interpBase+interpLoop+4 {
+					ip, sp := h.cpu.State.A[4], h.cpu.State.SSP
+					at := int(ip-stream) + 0x133f
+					if at == 0x13ce {
+						stopped = true
+						break
+					}
+					op, proc := h.mem[ip], h.mem[ip+1]
+					if op == 0x9b && proc == 3 && h.mem[ip+2] == 0x52 && (at == 0x1372 || at == 0x1375) {
+						// 外部圖形 descriptor 的受控位址，不執行外部段查找。
+						h.cpu.State.SSP = sp - 2
+						h.poke(sp-2, 0x70ac)
+						h.cpu.State.A[4] = ip + 3
+						h.start(interpLoop)
+						continue
+					}
+					argc := 0
+					switch {
+					case op == 0x73 && proc == 0x19:
+						row.X, row.Y = int(h.peek(sp+2)), int(h.peek(sp))
+						argc = 2
+						gotos++
+					case op == 0x73 && proc == 0x1a:
+						row.Text += string(byte(h.peek(sp)))
+						argc = 1
+					case op == 0x72 && proc == 0x1c:
+						argc = 11
+						for i := 0; i < argc; i++ {
+							row.Copy = append(row.Copy, int(h.peek(sp+uint32((argc-1-i)*2))))
+						}
+					case op == 0x72 && proc == 0x16:
+						if h.peek(sp) != 2 {
+							t.Fatal("樣式 reset 不符")
+						}
+						argc = 1
+						styles++
+					case op == 0x70 || op == 0x72 || op == 0x73 || op == 0x90 || op == 0xef:
+						t.Fatalf("未核定走馬燈呼叫 %x", at)
+					}
+					if argc > 0 {
+						h.cpu.State.SSP = sp + uint32(argc*2)
+						h.cpu.State.A[4] = ip + 2
+						h.start(interpLoop)
+						continue
+					}
+				}
+				if _, err := h.cpu.Step(); err != nil {
+					t.Fatalf("走馬燈 offset%d full%v IP%x: %v", offset, full, int(h.cpu.State.A[4]-stream)+0x133f, err)
+				}
+			}
+			row.OffsetAfter = int(h.peek(depotLocal(parent, 4)))
+			want := ""
+			if full {
+				for i := 0; i < 22; i++ {
+					want += string(byte('A' + ((offset+i)%168)%26))
+				}
+			} else {
+				want = string(byte('A' + ((offset+21)%168)%26))
+			}
+			wantX := 155
+			if !full {
+				wantX += 21 * 7
+			}
+			if !stopped || gotos != 1 || styles != 1 || row.X != wantX || row.Y != 177 || row.Text != want || row.OffsetAfter != (offset+1)%168 {
+				t.Fatalf("走馬燈輸出不符 %+v", row)
+			}
+			if full && len(row.Copy) != 0 || !full && !reflect.DeepEqual(row.Copy, []int{0x70ac, 0x70ac, 3, 162, 309, 177, 169, 155, 302, 177, 169}) {
+				t.Fatalf("增量複製參數不符 %+v", row)
+			}
+			report.Draws = append(report.Draws, row)
+		}
+	}
+	if output := os.Getenv("SUNDOG_PARITY_OUTPUT"); output != "" {
+		raw, err := json.MarshalIndent(report, "", "  ")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err = os.WriteFile(filepath.Join(output, "native-trade-marquee.json"), append(raw, '\n'), 0600); err != nil {
+			t.Fatal(err)
+		}
+	}
+}
+
+// 入口：docs/atari-st/banville-restoration-spec.md。
+// SCAN、繪字、聲音、等待與結束採明示邊界；原版分支、packed writer 與金額 helper 真正執行。
+func banvilleHarness(t *testing.T, disk []byte) *harness {
+	h := cadenceHarness(t, disk)
+	h.mem[0x40001] = 0 // LPR 的既有任務記錄 byte，與選單探針相同。
+	h.poke(0x46000, 0x5000)
+	h.poke(interpBase+0x1b8c, 0x7400)
+	for n := uint32(0); n < 32; n++ {
+		h.mem[0x47400+n] = 0
+	}
+	for i, b := range disk[0x44200:0x45e00] {
+		h.mem[0x50000+uint32(i)] = b
+	}
+	h.poke(interpBase+0x1b70, 4)
+	h.poke(interpBase+0x1b72, 0x5000)
+	// 原始 XSTARTUP 的九筆常數，由已核定 ASCII-64 writer 自行解碼。
+	for phase := 0; phase < 9; phase++ {
+		raw := 0x3cfd8 + phase*10
+		if disk[raw] != 8 {
+			t.Fatal("階段常數長度不同")
+		}
+		for slot := 0; slot < 8; slot++ {
+			goods := disk[raw+slot+1] - 64
+			if goods > 31 {
+				t.Fatal("階段貨物碼越界")
+			}
+			ptr := cadenceOuter(0x7a5) + uint32(phase*6+slot/3*2)
+			h.poke(ptr, h.peek(ptr)|uint16(goods)<<uint(slot%3*5))
+		}
+	}
+	return h
+}
+
+func banvilleDemand(h *harness) [32]int {
+	var out [32]int
+	for goods := 1; goods < 32; goods++ {
+		i := goods - 1
+		out[goods] = int(h.peek(cadenceOuter(0x1b)+uint32(i/5*2))>>uint(i%5*3)) & 7
+	}
+	return out
+}
+
+func banvilleAdvance(h *harness, disk []byte) (scanResult, stop int) {
+	return banvilleRun(h, disk, 0x44200, 0x8e, 0x19d)
+}
+
+func banvilleRun(h *harness, disk []byte, base, first, last int) (scanResult, stop int) {
+	return banvilleRunDepth(h, disk, base, first, last, 0)
+}
+
+func banvilleRunDepth(h *harness, disk []byte, base, first, last, depth int) (scanResult, stop int) {
+	stream := uint32(operandStream + 0x8000 + depth*0x1000) // 與 depotRun 的 0x48xxx callee frame 分開。
+	h.startDispatch(disk[base+first:base+last+4], stream)
+	for step := 0; step < 100000; step++ {
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip, sp := h.cpu.State.A[4], h.cpu.State.SSP
+			at := int(ip-stream) + first
+			if at == last || base == 0x44200 && (first == 0x11a5 && at == 0x1226 || first == 0x0e81 && at == 0x0eae) {
+				return scanResult, at
+			}
+			op, proc := h.mem[ip], h.mem[ip+1]
+			if base == 0x44200 && op == 0xef && (at == 0x11b4 && proc == 0x16 || at == 0x11e2 && proc == 0x06) {
+				oldFrame := h.cpu.State.A[0]
+				frame := uint32(0x48000 + depth*0x100)
+				for n := uint32(0); n < 160; n++ {
+					h.mem[frame+n] = 0
+				}
+				h.poke(frame, 0x5000)
+				entry, end, args := 0x8e, 0x19d, 0
+				if proc == 0x16 {
+					entry, end, args = 0xa44, 0xaa4, 2
+					h.poke(depotLocal(frame, 2), h.peek(sp))
+					h.poke(depotLocal(frame, 3), h.peek(sp+2))
+				}
+				levelsFrame(h, frame)
+				_, childStop := banvilleRunDepth(h, disk, base, entry, end, depth+1)
+				levelsFrame(h, oldFrame)
+				h.cpu.State.SSP = sp + uint32(args*2)
+				if childStop == 0x118 {
+					return scanResult, at // 完成出口停止整條 caller，不返回交易選單。
+				}
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if base == 0x44200 && op == 0x70 && (at == 0x0370 || at == 0x037b) {
+				if at == 0x0370 {
+					p := cadenceOuter(0x1b)
+					if proc != 0x15 || h.peek(sp) != 0 || h.peek(sp+2) != 14 || h.peek(sp+4) != 0 || h.peek(sp+6) != uint16(p-0x40000) {
+						h.t.Fatal("Banville demand FILLCHAR ABI")
+					}
+					for n := uint32(0); n < 14; n++ {
+						h.mem[p+n] = 0
+					}
+					h.cpu.State.SSP = sp + 8
+				} else {
+					from, to := cadenceOuter(0x2b), cadenceOuter(0x22)
+					if proc != 0xf || h.peek(sp) != 12 || h.peek(sp+2) != 0 || h.peek(sp+4) != uint16(to-0x40000) || h.peek(sp+6) != 0 || h.peek(sp+8) != uint16(from-0x40000) {
+						h.t.Fatal("Banville supply MOVE ABI")
+					}
+					var buf [12]byte
+					for n := range buf {
+						buf[n] = h.mem[from+uint32(n)]
+					}
+					for n, b := range buf {
+						h.mem[to+uint32(n)] = b
+					}
+					h.cpu.State.SSP = sp + 10
+				}
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if op == 0x70 && proc == 0x15 && base == 0x39c00 && at == 0x1b93 {
+				// XSTARTUP 新局整區清零。標準 FILLCHAR 是明示 ABI 邊界。
+				p := cadenceGlobal(0x27)
+				if h.peek(sp) != 0 || h.peek(sp+2) != 496 || h.peek(sp+4) != 0 || h.peek(sp+6) != uint16(p-0x40000) {
+					h.t.Fatal("新局 FILLCHAR ABI 不符")
+				}
+				for n := uint32(0); n < 496; n++ {
+					h.mem[p+n] = 0
+				}
+				h.cpu.State.SSP = sp + 8
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if op == 0x70 && proc == 0x0f && base == 0x44200 && (at == 0x039f || at == 0x0482) {
+				// 原版 caller 指定兩個 byte，不是兩個 word。MOVE 本身採標準 ABI 邊界。
+				from, to := cadenceGlobal(0x10b), cadenceOuter(2)
+				fromOffset, toOffset := uint16(6), uint16(0)
+				if at == 0x0482 {
+					from, to, fromOffset, toOffset = to, from, toOffset, fromOffset
+				}
+				if h.peek(sp) != 2 || h.peek(sp+2) != toOffset || h.peek(sp+4) != uint16(to-0x40000) || h.peek(sp+6) != fromOffset || h.peek(sp+8) != uint16(from-0x40000) {
+					h.t.Fatal("累積值 MOVE ABI 不符")
+				}
+				pair := [2]byte{h.mem[from+uint32(fromOffset)], h.mem[from+uint32(fromOffset)+1]}
+				h.mem[to+uint32(toOffset)], h.mem[to+uint32(toOffset)+1] = pair[0], pair[1]
+				h.cpu.State.SSP = sp + 10
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if base == 0x44200 && op == 0xef && proc == 0x12 {
+				oldFrame := h.cpu.State.A[0]
+				frame := uint32(0x48000 + depth*0x100)
+				for n := uint32(0); n < 160; n++ {
+					h.mem[frame+n] = 0
+				}
+				h.poke(frame, 0x5000)
+				for n := 9; n <= 11; n++ {
+					h.poke(depotLocal(frame, n), h.peek(sp+uint32((n-9)*2)))
+				}
+				levelsFrame(h, frame)
+				banvilleRunDepth(h, disk, base, 0x922, 0xa3e, depth+1)
+				levelsFrame(h, oldFrame)
+				h.cpu.State.SSP = sp + 4
+				h.poke(h.cpu.State.SSP, h.peek(depotLocal(frame, 11)))
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if base == 0x44200 && op == 0x90 && (proc == 0x13 || proc == 0x14 || proc == 0x15) {
+				oldFrame := h.cpu.State.A[0]
+				frame := uint32(0x48000 + depth*0x100)
+				for n := uint32(0); n < 160; n++ {
+					h.mem[frame+n] = 0
+				}
+				h.poke(frame, 0x5000)
+				entry, end, args, resultLocal := 0x86e, 0x88e, 3, 0
+				if proc == 0x13 {
+					for n := 2; n <= 4; n++ {
+						h.poke(depotLocal(frame, n), h.peek(sp+uint32((n-2)*2)))
+					}
+				} else if proc == 0x14 {
+					entry, end, resultLocal = 0x850, 0x867, 4
+					for n := 1; n <= 4; n++ {
+						h.poke(depotLocal(frame, n), h.peek(sp+uint32((n-1)*2)))
+					}
+				} else {
+					entry, end, args = 0x894, 0x91c, 1
+					// :15 is nested in current_price. str 1,3/4 writes
+					// current_price locals3/4, consumed at0x09fe/0x0a0e.
+					h.poke(frame, uint16(oldFrame-h.cpu.State.A[6]))
+					h.poke(depotLocal(frame, 3), h.peek(sp))
+				}
+				levelsFrame(h, frame)
+				banvilleRunDepth(h, disk, base, entry, end, depth+1)
+				levelsFrame(h, oldFrame)
+				h.cpu.State.SSP = sp + uint32(args*2)
+				if resultLocal != 0 {
+					h.poke(h.cpu.State.SSP, h.peek(depotLocal(frame, resultLocal)))
+				}
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if op == 0x70 && proc == 0x16 {
+				// 原始 caller 的六個參數與保留結果格；模式依既有標準／oracle 契約。
+				if h.peek(sp) != 0 || h.peek(sp+2) != 0 || h.peek(sp+4) != uint16(cadenceOuter(0x1b)-0x40000) ||
+					h.peek(sp+6) != 0 || h.peek(sp+8) != 1 || h.peek(sp+10) != 14 {
+					h.t.Fatalf("SCAN ABI SP%x words %x %x %x %x %x %x", sp, h.peek(sp), h.peek(sp+2), h.peek(sp+4), h.peek(sp+6), h.peek(sp+8), h.peek(sp+10))
+				}
+				scanResult = 14
+				for n := 0; n < 14; n++ {
+					if h.mem[cadenceOuter(0x1b)+uint32(n)] != 0 {
+						scanResult = n
+						break
+					}
+				}
+				h.cpu.State.SSP = sp + 12
+				h.poke(h.cpu.State.SSP, uint16(scanResult))
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if op == 0x70 && proc == 0x11 {
+				if at != 0x118 || h.peek(sp) != 0 || h.peek(sp+2) != 1 || h.peek(sp+4) != 14 {
+					h.t.Fatal("完成出口參數不同")
+				}
+				return scanResult, at // 不代執行 KERNEL 結束程序，也不讓它落入不存在的第十筆表。
+			}
+			if op == 0x73 && (proc == 0x0a || proc == 0x0d || proc == 0x0e || proc == 0x0f || proc == 0x10) {
+				oldFrame := h.cpu.State.A[0]
+				frame := uint32(0x49000)
+				for n := uint32(0); n < 160; n++ {
+					h.mem[frame+n] = 0
+				}
+				entry, end, args := 0x686, 0x6b7, 3
+				resultLocal := 0
+				if proc == 0x0a || proc == 0x0d {
+					if proc == 0x0a {
+						entry, end = 0x66c, 0x680
+					}
+					for n := 1; n <= 3; n++ {
+						h.poke(depotLocal(frame, n), h.peek(sp+uint32((n-1)*2)))
+					}
+				} else if proc == 0x0e {
+					entry, end, args, resultLocal = 0x6be, 0x6d6, 2, 7
+					h.poke(depotLocal(frame, 5), h.peek(sp))
+					h.poke(depotLocal(frame, 6), h.peek(sp+2))
+					h.poke(depotLocal(frame, 7), h.peek(sp+4))
+				} else {
+					entry, end, args = 0x6fa, 0x74c, 2
+					if proc == 0x10 {
+						entry, end = 0x752, 0x767
+					}
+					h.poke(depotLocal(frame, 3), h.peek(sp))
+					h.poke(depotLocal(frame, 4), h.peek(sp+2))
+				}
+				levelsFrame(h, frame)
+				depotRun(h, disk, 0x2e800, entry, end, 1, nil)
+				levelsFrame(h, oldFrame)
+				h.cpu.State.SSP = sp + uint32(args*2)
+				if resultLocal != 0 {
+					h.poke(h.cpu.State.SSP, h.peek(depotLocal(frame, resultLocal)))
+				}
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			pop, handled := 0, false
+			if op == 0x73 {
+				switch proc {
+				case 0x02, 0x16:
+					handled = true
+				case 0x03, 0x2c:
+					pop, handled = 1, true
+				case 0x1b:
+					pop, handled = 2, true
+				case 0x1d:
+					pop, handled = 3, true
+				}
+			} else if op == 0xef && proc == 5 && at == 0x146 {
+				if h.peek(sp) != 1 || h.peek(sp+2) != uint16(cadenceOuter(0x11)-0x40000) {
+					h.t.Fatal("付款顯示參數不同")
+				}
+				pop, handled = 4, true
+			}
+			if handled {
+				h.cpu.State.SSP = sp + uint32(pop*2)
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if op == 0x70 || op == 0x73 || op == 0x90 || op == 0xef {
+				h.t.Fatalf("未納入呼叫 at%x op%x proc%x", at, op, proc)
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatalf("Banville 原生 PC%x IP%x: %v", h.cpu.State.PC-4, int(h.cpu.State.A[4]-stream)+first, err)
+		}
+	}
+	h.t.Fatal("Banville 原生切片未終止")
+	return 0, 0
+}
+
+// 新局、兩 byte 保存與階段付款的研究鏈。正式 JSON 保存與正常交付仍另驗。
+func TestSunDogTradeSaleEligibility(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Goods, Stop, OfferFlag int
+		Banville, Allowed      bool
+	}
+	report := struct {
+		Scope  string
+		Native []row
+	}{Scope: "XDOTRADI raw0x44200:0e81..0e98／0eae，原始goods_info出售資格分派。Banville跳過普通城市限制；其他城市goods1／31只顯示Exit。停在原始current_price呼叫之前，不猜價格、完整GUI或貨物取得。"}
+	for _, banville := range []bool{false, true} {
+		for goods := 1; goods <= 31; goods++ {
+			h := banvilleHarness(t, disk)
+			h.poke(cadenceOuter(0xd), 0)
+			if banville {
+				h.poke(cadenceOuter(0xd), 1)
+			}
+			h.poke(depotLocal(0x46000, 1), 1)
+			h.poke(depotLocal(0x46000, 16), 0x7000)
+			h.poke(0x47000, uint16(goods|3<<5))
+			_, stop := banvilleRun(h, disk, 0x44200, 0x0e81, 0x0e98)
+			flag := int(h.peek(depotLocal(0x46000, 1)))
+			r := row{goods, stop, flag, banville, flag != 0}
+			want := banville || goods != 1 && goods != 31
+			if r.Allowed != want || stop != 0xeae && stop != 0xe98 {
+				t.Fatalf("出售資格 %+v", r)
+			}
+			report.Native = append(report.Native, r)
+		}
+	}
+	tradeClassExport(t, "native-trade-sale-eligibility.json", report)
+	t.Logf("PASS:%d original sale eligibility cases", len(report.Native))
+}
+
+func TestSunDogBanvilleConfirm(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Needed, Selection, Menu, FirstItem, Count, OfferAfter, CallerStop int
+		Abort, Approved, Banville                                         bool
+		MenuAt                                                            int
+		MenuWords                                                         [9]uint16
+	}
+	report := struct {
+		Scope, InputBoundary string
+		Native               []row
+	}{
+		Scope:         "XDOTRADI raw0x44200:1614..161b原始初始化零值成交取消sentinel，0f87..1002原始出售／交付確認選單與撤回，11a5..11af／1226原始成交判定。menu:0b的9word參數由原始LPR產生；其24個local加9參數合計33words，MenuID／FirstItem／Count讀局部33／32／31。local13為明示交易可用資金43210。",
+		InputBoundary: "選單繪製、語意選項回傳、清選單與顯示模式為明示ABI邊界；不宣稱Talos執行GEM實體鍵鼠或原版GUI。無需求只供原始Exit項2，不注入不存在的項1。"}
+	for _, banville := range []bool{false, true} {
+		for _, needed := range []int{0, 1, 7} {
+			choices := []int{1, 2, -1}
+			if needed == 0 {
+				choices = []int{2, -1}
+			}
+			for _, choice := range choices {
+				for _, abort := range []bool{false, true} {
+					h := banvilleHarness(t, disk)
+					frame := uint32(0x48000)
+					h.poke(frame, 0x5000)
+					levelsFrame(h, frame)
+					h.poke(depotLocal(frame, 1), uint16(needed))
+					h.poke(depotLocal(frame, 13), 1)
+					h.poke(depotLocal(frame, 14), 0x7000)
+					h.poke(cadenceOuter(0xd), 0)
+					if banville {
+						h.poke(cadenceOuter(0xd), 1)
+					}
+					h.poke(cadenceGlobal(3), 0)
+					if abort {
+						h.poke(cadenceGlobal(3), 1)
+					}
+					depotPutMoney(h, 0x47000, needed)
+					depotPutMoney(h, cadenceOuter(0x13), 43210)
+					depotPutMoney(h, cadenceOuter(0x0f), 12345)
+					banvilleRun(h, disk, 0x44200, 0x1614, 0x161b)
+					if depotMoney(h, cadenceOuter(0x0f)) != 0 {
+						t.Fatal("原始取消sentinel未初始化")
+					}
+					r := row{Needed: needed, Selection: choice, Abort: abort, Banville: banville}
+					stream := uint32(operandStream + 0x8000)
+					h.startDispatch(disk[0x45187:0x45206], stream)
+					menuCalls, inputCalls := 0, 0
+					finished := false
+					for step := 0; step < 10000; step++ {
+						if h.cpu.State.PC == interpBase+interpLoop+4 {
+							ip, sp := h.cpu.State.A[4], h.cpu.State.SSP
+							at := int(ip-stream) + 0xf87
+							if at == 0x1002 {
+								finished = true
+								break
+							}
+							op, proc := h.mem[ip], h.mem[ip+1]
+							pop, handled := 0, false
+							if op == 0xef && proc == 0x0b && (at == 0xfa0 || at == 0xfba || at == 0xfd0) {
+								if menuCalls != 0 {
+									t.Fatal("重複批准選單")
+								}
+								for n := range r.MenuWords {
+									r.MenuWords[n] = h.peek(sp + uint32(n*2))
+								}
+								r.Count, r.FirstItem, r.Menu = int(r.MenuWords[6]), int(r.MenuWords[7]), int(r.MenuWords[8])
+								r.MenuAt = at
+								menuCalls++
+								pop, handled = 9, true
+							} else if op == 0xef && proc == 3 && at == 0xfd3 {
+								if inputCalls != 0 || h.peek(sp) != 0 {
+									t.Fatal("輸入ABI不同")
+								}
+								h.poke(sp, uint16(choice))
+								inputCalls++
+								handled = true
+							} else if op == 0x74 && proc == 0x11 && at == 0xfdd {
+								p := uint16(depotLocal(frame, 7) - 0x40000)
+								if h.peek(sp) != p || h.peek(sp+2) != p || h.peek(sp+4) != 3 {
+									t.Fatal("清選單ABI不同")
+								}
+								pop, handled = 3, true
+							} else if op == 0x72 && proc == 0x16 && at == 0x1000 {
+								if h.peek(sp) != 2 {
+									t.Fatal("顯示模式ABI不同")
+								}
+								pop, handled = 1, true
+							}
+							if handled {
+								h.cpu.State.SSP = sp + uint32(pop*2)
+								h.cpu.State.A[4] = ip + 2
+								h.start(interpLoop)
+								continue
+							}
+							if op == 0xef || op == 0x70 || op == 0x72 || op == 0x73 || op == 0x74 {
+								t.Fatalf("未納入批准呼叫 at%x op%x proc%x", at, op, proc)
+							}
+						}
+						if _, err := h.cpu.Step(); err != nil {
+							t.Fatal(err)
+						}
+					}
+					if !finished || menuCalls != 1 || inputCalls != 1 {
+						t.Fatal("批准切片未完成")
+					}
+					r.OfferAfter = depotMoney(h, 0x47000)
+					levelsFrame(h, 0x46000)
+					h.poke(depotLocal(0x46000, 3), h.peek(0x47000))
+					h.poke(depotLocal(0x46000, 4), h.peek(0x47002))
+					_, r.CallerStop = banvilleRun(h, disk, 0x44200, 0x11a5, 0x11af)
+					r.Approved = r.CallerStop == 0x11af
+					wantMenu, wantFirst, wantCount, wantAt := 2, 1, 2, 0xfba
+					if !banville {
+						wantAt = 0xfd0
+					}
+					if needed == 0 {
+						wantMenu, wantFirst, wantCount, wantAt = 0, 2, 1, 0xfa0
+					}
+					wantApproved := needed > 0 && choice == 1 && !abort
+					wantOffer := 0
+					if wantApproved {
+						wantOffer = needed
+					}
+					if r.Menu != wantMenu || r.FirstItem != wantFirst || r.Count != wantCount || r.MenuAt != wantAt || r.Approved != wantApproved || r.OfferAfter != wantOffer {
+						t.Fatalf("批准分支 %+v", r)
+					}
+					report.Native = append(report.Native, r)
+				}
+			}
+		}
+	}
+	tradeClassExport(t, "native-banville-confirm.json", report)
+	t.Logf("PASS:%d original approval/cancel cases,zero-demand Exit-only", len(report.Native))
+}
+
+func TestSunDogBanvillePersistence(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type initRow struct {
+		Pattern, Accumulator, ClearedBytes, BeforeGuard, AfterGuard int
+	}
+	type persistRow struct {
+		StoredBefore, Loaded, Edited, StoredAfter, BeforeGuard, AfterGuard int
+		Banville                                                           bool
+	}
+	type phaseRow struct {
+		Next, AccumulatorBefore, StoredAfter, AccumulatorAfter, FundsAfter, Stop int
+		Nonempty                                                                 bool
+	}
+	report := struct {
+		Scope, Boundaries string
+		Init              []initRow
+		Persistence       []persistRow
+		Phases            []phaseRow
+	}{Scope: "XSTARTUP raw0x39c00:1b8b..1b93新局清零496bytes；XDOTRADI raw0x44200:0391..039f載入G10b byte6/7到outer local2，0470..0482只在Banville寫回；原始008e..019d階段分支與付款後再寫回。全部controlled initial state，非正式JSON、原版GUI或完整玩家鏈。", Boundaries: "FILLCHAR與MOVE採嚴格標準ABI；SCAN、顯示、聲音與完成出口沿用既有明示邊界；不執行RND。"}
+	for _, pattern := range []byte{0, 0x55, 0xaa, 0xff} {
+		h := banvilleHarness(t, disk)
+		p := cadenceGlobal(0x27)
+		for n := uint32(0); n < 496; n++ {
+			h.mem[p+n] = pattern
+		}
+		h.mem[p-1], h.mem[p+496] = 0x31, 0x73
+		banvilleRun(h, disk, 0x39c00, 0x1b8b, 0x1b95)
+		cleared := 0
+		for n := uint32(0); n < 496; n++ {
+			if h.mem[p+n] == 0 {
+				cleared++
+			}
+		}
+		r := initRow{int(pattern), int(h.peek(cadenceGlobal(0x10b) + 6)), cleared, int(h.mem[p-1]), int(h.mem[p+496])}
+		if r.Accumulator != 0 || r.ClearedBytes != 496 || r.BeforeGuard != 0x31 || r.AfterGuard != 0x73 {
+			t.Fatalf("新局清零 %+v", r)
+		}
+		report.Init = append(report.Init, r)
+	}
+	for _, stored := range []uint16{0, 1, 255, 256, 257, 32767, 32768, 65535} {
+		for _, banville := range []bool{false, true} {
+			h := banvilleHarness(t, disk)
+			p := cadenceGlobal(0x10b) + 6
+			h.poke(p, stored)
+			h.mem[p-1], h.mem[p+2] = 0x31, 0x73
+			banvilleRun(h, disk, 0x44200, 0x0391, 0x03a1)
+			loaded := h.peek(cadenceOuter(2))
+			edited := stored ^ 0xa55a
+			h.poke(cadenceOuter(2), edited)
+			h.poke(cadenceOuter(0xd), 0)
+			if banville {
+				h.poke(cadenceOuter(0xd), 1)
+			}
+			banvilleRun(h, disk, 0x44200, 0x0470, 0x0484)
+			r := persistRow{int(stored), int(loaded), int(edited), int(h.peek(p)), int(h.mem[p-1]), int(h.mem[p+2]), banville}
+			want := stored
+			if banville {
+				want = edited
+			}
+			if loaded != stored || h.peek(p) != want || r.BeforeGuard != 0x31 || r.AfterGuard != 0x73 {
+				t.Fatalf("兩byte保存 %+v", r)
+			}
+			report.Persistence = append(report.Persistence, r)
+		}
+	}
+	for next := 0; next <= 9; next++ {
+		for _, accumulated := range []int{0, 1, 9, 10, 11, 99, 100, 999} {
+			for _, nonempty := range []bool{false, true} {
+				h := banvilleHarness(t, disk)
+				h.mem[cadenceGlobal(0x10b)+2] = byte(next)
+				h.poke(cadenceGlobal(0x10b)+6, uint16(accumulated))
+				h.poke(cadenceOuter(0xd), 1)
+				depotPutMoney(h, cadenceOuter(0x13), 43210)
+				if nonempty {
+					h.mem[cadenceOuter(0x1b)] = 1
+				}
+				banvilleRun(h, disk, 0x44200, 0x0391, 0x03a1)
+				_, stop := banvilleAdvance(h, disk)
+				if stop != 0x118 {
+					banvilleRun(h, disk, 0x44200, 0x0470, 0x0484)
+				}
+				r := phaseRow{next, accumulated, int(h.peek(cadenceGlobal(0x10b) + 6)), int(h.peek(cadenceOuter(2))), depotMoney(h, cadenceOuter(0x13)), stop, nonempty}
+				wantU, wantFunds, wantStop := accumulated, 43210, 0x19d
+				if !nonempty && next > 0 && next < 9 {
+					wantU, wantFunds = 0, 43210+100*accumulated
+				}
+				if !nonempty && next == 9 {
+					wantStop = 0x118
+				}
+				if r.StoredAfter != wantU || r.AccumulatorAfter != wantU || r.FundsAfter != wantFunds || stop != wantStop {
+					t.Fatalf("載入付款寫回 %+v", r)
+				}
+				report.Phases = append(report.Phases, r)
+			}
+		}
+	}
+	tradeClassExport(t, "native-banville-persistence.json", report)
+	t.Logf("PASS:%d init,%d two-byte load/write,%d persisted phase payout", len(report.Init), len(report.Persistence), len(report.Phases))
+}
+
+// 已確認交付後，由原始需求扣減、分數、完整估值 caller 與換期付款執行。
+// 不代執行 UI 確認、不生成貨物，也不把此受控切片當正常玩家鏈。
+func TestSunDogBanvilleDonation(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Goods, Quality, Next, DemandBefore, AccumulatorBefore              int
+		Price, DemandAfter, AccumulatorAfter, FundsAfter, ScoreAfter, Stop int
+		CurrentAfter, NextAfter                                            int
+		Remaining                                                          [32]int
+	}
+	report := struct {
+		Scope, Boundaries string
+		Native            []row
+	}{Scope: "XDOTRADI raw0x44200:11af..11e4，確認後交付原始update_market:16、G41 score、current_price:12與advance:06。固定分類供需4/4與原始貨物／系統／行星bytes；初始交易資金43210、score17。非UI批准流程、正常交付或原版GUI。", Boundaries: "SCAN、文字、聲音及結束沿用明示邊界；MAINLIB金額helper、估值、需求扣減、score及branch均執行原始指令；不執行RND或quote refresh。"}
+	for _, goods := range []int{1, 31} {
+		for _, quality := range []int{0, 7} {
+			for _, next := range []int{1, 8, 9} {
+				for _, demand := range []int{1, 2} {
+					for _, accumulated := range []int{0, 37, 999} {
+						h := banvilleHarness(t, disk)
+						for i, b := range disk[0x5800:0x5d20] {
+							h.mem[cadenceGlobal(0x11f)+uint32(i)] = b
+						}
+						for i, b := range disk[0x5600:0x5800] {
+							h.mem[cadenceGlobal(0x197)+uint32(i)] = b
+						}
+						for i, b := range disk[0x6a00:0x6c00] {
+							h.mem[cadenceOuter(0xa5)+uint32(i)] = b
+						}
+						word9 := h.peek(cadenceGlobal(0x11f) + 18)
+						h.poke(cadenceOuter(7), word9&15)
+						h.poke(cadenceOuter(6), (word9>>4)&15)
+						h.poke(cadenceOuter(0xd), 1)
+						h.poke(cadenceGlobal(0x2a), 1|1<<4|60<<9)
+						for _, local := range []int{0x2b, 0x32} {
+							for g := 1; g <= 30; g++ {
+								p := cadenceOuter(local) + uint32((g-1)/5*2)
+								h.poke(p, h.peek(p)|4<<uint((g-1)%5*3))
+							}
+						}
+						// goods31 has no generated supply/demand class.
+						p := cadenceOuter(0x1b) + uint32((goods-1)/5*2)
+						h.poke(p, uint16(demand)<<uint((goods-1)%5*3))
+						h.mem[cadenceGlobal(0x10b)+2] = byte(next)
+						h.poke(cadenceOuter(2), uint16(accumulated))
+						h.poke(cadenceGlobal(0x41), 17)
+						depotPutMoney(h, cadenceOuter(0x13), 43210)
+						h.poke(depotLocal(0x46000, 5), uint16(goods|quality<<5))
+						h.poke(depotLocal(0x46000, 6), 0)
+						// 先獨立執行相同貨物的完整原始價格，caller再次真正呼叫價格。
+						h.poke(0x47000, uint16(goods|quality<<5))
+						h.poke(0x47002, 0)
+						h.poke(depotLocal(0x46000, 10), 0x7000)
+						h.poke(depotLocal(0x46000, 9), 1)
+						banvilleRun(h, disk, 0x44200, 0x922, 0xa3e)
+						price := int(int16(h.peek(depotLocal(0x46000, 11))))
+						// 完整價格使用locals5/6，回復caller lot，避免probe自行覆寫貨物。
+						h.poke(depotLocal(0x46000, 5), uint16(goods|quality<<5))
+						h.poke(depotLocal(0x46000, 6), 0)
+						_, stop := banvilleRun(h, disk, 0x44200, 0x11af, 0x11e4)
+						r := row{Goods: goods, Quality: quality, Next: next, DemandBefore: demand, AccumulatorBefore: accumulated,
+							Price: price, DemandAfter: banvilleDemand(h)[goods], AccumulatorAfter: int(h.peek(cadenceOuter(2))), FundsAfter: depotMoney(h, cadenceOuter(0x13)), ScoreAfter: int(h.peek(cadenceGlobal(0x41))), Stop: stop,
+							CurrentAfter: int(h.mem[cadenceGlobal(0x10b)+1]), NextAfter: int(h.mem[cadenceGlobal(0x10b)+2]), Remaining: banvilleDemand(h)}
+						wantU, wantFunds, wantScore, wantStop := accumulated+price/2, 43210, 17+quality, 0x11e4
+						if goods == 31 {
+							wantScore = 18
+						}
+						if demand == 1 && next < 9 {
+							wantU, wantFunds = 0, 43210+100*wantU
+						}
+						if demand == 1 && next == 9 {
+							wantStop = 0x11e2
+						}
+						if r.AccumulatorAfter != wantU || r.FundsAfter != wantFunds || r.ScoreAfter != wantScore || stop != wantStop {
+							t.Fatalf("交付caller %+v wantU%d funds%d score%d stop%x", r, wantU, wantFunds, wantScore, wantStop)
+						}
+						var wantDemand [32]int
+						wantCurrent, wantNext := 0, next
+						if demand == 2 {
+							wantDemand[goods] = 1
+						} else {
+							wantCurrent, wantNext = next, next+1
+							if next < 9 {
+								for _, b := range disk[0x3cfd9+next*10 : 0x3cfe1+next*10] {
+									if b != 64 {
+										wantDemand[b-64]++
+									}
+								}
+							}
+						}
+						if r.Remaining != wantDemand || r.CurrentAfter != wantCurrent || r.NextAfter != wantNext {
+							t.Fatalf("交付後需求／階段 %+v", r)
+						}
+						report.Native = append(report.Native, r)
+					}
+				}
+			}
+		}
+	}
+	tradeClassExport(t, "native-banville-donation.json", report)
+	t.Logf("PASS:%d confirmed-donation caller cases", len(report.Native))
+}
+
+func TestSunDogBanvilleAdvance(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		NextBefore, CurrentBefore, AccumulatorBefore, CashBefore, NonzeroByte  int
+		CurrentAfter, NextAfter, AccumulatorAfter, CashAfter, ScanResult, Stop int
+		Flag114                                                                bool
+		Demand                                                                 [32]int
+	}
+	report := struct {
+		Scope, Randomness, ScanBoundary string
+		Native                          []row
+		Extents                         []struct{ Phase, Width, Left, Right, Top, Bottom int }
+	}{
+		Scope:        "原始 XDOTRADI:06 分支／packed需求 writer／MAINLIB設定與加總金額；XMOVEONG城市尺寸與真正MAINLIB夾限。SCAN依既有標準與proven-by-oracle契約，繪字／聲音／等待／KERNEL結束皆明示邊界；非全機、GUI或正式鏈驗收。",
+		Randomness:   "本切片不呼叫RND。",
+		ScanBoundary: "原始六參數與reserved結果格由native caller產生；SCAN結果由14bytes標準契約供應，不宣稱Talos執行SCAN。",
+	}
+	for phase := 0; phase <= 9; phase++ {
+		for _, accumulated := range []int{0, 1, 9, 10, 11, 99, 100, 999} {
+			for _, cash := range []int{0, 999, 1000, 43210} {
+				h := banvilleHarness(t, disk)
+				h.mem[cadenceGlobal(0x10b)+1] = 0
+				h.mem[cadenceGlobal(0x10b)+2] = byte(phase)
+				h.poke(cadenceOuter(2), uint16(accumulated))
+				depotPutMoney(h, cadenceOuter(0x13), cash)
+				scan, stop := banvilleAdvance(h, disk)
+				r := row{NextBefore: phase, CurrentBefore: 0, AccumulatorBefore: accumulated, CashBefore: cash, NonzeroByte: -1,
+					CurrentAfter: int(h.mem[cadenceGlobal(0x10b)+1]), NextAfter: int(h.mem[cadenceGlobal(0x10b)+2]),
+					AccumulatorAfter: int(h.peek(cadenceOuter(2))), CashAfter: depotMoney(h, cadenceOuter(0x13)),
+					ScanResult: scan, Stop: stop, Flag114: cadenceFlagValue(h, 114), Demand: banvilleDemand(h)}
+				var demand [32]int
+				wantCash, wantAcc, wantStop := cash, accumulated, 0x19d
+				if phase < 9 {
+					for _, b := range disk[0x3cfd9+phase*10 : 0x3cfe1+phase*10] {
+						if b != 64 {
+							demand[b-64]++
+						}
+					}
+					if phase > 0 {
+						wantCash += accumulated * 100
+						wantAcc = 0
+					}
+				} else {
+					wantStop = 0x118
+				}
+				if r.CurrentAfter != phase || r.NextAfter != phase+1 || r.ScanResult != 14 || r.Stop != wantStop ||
+					r.CashAfter != wantCash || r.AccumulatorAfter != wantAcc || r.Flag114 != (phase > 0) || r.Demand != demand {
+					t.Fatalf("phase advance %+v wantcash%d wantacc%d wantdemand%v", r, wantCash, wantAcc, demand)
+				}
+				report.Native = append(report.Native, r)
+			}
+		}
+	}
+	for n := 0; n < 14; n++ {
+		h := banvilleHarness(t, disk)
+		h.mem[cadenceGlobal(0x10b)+1], h.mem[cadenceGlobal(0x10b)+2] = 4, 5
+		h.poke(cadenceOuter(2), 99)
+		depotPutMoney(h, cadenceOuter(0x13), 999)
+		h.mem[cadenceOuter(0x1b)+uint32(n)] = 1
+		before := banvilleDemand(h)
+		scan, stop := banvilleAdvance(h, disk)
+		r := row{NextBefore: 5, CurrentBefore: 4, AccumulatorBefore: 99, CashBefore: 999, NonzeroByte: n,
+			CurrentAfter: int(h.mem[cadenceGlobal(0x10b)+1]), NextAfter: int(h.mem[cadenceGlobal(0x10b)+2]),
+			AccumulatorAfter: int(h.peek(cadenceOuter(2))), CashAfter: depotMoney(h, cadenceOuter(0x13)),
+			ScanResult: scan, Stop: stop, Flag114: cadenceFlagValue(h, 114), Demand: banvilleDemand(h)}
+		if r.CurrentAfter != 4 || r.NextAfter != 5 || r.AccumulatorAfter != 99 || r.CashAfter != 999 || r.ScanResult != n || r.Stop != 0x19d || r.Flag114 || !reflect.DeepEqual(r.Demand, before) {
+			t.Fatalf("nonempty demand changed %+v", r)
+		}
+		report.Native = append(report.Native, r)
+	}
+	for phase := 0; phase < 256; phase++ {
+		h := banvilleHarness(t, disk)
+		h.mem[cadenceGlobal(0x10b)+1] = byte(phase)
+		for local := 1; local <= 4; local++ {
+			h.poke(depotLocal(0x46000, local), uint16(0x7000+(local-1)*2))
+			h.poke(0x47000+uint32((local-1)*2), 0)
+		}
+		_, stop := banvilleRun(h, disk, 0x40000, 0x1146, 0x1199)
+		w := phase
+		if w == 8 || w > 9 {
+			w = 9
+		}
+		height := (w + 1) / 2
+		r := struct{ Phase, Width, Left, Right, Top, Bottom int }{phase, int(h.mem[cadenceGlobal(0x10b)+5]), int(h.peek(0x47006)), int(h.peek(0x47004)), int(h.peek(0x47002)), int(h.peek(0x47000))}
+		if stop != 0x1199 || r.Width != w || r.Left != 18-w || r.Right != 21+w || r.Top != 10-height || r.Bottom != 13+height {
+			t.Fatalf("extent %+v", r)
+		}
+		report.Extents = append(report.Extents, r)
+	}
+	if output := os.Getenv("SUNDOG_PARITY_OUTPUT"); output != "" {
+		encoded, err := json.MarshalIndent(report, "", "  ")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err = os.WriteFile(filepath.Join(output, "native-banville-advance.json"), append(encoded, '\n'), 0600); err != nil {
+			t.Fatal(err)
+		}
+	}
+	t.Logf("PASS: %d native advance/payment and %d extent cases; SCAN/UI/end explicit boundaries", len(report.Native), len(report.Extents))
+}
+
+func TestSunDogBanvilleSettlement(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct{ BankBefore, CashBefore, Accumulator, Cost, AvailableAfterPayment, BankAfter, CashAfter int }
+	report := struct {
+		Scope, Randomness string
+		Native            []row
+	}{
+		Scope:      "原版入口0x03fb..0x0403複製現金、0x0447..0x0468加入銀行並清銀行；原版0x131e..0x1323以明示研究金額扣款，再完整階段推進／金額callee與0x04b6..0x0519結算。沒有正常交易報價或GUI輸入；研究扣款不是完整成交收據。",
+		Randomness: "本切片不呼叫RND；SCAN/UI/end邊界同推進研究。",
+	}
+	for _, bank := range []int{0, 999, 4000} {
+		for _, cash := range []int{0, 999, 1000} {
+			for _, acc := range []int{0, 1, 99} {
+				seen := map[int]bool{}
+				for _, cost := range []int{0, (bank + cash) / 2, bank + cash} {
+					if seen[cost] {
+						continue
+					}
+					seen[cost] = true
+					h := banvilleHarness(t, disk)
+					h.poke(cadenceGlobal(0x2a), 1)
+					depotPutMoney(h, cadenceGlobal(0x33), cash)
+					bankPointer := cadenceGlobal(0x11f) + 12
+					depotPutMoney(h, bankPointer, bank)
+					h.poke(depotLocal(0x46000, 0x103), uint16(cadenceGlobal(0x11f)-0x40000))
+					banvilleRun(h, disk, 0x44200, 0x3fb, 0x404)
+					banvilleRun(h, disk, 0x44200, 0x447, 0x469)
+					if depotMoney(h, cadenceOuter(0x13)) != bank+cash || depotMoney(h, bankPointer) != 0 {
+						t.Fatal("原版入口未合併／保留資金")
+					}
+					depotPutMoney(h, depotLocal(0x46000, 5), cost)
+					banvilleRun(h, disk, 0x44200, 0x131e, 0x1324)
+					h.mem[cadenceGlobal(0x10b)+2] = 1
+					h.poke(cadenceOuter(2), uint16(acc))
+					banvilleAdvance(h, disk)
+					available := depotMoney(h, cadenceOuter(0x13))
+					banvilleRun(h, disk, 0x44200, 0x4b6, 0x51a)
+					r := row{bank, cash, acc, cost, available, depotMoney(h, bankPointer), depotMoney(h, cadenceGlobal(0x33))}
+					wantAvailable := bank + cash - cost + acc*100
+					wantCash := cash
+					if wantCash > wantAvailable {
+						wantCash = wantAvailable
+					}
+					if r.AvailableAfterPayment != wantAvailable || r.CashAfter != wantCash || r.BankAfter != wantAvailable-wantCash {
+						t.Fatalf("結算 %+v", r)
+					}
+					report.Native = append(report.Native, r)
+				}
+			}
+		}
+	}
+	if output := os.Getenv("SUNDOG_PARITY_OUTPUT"); output != "" {
+		encoded, err := json.MarshalIndent(report, "", "  ")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err = os.WriteFile(filepath.Join(output, "native-banville-settlement.json"), append(encoded, '\n'), 0600); err != nil {
+			t.Fatal(err)
+		}
+	}
+	t.Logf("PASS: %d native entry/payment/settlement cases", len(report.Native))
+}
+
+// Banville 初訪把分類供給複製到活躍表、清需求並單獨清商品31供給；重入保留。
+// MOVE/FILLCHAR 為嚴格標準 ABI，原始 branch 和 STP 由 Talos 執行。
+func TestSunDogBanvilleMarketReset(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Pattern        int
+		Fresh          bool
+		Supply, Demand [14]byte
+		Guards         [4]byte
+		LastSeen       int
+	}
+	report := struct {
+		Scope  string
+		Native []row
+	}{Scope: "XDOTRADI raw0x44200:0364..0391，分類table local2b由既有loader契約提供；標準MOVE12bytes/FILLCHAR14bytes為明示ABI；分支與商品31 STP為原始指令，不含外層IO或GUI。"}
+	for _, pattern := range []byte{0, 0x37, 0xaa, 0xff} {
+		for _, fresh := range []bool{false, true} {
+			h := banvilleHarness(t, disk)
+			supply, demand, classes := cadenceOuter(0x22), cadenceOuter(0x1b), cadenceOuter(0x2b)
+			for n := uint32(0); n < 14; n++ {
+				h.mem[supply+n] = 0x55
+				h.mem[demand+n] = 0xaa
+			}
+			for n := uint32(0); n < 12; n++ {
+				h.mem[classes+n] = pattern
+			}
+			h.mem[demand-1], h.mem[classes+12] = 0x31, 0x73
+			h.poke(cadenceOuter(0x29), 3)
+			if fresh {
+				h.poke(cadenceOuter(0x29), 0xffff)
+			}
+			banvilleRun(h, disk, 0x44200, 0x0364, 0x0391)
+			r := row{Pattern: int(pattern), Fresh: fresh, LastSeen: int(h.peek(cadenceOuter(0x29)))}
+			for n := range r.Supply {
+				r.Supply[n], r.Demand[n] = h.mem[supply+uint32(n)], h.mem[demand+uint32(n)]
+			}
+			r.Guards = [4]byte{h.mem[demand-1], h.mem[classes+12], h.mem[classes], h.mem[classes+11]}
+			for n := range r.Supply {
+				wantS, wantD := byte(0x55), byte(0xaa)
+				if fresh {
+					wantD = 0
+					if n < 12 {
+						wantS = pattern
+					}
+					if n == 13 {
+						wantS = 0x50
+					}
+				}
+				if r.Supply[n] != wantS || r.Demand[n] != wantD {
+					t.Fatalf("market reset %+v byte%d", r, n)
+				}
+			}
+			if r.Guards != ([4]byte{0x31, 0x73, pattern, pattern}) || fresh && r.LastSeen != 0 || !fresh && r.LastSeen != 3 {
+				t.Fatalf("market guards %+v", r)
+			}
+			report.Native = append(report.Native, r)
+		}
+	}
+	tradeClassExport(t, "native-banville-market-reset.json", report)
+}

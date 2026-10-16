@@ -1,0 +1,161 @@
+package main
+
+// Diagnostic export only. Source-derived masks stay in the local workplace;
+// they are never embedded in HD art or passed back to production rules.
+import (
+	"encoding/json"
+	"os"
+	"testing"
+
+	"github.com/wicanr2/sundog-remake/internal/game"
+	"github.com/wicanr2/sundog-remake/internal/source/atarist/originalmedia"
+)
+
+func TestHDCollisionReviewExport(t *testing.T) {
+	a, _ := hdMapsTestApp(t)
+	a.applyLocale("zh-Hant")
+	disk, err := originalmedia.Open(os.Getenv("HD_WORLD_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	a.originalDisk = disk
+	a.originalTiles = map[int]*originalTileCache{}
+	input, err := os.ReadFile(os.Getenv("HD_WORLD_FIXTURES"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var fixtures struct {
+		States []struct {
+			Name  string     `json:"name"`
+			State game.State `json:"state"`
+		} `json:"states"`
+	}
+	if err = json.Unmarshal(input, &fixtures); err != nil {
+		t.Fatal(err)
+	}
+	var ship, ground game.State
+	for _, f := range fixtures.States {
+		if f.Name == "newgame" {
+			ship = f.State
+		}
+		if f.Name == "ground" {
+			ground = f.State
+		}
+	}
+	if ship.Screen != game.ScreenShipboard || ground.Screen != game.ScreenGround || !ground.GroundView.Valid {
+		t.Fatal("normal-source fixtures unavailable")
+	}
+	a.state = ship
+	before, _ := json.Marshal(a.state)
+	if _, _, ok := a.shipInteriorImages(); !ok {
+		t.Fatal("source cabin missing")
+	}
+	a.resetSTShipWalker()
+	legal := a.cabinLegalMask()
+	if len(legal) != 320*200 || len(a.cabinFloor) != 320*200 {
+		t.Fatal("source cabin mask shape")
+	}
+	sx, sy := a.shipWalker.anchor()
+	if !legal[sy*320+sx] {
+		t.Fatal("fixture starts at an illegal cabin anchor")
+	}
+	reachable := make([]bool, len(legal))
+	queue := []int{sy*320 + sx}
+	reachable[queue[0]] = true
+	for head := 0; head < len(queue); head++ {
+		i := queue[head]
+		x, y := i%320, i/320
+		for _, step := range stCabinSteps {
+			nx, ny := x+step[0], y+step[1]
+			if nx < 0 || ny < 0 || nx >= 320 || ny >= 200 {
+				continue
+			}
+			n := ny*320 + nx
+			if legal[n] && !reachable[n] {
+				reachable[n] = true
+				queue = append(queue, n)
+			}
+		}
+	}
+	var stations []map[string]any
+	for _, s := range stStations {
+		count, connected := 0, 0
+		for y := s.y0; y <= s.y1; y++ {
+			for x := s.x0; x <= s.x1; x++ {
+				if x >= 0 && y >= 0 && x < 320 && y < 200 {
+					if legal[y*320+x] {
+						count++
+					}
+					if reachable[y*320+x] {
+						connected++
+					}
+				}
+			}
+		}
+		label := ""
+		if s.labelKey != "" {
+			label = a.lookup(s.labelKey)
+		}
+		stations = append(stations, map[string]any{"window": s.window, "bounds": [4]int{s.x0, s.y0, s.x1, s.y1}, "labelKey": s.labelKey, "label": label, "legalAnchors": count, "reachableAnchors": connected})
+	}
+	after, _ := json.Marshal(a.state)
+	if string(before) != string(after) {
+		t.Fatal("cabin diagnostic changed typed state")
+	}
+	cabin := map[string]any{"state": ship, "sourceFloor": a.cabinFloor, "legalAnchors": legal, "reachableAnchors": reachable, "startAnchor": [2]int{sx, sy}, "stations": stations}
+	a.state = ground
+	before, _ = json.Marshal(a.state)
+	a.resetSTGroundWalker()
+	scene := a.stGroundSceneFor(a.state.CityID, a.groundWalker.scrollX, a.groundWalker.scrollY)
+	patterns, ok := a.collidePatterns()
+	if scene == nil || !ok {
+		t.Fatal("ground source collision unavailable")
+	}
+	groundLegal := make([]bool, 320*200)
+	for y := 0; y < 200; y++ {
+		for x := 0; x < 320; x++ {
+			groundLegal[y*320+x] = scene.canStand(patterns, stGroundFootPattern, x, y)
+		}
+	}
+	buildings := map[[2]int]int{}
+	for _, b := range game.GroundCityBuildings(a.state, a.state.CityID) {
+		buildings[[2]int{b.Row, b.Column}] = b.Code
+	}
+	roll := newGroundRoller(a.state.CityID, scene.scrollX, scene.scrollY, scene.rebuilds)
+	var tiles, marks []map[string]any
+	for row := 0; row < stGroundRows; row++ {
+		for col := 0; col < stGroundColumns; col++ {
+			cell := game.GroundWrap(a.state, game.Position{X: scene.scrollX + col, Y: scene.scrollY + row})
+			code, _, valid := game.GroundTerrainCode(a.state, a.state.CityID, cell.X, cell.Y)
+			tile := map[string]any{"x": col * 40, "y": row * 40, "cell": cell, "code": code, "background": !(valid && code == stGroundSolidCode), "valid": valid}
+			if valid && code != stGroundSolidCode {
+				look := roll()
+				if b, found := buildings[[2]int{cell.X, cell.Y}]; found {
+					code, look = b, 0
+				}
+				tile["code"], tile["look"] = code, look
+				if code == stGroundPodCode {
+					a.rollSTGroundPods(nil, col*40, row*40, roll)
+				}
+			}
+			tiles = append(tiles, tile)
+		}
+	}
+	for _, m := range scene.marks {
+		marks = append(marks, map[string]any{"character": m.ch, "x": m.x, "y": m.y})
+	}
+	after, _ = json.Marshal(a.state)
+	if string(before) != string(after) {
+		t.Fatal("ground diagnostic changed typed state")
+	}
+	groundData := map[string]any{"state": ground, "legalAnchors": groundLegal, "tiles": tiles, "marks": marks, "walker": [2]int{a.groundWalker.x, a.groundWalker.y}, "origin": [2]int{scene.scrollX, scene.scrollY}, "rebuilds": scene.rebuilds, "pattern": stGroundFootPattern}
+	data := map[string]any{"schema": "sundog-hd-collision-diagnostic-local-1", "status": "LOCAL-ONLY-source-derived-masks", "canvas": [2]int{320, 200}, "cabin": cabin, "ground": groundData, "limits": "Normal-source fixture, not a new GUI path or original executable run. Legal anchor mask includes sprite sample pattern; floor pixel mask does not. Colours are not production collision inputs."}
+	encoded, err := json.Marshal(data)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(os.Getenv("HD_COLLISION_OUTPUT"), append(encoded, '\n'), 0644); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("PASS local diagnostic: cabin 64000 floor + legal anchors, %d reachable; %d stations; ground 64000 foot anchor queries, 40 cells; typed state unchanged", len(queue), len(stations))
+}

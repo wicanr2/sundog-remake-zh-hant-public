@@ -1,0 +1,308 @@
+package m68k
+
+import (
+	"crypto/sha256"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"testing"
+)
+
+// #17；研究入口 ship-rules.md 的救援producer研究。原始定位與框架只在測試。
+type rescueTrace struct {
+	RawRandom []int
+	Ranges    [][3]int
+}
+
+// 真正派發XPILOTAG及MAINLIB原始p-code。SHIPLIB時間與MAINLIB RND
+// 由已核對的foodSleepRun執行；不以正式remake或獨立模型供給原版答案。
+func rescueRun(h *harness, disk []byte, base, first, last, depth int, trace *rescueTrace) {
+	stream := uint32(0xa0000 + depth*0x1000)
+	h.startDispatch(disk[base+first:base+last+4], stream)
+	for step := 0; step < 100000; step++ {
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip, sp, parent := h.cpu.State.A[4], h.cpu.State.SSP, h.cpu.State.A[0]
+			at := int(ip-stream) + first
+			if at == last {
+				return
+			}
+			op, proc := h.mem[ip], h.mem[ip+1]
+			child, entry, end, locals, argc, result := 0, 0, 0, 0, 0, 0
+			switch {
+			case base == 0x35200 && op == 0x71 && proc == 0x14:
+				child, entry, end, locals, argc = 0x31e00, 0x19a, 0x1b3, 1, 1
+			case base == 0x35200 && op == 0x71 && proc == 0x13:
+				child, entry, end, locals, argc = 0x31e00, 0x128, 0x15a, 2, 2
+			case base == 0x35200 && op == 0x73 && proc == 0x0c:
+				child, entry, end, argc, result = 0x2e800, 0x65a, 0x665, 2, 3
+			case base == 0x2e800 && op == 0x91 && proc == 0x0b:
+				child, entry, end, result = base, 0x614, 0x654, 1
+			}
+			if child != 0 {
+				frame := uint32(0x4d000 + depth*0x200)
+				for n := uint32(0); n < 128; n++ {
+					h.mem[frame+n] = 0
+				}
+				h.poke(frame, uint16(parent-0x40000))
+				for n := 0; n < argc; n++ {
+					h.poke(depotLocal(frame, locals+n+1), h.peek(sp+uint32(n*2)))
+				}
+				global, segment := h.cpu.State.A[1], h.cpu.State.A[2]
+				c0, c1 := h.peek(interpBase+0x1b70), h.peek(interpBase+0x1b72)
+				module, seg := uint32(0x48000), uint32(0x80000)
+				if child == 0x2e800 {
+					module, seg = 0x43000, 0x56000
+				}
+				h.cpu.State.A[1], h.cpu.State.A[2] = module, seg
+				h.poke(interpBase+0x1b70, uint16(module>>16))
+				h.poke(interpBase+0x1b72, uint16(module))
+				levelsFrame(h, frame)
+				if proc == 0x0c {
+					rescueRun(h, disk, child, entry, end, depth+1, trace)
+				} else {
+					foodSleepRun(h, disk, child, entry, end, depth+1, &foodSleepTrace{})
+				}
+				value := uint16(0)
+				if result != 0 {
+					value = h.peek(depotLocal(frame, result))
+					h.poke(sp+uint32(argc*2), value)
+				}
+				if proc == 0x0b {
+					trace.RawRandom = append(trace.RawRandom, int(value))
+				}
+				if proc == 0x0c {
+					trace.Ranges = append(trace.Ranges, [3]int{int(h.peek(sp + 2)), int(h.peek(sp)), int(value)})
+				}
+				levelsFrame(h, parent)
+				h.cpu.State.A[1], h.cpu.State.A[2] = global, segment
+				h.poke(interpBase+0x1b70, c0)
+				h.poke(interpBase+0x1b72, c1)
+				h.cpu.State.SSP = sp + uint32(argc*2)
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if op == 0x71 || op == 0x73 || op == 0x90 || op == 0x91 || op == 0xef {
+				h.t.Fatalf("未納入救援呼叫 base%x at%x op%x proc%x", base, at, op, proc)
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatalf("救援 base%x IP%x PC%x: %v", base, h.cpu.State.A[4]-stream+uint32(first), h.cpu.State.PC, err)
+		}
+	}
+	h.t.Fatal("救援切片未終止")
+}
+
+func TestSunDogFuelRescueProducer(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	word := func(at int) int { return int(disk[at])<<8 | int(disk[at+1]) }
+	for _, p := range [][4]int{{0x35200, 10, 0x35e, 0x3c1}, {0x35200, 11, 0x3c6, 0x42f}, {0x2e800, 12, 0x658, 0x665}, {0x31e00, 19, 0x126, 0x15a}, {0x31e00, 20, 0x198, 0x1b3}} {
+		dt := p[0] + 2*word(p[0])
+		if 2*word(dt-2*p[1]) != p[2] || word(p[0]+p[2]-2) != p[3] {
+			t.Fatal("原始字典邊界", p)
+		}
+	}
+	type gate struct {
+		Pending                      bool
+		Planet, City, HomeCity, Stop int
+		Allowed                      bool
+	}
+	type input struct {
+		Time, Planet, City int
+		Seed               [2]uint16
+		Requested          bool
+	}
+	type row struct {
+		Input                   input
+		Before, After           [2]uint16
+		ClockBefore, ClockAfter [3]int
+		FlagsBefore, FlagsAfter []uint16
+		Due                     int
+		SeedAfter               [2]uint16
+		Trace                   rescueTrace
+	}
+	gates := []gate{}
+	spaceGates := []gate{}
+	rows := []row{}
+	for _, pending := range []bool{false, true} {
+		for _, previous := range []int{0, 1, 63} {
+			h := foodSleepHarness(t, disk)
+			cadenceFlag(h, 25, pending)
+			h.poke(cadenceGlobal(0x4a), 0)
+			// Original eagerly indexes planet-1 even in space. The resulting
+			// lookbehind is G196, not a runtime typed planet or city identity.
+			h.poke(cadenceGlobal(0x196), uint16(previous<<9))
+			stop := displayRun(h, disk, 0x35200, 0x38b, 0x3c1, 0x3b9, 0x3c1)
+			x := gate{pending, 0, 0, previous, stop, stop == 0x3b9}
+			if x.Allowed == pending {
+				t.Fatal("原版太空資格", x)
+			}
+			spaceGates = append(spaceGates, x)
+		}
+	}
+	for _, pending := range []bool{false, true} {
+		for _, planet := range []int{1, 2} {
+			for _, city := range []int{0, 1, 2, 63} {
+				for _, home := range []int{1, 2, 63} {
+					h := foodSleepHarness(t, disk)
+					cadenceFlag(h, 25, pending)
+					h.poke(cadenceGlobal(0x4a), uint16(city<<9|planet<<4))
+					h.poke(cadenceGlobal(0x197)+uint32((planet-1)*16+14), uint16(home<<9))
+					stop := displayRun(h, disk, 0x35200, 0x38b, 0x3c1, 0x3b9, 0x3c1)
+					x := gate{pending, planet, city, home, stop, stop == 0x3b9}
+					if x.Allowed != (!pending && (city == 0 || city != home)) {
+						t.Fatal("原版資格", x)
+					}
+					gates = append(gates, x)
+				}
+			}
+		}
+	}
+	for _, time := range []int{0, 59, 1439, 1440, 6377, 6436, 65530} {
+		for _, place := range [][2]int{{0, 0}, {1, 0}, {1, 1}, {2, 63}} {
+			for _, seed := range [][2]uint16{{1, 0}, {0, 1}, {0xffff, 0xffff}, {0x1234, 0x5678}} {
+				i := input{time, place[0], place[1], seed, true}
+				h := foodSleepHarness(t, disk)
+				for n, v := range []int{time % 60, time / 60 % 24, time / 1440} {
+					h.poke(cadenceGlobal(0x11+n), uint16(v))
+				}
+				h.poke(cadenceGlobal(0x101), seed[0])
+				h.poke(cadenceGlobal(0x102), seed[1])
+				h.poke(cadenceGlobal(0x4a), uint16(i.City<<9|i.Planet<<4))
+				h.poke(cadenceGlobal(0x4f), 0xc0c0)
+				h.poke(cadenceGlobal(0x50), 0xc123)
+				cadenceFlag(h, 51, true)
+				x := row{Input: i, Before: [2]uint16{h.peek(cadenceGlobal(0x4f)), h.peek(cadenceGlobal(0x50))}, FlagsBefore: displayFlags(h)}
+				for n := range x.ClockBefore {
+					x.ClockBefore[n] = int(h.peek(cadenceGlobal(0x11 + n)))
+				}
+				rescueRun(h, disk, 0x35200, 0x3cd, 0x40c, 0, &x.Trace)
+				x.After = [2]uint16{h.peek(cadenceGlobal(0x4f)), h.peek(cadenceGlobal(0x50))}
+				x.FlagsAfter = displayFlags(h)
+				x.Due = int(x.After[0]&63) + 60*int(x.After[0]>>8) + 1440*int(x.After[1]&0x3fff)
+				x.SeedAfter = [2]uint16{h.peek(cadenceGlobal(0x101)), h.peek(cadenceGlobal(0x102))}
+				for n := range x.ClockAfter {
+					x.ClockAfter[n] = int(h.peek(cadenceGlobal(0x11 + n)))
+				}
+				delay := 15
+				if i.City == 0 {
+					delay = 30
+				}
+				if i.Planet == 0 {
+					if len(x.Trace.RawRandom) != 1 || len(x.Trace.Ranges) != 1 {
+						t.Fatal("亂數消費", x)
+					}
+					delay += 30 + x.Trace.RawRandom[0]%51
+					if x.Trace.Ranges[0] != [3]int{30, 80, 30 + x.Trace.RawRandom[0]%51} {
+						t.Fatal("原始range", x)
+					}
+				} else if len(x.Trace.RawRandom) != 0 || len(x.Trace.Ranges) != 0 || x.SeedAfter != seed {
+					t.Fatal("非太空無RND", x)
+				}
+				if x.Due != time+delay || x.ClockBefore != x.ClockAfter || !cadenceFlagValue(h, 25) || cadenceFlagValue(h, 51) || h.cpu.State.SSP != stackTop {
+					t.Fatalf("救援writer %+v delay%d SP%x", x, delay, h.cpu.State.SSP)
+				}
+				for n := 0; n < 80; n++ {
+					if n == 25 || n == 51 {
+						continue
+					}
+					if ((x.FlagsBefore[n/16] >> uint(n%16)) & 1) != ((x.FlagsAfter[n/16] >> uint(n%16)) & 1) {
+						t.Fatal("其他旗標改變", n)
+					}
+				}
+				rows = append(rows, x)
+			}
+		}
+	}
+	data, err := json.MarshalIndent(struct {
+		Scope, Boundaries string
+		Gates             []gate
+		SpaceGates        []gate
+		Rows              []row
+	}{
+		Scope:      "XPILOTAG:0a救援資格與:0b旗標／ETA writer，原始MAINLIB:0c/0b及SHIPLIB:13/14真正執行。",
+		Boundaries: "執行前固定原版兩字seed；選單窗口、輸入、聲音、HUD、完整父GUI另待。補油後數值初始化另執行，不以受控入口代替正常玩家鏈。", Gates: gates, SpaceGates: spaceGates, Rows: rows}, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-fuel-rescue.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("救援資格%d與producer%d案通過", len(gates), len(rows))
+}
+
+// Reuse the actual XSHOWMOV initialization from the current polar position.
+// Formal output supplies only inputs; native answers come from original bytes.
+func TestSunDogFuelRescueResume(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	out := os.Getenv("SUNDOG_PARITY_OUTPUT")
+	type input struct {
+		ID                                     string
+		Time, Angle, Radius, ToAngle, ToRadius int
+	}
+	var formal []struct{ Input input }
+	data, err := os.ReadFile(filepath.Join(out, "remake-rescue-resume.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = json.Unmarshal(data, &formal); err != nil {
+		t.Fatal(err)
+	}
+	if len(formal) != 16 {
+		t.Fatal("resume input coverage")
+	}
+	type row struct {
+		Input                                           input
+		TimeAfter, Tick, Ticks, DeltaAngle, DeltaRadius int
+		Travel                                          bool
+		Trace                                           foodSleepTrace
+	}
+	rows := []row{}
+	for _, f := range formal {
+		i := f.Input
+		h := foodSleepHarness(t, disk)
+		frame := uint32(0x46000)
+		for n, v := range []int{i.Time % 60, i.Time / 60 % 24, i.Time / 1440} {
+			h.poke(cadenceGlobal(0x11+n), uint16(v))
+		}
+		h.poke(cadenceGlobal(0x49), uint16(i.Radius<<8|i.Angle))
+		h.poke(cadenceGlobal(0x51), 0x40c0)
+		h.poke(cadenceGlobal(0x52), 0xc000)
+		h.poke(cadenceGlobal(0xd4), 63)
+		h.poke(cadenceGlobal(0xd5), 69)
+		cadenceFlag(h, 1, false)
+		for n, v := range []int{i.ToRadius<<8 | i.ToAngle, 0x3301, 0x3302, 0x3303, 0x3304, 0x3305} {
+			h.poke(0x47000+uint32(n*2), uint16(v))
+		}
+		h.poke(depotLocal(frame, 0x1a), 0x7000)
+		h.poke(depotLocal(frame, 1), uint16(depotLocal(frame, 2)-0x40000))
+		for n, v := range []int{1, 3, 15, 2, 5, 8} {
+			h.poke(cadenceGlobal(0xa78+n), uint16(v))
+		}
+		x := row{Input: i}
+		foodSleepRun(h, disk, 0x37200, 0x52, 0x5b, 0, &x.Trace)
+		h.poke(depotLocal(frame, 1), h.peek(depotLocal(frame, 2)))
+		foodSleepRun(h, disk, 0x37200, 0x4b7, 0x58a, 0, &x.Trace)
+		x.TimeAfter = int(h.peek(cadenceGlobal(0x11))) + 60*int(h.peek(cadenceGlobal(0x12))) + 1440*int(h.peek(cadenceGlobal(0x13)))
+		x.Tick = int(h.peek(cadenceGlobal(0xd4)))
+		x.Ticks = int(h.peek(cadenceGlobal(0xd5)))
+		x.DeltaRadius = int(int16(h.peek(cadenceGlobal(0xd6))))
+		x.DeltaAngle = int(int16(h.peek(cadenceGlobal(0xd7))))
+		x.Travel = cadenceFlagValue(h, 1)
+		if x.TimeAfter != i.Time || x.Tick != 0 || !x.Travel || x.Trace.Minutes != 0 || x.Trace.ShipUpdates != 0 || len(x.Trace.Random) != 0 || h.cpu.State.SSP != stackTop {
+			t.Fatalf("native resume boundary %+v", x)
+		}
+		rows = append(rows, x)
+	}
+	data, err = json.MarshalIndent(rows, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(out, "native-rescue-resume.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+}

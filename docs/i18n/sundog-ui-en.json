@@ -1,0 +1,4311 @@
+{
+  "schema": 1,
+  "catalog": "SunDog remake prototype UI overlay",
+  "locale": "en",
+  "sourceStatus": "remake-owned UI overlay; not an assertion about original bytes",
+  "translationStatus": "reviewed once; official AI language pack; 2026-08-31",
+  "entries": [
+    {
+      "key": "ui.about_sundog",
+      "translation": "About SunDog (original production list)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.distress",
+      "translation": "Request emergency refueling",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.hail",
+      "translation": "Call the other party",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.jettison",
+      "translation": "Abandon the cargo hold",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.pay_fine",
+      "translation": "Pay the illegal parking fine",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.tractor",
+      "translation": "Tractor beam",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.action.tube",
+      "translation": "Take the pilot tram",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.airlock",
+      "translation": "Airlock",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.barehanded",
+      "translation": "Bare hands",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.hitpoints",
+      "translation": "Stamina",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.opponents",
+      "translation": "Yes Hands",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.shield",
+      "translation": "Shield",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.title",
+      "translation": "Street Fighting",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.arena.weapon",
+      "translation": "Weapon",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.ch",
+      "translation": "Charisma",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.dx",
+      "translation": "Agility",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.hidden",
+      "translation": "??",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.iq",
+      "translation": "Intelligence",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.lk",
+      "translation": "Luck",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute.st",
+      "translation": "Strength",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.attribute_allocation",
+      "translation": "Allocate attributes",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.attribute_allocation_note",
+      "translation": "Up/down selects; left/right adjusts; Enter finishes.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.attribute_points_remaining",
+      "translation": "Points remaining",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.aux_fuel",
+      "translation": "Auxiliary Fuel",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.back",
+      "translation": "Return",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.bank",
+      "translation": "Bank Deposit",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.buy",
+      "translation": "Purchase Cargo",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.buy_part",
+      "translation": "Purchase Selected Parts",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo",
+      "translation": "Cargo",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.antimatter",
+      "source": "antimatter",
+      "translation": "antimatter",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.art-objects",
+      "source": "art objects",
+      "translation": "art objects",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.biochips",
+      "source": "biochips",
+      "translation": "biochips",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.cadcams",
+      "source": "cadcams",
+      "translation": "CAD/CAM systems",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.chronographs",
+      "source": "chronographs",
+      "translation": "chronographs",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.clothing",
+      "source": "clothing",
+      "translation": "clothing",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.comgear",
+      "source": "comgear",
+      "translation": "comgear",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.cryogens",
+      "source": "cryogens",
+      "translation": "cryogens",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.droids",
+      "source": "droids",
+      "translation": "droids",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.exotic-metals",
+      "source": "exotic metals",
+      "translation": "exotic metals",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.fruits-vegs",
+      "source": "fruits/vegs",
+      "translation": "fruits/vegs",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.fuel",
+      "source": "fuel",
+      "translation": "fuel",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.furs-silks",
+      "source": "furs/silks",
+      "translation": "furs/silks",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.gems-crystals",
+      "source": "gems/crystals",
+      "translation": "gems/crystals",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.gold",
+      "source": "gold",
+      "translation": "gold",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.grains-cereals",
+      "source": "grains/cereals",
+      "translation": "grains/cereals",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.hand-weapons",
+      "source": "hand weapons",
+      "translation": "hand weapons",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.meats",
+      "source": "meats",
+      "translation": "meats",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.nothing",
+      "source": "nothing",
+      "translation": "nothing",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.nullgravs",
+      "source": "nullgravs",
+      "translation": "null-gravity units",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.organics",
+      "source": "organics",
+      "translation": "organics",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.pharmaceuticals",
+      "source": "pharmaceuticals",
+      "translation": "pharmaceuticals",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.radioactives",
+      "source": "radioactives",
+      "translation": "radioactives",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.rare-earths",
+      "source": "rare earths",
+      "translation": "rare earths",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.salvage_lots",
+      "translation": "Towing Income",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.seeds-sprouts",
+      "source": "seeds/sprouts",
+      "translation": "seeds/sprouts",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.silichips",
+      "source": "silichips",
+      "translation": "silichips",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.spices-herbs",
+      "source": "spices/herbs",
+      "translation": "spices/herbs",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.stimulants",
+      "source": "stimulants",
+      "translation": "stimulants",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.stock-embryos",
+      "source": "stock embryos",
+      "translation": "stock embryos",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.sunsuns",
+      "source": "sunsuns",
+      "translation": "sunsuns",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.synthesizers",
+      "source": "synthesizers",
+      "translation": "synthesizers",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.unknown",
+      "translation": "Unknown Cargo",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo.woods-fibers",
+      "source": "woods/fibers",
+      "translation": "woods/fibers",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo_hold",
+      "translation": "Cargo Holder",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo_pod",
+      "translation": "Cargo Holder",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cargo_units",
+      "translation": "Cargo Holder Capacity",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.carry",
+      "translation": "Carry items",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.cash",
+      "translation": "Cash",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character",
+      "translation": "Character",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_creation",
+      "translation": "Create character",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_creation_note",
+      "translation": "Enter confirms the name; attribute allocation follows.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.character_library",
+      "translation": "Character storage library",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_name",
+      "translation": "Character name",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_name_confirm",
+      "translation": "Confirmation corner Color name",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_name_prompt",
+      "translation": "Please enter the character name",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.character_status",
+      "translation": "Character status window",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city",
+      "translation": "City",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.abran",
+      "source": "Abran",
+      "translation": "Abran",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.abundan",
+      "source": "Abundan",
+      "translation": "Abundan",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.alram",
+      "source": "Alram",
+      "translation": "Alram",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.arlenair",
+      "source": "Arlenair",
+      "translation": "Arlenair",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.aylika",
+      "source": "Aylika",
+      "translation": "Aylika",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.bantin",
+      "source": "Bantin",
+      "translation": "Bantin",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.banville",
+      "source": "Banville",
+      "translation": "Banville",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.barnum",
+      "source": "Barnum",
+      "translation": "Barnum",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.bedollug",
+      "source": "Bedollug",
+      "translation": "Bedollug",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.calidac",
+      "source": "Calidac",
+      "translation": "Calidac",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.corian",
+      "source": "Corian",
+      "translation": "Corian",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.d-esgid",
+      "source": "D'esgid",
+      "translation": "D'esgid",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.dajasyron",
+      "source": "Dajasyron",
+      "translation": "Dajasyron",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.darvilton",
+      "source": "Darvilton",
+      "translation": "Darvilton",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.drahew",
+      "source": "Drahew",
+      "translation": "Drahew",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.dramming",
+      "source": "Dramming",
+      "translation": "Dramming",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.dreider",
+      "source": "Dreider",
+      "translation": "Dreider",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.einkolt",
+      "source": "Einkolt",
+      "translation": "Einkolt",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.esposito",
+      "source": "Esposito",
+      "translation": "Esposito",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.essoit",
+      "source": "Essoit",
+      "translation": "Essoit",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.feriolah",
+      "source": "Feriolah",
+      "translation": "Feriolah",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.ferring",
+      "source": "Ferring",
+      "translation": "Ferring",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.ft-lyon",
+      "source": "Ft. Lyon",
+      "translation": "Ft. Lyon",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.ft-savon",
+      "source": "Ft. Savon",
+      "translation": "Ft. Savon",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.haiapolis",
+      "source": "Haiapolis",
+      "translation": "Haiapolis",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.helord",
+      "source": "Helord",
+      "translation": "Helord",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.icebox",
+      "source": "Icebox",
+      "translation": "Icebox",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.illdono",
+      "source": "Illdono",
+      "translation": "Illdono",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.industron",
+      "source": "Industron",
+      "translation": "Industron",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.jemba",
+      "source": "Jemba",
+      "translation": "Jemba",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.knuth",
+      "source": "Knuth",
+      "translation": "Knuth",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.kolbe",
+      "source": "Kolbe",
+      "translation": "Kolbe",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.lagosal",
+      "source": "Lagosal",
+      "translation": "Lagosal",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.lightning",
+      "source": "Lightning",
+      "translation": "Lightning",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.llorrac",
+      "source": "Llorrac",
+      "translation": "Llorrac",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.lonax",
+      "source": "Lonax",
+      "translation": "Lonax",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.malesti",
+      "source": "Malesti",
+      "translation": "Malesti",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.mortown",
+      "source": "Mortown",
+      "translation": "Mortown",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.n-ljones",
+      "source": "N'ljones",
+      "translation": "N'ljones",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.new-temol",
+      "source": "New Temol",
+      "translation": "New Temol",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.notweneki",
+      "source": "Notweneki",
+      "translation": "Notweneki",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.obburg",
+      "source": "Obburg",
+      "translation": "Obburg",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.paleko",
+      "source": "Paleko",
+      "translation": "Paleko",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.paran",
+      "source": "Paran",
+      "translation": "Paran",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.plepa",
+      "source": "Plepa",
+      "translation": "Plepa",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.poelter",
+      "source": "Poelter",
+      "translation": "Poelter",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.sheol",
+      "source": "Sheol",
+      "translation": "Sheol",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.sheshco",
+      "source": "Sheshco",
+      "translation": "Sheshco",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.shoothan",
+      "source": "Shoothan",
+      "translation": "Shoothan",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.surrell",
+      "source": "Surrell",
+      "translation": "Surrell",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.temlonton",
+      "source": "Temlonton",
+      "translation": "Temlonton",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.the-mines",
+      "source": "The Mines",
+      "translation": "The Mines",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.tram-el",
+      "source": "Tram'el",
+      "translation": "Tram'el",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.tuie",
+      "source": "Tuie",
+      "translation": "Tuie",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.velamie",
+      "source": "Velamie",
+      "translation": "Velamie",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.waslat",
+      "source": "Waslat",
+      "translation": "Waslat",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.wildera",
+      "source": "Wildera",
+      "translation": "Wildera",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.city.zadansa",
+      "source": "Zadansa",
+      "translation": "Zadansa",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.combat_range",
+      "translation": "Engage distance",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.combat_status",
+      "translation": "Combat status indicator",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.compass",
+      "translation": "Compass",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.credits.director",
+      "translation": "Directed by",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.ftl_production",
+      "translation": "A Faster Than Light production",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.graphics",
+      "translation": "Graphics",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.original_concept",
+      "translation": "Original concept and Apple II game",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.producer",
+      "translation": "Produced by",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.ship_sound_effects",
+      "translation": "Ship, sound and special effects",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.credits.studios",
+      "translation": "FTL Studios / Studio B",
+      "translationStatus": "Original image2 credit labels; names remain source identities"
+    },
+    {
+      "key": "ui.cryogens",
+      "translation": "Cryogenic crew",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.delete_game",
+      "translation": "x><x>Delete save game",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.deliver_mission",
+      "translation": "Delivery colonization mission cargo",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.deposit",
+      "translation": "Deposit all cash",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.depot_aux",
+      "translation": "3: Buy aux fuel",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.depot_refuel",
+      "translation": "1: Refuel ship",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.depot_repair",
+      "translation": "2: Repair ship",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.depot_title",
+      "translation": "Fuel depot",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.destination.abran",
+      "source": "Glory/Glory I/Abran",
+      "translation": "Glory/Glory I/Abran",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.abundan",
+      "source": "Glory/Glory I/Abundan",
+      "translation": "Glory/Glory I/Abundan",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.alram",
+      "source": "Woremed/W'orrad/Alram",
+      "translation": "Woremed/W'orrad/Alram",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.arlenair",
+      "source": "Hepa/Hepah/Arlenair",
+      "translation": "Hepa/Hepah/Arlenair",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.aylika",
+      "source": "Woremed/W'orrad/Aylika",
+      "translation": "Woremed/W'orrad/Aylika",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.bantin",
+      "source": "Ferr/Ferr/Bantin",
+      "translation": "Ferr/Ferr/Bantin",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.banville",
+      "source": "Jondd/Jondd/Banville",
+      "translation": "Jondd/Jondd/Banville",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.barnum",
+      "source": "Ferr/Ferr/Barnum",
+      "translation": "Ferr/Ferr/Barnum",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.bedollug",
+      "source": "KalManDaa/Kala/Bedollug",
+      "translation": "KalManDaa/Kala/Bedollug",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.calidac",
+      "source": "New Shoot/New Shoot/Calidac",
+      "translation": "New Shoot/New Shoot/Calidac",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.corian",
+      "source": "Glory/Glory I/Corian",
+      "translation": "Glory/Glory I/Corian",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.d-esgid",
+      "source": "Jadul/Krakorum/D'esgid",
+      "translation": "Jadul/Krakorum/D'esgid",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.dajasyron",
+      "source": "KalManDaa/Kala/Dajasyron",
+      "translation": "KalManDaa/Kala/Dajasyron",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.darvilton",
+      "source": "Jondd/Jondd/Darvilton",
+      "translation": "Jondd/Jondd/Darvilton",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.drahew",
+      "source": "Jondd/Jondd/Drahew",
+      "translation": "Jondd/Jondd/Drahew",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.dramming",
+      "source": "Jondd/Jondd/Dramming",
+      "translation": "Jondd/Jondd/Dramming",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.dreider",
+      "source": "Glory/Glory II/Dreider",
+      "translation": "Glory/Glory II/Dreider",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.einkolt",
+      "source": "Lafser/Tcana/Einkolt",
+      "translation": "Lafser/Tcana/Einkolt",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.esposito",
+      "source": "Jondd/Jondd/Esposito",
+      "translation": "Jondd/Jondd/Esposito",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.essoit",
+      "source": "Hepa/Hepah/Essoit",
+      "translation": "Hepa/Hepah/Essoit",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.feriolah",
+      "source": "New Shoot/New Shoot/Feriolah",
+      "translation": "New Shoot/New Shoot/Feriolah",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.ferring",
+      "source": "Ferr/Ferr/Ferring",
+      "translation": "Ferr/Ferr/Ferring",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.ft-lyon",
+      "source": "Jondd/Heavy/Ft. Lyon",
+      "translation": "Jondd/Heavy/Ft. Lyon",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.ft-savon",
+      "source": "Jondd/Heavy/Ft. Savon",
+      "translation": "Jondd/Heavy/Ft. Savon",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.haiapolis",
+      "source": "Lafser/Tcana/Haiapolis",
+      "translation": "Lafser/Tcana/Haiapolis",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.helord",
+      "source": "Sosai/Vahevela/Helord",
+      "translation": "Sosai/Vahevela/Helord",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.icebox",
+      "source": "Ferr/Snowball/Icebox",
+      "translation": "Ferr/Snowball/Icebox",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.illdono",
+      "source": "Jadul/Krakorum/Illdono",
+      "translation": "Jadul/Krakorum/Illdono",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.industron",
+      "source": "Ferr/Ferrwerk/Industron",
+      "translation": "Ferr/Ferrwerk/Industron",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.jemba",
+      "source": "Glory/Glory II/Jemba",
+      "translation": "Glory/Glory II/Jemba",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.knuth",
+      "source": "Shoot/Shoot/Knuth",
+      "translation": "Shoot/Shoot/Knuth",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.kolbe",
+      "source": "KalManDaa/Kala/Kolbe",
+      "translation": "KalManDaa/Kala/Kolbe",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.lagosal",
+      "source": "Glory/Glory I/Lagosal",
+      "translation": "Glory/Glory I/Lagosal",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.lightning",
+      "source": "Jondd/Heavy/Lightning",
+      "translation": "Jondd/Heavy/Lightning",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.llorrac",
+      "source": "Glory/Glory II/Llorrac",
+      "translation": "Glory/Glory II/Llorrac",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.lonax",
+      "source": "Ferr/Ferr/Lonax",
+      "translation": "Ferr/Ferr/Lonax",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.malesti",
+      "source": "Jadul/Krakorum/Malesti",
+      "translation": "Jadul/Krakorum/Malesti",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.mortown",
+      "source": "Sosai/Vahevela/Mortown",
+      "translation": "Sosai/Vahevela/Mortown",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.n-ljones",
+      "source": "Sosai/Vahevela/N'ljones",
+      "translation": "Sosai/Vahevela/N'ljones",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.new-temol",
+      "source": "New Shoot/New Shoot/New Temol",
+      "translation": "New Shoot/New Shoot/New Temol",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.notweneki",
+      "source": "KalManDaa/Kala/Notweneki",
+      "translation": "KalManDaa/Kala/Notweneki",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.obburg",
+      "source": "Jondd/Jondd/Obburg",
+      "translation": "Jondd/Jondd/Obburg",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.paleko",
+      "source": "Jadul/Krakorum/Paleko",
+      "translation": "Jadul/Krakorum/Paleko",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.paran",
+      "source": "Glory/Glory I/Paran",
+      "translation": "Glory/Glory I/Paran",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.plepa",
+      "source": "Enlie/Enliah/Plepa",
+      "translation": "Enlie/Enliah/Plepa",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.poelter",
+      "source": "New Shoot/New Shoot/Poelter",
+      "translation": "New Shoot/New Shoot/Poelter",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.sheol",
+      "source": "New Shoot/Hell/Sheol",
+      "translation": "New Shoot/Hell/Sheol",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.sheshco",
+      "source": "Woremed/W'orrad/Sheshco",
+      "translation": "Woremed/W'orrad/Sheshco",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.shoothan",
+      "source": "Shoot/Shoot/Shoothan",
+      "translation": "Shoot/Shoot/Shoothan",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.surrell",
+      "source": "Glory/Glory III/Surrell",
+      "translation": "Glory/Glory III/Surrell",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.temlonton",
+      "source": "Shoot/Shoot/Temlonton",
+      "translation": "Shoot/Shoot/Temlonton",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.the-mines",
+      "source": "Ferr/Ferrwerk/The Mines",
+      "translation": "Ferr/Ferrwerk/The Mines",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.tram-el",
+      "source": "New Shoot/New Shoot/Tram'el",
+      "translation": "New Shoot/New Shoot/Tram'el",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.tuie",
+      "source": "Enlie/Enliah/Tuie",
+      "translation": "Enlie/Enliah/Tuie",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.velamie",
+      "source": "Hepa/Hepah/Velamie",
+      "translation": "Hepa/Hepah/Velamie",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.waslat",
+      "source": "Shoot/Shoot/Waslat",
+      "translation": "Shoot/Shoot/Waslat",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.wildera",
+      "source": "New Shoot/New Shoot/Wildera",
+      "translation": "New Shoot/New Shoot/Wildera",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination.zadansa",
+      "source": "Woremed/W'orrad/Zadansa",
+      "translation": "Woremed/W'orrad/Zadansa",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.destination_next",
+      "translation": "Next",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.destination_previous",
+      "translation": "Previous",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.dialog",
+      "translation": "Talk",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.dialog.ok",
+      "translation": "Okay",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.dialog_said",
+      "translation": "You said",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.dialog_say",
+      "translation": "Say selected words",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.dialog_verb",
+      "translation": "What you want to say",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.eat",
+      "translation": "Eat",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.annihilator",
+      "source": "Annihilator",
+      "translation": "Annihilator",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.phantom-ul",
+      "source": "Phantom UL",
+      "translation": "Phantom UL",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.unknown",
+      "source": "UNKNOWN",
+      "translation": "UNKNOWN",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.voton-mk-iv",
+      "source": "Voton Mk IV",
+      "translation": "Voton Mk IV",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.voton-mk-x",
+      "source": "Voton Mk X",
+      "translation": "Voton Mk X",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.vw-69",
+      "source": "VW-69",
+      "translation": "VW-69",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy.z1-vector",
+      "source": "Z1 Vector",
+      "translation": "Z1 Vector",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy_hull",
+      "translation": "Enemy ship hull",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.enemy_ship",
+      "translation": "Enemy ship model",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.engineering",
+      "translation": "Engineering compartment",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.engineering_fuel_system",
+      "translation": "Fuel/Engine",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.engineering_hull_system",
+      "translation": "Hull status",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.engineering_shield_system",
+      "translation": "Shield system",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.engineering_weapon_system",
+      "translation": "Weapon system",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.equipment",
+      "translation": "Equipment data",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.equipment_note",
+      "translation": "Sort by original offset; the effect needs to be verified.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.equipment_unavailable",
+      "translation": "The Apple II device source catalog has not been loaded.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facilities",
+      "translation": "Current Facilities",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.colony",
+      "translation": "Colony",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.exchange",
+      "translation": "Exchange",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.none",
+      "translation": "None",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.spaceport",
+      "translation": "Spaceport",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.uniteller",
+      "translation": "Bank",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.facility.warehouse",
+      "translation": "Warehouse",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.fire",
+      "translation": "Fire",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.flight",
+      "translation": "Navigate within the system",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.flight_distress_key",
+      "translation": "D Distress",
+      "translationStatus": "remake-owned UI; reviewed 2026-10-05"
+    },
+    {
+      "key": "ui.flight_engage_key",
+      "translation": "E: Fly all the way",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.flight_progress",
+      "translation": "Voyage progress",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.flight_resume_key",
+      "translation": "R Resume",
+      "translationStatus": "remake-owned UI; reviewed 2026-10-05"
+    },
+    {
+      "key": "ui.flight_tick",
+      "translation": "Voyage scale",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.flight_tick_key",
+      "translation": "Enter: Advance",
+      "translationStatus": "Same action; concise complete label for Atari button width"
+    },
+    {
+      "key": "ui.food",
+      "translation": "Food",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.footer.failure",
+      "translation": "S: save  Q: quit  Look: %s",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.footer.normal",
+      "translation": "Mouse: buttons/map  Right: %s  F8 look: %s",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.ftl_install",
+      "translation": "Install FTL boost",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.ftl_price",
+      "translation": "Installation price",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.ftl_range",
+      "translation": "Jump range",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.ftl_title",
+      "translation": "FTL engineering",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.fuel",
+      "translation": "Fuel amount",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.fuel_available",
+      "translation": "Available funds",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_buy_full",
+      "translation": "1 Fill",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_buy_one",
+      "translation": "2 Buy one",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_cancel",
+      "translation": "3 Finish",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_purchase",
+      "translation": "Ship service",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_quantity",
+      "translation": "Quantity",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_unavailable",
+      "translation": "Unavailable here",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.fuel_unit_price",
+      "translation": "Unit price",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.full_shields",
+      "translation": "Full shield",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.gauge.fuel",
+      "translation": "Fuel",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.gauge.guns",
+      "translation": "Guns",
+      "translationStatus": "2026-10-03; four-character gauge contract; original frame GUNS"
+    },
+    {
+      "key": "ui.gauge.hull",
+      "translation": "Hull",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.gauge.shield",
+      "translation": "Shld",
+      "translationStatus": "2026-10-03; four-character gauge contract; original frame SHLD"
+    },
+    {
+      "key": "ui.ground",
+      "translation": "Ground Movement",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.guns",
+      "translation": "Weapons",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.hand",
+      "translation": "Items in hand",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.hand_empty",
+      "translation": "Empty hand",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.hand_key",
+      "translation": "← → H",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.heading.east",
+      "translation": "East",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.heading.north",
+      "translation": "North",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.heading.south",
+      "translation": "South",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.heading.west",
+      "translation": "West",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.health",
+      "translation": "Health",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.arrows",
+      "translation": "Arrow keys: move or select",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.cards",
+      "translation": "F1: help　F2: options (language, colors, tiles, disk)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.close",
+      "translation": "Press F1 or ESC again to close",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.confirm",
+      "translation": "ENTER/SPACE: confirm the primary action",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.depot",
+      "translation": "1 Refuel   2 Repair   3 Aux fuel   4 Engineering (Banville)   Esc Back",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.help.engineering_shortcuts",
+      "translation": "←/→: System E: Repair W: Guns S: Shields R: Hull I: Equipment",
+      "translationStatus": "remake control mapping verified; GUI layout pending"
+    },
+    {
+      "key": "ui.help.equipment_back",
+      "translation": "ESC / Right click: Back",
+      "translationStatus": "操作對應已核對；畫面待驗"
+    },
+    {
+      "key": "ui.help.escape",
+      "translation": "ESC: cancel or go back",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.ftl",
+      "translation": "1 / ENTER: Install   Right click / ESC: Back",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.help.fuel_purchase",
+      "translation": "1: fill  2: one unit  3 / ESC: finish",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.help.ground_parts",
+      "translation": "Y: Ship parts at warehouse; P: Load colony supplies",
+      "translationStatus": "remake control mapping verified; GUI layout pending"
+    },
+    {
+      "key": "ui.help.ground_save",
+      "translation": "F5: Save/load library (eight slots, number keys); S: Move south",
+      "translationStatus": "remake control mapping verified; GUI layout pending"
+    },
+    {
+      "key": "ui.help.ground_shortcuts",
+      "translation": "T: Trade U: Bank R: Fuel P: Supplies K: Cryogens V: Deliver O: Aux fuel",
+      "translationStatus": "remake control mapping verified; GUI layout pending"
+    },
+    {
+      "key": "ui.help.library_save",
+      "translation": "F5: Save/load library (eight slots, select with number keys)",
+      "translationStatus": "remake control mapping verified; GUI layout pending"
+    },
+    {
+      "key": "ui.help.mouse",
+      "translation": "Left click: button/map　Right click: back/status",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.presentation",
+      "translation": "F8: look (Atari ST original / Apple II original / Remake Modern)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.presentation_persists",
+      "translation": "Colors, tiles and layout switch together; settings persist on restart.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.quit",
+      "translation": "F10: autosave and quit",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.save_load",
+      "translation": "S quick save　L load　F5 library (eight slots, pick with a number)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.sleep",
+      "translation": "Space / Enter / click: wake   F5: save library   F10: quit",
+      "translationStatus": "reviewed once; remake sleep controls; 2026-10-04"
+    },
+    {
+      "key": "ui.help.sound",
+      "translation": "F7: mute",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.tactical",
+      "translation": "Tactical: G laser　T tractor　J/K jettison hold 1/2　B both　H hail",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.tactical_aim",
+      "translation": "M: aim; move mouse to steer, left-click to fire",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.help.tactical_fire",
+      "translation": "F/Enter: fire   R: recharge   ESC: leave aiming",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.help.tactical_shields",
+      "translation": "O: shields off   U: full shields",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.help.teller_commit",
+      "translation": "Bank: leaving commits; C clears amount to cancel",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.help.title",
+      "translation": "Controls",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.help.title_keys",
+      "translation": "Title: P play　C library　L load　O options　A about",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.hull_condition",
+      "translation": "Hull Status",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.install_part",
+      "translation": "Replace a broken slot with parts",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior",
+      "translation": "Indoor",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.booth",
+      "translation": "Decks",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.counter",
+      "translation": "Counter",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.customers",
+      "translation": "Guests",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.door",
+      "translation": "Door",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.kind.bar",
+      "translation": "Tavern",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.kind.equipment",
+      "translation": "Gear Shop",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.kind.hotel",
+      "translation": "Hotel",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.kind.parts",
+      "translation": "Ship Parts Store",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.kind.unknown",
+      "translation": "Door without sign",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.interior.slots",
+      "translation": "Pokies",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.beer",
+      "source": "beer",
+      "translation": "beer",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.burger",
+      "source": "burger",
+      "translation": "burger",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.charmer",
+      "source": "charmer",
+      "translation": "charmer",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.cloaker",
+      "source": "cloaker",
+      "translation": "cloaker",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.concentrator",
+      "source": "concentrator",
+      "translation": "concentrator",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.control-node",
+      "source": "control node",
+      "translation": "control node",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.cryofuse",
+      "source": "cryofuse",
+      "translation": "cryofuse",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.dead-part",
+      "source": "(dead part)",
+      "translation": "(dead part)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.decloaker",
+      "source": "decloaker",
+      "translation": "decloaker",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.dexboost",
+      "source": "dexboost",
+      "translation": "dexboost",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.flux-modulator",
+      "source": "flux modulator",
+      "translation": "flux modulator",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.freeze-quit",
+      "source": "(freeze/quit)",
+      "translation": "(freeze/quit)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.ground-scanner",
+      "source": "ground scanner",
+      "translation": "ground scanner",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.j-junc-module",
+      "source": "j-junc module",
+      "translation": "j-junc module",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.location",
+      "source": "(location)",
+      "translation": "(location)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.money",
+      "source": "(money)",
+      "translation": "(money)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.next-frame",
+      "source": "(next frame)",
+      "translation": "(next frame)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.nothing",
+      "source": "(nothing)",
+      "translation": "(nothing)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.nutrapack",
+      "source": "nutrapack",
+      "translation": "nutrapack",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.peptab",
+      "source": "peptab",
+      "translation": "peptab",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.photon-bridge",
+      "source": "photon bridge",
+      "translation": "photon bridge",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.plasma-tube",
+      "source": "plasma tube",
+      "translation": "plasma tube",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.rapidheal",
+      "source": "rapidheal",
+      "translation": "rapidheal",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.reserved",
+      "source": "(reserved)",
+      "translation": "(reserved)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.s-t-distorter",
+      "source": "s/t distorter",
+      "translation": "s/t distorter",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.scanner",
+      "source": "scanner",
+      "translation": "scanner",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.scattergun",
+      "source": "scattergun",
+      "translation": "scattergun",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.shield",
+      "source": "shield",
+      "translation": "shield",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.shunt",
+      "source": "shunt",
+      "translation": "shunt",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.stinger",
+      "source": "stinger",
+      "translation": "stinger",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.time",
+      "source": "(time)",
+      "translation": "(time)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.item.trash",
+      "source": "(trash)",
+      "translation": "(trash)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.layout.atari_st",
+      "translation": "Atari ST",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.layout.remake",
+      "translation": "Remake",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_delete",
+      "translation": "delete",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_load",
+      "translation": "load",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_make",
+      "translation": "create",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_new",
+      "translation": "new",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_pick",
+      "translation": "1-8 pick slot",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_key_store",
+      "translation": "store",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_not_created",
+      "translation": "Not created yet",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_slot",
+      "translation": "Save library slot",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.library_slot_empty",
+      "translation": "Empty Slot",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.load_aux_fuel",
+      "translation": "O: Load Auxiliary Fuel",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.load_cargo",
+      "translation": "Load Cargo",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.load_cryogens",
+      "translation": "Load Cryopersonnel",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.load_game",
+      "translation": "Load Game",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.load_supplies",
+      "translation": "Load Colony Supplies",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.locale.en",
+      "translation": "English",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.locale.ja",
+      "translation": "Japanese",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.locale.zh-Hans",
+      "translation": "Simplified Chinese",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.locale.zh-Hant",
+      "translation": "Traditional Chinese",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.location",
+      "translation": "Location",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.make_library",
+      "translation": "Create Save Library",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.market_quote",
+      "translation": "Buy/Sell Cargo",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.market_unknown",
+      "translation": "Unknown",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.about_needs_disk",
+      "translation": "The production list is in the original disk; go to the option to give the disk path and see again.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.action_rejected",
+      "translation": "Action rejected:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_ammo_out",
+      "translation": "The shotgun is empty, and you are left with only one pair of hands.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_exchange",
+      "translation": "The two sides competed for one round.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_fled",
+      "translation": "You are off the hook.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_hit",
+      "translation": "You took a hit.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_lost",
+      "translation": "You fell down.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_over",
+      "translation": "It’s finished.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.arena_won",
+      "translation": "The remaining people ran away.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.at_booth",
+      "translation": "You stand next to the booth.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.at_counter",
+      "translation": "You stand in front of the counter.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.at_door",
+      "translation": "The door is right next to it.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.at_slots",
+      "translation": "The machine in the corner is flashing.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.ate",
+      "translation": "You eat a portion of food and your satiety level increases.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.attribute_points",
+      "translation": "Allocate the character's attribute points.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.message.attribute_waste",
+      "translation": "Points remain unused; confirm again to continue anyway.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.message.aux_fuel_drained",
+      "translation": "Auxiliary fuel has been injected into the main fuel tank.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.aux_fuel_dropped",
+      "translation": "A slot of auxiliary fuel has been dropped.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.aux_fuel_loaded",
+      "translation": "A tank of auxiliary fuel has been installed in the cargo hold.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.back",
+      "translation": "Returned to the previous screen.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.beyond_maximum_jump",
+      "translation": "Exceeded the maximum jump distance of the warp drive.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.boarded",
+      "translation": "You boarded the SunDog.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.bolts_armed",
+      "translation": "The cabin throwing bolt detonated and the cargo hold was emptied.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.bought",
+      "translation": "One item has been purchased.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cannon_missed",
+      "translation": "Cannon miss: enemy ship is not within aiming tolerance.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cannot_move",
+      "translation": "The front is impassable; please move along passable ground.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cargo",
+      "translation": "The cargo hold tank has been opened.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cargo_full",
+      "translation": "Cargo bay is full; manual describes prototype capacity as two cargoes.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cargo_loaded",
+      "translation": "One shipment has been loaded.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cargo_unloaded",
+      "translation": "A shipment has been unloaded.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.carry_full",
+      "translation": "The carrying compartment is full and cannot be put down.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.character_created",
+      "translation": "The character has been created and is ready to board the SunDog.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.character_name",
+      "translation": "Please enter a character name; this is the naming process for the remastered prototype.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.character_name_invalid",
+      "translation": "The character name cannot be blank; please enter it again.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.collapsed",
+      "translation": "You collapse from fatigue.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-04"
+    },
+    {
+      "key": "ui.message.comm_jammed",
+      "translation": "The communication channel is interfered with.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.cryogens_loaded",
+      "translation": "A cryogenic crew unit has been loaded from the ground warehouse.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.defeat",
+      "translation": "You can no longer continue; you can save this ending or exit the game.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.delivery_at_exchange",
+      "translation": "Deliver each required lot at the Banville exchange.",
+      "translationStatus": "remake operation hint; 2026-10-03"
+    },
+    {
+      "key": "ui.message.deposited",
+      "translation": "The cash has been deposited into the local bank of the current system.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.destination_selected",
+      "translation": "The next navigation destination has been selected.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.dialog_ended",
+      "translation": "The conversation ends and you return to the street.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.dialog_opened",
+      "translation": "The other person looks at you, waiting for you to speak.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.dialog_said",
+      "translation": "The other party responded to your words.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.dialog_unavailable",
+      "translation": "There is no one to talk about here.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.distress_unavailable",
+      "translation": "Emergency refueling is unavailable here.",
+      "translationStatus": "remake-owned UI; reviewed 2026-10-05"
+    },
+    {
+      "key": "ui.message.enemy_destroyed",
+      "translation": "The enemy ship has been destroyed; the combat prototype node is completed.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.enemy_fired_hull",
+      "translation": "The enemy ship penetrated the shield and hit the hull; please enter the engineering cabin for repairs.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.enemy_fired_shields",
+      "translation": "The enemy ship hits; the shield absorbs the shot and the level drops.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.enemy_fired_system",
+      "translation": "The enemy ship was hit, and a part of the ship system was damaged.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.enemy_holding",
+      "translation": "The enemy ship is still loading and did not fire at this time.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.enemy_missed",
+      "translation": "The enemy ship opened fire but missed.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.engineering",
+      "translation": "The engineering cabin has been opened.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.entered_city",
+      "translation": "You have entered the city.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.equipment",
+      "translation": "Device data is turned on; the name is from the currently authenticated Apple II source catalog.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.exchange",
+      "translation": "The exchange has been opened.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.failure_terminal",
+      "translation": "This is a failed ending; you can save the ending or leave the game.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.fetched",
+      "translation": "The batch has been retrieved from the cargo hold.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.fine_paid",
+      "translation": "Illegal parking fines have been paid.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.fired",
+      "translation": "Fired; weapon charge reduced.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.ftl_installed",
+      "translation": "The FTL boost is installed and working.",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.message.ftl_insufficient",
+      "translation": "Your bank balance and cash are insufficient to install the FTL boost.",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.message.ftl_quote",
+      "translation": "A hyper-drive boost is available. Confirm to install.",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.message.ftl_ship_absent",
+      "translation": "Your ship must be in this city to install the boost.",
+      "translationStatus": "reviewed once; FTL service; 2026-10-14"
+    },
+    {
+      "key": "ui.message.fuel_full",
+      "translation": "The fuel is full and does not need to be replenished.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.fuel_purchase",
+      "translation": "Choose a quantity. Payment is settled when you finish.",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.message.full_shields",
+      "translation": "The shield is fully open.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.game_deleted",
+      "translation": "The saved game has been deleted.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.game_stored",
+      "translation": "The game has been saved to the remastered save library.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.ground",
+      "translation": "The cargo module has arrived at the ground movement area.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.ground_scanner_required",
+      "translation": "A fitted ground scanner is required to land outside the main city.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.guns_blown",
+      "translation": "The ship's gun has been damaged and cannot fire.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.hailing",
+      "translation": "The other party's ship has been connected.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.hull_repaired",
+      "translation": "Hull repair complete.",
+      "translationStatus": "reviewed once; Atari ST depot service; 2026-10-14"
+    },
+    {
+      "key": "ui.message.in_hand",
+      "translation": "Has it in hand.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.insufficient_cash",
+      "translation": "Insufficient cash.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.insufficient_fuel",
+      "translation": "There is insufficient fuel to complete this prototype navigation.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.insufficient_funds",
+      "translation": "The total bank deposits and cash are insufficient to purchase fuel.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.jettison_empty",
+      "translation": "The cargo hold is empty, there is nothing to throw.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.landed",
+      "translation": "Landing.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.landing",
+      "translation": "The horizon rises.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.laser_fired",
+      "translation": "Laser fired; weapon charge reduced.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.laser_missed",
+      "translation": "Laser missed; weapon charge depleted.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.left_building",
+      "translation": "You walk back to the street.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.left_city",
+      "translation": "You have left the city.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library",
+      "translation": "The character save library has been opened.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library_created",
+      "translation": "The remastered version of the library has been created; the original Library Disk format has not yet been declared compatible.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library_list_rejected",
+      "translation": "The repository list was rejected:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library_missing",
+      "translation": "The remastered repository has not been created yet; please choose to create a repository first.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library_rejected",
+      "translation": "Save library operation rejected:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.library_slot_selected",
+      "translation": "The save library slot has been selected.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.load_failed",
+      "translation": "Loading failed; no available remastered save slot found.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.load_rejected",
+      "translation": "Loading refused:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.load_requested",
+      "translation": "Loading the game from the remastered save slot.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.loaded",
+      "translation": "The game has been loaded from the remastered save slot.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.mission_cargo_missing",
+      "translation": "The colonization mission requires at least one supply and one cryogenic personnel.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.mission_complete",
+      "translation": "The colonization mission cargo has been delivered; this is the ending node of the remake prototype.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.moved",
+      "translation": "You move in the direction of the cursor.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.navigated",
+      "translation": "Navigation completed; candidate target reached.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.navigation",
+      "translation": "The navigation screen has been opened; select the target and confirm.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_colony",
+      "translation": "Please walk to the colony facility first and then deliver the mission goods.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_depot",
+      "translation": "Go to a fuel depot to buy fuel.",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.message.need_exchange",
+      "translation": "Please go to the exchange first and then conduct transactions.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_spaceport",
+      "translation": "Please go to the spaceport first and then buy fuel.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_tube_station",
+      "translation": "There is no tube station on this square.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_uniteller",
+      "translation": "Please walk to Uniteller first before doing banking.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.need_warehouse",
+      "translation": "Please walk to the warehouse first and then load the goods.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.new_game",
+      "translation": "A new game has been created with the character Zed.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.new_game_discards",
+      "translation": "Starting a new game loses the current game unless it is stored in the library. Press again to confirm.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-04"
+    },
+    {
+      "key": "ui.message.no_aux_fuel",
+      "translation": "There is no auxiliary fuel in the cargo hold.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_bank_balance",
+      "translation": "Currently there are no deposits available for withdrawal in local banks.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_cargo",
+      "translation": "No goods available for sale.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_cash",
+      "translation": "I have no cash on me to deposit.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_credit",
+      "translation": "There is not enough cash to place this bet.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_door_here",
+      "translation": "There is no door in this space.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_enemy",
+      "translation": "There are currently no enemy ships to attack.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_fine",
+      "translation": "There are currently no fines pending.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_food",
+      "translation": "No edible food.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_funds",
+      "translation": "There is not enough money to pay this amount.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_lots",
+      "translation": "There are no batches for sale here.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_matching_part",
+      "translation": "There are no parts on the body that can fit into the broken slot.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_ship_to_hail",
+      "translation": "There are no ships nearby to call.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.no_shunt",
+      "translation": "Without a shunt available, there is no way to quickly repair the current system.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.nobody_here",
+      "translation": "There is no one to talk to at this location.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.not_at_booth",
+      "translation": "There is no booth next to it.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.not_at_counter",
+      "translation": "The counter is not nearby.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.not_at_door",
+      "translation": "You have to go to the door to get out.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.not_at_slots",
+      "translation": "The machine is not nearby.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.nothing_to_hold",
+      "translation": "There is nothing to get your hands on.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.old_save_unsupported",
+      "translation": "Old saves are not supported. Start a new game; only new saves can be loaded.",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.message.out_of_fuel",
+      "translation": "The fuel is exhausted and cannot take off.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.part_bought",
+      "translation": "The part has been purchased and put on board.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.part_installed",
+      "translation": "The part has been loaded into that cell, and the column resumes operation.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.part_selected",
+      "translation": "Parts have been selected; the price and quantity delivered are displayed below.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.parts_counter",
+      "translation": "Already at the ship parts counter in the warehouse; you can purchase it after selecting the parts.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.pod_exit",
+      "translation": "You leave the ship in the detached cargo pod.",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.message.pod_full",
+      "translation": "The cargo hold is full.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.presentation_changed",
+      "translation": "Look switched; rules and save state unchanged, and it is remembered for next time.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.quit",
+      "translation": "Prepare to leave the game.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.ready",
+      "translation": "Please select an action.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.refuel_eta",
+      "translation": "Refuel ETA:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.refueled",
+      "translation": "The fuel has been refilled at the spaceport; first debit the local bank, then cash.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.repair_not_needed",
+      "translation": "The current system status is full and does not require repair.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.repaired",
+      "translation": "One diverter has been consumed and the hull is restored by 25 points (remastered prototype value).",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.rested",
+      "translation": "Your rest has ended.",
+      "translationStatus": "reviewed for v1 release; 2026-10-15"
+    },
+    {
+      "key": "ui.message.save_failed",
+      "translation": "Save failed; please check for a writable remastered save slot.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.saved",
+      "translation": "The game has been saved to the remastered save slot.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.score",
+      "translation": "Settlement form.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.shields_off",
+      "translation": "The shield is off.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.shields_off_for_flight",
+      "translation": "Turn off shields and concealment devices before taking off.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.shields_repaired",
+      "translation": "A shunt has been consumed, and the shield level is restored by 25 points (remastered prototype value).",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.shunt_does_not_fit",
+      "translation": "What is broken is the control node, and the splitter cannot be installed.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.sleeping",
+      "translation": "Sleeping. Press to wake.",
+      "translationStatus": "reviewed once; remake sleep controls; 2026-10-04"
+    },
+    {
+      "key": "ui.message.slots_jackpot",
+      "translation": "If the three are the same, the machine will spit out the winnings.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.slots_lost",
+      "translation": "All three are different.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.slots_open",
+      "translation": "The coin slot is lit, and the bet number is determined by this galaxy.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.slots_pair",
+      "translation": "Both are the same, just recycle a little bit.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.sold",
+      "translation": "One item has been sold.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.sound_off",
+      "translation": "Sound effects have been muted.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.sound_on",
+      "translation": "Sound effects are turned on.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.status",
+      "translation": "The character status window has been opened.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.stored",
+      "translation": "The batch of goods has been stored in the warehouse.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.stowed",
+      "translation": "Has been returned to the carrying compartment.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.street_beggar",
+      "translation": "Someone reaches out to ask you for some money on the street corner.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.street_dealer",
+      "translation": "Someone comes up and says he wants to discuss a business deal with you.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.street_mugger",
+      "translation": "Someone stood in the middle of the road and asked for money.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.subc_engines_blown",
+      "translation": "The sublight engine has been damaged and cannot sail.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.supplies_loaded",
+      "translation": "A colony supply has been loaded from the surface warehouse.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.system_repaired",
+      "translation": "A shunt has been consumed, replacing a broken part of the system.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.system_selected",
+      "translation": "The engineering cabin system has been selected; the status column displays the currently selected project.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tactical",
+      "translation": "The tactical screen has been opened.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tactical_empty_pod",
+      "translation": "The pod is empty; nobody robs an empty ship. The scanners are clear.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tactical_moved",
+      "translation": "The tactical position has been moved.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tactical_slewing",
+      "translation": "Mouse turning: The farther the cursor is from the center of the viewport, the faster it turns. Left click to fire, right click or ESC to stop.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.teller_amount",
+      "translation": "Use the keyboard to set the amount, right click or ESC completed.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.teller_nothing",
+      "translation": "The amount is zero and nothing has been moved.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.too_hungry",
+      "translation": "If you are too hungry, please eat first and then rest.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tractor_no_room",
+      "translation": "The cargo hold is full and there is no room for it.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tractor_out_of_range",
+      "translation": "The target is not within the pulling range.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.trade_confirm_sale",
+      "translation": "Confirm the selected lot.",
+      "translationStatus": "remake operation hint; 2026-10-03"
+    },
+    {
+      "key": "ui.message.trade_not_needed",
+      "translation": "This exchange does not accept this lot.",
+      "translationStatus": "remake operation hint; 2026-10-03"
+    },
+    {
+      "key": "ui.message.trade_passed",
+      "translation": "Abandon this shipment.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.trade_purchase_destination",
+      "translation": "Choose storage: 1 Warehouse, 2 Pod.",
+      "translationStatus": "remake wording for source-backed purchase destination semantics; original wording unverified; 2026-10-03"
+    },
+    {
+      "key": "ui.message.trade_quote",
+      "translation": "Exchange quotes: Buy or give up.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.trade_sell_which",
+      "translation": "Which batch do you want to sell?",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.transfer_same_system",
+      "translation": "The selected destination is still in the current galaxy, and no inter-galactic transfer is required.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.transferred",
+      "translation": "The current bank balance of the system has been transferred to the selected system.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_arrived",
+      "translation": "The tram has taken you to another city.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_confirm",
+      "translation": "Press TRANSPORT to take the ride.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_insufficient",
+      "translation": "You cannot pay the fare in cash.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_no_destination",
+      "translation": "No other city on this planet is on the line.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_off_planet",
+      "translation": "Trams only pass through cities on this planet.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.tube_station",
+      "translation": "The tube station sells rides to the planet’s other cities.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.under_way",
+      "translation": "Sailing; the ship is approaching its destination along the polar route.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.uniteller",
+      "translation": "Uniteller is enabled; this handles the current system's local bank.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.unknown_command",
+      "translation": "This command is invalid in the current screen.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.unpaid_debts",
+      "translation": "Takeoff permission denied: You still owe money in this system.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.verb_selected",
+      "translation": "You have chosen what you want to say.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.walk_to_ship",
+      "translation": "Walk to the square the ship is parked on to go back aboard.",
+      "translationStatus": "added 2026-09-03 with re_enter_ship boarding"
+    },
+    {
+      "key": "ui.message.warehouse_empty",
+      "translation": "That cell is empty.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.warehouse_full",
+      "translation": "There are no vacancies in the warehouse.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.warp_engines_blown",
+      "translation": "The warp engine is damaged and cannot jump.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.weapon_empty",
+      "translation": "The weapon is not charged and cannot be fired.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.weapon_recharged",
+      "translation": "Weapon charging enabled.",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.message.weapon_repaired",
+      "translation": "A shunt has been consumed, and the weapon charge is restored by 25 points (remastered prototype value).",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.withdrawn",
+      "translation": "The deposit has been withdrawn from the local bank in the current system.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.message.wrong_destination",
+      "translation": "Currently not in the candidate colony and unable to deliver mission goods.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.minutes",
+      "translation": "min",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.mission_complete",
+      "translation": "Colonial mission completed",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.move",
+      "translation": "Move",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.navigate",
+      "translation": "Navigate",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.navigation",
+      "translation": "Navigation / Pilotage",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.navigation_target",
+      "translation": "Navigation target",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.new_game",
+      "translation": "Start a new game",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.nourishment",
+      "translation": "Satisfaction",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.open_parts",
+      "translation": "Ship Parts Counter",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options",
+      "translation": "Options",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.audio_note",
+      "translation": "Import sound first; see bundled sound instructions",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.options.detect",
+      "translation": "Re-detect disk",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.detect_where",
+      "translation": "Search standard folders for .st",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk",
+      "translation": "Atari ST disk",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_bootstrap_hint",
+      "translation": "↑↓ Select  ENTER Confirm  Original disk required",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.options.disk_bootstrap_note",
+      "translation": "Choose your legally owned SunDog Atari ST .st disk.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-09-01"
+    },
+    {
+      "key": "ui.options.disk_cleared",
+      "translation": "The disk has been put down and replaced with the remastered version of my own art",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_failed",
+      "translation": "This is not SunDog's Atari ST disk",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_loaded",
+      "translation": "The original disk has been read",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_none",
+      "translation": "The disk cannot be found in the usual location; put .st next to the setting directory or executable file, or directly enter the path",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_note",
+      "translation": "If you give your own original disk, the surface, cabin, and item icons will be the original pixels.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.disk_unset",
+      "translation": "Not set (Remake art)",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.hint",
+      "translation": "↑↓ Select　←→ Change　ENTER Apply　F2/ESC Close",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.language",
+      "translation": "Language",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.language_changed",
+      "translation": "Language has been switched immediately",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.look_bootstrap_hint",
+      "translation": "Up/Down to choose, ENTER to confirm",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.look_bootstrap_note",
+      "translation": "F8 changes it any time, or F2 options; the choice is remembered.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.look_bootstrap_title",
+      "translation": "Choose a look",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.options.presentation",
+      "translation": "Look",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.outcome",
+      "translation": "Contract Result",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.outcome.failure",
+      "translation": "Mission failed: the character or SunDog can no longer continue.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.outcome.success",
+      "translation": "Contract completed: colonial supplies and cryogenic personnel delivered.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.outcome_failure_terminal",
+      "translation": "Failed ending: Press S to save the ending, or press Q to exit the game.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.outcome_return",
+      "translation": "Press Return to return to the SunDog, inspect its status, or reload.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.parts_carried",
+      "translation": "Brought",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.parts_counter",
+      "translation": "Ship Parts Counter",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.parts_price",
+      "translation": "Price",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.parts_select",
+      "translation": "Select the previous/next part",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.pilotage",
+      "translation": "Pilotage",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet",
+      "translation": "Planet",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.enliah",
+      "source": "Enliah",
+      "translation": "Enliah",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.ferr",
+      "source": "Ferr",
+      "translation": "Ferr",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.ferrwerk",
+      "source": "Ferrwerk",
+      "translation": "Ferrwerk",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.glory-i",
+      "source": "Glory I",
+      "translation": "Glory I",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.glory-ii",
+      "source": "Glory II",
+      "translation": "Glory II",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.glory-iii",
+      "source": "Glory III",
+      "translation": "Glory III",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.heavy",
+      "source": "Heavy",
+      "translation": "Heavy",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.hell",
+      "source": "Hell",
+      "translation": "Hell",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.hepah",
+      "source": "Hepah",
+      "translation": "Hepah",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.jondd",
+      "source": "Jondd",
+      "translation": "Jondd",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.kala",
+      "source": "Kala",
+      "translation": "Kala",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.krakorum",
+      "source": "Krakorum",
+      "translation": "Krakorum",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.new-shoot",
+      "source": "New Shoot",
+      "translation": "New Shoot",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.shoot",
+      "source": "Shoot",
+      "translation": "Shoot",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.snowball",
+      "source": "Snowball",
+      "translation": "Snowball",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.tcana",
+      "source": "Tcana",
+      "translation": "Tcana",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.vahevela",
+      "source": "Vahevela",
+      "translation": "Vahevela",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.planet.w-orrad",
+      "source": "W'orrad",
+      "translation": "W'orrad",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.play_sundog",
+      "translation": "Start playing SunDog",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.pod_driver",
+      "translation": "Cargo Driving Station",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.pod_exit",
+      "translation": "E Exit in cargo pod",
+      "translationStatus": "AI language pack; 2026-10-02; fuel integration UI"
+    },
+    {
+      "key": "ui.pod_locker",
+      "translation": "Cargo Tanks",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.position",
+      "translation": "Coordinates",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.apple2",
+      "translation": "Apple II original",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.apple2.note",
+      "translation": "Apple II colours and tiles in the remake's windowed layout",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.atari_st",
+      "translation": "Atari ST original",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.atari_st.note",
+      "translation": "The original's full-screen layout, painted from your disk",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.atari_st_hd",
+      "translation": "Atari ST HD",
+      "translationStatus": "user-authorised Atari ST HD identity"
+    },
+    {
+      "key": "ui.presentation.remake_modern",
+      "translation": "Remake Modern",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.presentation.remake_modern.note",
+      "translation": "The remake's own high-resolution tiles and layout",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.quit",
+      "translation": "Leave Game",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.recharge",
+      "translation": "Weapon Recharge",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.refuel",
+      "translation": "Buy Fuel",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.repair",
+      "translation": "Repair Hull",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.repair_hull",
+      "translation": "Repair Hull",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.repair_shields",
+      "translation": "Repair Shields",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.repair_system",
+      "translation": "Repair Selected Systems",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.repair_weapon",
+      "translation": "Repair Weapon",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.rest",
+      "translation": "Rest",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.route_cost",
+      "translation": "Route",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.route_jump",
+      "translation": "Jump",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.route_jump_unit",
+      "translation": "Light Years",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.save_game",
+      "translation": "Save Game",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.banville_cargo",
+      "translation": "Banville Cargo",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.bonus_note",
+      "translation": "The original version printed this line, but did not include it in the total score.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.no_death_bonus",
+      "translation": "No death reward",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.restart_penalty",
+      "translation": "Restart penalty",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.time_penalty",
+      "translation": "Time penalty",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.title",
+      "translation": "Settlement",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.score.total",
+      "translation": "Total score",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.select_game",
+      "translation": "Character Library",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.sell",
+      "translation": "Sell goods",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shield_level",
+      "translation": "Shield level",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shields",
+      "translation": "Shield",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shields_off",
+      "translation": "Turn off shield",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.ship_locker",
+      "translation": "Locker on board",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.ship_stores",
+      "translation": "Shipboard supplies",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shipboard",
+      "translation": "Move within ship",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shipboard_hint",
+      "translation": "Click on the cabin in the window on the right.",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.shunts",
+      "translation": "Shunt",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.sleep_forced",
+      "translation": "Forced sleep",
+      "translationStatus": "reviewed once; remake sleep controls; 2026-10-04"
+    },
+    {
+      "key": "ui.slots.bet",
+      "translation": "Bet",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.artifact",
+      "translation": "Relic",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.cell",
+      "translation": "Battery",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.circuit",
+      "translation": "Circuit",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.crystal",
+      "translation": "Spar",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.grain",
+      "translation": "Grain",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.medicine",
+      "translation": "Pharma",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.ore",
+      "translation": "Ore",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.face.sundog",
+      "translation": "Sun Dog",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.payout",
+      "translation": "Bonus",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.spin",
+      "translation": "Spin",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.slots.title",
+      "translation": "Slot Machine",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.store_game",
+      "translation": "Save game to save library",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.stores_keys",
+      "translation": "Arrows: select  Enter: move",
+      "translationStatus": "2026-10-04 Stores controls; remake-owned"
+    },
+    {
+      "key": "ui.stores_short_keys",
+      "translation": "← → Enter H E",
+      "translationStatus": "2026-10-04 Stores controls; remake-owned"
+    },
+    {
+      "key": "ui.subc_engine",
+      "translation": "Sublight Engine",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.supplies",
+      "translation": "Colonial Supplies",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system",
+      "translation": "System",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.system.enlie",
+      "source": "Enlie",
+      "translation": "Enlie",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.ferr",
+      "source": "Ferr",
+      "translation": "Ferr",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.glory",
+      "source": "Glory",
+      "translation": "Glory",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.hepa",
+      "source": "Hepa",
+      "translation": "Hepa",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.jadul",
+      "source": "Jadul",
+      "translation": "Jadul",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.jondd",
+      "source": "Jondd",
+      "translation": "Jondd",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.kalmandaa",
+      "source": "KalManDaa",
+      "translation": "KalManDaa",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.lafser",
+      "source": "Lafser",
+      "translation": "Lafser",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.new-shoot",
+      "source": "New Shoot",
+      "translation": "New Shoot",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.shoot",
+      "source": "Shoot",
+      "translation": "Shoot",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.sosai",
+      "source": "Sosai",
+      "translation": "Sosai",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system.woremed",
+      "source": "Woremed",
+      "translation": "Woremed",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_force_shields",
+      "translation": "Force Shield",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_pilotage",
+      "translation": "Pilotage",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_previous_next",
+      "translation": "Select Previous/Next System",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_rows",
+      "translation": "Each Column",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_ship_guns",
+      "translation": "Ship Weapons",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_subc_engine",
+      "translation": "Sublight Engine",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_tactical_display",
+      "translation": "Tactical Display",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_unknown",
+      "translation": "Unknown System",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.system_warp_drive",
+      "translation": "Jump Drive",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tactical",
+      "translation": "Tactical Display",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tactical.damage",
+      "translation": "Damage:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tactical_move",
+      "translation": "Tactical Movement",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.talk",
+      "translation": "Talk to people",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_city_previous_next",
+      "translation": "Switch City",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_planet_next",
+      "translation": "Next Planet",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_planet_previous",
+      "translation": "Previous Planet",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_planet_previous_next",
+      "translation": "Switch Planet",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.target_system_next",
+      "translation": "Next star system",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.target_system_previous",
+      "translation": "Previous star system",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.target_system_previous_next",
+      "translation": "Switch star system",
+      "translationStatus": "導航畫面校對：星系術語與快捷提示，2026-09-08"
+    },
+    {
+      "key": "ui.teller.all",
+      "translation": "All",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.amount",
+      "translation": "Amount:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.available",
+      "translation": "Available:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.clear",
+      "translation": "Clear",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.commit_hint",
+      "translation": "ESC: commit  C: clear",
+      "translationStatus": "reviewed once; UI correction; 2026-09-07"
+    },
+    {
+      "key": "ui.teller.deposit",
+      "translation": "Deposit cash",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.header",
+      "translation": "UNITELLER &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.in_bank",
+      "translation": "Bank deposit:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.on_hand",
+      "translation": "Cash on hand:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.others",
+      "translation": "Other",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.pay_fine",
+      "translation": "Pay Penalty",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.title",
+      "translation": "%s Bank",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.transfer",
+      "translation": "Transfer",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.transfer_to",
+      "translation": "Transfer to %s",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.teller.withdraw",
+      "translation": "Withdraw Cash",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.theme",
+      "translation": "Art Theme",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.theme.apple2",
+      "translation": "Apple II",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.theme.atari_st",
+      "translation": "Atari ST",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.theme_cycle",
+      "translation": "Switch Interface Color",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tileset.apple2",
+      "translation": "Apple II",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tileset.atari_st",
+      "translation": "Atari ST",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tileset.remake_modern",
+      "translation": "Remake Modern",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tileset_cycle",
+      "translation": "Switch Tile Set",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.time",
+      "translation": "Time",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.title",
+      "translation": "SunDog",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.accept",
+      "translation": "Accept",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.asking",
+      "translation": "Ask price:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.aux_tank",
+      "translation": "Auxiliary Fuel Tank",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.buy",
+      "translation": "Buy",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.contents",
+      "translation": "Content:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.deliver",
+      "translation": "Deliver",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.demand",
+      "translation": "Demand:",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.exchange",
+      "translation": "Exchange",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.exit",
+      "translation": "Exit",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.fetch",
+      "translation": "Retrieve",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.fetch_which",
+      "translation": "Which batch to take?",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.lots_now_selling",
+      "translation": "Currently sold batches:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.nothing",
+      "translation": "Empty",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.offer",
+      "translation": "Offer:",
+      "translationStatus": "remake operation hint; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.pass",
+      "translation": "Abandon",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.pod",
+      "translation": "Pod",
+      "translationStatus": "source-backed Warehouse/Pod sale picker; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.pod_contents",
+      "translation": "Cargo Hold Contents:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.price_on_goods",
+      "translation": "Quotation of goods",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.quality",
+      "translation": "Grade:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.salvage",
+      "translation": "Salvage",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.sell",
+      "translation": "Sell",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.sell_from",
+      "translation": "Sell from where?",
+      "translationStatus": "source-backed Warehouse/Pod sale picker; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.store",
+      "translation": "Deposit",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.store_to",
+      "translation": "Store to where?",
+      "translationStatus": "remake wording for source-backed purchase destination semantics; original wording unverified; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.store_which",
+      "translation": "?",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.title",
+      "translation": "%s Exchange",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.to_be_delivered",
+      "translation": "TO BE DELIVERED",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.warehouse",
+      "translation": "Warehouse",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.warehouse_title",
+      "translation": "Which batch is stored in the warehouse",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade.withdraw",
+      "translation": "Withdraw",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.withhold",
+      "translation": "Withhold",
+      "translationStatus": "source-backed confirmation labels; 2026-10-03"
+    },
+    {
+      "key": "ui.trade.your_limit",
+      "translation": "Your upper limit:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.trade_exchange",
+      "translation": "Exchange",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.transfer",
+      "translation": "Transfer to selected system",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.city",
+      "translation": "City:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.cost",
+      "translation": "Cost:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.credits",
+      "translation": " Cr",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.destination",
+      "translation": "Destination",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.insufficient",
+      "translation": "Insufficient funds",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.planet",
+      "translation": "Planet:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.select_1",
+      "translation": "Select",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.select_2",
+      "translation": "destination city",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.system",
+      "translation": "System:",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.title",
+      "translation": "Tube Station",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube.transport",
+      "translation": "TRANSPORT",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.tube_short",
+      "translation": "Pilot Tram",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.uniteller",
+      "translation": "Uniteller Bank",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.unload_aux_fuel",
+      "translation": "O: Drop Auxiliary Fuel",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.unload_cargo",
+      "translation": "Unload Cargo",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.verb_previous_next",
+      "translation": "Switch What to Say",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.vigor",
+      "translation": "Vitality",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.wake",
+      "translation": "Wake",
+      "translationStatus": "reviewed once; remake sleep controls; 2026-10-04"
+    },
+    {
+      "key": "ui.warp_drive",
+      "translation": "Warp Drive",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.weapon_charge",
+      "translation": "Weapon Charge",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "ui.withdraw",
+      "translation": "Withdraw All Deposits",
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    }
+  ]
+}

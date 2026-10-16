@@ -1,0 +1,2155 @@
+{
+  "schema": 1,
+  "tool": "tools/atari_st_world_data.py",
+  "inputs": {
+    "archive": {
+      "name": "Sundog-Frozen-Legacy_Atari-ST_EN.zip",
+      "sha256": "d555864c5d6e358f18e3cb18bc753e3b0f8aa9a255d7f64bb7e92bbe62dde716"
+    },
+    "nestedArchive": "Sundog - Frozen Legacy v3.0 (1985)(FTL)[a2].zip",
+    "disk": {
+      "name": "Sundog - Frozen Legacy v3.0 (1985)(FTL)[a2].st",
+      "size": 368640,
+      "sha256": "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6"
+    },
+    "variant": "[a2]"
+  },
+  "region": {
+    "rawStart": "0x05800",
+    "rawEnd": "0x05e00",
+    "blocks": 3,
+    "blockSize": 512,
+    "sha256": "2a9b1f7e5c624c33e713ea816f54d280b75cba45bd5f7ff5cbd528d305c7ed8e",
+    "usedBytes": 1248,
+    "trailerBytes": 288,
+    "trailerIsZero": true,
+    "locationSource": "laanwj/sundog doc/disklayout.md (secondary oracle, commit e56d8e2532134f0741a7f82b80f9357776779f27)",
+    "locationEvidence": "proven（次級文件所載）",
+    "recordBoundaryEvidence": "proven"
+  },
+  "tables": {
+    "systems": {
+      "rawOffset": "0x05800",
+      "recordSize": 20,
+      "recordCount": 12,
+      "nameFieldSize": 10,
+      "records": [
+        {
+          "index": 0,
+          "rawOffset": "0x05800",
+          "name": "Jondd",
+          "tailHex": "000600000000c69500e8",
+          "recordSha256": "623f724b32753de9550fe7adeedf0262f3b8344619990aec86892a804363574c",
+          "coordinateWord": "0xc695",
+          "economyWord": "0x00e8",
+          "priceLevel": 8,
+          "priceLevelNote": "第 9 個 word 的第 0 個 4-bit 欄位是該星系的物價等級：XDOINTER:0x02 set_up_price 以 `30 × 物價等級 / 城市係數` 當價格倍率，所以值越大東西越貴。見 docs/atari-st/ship-rules.md。",
+          "coordinates": [
+            5,
+            9,
+            6
+          ],
+          "coordinatesNote": "磁碟上的座標是出廠值。開新遊戲時 XSTARTUP:init_systems 讓三個 nibble 各自漂移 ±1 並夾在 x 1–12、y 1–9、z 0–10，間距檢查不過就重擲，所以一局下來可以差好幾格；第 10 個星系寫死成 (6, 5, 6)，第 3 個（Enlie）的 Z 固定寫成 12–15。要拿座標對畫面，得讀執行時的記錄（MAINLIB G11f），不能用出廠值。",
+          "bankBalanceNote": "第 6、7 個 word（tail bytes 2–5）12 筆全為零，因為它是執行時狀態而非磁碟資料：那是玩家在該星系的銀行存款，以 1000 為底存成兩個 word。銀行櫃台的轉帳寫它，行星內起飛前讀它，為負就擋下並印「Lift clearance denied due to unpaid debts」。",
+          "streetDealRating": 14,
+          "streetDealRatingNote": "第 9 個 word 的第 1 個 4-bit 欄位（八個欄位裡的 nibble 5）。已解出的唯一消費端是 XMOVEONG:0x36 confirm 對街頭遭遇型別 22 的抑制門檻——`random() mod 20 < 它` 就取消，所以值越大，街上主動來談生意的人越少。XDOINTER:0x24 initialize 也讀它，那一側做什麼還沒解出。見 docs/atari-st/ground-rules.md。",
+          "encounterRating": 12,
+          "encounterRatingNote": "第 4 個 4-bit 欄位不參與 dist 的計算，它是該星系的遭遇設定：SHIPLIB:0x1f update_movement 以「值 <= random() mod 18 就不生成敵艦」判定，所以值越大越安全；生成時的敵艦類別是 1 - (值 - 1) / 4。見 docs/atari-st/ship-rules.md。"
+        },
+        {
+          "index": 1,
+          "rawOffset": "0x05814",
+          "name": "Ferr",
+          "tailHex": "000f00000000874900d9",
+          "recordSha256": "a90bbd6e7623325d89fd12ae1a55c533821fffe490e8f9bc37efb1dabb2398d9",
+          "coordinateWord": "0x8749",
+          "economyWord": "0x00d9",
+          "priceLevel": 9,
+          "priceLevelNote": "第 9 個 word 的第 0 個 4-bit 欄位是該星系的物價等級：XDOINTER:0x02 set_up_price 以 `30 × 物價等級 / 城市係數` 當價格倍率，所以值越大東西越貴。見 docs/atari-st/ship-rules.md。",
+          "coordinates": [
+            9,
+            4,
+            7
+          ],
+          "coordinatesNote": "磁碟上的座標是出廠值。開新遊戲時 XSTARTUP:init_systems 讓三個 nibble 各自漂移 ±1 並夾在 x 1–12、y 1–9、z 0–10，間距檢查不過就重擲，所以一局下來可以差好幾格；第 10 個星系寫死成 (6, 5, 6)，第 3 個（Enlie）的 Z 固定寫成 12–15。要拿座標對畫面，得讀執行時的記錄（MAINLIB G11f），不能用出廠值。",
+          "bankBalanceNote": "第 6、7 個 word（tail bytes 2–5）12 筆全為零，因為它是執行時狀態而非磁碟資料：那是玩家在該星系的銀行存款，以 1000 為底存成兩個 word。銀行櫃台的轉帳寫它，行星內起飛前讀它，為負就擋下並印「Lift clearance denied due to unpaid debts」。",
+          "streetDealRating": 13,
+          "streetDealRatingNote": "第 9 個 word 的第 1 個 4-bit 欄位（八個欄位裡的 nibble 5）。已解出的唯一消費端是 XMOVEONG:0x36 confirm 對街頭遭遇型別 22 的抑制門檻——`random() mod 20 < 它` 就取消，所以值越大，街上主動來談生意的人越少。XDOINTER:0x24 initialize 也讀它，那一側做什麼還沒解出。見 docs/atari-st/ground-rules.md。",
+          "encounterRating": 8,
+          "encounterRatingNote": "第 4 個 4-bit 欄位不參與 dist 的計算，它是該星系的遭遇設定：SHIPLIB:0x1f update_movement 以「值 <= random() mod 18 就不生成敵艦」判定，所以值越大越安全；生成時的敵艦類別是 1 - (值 - 1) / 4。見 docs/atari-st/ship-rules.md。"
+        },
+        {
+          "index": 2,
+          "rawOffset": "0x05828",
+          "name": "Enlie",
+          "tailHex": "001900000000122a0074",
+          "recordSha256": "7ead8e4be7b2390dcc63766669441380ca27792755fdf8b18c72e1e51b0d4639",
+          "coordinateWord": "0x122a",
+          "economyWord": "0x0074",
+          "priceLevel": 4,
+          "priceLevelNote": "第 9 個 word 的第 0 個 4-bit 欄位是該星系的物價等級：XDOINTER:0x02 set_up_price 以 `30 × 物價等級 / 城市係數` 當價格倍率，所以值越大東西越貴。見 docs/atari-st/ship-rules.md。",
+          "coordinates": [
+            10,
+            2,
+            2
+          ],
+          "coordinatesNote": "磁碟上的座標是出廠值。開新遊戲時 XSTARTUP:init_systems 讓三個 nibble 各自漂移 ±1 並夾在 x 1–12、y 1–9、z 0–10，間距檢查不過就重擲，所以一局下來可以差好幾格；第 10 個星系寫死成 (6, 5, 6)，第 3 個（Enlie）的 Z 固定寫成 12–15。要拿座標對畫面，得讀執行時的記錄（MAINLIB G11f），不能用出廠值。",
+          "bankBalanceNote": "第 6、7 個 word（tail bytes 2–5）12 筆全為零，因為它是執行時狀態而非磁碟資料：那是玩家在該星系的銀行存款，以 1000 為底存成兩個 word。銀行櫃台的轉帳寫它，行星內起飛前讀它，為負就擋下並印「Lift clearance denied due to unpaid debts」。",
+          "streetDealRating": 7,
+          "streetDealRatingNote": "第 9 個 word 的第 1 個 4-bit 欄位（八個欄位裡的 nibble 5）。已解出的唯一消費端是 XMOVEONG:0x36 confirm 對街頭遭遇型別 22 的抑制門檻——`random() mod 20 < 它` 就取消，所以值越大，街上主動來談生意的人越少。XDOINTER:0x24 initialize 也讀它，那一側做什麼還沒解出。見 docs/atari-st/ground-rules.md。",
+          "encounterRating": 1,
+          "encounterRatingNote": "第 4 個 4-bit 欄位不參與 dist 的計算，它是該星系的遭遇設定：SHIPLIB:0x1f update_movement 以「值 <= random() mod 18 就不生成敵艦」判定，所以值越大越安全；生成時的敵艦類別是 1 - (值 - 1) / 4。見 docs/atari-st/ship-rules.md。"
+        },
+        {
+          "index": 3,
+          "rawOffset": "0x0583c",
+          "name": "Hepa",
+          "tailHex": "001d00000000911c00b8",
+          "recordSha256": "5f7f83393650c201608a4196524a48a3e56ee1e2c7e7c81230b8b5bed8a51525",
+          "coordinateWord": "0x911c",
+          "economyWord": "0x00b8",
+          "priceLevel": 8,
+          "priceLevelNote": "第 9 個 word 的第 0 個 4-bit 欄位是該星系的物價等級：XDOINTER:0x02 set_up_price 以 `30 × 物價等級 / 城市係數` 當價格倍率，所以值越大東西越貴。見 docs/atari-st/ship-rules.md。",
+          "coordinates": [
+            12,
+            1,
+            1
+          ],
+          "coordinatesNote": "磁碟上的座標是出廠值。開新遊戲時 XSTARTUP:init_systems 讓三個 nibble 各自漂移 ±1 並夾在 x 1–12、y 1–9、z 0–10，間距檢查不過就重擲，所以一局下來可以差好幾格；第 10 個星系寫死成 (6, 5, 6)，第 3 個（Enlie）的 Z 固定寫成 12–15。要拿座標對畫面，得讀執行時的記錄（MAINLIB G11f），不能用出廠值。",
+          "bankBalanceNote": "第 6、7 個 word（tail bytes 2–5）12 筆全為零，因為它是執行時狀態而非磁碟資料：那是玩家在該星系的銀行存款，以 1000 為底存成兩個 word。銀行櫃台的轉帳寫它，行星內起飛前讀它，為負就擋下並印「Lift clearance denied due to unpaid debts」。",
+          "streetDealRating": 11,
+          "streetDealRatingNote": "第 9 個 word 的第 1 個 4-bit 欄位（八個欄位裡的 nibble 5）。已解出的唯一消費端是 XMOVEONG:0x36 confirm 對街頭遭遇型別 22 的抑制門檻——`random() mod 20 < 它` 就取消，所以值越大，街上主動來談生意的人越少。XDOINTER:0x24 initialize 也讀它，那一側做什麼還沒解出。見 docs/atari-st/ground-rules.md。",
+          "encounterRating": 9,
+          "encounterRatingNote": "第 4 個 4-bit 欄位不參與 dist 的計算，它是該星系的遭遇設定：SHIPLIB:0x1f update_movement 以「值 <= random() mod 18 就不生成敵艦」判定，所以值越大越安全；生成時的敵艦類別是 1 - (值 - 1) / 4。見 docs/atari-st/ship-rules.md。"
+        },
+        {
+          "index": 4,
+          "rawOffset": "0x05850",
+          "name": "Shoot",
+          "tailHex": "002100000000a5730077",
+          "recordSha256": "b0e89f0baa5b00e49786aa2c45f50e58c19e06a365b6f2fbeb9b3a2c689088d5",
+          "coordinateWord": "0xa573",
+          "economyWord": "0x0077",
+          "priceLevel": 7,
+          "priceLevelNote": "第 9 個 word 的第 0 個 4-bit 欄位是該星系的物價等級：XDOINTER:0x02 set_up_price 以 `30 × 物價等級 / 城市係數` 當價格倍率，所以值越大東西越貴。見 docs/atari-st/ship-rules.md。",
+          "coordinates": [
+            3,
+            7,
+            5
+          ],
+          "coordinatesNote": "磁碟上的座標是出廠值。開新遊戲時 XSTARTUP:init_systems 讓三個 nibble 各自漂移 ±1 並夾在 x 1–12、y 1–9、z 0–10，間距檢查不過就重擲，所以一局下來可以差好幾格；第 10 個星系寫死成 (6, 5, 6)，第 3 個（Enlie）的 Z 固定寫成 12–15。要拿座標對畫面，得讀執行時的記錄（MAINLIB G11f），不能用出廠值。",
+          "bankBalanceNote": "第 6、7 個 word（tail bytes 2–5）12 筆全為零，因為它是執行時狀態而非磁碟資料：那是玩家在該星系的銀行存款，以 1000 為底存成兩個 word。銀行櫃台的轉帳寫它，行星內起飛前讀它，為負就擋下並印「Lift clearance denied due to unpaid debts」。",
+          "streetDealRating": 7,
+          "streetDealRatingNote": "第 9 個 word 的第 1 個 4-bit 欄位（八個欄位裡的 nibble 5）。已解出的唯一消費端是 XMOVEONG:0x36 confirm 對街頭遭遇型別 22 的抑制門檻——`random() mod 20 < 它` 就取消，所以值越大，街上主動來談生意的人越少。XDOINTER:0x24 initialize 也讀它，那一側做什麼還沒解出。見 docs/atari-st/ground-rules.md。",
+          "encounterRating": 10,
+          "encounterRatingNote": "第 4 個 4-bit 欄位不參與 dist 的計算，它是該星系的遭遇設定：SHIPLIB:0x1f update_movement 以「值 <= random() mod 18 就不生成敵艦」判定，所以值越大越安全；生成時的敵艦類別是 1 - (值 - 1) / 4。見 docs/atari-st/ship-rules.md。"
+        },
+        {
+          "index": 5,
+          "rawOffset": "0x05864",
+          "name": "KalManDaa",
+          "tailHex": "002500000000e01300a8",
+          "recordSha256": "47014b6200efef9dccdcb66c2592e4a1ca7e3e6e6ea450b23fd957259856da9d",
+          "coordinateWord": "0xe013",
+          "economyWord": "0x00a8",
+          "priceLevel": 8,
+          "priceLevelNote": "第 9 個 word 的第 0 個 4-bit 欄位是該星系的物價等級：XDOINTER:0x02 set_up_price 以 `30 × 物價等級 / 城市係數` 當價格倍率，所以值越大東西越貴。見 docs/atari-st/ship-rules.md。",
+          "coordinates": [
+            3,
+            1,
+            0
+          ],
+          "coordinatesNote": "磁碟上的座標是出廠值。開新遊戲時 XSTARTUP:init_systems 讓三個 nibble 各自漂移 ±1 並夾在 x 1–12、y 1–9、z 0–10，間距檢查不過就重擲，所以一局下來可以差好幾格；第 10 個星系寫死成 (6, 5, 6)，第 3 個（Enlie）的 Z 固定寫成 12–15。要拿座標對畫面，得讀執行時的記錄（MAINLIB G11f），不能用出廠值。",
+          "bankBalanceNote": "第 6、7 個 word（tail bytes 2–5）12 筆全為零，因為它是執行時狀態而非磁碟資料：那是玩家在該星系的銀行存款，以 1000 為底存成兩個 word。銀行櫃台的轉帳寫它，行星內起飛前讀它，為負就擋下並印「Lift clearance denied due to unpaid debts」。",
+          "streetDealRating": 10,
+          "streetDealRatingNote": "第 9 個 word 的第 1 個 4-bit 欄位（八個欄位裡的 nibble 5）。已解出的唯一消費端是 XMOVEONG:0x36 confirm 對街頭遭遇型別 22 的抑制門檻——`random() mod 20 < 它` 就取消，所以值越大，街上主動來談生意的人越少。XDOINTER:0x24 initialize 也讀它，那一側做什麼還沒解出。見 docs/atari-st/ground-rules.md。",
+          "encounterRating": 14,
+          "encounterRatingNote": "第 4 個 4-bit 欄位不參與 dist 的計算，它是該星系的遭遇設定：SHIPLIB:0x1f update_movement 以「值 <= random() mod 18 就不生成敵艦」判定，所以值越大越安全；生成時的敵艦類別是 1 - (值 - 1) / 4。見 docs/atari-st/ship-rules.md。"
+        },
+        {
+          "index": 6,
+          "rawOffset": "0x05878",
+          "name": "Glory",
+          "tailHex": "002b00000000f181008d",
+          "recordSha256": "00b3592c942ba1d55258d6e6017184afddbe1c22c3371b4049136c0b7077c376",
+          "coordinateWord": "0xf181",
+          "economyWord": "0x008d",
+          "priceLevel": 13,
+          "priceLevelNote": "第 9 個 word 的第 0 個 4-bit 欄位是該星系的物價等級：XDOINTER:0x02 set_up_price 以 `30 × 物價等級 / 城市係數` 當價格倍率，所以值越大東西越貴。見 docs/atari-st/ship-rules.md。",
+          "coordinates": [
+            1,
+            8,
+            1
+          ],
+          "coordinatesNote": "磁碟上的座標是出廠值。開新遊戲時 XSTARTUP:init_systems 讓三個 nibble 各自漂移 ±1 並夾在 x 1–12、y 1–9、z 0–10，間距檢查不過就重擲，所以一局下來可以差好幾格；第 10 個星系寫死成 (6, 5, 6)，第 3 個（Enlie）的 Z 固定寫成 12–15。要拿座標對畫面，得讀執行時的記錄（MAINLIB G11f），不能用出廠值。",
+          "bankBalanceNote": "第 6、7 個 word（tail bytes 2–5）12 筆全為零，因為它是執行時狀態而非磁碟資料：那是玩家在該星系的銀行存款，以 1000 為底存成兩個 word。銀行櫃台的轉帳寫它，行星內起飛前讀它，為負就擋下並印「Lift clearance denied due to unpaid debts」。",
+          "streetDealRating": 8,
+          "streetDealRatingNote": "第 9 個 word 的第 1 個 4-bit 欄位（八個欄位裡的 nibble 5）。已解出的唯一消費端是 XMOVEONG:0x36 confirm 對街頭遭遇型別 22 的抑制門檻——`random() mod 20 < 它` 就取消，所以值越大，街上主動來談生意的人越少。XDOINTER:0x24 initialize 也讀它，那一側做什麼還沒解出。見 docs/atari-st/ground-rules.md。",
+          "encounterRating": 15,
+          "encounterRatingNote": "第 4 個 4-bit 欄位不參與 dist 的計算，它是該星系的遭遇設定：SHIPLIB:0x1f update_movement 以「值 <= random() mod 18 就不生成敵艦」判定，所以值越大越安全；生成時的敵艦類別是 1 - (值 - 1) / 4。見 docs/atari-st/ship-rules.md。"
+        },
+        {
+          "index": 7,
+          "rawOffset": "0x0588c",
+          "name": "Sosai",
+          "tailHex": "003500000000671500fc",
+          "recordSha256": "dc2e6237c936e33b8390d6eb3268fd2a7f5109c255503233c19e589942a06017",
+          "coordinateWord": "0x6715",
+          "economyWord": "0x00fc",
+          "priceLevel": 12,
+          "priceLevelNote": "第 9 個 word 的第 0 個 4-bit 欄位是該星系的物價等級：XDOINTER:0x02 set_up_price 以 `30 × 物價等級 / 城市係數` 當價格倍率，所以值越大東西越貴。見 docs/atari-st/ship-rules.md。",
+          "coordinates": [
+            5,
+            1,
+            7
+          ],
+          "coordinatesNote": "磁碟上的座標是出廠值。開新遊戲時 XSTARTUP:init_systems 讓三個 nibble 各自漂移 ±1 並夾在 x 1–12、y 1–9、z 0–10，間距檢查不過就重擲，所以一局下來可以差好幾格；第 10 個星系寫死成 (6, 5, 6)，第 3 個（Enlie）的 Z 固定寫成 12–15。要拿座標對畫面，得讀執行時的記錄（MAINLIB G11f），不能用出廠值。",
+          "bankBalanceNote": "第 6、7 個 word（tail bytes 2–5）12 筆全為零，因為它是執行時狀態而非磁碟資料：那是玩家在該星系的銀行存款，以 1000 為底存成兩個 word。銀行櫃台的轉帳寫它，行星內起飛前讀它，為負就擋下並印「Lift clearance denied due to unpaid debts」。",
+          "streetDealRating": 15,
+          "streetDealRatingNote": "第 9 個 word 的第 1 個 4-bit 欄位（八個欄位裡的 nibble 5）。已解出的唯一消費端是 XMOVEONG:0x36 confirm 對街頭遭遇型別 22 的抑制門檻——`random() mod 20 < 它` 就取消，所以值越大，街上主動來談生意的人越少。XDOINTER:0x24 initialize 也讀它，那一側做什麼還沒解出。見 docs/atari-st/ground-rules.md。",
+          "encounterRating": 6,
+          "encounterRatingNote": "第 4 個 4-bit 欄位不參與 dist 的計算，它是該星系的遭遇設定：SHIPLIB:0x1f update_movement 以「值 <= random() mod 18 就不生成敵艦」判定，所以值越大越安全；生成時的敵艦類別是 1 - (值 - 1) / 4。見 docs/atari-st/ship-rules.md。"
+        },
+        {
+          "index": 8,
+          "rawOffset": "0x058a0",
+          "name": "Lafser",
+          "tailHex": "00390000000048870096",
+          "recordSha256": "6a38eb2ea6a09a0bea6894114d37315a9a53479976c954b45fbd4ad05380b8a5",
+          "coordinateWord": "0x4887",
+          "economyWord": "0x0096",
+          "priceLevel": 6,
+          "priceLevelNote": "第 9 個 word 的第 0 個 4-bit 欄位是該星系的物價等級：XDOINTER:0x02 set_up_price 以 `30 × 物價等級 / 城市係數` 當價格倍率，所以值越大東西越貴。見 docs/atari-st/ship-rules.md。",
+          "coordinates": [
+            7,
+            8,
+            8
+          ],
+          "coordinatesNote": "磁碟上的座標是出廠值。開新遊戲時 XSTARTUP:init_systems 讓三個 nibble 各自漂移 ±1 並夾在 x 1–12、y 1–9、z 0–10，間距檢查不過就重擲，所以一局下來可以差好幾格；第 10 個星系寫死成 (6, 5, 6)，第 3 個（Enlie）的 Z 固定寫成 12–15。要拿座標對畫面，得讀執行時的記錄（MAINLIB G11f），不能用出廠值。",
+          "bankBalanceNote": "第 6、7 個 word（tail bytes 2–5）12 筆全為零，因為它是執行時狀態而非磁碟資料：那是玩家在該星系的銀行存款，以 1000 為底存成兩個 word。銀行櫃台的轉帳寫它，行星內起飛前讀它，為負就擋下並印「Lift clearance denied due to unpaid debts」。",
+          "streetDealRating": 9,
+          "streetDealRatingNote": "第 9 個 word 的第 1 個 4-bit 欄位（八個欄位裡的 nibble 5）。已解出的唯一消費端是 XMOVEONG:0x36 confirm 對街頭遭遇型別 22 的抑制門檻——`random() mod 20 < 它` 就取消，所以值越大，街上主動來談生意的人越少。XDOINTER:0x24 initialize 也讀它，那一側做什麼還沒解出。見 docs/atari-st/ground-rules.md。",
+          "encounterRating": 4,
+          "encounterRatingNote": "第 4 個 4-bit 欄位不參與 dist 的計算，它是該星系的遭遇設定：SHIPLIB:0x1f update_movement 以「值 <= random() mod 18 就不生成敵艦」判定，所以值越大越安全；生成時的敵艦類別是 1 - (值 - 1) / 4。見 docs/atari-st/ship-rules.md。"
+        },
+        {
+          "index": 9,
+          "rawOffset": "0x058b4",
+          "name": "Woremed",
+          "tailHex": "003d0000000016560068",
+          "recordSha256": "fc1636e9cac4aed4859a345f4b3359203f51effdd52a594c0199df72f9f94e9f",
+          "coordinateWord": "0x1656",
+          "economyWord": "0x0068",
+          "priceLevel": 8,
+          "priceLevelNote": "第 9 個 word 的第 0 個 4-bit 欄位是該星系的物價等級：XDOINTER:0x02 set_up_price 以 `30 × 物價等級 / 城市係數` 當價格倍率，所以值越大東西越貴。見 docs/atari-st/ship-rules.md。",
+          "coordinates": [
+            6,
+            5,
+            6
+          ],
+          "coordinatesNote": "磁碟上的座標是出廠值。開新遊戲時 XSTARTUP:init_systems 讓三個 nibble 各自漂移 ±1 並夾在 x 1–12、y 1–9、z 0–10，間距檢查不過就重擲，所以一局下來可以差好幾格；第 10 個星系寫死成 (6, 5, 6)，第 3 個（Enlie）的 Z 固定寫成 12–15。要拿座標對畫面，得讀執行時的記錄（MAINLIB G11f），不能用出廠值。",
+          "bankBalanceNote": "第 6、7 個 word（tail bytes 2–5）12 筆全為零，因為它是執行時狀態而非磁碟資料：那是玩家在該星系的銀行存款，以 1000 為底存成兩個 word。銀行櫃台的轉帳寫它，行星內起飛前讀它，為負就擋下並印「Lift clearance denied due to unpaid debts」。",
+          "streetDealRating": 6,
+          "streetDealRatingNote": "第 9 個 word 的第 1 個 4-bit 欄位（八個欄位裡的 nibble 5）。已解出的唯一消費端是 XMOVEONG:0x36 confirm 對街頭遭遇型別 22 的抑制門檻——`random() mod 20 < 它` 就取消，所以值越大，街上主動來談生意的人越少。XDOINTER:0x24 initialize 也讀它，那一側做什麼還沒解出。見 docs/atari-st/ground-rules.md。",
+          "encounterRating": 1,
+          "encounterRatingNote": "第 4 個 4-bit 欄位不參與 dist 的計算，它是該星系的遭遇設定：SHIPLIB:0x1f update_movement 以「值 <= random() mod 18 就不生成敵艦」判定，所以值越大越安全；生成時的敵艦類別是 1 - (值 - 1) / 4。見 docs/atari-st/ship-rules.md。"
+        },
+        {
+          "index": 10,
+          "rawOffset": "0x058c8",
+          "name": "New Shoot",
+          "tailHex": "004200000000c15200c5",
+          "recordSha256": "9acb1d459d937543e5fd0d5e9c2135834bf795a675e13f29e31e52f3e974dfb2",
+          "coordinateWord": "0xc152",
+          "economyWord": "0x00c5",
+          "priceLevel": 5,
+          "priceLevelNote": "第 9 個 word 的第 0 個 4-bit 欄位是該星系的物價等級：XDOINTER:0x02 set_up_price 以 `30 × 物價等級 / 城市係數` 當價格倍率，所以值越大東西越貴。見 docs/atari-st/ship-rules.md。",
+          "coordinates": [
+            2,
+            5,
+            1
+          ],
+          "coordinatesNote": "磁碟上的座標是出廠值。開新遊戲時 XSTARTUP:init_systems 讓三個 nibble 各自漂移 ±1 並夾在 x 1–12、y 1–9、z 0–10，間距檢查不過就重擲，所以一局下來可以差好幾格；第 10 個星系寫死成 (6, 5, 6)，第 3 個（Enlie）的 Z 固定寫成 12–15。要拿座標對畫面，得讀執行時的記錄（MAINLIB G11f），不能用出廠值。",
+          "bankBalanceNote": "第 6、7 個 word（tail bytes 2–5）12 筆全為零，因為它是執行時狀態而非磁碟資料：那是玩家在該星系的銀行存款，以 1000 為底存成兩個 word。銀行櫃台的轉帳寫它，行星內起飛前讀它，為負就擋下並印「Lift clearance denied due to unpaid debts」。",
+          "streetDealRating": 12,
+          "streetDealRatingNote": "第 9 個 word 的第 1 個 4-bit 欄位（八個欄位裡的 nibble 5）。已解出的唯一消費端是 XMOVEONG:0x36 confirm 對街頭遭遇型別 22 的抑制門檻——`random() mod 20 < 它` 就取消，所以值越大，街上主動來談生意的人越少。XDOINTER:0x24 initialize 也讀它，那一側做什麼還沒解出。見 docs/atari-st/ground-rules.md。",
+          "encounterRating": 12,
+          "encounterRatingNote": "第 4 個 4-bit 欄位不參與 dist 的計算，它是該星系的遭遇設定：SHIPLIB:0x1f update_movement 以「值 <= random() mod 18 就不生成敵艦」判定，所以值越大越安全；生成時的敵艦類別是 1 - (值 - 1) / 4。見 docs/atari-st/ship-rules.md。"
+        },
+        {
+          "index": 11,
+          "rawOffset": "0x058dc",
+          "name": "Jadul",
+          "tailHex": "004900000000d12800ee",
+          "recordSha256": "d956c30e9dac4b22940b12a63854ebeeed32c6c3a7639d4332836b14352070cd",
+          "coordinateWord": "0xd128",
+          "economyWord": "0x00ee",
+          "priceLevel": 14,
+          "priceLevelNote": "第 9 個 word 的第 0 個 4-bit 欄位是該星系的物價等級：XDOINTER:0x02 set_up_price 以 `30 × 物價等級 / 城市係數` 當價格倍率，所以值越大東西越貴。見 docs/atari-st/ship-rules.md。",
+          "coordinates": [
+            8,
+            2,
+            1
+          ],
+          "coordinatesNote": "磁碟上的座標是出廠值。開新遊戲時 XSTARTUP:init_systems 讓三個 nibble 各自漂移 ±1 並夾在 x 1–12、y 1–9、z 0–10，間距檢查不過就重擲，所以一局下來可以差好幾格；第 10 個星系寫死成 (6, 5, 6)，第 3 個（Enlie）的 Z 固定寫成 12–15。要拿座標對畫面，得讀執行時的記錄（MAINLIB G11f），不能用出廠值。",
+          "bankBalanceNote": "第 6、7 個 word（tail bytes 2–5）12 筆全為零，因為它是執行時狀態而非磁碟資料：那是玩家在該星系的銀行存款，以 1000 為底存成兩個 word。銀行櫃台的轉帳寫它，行星內起飛前讀它，為負就擋下並印「Lift clearance denied due to unpaid debts」。",
+          "streetDealRating": 14,
+          "streetDealRatingNote": "第 9 個 word 的第 1 個 4-bit 欄位（八個欄位裡的 nibble 5）。已解出的唯一消費端是 XMOVEONG:0x36 confirm 對街頭遭遇型別 22 的抑制門檻——`random() mod 20 < 它` 就取消，所以值越大，街上主動來談生意的人越少。XDOINTER:0x24 initialize 也讀它，那一側做什麼還沒解出。見 docs/atari-st/ground-rules.md。",
+          "encounterRating": 13,
+          "encounterRatingNote": "第 4 個 4-bit 欄位不參與 dist 的計算，它是該星系的遭遇設定：SHIPLIB:0x1f update_movement 以「值 <= random() mod 18 就不生成敵艦」判定，所以值越大越安全；生成時的敵艦類別是 1 - (值 - 1) / 4。見 docs/atari-st/ship-rules.md。"
+        }
+      ]
+    },
+    "planets": {
+      "rawOffset": "0x058f0",
+      "recordSize": 16,
+      "recordCount": 18,
+      "nameFieldSize": 10,
+      "records": [
+        {
+          "index": 0,
+          "rawOffset": "0x058f0",
+          "name": "Jondd",
+          "tailHex": "0101145a020d",
+          "recordSha256": "bfe32d1168b12ce939875bcdffee4b11f6587b4ac90585a84facec46c8782d76",
+          "orbitWord": "0x145a",
+          "orbit": {
+            "radius": 20,
+            "angle": 90
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x0101",
+          "orbitRate": 1,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 11,
+            "row": 6
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x020d",
+          "cityCount": 5,
+          "firstCityIndex": 0,
+          "defaultCityIndex": 0,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 1,
+          "rawOffset": "0x05900",
+          "name": "Heavy",
+          "tailHex": "01821e0a0c33",
+          "recordSha256": "2dabc9ec99f55212b373a94483c9b0bdc754d9bc0697b6f154afe5c4d2cbf8c2",
+          "orbitWord": "0x1e0a",
+          "orbit": {
+            "radius": 30,
+            "angle": 10
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x0182",
+          "orbitRate": 1,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 20,
+            "row": 12
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x0c33",
+          "cityCount": 3,
+          "firstCityIndex": 5,
+          "defaultCityIndex": 5,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 2,
+          "rawOffset": "0x05910",
+          "name": "Ferr",
+          "tailHex": "00bc0e63124c",
+          "recordSha256": "55acbe5ba82f7f19923218df65e02862661b118294a143086e203f0e7c8f085e",
+          "orbitWord": "0x0e63",
+          "orbit": {
+            "radius": 14,
+            "angle": 99
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x00bc",
+          "orbitRate": 0,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 18,
+            "row": 15
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x124c",
+          "cityCount": 4,
+          "firstCityIndex": 8,
+          "defaultCityIndex": 8,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 3,
+          "rawOffset": "0x05920",
+          "name": "Ferrwerk",
+          "tailHex": "002419141a6a",
+          "recordSha256": "5a0331c7af3f49c8e11930788abc4706eeb3038c1bcb0ec9e60a7b04376a7101",
+          "orbitWord": "0x1914",
+          "orbit": {
+            "radius": 25,
+            "angle": 20
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x0024",
+          "orbitRate": 0,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 26,
+            "row": 7
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x1a6a",
+          "cityCount": 2,
+          "firstCityIndex": 12,
+          "defaultCityIndex": 12,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 4,
+          "rawOffset": "0x05930",
+          "name": "Snowball",
+          "tailHex": "007e23041e79",
+          "recordSha256": "9e075f36f9cbcc24866925e95e97999e9b0e624b053693ae29f75a3bd1e2f9ba",
+          "orbitWord": "0x2304",
+          "orbit": {
+            "radius": 35,
+            "angle": 4
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x007e",
+          "orbitRate": 0,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 16,
+            "row": 12
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x1e79",
+          "cityCount": 1,
+          "firstCityIndex": 14,
+          "defaultCityIndex": 14,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 5,
+          "rawOffset": "0x05940",
+          "name": "Enliah",
+          "tailHex": "08c509582082",
+          "recordSha256": "17bf7d917d410964f98b5b76892b6b557f9d8cee1ee87370a5f2720b1a560166",
+          "orbitWord": "0x0958",
+          "orbit": {
+            "radius": 9,
+            "angle": 88
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x08c5",
+          "orbitRate": 8,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 27,
+            "row": 15
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x2082",
+          "cityCount": 2,
+          "firstCityIndex": 15,
+          "defaultCityIndex": 15,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 6,
+          "rawOffset": "0x05950",
+          "name": "Hepah",
+          "tailHex": "02e51e2c2493",
+          "recordSha256": "15c330598b3aca53c831832f81d3b5eca5cbdd95558348146280e7c0fe248dc9",
+          "orbitWord": "0x1e2c",
+          "orbit": {
+            "radius": 30,
+            "angle": 44
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x02e5",
+          "orbitRate": 2,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 19,
+            "row": 17
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x2493",
+          "cityCount": 3,
+          "firstCityIndex": 17,
+          "defaultCityIndex": 17,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 7,
+          "rawOffset": "0x05960",
+          "name": "Shoot",
+          "tailHex": "01650c212aac",
+          "recordSha256": "a83309d4ac325dfae7ca2d419b2695e21fe2582975339b5c33cfd8ed3655d9d0",
+          "orbitWord": "0x0c21",
+          "orbit": {
+            "radius": 12,
+            "angle": 33
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x0165",
+          "orbitRate": 1,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 11,
+            "row": 11
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x2aac",
+          "cityCount": 4,
+          "firstCityIndex": 20,
+          "defaultCityIndex": 20,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 8,
+          "rawOffset": "0x05970",
+          "name": "Kala",
+          "tailHex": "01da171632cc",
+          "recordSha256": "00fd4a3848c69647d3b643a6d582eaf8d60c7cdb4f0797282ad022cd525b6530",
+          "orbitWord": "0x1716",
+          "orbit": {
+            "radius": 23,
+            "angle": 22
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x01da",
+          "orbitRate": 1,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 28,
+            "row": 16
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x32cc",
+          "cityCount": 4,
+          "firstCityIndex": 24,
+          "defaultCityIndex": 24,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 9,
+          "rawOffset": "0x05980",
+          "name": "Glory I",
+          "tailHex": "00c80f0b3aed",
+          "recordSha256": "16b7d9da5c9aff52951d8806445ea9cb4068c43b0b91ad31923d4f1b0c50497f",
+          "orbitWord": "0x0f0b",
+          "orbit": {
+            "radius": 15,
+            "angle": 11
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x00c8",
+          "orbitRate": 0,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 10,
+            "row": 16
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x3aed",
+          "cityCount": 5,
+          "firstCityIndex": 28,
+          "defaultCityIndex": 28,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 10,
+          "rawOffset": "0x05990",
+          "name": "Glory II",
+          "tailHex": "00c7194d4513",
+          "recordSha256": "a4feaef0a7c2f8ed32fd1c56b289444836673f47a7779d8c9cb3fbae85ca5ddf",
+          "orbitWord": "0x194d",
+          "orbit": {
+            "radius": 25,
+            "angle": 77
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x00c7",
+          "orbitRate": 0,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 29,
+            "row": 15
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x4513",
+          "cityCount": 3,
+          "firstCityIndex": 33,
+          "defaultCityIndex": 33,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 11,
+          "rawOffset": "0x059a0",
+          "name": "Glory III",
+          "tailHex": "00b5230d4b29",
+          "recordSha256": "0ff648074f09811bfd432d0e9bea7c53bbe534b7e51c22f2d74f927b89776c72",
+          "orbitWord": "0x230d",
+          "orbit": {
+            "radius": 35,
+            "angle": 13
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x00b5",
+          "orbitRate": 0,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 11,
+            "row": 15
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x4b29",
+          "cityCount": 1,
+          "firstCityIndex": 36,
+          "defaultCityIndex": 36,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 12,
+          "rawOffset": "0x059b0",
+          "name": "Vahevela",
+          "tailHex": "03d916034d33",
+          "recordSha256": "c589051f903bfea2a8fa8c2fce6ab4e8a34990c85db14788b24c51be33c3c251",
+          "orbitWord": "0x1603",
+          "orbit": {
+            "radius": 22,
+            "angle": 3
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x03d9",
+          "orbitRate": 3,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 27,
+            "row": 16
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x4d33",
+          "cityCount": 3,
+          "firstCityIndex": 37,
+          "defaultCityIndex": 37,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 13,
+          "rawOffset": "0x059c0",
+          "name": "Tcana",
+          "tailHex": "025f0945534a",
+          "recordSha256": "7690c85b34d18f7abc541c1c53fb5d433f28c1e2d4603e0d60809a2302eb911b",
+          "orbitWord": "0x0945",
+          "orbit": {
+            "radius": 9,
+            "angle": 69
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x025f",
+          "orbitRate": 2,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 25,
+            "row": 10
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x534a",
+          "cityCount": 2,
+          "firstCityIndex": 40,
+          "defaultCityIndex": 40,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 14,
+          "rawOffset": "0x059d0",
+          "name": "W'orrad",
+          "tailHex": "087f092a575c",
+          "recordSha256": "784464bf1ffe1dd7e6f6df7671e862f987b1eecac9939d8e7d436d82b1659e8c",
+          "orbitWord": "0x092a",
+          "orbit": {
+            "radius": 9,
+            "angle": 42
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x087f",
+          "orbitRate": 8,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 17,
+            "row": 12
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x575c",
+          "cityCount": 4,
+          "firstCityIndex": 42,
+          "defaultCityIndex": 42,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 15,
+          "rawOffset": "0x059e0",
+          "name": "Hell",
+          "tailHex": "081e0a165f79",
+          "recordSha256": "58a3b730011b74ab851b1abc4fdea3979f3701da5e90b4b2ce5edd6230ff6ce7",
+          "orbitWord": "0x0a16",
+          "orbit": {
+            "radius": 10,
+            "angle": 22
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x081e",
+          "orbitRate": 8,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 20,
+            "row": 7
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x5f79",
+          "cityCount": 1,
+          "firstCityIndex": 46,
+          "defaultCityIndex": 46,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 16,
+          "rawOffset": "0x059f0",
+          "name": "New Shoot",
+          "tailHex": "026b1d466186",
+          "recordSha256": "eb9735bb476183824484acbe93eb3709ffef8383f421dfc7022c2b3cb730e549",
+          "orbitWord": "0x1d46",
+          "orbit": {
+            "radius": 29,
+            "angle": 70
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x026b",
+          "orbitRate": 2,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 17,
+            "row": 11
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x6186",
+          "cityCount": 6,
+          "firstCityIndex": 47,
+          "defaultCityIndex": 47,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        },
+        {
+          "index": 17,
+          "rawOffset": "0x05a00",
+          "name": "Krakorum",
+          "tailHex": "08e30f0b6db4",
+          "recordSha256": "522e2aa481bba2ec6a69ea926fbb95e9af9302ef10702b361bbf3bcb6c76c6c5",
+          "orbitWord": "0x0f0b",
+          "orbit": {
+            "radius": 15,
+            "angle": 11
+          },
+          "orbitNote": "角度是 256 為一圈的整圈刻度，半徑是 polar_to_rect 直接乘上去的長度；投影用的四分之一正弦表見 docs/atari-st/sine-table.json。**角度是執行時狀態，不是常數**：XSTARTUP:init_planets 在開新遊戲時把 18 顆的角度全部重骰，XMOVEONS:check_planets 之後每次再依 orbitRate 推進。此處記的是出廠值，玩家實際看到的角度與它無關。半徑不會被改寫。",
+          "motionWord": "0x08e3",
+          "orbitRate": 8,
+          "orbitRateNote": "每一次 XMOVEONS:check_planets 把角度推進 orbitRate × 經過時間，對 256 取模。值為 0 的行星不公轉。",
+          "landingSquare": {
+            "column": 17,
+            "row": 17
+          },
+          "landingNote": "開新遊戲時降落在城市地面的哪一格；column = 10 + (byte mod 20)、row = 6 + (byte div 20)。",
+          "layoutWord": "0x6db4",
+          "cityCount": 4,
+          "firstCityIndex": 53,
+          "defaultCityIndex": 53,
+          "layoutSpareBit": 0,
+          "layoutNote": "bits 0–2 城市數、bits 3–8 開局所在城市（1-based）、bits 9–14 城市區間起點（1-based）、bit 15 沒有讀取端。中間兩個欄位在 18 筆資料裡數值相同，但讀取端與用途不同。此處輸出的 index 已減 1，與 tables.cities 的 index 同基準。"
+        }
+      ]
+    },
+    "cities": {
+      "rawOffset": "0x05a10",
+      "recordSize": 12,
+      "recordCount": 60,
+      "nameFieldSize": 10,
+      "records": [
+        {
+          "index": 0,
+          "rawOffset": "0x05a10",
+          "name": "Drahew",
+          "tailHex": "01cc",
+          "recordSha256": "1966fe6a44e4b8ae416e0b466b607943438e3bfd67e2bf1fc75fb0901e9c6252",
+          "positionWord": "0x01cc",
+          "position": {
+            "column": 12,
+            "row": 7
+          },
+          "planetMapPixel": {
+            "x": 46,
+            "y": 30
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 1,
+          "rawOffset": "0x05a1c",
+          "name": "Obburg",
+          "tailHex": "0248",
+          "recordSha256": "2941f1905e753d14a2cb307cc6f0b38f040615c967c948f8e455ebc94eeb2dcd",
+          "positionWord": "0x0248",
+          "position": {
+            "column": 8,
+            "row": 9
+          },
+          "planetMapPixel": {
+            "x": 32,
+            "y": 38
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 2,
+          "rawOffset": "0x05a28",
+          "name": "Darvilton",
+          "tailHex": "0266",
+          "recordSha256": "738b44151b38bb133f058a6b1845b02360be35dc4e9f1fee7dce269c6b9d8438",
+          "positionWord": "0x0266",
+          "position": {
+            "column": 38,
+            "row": 9
+          },
+          "planetMapPixel": {
+            "x": 137,
+            "y": 38
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 3,
+          "rawOffset": "0x05a34",
+          "name": "Dramming",
+          "tailHex": "0159",
+          "recordSha256": "c608868ebe993d86fb397e231a35d38416371b86dd1426d2be725f937d18ac8f",
+          "positionWord": "0x0159",
+          "position": {
+            "column": 25,
+            "row": 5
+          },
+          "planetMapPixel": {
+            "x": 98,
+            "y": 22
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 4,
+          "rawOffset": "0x05a40",
+          "name": "Esposito",
+          "tailHex": "04cb",
+          "recordSha256": "037ede07458b84c8a7e20827d1dda2efe6710d69f8e8045e173881ae80d3e614",
+          "positionWord": "0x04cb",
+          "position": {
+            "column": 11,
+            "row": 19
+          },
+          "planetMapPixel": {
+            "x": 49,
+            "y": 78
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 5,
+          "rawOffset": "0x05a4c",
+          "name": "Lightning",
+          "tailHex": "0152",
+          "recordSha256": "3d3fe1319dabd13dee2aeb9bfcbc00a7b2f9a3ae6670f92251ee690d3ba0980d",
+          "positionWord": "0x0152",
+          "position": {
+            "column": 18,
+            "row": 5
+          },
+          "planetMapPixel": {
+            "x": 67,
+            "y": 22
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 6,
+          "rawOffset": "0x05a58",
+          "name": "Ft. Lyon",
+          "tailHex": "0286",
+          "recordSha256": "2f67ec3c1d8e6be12fb03ef13b43dc98092f19c1c0359e2994a6148f62837e7c",
+          "positionWord": "0x0286",
+          "position": {
+            "column": 6,
+            "row": 10
+          },
+          "planetMapPixel": {
+            "x": 25,
+            "y": 42
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 7,
+          "rawOffset": "0x05a64",
+          "name": "Ft. Savon",
+          "tailHex": "035e",
+          "recordSha256": "9e76255cacc8fa09423568ed7ac3a2ad6cd8c86f4719cdf0ff96b02502a5957e",
+          "positionWord": "0x035e",
+          "position": {
+            "column": 30,
+            "row": 13
+          },
+          "planetMapPixel": {
+            "x": 109,
+            "y": 54
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 8,
+          "rawOffset": "0x05a70",
+          "name": "Ferring",
+          "tailHex": "03d2",
+          "recordSha256": "406ccdeb68e1200ca159f4d5331ec76895103c8a60ff065f1e2fce1739bf744b",
+          "positionWord": "0x03d2",
+          "position": {
+            "column": 18,
+            "row": 15
+          },
+          "planetMapPixel": {
+            "x": 67,
+            "y": 62
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 9,
+          "rawOffset": "0x05a7c",
+          "name": "Bantin",
+          "tailHex": "0493",
+          "recordSha256": "9a65382bc8feab92f9e73709c1fb51246e58642c9f78aee7882727574bc6275d",
+          "positionWord": "0x0493",
+          "position": {
+            "column": 19,
+            "row": 18
+          },
+          "planetMapPixel": {
+            "x": 77,
+            "y": 74
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 10,
+          "rawOffset": "0x05a88",
+          "name": "Barnum",
+          "tailHex": "03cb",
+          "recordSha256": "4499bbd9bd374037d5aa7339fab418992202e1ae41a6f178570d2d9b7be640d8",
+          "positionWord": "0x03cb",
+          "position": {
+            "column": 11,
+            "row": 15
+          },
+          "planetMapPixel": {
+            "x": 49,
+            "y": 62
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 11,
+          "rawOffset": "0x05a94",
+          "name": "Lonax",
+          "tailHex": "01dd",
+          "recordSha256": "706c2a28a651ba8b976f198095b3d058a0f9fbd1708c9e800418739e4da07f85",
+          "positionWord": "0x01dd",
+          "position": {
+            "column": 29,
+            "row": 7
+          },
+          "planetMapPixel": {
+            "x": 112,
+            "y": 30
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 12,
+          "rawOffset": "0x05aa0",
+          "name": "Industron",
+          "tailHex": "0293",
+          "recordSha256": "191641cc9c096d4589f911ce44d2c0e0217c77dc6da26f9c90a7dfc695996771",
+          "positionWord": "0x0293",
+          "position": {
+            "column": 19,
+            "row": 10
+          },
+          "planetMapPixel": {
+            "x": 77,
+            "y": 42
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 13,
+          "rawOffset": "0x05aac",
+          "name": "The Mines",
+          "tailHex": "0344",
+          "recordSha256": "cfbd8e3d5de0de41a50d64ff16368ac37f8b9caa108a07c45e7f1e32bd849b0e",
+          "positionWord": "0x0344",
+          "position": {
+            "column": 4,
+            "row": 13
+          },
+          "planetMapPixel": {
+            "x": 18,
+            "y": 54
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 14,
+          "rawOffset": "0x05ab8",
+          "name": "Icebox",
+          "tailHex": "025b",
+          "recordSha256": "54dd699929fe95c785c2c40d6de596c6513d5228b605e32583aa7846bf136ed9",
+          "positionWord": "0x025b",
+          "position": {
+            "column": 27,
+            "row": 9
+          },
+          "planetMapPixel": {
+            "x": 105,
+            "y": 38
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 15,
+          "rawOffset": "0x05ac4",
+          "name": "Plepa",
+          "tailHex": "02a4",
+          "recordSha256": "42e2c6787e6e7304ec8777229d1fc856b287ec02d94bd0ab6dad47489938043e",
+          "positionWord": "0x02a4",
+          "position": {
+            "column": 36,
+            "row": 10
+          },
+          "planetMapPixel": {
+            "x": 130,
+            "y": 42
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 16,
+          "rawOffset": "0x05ad0",
+          "name": "Tuie",
+          "tailHex": "0519",
+          "recordSha256": "592055989bd56dddbe8993afa50945cdf29d7798ced8272c0f586c6a3c0f1eb2",
+          "positionWord": "0x0519",
+          "position": {
+            "column": 25,
+            "row": 20
+          },
+          "planetMapPixel": {
+            "x": 98,
+            "y": 82
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 17,
+          "rawOffset": "0x05adc",
+          "name": "Arlenair",
+          "tailHex": "0408",
+          "recordSha256": "0fa9335838a61eef1688a79399a1ebee74910ce675da5038461be501df81dc71",
+          "positionWord": "0x0408",
+          "position": {
+            "column": 8,
+            "row": 16
+          },
+          "planetMapPixel": {
+            "x": 32,
+            "y": 66
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 18,
+          "rawOffset": "0x05ae8",
+          "name": "Essoit",
+          "tailHex": "02e5",
+          "recordSha256": "948fa26db5c0d50de1ac16ae63f5e17e21342f0967232d0cd7029aa097f7d905",
+          "positionWord": "0x02e5",
+          "position": {
+            "column": 37,
+            "row": 11
+          },
+          "planetMapPixel": {
+            "x": 140,
+            "y": 46
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 19,
+          "rawOffset": "0x05af4",
+          "name": "Velamie",
+          "tailHex": "03c4",
+          "recordSha256": "ba9c51ecde322c89c792ac4a4385c6d86975bfaa32e67b07093cc2777a959b59",
+          "positionWord": "0x03c4",
+          "position": {
+            "column": 4,
+            "row": 15
+          },
+          "planetMapPixel": {
+            "x": 18,
+            "y": 62
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 20,
+          "rawOffset": "0x05b00",
+          "name": "Shoothan",
+          "tailHex": "04a1",
+          "recordSha256": "862ca30a730b8d326f347f29852bd3cf52efb216247bdb2134f6f165a49d1b82",
+          "positionWord": "0x04a1",
+          "position": {
+            "column": 33,
+            "row": 18
+          },
+          "planetMapPixel": {
+            "x": 126,
+            "y": 74
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 21,
+          "rawOffset": "0x05b0c",
+          "name": "Waslat",
+          "tailHex": "0351",
+          "recordSha256": "6b569a7182ecd207c350df75a590e3e8580355cbe70360e77bda31b1b35fb56a",
+          "positionWord": "0x0351",
+          "position": {
+            "column": 17,
+            "row": 13
+          },
+          "planetMapPixel": {
+            "x": 70,
+            "y": 54
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 22,
+          "rawOffset": "0x05b18",
+          "name": "Temlonton",
+          "tailHex": "03ca",
+          "recordSha256": "9b11a0607b7ce315a6b4ec84e4bebc1b89a63da9c295c4f3084dafb60a9c8549",
+          "positionWord": "0x03ca",
+          "position": {
+            "column": 10,
+            "row": 15
+          },
+          "planetMapPixel": {
+            "x": 39,
+            "y": 62
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 23,
+          "rawOffset": "0x05b24",
+          "name": "Knuth",
+          "tailHex": "018f",
+          "recordSha256": "e425797675b401efc4c63b5b5f2af1d1c5013debba3bec5c4bdb8c5bae1feaca",
+          "positionWord": "0x018f",
+          "position": {
+            "column": 15,
+            "row": 6
+          },
+          "planetMapPixel": {
+            "x": 63,
+            "y": 26
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 24,
+          "rawOffset": "0x05b30",
+          "name": "Kolbe",
+          "tailHex": "0245",
+          "recordSha256": "dc99595c46f986239fe752d4ffb4ffec22b641758cc2c668b042c562348433c7",
+          "positionWord": "0x0245",
+          "position": {
+            "column": 5,
+            "row": 9
+          },
+          "planetMapPixel": {
+            "x": 28,
+            "y": 38
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 25,
+          "rawOffset": "0x05b3c",
+          "name": "Notweneki",
+          "tailHex": "04c7",
+          "recordSha256": "c2845985283f40f42082755d2100eb2457fc00b6b59576e8dd2b54c8bfd25059",
+          "positionWord": "0x04c7",
+          "position": {
+            "column": 7,
+            "row": 19
+          },
+          "planetMapPixel": {
+            "x": 35,
+            "y": 78
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 26,
+          "rawOffset": "0x05b48",
+          "name": "Dajasyron",
+          "tailHex": "0414",
+          "recordSha256": "c6d2cfde4db2d4864e322af89e673c93b8447746d0380a7426f22b43107cbe28",
+          "positionWord": "0x0414",
+          "position": {
+            "column": 20,
+            "row": 16
+          },
+          "planetMapPixel": {
+            "x": 74,
+            "y": 66
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 27,
+          "rawOffset": "0x05b54",
+          "name": "Bedollug",
+          "tailHex": "03db",
+          "recordSha256": "4bf5216ee6d4014d6943981d7fe072a594031bf067c4f39b3a3e436ba737c981",
+          "positionWord": "0x03db",
+          "position": {
+            "column": 27,
+            "row": 15
+          },
+          "planetMapPixel": {
+            "x": 105,
+            "y": 62
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 28,
+          "rawOffset": "0x05b60",
+          "name": "Lagosal",
+          "tailHex": "020e",
+          "recordSha256": "5863d64557b2f80fac2ef34513d7259149cdc6c9fb56aeb659ba3013385e1a5f",
+          "positionWord": "0x020e",
+          "position": {
+            "column": 14,
+            "row": 8
+          },
+          "planetMapPixel": {
+            "x": 53,
+            "y": 34
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 29,
+          "rawOffset": "0x05b6c",
+          "name": "Abundan",
+          "tailHex": "04da",
+          "recordSha256": "59f34520850075119350fc6d77ffc6e457609bae90fca554699d908fbcfb49f3",
+          "positionWord": "0x04da",
+          "position": {
+            "column": 26,
+            "row": 19
+          },
+          "planetMapPixel": {
+            "x": 95,
+            "y": 78
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 30,
+          "rawOffset": "0x05b78",
+          "name": "Corian",
+          "tailHex": "011b",
+          "recordSha256": "ba6d4bf9921e6604070618f1ce01bdd19bd378839079a5995b2c12a2f546670f",
+          "positionWord": "0x011b",
+          "position": {
+            "column": 27,
+            "row": 4
+          },
+          "planetMapPixel": {
+            "x": 105,
+            "y": 18
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 31,
+          "rawOffset": "0x05b84",
+          "name": "Abran",
+          "tailHex": "03c1",
+          "recordSha256": "261fdd7bead0956ba57be07d74a2738c55a671dcee2c175087f398db8ae8d5c0",
+          "positionWord": "0x03c1",
+          "position": {
+            "column": 1,
+            "row": 15
+          },
+          "planetMapPixel": {
+            "x": 14,
+            "y": 62
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 32,
+          "rawOffset": "0x05b90",
+          "name": "Paran",
+          "tailHex": "0163",
+          "recordSha256": "dccae7de4670c51be6c5212e505c316b7bad9ce5a2be3f048d43f14a8f872453",
+          "positionWord": "0x0163",
+          "position": {
+            "column": 35,
+            "row": 5
+          },
+          "planetMapPixel": {
+            "x": 133,
+            "y": 22
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 33,
+          "rawOffset": "0x05b9c",
+          "name": "Llorrac",
+          "tailHex": "04cf",
+          "recordSha256": "d0af0b6ee74cae5fa3ebd02a9f3aefba2ad77d39d843d7d69a7f3fd8f0abcc84",
+          "positionWord": "0x04cf",
+          "position": {
+            "column": 15,
+            "row": 19
+          },
+          "planetMapPixel": {
+            "x": 63,
+            "y": 78
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 34,
+          "rawOffset": "0x05ba8",
+          "name": "Jemba",
+          "tailHex": "015e",
+          "recordSha256": "f72a4aec1145d311043bebccc392ffd260e2af70dd8b5ce0e506e9c84e46271e",
+          "positionWord": "0x015e",
+          "position": {
+            "column": 30,
+            "row": 5
+          },
+          "planetMapPixel": {
+            "x": 109,
+            "y": 22
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 35,
+          "rawOffset": "0x05bb4",
+          "name": "Dreider",
+          "tailHex": "02e4",
+          "recordSha256": "8e7a7e3a06ab0106c6d3920f5f3f6719d1f86dabaf7045b8cd01a8ef55295a89",
+          "positionWord": "0x02e4",
+          "position": {
+            "column": 36,
+            "row": 11
+          },
+          "planetMapPixel": {
+            "x": 130,
+            "y": 46
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 36,
+          "rawOffset": "0x05bc0",
+          "name": "Surrell",
+          "tailHex": "0264",
+          "recordSha256": "c33c24ae543bb6988d235261ba8107c57fd3999263c656a4fa19ed1f9d0a6f18",
+          "positionWord": "0x0264",
+          "position": {
+            "column": 36,
+            "row": 9
+          },
+          "planetMapPixel": {
+            "x": 130,
+            "y": 38
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 37,
+          "rawOffset": "0x05bcc",
+          "name": "N'ljones",
+          "tailHex": "021e",
+          "recordSha256": "d6aad6215ad9317f5a841871f7e1b502f829a0767b64ec121a49179ffb6de559",
+          "positionWord": "0x021e",
+          "position": {
+            "column": 30,
+            "row": 8
+          },
+          "planetMapPixel": {
+            "x": 109,
+            "y": 34
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 38,
+          "rawOffset": "0x05bd8",
+          "name": "Helord",
+          "tailHex": "040b",
+          "recordSha256": "5bc636b048582e906e2f27511040d5152e68a92a74f8953788888deb25722084",
+          "positionWord": "0x040b",
+          "position": {
+            "column": 11,
+            "row": 16
+          },
+          "planetMapPixel": {
+            "x": 49,
+            "y": 66
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 39,
+          "rawOffset": "0x05be4",
+          "name": "Mortown",
+          "tailHex": "0107",
+          "recordSha256": "12b1023c7d32efd2260ab05d6c1b892da3ced5f6ec0a32ea0e10da9a5c007e07",
+          "positionWord": "0x0107",
+          "position": {
+            "column": 7,
+            "row": 4
+          },
+          "planetMapPixel": {
+            "x": 35,
+            "y": 18
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 40,
+          "rawOffset": "0x05bf0",
+          "name": "Haiapolis",
+          "tailHex": "0357",
+          "recordSha256": "6f41749c32317353b78d1623a4c2b90d49f3f0c6ad292652b2f9d894fb611590",
+          "positionWord": "0x0357",
+          "position": {
+            "column": 23,
+            "row": 13
+          },
+          "planetMapPixel": {
+            "x": 91,
+            "y": 54
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 41,
+          "rawOffset": "0x05bfc",
+          "name": "Einkolt",
+          "tailHex": "0444",
+          "recordSha256": "ec4bdb37ade3d50e33ef85f7cd17b93bad6fbf6846ea508c63de0dbeb8932d10",
+          "positionWord": "0x0444",
+          "position": {
+            "column": 4,
+            "row": 17
+          },
+          "planetMapPixel": {
+            "x": 18,
+            "y": 70
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 42,
+          "rawOffset": "0x05c08",
+          "name": "Sheshco",
+          "tailHex": "03d6",
+          "recordSha256": "3df24ec35548a079765fe508401928a305e30f5cc5ba02105c66c90ea155b745",
+          "positionWord": "0x03d6",
+          "position": {
+            "column": 22,
+            "row": 15
+          },
+          "planetMapPixel": {
+            "x": 81,
+            "y": 62
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 43,
+          "rawOffset": "0x05c14",
+          "name": "Aylika",
+          "tailHex": "0118",
+          "recordSha256": "b9e4e7665b62e3805cbbda8988daa81d4d4feda0184dfe835ba2ed5ce5d256bf",
+          "positionWord": "0x0118",
+          "position": {
+            "column": 24,
+            "row": 4
+          },
+          "planetMapPixel": {
+            "x": 88,
+            "y": 18
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 44,
+          "rawOffset": "0x05c20",
+          "name": "Zadansa",
+          "tailHex": "0201",
+          "recordSha256": "f55f4c0cd24e04eb3a62c6bb6d55dc5feebb75b6f823465112a40e229a75fc53",
+          "positionWord": "0x0201",
+          "position": {
+            "column": 1,
+            "row": 8
+          },
+          "planetMapPixel": {
+            "x": 14,
+            "y": 34
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 45,
+          "rawOffset": "0x05c2c",
+          "name": "Alram",
+          "tailHex": "0387",
+          "recordSha256": "86d3670a0ba3b8f3ab0337be3d8992101e26ea002098a0bf27475cf135f03912",
+          "positionWord": "0x0387",
+          "position": {
+            "column": 7,
+            "row": 14
+          },
+          "planetMapPixel": {
+            "x": 35,
+            "y": 58
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 46,
+          "rawOffset": "0x05c38",
+          "name": "Sheol",
+          "tailHex": "02c5",
+          "recordSha256": "bb91838b0dfe2a042395fb14b45d4c297b60247321df756124473ca7050f4a25",
+          "positionWord": "0x02c5",
+          "position": {
+            "column": 5,
+            "row": 11
+          },
+          "planetMapPixel": {
+            "x": 28,
+            "y": 46
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 47,
+          "rawOffset": "0x05c44",
+          "name": "Calidac",
+          "tailHex": "035d",
+          "recordSha256": "2f6bec323de8a9ad796384762908516fea44a435a1893a686b3b8d40071c3c9e",
+          "positionWord": "0x035d",
+          "position": {
+            "column": 29,
+            "row": 13
+          },
+          "planetMapPixel": {
+            "x": 112,
+            "y": 54
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 48,
+          "rawOffset": "0x05c50",
+          "name": "New Temol",
+          "tailHex": "0414",
+          "recordSha256": "c213c242e7c93baaf015f5de23ac09285fead36630f306b54cc4aebbd44090ba",
+          "positionWord": "0x0414",
+          "position": {
+            "column": 20,
+            "row": 16
+          },
+          "planetMapPixel": {
+            "x": 74,
+            "y": 66
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 49,
+          "rawOffset": "0x05c5c",
+          "name": "Feriolah",
+          "tailHex": "01cf",
+          "recordSha256": "c43a2dd818d65fb6db70a3e9a661bb5a523f44fbcbc159b6d11233f95a64731d",
+          "positionWord": "0x01cf",
+          "position": {
+            "column": 15,
+            "row": 7
+          },
+          "planetMapPixel": {
+            "x": 63,
+            "y": 30
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 50,
+          "rawOffset": "0x05c68",
+          "name": "Poelter",
+          "tailHex": "030a",
+          "recordSha256": "334447d8768b2432b0c7aa5c4627b07d5c377fe9414cec0e9a24711a2277618c",
+          "positionWord": "0x030a",
+          "position": {
+            "column": 10,
+            "row": 12
+          },
+          "planetMapPixel": {
+            "x": 39,
+            "y": 50
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 51,
+          "rawOffset": "0x05c74",
+          "name": "Tram'el",
+          "tailHex": "0206",
+          "recordSha256": "27dbd00b149e7f7c9646117e2eb1715d48967dc4184aba416c4fa99737568402",
+          "positionWord": "0x0206",
+          "position": {
+            "column": 6,
+            "row": 8
+          },
+          "planetMapPixel": {
+            "x": 25,
+            "y": 34
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 52,
+          "rawOffset": "0x05c80",
+          "name": "Wildera",
+          "tailHex": "01e1",
+          "recordSha256": "2b750501fb4a661ad40b1b7383723347cf0f405e8f62e021d164ea92ebda5483",
+          "positionWord": "0x01e1",
+          "position": {
+            "column": 33,
+            "row": 7
+          },
+          "planetMapPixel": {
+            "x": 126,
+            "y": 30
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 53,
+          "rawOffset": "0x05c8c",
+          "name": "Malesti",
+          "tailHex": "0358",
+          "recordSha256": "c88e02d7b4bc1854aae8b46ccbbb6479007268a20c329fd1724675505c543e5d",
+          "positionWord": "0x0358",
+          "position": {
+            "column": 24,
+            "row": 13
+          },
+          "planetMapPixel": {
+            "x": 88,
+            "y": 54
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 54,
+          "rawOffset": "0x05c98",
+          "name": "Illdono",
+          "tailHex": "03d5",
+          "recordSha256": "3b3919f914840ebb7904de7a01d66a338a96c9fd597c334b267c4eb1a72c353d",
+          "positionWord": "0x03d5",
+          "position": {
+            "column": 21,
+            "row": 15
+          },
+          "planetMapPixel": {
+            "x": 84,
+            "y": 62
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 55,
+          "rawOffset": "0x05ca4",
+          "name": "Paleko",
+          "tailHex": "0266",
+          "recordSha256": "e59dc0999fb7315480522da35a05842f957ffc05467ec65a5ef267e563e090b4",
+          "positionWord": "0x0266",
+          "position": {
+            "column": 38,
+            "row": 9
+          },
+          "planetMapPixel": {
+            "x": 137,
+            "y": 38
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 56,
+          "rawOffset": "0x05cb0",
+          "name": "D'esgid",
+          "tailHex": "024e",
+          "recordSha256": "6d7cb55106bf61c09c572e01599d3cd0b18e3884a780bf269e3f6c1fcc7e4d98",
+          "positionWord": "0x024e",
+          "position": {
+            "column": 14,
+            "row": 9
+          },
+          "planetMapPixel": {
+            "x": 53,
+            "y": 38
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 57,
+          "rawOffset": "0x05cbc",
+          "name": "dummy",
+          "tailHex": "0000",
+          "recordSha256": "686e2f2e0b814bdbb19110d8d892ce3f568520501d8b57d5daf6e91d9f1c9039",
+          "positionWord": "0x0000",
+          "position": {
+            "column": 0,
+            "row": 0
+          },
+          "planetMapPixel": {
+            "x": 4,
+            "y": 2
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 58,
+          "rawOffset": "0x05cc8",
+          "name": "dummy",
+          "tailHex": "0000",
+          "recordSha256": "686e2f2e0b814bdbb19110d8d892ce3f568520501d8b57d5daf6e91d9f1c9039",
+          "positionWord": "0x0000",
+          "position": {
+            "column": 0,
+            "row": 0
+          },
+          "planetMapPixel": {
+            "x": 4,
+            "y": 2
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        },
+        {
+          "index": 59,
+          "rawOffset": "0x05cd4",
+          "name": "Banville",
+          "tailHex": "01df",
+          "recordSha256": "5d0ec7db529ed002d6e81f3c5459283991cc74895367c0f6bd64f7fe89685ff1",
+          "positionWord": "0x01df",
+          "position": {
+            "column": 31,
+            "row": 7
+          },
+          "planetMapPixel": {
+            "x": 119,
+            "y": 30
+          },
+          "positionNote": "第 5 個 word 的低 6 bit 是 column、接著 5 bit 是 row；XREADMAP:0x07 change_xy 換成畫面座標 x = 7 × ((column + 1) / 2) + 4（column 為奇數時再加 3：p-machine 的 fjp 只看最低位元）、y = 4 × row + 2。原版在該位置畫字元 20（白色方塊），玩家所在的城市另外疊一個船艦字元。"
+        }
+      ]
+    }
+  },
+  "grouping": {
+    "mapEvidence": "docs/apple2/world-map-crosscheck.json",
+    "planetPairCount": 18,
+    "cityTripleCount": 58,
+    "contiguousCityCount": 57,
+    "fillerCityCount": 2,
+    "trailingCityCount": 1,
+    "planetCityRuns": [
+      {
+        "planet": "Jondd",
+        "system": "Jondd",
+        "start": 0,
+        "count": 5
+      },
+      {
+        "planet": "Heavy",
+        "system": "Jondd",
+        "start": 5,
+        "count": 3
+      },
+      {
+        "planet": "Ferr",
+        "system": "Ferr",
+        "start": 8,
+        "count": 4
+      },
+      {
+        "planet": "Ferrwerk",
+        "system": "Ferr",
+        "start": 12,
+        "count": 2
+      },
+      {
+        "planet": "Snowball",
+        "system": "Ferr",
+        "start": 14,
+        "count": 1
+      },
+      {
+        "planet": "Enliah",
+        "system": "Enlie",
+        "start": 15,
+        "count": 2
+      },
+      {
+        "planet": "Hepah",
+        "system": "Hepa",
+        "start": 17,
+        "count": 3
+      },
+      {
+        "planet": "Shoot",
+        "system": "Shoot",
+        "start": 20,
+        "count": 4
+      },
+      {
+        "planet": "Kala",
+        "system": "KalManDaa",
+        "start": 24,
+        "count": 4
+      },
+      {
+        "planet": "Glory I",
+        "system": "Glory",
+        "start": 28,
+        "count": 5
+      },
+      {
+        "planet": "Glory II",
+        "system": "Glory",
+        "start": 33,
+        "count": 3
+      },
+      {
+        "planet": "Glory III",
+        "system": "Glory",
+        "start": 36,
+        "count": 1
+      },
+      {
+        "planet": "Vahevela",
+        "system": "Sosai",
+        "start": 37,
+        "count": 3
+      },
+      {
+        "planet": "Tcana",
+        "system": "Lafser",
+        "start": 40,
+        "count": 2
+      },
+      {
+        "planet": "W'orrad",
+        "system": "Woremed",
+        "start": 42,
+        "count": 4
+      },
+      {
+        "planet": "Hell",
+        "system": "New Shoot",
+        "start": 46,
+        "count": 1
+      },
+      {
+        "planet": "New Shoot",
+        "system": "New Shoot",
+        "start": 47,
+        "count": 6
+      },
+      {
+        "planet": "Krakorum",
+        "system": "Jadul",
+        "start": 53,
+        "count": 4
+      }
+    ],
+    "trailingCities": [
+      {
+        "index": 59,
+        "city": "Banville",
+        "planet": "Jondd",
+        "system": "Jondd",
+        "kind": "assigned",
+        "section": "trailing"
+      }
+    ],
+    "systemPlanetRuns": [
+      {
+        "system": "Jondd",
+        "start": 0,
+        "count": 2
+      },
+      {
+        "system": "Ferr",
+        "start": 2,
+        "count": 3
+      },
+      {
+        "system": "Enlie",
+        "start": 5,
+        "count": 1
+      },
+      {
+        "system": "Hepa",
+        "start": 6,
+        "count": 1
+      },
+      {
+        "system": "Shoot",
+        "start": 7,
+        "count": 1
+      },
+      {
+        "system": "KalManDaa",
+        "start": 8,
+        "count": 1
+      },
+      {
+        "system": "Glory",
+        "start": 9,
+        "count": 3
+      },
+      {
+        "system": "Sosai",
+        "start": 12,
+        "count": 1
+      },
+      {
+        "system": "Lafser",
+        "start": 13,
+        "count": 1
+      },
+      {
+        "system": "Woremed",
+        "start": 14,
+        "count": 1
+      },
+      {
+        "system": "New Shoot",
+        "start": 15,
+        "count": 2
+      },
+      {
+        "system": "Jadul",
+        "start": 17,
+        "count": 1
+      }
+    ],
+    "nameAliases": {
+      "Woromed": "Woremed",
+      "Worrad": "W'orrad",
+      "NewShoot": "New Shoot",
+      "GloryI": "Glory I",
+      "GloryII": "Glory II",
+      "GloryIII": "Glory III",
+      "Llorac": "Llorrac"
+    },
+    "evidence": "proven",
+    "note": "磁碟城市順序與紙本星圖三元組逐筆吻合，且每顆行星的城市構成連續區間；表尾保留名稱之後的城市不屬於任何連續區間，另列為 trailing。"
+  },
+  "fieldSemantics": {
+    "note": "欄位語意是逐支讀 p-code 讀寫端得到的；每一條由一段位元組簽章釘在磁碟上，該簽章在整張映像裡必須恰好出現一次，且落點要與宣告的段基底＋段內位址相符。行星的城市區間另有第二個獨立證據：與紙本星圖推出的 planetCityRuns 逐筆吻合。",
+    "evidence": "proven",
+    "rules": [
+      {
+        "id": "planet.orbit-rate",
+        "field": "planets word +5 高位元組",
+        "procedure": "XMOVEONS:0x07 check_planets",
+        "segmentOffset": "0x0298",
+        "signature": "9b04 8197 21ee d708 6b23 e706 0800 c923 e705 0808 c922 8ca2 6820 00b3 f108 2081 0001 a268 8af3 23e7 0608 0020 ca21 ed8a c9",
+        "summary": "行星會繞恆星公轉：angle := angle + rate × elapsed，取 256 為一圈、以 8 bit 截斷。rate 就是 word +5 的高位元組。18 顆行星的 rate 是 0..8，其中六顆為 0（不動）。負值會被 while 迴圈補回正區間，資料裡沒有出現負值。",
+        "rawOffset": "0x38098",
+        "signatureBytes": 49
+      },
+      {
+        "id": "planet.orbit-angle-is-live-state",
+        "field": "planets word +6 低位元組",
+        "procedure": "XSTARTUP:0x29 utility:set_new_game:init_planets",
+        "segmentOffset": "0x164e",
+        "signature": "9b04 8197 21ee d708 6a22 e707 010f 00ca 22e7 0608 0000 0080 ff73 0cca 22e7 0608 00c9 20a3 e00f b2f1 e7",
+        "summary": "開新遊戲時 18 顆行星的角度全部重骰：repeat angle := rand(0,255) until abs(angle − 前一顆的 angle) > 15。因此磁碟上的角度只是出廠值，開局就被蓋掉；半徑（高位元組）不動。這一段同時把 word +7 的 bit 15 清成 0。",
+        "rawOffset": "0x3b24e",
+        "signatureBytes": 41
+      },
+      {
+        "id": "planet.landing-square",
+        "field": "planets word +5 低位元組",
+        "procedure": "XSTARTUP:0x2f utility:set_new_game:init_location",
+        "segmentOffset": "0x19d4",
+        "signature": "9b04 2b06 000a 9b04 8197 9b04 2a05 04c9 eed7 08e7 0508 00c9 148f a2ca 9b04 2c05 0006 9b04 8197 9b04 2a05 04c9 eed7 08e7 0508 00c9 148d a2ca",
+        "summary": "降落在城市地面的哪一格：column = 10 + (byte mod 20)、row = 6 + (byte div 20)，分別寫進 MAINLIB_G2b 的 bits 0–5 與 MAINLIB_G2c 的 bits 0–4。",
+        "rawOffset": "0x3b5d4",
+        "signatureBytes": 56
+      },
+      {
+        "id": "planet.default-city",
+        "field": "planets word +7 bits 3–8",
+        "procedure": "XSTARTUP:0x2f utility:set_new_game:init_location",
+        "segmentOffset": "0x19bc",
+        "signature": "9b04 2a06 099b 0481 979b 042a 0504 c9ee d708 e707 0603 c9ca",
+        "summary": "開局所在的城市：MAINLIB_G2a 的 bits 9–14（1-based 城市編號）取自這個欄位。與下一條的 bits 9–14 在 18 筆資料裡數值全部相同，但讀取端不同、用途也不同——這一個是「預設落在哪座城市」，那一個是「這顆行星的城市從哪裡開始」。",
+        "rawOffset": "0x3b5bc",
+        "signatureBytes": 24
+      },
+      {
+        "id": "planet.city-run",
+        "field": "planets word +7 bits 0–2 與 bits 9–14",
+        "procedure": "XPILOTAG:0x0a build_menu",
+        "segmentOffset": "0x03a2",
+        "signature": "9b04 8197 9b04 4a05 04c9 eed7 08e7 0706 09c9 b1a0 a1",
+        "summary": "同一顆行星的城市在城市表裡是連續區間：bits 9–14 是首座城市的 1-based 編號、bits 0–2 是城市數。與紙本星圖交叉比對出來的 planetCityRuns 逐筆吻合（18/18）。XDOTRADI:0x15 current_price:find_location（段內 0x08a3）用同一組欄位換算城市在行星內的序號。",
+        "rawOffset": "0x355a2",
+        "signatureBytes": 21
+      },
+      {
+        "id": "system.bank-balance",
+        "field": "systems 第 6、7 個 word",
+        "procedure": "XDOUNITE:0x0d do_teller:do_transfer",
+        "segmentOffset": "0x0628",
+        "signature": "2a63 ef0c 9b04 811f 2001 0ccb eed7 0aa4 0a61 29e7 06",
+        "summary": "這兩個 word 是玩家在該星系的銀行存款，不是磁碟資料：櫃台的轉帳把身上的現金加進 systems[目前星系] + 6 這一對 word。磁碟上 12 筆全為零，因為它是執行時狀態，開新遊戲才由 XSTARTUP:init_systems 填初值。",
+        "rawOffset": "0x43428",
+        "signatureBytes": 21
+      },
+      {
+        "id": "system.bank-balance-gate",
+        "field": "systems 第 6、7 個 word",
+        "procedure": "XSHOWMOV:0x0d do_on_world",
+        "segmentOffset": "0x06a9",
+        "signature": "2287 1700 b39f 8718 00b3 9fa0 a1d4 0806 ef04",
+        "summary": "行星內起飛前檢查同一對 word：任一個為負就擋下，印出第 6 號錯誤訊息「Lift clearance denied due to unpaid debts」。這是這兩個 word 的讀取端，與 do_transfer 的寫入端互相印證它是欠款／存款。",
+        "rawOffset": "0x378a9",
+        "signatureBytes": 18
+      },
+      {
+        "id": "money.base-1000",
+        "field": "所有兩個 word 的金額",
+        "procedure": "MAINLIB:0x0d set_money",
+        "segmentOffset": "0x0686",
+        "signature": "22e7 0100 2091 0820 e081 e803 8f8c c422 2100 2091 0820 e081 e803 8d8c a2c4",
+        "summary": "金額一律以 1000 為底拆成兩個 word：低位 word 存 |v| mod 1000、高位 word 存 既有高位加上 |v| div 1000，兩者同號。因此讀金額要算 hi × 1000 + lo，不能當成 16-bit 或 32-bit 整數直接讀。",
+        "rawOffset": "0x2ee86",
+        "signatureBytes": 30
+      },
+      {
+        "id": "system.new-game-bank",
+        "field": "systems 第 6、7 個 word",
+        "procedure": "XSTARTUP:0x26 utility:set_new_game:init_systems",
+        "segmentOffset": "0x154b",
+        "signature": "24e7 066d 2503 0073 0b03 8fa2 c422 01d2 0725 2578 8020 a2c4 25e7 0100 730b 81e8 038f c4",
+        "summary": "開新遊戲時每個星系的存款設成 3 + random() mod 3（千位），第 2 到第 12 個星系再加 32 千；個位那個 word 是 random() mod 1000。換算成金額就是第 1 個星系 3,000–5,999 Cr，其餘 35,000–37,999 Cr。",
+        "rawOffset": "0x3b14b",
+        "signatureBytes": 35
+      },
+      {
+        "id": "system.coordinate-jitter",
+        "field": "systems 第 8、9 個 word 的座標 nibble",
+        "procedure": "XSTARTUP:0x26 utility:set_new_game:init_systems",
+        "segmentOffset": "0x156e",
+        "signature": "220a b122 03b1 a1d4 3e00 6921 02b2 d431 24e7 0821 d804 04c9 6821 8a15 6001 0c90 278a 1160",
+        "summary": "開新遊戲時三個座標 nibble 各自呼叫 set_random 微調，範圍 x 1–12、y 1–9、z 0–10，然後呼叫 0x28 做間距檢查：與任何已放好的星系（索引比自己小的，加上第 10 個）|ΔX| < 2 且 |ΔY| < 2 就判太近、整組重擲——所以單一局的位移可以疊到好幾格。第 10 個星系寫死成 (6, 5, 6) 不動；第 3 個星系（Enlie）在主迴圈跳過，之後單獨處理：X、Y 照樣微調並對全部星系做間距檢查，Z 則直接寫成 12 + random() mod 4，所以它在星圖上永遠是退化成一個字元點的最遠記號；擺好後再算它到其他星系的最小跳躍距離（SHIPLIB:0x0a dist，含 Enlie 的 +1），不等於 9 就重擺，25 次不成就把整張圖再漂一輪——新船的最大跳躍是 8，所以 Enlie 開局永遠差一格跳不到。原版實跑（hatari-live-run.md 第十輪）從快照 RAM 讀出的執行時座標，12 個記號的位置與半徑全部與畫面吻合。",
+        "rawOffset": "0x3b16e",
+        "signatureBytes": 36
+      },
+      {
+        "id": "system.jitter-step",
+        "field": "systems 第 8、9 個 word 的座標 nibble",
+        "procedure": "XSTARTUP:0x27 set_random",
+        "segmentOffset": "0x1482",
+        "signature": "2222 7800 730b 038f a2ee c421 2220 730a",
+        "summary": "set_random(&v, lo, hi) 做的是 v := v + random() mod 3 − 1，然後 condition(lo, &v, hi) 夾回範圍。單次是 ±1 格，但 init_systems 會在間距檢查不過時重擲，一局下來可以離出廠值好幾格（實跑量到 Hepa X 12→8、Sosai (5,1,7)→(2,2,10)）。",
+        "rawOffset": "0x3b082",
+        "signatureBytes": 16
+      }
+    ]
+  },
+  "openQuestions": [
+    {
+      "topic": "system word +9 nibble 2",
+      "status": "unknown",
+      "detail": "星系 record 的 bytes 6–9（第 8、9 個 word）是八個 4-bit 欄位。座標、遭遇設定與物價等級見本檔上方欄位，另有兩個欄位的地面消費端見 docs/atari-st/ground-rules.md；只有第 9 個 word 的 nibble 2 至今找不到任何讀寫端。"
+    },
+    {
+      "topic": "planet word +7 bit 15",
+      "status": "unknown",
+      "detail": "18 筆磁碟資料裡這個 bit 全為 0，XSTARTUP:init_planets 開新遊戲時又把它清成 0，而全段 p-code 裡沒有第二處以 width 1／rightbit 15 存取這個 word。沒有寫 1 的地方，也沒有讀取端。行星 record 的其餘欄位都已命名，見 fieldSemantics。"
+    }
+  ]
+}

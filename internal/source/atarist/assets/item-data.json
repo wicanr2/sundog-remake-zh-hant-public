@@ -1,0 +1,709 @@
+{
+  "schema": 1,
+  "tool": "tools/atari_st_item_data.py",
+  "inputs": {
+    "archive": {
+      "name": "Sundog-Frozen-Legacy_Atari-ST_EN.zip",
+      "sha256": "d555864c5d6e358f18e3cb18bc753e3b0f8aa9a255d7f64bb7e92bbe62dde716"
+    },
+    "nestedArchive": "Sundog - Frozen Legacy v3.0 (1985)(FTL)[a2].zip",
+    "disk": {
+      "name": "Sundog - Frozen Legacy v3.0 (1985)(FTL)[a2].st",
+      "size": 368640,
+      "sha256": "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6"
+    },
+    "variant": "[a2]"
+  },
+  "locationSource": "laanwj/sundog doc/disklayout.md (secondary oracle, commit e56d8e2532134f0741a7f82b80f9357776779f27)",
+  "locationEvidence": "proven（次級文件所載）",
+  "recordBoundaryEvidence": "proven",
+  "items": {
+    "rawOffset": "0x05e00",
+    "recordSize": 16,
+    "recordCount": 32,
+    "sha256": "746d3e9abd93a42ac97e8a7f92a68731632144f36d016a90ce70ea39f16c25e9",
+    "records": [
+      {
+        "rawOffset": "0x05e00",
+        "name": "(nothing)",
+        "nameLength": 9,
+        "recordSha256": "442dc6c2b4f55e3fff50507ecf71c7195235d645cf549e2e964f9f2e9a0525a5",
+        "rawTailByte": 0,
+        "value": 0,
+        "valueStatus": "present",
+        "index": "0x00"
+      },
+      {
+        "rawOffset": "0x05e10",
+        "name": "(freeze/quit)",
+        "nameLength": 13,
+        "recordSha256": "c8ffc9bb49714f162cba8a43ffa3d12e1105c104a0d761b9889c3d70a9d6f280",
+        "rawTailByte": 0,
+        "value": 0,
+        "valueStatus": "present",
+        "index": "0x01"
+      },
+      {
+        "rawOffset": "0x05e20",
+        "name": "(trash)",
+        "nameLength": 7,
+        "recordSha256": "f194059e1e75e24921aa416724ecaefc3c91fe8b099cc89f5704377020fa4ee3",
+        "rawTailByte": 0,
+        "value": 0,
+        "valueStatus": "present",
+        "index": "0x02"
+      },
+      {
+        "rawOffset": "0x05e30",
+        "name": "(next frame)",
+        "nameLength": 12,
+        "recordSha256": "2fac0331e4ae0d36c7f26fc0b361c0c8ca5566f0f40a5da11bbd21c2ae33c4b1",
+        "rawTailByte": 0,
+        "value": 0,
+        "valueStatus": "present",
+        "index": "0x03"
+      },
+      {
+        "rawOffset": "0x05e40",
+        "name": "(time)",
+        "nameLength": 6,
+        "recordSha256": "c1c8fcf59e73f69df61e1b62db00552ec7f6ad11cbc89fd200ddcb4aa53b37ff",
+        "rawTailByte": 0,
+        "value": 0,
+        "valueStatus": "present",
+        "index": "0x04"
+      },
+      {
+        "rawOffset": "0x05e50",
+        "name": "(money)",
+        "nameLength": 7,
+        "recordSha256": "b166d6a54898560e3973036b6d39fb84ebbe83f3289726a91a7b041dfd8c93d4",
+        "rawTailByte": 0,
+        "value": 0,
+        "valueStatus": "present",
+        "index": "0x05"
+      },
+      {
+        "rawOffset": "0x05e60",
+        "name": "(location)",
+        "nameLength": 10,
+        "recordSha256": "ab84a772306f5523c47f76b851672e8899575ef69bc359729c38c98c79bf5841",
+        "rawTailByte": 0,
+        "value": 0,
+        "valueStatus": "present",
+        "index": "0x06"
+      },
+      {
+        "rawOffset": "0x05e70",
+        "name": "(dead part)",
+        "nameLength": 11,
+        "recordSha256": "6caacdbf6895e67d0ce76bc2bc2d42e5f05bae078d9e7866c4985d8ea6aefbee",
+        "rawTailByte": 0,
+        "value": 0,
+        "valueStatus": "present",
+        "index": "0x07"
+      },
+      {
+        "rawOffset": "0x05e80",
+        "name": "burger",
+        "nameLength": 6,
+        "recordSha256": "d083d98869cc3e5b826a9e11afd74eb99ae0d04f21859ae29620bbf6ab9222ed",
+        "rawTailByte": 2,
+        "value": 2,
+        "valueStatus": "present",
+        "index": "0x08"
+      },
+      {
+        "rawOffset": "0x05e90",
+        "name": "beer",
+        "nameLength": 4,
+        "recordSha256": "9fa9409eb39c0a2abbdf52f511bf13562cba6dc195040e436ce0d320ea0f64f9",
+        "rawTailByte": 1,
+        "value": 1,
+        "valueStatus": "present",
+        "index": "0x09"
+      },
+      {
+        "rawOffset": "0x05ea0",
+        "name": "rapidheal",
+        "nameLength": 9,
+        "recordSha256": "e17a49a13db18f71efdf313e857359c775fd62510225bac91bed22126881c1e9",
+        "rawTailByte": 50,
+        "value": 50,
+        "valueStatus": "present",
+        "index": "0x0a"
+      },
+      {
+        "rawOffset": "0x05eb0",
+        "name": "shield",
+        "nameLength": 6,
+        "recordSha256": "0caf8b07687a58ac2f5ed50b9cbfdbd561977bf521daad2a2dc8400801c79dd1",
+        "rawTailByte": 100,
+        "value": 100,
+        "valueStatus": "present",
+        "index": "0x0b"
+      },
+      {
+        "rawOffset": "0x05ec0",
+        "name": "stinger",
+        "nameLength": 7,
+        "recordSha256": "89176aac534ec0d21dcf6c00b4be4b4e4cea5f10832a48fc057359abd65d1516",
+        "rawTailByte": 190,
+        "value": 190,
+        "valueStatus": "present",
+        "index": "0x0c"
+      },
+      {
+        "rawOffset": "0x05ed0",
+        "name": "scattergun",
+        "nameLength": 10,
+        "recordSha256": "fec55337d97078f6184b5223ae6edb017d626d7544f162d15cc0ea994de93183",
+        "rawTailByte": 225,
+        "value": 225,
+        "valueStatus": "present",
+        "index": "0x0d"
+      },
+      {
+        "rawOffset": "0x05ee0",
+        "name": "(reserved)",
+        "nameLength": 10,
+        "recordSha256": "b7970b9d97ec57f1567ffb6eab5f6a35aac81e0683cb5d6beb6dd866623d4840",
+        "rawTailByte": 0,
+        "value": 0,
+        "valueStatus": "present",
+        "index": "0x0e"
+      },
+      {
+        "rawOffset": "0x05ef0",
+        "name": "peptab",
+        "nameLength": 6,
+        "recordSha256": "6288e0ed8e6e8ec396a5005b73d9e243afc3a2fbf147c671b96d1abddc5751fe",
+        "rawTailByte": 19,
+        "value": 19,
+        "valueStatus": "present",
+        "index": "0x0f"
+      },
+      {
+        "rawOffset": "0x05f00",
+        "name": "charmer",
+        "nameLength": 7,
+        "recordSha256": "9d6250274f67a40fd6fd572c28451c03392885826fce032567504c5b032b46b8",
+        "rawTailByte": 41,
+        "value": 41,
+        "valueStatus": "present",
+        "index": "0x10"
+      },
+      {
+        "rawOffset": "0x05f10",
+        "name": "dexboost",
+        "nameLength": 8,
+        "recordSha256": "2931b5703b0e117915e0aecab09e30596ca3cbd7567878cefe5c9eab580fa33c",
+        "rawTailByte": 63,
+        "value": 63,
+        "valueStatus": "present",
+        "index": "0x11"
+      },
+      {
+        "rawOffset": "0x05f20",
+        "name": "nutrapack",
+        "nameLength": 9,
+        "recordSha256": "95bf047840aced91744b747f20d26bd31f601b7b9b8a839f8bf22073cb9f6fc3",
+        "rawTailByte": 73,
+        "value": 73,
+        "valueStatus": "present",
+        "index": "0x12"
+      },
+      {
+        "rawOffset": "0x05f30",
+        "name": "concentrator",
+        "nameLength": 12,
+        "recordSha256": "68c8100e62c83c4a597d9eddccb4d4baa025553fbea222bcd454e40b915b3ba1",
+        "rawTailByte": 180,
+        "value": 180,
+        "valueStatus": "present",
+        "index": "0x13"
+      },
+      {
+        "rawOffset": "0x05f40",
+        "name": "decloaker",
+        "nameLength": 9,
+        "recordSha256": "79c69f4732ef2944a2ec8980fa951fa52efee1ef5481afa50c0736b7424cfb71",
+        "rawTailByte": 255,
+        "value": 255,
+        "valueStatus": "present",
+        "index": "0x14"
+      },
+      {
+        "rawOffset": "0x05f50",
+        "name": "cloaker",
+        "nameLength": 7,
+        "recordSha256": "c2359fd569e9815678e5449de513e04884dd9c57723de032c6e0d7bb0f2030b2",
+        "rawTailByte": 10,
+        "value": 10,
+        "valueStatus": "present",
+        "index": "0x15"
+      },
+      {
+        "rawOffset": "0x05f60",
+        "name": "ground scanner",
+        "nameLength": 14,
+        "recordSha256": "b337fe8db4617f7674fd6a5ebb6189c82403afe68b9dcf8adf8e4ed60560ddc7",
+        "rawTailByte": 100,
+        "value": 100,
+        "valueStatus": "present",
+        "index": "0x16"
+      },
+      {
+        "rawOffset": "0x05f70",
+        "name": "shunt",
+        "nameLength": 5,
+        "recordSha256": "853fef2a1ef540551beb7855493de0632d7b458ccdeb4c6993d6a3df6d225e6c",
+        "rawTailByte": 12,
+        "value": 12,
+        "valueStatus": "present",
+        "index": "0x17"
+      },
+      {
+        "rawOffset": "0x05f80",
+        "name": "cryofuse",
+        "nameLength": 8,
+        "recordSha256": "e8ccb3b9cd613b77632f65e830f1984c38630829e801862e08669b4f2a60e4c7",
+        "rawTailByte": 18,
+        "value": 18,
+        "valueStatus": "present",
+        "index": "0x18"
+      },
+      {
+        "rawOffset": "0x05f90",
+        "name": "j-junc module",
+        "nameLength": 13,
+        "recordSha256": "eef552b884845cf38f6f14973b87a1648adc6832e9a138cd073ea336d1b8a456",
+        "rawTailByte": 31,
+        "value": 31,
+        "valueStatus": "present",
+        "index": "0x19"
+      },
+      {
+        "rawOffset": "0x05fa0",
+        "name": "photon bridge",
+        "nameLength": 13,
+        "recordSha256": "ce8e0a92e1454cdf7c9dc4d26e7101900319650aac0e677fcd4593ce670d1a5b",
+        "rawTailByte": 52,
+        "value": 52,
+        "valueStatus": "present",
+        "index": "0x1a"
+      },
+      {
+        "rawOffset": "0x05fb0",
+        "name": "scanner",
+        "nameLength": 7,
+        "recordSha256": "53cbb989f3914e71054a0d09360ac05fa0b46182320059f1711bdb7b2fe80263",
+        "rawTailByte": 85,
+        "value": 85,
+        "valueStatus": "present",
+        "index": "0x1b"
+      },
+      {
+        "rawOffset": "0x05fc0",
+        "name": "flux modulator",
+        "nameLength": 14,
+        "recordSha256": "95f8b2706acde173e8679393ba77c849d2e598e862b26e3f5fa6299d72ec6459",
+        "rawTailByte": 115,
+        "value": 115,
+        "valueStatus": "present",
+        "index": "0x1c"
+      },
+      {
+        "rawOffset": "0x05fd0",
+        "name": "plasma tube",
+        "nameLength": 11,
+        "recordSha256": "5aa1278a5eddc3f6d2e324a1a5478bc2f71d194ae4e6e5d338a35f45be6858e5",
+        "rawTailByte": 142,
+        "value": 142,
+        "valueStatus": "present",
+        "index": "0x1d"
+      },
+      {
+        "rawOffset": "0x05fe0",
+        "name": "s/t distorter",
+        "nameLength": 13,
+        "recordSha256": "4d33724b7d4213d6324b63bc7103e5cac722d6996d430c5d182fcfa7657489f7",
+        "rawTailByte": 191,
+        "value": 191,
+        "valueStatus": "present",
+        "index": "0x1e"
+      },
+      {
+        "rawOffset": "0x05ff0",
+        "name": "control node",
+        "nameLength": 12,
+        "recordSha256": "26c2d438db304e6dc0ad586400cf93a428d0d1f678bf1b93e93b6b23d72e403c",
+        "rawTailByte": 255,
+        "value": 255,
+        "valueStatus": "present",
+        "index": "0x1f"
+      }
+    ]
+  },
+  "cargo": {
+    "rawOffset": "0x06a00",
+    "recordSize": 16,
+    "recordCount": 32,
+    "sha256": "a8393cb5658178723a069df3e9345f579677d85398f3733a92479343cce65455",
+    "records": [
+      {
+        "rawOffset": "0x06a00",
+        "name": "nothing",
+        "nameLength": 7,
+        "recordSha256": "44d43a904de3b5ff8a603135dfeef83315b4c674c185516c1370466dd94a4757",
+        "rawTailByte": 0,
+        "value": 0,
+        "valueStatus": "present",
+        "index": "0x00"
+      },
+      {
+        "rawOffset": "0x06a10",
+        "name": "fuel",
+        "nameLength": 4,
+        "recordSha256": "b719aaa8e09639d0fec5d9c99f801e0b18acdf31959569a146d41fa640e32359",
+        "rawTailByte": 20,
+        "value": 20,
+        "valueStatus": "present",
+        "index": "0x01"
+      },
+      {
+        "rawOffset": "0x06a20",
+        "name": "radioactives",
+        "nameLength": 12,
+        "recordSha256": "5ff593f37f114566fc1e2c45751e1ff42f4bd441d88ba1146fab276781be77b5",
+        "rawTailByte": 193,
+        "value": 193,
+        "valueStatus": "present",
+        "index": "0x02"
+      },
+      {
+        "rawOffset": "0x06a30",
+        "name": "gems/crystals",
+        "nameLength": 13,
+        "recordSha256": "0367c4fe2c2e95acc7340b1ea9645b6dfb8de5a309951c34dd518b91198331a6",
+        "rawTailByte": 176,
+        "value": 176,
+        "valueStatus": "present",
+        "index": "0x03"
+      },
+      {
+        "rawOffset": "0x06a40",
+        "name": "rare earths",
+        "nameLength": 11,
+        "recordSha256": "04cf2f12d24637c792b33fc5f6460b71321503488d640bcf6386a2b22dc2dce7",
+        "rawTailByte": 201,
+        "value": 201,
+        "valueStatus": "present",
+        "index": "0x04"
+      },
+      {
+        "rawOffset": "0x06a50",
+        "name": "exotic metals",
+        "nameLength": 13,
+        "recordSha256": "26d9d949679078541ede58690c623f208bc0df38ce88ba579981eae3014f3b4e",
+        "rawTailByte": 175,
+        "value": 175,
+        "valueStatus": "present",
+        "index": "0x05"
+      },
+      {
+        "rawOffset": "0x06a60",
+        "name": "gold",
+        "nameLength": 4,
+        "recordSha256": "b447fac112ddb62a9ec37adc9de27e5974310834e29fd2520ec614a3804da2fd",
+        "rawTailByte": 123,
+        "value": 123,
+        "valueStatus": "present",
+        "index": "0x06"
+      },
+      {
+        "rawOffset": "0x06a70",
+        "name": "antimatter",
+        "nameLength": 10,
+        "recordSha256": "877adb4fb4505dfd68ae9a1d6d3eb2f0e630166cdfac4dfd2a728dba4bfd1098",
+        "rawTailByte": 243,
+        "value": 243,
+        "valueStatus": "present",
+        "index": "0x07"
+      },
+      {
+        "rawOffset": "0x06a80",
+        "name": "grains/cereals",
+        "nameLength": 14,
+        "recordSha256": "da5a3ce0b7f23f42e0fc1dba0dd4e050b421a390a89593f35b22bbce04c39d69",
+        "rawTailByte": 25,
+        "value": 25,
+        "valueStatus": "present",
+        "index": "0x08"
+      },
+      {
+        "rawOffset": "0x06a90",
+        "name": "fruits/vegs",
+        "nameLength": 11,
+        "recordSha256": "6f669f3a9c19bfe8ed7457258d06715bf7caf591ff11893869544194a7564ff1",
+        "rawTailByte": 44,
+        "value": 44,
+        "valueStatus": "present",
+        "index": "0x09"
+      },
+      {
+        "rawOffset": "0x06aa0",
+        "name": "woods/fibers",
+        "nameLength": 12,
+        "recordSha256": "69553248dff0c84adddf20c5282038c719c58cf771a9ded039a70f0659b5cfe7",
+        "rawTailByte": 15,
+        "value": 15,
+        "valueStatus": "present",
+        "index": "0x0a"
+      },
+      {
+        "rawOffset": "0x06ab0",
+        "name": "seeds/sprouts",
+        "nameLength": 13,
+        "recordSha256": "d3bc16dc91e7904836223fcc0bcb48bd38d6bbec55ea4ba6d79a593308e547fe",
+        "rawTailByte": 37,
+        "value": 37,
+        "valueStatus": "present",
+        "index": "0x0b"
+      },
+      {
+        "rawOffset": "0x06ac0",
+        "name": "meats",
+        "nameLength": 5,
+        "recordSha256": "451563ba95b768c26b62ec19161a58ce941edfd0c71604b66190ee1d076dffdf",
+        "rawTailByte": 67,
+        "value": 67,
+        "valueStatus": "present",
+        "index": "0x0c"
+      },
+      {
+        "rawOffset": "0x06ad0",
+        "name": "stock embryos",
+        "nameLength": 13,
+        "recordSha256": "65910910ce7e92e9a50f1629408581e8a36b05453d5299407ec9c2a109c7776b",
+        "rawTailByte": 77,
+        "value": 77,
+        "valueStatus": "present",
+        "index": "0x0d"
+      },
+      {
+        "rawOffset": "0x06ae0",
+        "name": "spices/herbs",
+        "nameLength": 12,
+        "recordSha256": "df3afcff8c48f8876ada57be27948258e1be7fe12328946bf82949450bbeddb3",
+        "rawTailByte": 69,
+        "value": 69,
+        "valueStatus": "present",
+        "index": "0x0e"
+      },
+      {
+        "rawOffset": "0x06af0",
+        "name": "organics",
+        "nameLength": 8,
+        "recordSha256": "7e2b0be8c6b4338ece6881a6617bfc728c7936feeeb80d798e39d4f42f77e507",
+        "rawTailByte": 71,
+        "value": 71,
+        "valueStatus": "present",
+        "index": "0x0f"
+      },
+      {
+        "rawOffset": "0x06b00",
+        "name": "chronographs",
+        "nameLength": 12,
+        "recordSha256": "d81102d18fdfa3ff477b26030648a35a32c7ef557456a5542e6e53b3432b401d",
+        "rawTailByte": 110,
+        "value": 110,
+        "valueStatus": "present",
+        "index": "0x10"
+      },
+      {
+        "rawOffset": "0x06b10",
+        "name": "silichips",
+        "nameLength": 9,
+        "recordSha256": "1f519637e1fe6363986dbea6c3a4b6e09d9c629d9a355f0594fc1814f03897ee",
+        "rawTailByte": 134,
+        "value": 134,
+        "valueStatus": "present",
+        "index": "0x11"
+      },
+      {
+        "rawOffset": "0x06b20",
+        "name": "biochips",
+        "nameLength": 8,
+        "recordSha256": "43954f68ea93286c14d8c1e9cff7a3f323b8173f41506ac0d65243768614191a",
+        "rawTailByte": 179,
+        "value": 179,
+        "valueStatus": "present",
+        "index": "0x12"
+      },
+      {
+        "rawOffset": "0x06b30",
+        "name": "cadcams",
+        "nameLength": 7,
+        "recordSha256": "b27c2f93be29069fbf9bb090115ae944cb00db322edaf55cec21e70fe66a6583",
+        "rawTailByte": 153,
+        "value": 153,
+        "valueStatus": "present",
+        "index": "0x13"
+      },
+      {
+        "rawOffset": "0x06b40",
+        "name": "synthesizers",
+        "nameLength": 12,
+        "recordSha256": "ba13f6a944a1547898c753a91b46cabc59bc6417a485ed6d377a4ad05bc8c51c",
+        "rawTailByte": 146,
+        "value": 146,
+        "valueStatus": "present",
+        "index": "0x14"
+      },
+      {
+        "rawOffset": "0x06b50",
+        "name": "sunsuns",
+        "nameLength": 7,
+        "recordSha256": "a89de63fca7f087ed2abad31b7d18e4dd84e7b085fcd00de08a2b21a87a509cd",
+        "rawTailByte": 134,
+        "value": 134,
+        "valueStatus": "present",
+        "index": "0x15"
+      },
+      {
+        "rawOffset": "0x06b60",
+        "name": "comgear",
+        "nameLength": 7,
+        "recordSha256": "c76c352b6e3acab045e0851d97eeec4b1309c23bf498ac4e6d475846ba86a8c8",
+        "rawTailByte": 169,
+        "value": 169,
+        "valueStatus": "present",
+        "index": "0x16"
+      },
+      {
+        "rawOffset": "0x06b70",
+        "name": "nullgravs",
+        "nameLength": 9,
+        "recordSha256": "543d9e0f9d93695bb50834b4cb15b87c1ca8be1856297b98d2fa49b945bb657d",
+        "rawTailByte": 199,
+        "value": 199,
+        "valueStatus": "present",
+        "index": "0x17"
+      },
+      {
+        "rawOffset": "0x06b80",
+        "name": "droids",
+        "nameLength": 6,
+        "recordSha256": "8e0ff22db53156dd515619c3c02ced4225e97be783da7c04dcc9ecf004ca9c0c",
+        "rawTailByte": 222,
+        "value": 222,
+        "valueStatus": "present",
+        "index": "0x18"
+      },
+      {
+        "rawOffset": "0x06b90",
+        "name": "pharmaceuticals",
+        "nameLength": 15,
+        "recordSha256": "c6cbb615c541b7ad1c553cc4b6ee9a7d571c6bb899b4fb89fd8338989eca8c5c",
+        "rawTailByte": 115,
+        "value": null,
+        "valueStatus": "absent",
+        "note": "名稱長度佔用了數值所在的 byte；原始資料如此，未補值。",
+        "index": "0x19"
+      },
+      {
+        "rawOffset": "0x06ba0",
+        "name": "clothing",
+        "nameLength": 8,
+        "recordSha256": "befb372ae7fc87ecc0baaefe501f5f106c61559592a0f6f01dfc27447046a4f7",
+        "rawTailByte": 93,
+        "value": 93,
+        "valueStatus": "present",
+        "index": "0x1a"
+      },
+      {
+        "rawOffset": "0x06bb0",
+        "name": "hand weapons",
+        "nameLength": 12,
+        "recordSha256": "cd37254e270e4818f9f40ff7338656cebc90356effb05dac6d5073bc1f04e730",
+        "rawTailByte": 174,
+        "value": 174,
+        "valueStatus": "present",
+        "index": "0x1b"
+      },
+      {
+        "rawOffset": "0x06bc0",
+        "name": "furs/silks",
+        "nameLength": 10,
+        "recordSha256": "1d3a0e6a08d513108520ca701dece30a62bf55d9a32caceeab6b5fe7030810df",
+        "rawTailByte": 200,
+        "value": 200,
+        "valueStatus": "present",
+        "index": "0x1c"
+      },
+      {
+        "rawOffset": "0x06bd0",
+        "name": "art objects",
+        "nameLength": 11,
+        "recordSha256": "8f5b99577629fde4d098bc2fbc8ea42a3f4599e8a64b8db4a7921d7339dc82f2",
+        "rawTailByte": 220,
+        "value": 220,
+        "valueStatus": "present",
+        "index": "0x1d"
+      },
+      {
+        "rawOffset": "0x06be0",
+        "name": "stimulants",
+        "nameLength": 10,
+        "recordSha256": "6c25fb26b04227f7cdb7337ad1ac8d78842f010a8bf969b600c835fb75849664",
+        "rawTailByte": 255,
+        "value": 255,
+        "valueStatus": "present",
+        "index": "0x1e"
+      },
+      {
+        "rawOffset": "0x06bf0",
+        "name": "cryogens",
+        "nameLength": 8,
+        "recordSha256": "85f9cfd898257cbdf6f380b9081d61dcbfcbc7ed5ec4e7e73360454b32111f8b",
+        "rawTailByte": 0,
+        "value": 0,
+        "valueStatus": "present",
+        "index": "0x1f"
+      }
+    ]
+  },
+  "openQuestions": [
+    {
+      "topic": "cargo raw tail byte",
+      "status": "proven",
+      "detail": "XDOTRADI raw基底0x44200，0x0927..0x0933無條件讀貨物record byte15；pharmaceuticals為名稱末字母s即115，獨立value仍absent；cryogens原值0。見docs/atari-st/banville-restoration-spec.md。"
+    },
+    {
+      "topic": "value semantics",
+      "status": "proven-by-oracle",
+      "detail": "XDOINTER:0x02 set_up_price 以 ixa 0x8（16 bytes 步距）索引物品表，再 ldb 讀 offset 15 的 byte，也就是本工具解出的尾端數值——它是定價的輸入。完整的價格公式已解出，見 docs/atari-st/prices.md：倍率 = clamp(30 × 星系物價等級 / 城市係數, 1, 32)，且「船上沒有同一件」時反而更貴。"
+    },
+    {
+      "topic": "item index wrap",
+      "status": "proven-by-oracle",
+      "detail": "set_up_price 開頭即 `item mod 0x20`，證實物品表恰為 32 筆。"
+    },
+    {
+      "topic": "dialog item name",
+      "status": "proven-by-oracle",
+      "detail": "對話引用 0x25（物品名）由 set_up_price 從同一張表以相同索引取出，寫進 XDOINTER_01_L54；doc/sundog_dialog_system.md 對該 slot 的記載因此得到證實。"
+    },
+    {
+      "topic": "cargo table size",
+      "status": "proven",
+      "detail": "次級文件把貨物標為 2 個 block，但 32 筆 record 恰好填滿 1 個 block （512 bytes），其後即為對話文字區。以自行解出的邊界為準。"
+    },
+    {
+      "topic": "ship system composition",
+      "status": "proven",
+      "detail": "六套船艦系統各需要哪四個零件不在這兩張表裡，但已由原版 p-code 自行解出：版面與零件編號見 docs/atari-st/ship-systems.json 與 docs/atari-st/secondary-gamestate.md。本工具只驗證那些編號在物品表中存在。"
+    }
+  ]
+}

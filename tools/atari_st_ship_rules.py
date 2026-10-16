@@ -1,0 +1,2005 @@
+#!/usr/bin/env python3
+"""在 Atari ST SunDog 的 p-code 裡定位太空戰鬥與飛行的規則位置。
+
+這些規則不是資料表，是控制流程：它們寫在 ``SHIPLIB:0x21 update_attack``、
+``SHIPLIB:0x23 update_levels``、``XSHOWMOV:0x06 start_jump`` 等程序裡。**本工具不宣稱自動讀懂那些流程**——語意是人讀
+反組譯讀出來的，寫在 ``docs/atari-st/ship-rules.md``。工具做的是另一件事：把每條規則
+對應的那一小段位元組**釘在磁碟上**。
+
+為什麼要釘：一條「原版就是這樣算的」的斷言，如果沒有任何機械檢查，日後沒人能分辨它是
+讀出來的還是記錯的。每條規則在這裡都帶一段位元組簽章，工具要求它在 ``SYSTEM.STARTUP``
+裡**恰好出現一次**；簽章對不上或出現多次就 fail-closed。這擋的是「位址記錯」與「換了一份
+磁碟卻沿用舊結論」兩種情況，不是替代人讀。
+
+輸出的 JSON 記錄每條規則的 raw offset、簽章與語意摘要，供 ``ship-rules.md`` 與
+``internal/game`` 的實作互相對照。
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import io
+import json
+import zipfile
+from pathlib import Path
+
+from atari_st_fat_inventory import choose_disk, choose_nested
+
+
+# 每條規則：識別碼、來源程序、段內位址（供人對照反組譯）、位元組簽章、語意摘要。
+# 簽章是那一小段 p-code 的原始位元組，必須在檔案裡唯一。
+RULES: list[dict[str, object]] = [
+    {
+        "id": "attack.shunt-blasting",
+        "procedure": "SHIPLIB:0x21 update_attack",
+        "segmentOffset": "0x0ec6",
+        "signature": "2517 d221 206b 9b04 5b23 a717 b000 730b a1d4 099b 045b 2317 8080 a2c8 23ed 6b23 2014 a2d2 e1",
+        "summary": "抽中的那一格若是 shunt（編號 23），改成掃過整套系統的 20 格，對每個 shunt 各擲一次亂數決定是否標成 23 + 0x80。",
+    },
+    {
+        "id": "attack.cadence",
+        "procedure": "SHIPLIB:0x21 update_attack",
+        "segmentOffset": "0x0d28",
+        "signature": "9a04 80d9 00b2 f154 9a04 80d9 eed9 0480 d9",
+        "summary": "2026-10-01 勘誤：MAINLIB_Gd9 是航向更新倒數。大於 0 時減 1 並沿既有漂移／接近率移動；小於等於 0 才呼叫 set_course。兩路都接到 SHIPLIB_G5 ready 開火分支，不能把 Gd9 當成開火門檻。原生證據與舊結論索引見 talos-combat-audit-20260907.md。",
+    },
+    {
+        "id": "enemy.shield-initial",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x0bfd",
+        "signature": "807f d904 80db 910b 9b04 5b80 c19a 0480 dbc8",
+        "summary": "遭遇開始時 MAINLIB_Gdb = 127，隨即寫進 MAINLIB_G5b[0xc1]——那是**敵艦的護盾**，與玩家船體所在的 0xc0 相鄰。",
+    },
+    {
+        "id": "enemy.shield-recharge",
+        "procedure": "XDOFIGHT:0x06 fire_it",
+        "segmentOffset": "0x0226",
+        "signature": "9b04 5b80 c19b 045b 80c1 a780 7fa2 028d c8",
+        "summary": "每次開火結算時敵艦護盾回充一半：G5b[0xc1] = (G5b[0xc1] + 127) / 2。所以打不穿就永遠打不穿。",
+    },
+    {
+        "id": "attack.target-roll",
+        "procedure": "SHIPLIB:0x21 update_attack",
+        "segmentOffset": "0x0e37",
+        "signature": "0073 0b07 8f6a 1c22 8c68",
+        "summary": "被打中的目標是 random() mod 7：0–5 對應六套系統（乘 28 得到該系統的 record 基底），6 是船體。",
+    },
+    {
+        "id": "attack.dead-system-hits-hull",
+        "procedure": "SHIPLIB:0x21 update_attack",
+        "segmentOffset": "0x0e41",
+        "signature": "9b04 5b20 18a2 a700 b022 06b0 a0",
+        "summary": "抽到的系統若狀態已是 0（record 的 byte 24），或抽到 6，這一擊改打船體。",
+    },
+    {
+        "id": "attack.hull-loss",
+        "procedure": "SHIPLIB:0x21 update_attack",
+        "segmentOffset": "0x0e50",
+        "signature": "9b04 5b80 c0a7 0073 0b03 8fed a3",
+        "summary": "船體位於系統陣列基底起算的 byte 0xc0；每次打中扣 random() mod 3 + 1，下限 0。",
+    },
+    {
+        "id": "attack.blast-marker",
+        "procedure": "SHIPLIB:0x21 update_attack",
+        "segmentOffset": "0x0eff",
+        "signature": "9b04 5b20 21a2 2580 80a2 c8",
+        "summary": "被打壞的零件就地標記成「原編號 + 0x80」；bit 7 是「已炸毀」旗標，不是另一個物品。",
+    },
+    {
+        "id": "attack.last-hit-slot",
+        "procedure": "SHIPLIB:0x21 update_attack",
+        "segmentOffset": "0x0ef7",
+        "signature": "9b04 5b20 19a2 21c8",
+        "summary": "record 的 byte 25 記下最後被打壞的那一格（先前只知道初始化為 0）。",
+    },
+    {
+        "id": "attack.overflow-step",
+        "procedure": "SHIPLIB:0x21 update_attack",
+        "segmentOffset": "0x0f1a",
+        "signature": "2680 60a3 6e26 00b2",
+        "summary": "穿透護盾的傷害每 96 點打壞一格：扣掉 96 後只要還有剩，就再抽一次目標。",
+    },
+    {
+        "id": "attack.shields-absorb",
+        "procedure": "SHIPLIB:0x21 update_attack",
+        "segmentOffset": "0x0e10",
+        "signature": "269a 0480 e3b2 d410",
+        "summary": "傷害不超過護盾時全被吸收，護盾減去傷害；超過時護盾歸零，其餘轉為對船的傷害。",
+    },
+    {
+        "id": "attack.damage-clamp",
+        "procedure": "SHIPLIB:0x21 update_attack",
+        "segmentOffset": "0x0e09",
+        "signature": "1466 812c 0173 0a",
+        "summary": "單發傷害在套用前被夾在 20–300 之間。",
+    },
+    {
+        "id": "levels.weapon-recharge",
+        "procedure": "SHIPLIB:0x23 update_levels",
+        "segmentOffset": "0x1082",
+        "signature": "9b04 5b80 50a7 048c 80ff 0191 22",
+        "summary": "原版相位0／2：燃料與艦砲狀態大於0、旗標2成立時，回復艦砲狀態×4至255，有增加扣1燃料；否則有充能時減8。TJP只測bit0，完整寫回與門檻見能量原生研究。",
+    },
+    {
+        "id": "levels.shield-recharge",
+        "procedure": "SHIPLIB:0x23 update_levels",
+        "segmentOffset": "0x10ce",
+        "signature": "9b04 5b80 88a7 088c 9a04 80e2 0191 22",
+        "summary": "原版相位0：護盾與設定值不同時，以力場護盾狀態×8向設定值夾限，再夾0–255；降低設定時也向下調整。",
+    },
+    {
+        "id": "levels.shield-fuel-cost",
+        "procedure": "SHIPLIB:0x23 update_levels",
+        "segmentOffset": "0x10f8",
+        "signature": "2e2e 789a 0480 e2ed 8040 8da3 c4",
+        "summary": "原版相位0：本次更新後仍未達設定值，扣整數(setting+1)/64燃料；本次剛達標不扣。更新前已等於設定且護盾大於0則扣1。簽章位於未達標分支，完整控制流見能量原生研究。",
+    },
+    {
+        "id": "repair.blasted-becomes-dead-part",
+        "procedure": "XDOREPAI:0x06 init_system",
+        "segmentOffset": "0x031b",
+        "signature": "9b04 5b22 a780 90b2 f106",
+        "summary": "進入維修畫面時，帶「已炸毀」旗標的零件（值 > 0x90）就地換成 dead part（0x07）。",
+    },
+    {
+        "id": "flight.jump-distance",
+        "procedure": "SHIPLIB:0x0a dist",
+        "segmentOffset": "0x007c",
+        "signature": "9b04 811f 23ee d70a e708 20d8 0404 c9",
+        "summary": (
+            "星系間距離取三個座標的平方和再開根號。座標在星系 record 的第 8 個 word，"
+            "以 ixp 0x4,0x4 取第 0–2 個 4-bit 欄位——p-machine 的 IXP 把欄位 i 放在第 i*4 個 bit 起算，"
+            "所以欄位 0 是最低的 nibble。"
+        ),
+    },
+    {
+        "id": "flight.jump-distance-adjust",
+        "procedure": "SHIPLIB:0x0a dist",
+        "segmentOffset": "0x00a3",
+        "signature": "2303 b022 03b0 a0d4",
+        "summary": "起點或終點是第 3 個星系時，距離加 1。",
+    },
+    {
+        "id": "flight.jump-duration",
+        "procedure": "XSHOWMOV:0x06 start_jump",
+        "segmentOffset": "0x015f",
+        "signature": "0324 248c 8c0a a26b",
+        "summary": "跳躍所需的時間是 3 × 距離² + 10。",
+    },
+    {
+        "id": "flight.jump-range",
+        "procedure": "XSHOWMOV:0x06 start_jump",
+        "segmentOffset": "0x016a",
+        "signature": "249b 045b 80c2 a7b2 f105 0190 07",
+        "summary": (
+            "距離超過系統陣列基底起算 byte 0xc2 的值就中止，訊息是「Beyond maximum jump」。"
+            "那個 byte 是最大跳躍距離，新遊戲為 8。"
+        ),
+    },
+    {
+        "id": "flight.out-of-fuel",
+        "procedure": "XSHOWMOV:0x06 start_jump",
+        "segmentOffset": "0x0179",
+        "signature": "9a04 80e5 00d2 0500 9007",
+        "summary": "燃料為 0 就中止，訊息是「Out of fuel」。",
+    },
+    {
+        "id": "flight.jump-needs-warp-drive",
+        "procedure": "XSHOWMOV:0x06 start_jump",
+        "segmentOffset": "0x0185",
+        "signature": "9b04 5b18 a700 d205 0490 07",
+        "summary": (
+            "曲速引擎的狀態（系統陣列 byte 24，即第 0 套系統的狀態）為 0 就中止，"
+            "訊息是「Warp engines blown」。船艦系統的損壞因此直接擋住跳躍。"
+        ),
+    },
+    {
+        "id": "flight.initial-jump-range",
+        "procedure": "XSTARTUP:0x30 utility:set_new_game:new_game",
+        "segmentOffset": "0x1c92",
+        "signature": "9b04 5b80 c208 c8",
+        "valueByteIndex": 5,
+        "summary": "新遊戲把最大跳躍距離（系統陣列 byte 0xc2）設成這個值。",
+    },
+    {
+        "id": "flight.fuel-low-warning",
+        "procedure": "XSHOWMOV:0x06 start_jump",
+        "segmentOffset": "0x0192",
+        "signature": "239a 0480 e102 9a04 80e5 8ca2 b2f1",
+        "summary": "跳躍時間超過可用量時發出「WARNING: Fuel low」，但不中止跳躍。",
+    },
+    {
+        "id": "flight.in-system-fuel",
+        "procedure": "XSHOWMOV:0x0a do_in_system",
+        "segmentOffset": "0x042f",
+        "signature": "9a04 80e5 00d2 0800 ef04 8b71 018a 0f9b",
+        "summary": "系統內航行同樣先看燃料：為 0 就中止，訊息是「Out of fuel」。",
+    },
+    {
+        "id": "flight.in-system-subc-engine",
+        "procedure": "XSHOWMOV:0x0a do_in_system",
+        "segmentOffset": "0x043e",
+        "signature": "9b04 5b80 34a7 00d2 0605 ef",
+        "summary": (
+            "亞光速引擎的狀態（系統陣列 byte 0x34，即第 1 套系統的狀態）為 0 就中止，"
+            "訊息是「Sub-c engines blown」。系統內航行與跳躍各由一套引擎把關。"
+        ),
+    },
+    {
+        "id": "fuel.aux-tank-refill",
+        "procedure": "SHIPLIB:0x24 update_levels:check_fuel",
+        "segmentOffset": "0x0fb9",
+        "signature": "ad0f ad0f 7880 ffa2 c49b",
+        "summary": "主燃料見底時，一個滿的備用燃料槽補 255（0xff）並被標成空的。",
+    },
+    {
+        "id": "combat.fire-requires-guns-and-charge",
+        "procedure": "XDOFIGHT:0x06 fire_it",
+        "segmentOffset": "0x01b8",
+        "signature": "9b04 5b80 50a7 00b1 9a04 80e4 00b1 a1",
+        "summary": (
+            "開火要同時滿足兩件事：艦載砲狀態（系統陣列 byte 0x50）不為 0，"
+            "且武器充能不為 0。砲被打壞就完全開不了火。"
+        ),
+    },
+    {
+        "id": "fight.slew-reads-mouse",
+        "procedure": "XDOFIGHT:0x0b slew",
+        "segmentOffset": "0x0762",
+        "signature": (
+            "860e 860d 721e 3c04 a2a5 0d3c 80bf b2f1 0480 bfa5 0d9b 0487 373c 068d d701 78a5 "
+            "0d9b 0487 371f 3d0a 8da3 d701 78a5 0e"
+        ),
+        "summary": (
+            "戰術移動是滑鼠：每一拍 get_mouse 讀螢幕座標，`Gd（俯仰率）= 表[min(y+4, 0xbf) / 6]`、"
+            "`Ge（方位率）= 表[31 − x/10]`，表是 `MAINLIB_G737` 起的 32 個字（fight.slew-table）。"
+            "只在 do_guns 的迴圈裡呼叫；迴圈之外兩個率清 0。"
+        ),
+    },
+    {
+        "id": "fight.slew-table",
+        "procedure": "data:slew-table",
+        "segmentOffset": "0x0000",
+        "signature": (
+            "0008 0007 0006 0005 0005 0004 0004 0003 0003 0002 0002 0002 0001 0001 0001 0000 "
+            "0000 ffff ffff ffff fffe fffe fffe fffd fffd fffc fffc fffb fffb fffa fff9 fff8"
+        ),
+        "summary": (
+            "轉向率查表：32 個字，+8 到 −8，第 15、16 格是 0 的死區。"
+            "這不是段內程式碼，是磁碟上的資料（載入後住在 `MAINLIB_G737`）；六份執行時記憶體快照"
+            "在 `0x21368 + 2×0x737` 讀到的 64 個位元組與此逐一相同。"
+        ),
+    },
+    {
+        "id": "fight.replot-turns-the-enemy",
+        "procedure": "XDOFIGHT:0x0a replot_screen",
+        "segmentOffset": "0x0671",
+        "signature": (
+            "8511 3da3 a511 3f3c a3a5 1033 d438 039a 0480 db80 208d a368 9a04 80d0 3d3d a2a3 "
+            "209a 0480 d38c a281 0004 8fd9 0480 d09a 0480 cf3c 3ca2 a220 9a04 80d2 8ca2 8100 "
+            "048f d904 80cf"
+        ),
+        "summary": (
+            "星野位移 `G11 −= Ge`、`G10 −= Gd`；打起來時（`SHIPLIB_G4`）敵艦角度 "
+            "`Gd0 −= 2×Ge + (3 − 距離/32)×Gd3`、`Gcf += 2×Gd + (3 − 距離/32)×Gd2`，各取 mod 0x400。"
+            "向右轉（游標在中心右側）敵艦在視埠裡往左滑；正前方是兩軸各 0x200，"
+            "fire_it 以 |Gd0 − 0x200| + |Gcf − 0x200| ≤ 容差判命中。"
+        ),
+    },
+    {
+        "id": "combat.fire-spends-charge",
+        "procedure": "XDOFIGHT:0x06 fire_it",
+        "segmentOffset": "0x039b",
+        "signature": "00d9 0480 e400",
+        "summary": (
+            "開一次火把武器充能清成 0。射速因此完全取決於回充速率，"
+            "而回充速率是「艦載砲狀態 × 4」。"
+        ),
+    },
+    {
+        "id": "combat.encounter-rating",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x0b3d",
+        "signature": "28e7 0803 d804 04c9 0073 0b12 8fb2",
+        "summary": (
+            "遭遇判定讀星系 record 座標 word 的**第 3 個 4-bit 欄位**："
+            "值小於等於 random() mod 18 時這一刻不生成敵艦。值越大越少遇到，"
+            "所以那個欄位是「安全度」而不是危險度。"
+        ),
+    },
+    {
+        "id": "combat.encounter-enemy-class",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x0b5f",
+        "signature": "0128 e708 03d8 0404 c9ee 048d a3d9 0480 d8",
+        "summary": (
+            "生成敵艦時，敵艦類別由同一個欄位算出：`1 - (值 - 1) / 4`。"
+            "星系座標 word 的第 3 個欄位因此不是未用欄位，而是該星系的遭遇設定。"
+        ),
+    },
+    {
+        "id": "enemy.table-allocate",
+        "procedure": "SUNDOG:0x01 sundog",
+        "segmentOffset": "0x018d",
+        "signature": "9b06 0681 0003 940b 04",
+        "summary": (
+            "主程式一開機就把 `SHIPLIB_G6` 指向一塊 0x300 words 的堆積區。"
+            "敵艦資料表是這塊記憶體的一部分，不是靜態全域。"
+        ),
+    },
+    {
+        "id": "enemy.table-load",
+        "procedure": "SUNDOG:0x01 sundog",
+        "segmentOffset": "0x01a4",
+        "signature": "0181 ff02 009a 0606 0305 e101 7349",
+        "summary": (
+            "那塊記憶體由 `MAINLIB:0x49 moveblock` 填滿，block 參數是 **-5、連 3 塊**。"
+            "負值走 `unitread(4, buf, 0, |block| - 1, 2)`，control 位元 2 是實體定址，"
+            "讀的是防拷軌 track 3 的實體 block 4、5、6。敵艦資料因此躲在防拷軌上。"
+        ),
+        "valueByteIndex": 9,
+    },
+    {
+        "id": "enemy.stat-weapon-power",
+        "procedure": "SHIPLIB:0x21 update_attack",
+        "segmentOffset": "0x0de9",
+        "signature": "27e7 8100 9a04 80d8 d702 00a7 8064 a2",
+        "summary": (
+            "敵艦 record 的 byte 0 是武器基數：`G6 + 0x100 words` 起算、以 `ixa 0x2` 取 4-byte record，"
+            "取 byte 0 加 100 後乘進傷害式。"
+        ),
+    },
+    {
+        "id": "enemy.stat-armour",
+        "procedure": "XDOFIGHT:0x06 player_fire",
+        "segmentOffset": "0x0289",
+        "signature": "35e7 8100 9a04 80d8 d702 01a7 8d69 0161 8050 730a",
+        "summary": (
+            "同一筆 record 的 byte 1 是玩家那一發的除數：算好的傷害除以它，再夾限 1–80。"
+        ),
+    },
+    {
+        "id": "enemy.stat-accuracy",
+        "procedure": "SHIPLIB:0x21 update_attack",
+        "segmentOffset": "0x0da3",
+        "signature": "27e7 8100 9a04 80d8 d702 02a7 8064 a2",
+        "summary": (
+            "byte 2 是命中率：`(值 + 100) / (距離 / 8)` 大於 `rand(1,100)` 才算打中。"
+        ),
+    },
+    {
+        "id": "enemy.stat-fire-rate",
+        "procedure": "SHIPLIB:0x20 set_fire",
+        "segmentOffset": "0x0c55",
+        "signature": "3935 e781 009a 0480 d8d7 0203 a7a3 a50a",
+        "summary": (
+            "byte 3 是開火倒數的步進：倒數 `SHIPLIB_Ga` 每次扣掉它，扣到 0 就開火。"
+        ),
+    },
+    {
+        "id": "enemy.name-table",
+        "procedure": "XDOFIGHT:0x03 show_status",
+        "segmentOffset": "0x0074",
+        "signature": "20e7 812e 9a04 80d8 d706 9873 1b",
+        "summary": (
+            "敵艦名稱在同一塊記憶體的 `+0x12e words`，以 `ixa 0x6`（12 bytes）取一個長度前綴字串，"
+            "由戰鬥畫面的 ID 欄印出。索引與屬性表共用同一個型號編號。"
+        ),
+    },
+    {
+        "id": "enemy.outline-table",
+        "procedure": "XDOFIGHT:0x03 show_status",
+        "segmentOffset": "0x0098",
+        "signature": "0180 6700 20e7 8158 0873 408a 51",
+        "summary": (
+            "七個型號各有一組折線外形。呼叫點寫死了兩個常數：資料的 word 位移與 `draw_poly` 的迴圈上界，"
+            "所以每組的長度是從程式碼讀出來的，不是猜的。七組首尾相接、用完整塊記憶體。"
+        ),
+    },
+    {
+        "id": "enemy.hull-roll",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x0c25",
+        "signature": "0080 789a 0480 d814 8ca2 80ff 730c d904 80da",
+        "summary": (
+            "敵艦血量不在資料表裡：生成時現場擲 `rand(120 + 型號 × 20, 255)` 存進 `MAINLIB_Gda`。"
+            "型號越大血越厚。"
+        ),
+        "valueByteIndex": 2,
+    },
+    {
+        "id": "enemy.type-spread",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x0b9e",
+        "signature": "9a04 80d8 0073 0b04 8fa2 0073 0b03 8fa2 0073 0b02 8fa2 d904 80d8 009b 0480 d805 730a",
+        "summary": (
+            "星系遭遇設定算出的基礎型號再加 `random() mod 4 + random() mod 3 + random() mod 2`，"
+            "夾限 0–5。第 7 個型號（UNKNOWN）不走這條，只在 `MAINLIB_G17` 成立時直接指定。"
+        ),
+    },
+    {
+        "id": "player.fire-gun-quality",
+        "procedure": "XDOFIGHT:0x06 player_fire",
+        "segmentOffset": "0x025e",
+        "signature": "9b04 5312 d810 01c9 d404 1469 8a02 1069",
+        "summary": (
+            "玩家那一發的基數看船艦記錄的 packed 旗標 18：裝著較好的那件零件是 20，否則 16。"
+        ),
+    },
+    {
+        "id": "player.fire-power",
+        "procedure": "XDOFIGHT:0x06 player_fire",
+        "segmentOffset": "0x026e",
+        "signature": "219a 0480 db11 8da3 6921 0000 2103 8d73 0ca3 9a04 80e4 0a8d 0aa2 8c",
+        "summary": (
+            "基數先扣掉 `距離 / 17`，再扣掉 `rand(0, 基數/3)`，最後乘上 `武器蓄能 / 10 + 10`。"
+            "距離越遠越弱、蓄能越滿越強。"
+        ),
+    },
+    {
+        "id": "player.fire-hull",
+        "procedure": "XDOFIGHT:0x06 player_fire",
+        "segmentOffset": "0x02a6",
+        "signature": (
+            "9a04 80da 21a3 6926 80ff b2f1 0380 ff6e 9b04 5b80 bf26 c8ef 0221 00b2 d5d1 0000 d904 80da"
+        ),
+        "summary": (
+            "傷害從敵艦血量扣除；累計傷害另存進船艦記錄的 byte 0xbf（上限 255）。"
+            "血量歸零或以下時敵艦被擊毀。"
+        ),
+    },
+    {
+        "id": "combat.range-initial",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x0bfa",
+        "signature": "00a5 0b80 7fd9 0480 db",
+        "summary": "遭遇一開始的距離是 127；戰鬥的三個公式都拿這個距離當分母或折減項。",
+        "valueByteIndex": 4,
+    },
+    {
+        "id": "combat.range-close",
+        "procedure": "SHIPLIB:0x21 update_attack",
+        "segmentOffset": "0x0d68",
+        "signature": "9a04 80db 9a04 80d1 a2d9 0480 db9a 0480 db0a b3f1 050a d904 80db",
+        "summary": (
+            "距離每一拍加上接近速率，下限 10。下限的存在讓 `距離 / 8` 至少是 1，"
+            "命中判定的除法因此不會除以零。"
+        ),
+        "valueByteIndex": 21,
+    },
+    {
+        "id": "combat.damage-scale",
+        "procedure": "SHIPLIB:0x21 update_attack",
+        "segmentOffset": "0x0dd3",
+        "signature": "9a04 80da 148d 04a2 6e26 268c 6e26 805a b2f1 0380 5a6e",
+        "summary": (
+            "傷害的比例項來自敵艦**當前**血量：`(血量 / 20 + 4)²`，上限 90。"
+            "被打殘的敵艦打得比較輕。"
+        ),
+    },
+    {
+        "id": "combat.fire-countdown",
+        "procedure": "SHIPLIB:0x21 update_attack",
+        "segmentOffset": "0x0d8c",
+        "signature": "1a73 0300 050a 730c a50a 00a5 05",
+        "summary": "敵艦開火後倒數重設為 `rand(5,10)`，再由 set_fire 每拍扣掉該型號的步進。",
+    },
+    {
+        "id": "combat.fire-countdown-initial",
+        "procedure": "SHIPLIB:0x0b init_fight",
+        "segmentOffset": "0x052c",
+        "signature": "14 a50a 9a04 80ce 8a61",
+        "valueByteIndex": 0,
+        "summary": "新遭遇初始化 Ga=20，八個模式共用；與開火後 rand(5,10) 的重設不同。已以原版完整 init_fight／遭遇初始化受控實跑核定，入口 talos-combat-audit-20260907.md。",
+    },
+    {
+        "id": "combat.enemy-course-modes",
+        "procedure": "SHIPLIB:0x1e set_course",
+        "segmentOffset": "0x0657",
+        "signature": "0002 e102 730c d904 80d3 0002 e102 730c d904 80d2 02e1 d904 80d1 9a04 80db 108d d904 80d9",
+        "summary": (
+            "敵艦的航向由 `MAINLIB_Gce`（八個行為模式）分派。模式 0 是最單純的一種："
+            "接近速率固定 -2，兩個橫向漂移各擲 `rand(-2,2)`。"
+        ),
+    },
+    {
+        "id": "combat.enemy-course-standoff",
+        "procedure": "SHIPLIB:0x1e set_course",
+        "segmentOffset": "0x06ba",
+        "signature": "9a04 80db 805a b2f1 0802 e1d9 0480 d18a 169a 0480 db80 3cb3 f107 01d9 0480 d18a 0601 e1d9 0480 d1",
+        "summary": (
+            "模式 2 說明這套 AI 不是一味衝過來：距離大於 90 時以 -2 接近、60–90 之間 -1、"
+            "小於 60 就 **+1 拉開**。八個模式都是這種「維持一段距離」的形狀。"
+        ),
+        "valueByteIndex": 5,
+    },
+    {
+        "id": "combat.enemy-course-drift-clamp",
+        "procedure": "SHIPLIB:0x1e set_course",
+        "segmentOffset": "0x08bc",
+        "signature": "04e1 9b04 80d3 0473 0a04 e19b 0480 d204 730a",
+        "summary": "八個模式算完之後，兩個橫向漂移一律夾在 -4 到 4 之間。",
+    },
+    {
+        "id": "combat.enemy-course-spawn",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x0bc0",
+        "signature": "0000 0573 0cd9 0480 ce",
+        "summary": (
+            "生成敵艦時行為模式擲 `rand(0,5)`——八個模式裡只有前六個會在遭遇一開始出現。"
+        ),
+        "valueByteIndex": 2,
+    },
+    {
+        "id": "flight.destination-menu",
+        "procedure": "XPILOTAG:0x06 do_move",
+        "segmentOffset": "0x0265",
+        "signature": "8409 9b04 43c5 0006 0284 0965 0101 7104",
+        "summary": (
+            "`do_move` 是**目的地選單**：它讀地圖、讓玩家選一個位置，再把那個 6-word 的位置"
+            "描述搬進 `MAINLIB_G43`。航行途中沒有操舵這回事——改航線等於重選目的地並重跑插值。"
+        ),
+    },
+    {
+        "id": "flight.planet-orbit",
+        "procedure": "XSTARTUP:0x2f utility:set_new_game:init_location",
+        "segmentOffset": "0x198c",
+        "signature": (
+            "9b04 2908 089b 0481 979b 042a 0504 c9ee d708 e706 0808 c9ca "
+            "9b04 2908 009b 0481 979b 042a 0504 c9ee d708 e706 0800 c9ca"
+        ),
+        "summary": (
+            "行星在星系裡的位置就在行星 record 的第 6 個 word：高 byte 是半徑、低 byte 是角度，"
+            "原樣搬進 `MAINLIB_G29`。`ixa 0x8` 說明 record 是 16 bytes，`inc 0x6` 指到那個 word。"
+        ),
+    },
+    {
+        "id": "flight.sine-table-load",
+        "procedure": "XSTARTUP:0x01 utility",
+        "segmentOffset": "0x07cc",
+        "signature": "0110 009b 0487 2601 8046 0173 49",
+        "summary": (
+            "投影用的正弦表由 logical block 0x46 讀進 `MAINLIB_G726`。"
+            "這是整個投影唯一的資料輸入。"
+        ),
+        "valueByteIndex": 9,
+    },
+    {
+        "id": "flight.polar-to-rect-x",
+        "procedure": "SHIPLIB:0x0c polar_to_rect",
+        "segmentOffset": "0x00c0",
+        "signature": "2480 40a2 028d 8040 8f68 2080 20b2 f105 8040 20a3 689b 0487 2620 a768 2223 208c 8080 8dc4",
+        "summary": (
+            "x 分量：角度先加四分之一圈再除以 2、取模 0x40、超過 0x20 就折回，"
+            "查表後乘半徑除以 0x80——加四分之一圈就是把正弦當餘弦用。"
+        ),
+    },
+    {
+        "id": "flight.polar-to-rect-y",
+        "procedure": "SHIPLIB:0x0c polar_to_rect",
+        "segmentOffset": "0x00f5",
+        "signature": (
+            "2402 8d80 408f 6820 8020 b2f1 0580 4020 a368 9b04 8726 20a7 6821 2320 8c80 808d c424 8080 b2f1 0521 2178 e1c4"
+        ),
+        "summary": (
+            "y 分量走同一張表但不加四分之一圈；角度不超過 0x80 時取負。"
+            "x 的取負區間是 0x40–0xc4，兩者都直接照抄，包括後者並不對稱這件事。"
+        ),
+    },
+    {
+        "id": "flight.trip-setup",
+        "procedure": "XSHOWMOV:0x0a do_in_system",
+        "segmentOffset": "0x04df",
+        "signature": (
+            "9b04 4308 00c9 9b04 4908 00c9 a3d9 0480 d79a 0480 d780 80b2 f10e 9a04 80d7 8100 01a3 d904 80d7 "
+            "8a16 9a04 80d7 8080 e1b3 f10c 9a04 80d7 8100 01a2 d904 80d7"
+        ),
+        "summary": (
+            "角度差先算出來，超過半圈就減一圈、小於負半圈就加一圈——這一步讓船走短邊，"
+            "而不是繞遠路到同一個位置。"
+        ),
+    },
+    {
+        "id": "flight.trip-length",
+        "procedure": "XSHOWMOV:0x0a do_in_system",
+        "segmentOffset": "0x052e",
+        "signature": "9a04 80d6 e003 8d9a 0480 d7e0 9b04 4308 08c9 9b04 4908 08c9 a28c 8100 018d a26f 2704 8ced d904 80d5",
+        "summary": (
+            "航程長度是弧長估計：`|Δ半徑| / 3 + |Δ角度| × (兩端半徑和) / 0x100`，"
+            "再乘 4 加 1 得到 tick 數。"
+        ),
+    },
+    {
+        "id": "flight.trip-start",
+        "procedure": "XSHOWMOV:0x0a do_in_system",
+        "segmentOffset": "0x0556",
+        "signature": "9b04 4908 08c9 d904 80dd 9b04 4908 00c9 d904 80de 00d9 0480 d4",
+        "summary": "起點半徑與角度存成插值的基準，經過的 tick 數歸零。",
+    },
+    {
+        "id": "flight.tick",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x093f",
+        "signature": (
+            "9a04 80d4 edd9 0480 d49b 0449 0808 c96b 9b04 4908 089a 0480 d49a 0480 d68c 9a04 80d5 8d9a 0480 "
+            "dda2 ca9a 0480 d49a 0480 d78c 9a04 80d5 8d9a 0480 dea2 6820 00b3 f10d 9b04 4908 0081 0001 20a2 "
+            "ca8a 0b9b 0449 0800 2081 0001 8fca"
+        ),
+        "summary": (
+            "每一拍把經過的 tick 數加一，兩個座標都**由 tick 數重新算出**而不是累加，"
+            "所以長程航行不會累積誤差；角度為負就加一圈，否則取模一圈。"
+        ),
+    },
+    {
+        "id": "flight.plot",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x09bf",
+        "signature": "9a04 838f 0325 80b0 a2ed 2480 3da2 02a2 7221 9a04 838f 0322 80b0 a2ed 2180 3da2 02a2 7221",
+        "summary": (
+            "投影出來的座標以 (0xb0 + 1, 0x3d + 2) 為原點畫在畫面上——恆星就在那一點，"
+            "半徑 0 的位置。舊位置與新位置各畫一次同一個字元，等於擦掉再畫。"
+        ),
+        "valueByteIndex": 7,
+    },
+    {
+        "id": "price.system-level",
+        "procedure": "XDOINTER:0x24 initialize",
+        "segmentOffset": "0x11fc",
+        "signature": "24e7 0804 d804 04c9 a601 1a",
+        "summary": (
+            "價格倍率的分子是**星系自己的物價等級**：星系 record 第 9 個 word 的第 0 個 4-bit 欄位。"
+            "`ixp 0x4,0x4` 的索引 4 就是那個欄位——四個欄位一個 word，索引 3 是第 8 個 word 的"
+            "遭遇設定，索引 4 跨到下一個 word。"
+        ),
+    },
+    {
+        "id": "price.city-divisor",
+        "procedure": "XDOINTER:0x26 initialize:start_interaction",
+        "segmentOffset": "0x1028",
+        "signature": "1a9b 042b 0600 c99b 042c 0500 c9a2 098f a2a6 0201",
+        "summary": (
+            "分母是 `26 + ((兩個城市欄位之和) mod 9)`，值域 26–34；分子之外還乘一個定值 30。"
+            "同一星系的兩座城市因此報價略有差異。"
+        ),
+        "valueByteIndex": 0,
+    },
+    {
+        "id": "price.scale",
+        "procedure": "XDOINTER:0x02 set_up_price",
+        "segmentOffset": "0x0043",
+        "signature": "ad02 00b3 f104 00a6 0102 ad01 00b2 d404 01a6 0101 ad02 ad1a 8cad 018d 69",
+        "summary": "價格倍率是 `30 × 物價等級 / 城市係數`，之後夾在 1–32。",
+    },
+    {
+        "id": "price.base",
+        "procedure": "XDOINTER:0x02 set_up_price",
+        "segmentOffset": "0x0060",
+        "signature": (
+            "9b03 8436 2dd7 080f a768 2d83 0280 0202 02da d41f 9b04 5380 502d a2d8 1001 c9d4 "
+            "0920 8064 a205 8c68 8a07 2080 64a2 088c 688a 119b 0453 8050 2da2 d810 01c9 f104 2002 8c68"
+        ),
+        "summary": (
+            "底價是物品 record 的最後一個 byte。四件**選配零件**（編號 19–22：concentrator、"
+            "decloaker、cloaker、ground scanner，由程式碼裡的集合常數指定）另算："
+            "`(底價 + 100) × 5`（船上已有一件）或 `× 8`（沒有）。其餘物品在船上沒有時**加倍**。"
+        ),
+    },
+    {
+        "id": "price.stock-range",
+        "procedure": "XDOINTER:0x04 create_list",
+        "segmentOffset": "0x01cc",
+        "signature": "2023 b2d4 2321 14b1 9b04 2a06 09c9 803c b0a0 d408 2122 2490 0522 ed6a",
+        "summary": (
+            "一間店的存貨是**連續一段物品編號**：迴圈從第一個編號跑到最後一個編號（兩端都含）。"
+            "那兩個編號是對話 frame 的 postcode 操作碼 3 帶的兩個位元組，"
+            "所以存貨清單住在 frame 資料裡，不是磁碟上另一張表。"
+            "終點若給 0 就改用 14。編號 20 會被跳過，除非城市索引是 60。"
+        ),
+    },
+    {
+        "id": "image.directory-load",
+        "procedure": "XSTARTUP:0x01",
+        "segmentOffset": "0x0792",
+        "signature": "0180 af00 9b04 843f 0180 4701 7349",
+        "summary": (
+            "影像目錄在開機時從 logical block 0x47 搬進 `MAINLIB_G43f`，長度 176 words"
+            "（0xaf + 1）——也就是 **88 筆 × 2 words**。"
+        ),
+        "valueByteIndex": 2,
+    },
+    {
+        "id": "image.directory-entry",
+        "procedure": "MAINLIB:0x4b fetch_epic",
+        "segmentOffset": "0x12a6",
+        "signature": (
+            "8684 3f87 8106 d702 a481 0587 8105 0800 c900 d215 8781 0508 08c9 8048 a269 8781 0579 6b"
+        ),
+        "summary": (
+            "取第 idx 張影像就是拿 `G43f + idx × 2 words` 當目錄項：第 0 個 word 是起點、"
+            "第 1 個 word 是長度，兩者都以 word 為單位；起點的高位元組是相對 block、"
+            "低位元組是 block 內的 word 位移，而影像串流從 logical block 0x48 起算。"
+        ),
+        "valueByteIndex": 27,
+    },
+    {
+        "id": "city.tile-sets",
+        "procedure": "XMOVEONG:0x03 read_chars",
+        "segmentOffset": "0x0077",
+        "signature": (
+            "ad22 0d9b 0483 a59b 0380 a490 05ad 210d 9b04 83a2 9b03 809a 9005 ad20 059b 0483 a89b "
+            "0380 9090 04"
+        ),
+        "summary": (
+            "一座城市的地表圖塊是**三張影像**，索引就是地圖標頭那三個 4-bit 欄位各加偏移之後的值"
+            "（31 或 34）。三張都經 `fetch_dpic` 取出；磁碟上這些索引指到的正是 32 像素高的"
+            "圖塊條（每條 5、11 或 13 塊）。"
+        ),
+    },
+    {
+        "id": "city.terrain-code",
+        "procedure": "XMOVEONG:0x22 draw_city_map",
+        "segmentOffset": "0x18a5",
+        "signature": "056c 8a0f 0b6c 8a0b 156c 8a07 1b6c 8a03 d680 da8a 0d80 206c 8a08 8021 6c8a 03d6 80e0",
+        "summary": (
+            "地形的 4-bit 碼要先轉成畫面碼再進緩衝區：15 → 32、5 → 33、"
+            "11 → 擲骰選 5／11／21／27，其餘的碼擲骰決定要不要加 16（那就是同一塊地形的"
+            "另一種樣子）。碼 0 與 1 不進這張表，也就不會被畫成圖塊。"
+        ),
+        "valueByteIndex": 22,
+    },
+    {
+        "id": "city.tile-pick",
+        "procedure": "XMOVEONG:0x0b wmap",
+        "segmentOffset": "0x0793",
+        "signature": (
+            "8718 8020 b3d4 1087 1880 20a3 a417 8428 8422 c500 028a 3187 1824 b3d4 0f87 1824 a3a4 "
+            "1784 2884 24c5 0002 8a1c 871f d408 8718 02a3 a418 8a05 8718 eea4 1887 18a4 1784 2884 "
+            "26c5 0002"
+        ),
+        "summary": (
+            "畫一格時以碼分三段挑圖塊條：碼 ≥ 32 走第三條、第 (碼 − 32) 塊；"
+            "門檻 ≤ 碼 < 32 走第二條、第 (碼 − 門檻) 塊；碼 < 門檻 走第一條、第 (碼 − 1) 塊"
+            "（某個旗標成立時改減 2）。段內的位移再乘 32 就是條裡的像素起點。"
+        ),
+        "valueByteIndex": 3,
+    },
+    {
+        "id": "city.tile-threshold",
+        "procedure": "XMOVEONG:0x0b wmap",
+        "segmentOffset": "0x0689",
+        "signature": "126c 9a04 83a1 a421",
+        "summary": (
+            "城市模式的分段門檻是 **18**，畫面緩衝區是 `MAINLIB_G3a1`。"
+            "世界地圖模式另有一組（門檻 17、緩衝區 `G3a0`）。"
+        ),
+        "valueByteIndex": 0,
+    },
+    {
+        "id": "map.sector-chart",
+        "procedure": "XREADMAP:0x03 disp_map:dispsect",
+        "segmentOffset": "0x0055",
+        "signature": (
+            "26e7 0800 d804 04c9 0c8c ae03 a208 a26c 26e7 0801 d804 04c9 0a8c ae02 a208 a26b "
+            "0626 e708 02d8 0404 c902 8da3 69"
+        ),
+        "summary": (
+            "三維星圖直接畫星系 record 第 8 個 word 的三個 4-bit 座標："
+            "x = 欄位0 × 12 + 基準 + 8、y = 欄位1 × 10 + 基準 + 8、圓半徑 = 6 − 欄位2 / 2。"
+            "半徑 ≤ 0 時改畫一個字元而不是圓——這就是手冊說的「圓圈大小表示 Z 軸距離」。"
+        ),
+        "valueByteIndex": 12,
+    },
+    {
+        "id": "map.system-orbits",
+        "procedure": "XREADMAP:0x05 disp_map:disp_system",
+        "segmentOffset": "0x018e",
+        "signature": "9b04 8197 23ee d708 a40c 2be7 0608 00c9 2be7 0608 08c9 8409 6771 0c",
+        "summary": (
+            "星系圖逐顆行星取 record 第 6 個 word 的兩個 byte（半徑、角度），"
+            "交給 SHIPLIB:0x0c polar_to_rect 換成直角座標。行星表以 16 bytes 為步距。"
+        ),
+        "valueByteIndex": 7,
+    },
+    {
+        "id": "map.city-position",
+        "procedure": "XREADMAP:0x06 disp_map:disp_planet",
+        "segmentOffset": "0x0380",
+        "signature": "8712 e705 0600 c987 12e7 0505 06c9 6261 9007",
+        "summary": (
+            "行星圖從城市 record 第 5 個 word 取兩個欄位：寬 6／位移 0 是 column，"
+            "寬 5／位移 6 是 row，交給 change_xy 換成畫面座標。"
+        ),
+        "valueByteIndex": 4,
+    },
+    {
+        "id": "map.city-pixel",
+        "procedure": "XREADMAP:0x07 disp_map:disp_planet:change_xy",
+        "segmentOffset": "0x0274",
+        "signature": "2107 23ed 028d 8c04 a2c4 23d4 0621 2178 03a2 c420 2204 8c02 a2c4",
+        "summary": (
+            "城市在行星圖上的畫面座標：x = 7 × ((column + 1) / 2) + 4，column 為奇數時再加 3"
+            "（`fjp` 只看最低位元，BOOL(x) = x & 1；實跑：欄 12 的城市畫在 46、欄 40 的船在 144）；"
+            "y = 4 × row + 2。原版在該點畫字元 20（白色方塊）。"
+        ),
+        "valueByteIndex": 1,
+    },
+    {
+        "id": "display.palette-base",
+        "procedure": "XSTARTUP:0x02 set_palette",
+        "segmentOffset": "0x001a",
+        "signature": (
+            "0000 720b 0501 720b 8040 0272 0b80 5503 720b 8100 0504 720b 8105 0505 720b 8130 0406 "
+            "720b 8155 0507 720b 8122 0208 720b 8127 0109 720b 8070 0a72 0b80 770b 720b 8100 070c "
+            "720b 8107 070d 720b 8170 070e 720b 8177 070f 720b"
+        ),
+        "summary": (
+            "整台機器只有一組 16 色調色盤，開機時由這裡一次寫定："
+            "0x000、0x005、0x040、0x055、0x500、0x505、0x430、0x555、"
+            "0x222、0x127、0x070、0x077、0x700、0x707、0x770、0x777"
+            "（Atari ST 的 0RGB，每個通道 0–7）。整份 p-code 的 set_color 呼叫傳的都是"
+            "常數或全域變數，沒有一處從影像資料讀顏色。"
+        ),
+    },
+    {
+        "id": "city.palette-ground",
+        "procedure": "XMOVEONG:0x0b wmap",
+        "segmentOffset": "0x063d",
+        "signature": "9b04 3204 08c9 03b0 a41f 871f d464 8105 0505 720b",
+        "summary": (
+            "城市模式（模式碼 3）把調色盤第 5 格設成 `0x505`，也就是開機那張表原本的值。"
+            "畫地表時只有這一格會被換掉，其餘十五格沿用開機值。"
+        ),
+        "valueByteIndex": 6,
+    },
+    {
+        "id": "world.palette-ground",
+        "procedure": "XMOVEONG:0x0b wmap",
+        "segmentOffset": "0x06ab",
+        "signature": "036f 8a30 9a04 8396 0572 0b",
+        "summary": (
+            "不是城市模式時，同一格（第 5 格）改成 `MAINLIB_G396`——那是當前這張地圖自己的顏色。"
+        ),
+        "valueByteIndex": 8,
+    },
+    {
+        "id": "world.map-ground-color",
+        "procedure": "XMOVEONG:0x25 draw_world_map:unpack_map",
+        "segmentOffset": "0x1c1f",
+        "signature": "22ed 8add 8722 7bd9 0483 9600",
+        "summary": (
+            "`MAINLIB_G396` 的來源是世界地圖記錄的第 3 個 word：解壓完地圖就把它讀出來存起來，"
+            "所以每張世界地圖的地表色由資料決定，不是寫死的。"
+        ),
+    },
+    {
+        "id": "city.map-block",
+        "procedure": "XMOVEONG:0x22 draw_city_map",
+        "segmentOffset": "0x180c",
+        "signature": "0180 ff00 840a 019b 042a 0609 c9ee 048d 8022 a201 7349",
+        "summary": (
+            "城市地表地圖住在 logical block `0x22 + (城市編號 - 1) / 4`，"
+            "一次搬一整個 512-byte block——**一個 block 裝四座城市**。"
+        ),
+        "valueByteIndex": 17,
+    },
+    {
+        "id": "city.map-quarter",
+        "procedure": "XMOVEONG:0x22 draw_city_map",
+        "segmentOffset": "0x1874",
+        "signature": "8781 0ae7 0426 0a1d cb0a a3d7 0325 0611 cb06 a3d8 0404 c96c",
+        "summary": (
+            "地形是 20 列 × 12 格、每格 4 bit：列的步距是 3 個 word（6 bytes），"
+            "格子以 4-bit 欄位取出。地形區從地圖的第 8 個 byte 起算。"
+        ),
+    },
+    {
+        "id": "city.map-buildings",
+        "procedure": "XMOVEONG:0x22 draw_city_map",
+        "segmentOffset": "0x1916",
+        "signature": (
+            "8022 6c24 8027 b2d5 9c00 8781 0ae7 0124 8022 8027 cb80 22a3 a780 ffb1 d582 00"
+        ),
+        "summary": (
+            "地圖的第 2–7 個 byte 是**六個建築位置**，槽位編號 0x22–0x27；"
+            "值為 0xff 表示這座城市沒有這一種建築。"
+        ),
+        "valueByteIndex": 1,
+    },
+    {
+        "id": "city.map-building-position",
+        "procedure": "XMOVEONG:0x22 draw_city_map",
+        "segmentOffset": "0x1935",
+        "signature": (
+            "8781 0ae7 0124 8022 8027 cb80 22a3 a714 e200 bdcb 8f0a a26e 8781 0ae7 0124 "
+            "8022 8027 cb80 22a3 a714 8d06 a26d"
+        ),
+        "summary": (
+            "建築位置那一個 byte 拆成座標：**行 = 值 mod 20、列 = 值 / 20**，"
+            "所以合法值是 0–239，正好填滿 20 × 12 的地圖。"
+        ),
+    },
+    {
+        "id": "city.map-header-fields",
+        "procedure": "XMOVEONG:0x22 draw_city_map",
+        "segmentOffset": "0x19bc",
+        "signature": (
+            "8022 8781 0a01 0003 cbd8 0404 c9a2 a601 2280 2287 810a 0200 03cb d804 04c9 "
+            "a2a6 0121 1f87 810a 0000 03cb d804 04c9 a2a6 0120"
+        ),
+        "summary": (
+            "地圖的前兩個 byte 是四個 4-bit 欄位：欄位 0 加 31、欄位 1 與 2 各加 34 之後"
+            "當圖塊碼用；欄位 3 在繪圖時沒有被讀到。用途未命名。"
+        ),
+    },
+    {
+        "id": "city.building-entry",
+        "procedure": "XMOVEONG:0x20 check_exit",
+        "segmentOffset": "0x1583",
+        "signature": "22e5 9b04 3204 08c9 03b0 a1ad 3678 09b2 9fa1 ad36 7805 b0a0 d403 62ef 1e",
+        "summary": (
+            "玩家腳下那一格的碼**大於 9**（或等於 5）時才進 `check_building`。"
+            "碼本身取自畫面緩衝區，取出時大於 15 的值會先減 16——那 16 是繪圖時隨機加上的變體偏移。"
+        ),
+        "valueByteIndex": 14,
+    },
+    {
+        "id": "city.facility-dispatch",
+        "procedure": "XMOVEONG:0x1f check_building:check_loc",
+        "segmentOffset": "0x138d",
+        "signature": "9b04 3204 0821 caae 3620 c4",
+        "summary": (
+            "走進設施就是這兩行：把**遊戲模式**寫成呼叫端給的值，再把**狀態值**寫進主迴圈的變數。"
+            "`SUNDOG:0x04` 之後就靠這兩個數字決定要跑哪一個子系統。"
+        ),
+    },
+    {
+        "id": "city.facility-door",
+        "procedure": "XMOVEONG:0x1e check_building",
+        "segmentOffset": "0x1411",
+        "signature": (
+            "9b04 3201 0dc9 6620 0ba3 0003 cba7 8040 a364 200b a300 03cb a780 40a3 0520 0080 ffcb 901f 8a77"
+        ),
+        "summary": (
+            "地形碼 **11–14 是四種建築的門**：踩上去把模式設成 5，狀態值就是碼本身，"
+            "`move_in_building` 再把 11／12／13／14 轉成互動種類 12／13／14／23。"
+            "門的對齊熱點由四組固定常數給（x 為 16、16、16、19，y 為 15、14、14、22）。"
+        ),
+        "valueByteIndex": 8,
+    },
+    {
+        "id": "system.alternate-flag-reset",
+        "procedure": "SHIPLIB:0x0e update_system",
+        "segmentOffset": "0x0258",
+        "signature": "9b04 5b2b 1ba2 a72b a26f 006e 006d 9b04 5321 10a2 d810 0100 ca25",
+        "summary": (
+            "`MAINLIB_G53` 的位元 `16 + 系統編號` 是「這一套裝著它的替代零件」。"
+            "`update_system` 每次進來先把該位元清成 0，再重算——所以它是推導值，不是狀態。"
+            "指定槽位取自系統 record 的 byte 27（`G5b[基底 + 27] + 基底`）。"
+        ),
+    },
+    {
+        "id": "system.alternate-fitted",
+        "procedure": "SHIPLIB:0x0e update_system",
+        "segmentOffset": "0x02ab",
+        "signature": "2327 d211 2228 d205 01a4 0b",
+        "summary": (
+            "條件是「走到指定槽位、而且那一格裝的正是該系統的替代零件」。"
+            "六套系統的替代零件見 ship-systems.json：只有第 2–5 套有，"
+            "分別是 concentrator、decloaker、cloaker、ground scanner。"
+        ),
+    },
+    {
+        "id": "system.alternate-flag-set",
+        "procedure": "SHIPLIB:0x0e update_system",
+        "segmentOffset": "0x02df",
+        "signature": "2a24 00b2 9fa1 d40b 9b04 5321 10a2 d810 0101 ca",
+        "summary": "上一條成立且該列狀態大於 0 時才把位元設成 1——零件裝了但整列壞掉不算數。",
+    },
+    {
+        "id": "attack.player-gun-base",
+        "procedure": "XDOFIGHT:0x06 fire_it",
+        "segmentOffset": "0x0247",
+        "signature": (
+            "ad06 d413 9b04 5312 d810 01c9 d405 802a 698a 021e 698a 199b 0453 12d8 1001 c9d4 "
+            "0414 698a 0210 69"
+        ),
+        "summary": (
+            "玩家開火的基數有**四個**，不是兩個：`G53[18]` 是「艦載砲裝了 concentrator」，"
+            "另一個條件是玩家按的是哪一把槍。"
+            "裝了 concentrator：42（第二把）或 20（第一把）；沒裝：30 或 16。"
+            "**concentrator 把基數從 16 提到 20（加農）、從 30 提到 42（雷射）。**"
+            "之後再減去 `距離 / 17`——**只有加農隨距離衰減**，雷射不減。"
+        ),
+    },
+    {
+        "id": "city.facility-dispatch-table",
+        "procedure": "XMOVEONG:0x1e check_building",
+        "segmentOffset": "0x2a80",
+        "signature": "000a 0014 ff42 ff63 ff63 ff63 ff63 0000 ff89 0000 ff9b ffb7 ffda 0000",
+        "summary": (
+            "走進設施的分派表本體：下界 10、**上界 20**，之後 11 個目標。"
+            "碼 11–14 共用同一支（四種建築的門），碼 15 與 17 雖在表內但目標是 0（走預設、"
+            "什麼都不做），而**碼 21–23 完全在表外**——那正是建築槽位 3、4、5。"
+            "磁碟資料同意這件事：六個槽位裡只有 0／1／2 被真的城市用到，"
+            "3／4／5 只出現在城市表尾那兩筆 `dummy` 填充記錄裡，而且位置全是 0。"
+            "兩邊各自為政卻指向同一個結論：**槽位 3–5 沒有在用**。"
+        ),
+    },
+    {
+        "id": "city.facility-teller",
+        "procedure": "XMOVEONG:0x1e check_building",
+        "segmentOffset": "0x1437",
+        "signature": "9b04 3201 0dc9 0d15 0602 0080 ffcb 901f 8a65",
+        "summary": "碼 16 走模式 6、狀態值 2 → `xdo_uniteller(2)` 的 `do_teller`：Uniteller 提款機。",
+        "valueByteIndex": 9,
+    },
+    {
+        "id": "city.facility-tube-station",
+        "procedure": "XMOVEONG:0x1e check_building",
+        "segmentOffset": "0x1449",
+        "signature": "9b04 2a06 09c9 803c d310 9b04 3201 0dc9 0e1a 0601 0080 ffcb 901f 8a49",
+        "summary": (
+            "碼 18（建築槽位 0）走模式 6、狀態值 1 → `xdo_uniteller(1)` 的 `do_tube_station`。"
+            "城市索引等於 60 時直接跳過——那座城市沒有這一站。"
+        ),
+        "valueByteIndex": 7,
+    },
+    {
+        "id": "city.facility-depot",
+        "procedure": "XMOVEONG:0x1e check_building",
+        "segmentOffset": "0x1465",
+        "signature": (
+            "9b04 3201 0dc9 0f10 0603 0080 ffcb 901f 9b04 3201 0dc9 e513 1506 0300 80ff cb90 1f8a 26"
+        ),
+        "summary": (
+            "碼 19（建築槽位 1）走模式 6、狀態值 3 → `xdo_uniteller(3)` 的 `do_depot`：倉庫。"
+            "兩個 `check_loc` 是同一個設施的兩種版面，由那個 1-bit 旗標分開。"
+        ),
+        "valueByteIndex": 9,
+    },
+    {
+        "id": "city.facility-trading",
+        "procedure": "XMOVEONG:0x1e check_building",
+        "segmentOffset": "0x1488",
+        "signature": (
+            "9b04 3201 0dc9 e518 1506 0400 80ff cb90 1f9b 0432 010d c90f 1006 0500 80ff cb90 1f8a 03"
+        ),
+        "summary": (
+            "碼 20（建築槽位 2）走模式 6、狀態值 4 或 5 → `xdo_trading`，它以 `param == 4` 分成"
+            "兩種 `do_exchange` 版面。60 座城市**每一座**都有這個槽位。"
+        ),
+        "valueByteIndex": 10,
+    },
+    {
+        "id": "city.uniteller-kinds",
+        "procedure": "XDOUNITE:0x01 xdo_uniteller",
+        "segmentOffset": "0x0ee8",
+        "signature": "8717 8a0c 9008 8a0b 900b 8a07 900f 8a03 d681 fe",
+        "summary": (
+            "`xdo_uniteller` 的參數選三種設施：1 → `do_tube_station`、2 → `do_teller`、"
+            "3 → `do_depot`。這三個名字是原版程序自己的名字，不是本專案取的。"
+        ),
+    },
+    {
+        "id": "dialog.frame-block",
+        "procedure": "XDOINTER:0x1f new_frame",
+        "segmentOffset": "0x0f84",
+        "signature": "0180 ff00 8801 6401 14ad 1fa2 0173 4990 21",
+        "summary": (
+            "編號 16 以上的 frame 住在磁碟上：logical block = 20 + (frame 編號 / 16 - 1)，"
+            "一次搬 256 個 word（512 bytes，即一個 block）進 frame 緩衝區。"
+            "編號 16 以下的 frame 由程式當場組出來，不從磁碟讀。"
+        ),
+        "valueByteIndex": 8,
+    },
+    {
+        "id": "dialog.frame-offset-table",
+        "procedure": "XDOINTER:0x16 set_frame",
+        "segmentOffset": "0x0b05",
+        "signature": "8801 6428 7810 8fa7 a601 1e67 ef0e",
+        "summary": (
+            "block 的**前 16 個位元組是偏移表**：frame 編號 mod 16 取出的那個位元組，"
+            "就是這個 frame 在 block 裡的起始位移。用不到的槽位填 0。"
+        ),
+    },
+    {
+        "id": "dialog.frame-header",
+        "procedure": "XDOINTER:0x16 set_frame",
+        "segmentOffset": "0x0b13",
+        "signature": "2710 8d69 2704 8d04 8f6e 80b4 2704 8f8c 812c 01a2 68",
+        "summary": (
+            "frame 的第一個位元組把三件事packed 在一起：高 4 bit 是旗標、"
+            "bit 2–3 是按鈕數（0–3）、bit 0–1 是顯示時間檔位，"
+            "顯示時間 = 0xb4 × 檔位 + 0x12c。"
+        ),
+        "valueByteIndex": 1,
+    },
+    {
+        "id": "dialog.frame-cursor",
+        "procedure": "XDOINTER:0x0e yank",
+        "segmentOffset": "0x061a",
+        "signature": "2088 0164 ad1e a7c4 ad1e eda6 011e",
+        "summary": (
+            "frame 的欄位是**串流讀出來的**：一個游標一次取一個位元組再往前一格。"
+            "所以 frame record 沒有固定長度，長度由它自己的旗標與按鈕數決定。"
+        ),
+    },
+    {
+        "id": "dialog.frame-local-tokens",
+        "procedure": "XDOINTER:0x21 new_frame:set_local_tokens",
+        "segmentOffset": "0x0e18",
+        "signature": "8802 6410 a76c 8802 6411 a702 8c6b ae16 6a",
+        "summary": (
+            "block 的第 16 個位元組是這個 block 的 local token 數量，"
+            "第 17 個位元組乘 2 是 token 區的起始位移——也就是 frame 記錄區的結束位置。"
+        ),
+        "valueByteIndex": 9,
+    },
+    {
+        "id": "dialog.store-stock-operands",
+        "procedure": "XDOINTER:0x1b set_frame:call_postcode",
+        "segmentOffset": "0x0aa4",
+        "signature": (
+            "8802 18f0 0e88 0217 f00e ae17 ae18 b3f1 0988 0236 ae17 a7a6 0217 ae18 ae17 01f0 04"
+        ),
+        "summary": (
+            "postcode 操作碼 3 之後的兩個位元組就是店家存貨的第一個與最後一個物品編號。"
+            "第二個數若小於第一個，會先當成索引去查一張執行期表再當終點。"
+        ),
+    },
+    {
+        "id": "dialog.interaction-kind-dispatch",
+        "procedure": "XDOINTER:0x26 initialize:start_interaction",
+        "segmentOffset": "0x1066",
+        "signature": "ae83 648b 1801 10f0 1f8b 1501 8050 f01f 8b0e 0180 51f0 1f8b 0701",
+        "summary": (
+            "對話從哪一個 frame 開始，由**互動種類**（12–23）決定：12 → frame 0x10、"
+            "13 → 0x50、14 → 0x51。原版的對話單位是 frame VM 裡的 frame，不是 remake 的「區塊」。"
+        ),
+    },
+    {
+        "id": "dialog.interaction-kind-frame-pair",
+        "procedure": "XDOINTER:0x26 initialize:start_interaction",
+        "segmentOffset": "0x10ae",
+        "signature": "ae83 6411 d206 8020 f01f 8a04 8021 f01f",
+        "summary": (
+            "種類 17 與 22 走同一個分支，再由種類本身分成 frame 0x20 與 0x21——"
+            "所以「種類 → 起始 frame」是一對一的，不是一對多。"
+        ),
+        "valueByteIndex": 3,
+    },
+    {
+        "id": "dialog.building-to-interaction-kind",
+        "procedure": "XMOVEINB:0x01 xmove_in_building",
+        "segmentOffset": "0x0f7a",
+        "signature": (
+            "ad80 a415 c4ad 80a3 8a1c ad80 a40c c48a 18ad 80a4 0ec4 8a11 ad80 a40d c48a 0aad 80a4 17c4"
+        ),
+        "summary": (
+            "建築型別決定互動種類：11 → 12、12 → 13、13 → 14、14 → 23，其餘建築 → 21。"
+            "種類是寫回呼叫端的 var 參數，再一路傳到 start_interaction。"
+        ),
+    },
+    {
+        "id": "dialog.entry-chain",
+        "procedure": "SUNDOG:0x04 sundog:main_loop",
+        "segmentOffset": "0x01cc",
+        "signature": "0c01 1376 038a 03",
+        "summary": (
+            "主迴圈狀態 9 呼叫 `DONESOFA:0x03 do_interaction(a,b,c)`，第三個參數就是互動種類；"
+            "這一處是船上的固定入口，種類寫死為 19。"
+        ),
+        "valueByteIndex": 2,
+    },
+    {
+        "id": "landing.bar-rows",
+        "procedure": "XLANDFX:0x08 draw_ground",
+        "segmentOffset": "0x015e",
+        "signature": "35e7 810e 2679 d704 20a7 6a",
+        "summary": (
+            "同一塊記憶體的 `+0x10e words` 是 8 列 × 8 byte 的長度表，"
+            "降落畫面拿它當垂直線的長度，一次畫 6 組各 7 條。"
+        ),
+    },
+    {
+        "id": "planetary.error-messages",
+        "procedure": "XSHOWMOV:0x04 put_err",
+        "segmentOffset": "0x00d4",
+        "signature": "8280 5d08 9d90 0582 8068 089d 9005 8a03 d680 73",
+        "summary": (
+            "飛行錯誤訊息是一張 0–6 的 case 表：0 Out of fuel、1 Beyond maximum jump、"
+            "2 WARNING: Fuel low、3 Lift clearance denied due to pirate activity、"
+            "4 Warp engines blown、5 Sub-c engines blown、6 Lift clearance denied due to "
+            "unpaid debts。簽章這一段是第 6 則加上表頭的 xjp。"
+        ),
+    },
+    {
+        "id": "planetary.fuel-gate",
+        "procedure": "XSHOWMOV:0x0d do_on_world",
+        "segmentOffset": "0x0689",
+        "signature": "9a04 80e5 00d2 0800 ef04 8b76 018a 349b 045b 8034 a700",
+        "summary": (
+            "行星內的城市間飛行第一關看燃料：`Ge5` 為 0 就印第 0 則訊息並整支返回。"
+            "緊接著第二關是次光速引擎的狀態位元組。"
+        ),
+    },
+    {
+        "id": "planetary.subc-gate",
+        "procedure": "XSHOWMOV:0x0d do_on_world",
+        "segmentOffset": "0x0698",
+        "signature": "9b04 5b80 34a7 00d2 0805 ef04 8b65 018a 23",
+        "summary": (
+            "第二關：系統陣列 `G5b` 位移 0x34 的狀態值為 0（次光速引擎全毀）就印第 5 則"
+            "「Sub-c engines blown」。0x34 = 1 × 28 + 24，正是第 1 號系統的 status 欄。"
+        ),
+    },
+    {
+        "id": "planetary.pirate-gate",
+        "procedure": "XSHOWMOV:0x0d do_on_world",
+        "segmentOffset": "0x06c0",
+        "signature": "ad01 22a1 d406 03ef 048b 4001",
+        "summary": (
+            "第四關讀父程序 xshow_move 的 L1，也就是旗標 `G53[22]`；起飛時它為真就印第 3 則"
+            "「Lift clearance denied due to pirate activity」。"
+            "整份 p-code 找不到把這個旗標設為真的地方——七支用變數索引寫 G53 的程序，"
+            "索引涵蓋 0–5、4、8–13、16–21、41–47、48–51 與 80 以上，都不含 22，常數索引也沒有一處是 22。"
+            "因此這則訊息在遊戲裡不會出現，是沒接完的功能。逐支的對照表在 ship-rules.md。"
+        ),
+    },
+    {
+        "id": "planetary.flight-time",
+        "procedure": "XSHOWMOV:0x0d do_on_world",
+        "segmentOffset": "0x0791",
+        "signature": "2400 b023 00b0 a0d4 070a d904 80d5 8a05 0bd9 0480 d59b 0451 9a04 80d5 7113",
+        "summary": (
+            "航程耗時：起飛或降落（兩端有一端是軌道）算 10，城市直飛城市算 11，"
+            "寫進 `Gd5` 後由 SHIPLIB:0x13 add_time 推進時鐘。之後印 ETA。"
+        ),
+    },
+    {
+        "id": "planetary.landing-mode",
+        "procedure": "XSHOWMOV:0x0d do_on_world",
+        "segmentOffset": "0x07dd",
+        "signature": "22d4 0701 2400 7106 8a0f 21d4 0700 2300 7106 8a05 0224 2371 06",
+        "summary": (
+            "三選一叫 SHIPLIB:0x06 land_fx：起飛用模式 1（帶目前城市）、降落用模式 0"
+            "（帶目的地城市）、城市直飛城市用模式 2（兩個城市都帶）。"
+        ),
+    },
+    {
+        "id": "planetary.fuel-cost",
+        "procedure": "XSHOWMOV:0x0d do_on_world",
+        "segmentOffset": "0x07ff",
+        "signature": "00d9 0415 9a04 80e5 eed9 0480 e5",
+        "summary": "每趟行星內飛行固定扣 1 格燃料，扣在整支程序的最後一步。",
+    },
+    {
+        "id": "planetary.shields-off",
+        "procedure": "XSHOWMOV:0x0d do_on_world",
+        "segmentOffset": "0x0729",
+        "signature": "00d9 0480 e29b 0453 04d8 1001 00ca 9b04 530c d810 0100 ca",
+        "summary": (
+            "通過所有關卡後強制關閉護盾與 cloaker：護盾電力 `Ge2` 歸零、旗標 `G53[4]`"
+            "（護盾）與 `G53[12]`（cloaker）清 0，並先印出「Turning off cloaker and shields」。"
+            "訊息會按實際開著的項目組字，只開一項時不會出現 and。"
+        ),
+    },    {
+        "id": "tractor.free-hold-scan",
+        "procedure": "XDOFIGHT:0x13 do_tractor",
+        "segmentOffset": "0x0c76",
+        "signature": "9b04 80ec 21ee d702 0500 c900 b29f 2100 b29f a1d4 0521 ee69 8ae6 7316",
+        "summary": (
+            "牽引艙位掃描：從第 2 號貨艙往回找第一個空的。貨艙陣列 `Gec` 一格 2 word，"
+            "word 0 的 bits 0–4 是貨物種類，不為 0 就是佔用。掃到 0 表示兩個艙都滿。"
+        ),
+    },
+    {
+        "id": "tractor.gates",
+        "procedure": "XDOFIGHT:0x13 do_tractor",
+        "segmentOffset": "0x0c92",
+        "signature": (
+            "ad03 f10a 8280 9008 9d90 148b 9c00 2100 d20a 8280 9708 9d90 148b 8e00 9a04 "
+            "80e5 00d2 0982 809b 089d 9014 8a7e"
+        ),
+        "summary": (
+            "牽引三道關卡，順序固定：目標不在範圍內 → Out of range；沒有空貨艙 → No room；"
+            "燃料為 0 → Out of fuel。三者都印在戰術畫面上並直接返回。"
+        ),
+    },
+    {
+        "id": "tractor.engage",
+        "procedure": "XDOFIGHT:0x13 do_tractor",
+        "segmentOffset": "0x0cbe",
+        "signature": "8280 a108 9d73 1b02 e1d9 0480 d101 7304 9b04 5380 25d8 1001 01ca",
+        "summary": (
+            "啟動牽引：印 Activating tractor、把推力 `Gd1` 設成 −2（倒退貼近目標）、"
+            "開始播背景音 1、旗標 `G53[0x25]` 設 1。"
+        ),
+    },
+    {
+        "id": "tractor.wait-loop",
+        "procedure": "XDOFIGHT:0x13 do_tractor",
+        "segmentOffset": "0x0cd8",
+        "signature": "ef0c 9a04 80db 01b0 9a04 80e5 00b0 a0d4 ef9b 0453 8025 d810 0100 ca00 7304",
+        "summary": (
+            "牽引過程是一個 update_fight 迴圈，跑到 `Gdb` 等於 1（吸進來了）或燃料燒光為止。"
+            "也就是牽引沒有固定時間，只有固定的結束條件；燃料燒完就失敗。"
+        ),
+    },
+    {
+        "id": "tractor.cargo-unknown",
+        "procedure": "XDOFIGHT:0x13 do_tractor",
+        "segmentOffset": "0x0d0b",
+        "signature": (
+            "8280 b208 9d73 1b9b 0480 ec21 eed7 0288 0122 c500 029b 0480 f021 eed7 0882 "
+            "80b9 eb01 0f"
+        ),
+        "summary": (
+            "牽引成功後印 Cargo loaded，把 2 個 word 的貨物記錄搬進空貨艙，"
+            "**貨名一律寫成 Unknown**。撈到什麼要另外查，不是撈到就知道。"
+        ),
+    },
+    {
+        "id": "jettison.selection",
+        "procedure": "XDOFIGHT:0x17 do_jettison",
+        "segmentOffset": "0x0d99",
+        "signature": "2469 2103 d202 0269 9b04 80ec 21ee d702 6b",
+        "summary": (
+            "拋艙的選單值 1／2／3 對應貨艙 1／貨艙 2／兩個都拋：3 先當成 2 處理，"
+            "處理完把選單值減 2 再跑一次，於是 3 會走兩輪、1 與 2 各走一輪。"
+        ),
+    },
+    {
+        "id": "jettison.clear-hold",
+        "procedure": "XDOFIGHT:0x17 do_jettison",
+        "segmentOffset": "0x0dad",
+        "signature": "2305 00c9 6823 0500 00ca 2303 0500 ca23 0808 01ca 9b04 5380 46d8 1001 2001 b0ca",
+        "summary": (
+            "先記下貨物種類再清空該貨艙：bits 0–4（種類）與 bits 5–7 歸零、bits 8–15 設成 1。"
+            "旗標 `G53[0x46]` 記下「拋掉的是種類 1」。"
+        ),
+    },
+    {
+        "id": "jettison.heat-cleared",
+        "procedure": "XDOFIGHT:0x17 do_jettison",
+        "segmentOffset": "0x0dff",
+        "signature": "9b04 811f 9b04 4a04 00c9 eed7 0ae7 0807 d804 0400 ca",
+        "summary": (
+            "拋掉違禁品會把目前星系 record `+8` 的第 1 個 4-bit 欄位（緝查熱度）清成 0。"
+            "這正是 XSTARTUP:init_systems 開新遊戲時一併清掉的那個 nibble，兩端互相印證。"
+        ),
+    },
+    {
+        "id": "jettison.menu-and-pod",
+        "procedure": "XDOFIGHT:0x17 do_jettison",
+        "segmentOffset": "0x0e4c",
+        "signature": "0282 80be 089d ef16 7316 8280 c308 9d73",
+        "summary": (
+            "選單值 ≤ 0 時只是開 JETTISON 子選單；實際拋完之後畫面固定印 "
+            "「** BOLTS ARMED **」與艙內清單。"
+        ),
+    },
+    {
+        "id": "system.enlie-flag",
+        "procedure": "XSHOWMOV:0x09 do_jump",
+        "segmentOffset": "0x03b5",
+        "signature": "9b04 4a04 00c9 03b0 d904 17",
+        "summary": (
+            "全域旗標 `G17` 的定義只有這一行：`G17 = (目前星系編號 == 3)`，"
+            "也就是**玩家人在第 3 個星系 Enlie**。跳躍結束時寫入，讀取端遍布幾乎每個 segment "
+            "（28 處）。Enlie 因此是一個處處有特例的星系：通訊被干擾（do_comm）、"
+            "`dist` 對它多算 1 格距離、開新遊戲時座標不抖動，"
+            "而資料上它物價等級最低（4）、遭遇設定也最低（1，最不安全）。"
+        ),
+    },
+    {
+        "id": "comm.gates",
+        "procedure": "XDOFIGHT:0x18 do_comm",
+        "segmentOffset": "0x0ea6",
+        "signature": "1973 0333 d5c2 009a 0417 d423 7316 0c72 1982 80db 089d 731b 0172 19",
+        "summary": (
+            "呼叫對方的兩道關卡：沒有敵艦（`SHIPLIB_G4`）→ No ship to hail；"
+            "通訊被干擾（`G17`）→ Comm channels jammed，並停在 update_fight 迴圈等按鍵。"
+        ),
+    },
+    {
+        "id": "comm.dialog-setup",
+        "procedure": "XDOFIGHT:0x18 do_comm",
+        "segmentOffset": "0x0ee6",
+        "signature": (
+            "9b04 3204 0809 ca9b 0432 0404 01ca 9b04 810b 0800 c89b 0481 0b09 00c8 9b04 "
+            "810b 0b9a 0480 d8ed c8"
+        ),
+        "summary": (
+            "談判本身走的是對話 VM：把 `G32` 欄位 (4,8) 設成 9、欄位 (4,4) 設成 1，"
+            "再把對話參數塊 `G10b` 的 byte 8、9 清零、byte 11 設成 `Gd8 + 1`。"
+            "也就是「呼叫敵艦」不是獨立子系統，而是餵給既有對話機的一組參數。"
+            "**那個 9 是畫面選擇器（互動視窗），不是對話區塊編號**——"
+            "`XMOVEONG:0x33 bring_up_window` 在街頭遭遇開口之前寫的是同一個欄位同一個值。"
+            "對方講什麼由互動種類決定，不在這段裡。"
+        ),
+    },    {
+        "id": "movement.subc-throttle",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x08f5",
+        "signature": "9a04 19e5 0073 0b10 8f9b 045b 8034 a7b3 9fa1 d5f5 00",
+        "summary": (
+            "2026-10-01 原生勘誤：相位計數器 `G19` 為0或2，"
+            "而且 `random() mod 16 < 次光速引擎狀態`。引擎滿血（16）必過，"
+            "壞到剩8時會隨機略過推進。原版NOT/AND/FJP測bit0，不是G19等於0；"
+            "旗標1成立時每次移動呼叫都抽值，包括相位1與完好引擎。證據見talos-combat-audit-20260907.md。"
+        ),
+    },
+    {
+        "id": "movement.tick-phase",
+        "procedure": "SHIPLIB:0x12 update_ship",
+        "segmentOffset": "0x1286",
+        "signature": "9a04 80e5 689a 0419 ed03 8fd9 0419 6091 1f60 9123",
+        "summary": (
+            "每一拍先把相位計數器 `G19` 加 1 取 mod 3，再把燃料量以傳參考的方式交給 "
+            "update_movement 與 update_levels。2026-10-01原生勘誤：相位0／2都可推進、"
+            "相位1扣燃料；插值刻數不等於父層呼叫次數。"
+        ),
+    },
+    {
+        "id": "movement.fuel-burn",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x09ff",
+        "signature": "9a04 1901 d205 2929 78ee c49a 0480 d49a 0480 d5d2 61",
+        "summary": (
+            "旗標1成立且相位1時燃料減1。2026-10-01原生勘誤：模式2完好引擎5刻航段，"
+            "依父層初始相位扣2或3，不能以N/3計油。抵達先清航行旗標，最後一拍與"
+            "受損引擎抽值影響總耗油；完整正式保存／尺度整合仍待，見talos-combat-audit-20260907.md。"
+        ),
+    },
+    {
+        "id": "fuel.aux-pod-autoconsume",
+        "procedure": "XMOVEONS:0x08 check_fuel",
+        "segmentOffset": "0x0350",
+        "signature": (
+            "9a04 80e5 05b3 f147 0168 9a04 80e5 05b3 9f20 03b3 9fa1 d437 9b04 80ec 20ee "
+            "d702 0500 c901 d224 80ff d904 80e5"
+        ),
+        "summary": (
+            "燃料掉到 5 以下時掃兩個貨艙，找到種類 1 的貨物（備用燃料槽）就把燃料補成 255 "
+            "並清空該艙。備用槽因此佔用貨艙，不是獨立的槽位。"
+        ),
+    },
+    {
+        "id": "movement.radius-interpolation",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x093f",
+        "signature": (
+            "9a04 80d4 edd9 0480 d49b 0449 0808 c96b 9b04 4908 089a 0480 d49a 0480 d68c "
+            "9a04 80d5 8d9a 0480 dda2 ca"
+        ),
+        "summary": (
+            "航行是極座標上的線性內插：已過 tick 數 `Gd4` 加 1 後，"
+            "半徑 = 起點半徑 `Gdd` + `Gd4 × Gd6 / Gd5`，其中 `Gd5` 是整段航程的總 tick 數"
+            "（行星內飛行由 do_on_world 設成 10 或 11）、`Gd6` 是半徑差。"
+        ),
+    },
+    {
+        "id": "movement.angle-wrap",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x0968",
+        "signature": (
+            "9a04 80d4 9a04 80d7 8c9a 0480 d58d 9a04 80de a268 2000 b3f1 0d9b 0449 0800 "
+            "8100 0120 a2ca 8a0b 9b04 4908 0020 8100 018f ca"
+        ),
+        "summary": (
+            "角度用同一組內插算：起點角 `Gde` + `Gd4 × Gd7 / Gd5`，"
+            "結果為負就加 256、否則取 mod 256。一圈 256 階，與行星公轉用同一個角度制。"
+        ),
+    },
+    {
+        "id": "movement.map-blip",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x09bf",
+        "signature": (
+            "9a04 838f 0325 80b0 a2ed 2480 3da2 02a2 7221 9a04 838f 0322 80b0 a2ed 2180 "
+            "3da2 02a2 7221"
+        ),
+        "summary": (
+            "船在星圖上的光點用 XOR 模式（draw_mode 3）畫兩次：先擦掉舊位置再畫新位置，"
+            "座標是極座標換算後加上固定偏移 (0xb0 + 1, 0x3d + 2)。抵達時改用取代模式重畫。"
+        ),
+    },
+    {
+        "id": "movement.arrival",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x0a14",
+        "signature": (
+            "9b04 499b 0443 c500 0601 e16b 9a04 2d6d 9b04 2e08 00c9 6c9b 0429 9b04 43c5 "
+            "0006 25d9 042d 9b04 2e08 0024 ca"
+        ),
+        "summary": (
+            "`Gd4` 追平 `Gd5` 就算抵達：目前位置 `G49` 與地面位置 `G29` 都換成目的地 `G43`，"
+            "但先把 `G2d` 與 `G2e` 低位元組存起來、複製完再寫回——那兩個欄位落在 G29 這 6 個 "
+            "word 之內，卻不能被航行結果蓋掉。"
+        ),
+    },
+    {
+        "id": "movement.arrival-cleanup",
+        "procedure": "SHIPLIB:0x1f update_movement",
+        "segmentOffset": "0x0a53",
+        "signature": "0c73 039b 0453 01d8 1001 00ca 33d4 0500 d904 80d9 00d9 0480 cd",
+        "summary": (
+            "抵達的收尾：播 12 號音效、把「航行中」旗標 `G53[1]` 清 0、"
+            "有敵艦時把 `Gd9` 歸零、飛行模式 `Gcd` 歸零。"
+        ),
+    },
+    {
+        "id": "street.encounter-roll",
+        "procedure": "XMOVEONG:0x35 little_window:set_itype:which",
+        "segmentOffset": "0x247a",
+        "signature": (
+            "0073 0b80 64e2 00bd cb8f 6823 9a04 3302 8da2 6b22 23a2 6a21 22a2 6920 23b3 "
+            "f106 10a6 0204 8a1a 2022 b3f1 0612 a602 048a 0f20 21b3 f106 16a6 0204 8a04 "
+            "00a6 0204"
+        ),
+        "summary": (
+            "街上遇到誰是三段累積門檻抽出來的：`roll = random() mod 100`，"
+            "三個權重 a、b、c 先累加成 a、a+b、a+b+c，`roll` 落在第幾段就是型別 "
+            "**16／18／22**，都沒中就是沒人。"
+            "**第一段的權重會加上「現金的千位數 ÷ 2」**（`MAINLIB_G33`）——"
+            "身上錢越多，街上越容易被搭上。"
+        ),
+    },
+    {
+        "id": "street.encounter-weights",
+        "procedure": "XMOVEONG:0x34 little_window:set_itype",
+        "segmentOffset": "0x2543",
+        "signature": (
+            "0203 0590 358a 6c04 0709 9035 8a65 0505 0f90 358a 5e80 2880 2814 9035 8a55 "
+            "1405 0f90 358a 4e08 0a0f 9035 8a47"
+        ),
+        "summary": (
+            "三個權重由**腳下的地形碼**決定，一張 0x00–0x14 的 case 表各給一組。"
+            "簽章這一段是前六個分支：碼 0 給 (2, 3, 5)、碼 1 給 (4, 7, 9)、碼 2 給 (5, 5, 15)、"
+            "碼 3 給 (40, 40, 20)、碼 4 給 (20, 5, 15)、碼 6–9 共用 (8, 10, 15)。"
+            "踩在建築或設施上時整段跳過——那時走的是 check_building。"
+        ),
+    },
+    {
+        "id": "street.encounter-suppression",
+        "procedure": "XMOVEONG:0x36 little_window:set_itype:confirm",
+        "segmentOffset": "0x24c0",
+        "signature": "ae04 21b0 0073 0b14 e200 bdcb 8f20 b39f a1d4 0400 a602 04",
+        "summary": (
+            "抽中之後還要再過一關：`if 型別 == k and random() mod 20 < 門檻: 型別 = 0`。"
+            "門檻越高，那個型別越少出現。"
+        ),
+    },
+    {
+        "id": "street.suppression-nibbles",
+        "procedure": "XMOVEONG:0x34 little_window:set_itype",
+        "segmentOffset": "0x25b6",
+        "signature": "10ae 0990 3612 ae08 9036 16ae 0790 36",
+        "summary": (
+            "三個門檻就是星系記錄的 nibble 3、4、5，依序壓抑型別 16、18、22——"
+            "與 `system.character-nibbles` 記的同一組值。前兩個就是 `world-data.json` 的 "
+            "`encounterRating` 與 `priceLevel`。"
+        ),
+    },
+    {
+        "id": "street.kind16-frame",
+        "procedure": "XDOINTER:0x26 initialize:start_interaction",
+        "segmentOffset": "0x1114",
+        "signature": "8041 f01f 8a6d 8030 f01f 8a67",
+        "summary": (
+            "互動種類 16 從 frame `0x41` 開始，種類 21 從 `0x30` 開始。"
+            "與已知的 12 → `0x10`、13 → `0x50`、14 → `0x51`、22 → `0x21`、23 → `0x60` 同一張 case 表。"
+        ),
+    },
+    {
+        "id": "street.kind18-frame",
+        "procedure": "XDOINTER:0x26 initialize:start_interaction",
+        "segmentOffset": "0x1120",
+        "signature": (
+            "9b04 810b 01a7 01b2 9f00 8065 f006 a19b 0453 807d d810 01c9 e5a1 d416 8110 "
+            "2701 f002 9b04 5380 7dd8 1001 01ca 80e0 f01f 8a0d 0005 802d 730c 01f0 0280 "
+            "31f0 1f8a"
+        ),
+        "summary": (
+            "互動種類 18 有兩條路。一般情形是 `set_up_price(rand(5, 45))` 之後開 frame `0x31`；"
+            "但若參數塊 byte 1 大於 1、通過一次 `passed(0, 0x65)` 檢定、而且旗標 `G53[0x7d]` "
+            "還沒被設過，就改成 `set_up_price(10000)` 並開 frame **`0xe0`**，同時把那個旗標設起來。"
+            "frame 0xe0 展開後是**開發團隊彩蛋**：乞討的人逐一報出六個做這款遊戲的人的名字，"
+            "答對了 `0xe1` 把那 10000 Cr 送給玩家（見 dialog-rendered.md）。"
+        ),
+    },
+    {
+        "id": "tube.levels",
+        "procedure": "XDOUNITE:0x01 xdo_uniteller",
+        "segmentOffset": "0x0ec0",
+        "signature": "8716 e708 0300 07cb d804 04c9 a409 8716 e708 0400 07cb d804 04c9 6f",
+        "summary": (
+            "Uniteller 一進來就把目前星系記錄 word `+8`／`+9` 的 nibble 3 與 nibble 4 讀進兩個區域變數（八個 4-bit 欄位跨兩個 word，nibble 4 已經在 `+9`）——"
+            "治安等級與物價等級。整個 Uniteller（電車票價、違停罰金）都靠這兩個值算錢。"
+        ),
+    },
+    {
+        "id": "tube.fare",
+        "procedure": "XDOUNITE:0x09 do_tube_station:move_it",
+        "segmentOffset": "0x0314",
+        "signature": (
+            "6700 02ae 088c 0087 12e7 0506 00c9 9b04 8227 ae0b 0180 3ccb eed7 06e7 0506 "
+            "00c9 a3e2 8c87 12e7 0505 06c9 9b04 8227 ae0b 0180 3ccb eed7 06e7 0505 06c9 "
+            "a3e2 8ca2 7309 8c73 0d"
+        ),
+        "summary": (
+            "電車票價 = `2 × 物價等級 × isqrt(Δ欄² + Δ列²)`。"
+            "Δ欄與 Δ列是出發與目的城市在**行星圖**上的位置差，取自城市記錄 word `+5` 的"
+            "bits 0–5（欄）與 bits 6–10（列），也就是 `change_xy` 用的同一組欄位。"
+            "算完交給 `set_money`，所以票價一樣是以 1000 為底的兩個 word。"
+        ),
+    },
+    {
+        "id": "landing.skyline",
+        "procedure": "XLANDFX:0x02 init_city",
+        "segmentOffset": "0x0037",
+        "signature": (
+            "8801 0c21 d703 6a22 e702 211a 8c00 0073 0b0f 7307 a2c4 22e7 0100 0073 0b07 "
+            "7307 c422 00c4 0000 0073 0b07 7307 ed6b"
+        ),
+        "summary": (
+            "降落與起飛畫面上的城市輪廓是**當場生成的六棟建築**，不是一張圖："
+            "第 i 棟的 x 是 `i × 26 + (random() and 15)`，另外兩個欄位各是 "
+            "`random() and 7` 與 `(random() and 7) + 2`，決定它畫成什麼樣子。"
+            "六棟的間距因此固定、位置每次不同。"
+        ),
+    },
+    {
+        "id": "fine.elapsed-minutes",
+        "procedure": "XDOUNITE:0x0e do_teller:pay_fine",
+        "segmentOffset": "0x0662",
+        "signature": (
+            "732d 9a04 119b 0481 0b13 0080 27cb a7a3 9a04 129b 0481 0b14 0080 27cb a7a3 "
+            "803c 8ca2 9a04 139b 0481 0b16 0080 27cb a780 648c 9b04 810b 1500 8027 cba7 "
+            "a2a3 81a0 058c a269"
+        ),
+        "summary": (
+            "違停罰金先算停了多久：主時鐘的分、時、天各減去停放時記在 `G10b[19..22]` 的時刻，"
+            "小時差乘 60、天數差乘 1440（`0x5a0`），加起來就是**停放的分鐘數**。"
+            "整段夾在 freeze_time／melt_time 之間，因為時鐘會自己走。"
+        ),
+    },
+    {
+        "id": "fine.amount",
+        "procedure": "XDOUNITE:0x0e do_teller:pay_fine",
+        "segmentOffset": "0x06ba",
+        "signature": (
+            "2180 788d 03a2 2ce7 0803 0007 cbd8 0404 c92c e708 0400 07cb d804 04c9 a28c "
+            "6820 200a e200 bdcb 8fa3 0aa2 68"
+        ),
+        "summary": (
+            "罰金 = `(停放分鐘 / 120 + 3) × (nibble 3 + nibble 4)`，"
+            "再無條件進位到 10 的倍數。那兩個 nibble 就是該星系的治安等級與物價等級——"
+            "**治安越好、物價越高的星系，違停罰得越重**。"
+        ),
+    },
+    {
+        "id": "fine.clamp-and-enlie",
+        "procedure": "XDOUNITE:0x0e do_teller:pay_fine",
+        "segmentOffset": "0x06e5",
+        "signature": "0a60 81e8 0373 0a9a 0417 d404 2002 8c68",
+        "summary": (
+            "罰金夾在 10 到 1000 之間，**人在 Enlie 再乘 2**。"
+            "那是 Enlie 的第四個特例（見 ship-rules.md 的 Enlie 一節）。"
+        ),
+    },
+    {
+        "id": "distress.refuel-eta",
+        "procedure": "XPILOTAG:0x0b do_distress",
+        "segmentOffset": "0x03cd",
+        "signature": (
+            "9b04 5319 d810 0101 ca9b 0453 8033 d810 0100 ca9b 044f 7114 9b04 4a06 09c9 "
+            "00d2 041e 688a 020f 689b 044a 0504 c900 d209 2000 1e80 5073 0ca2 689b 044f "
+            "2071 13"
+        ),
+        "summary": (
+            "駕駛台可以發求救信號叫加油船。它設旗標 `G53[25]`、清 `G53[0x33]`，"
+            "把現在時刻拷進 `G4f`，再加上等待時間：**人在城市等 30 分鐘、在軌道等 15 分鐘**，"
+            "而且不在原地時另外加一段 `rand(30, 80)`。之後印出 `Refuel ETA:` 與換算後的時刻。"
+        ),
+    },
+    {
+        "id": "pilotage.damaged-test",
+        "procedure": "XPILOTAG:0x09 damaged",
+        "segmentOffset": "0x034e",
+        "signature": "9b04 5b1c 218c 18a2 a720 b26a",
+        "summary": (
+            "領航台判斷某系統壞了沒，用的是同一組系統陣列版面：`G5b[28 × 系統編號 + 24]`"
+            "（每個系統 28 byte、狀態在 +24）小於等於門檻就算壞。"
+            "門檻由呼叫端各自給，不是固定值。"
+        ),
+    },
+    {
+        "id": "pilotage.navigate-menu",
+        "procedure": "XPILOTAG:0x06 do_move",
+        "segmentOffset": "0x030d",
+        "signature": "d680 2f27 04b3 f102 006d 259a 0403 e5a1 2780 ffb1 a1d4 0527 8409 7107",
+        "summary": (
+            "NAVIGATE 畫面的選單是一張 1–9 的 case 表：1 開星圖、2／3／4 走同一段設旗標再 "
+            "quick_read(3)、6 與 8 各自 quick_read(2)／(1)、9 重畫面板欄位，5 與 7 是空的。"
+            "選完由 SHIPLIB:0x07 show_move 送出航線。"
+        ),
+    },
+    {
+        "id": "pilotage.astrogator-flag",
+        "procedure": "XPILOTAG:0x06 do_move",
+        "segmentOffset": "0x02ad",
+        "signature": "9b04 5380 27d8 1001 2702 b027 04b0 9b04 5315 d810 01c9 e5a1 a0ca",
+        "summary": (
+            "旗標 `G53[0x27]` 的值是「模式 2」或「模式 4 且領航系統**沒有**裝替代零件」。"
+            "`G53[21]` 就是 16 + 5，第 5 號系統（Pilotage）的替代零件旗標——"
+            "裝了替代零件會讓模式 4 不設這個旗標。"
+        ),
+    },
+{
+        "id": "clock.attach",
+        "procedure": "SUNDOG:0x01 sundog",
+        "segmentOffset": "0x02e5",
+        "signature": "9b04 01e2 00c4 e701 98c4 9b04 0100 701d 8a04 8601 9102",
+        "summary": (
+            "遊戲時鐘是中斷驅動的。開機時把號誌 `MAINLIB_G1` 清成 0，再呼叫 "
+            "`KERNEL:0x1d attach(G1, 0)` 把它綁到中斷向量 0——**整份 p-code 只有這一個 "
+            "attach**。緊接著把 `SUNDOG:0x02 dispatcher` 當成並行行程啟動。"
+        ),
+    },
+    {
+        "id": "clock.dispatcher-wait",
+        "procedure": "SUNDOG:0x02 dispatcher",
+        "segmentOffset": "0x0070",
+        "signature": "9b04 01df 20ed 6820 21d2 f59b 048a 74df 9b04 8a74 de",
+        "summary": (
+            "排程行程對號誌 `G1` 連續 wait 若干次——次數是八個任務槽裡最小的倒數值，"
+            "也就是「睡到下一個該跑的任務」。醒來後先過一道 `Ga74` 的 wait／signal 閘門，"
+            "那就是 freeze_time 用來凍結時間的鎖。"
+        ),
+    },
+    {
+        "id": "clock.task-table",
+        "procedure": "SUNDOG:0x02 dispatcher",
+        "segmentOffset": "0x00c7",
+        "signature": "0173 358a 1b75 128a 1773 328a 1373 338a 0f75 0f8a 0b75 108a 0773 348a 03",
+        "summary": (
+            "中斷之上掛著七個週期性任務，由一張 1–7 的 case 表分派："
+            "1 `the_time(1)` 推進時鐘、2 `update_ship` 飛行迴圈、3 `title_color`、"
+            "4 `util_color`、5 `running_lights`、6 `whoosh_whoosh_lights`、"
+            "7 `copy_check`（防拷檢查是背景任務，不是開機一次性檢查）。"
+            "任務由 `MAINLIB:0x30 start_backgnd(任務編號, 週期)` 安裝、`0x31 stop_backgnd` 移除。"
+        ),
+    },
+    {
+        "id": "clock.the-time",
+        "procedure": "MAINLIB:0x35 the_time",
+        "segmentOffset": "0x0bf8",
+        "signature": (
+            "8511 8711 a2a5 1185 1180 3cb3 d5ea 0085 1180 3ca3 a511 8512 eda5 1285 1218 "
+            "d208 00a5 1285 13ed a513"
+        ),
+        "summary": (
+            "主時鐘是三個全域：`G11` 分、`G12` 時、`G13` 天。"
+            "`the_time(n)` 把 n 加到分上，滿 60 進位到時、滿 24 進位到天。"
+            "**時間單位就是分鐘**。除了排程器每個週期呼叫一次之外，"
+            "只有地面行走（`XMOVEONG:0x14 update_position`）與睡覺（`XDOUSERM:0x10 go_to_sleep`）"
+            "會另外呼叫它。"
+        ),
+    },
+    {
+        "id": "clock.freeze-melt",
+        "procedure": "MAINLIB:0x2d freeze_time／0x2e melt_time",
+        "segmentOffset": "0x0975",
+        "signature": (
+            "8a74 df01 a58a 7696 0009 a000 0085 8a76 01b2 f109 858a 76ee a58a 768a 0e00 "
+            "a58a 7601 a501 8601 df86 8a74"
+        ),
+        "summary": (
+            "凍結時間就是對 `Ga74` 做 wait（把排程器擋在閘門外），解凍是先吃掉一個 `G1` "
+            "訊號再 signal 回去。**需要「凍結」這個動作本身就證明時鐘會自己走**——"
+            "只在事件裡推進的時鐘不需要凍結。"
+        ),
+    },
+    {
+        "id": "clock.add-time",
+        "procedure": "SHIPLIB:0x13 add_time",
+        "segmentOffset": "0x0128",
+        "signature": (
+            "2369 2106 00c9 22a2 6821 0600 2080 3c8f ca21 0808 c920 803c 8da2 6821 0808 "
+            "2018 8fca 21e7 010e 0021 e701 0e00 c920 188d a2ca"
+        ),
+        "summary": (
+            "`add_time(&rec, n)` 把 n **分鐘**加進一筆時間記錄：word 0 的 bits 0–5 是分"
+            "（滿 60 進位）、高位元組是時（滿 24 進位）、word 1 的 bits 0–13 是天。"
+            "航行畫面的 ETA 就是用它算的，所以 `do_in_system` 的 "
+            "`add_time(&G51, 刻數 + 刻數 / 4)` 是原版自己說的「這趟要花幾分鐘」。"
+        ),
+    },
+    {
+        "id": "clock.set-time",
+        "procedure": "SHIPLIB:0x14 set_time",
+        "segmentOffset": "0x019a",
+        "signature": "2168 2006 009a 0411 ca20 0808 9a04 12ca 20e7 010e 009a 0413 ca",
+        "summary": (
+            "`set_time(&rec)` 把主時鐘 `G11`／`G12`／`G13` 拷進一筆時間記錄。"
+            "航行前先 set_time 再 add_time，得到的是抵達時刻而不是主時鐘——"
+            "主時鐘只由中斷上的排程器推進。"
+        ),
+    },
+    {
+        "id": "lights.running",
+        "procedure": "SHIPLIB:0x0f running_lights",
+        "segmentOffset": "0x0366",
+        "signature": "3601 d208 8100 0705 720b 8a04 0005 720b 36ed 058f a507",
+        "summary": (
+            "艙內跑燈是**色盤動畫**：SHIPLIB_G7 逢 1 時把 palette index 5 設成 0x700（紅），"
+            "其餘設 0（黑），G7 每拍 +1 mod 5——畫面不重畫，圖裡塗第 5 色的像素一起閃。"
+            "它是 clock.task-table 的週期任務之一。"
+        ),
+    },
+    {
+        "id": "lights.whoosh-step",
+        "procedure": "SHIPLIB:0x10 whoosh_whoosh_lights",
+        "segmentOffset": "0x03f6",
+        "signature": "3601 e1d2 0501 a507 8a06 36ed 0a8f a507 8a0e 3600 b2f1 0500 a507 8a04 01e1 a507",
+        "summary": (
+            "進塢燈的節拍：旗標開著時 SHIPLIB_G7 從 −1 起步、每拍 +1 mod 10；"
+            "旗標關掉就收回 −1。G7 與跑燈共用——兩支任務不會同時活著。"
+        ),
+    },
+    {
+        "id": "lights.whoosh-bars",
+        "procedure": "SHIPLIB:0x1b whoosh_whoosh_lights:light",
+        "segmentOffset": "0x03b2",
+        "signature": (
+            "2106 8c69 9a03 0f00 d701 20c4 9a03 0b19 0001 7202 8084 21a3 8084 21a3 02a2 807e "
+            "8080 901c 80da 21a2 80da 21a2 02a2 807e 8080 901c"
+        ),
+        "summary": (
+            "進塢燈的幾何：步進乘 6，左燈在 x = 0x84 − 6t、右燈在 x = 0xda + 6t，"
+            "各 2px 寬、y = 0x7e–0x80，往外對掃，t 走 0–9 一輪。"
+        ),
+    },
+]
+# 每條規則的簽章必須在整份 SYSTEM.STARTUP 裡唯一。
+EXPECTED_MATCHES = 1
+
+
+def sha256(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def load_disk(archive_path: Path, variant: str) -> tuple[str, bytes]:
+    archive_bytes = archive_path.read_bytes()
+    with zipfile.ZipFile(io.BytesIO(archive_bytes)) as outer:
+        _, nested_bytes = choose_nested(outer, variant)
+        with zipfile.ZipFile(io.BytesIO(nested_bytes)) as nested:
+            disk_name, disk_bytes = choose_disk(nested)
+    return disk_name, disk_bytes
+
+
+def signature_bytes(signature: str) -> bytes:
+    return bytes.fromhex(signature.replace(" ", ""))
+
+
+def locate(disk: bytes, signature: str) -> list[int]:
+    needle = signature_bytes(signature)
+    if not needle:
+        raise ValueError("rule signature is empty")
+    found: list[int] = []
+    position = -1
+    while True:
+        position = disk.find(needle, position + 1)
+        if position < 0:
+            return found
+        found.append(position)
+
+
+def build_document(archive_path: Path, variant: str) -> dict[str, object]:
+    disk_name, disk = load_disk(archive_path, variant)
+
+    rules = []
+    for rule in RULES:
+        matches = locate(disk, str(rule["signature"]))
+        if len(matches) != EXPECTED_MATCHES:
+            raise ValueError(
+                f"rule {rule['id']} signature matched {len(matches)} times, want {EXPECTED_MATCHES}"
+            )
+        offset = matches[0]
+        entry = {
+            "id": rule["id"],
+            "procedure": rule["procedure"],
+            "segmentOffset": rule["segmentOffset"],
+            "rawOffset": f"0x{offset:05x}",
+            "signature": rule["signature"],
+            "summary": rule["summary"],
+        }
+        # 有些規則的簽章裡就帶著那條規則用到的常數。把它從磁碟上讀出來而不是寫死在
+        # 消費端，數字才會跟證據綁在一起。
+        if "valueByteIndex" in rule:
+            index = int(rule["valueByteIndex"])
+            if index < 0 or index >= len(signature_bytes(str(rule["signature"]))):
+                raise ValueError(f"rule {rule['id']} value byte index {index} is outside its signature")
+            entry["value"] = disk[offset + index]
+        rules.append(entry)
+
+    # 同一個 segment 內的所有規則，raw offset 減去段內位址必須是同一個值——那就是這個
+    # segment 在磁碟上的起點。任何一條位址記錯都會讓它對不齊。這比逐條檢查簽章更嚴：
+    # 十二條各自獨立的簽章要同時落在兩個一致的基底上，記錯的機率極低。
+    bases: dict[str, int] = {}
+    for rule in rules:
+        segment = str(rule["procedure"]).split(":")[0]
+        base = int(str(rule["rawOffset"]), 16) - int(str(rule["segmentOffset"]), 16)
+        if segment in bases and bases[segment] != base:
+            raise ValueError(
+                f"segment {segment} resolves to base 0x{bases[segment]:05x} and 0x{base:05x}"
+            )
+        bases[segment] = base
+
+    return {
+        "schema": 1,
+        "tool": "tools/atari_st_ship_rules.py",
+        "segmentBases": {segment: f"0x{base:05x}" for segment, base in sorted(bases.items())},
+        "inputs": {
+            "archive": {"name": archive_path.name, "sha256": sha256(archive_path.read_bytes())},
+            "disk": {"name": disk_name, "size": len(disk), "sha256": sha256(disk)},
+            "variant": variant,
+        },
+        "whatThisProves": (
+            "每條規則對應的位元組確實存在於這張磁碟上，且在整份 SYSTEM.STARTUP 裡唯一。"
+            "規則的語意是人讀反組譯得到的，寫在 docs/atari-st/ship-rules.md；本檔只把它們釘住。"
+        ),
+        "evidence": "proven（位置與唯一性）",
+        "semanticsEvidence": "原始p-code靜態證據；已原生驗證的子規則另見ship-rules.md及talos-combat-audit-20260907.md。簽章唯一性不證明全部正式規則或全機路徑一致。",
+        "rules": rules,
+        "openQuestions": [
+            {
+                "topic": "damage formula units",
+                "status": "unknown",
+                "detail": (
+                    "單發傷害由敵艦資料（MAINLIB_Gd8 是敵艦型號）與 MAINLIB_Gda、Gdb 算出，兩者都已解："
+                    "Gda 是敵艦血量（SHIPLIB:0x1f 以 rand(120 + 型號 × 20, 255) 現場擲出），"
+                    "Gdb 是敵艦護盾，遭遇開始時為 127、存放在 MAINLIB_G5b[0xc1]，每次結算回充一半。"
+                    "夾限 20–300 與命中判定的形狀也已讀出。**輸入全部解出，沒解的只有各項的單位**"
+                    "——也就是那些數字在遊戲裡代表多少，那要對拍實機才知道。"
+                ),
+            },
+            {
+                "topic": "attack cadence",
+                "status": "proven",
+                "detail": (
+                    "2026-10-01 勘誤：Gd9 決定繼續既有航向或呼叫 set_course；兩路都接到 ready "
+                    "開火分支。冷卻另在 SHIPLIB_Ga，由完整 set_fire 減去敵艦火速並按模式計算 ready，"
+                    "下一拍 update_attack 消費 ready 才射擊。受控原生切片已核定；正式整合／保存遷移 "
+                    "及全機時間未完成。證據、限制與舊結論見 talos-combat-audit-20260907.md。"
+                ),
+            },
+            {
+                "topic": "shunt blasting",
+                "status": "proven",
+                "detail": "已列入簽章表（attack.shunt-blasting）。",
+            },
+        ],
+    }
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("archive", type=Path, help="外層 Atari ST archive（唯讀）")
+    parser.add_argument("--variant", default="[a2]", help="nested archive 變體標記")
+    parser.add_argument("--output", type=Path, help="輸出 JSON 路徑；未指定則印到 stdout")
+    args = parser.parse_args()
+
+    document = build_document(args.archive, args.variant)
+    text = json.dumps(document, ensure_ascii=False, indent=2) + "\n"
+    if args.output:
+        args.output.write_text(text, encoding="utf-8")
+    else:
+        print(text, end="")
+
+
+if __name__ == "__main__":
+    main()

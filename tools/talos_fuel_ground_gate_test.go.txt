@@ -1,0 +1,177 @@
+package m68k
+
+import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"testing"
+)
+
+// 入口與DRAFT邊界：docs/atari-st/ship-rules.md，下船／登船／門位勘誤。
+// 原版比較與within均由原始68000直譯器執行；僅建立研究呼叫框架。
+func groundGateRun(h *harness, disk []byte, first, last, depth int) {
+	stream := uint32(operandStream + 0x8000 + depth*0x400)
+	h.startDispatch(disk[0x40000+first:0x40000+last+4], stream)
+	for steps := 0; steps < 30000; steps++ {
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip, sp, frame, global := h.cpu.State.A[4], h.cpu.State.SSP, h.cpu.State.A[0], h.cpu.State.A[1]
+			if int(ip-stream)+first == last {
+				return
+			}
+			op, proc := h.mem[ip], h.mem[ip+1]
+			if (op == 0xef || op == 0xf0) && proc == 22 || op == 0x90 && proc == 31 {
+				child := uint32(0x48000 + depth*0x100)
+				h.poke(child, uint16(frame-0x40000))
+				entry, end, args := 0xc44, 0xc4b, 3
+				if proc == 31 {
+					entry, end, args = 0x1370, 0x1398, 5
+				}
+				for n := 1; n <= args; n++ {
+					h.poke(depotLocal(child, n), h.peek(sp+uint32((n-1)*2)))
+				}
+				if proc == 22 {
+					h.poke(depotLocal(child, 4), h.peek(sp+6))
+				}
+				levelsFrame(h, child)
+				groundGateRun(h, disk, entry, end, depth+1)
+				levelsFrame(h, frame)
+				h.cpu.State.A[1] = global
+				h.cpu.State.SSP = sp + uint32(args*2)
+				if proc == 22 {
+					h.poke(h.cpu.State.SSP, h.peek(depotLocal(child, 4)))
+				}
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if op == 0xef || op == 0xf0 || op == 0x90 || op == 0x72 || op == 0x73 || op == 0x94 {
+				h.t.Fatalf("未納入呼叫 at%x op%x proc%x", int(ip-stream)+first, op, proc)
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatalf("原生地面門檻 PC%x IP%x: %v", h.cpu.State.PC, h.cpu.State.A[4]-stream+uint32(first), err)
+		}
+	}
+	h.t.Fatal("原生地面門檻未終止")
+}
+
+func TestSunDogFuelGroundGate(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type marks struct {
+		Foot                                  bool
+		MovementMode, SpriteKind, VehicleMark int
+	}
+	type board struct {
+		Foot       bool
+		Kind, X, Y int
+		Accepted   bool
+		Mode       int
+	}
+	type door struct {
+		Foot       bool
+		X, Y       int
+		Accepted   bool
+		Mode, Code int
+	}
+	report := struct {
+		Scope, Randomness string
+		Marks             []marks
+		Board             []board
+		Depot             []door
+		Differences       int
+	}{Scope: "原始init_movement尾段與get_marks完整寫入；re_enter_ship在已明示ship中心後的真正門檻及within；depot兩門的真正check_loc與within。位置helper、繪圖、輸入裝置、完整父排程不在此切片。", Randomness: "所有輸入執行前固定；此切片無RND"}
+	setup := func(foot bool) *harness {
+		h := cadenceHarness(t, disk)
+		h.poke(interpBase+0x1b70, 4)
+		h.poke(interpBase+0x1b72, 0x5000)
+		h.poke(0x41006, 0x2100)
+		h.poke(0x42100, 0x4000)
+		h.poke(0x46000, 0x5000) // check_loc 的SLDO2必須回到XMOVEONG外層框架。
+		mode := uint16(0x320)
+		if foot {
+			mode |= 0x2000
+		}
+		h.poke(cadenceGlobal(0x32), mode)
+		h.poke(cadenceOuter(54), 0x7002)
+		return h
+	}
+	check := func(ok bool) {
+		if !ok {
+			report.Differences++
+			if report.Differences < 5 {
+				t.Log("原生契約差異")
+			}
+		}
+	}
+	for _, foot := range []bool{false, true} {
+		h := setup(foot)
+		displayRun(h, disk, 0x40000, 0x1ab2, 0x1ae0, 0x1ae0)
+		displayRun(h, disk, 0x40000, 0xce1, 0xd4d, 0xd4d)
+		m := marks{foot, int(h.peek(cadenceOuter(12))), int(h.peek(0x44008 + 0xec*2)), int(h.peek(cadenceGlobal(0x100)))}
+		report.Marks = append(report.Marks, m)
+		wantMode, wantKind := 1, 2
+		if foot {
+			wantMode, wantKind = 4, 4
+		}
+		check(m.MovementMode == wantMode && m.SpriteKind == wantKind)
+		for _, kind := range []int{0, 1, 2, 4, 5} {
+			for x := 10; x <= 30; x++ {
+				for y := 15; y <= 25; y++ {
+					h = setup(foot)
+					h.poke(depotLocal(0x46000, 5), 0x4008+0xec*2)
+					h.poke(depotLocal(0x46000, 6), 0x7000)
+					h.poke(depotLocal(0x46000, 4), 17)
+					h.poke(depotLocal(0x46000, 3), 20)
+					h.poke(0x44008+0xec*2, uint16(kind))
+					h.poke(0x44008+0xec*2+2, uint16(x))
+					h.poke(0x44008+0xec*2+4, uint16(y))
+					groundGateRun(h, disk, 0xc67, 0xcdb, 0)
+					b := board{foot, kind, x, y, h.peek(0x47000) != 0, int(h.peek(cadenceGlobal(0x32)))}
+					report.Board = append(report.Board, b)
+					cx, tolY := 23, 3
+					if foot {
+						cx, tolY = 17, 4
+					}
+					check(b.Accepted == ((foot || kind == 2) && abs(x-cx) <= 4 && abs(y-20) <= tolY))
+				}
+			}
+		}
+		for x := 9; x <= 25; x++ {
+			for y := 10; y <= 27; y++ {
+				h = setup(foot)
+				h.poke(depotLocal(0x46000, 1), 19)
+				h.poke(depotLocal(0x46000, 4), uint16(x))
+				h.poke(depotLocal(0x46000, 3), uint16(y))
+				h.poke(0x47002, 19)
+				groundGateRun(h, disk, 0x1465, 0x1486, 0)
+				mode := int(h.peek(cadenceGlobal(0x32)))
+				d := door{foot, x, y, (mode>>8)&15 == 6, mode, int(h.peek(0x47002))}
+				report.Depot = append(report.Depot, d)
+				cx, cy := 19, 21
+				if foot {
+					cx, cy = 15, 16
+				}
+				check(d.Accepted == (abs(x-cx) <= 4 && abs(y-cy) <= 4))
+				check(d.Code == map[bool]int{true: 3, false: 19}[d.Accepted])
+			}
+		}
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-fuel-ground-gate.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if len(report.Marks) != 2 || len(report.Board) != 2310 || len(report.Depot) != 612 || report.Differences != 0 {
+		t.Fatalf("門檻差異或案數不同: marks%d board%d depot%d diff%d", len(report.Marks), len(report.Board), len(report.Depot), report.Differences)
+	}
+	t.Logf("marks %d board %d depot %d differences %d", len(report.Marks), len(report.Board), len(report.Depot), report.Differences)
+}
+
+func abs(v int) int {
+	if v < 0 {
+		return -v
+	}
+	return v
+}

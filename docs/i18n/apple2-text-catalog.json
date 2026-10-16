@@ -1,0 +1,411 @@
+{
+  "schema": 1,
+  "catalog": "SunDog Apple II first localization slice",
+  "locale": "zh-Hant",
+  "source": {
+    "platform": "Apple II",
+    "disk": "SUNDOG2.DSK",
+    "archive": "Sundog-Frozen-Legacy_Apple-II_EN.zip",
+    "archiveSha256": "fbca3ad6a8f5ee048ff394c345ccc3b8684189928496864df1777a49d18317c7",
+    "diskSha256": "59e9ed0a10b88e0e9a855b56ac1d3916a75ed888f9d8868b752206f6b9516faa",
+    "encoding": "ASCII source bytes with a length prefix",
+    "region": {
+      "start": "0x05100",
+      "end": "0x05400",
+      "stride": 16,
+      "recordSize": 16,
+      "extractor": "tools/apple2_pascal_text_candidates.py"
+    },
+    "sourceTextEvidence": "proven",
+    "recordLayoutEvidence": "strong inference",
+    "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+  },
+  "entries": [
+    {
+      "key": "apple2.cargo.nothing",
+      "source": "nothing",
+      "translation": "無",
+      "offset": "0x05100",
+      "length": 7,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.cargo.ships_fuel",
+      "source": "ship's fuel",
+      "translation": "船艦燃料",
+      "offset": "0x05110",
+      "length": 11,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31",
+      "notes": "遊戲內對 ship 的正式稱呼待原版 UI 對拍。"
+    },
+    {
+      "key": "apple2.cargo.radioactives",
+      "source": "radioactives",
+      "translation": "放射性物質",
+      "offset": "0x05120",
+      "length": 12,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.cargo.gems_crystals",
+      "source": "gems/crystals",
+      "translation": "寶石／晶體",
+      "offset": "0x05130",
+      "length": 13,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.cargo.rare_earths",
+      "source": "rare earths",
+      "translation": "稀土",
+      "offset": "0x05140",
+      "length": 11,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.cargo.exotic_metals",
+      "source": "exotic metals",
+      "translation": "特殊金屬",
+      "offset": "0x05150",
+      "length": 13,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.cargo.gold",
+      "source": "gold",
+      "translation": "黃金",
+      "offset": "0x05160",
+      "length": 4,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.cargo.antimatter",
+      "source": "antimatter",
+      "translation": "反物質",
+      "offset": "0x05170",
+      "length": 10,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.cargo.grains_cereals",
+      "source": "grains/cereals",
+      "translation": "穀物／穀類",
+      "offset": "0x05180",
+      "length": 14,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.cargo.fruits_vegs",
+      "source": "fruits/vegs",
+      "translation": "水果／蔬菜",
+      "offset": "0x05190",
+      "length": 11,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.cargo.woods_fibers",
+      "source": "woods/fibers",
+      "translation": "木材／纖維",
+      "offset": "0x051a0",
+      "length": 12,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.cargo.seeds_sprouts",
+      "source": "seeds/sprouts",
+      "translation": "種子／嫩芽",
+      "offset": "0x051b0",
+      "length": 13,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.cargo.meats",
+      "source": "meats",
+      "translation": "肉類",
+      "offset": "0x051c0",
+      "length": 5,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.cargo.stock_embryos",
+      "source": "stock embryos",
+      "translation": "庫存胚胎",
+      "offset": "0x051d0",
+      "length": 13,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31",
+      "notes": "商業分類語意尚待原版資料 consumer 確認。"
+    },
+    {
+      "key": "apple2.cargo.spices_herbs",
+      "source": "spices/herbs",
+      "translation": "香料／藥草",
+      "offset": "0x051e0",
+      "length": 12,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.cargo.organics",
+      "source": "organics",
+      "translation": "有機物",
+      "offset": "0x051f0",
+      "length": 8,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.equipment.mindboost",
+      "source": "mindboost",
+      "translation": "心智增幅",
+      "offset": "0x05200",
+      "length": 9,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.equipment.dexboost",
+      "source": "dexboost",
+      "translation": "敏捷增幅",
+      "offset": "0x05210",
+      "length": 8,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.equipment.charmboost",
+      "source": "charmboost",
+      "translation": "魅力增幅",
+      "offset": "0x05220",
+      "length": 10,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.equipment.concentrator",
+      "source": "concentrator",
+      "translation": "集中器",
+      "offset": "0x05230",
+      "length": 12,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.equipment.autoslew",
+      "source": "autoslew",
+      "translation": "自動轉向",
+      "offset": "0x05240",
+      "length": 8,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.equipment.cloaker",
+      "source": "cloaker",
+      "translation": "匿蹤器",
+      "offset": "0x05250",
+      "length": 7,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.equipment.ground_scanner",
+      "source": "ground scanner",
+      "translation": "地面掃描器",
+      "offset": "0x05260",
+      "length": 14,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.equipment.shunt",
+      "source": "shunt",
+      "translation": "分流器",
+      "offset": "0x05270",
+      "length": 5,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.equipment.cryofuse",
+      "source": "cryofuse",
+      "translation": "冷凍熔絲",
+      "offset": "0x05280",
+      "length": 8,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.equipment.j_junc_module",
+      "source": "j-junc module",
+      "translation": "J-Junc 模組",
+      "offset": "0x05290",
+      "length": 13,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31",
+      "notes": "技術名詞保留原文片段，尚未擴寫 J-Junc。"
+    },
+    {
+      "key": "apple2.equipment.photon_bridge",
+      "source": "photon bridge",
+      "translation": "光子橋",
+      "offset": "0x052a0",
+      "length": 13,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.equipment.scanner",
+      "source": "scanner",
+      "translation": "掃描器",
+      "offset": "0x052b0",
+      "length": 7,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.equipment.flux_modulator",
+      "source": "flux modulator",
+      "translation": "通量調節器",
+      "offset": "0x052c0",
+      "length": 14,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.equipment.plasma_tube",
+      "source": "plasma tube",
+      "translation": "電漿管",
+      "offset": "0x052d0",
+      "length": 11,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.equipment.st_distorter",
+      "source": "s/t distorter",
+      "translation": "S/T 扭曲器",
+      "offset": "0x052e0",
+      "length": 13,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31",
+      "notes": "S/T 是否代表時空仍是未知，暫不擴寫。"
+    },
+    {
+      "key": "apple2.equipment.control_node",
+      "source": "control node",
+      "translation": "控制節點",
+      "offset": "0x052f0",
+      "length": 12,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.ui.freeze_quit",
+      "source": "(freeze/quit)",
+      "translation": "（暫停／離開）",
+      "offset": "0x05310",
+      "length": 13,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31",
+      "notes": "freeze 的實際操作語意待原版 UI 對拍。"
+    },
+    {
+      "key": "apple2.ui.throw_away",
+      "source": "(throw away)",
+      "translation": "（丟棄）",
+      "offset": "0x05320",
+      "length": 12,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.ui.next_frame",
+      "source": "(next frame)",
+      "translation": "（下一幀）",
+      "offset": "0x05330",
+      "length": 12,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.ui.time",
+      "source": "(time)",
+      "translation": "（時間）",
+      "offset": "0x05340",
+      "length": 6,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.ui.cash_on_hand",
+      "source": "(cash on hand)",
+      "translation": "（現金）",
+      "offset": "0x05350",
+      "length": 14,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.ui.location",
+      "source": "(location)",
+      "translation": "（位置）",
+      "offset": "0x05360",
+      "length": 10,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.ui.destroyed",
+      "source": "(destroyed)",
+      "translation": "（已摧毀）",
+      "offset": "0x05370",
+      "length": 11,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.ship.food",
+      "source": "food",
+      "translation": "食物",
+      "offset": "0x05380",
+      "length": 4,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.ship.ale",
+      "source": "ale",
+      "translation": "麥酒",
+      "offset": "0x05390",
+      "length": 3,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31",
+      "notes": "飲品類別的遊戲功能尚待原版資料 consumer 確認。"
+    },
+    {
+      "key": "apple2.ship.rapidheal",
+      "source": "rapidheal",
+      "translation": "快速治療",
+      "offset": "0x053a0",
+      "length": 9,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.ship.shield",
+      "source": "shield",
+      "translation": "護盾",
+      "offset": "0x053b0",
+      "length": 6,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.ship.stinger",
+      "source": "stinger",
+      "translation": "毒刺",
+      "offset": "0x053c0",
+      "length": 7,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31",
+      "notes": "可能是武器／模組名稱，先保留直譯方向。"
+    },
+    {
+      "key": "apple2.ship.scattergun",
+      "source": "scattergun",
+      "translation": "散彈槍",
+      "offset": "0x053d0",
+      "length": 10,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    },
+    {
+      "key": "apple2.ship.brawnboost",
+      "source": "brawnboost",
+      "translation": "力量增幅",
+      "offset": "0x053f0",
+      "length": 10,
+      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+    }
+  ],
+  "excludedRecords": [
+    {
+      "offset": "0x05300",
+      "reason": "zero prefix before (nothing); record grammar is not yet proven"
+    },
+    {
+      "offset": "0x053e0",
+      "reason": "zero prefix before a printable-looking fragment; do not infer the source string"
+    }
+  ],
+  "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+}

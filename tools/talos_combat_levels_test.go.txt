@@ -1,0 +1,344 @@
+package m68k
+
+import (
+	"crypto/sha256"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"reflect"
+	"testing"
+)
+
+// 入口：docs/atari-st/talos-combat-audit-20260907.md。研究框架不加入runtime。
+type levelsInput struct {
+	Phase, Fuel, Weapon, GunStatus, Shield, Setting, ShieldStatus int
+	GunsActive, ShieldsActive                                     bool
+}
+type levelsResult struct {
+	Input                         levelsInput
+	Fuel, Weapon, Shield, Setting int
+	Flags                         []uint16
+}
+
+func levelsFrame(h *harness, frame uint32) {
+	h.cpu.State.A[0] = frame
+	h.poke(interpBase+0x1b6c, uint16(frame>>16))
+	h.poke(interpBase+0x1b6e, uint16(frame))
+}
+
+// 原版cond_level／付款／燃料檢查／夾限都真正執行；只有HUD文字與bar繪製省略。
+func levelsSlice(h *harness, disk []byte, raw, size, stop int, stream uint32) {
+	levelsSliceWithRandom(h, disk, raw, size, stop, stream, nil, nil)
+}
+
+// 可選受控原始RND返回值只供研究；nil時仍拒絕原先未涵蓋的亂數呼叫。
+func levelsSliceWithRandom(h *harness, disk []byte, raw, size, stop int, stream uint32, randomValue, drawCount *int) {
+	h.startDispatch(disk[raw:raw+size+4], stream)
+	for step := 0; step < 20000; step++ {
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip, sp := h.cpu.State.A[4], h.cpu.State.SSP
+			if ip == stream+uint32(stop) {
+				return
+			}
+			op, proc := h.mem[ip], h.mem[ip+1]
+			if op == 0x73 && proc == 0x0b && randomValue != nil && drawCount != nil {
+				if *randomValue < 0 || *randomValue > 65535 {
+					h.t.Fatal("受控原始亂數值越界")
+				}
+				h.poke(sp, uint16(*randomValue))
+				(*drawCount)++
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if op == 0x73 && proc == 0x03 && randomValue != nil {
+				h.cpu.State.SSP += 2 // 到期救援聲音，只有一個cue參數；不代算狀態。
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			oldFrame := h.cpu.State.A[0]
+			oldA1 := h.cpu.State.A[1]
+			cacheModule, cacheFrame := h.peek(interpBase+0x1b70), h.peek(interpBase+0x1b72)
+			frame, entry, length, end, args := uint32(0), 0, 0, 0, 0
+			returnLocal := 0
+			switch {
+			case op == 0x91 && proc == 0x15 && randomValue != nil:
+				frame, entry, length, end, args, returnLocal = 0x4e000, 0x31f60, 0x34, 0x34, 1, 4
+				h.poke(frame+8+3*2, h.peek(sp)) // 原始兩字時間記錄指標。
+			case op == 0x91 && proc == 0x22: // SHIPLIB cond_level，五個參數倒序。
+				frame, entry, length, end, args = 0x4d000, 0x32d6c, 0x15, 0x15, 5
+				for n := 1; n <= 5; n++ {
+					h.poke(frame+8+uint32(2*n), h.peek(sp+uint32(2*(n-1))))
+				}
+			case op == 0x90 && proc == 0x25:
+				frame, entry, length, end, args = 0x4b000, 0x32dfe, 0x24, 0x24, 8
+				h.poke(frame, 0xa000) // 同一update_levels外層框架。
+				for n := 4; n <= 11; n++ {
+					h.poke(frame+8+uint32(2*n), h.peek(sp+uint32(2*(n-4))))
+				}
+			case (op == 0xef || op == 0x90) && proc == 0x24:
+				frame, entry, length, end = 0x4c000, 0x32d88, 0x6f, 0x6f
+				h.poke(frame, 0xa000)
+			case op == 0x73 && proc == 0x0a:
+				frame, entry, length, end, args = 0x49000, 0x2ee6c, 0x14, 0x14, 3
+				for n := 1; n <= 3; n++ {
+					h.poke(frame+8+uint32(2*n), h.peek(sp+uint32(2*(n-1))))
+				}
+			case op == 0x91 && proc == 0x0d:
+				h.cpu.State.SSP += 8 // 四個HUD參數，沒有遊戲規則替身。
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			case op == 0x90 || op == 0x91 || op == 0x73 || op == 0xef:
+				h.t.Fatalf("能量切片出現未納入呼叫：raw=%x at=%x op=%x proc=%x", raw, ip-stream, op, proc)
+			}
+			if frame != 0 {
+				levelsFrame(h, frame)
+				levelsSliceWithRandom(h, disk, entry, length, end, stream+0x800, randomValue, drawCount)
+				if returnLocal != 0 {
+					h.poke(sp+uint32(args*2), h.peek(frame+8+uint32(returnLocal*2)))
+				}
+				levelsFrame(h, oldFrame)
+				h.cpu.State.A[1] = oldA1
+				h.poke(interpBase+0x1b70, cacheModule)
+				h.poke(interpBase+0x1b72, cacheFrame)
+				h.cpu.State.SSP = sp + uint32(args*2)
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatalf("原生levels raw=%x PC=%x IP=%x A0=%x A1=%x A6=%x：%v", raw, h.cpu.State.PC, h.cpu.State.A[4], h.cpu.State.A[0], h.cpu.State.A[1], h.cpu.State.A[6], err)
+		}
+	}
+	h.t.Fatal("能量切片未終止")
+}
+
+func levelsNative(t *testing.T, disk []byte, r levelsInput) levelsResult {
+	h := cadenceHarness(t, disk)
+	for _, frame := range []uint32{0x47000, 0x4a000, 0x4b000, 0x4c000, 0x4d000} {
+		for n := uint32(0); n < 128; n++ {
+			h.mem[frame+n] = 0
+		}
+	}
+	levelsFrame(h, 0x4a000)
+	h.poke(0x4a000, 0x5000)
+	h.poke(0x4a026, 0x7000) // 參數local15指向父層燃料參考。
+	h.poke(0x47000, uint16(r.Fuel))
+	for n, v := range map[int]int{0x19: r.Phase, 0xe5: r.Fuel, 0xe4: r.Weapon, 0xe3: r.Shield, 0xe2: r.Setting} {
+		h.poke(cadenceGlobal(n), uint16(v))
+	}
+	h.mem[cadenceGlobal(0x5b)+0x50] = byte(r.GunStatus)
+	h.mem[cadenceGlobal(0x5b)+0x88] = byte(r.ShieldStatus)
+	for n := 0; n < 5; n++ {
+		cadenceFlag(h, n, true)
+		cadenceFlag(h, n+8, true)
+	}
+	cadenceFlag(h, 2, r.GunsActive)
+	cadenceFlag(h, 4, r.ShieldsActive)
+	cadenceFlag(h, 12, false)
+	// 受控狀態沒有速度差、通訊距離耗能、隱形、特殊補油或備用油箱；不宣稱這些分支已驗。
+	levelsSlice(h, disk, 0x32e5c, 0x216, 0x216, operandStream+0x8000)
+	g := func(n int) int { return int(int16(h.peek(cadenceGlobal(n)))) }
+	return levelsResult{r, int(int16(h.peek(0x47000))), g(0xe4), g(0xe3), g(0xe2), displayFlags(h)}
+}
+
+func levelsContract(r levelsInput) levelsResult {
+	x := levelsResult{Input: r, Fuel: r.Fuel, Weapon: r.Weapon, Shield: r.Shield, Setting: r.Setting, Flags: []uint16{0xf1f, 0, 0, 0, 0}}
+	if !r.GunsActive {
+		x.Flags[0] &^= 1 << 2
+	}
+	if !r.ShieldsActive {
+		x.Flags[0] &^= 1 << 4
+	}
+	// IDA SYSTEM.INTERP base0，TJP 0x0d18..0x0d20只測bit0；相位2也進武器分支。
+	if r.Phase&1 == 0 {
+		delta, cost := 0, 0
+		if x.Fuel > 0 && r.GunStatus > 0 && r.GunsActive {
+			delta = r.GunStatus * 4
+			if delta > 255-x.Weapon {
+				delta = 255 - x.Weapon
+			}
+			if delta > 0 {
+				cost = 1
+			}
+		} else if x.Weapon > 0 {
+			delta = -8
+		}
+		x.Fuel = max(x.Fuel-cost, 0)
+		x.Weapon = max(0, min(255, x.Weapon+delta))
+	}
+	if r.Phase == 0 {
+		if x.Shield != x.Setting {
+			x.Shield = max(0, min(255, min(x.Shield+r.ShieldStatus*8, x.Setting)))
+			if x.Shield < x.Setting {
+				x.Fuel -= (x.Setting + 1) / 64
+			}
+		} else if x.Shield > 0 {
+			x.Fuel--
+		}
+	}
+	x.Fuel = max(x.Fuel, 0)
+	if r.Fuel > 0 && x.Fuel == 0 {
+		for _, n := range []int{1, 3, 4} {
+			x.Flags[0] &^= (1 << n) | (1 << (n + 8))
+		}
+		x.Setting = 0
+	}
+	return x
+}
+
+func TestSunDogCombatLevels(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	report := struct {
+		Scope, Randomness                                                             string
+		CoreCases, CoreDifferences, FormalShieldCases, FormalShieldDifferences        int
+		GUIShieldCases, GUIShieldDifferences                                          int
+		FormalWeaponCases, FormalWeaponChargeDifferences, FormalWeaponFuelDifferences int
+		GUIWeaponCases, GUIWeaponDifferences                                          int
+		CoreNative                                                                    []levelsResult
+		FormalShieldNative                                                            []levelsResult
+		FormalWeaponNative                                                            []levelsResult
+	}{Scope: "完整SHIPLIB update_levels 105c..1272，在明示速度相等、無備用油箱／特殊補油／隱形／距離耗能旗標的受控狀態執行。真正cond_level、付款、check_fuel及MAINLIB夾限；HUD與bar繪製省略。正式護盾子規則只比較兩側共有0..100值域、phase0、燃料0/1/2/5/64/100，含耗盡關閉、武器空且狀態0的同入口；原版0..255與正式100尺度差異仍待，不是完整排程同狀態。", Randomness: "本矩陣沒有亂數呼叫；若出現未納入呼叫即失敗。"}
+	for phase := 0; phase < 3; phase++ {
+		for _, fuel := range []int{0, 1, 5, 255} {
+			for _, gun := range []int{0, 1, 16} {
+				for _, weapon := range []int{0, 1, 254, 255} {
+					for _, active := range []bool{false, true} {
+						for _, shield := range [][3]int{{0, 0, 0}, {0, 255, 16}, {255, 63, 8}, {63, 63, 0}} {
+							r := levelsInput{phase, fuel, weapon, gun, shield[0], shield[1], shield[2], active, true}
+							actual := levelsNative(t, disk, r)
+							report.CoreCases++
+							report.CoreNative = append(report.CoreNative, actual)
+							if !reflect.DeepEqual(actual, levelsContract(r)) {
+								report.CoreDifferences++
+								if report.CoreDifferences < 4 {
+									t.Logf("actual=%+v expected=%+v", actual, levelsContract(r))
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	type formalRow struct {
+		Level, Setting, Status, Fuel, ResultLevel, ResultSetting, ResultFuel int
+		Active                                                               bool
+		ResultActive                                                         bool
+	}
+	data, err := os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-levels-shield.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var rows []formalRow
+	if err = json.Unmarshal(data, &rows); err != nil {
+		t.Fatal(err)
+	}
+	for _, f := range rows {
+		setting := f.Setting
+		if !f.Active {
+			setting = 0
+		}
+		x := levelsNative(t, disk, levelsInput{Phase: 0, Fuel: f.Fuel, Shield: f.Level, Setting: setting, ShieldStatus: f.Status, ShieldsActive: f.Active})
+		report.FormalShieldCases++
+		report.FormalShieldNative = append(report.FormalShieldNative, x)
+		if x.Shield != f.ResultLevel || x.Setting != f.ResultSetting || x.Fuel != f.ResultFuel || (x.Flags[0]&(1<<4) != 0) != f.ResultActive {
+			report.FormalShieldDifferences++
+		}
+	}
+	weaponData, err := os.ReadFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-levels-weapon.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var weaponRows []struct{ Charge, Status, Fuel, ResultCharge, ResultFuel int }
+	if err = json.Unmarshal(weaponData, &weaponRows); err != nil {
+		t.Fatal(err)
+	}
+	for _, f := range weaponRows {
+		x := levelsNative(t, disk, levelsInput{Phase: 0, Fuel: f.Fuel, Weapon: f.Charge, GunStatus: f.Status, GunsActive: true})
+		report.FormalWeaponCases++
+		report.FormalWeaponNative = append(report.FormalWeaponNative, x)
+		if x.Weapon != f.ResultCharge {
+			report.FormalWeaponChargeDifferences++
+		}
+		if x.Fuel != f.ResultFuel {
+			report.FormalWeaponFuelDifferences++
+		}
+	}
+	if gui := os.Getenv("SUNDOG_PARITY_SHIELD_GUI"); gui != "" {
+		data, err = os.ReadFile(gui)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var receipt struct {
+			Status string      `json:"status"`
+			Rows   []formalRow `json:"shield_levels"`
+		}
+		if err = json.Unmarshal(data, &receipt); err != nil {
+			t.Fatal(err)
+		}
+		if receipt.Status != "PASS" || len(receipt.Rows) == 0 {
+			t.Fatal("GUI護盾收據不完整")
+		}
+		for _, f := range receipt.Rows {
+			if f.Fuel < 5 || f.Fuel > 100 || f.Level < 0 || f.Level > 100 || f.Setting < 0 || f.Setting > 100 || f.Status < 0 || f.Status > 16 {
+				t.Fatal("GUI樣本超出READY值域")
+			}
+			setting := f.Setting
+			if !f.Active {
+				setting = 0
+			}
+			x := levelsNative(t, disk, levelsInput{Phase: 0, Fuel: f.Fuel, Shield: f.Level, Setting: setting, ShieldStatus: f.Status, ShieldsActive: f.Active})
+			report.GUIShieldCases++
+			if x.Fuel != f.ResultFuel {
+				report.GUIShieldDifferences++
+			}
+		}
+	}
+	if gui := os.Getenv("SUNDOG_PARITY_WEAPON_GUI"); gui != "" {
+		raw, err := os.ReadFile(gui)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var receipt struct {
+			Status string                                                         `json:"status"`
+			Rows   []struct{ Charge, Status, Fuel, ResultCharge, ResultFuel int } `json:"weapon_levels"`
+		}
+		if err = json.Unmarshal(raw, &receipt); err != nil {
+			t.Fatal(err)
+		}
+		if receipt.Status != "PASS" || len(receipt.Rows) == 0 {
+			t.Fatal("GUI武器收據不完整")
+		}
+		for _, f := range receipt.Rows {
+			if f.Charge < 0 || f.Charge > 255 || f.Status < 0 || f.Status > 16 || f.Fuel < 0 || f.Fuel > 100 {
+				t.Fatal("GUI武器樣本超出READY值域")
+			}
+			x := levelsNative(t, disk, levelsInput{Phase: 0, Fuel: f.Fuel, Weapon: f.Charge, GunStatus: f.Status, GunsActive: true})
+			report.GUIWeaponCases++
+			if x.Weapon != f.ResultCharge || x.Fuel != f.ResultFuel {
+				report.GUIWeaponDifferences++
+			}
+		}
+	}
+	data, err = json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-levels.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.CoreDifferences != 0 || report.GUIShieldDifferences != 0 || report.GUIWeaponDifferences != 0 {
+		t.Fatalf("原版能量契約不同%d/%d", report.CoreDifferences, report.CoreCases)
+	}
+}

@@ -1,0 +1,156 @@
+package main
+
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"os"
+	"reflect"
+	"testing"
+
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/wicanr2/sundog-remake/internal/game"
+	"github.com/wicanr2/sundog-remake/internal/localization"
+	"github.com/wicanr2/sundog-remake/internal/source/atarist/originalmedia"
+)
+
+func TestHDWorldReview(t *testing.T) {
+	a, _ := hdMapsTestApp(t)
+	disk, err := originalmedia.Open(os.Getenv("HD_WORLD_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	a.originalDisk = disk
+	a.originalTiles = map[int]*originalTileCache{}
+	input, err := os.ReadFile(os.Getenv("HD_WORLD_FIXTURES"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var fixtures struct {
+		States []struct {
+			Name  string     `json:"name"`
+			State game.State `json:"state"`
+		} `json:"states"`
+	}
+	if err = json.Unmarshal(input, &fixtures); err != nil {
+		t.Fatal(err)
+	}
+	var ship, ground game.State
+	for _, f := range fixtures.States {
+		if f.Name == "newgame" {
+			ship = f.State
+		}
+		if f.Name == "ground" {
+			ground = f.State
+		}
+	}
+	if ship.Screen != game.ScreenShipboard || ground.Screen != game.ScreenGround || !ground.GroundView.Valid {
+		t.Fatal("fixture state")
+	}
+	art := hdWorldAssets()
+	if len(art.CabinClosed) != len(art.CabinLit) || len(art.Tiles) != 19 {
+		t.Fatal("asset count")
+	}
+	changes := 0
+	for i, off := range art.CabinClosed {
+		on := art.CabinLit[i]
+		if off.Colour != on.Colour {
+			changes++
+		}
+		off.Colour = on.Colour
+		if !reflect.DeepEqual(off, on) {
+			t.Fatal("lamp phase changes geometry")
+		}
+	}
+	if changes != 5 {
+		t.Fatalf("lamp changes %d", changes)
+	}
+	for code, variants := range art.Tiles {
+		if len(variants) != 4 {
+			t.Fatal("look slots", code)
+		}
+		for look, nodes := range variants {
+			if code != "0" && code != "1" && len(nodes) == 0 {
+				t.Fatal("missing tile", code)
+			}
+			for _, n := range nodes {
+				if n.Clip != [4]int{0, 0, 32, 32} {
+					t.Fatal("tile clip", code)
+				}
+			}
+			if code != "0" && code != "1" {
+				for _, scale := range []int{4, 5} {
+					a.scale = scale
+					if a.hdWorldSprite(fmt.Sprintf("tile/%s/%d", code, look), 32, 32, nodes) == nil {
+						t.Fatal("tile draw fallback", code, look, scale)
+					}
+				}
+			}
+		}
+	}
+	count := 0
+	for _, s := range []game.State{ship, ground} {
+		for _, locale := range []localization.Locale{"zh-Hant", "zh-Hans", "ja", "en"} {
+			for _, scale := range []int{4, 5} {
+				for _, phase := range []int{0, 8} {
+					a.state = s
+					a.applyLocale(locale)
+					a.scale = scale
+					a.frames = phase
+					a.textLayer = nil
+					image := ebiten.NewImage(320*scale, 200*scale)
+					// Full original Draw initializes the same source collision caches.
+					a.Draw(image)
+					if s.Screen == game.ScreenShipboard {
+						a.cabinLegalMask()
+					}
+					before, _ := json.Marshal(a.state)
+					floor := append([]bool(nil), a.cabinFloor...)
+					legal := append([]bool(nil), a.cabinLegal...)
+					var indices []byte
+					var answers []bool
+					if s.Screen == game.ScreenGround {
+						if a.stGroundScene == nil {
+							t.Fatal("missing source ground")
+						}
+						indices = append([]byte(nil), a.stGroundScene.indices...)
+						patterns, ok := a.collidePatterns()
+						if !ok {
+							t.Fatal("missing patterns")
+						}
+						for y := 4; y < 200; y += 4 {
+							for x := 4; x < 320; x += 4 {
+								answers = append(answers, a.stGroundScene.canStand(patterns, stGroundFootPattern, x, y))
+							}
+						}
+					}
+					if !a.drawHDWorldReview(image) {
+						t.Fatalf("HD fallback %s %s %d", s.Screen, locale, scale)
+					}
+					after, _ := json.Marshal(a.state)
+					if !bytes.Equal(before, after) || !reflect.DeepEqual(floor, a.cabinFloor) || !reflect.DeepEqual(legal, a.cabinLegal) {
+						t.Fatal("HD changed state/cabin collision")
+					}
+					if s.Screen == game.ScreenGround {
+						if !bytes.Equal(indices, a.stGroundScene.indices) {
+							t.Fatal("HD changed ground collision indices")
+						}
+						patterns, _ := a.collidePatterns()
+						i := 0
+						for y := 4; y < 200; y += 4 {
+							for x := 4; x < 320; x += 4 {
+								if answers[i] != a.stGroundScene.canStand(patterns, stGroundFootPattern, x, y) {
+									t.Fatal("passability changed")
+								}
+								i++
+							}
+						}
+					}
+					image.Dispose()
+					count++
+				}
+			}
+		}
+	}
+	t.Logf("PASS %d native draw cases; two screens, four locales, two sizes, two lamp phases; 19 codes x 4 slots; state/collision indices and 3871 ground probes unchanged", count)
+}

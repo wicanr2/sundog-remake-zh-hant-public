@@ -1,0 +1,221 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+	"testing"
+
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/wicanr2/sundog-remake/internal/game"
+	"github.com/wicanr2/sundog-remake/internal/localization"
+	"github.com/wicanr2/sundog-remake/internal/theme"
+	"golang.org/x/image/font"
+	"golang.org/x/image/font/opentype"
+)
+
+func hdMapsTestApp(t *testing.T) (*app, map[string]any) {
+	t.Helper()
+	t.Chdir("/src")
+	input, err := os.ReadFile(os.Getenv("HD_REVIEW_MODEL"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var base map[string]any
+	if err = json.Unmarshal(input, &base); err != nil {
+		t.Fatal(err)
+	}
+	var model struct {
+		State game.State `json:"state"`
+	}
+	if err = json.Unmarshal(input, &model); err != nil {
+		t.Fatal(err)
+	}
+	r, err := game.NewReducer()
+	if err != nil {
+		t.Fatal(err)
+	}
+	languages, err := loadLanguagePacks("docs/i18n/apple2-text-catalog.json", "docs/i18n/sundog-ui-zh-Hant.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	data, err := os.ReadFile("assets/fonts/NotoSansCJKtc-Regular.otf")
+	if err != nil {
+		t.Fatal(err)
+	}
+	f, err := opentype.Parse(data)
+	if err != nil {
+		t.Fatal(err)
+	}
+	newFace := func(size int) font.Face {
+		face, e := opentype.NewFace(f, &opentype.FaceOptions{Size: float64(size), DPI: 72, Hinting: font.HintingFull})
+		if e != nil {
+			t.Fatal(e)
+		}
+		t.Cleanup(func() { face.Close() })
+		return face
+	}
+	a := &app{reducer: r, state: model.State, languages: languages, face: newFace(8), newFace: newFace}
+	setPanelLayout(a.state.Layout)
+	return a, base
+}
+
+func hdMapsStates(t *testing.T, a *app) []game.State {
+	t.Helper()
+	sector := a.state
+	system, err := a.reducer.Step(sector, game.ActionNextTargetPlanet)
+	if err != nil {
+		t.Fatal(err)
+	}
+	planet, err := a.reducer.Step(system, game.ActionNextDestination)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if sector.NavigationView != game.NavigationSector || system.NavigationView != game.NavigationSystem || planet.NavigationView != game.NavigationPlanet {
+		t.Fatal("unexpected navigation transition")
+	}
+	return []game.State{sector, system, planet}
+}
+
+func TestHDNavigationMapsExport(t *testing.T) {
+	a, base := hdMapsTestApp(t)
+	states := hdMapsStates(t, a)
+	var frames []map[string]any
+	scenes := map[game.NavigationView]hdMapScene{}
+	for _, s := range states {
+		a.state = s
+		scenes[s.NavigationView] = hdNavigationMapScene(a)
+		for _, locale := range []localization.Locale{"zh-Hant", "zh-Hans", "ja", "en"} {
+			a.applyLocale(locale)
+			warp := 0
+			if cost, ok := a.reducer.RouteCost(s); ok {
+				warp = cost.JumpDistance
+			}
+			frames = append(frames, map[string]any{"view": s.NavigationView, "locale": locale, "selectors": a.screenPanelLines(), "message": a.messageLine(), "target": fmt.Sprintf("%s：%s", a.lookup("ui.navigation_target"), localization.Destination(a.labels, s.NavigationTargetID, s.NavigationTarget)), "cost": a.routeCostLine(), "keys": footerLabel(a.labels, s), "help": footerHelp(a.labels, s, theme.Group{}), "warpGauge": warp, "warpSuccess": game.WarpSuccessPercent(s)})
+		}
+	}
+	output := map[string]any{"schema": "sundog-hd-navigation-maps-review-1", "status": "DRAFT-independent-map-redraw", "base": base, "states": states, "frames": frames, "scenes": scenes, "derivation": "system=ActionNextTargetPlanet; planet=ActionNextDestination; deterministic typed fixtures from frozen normal sector state; not a new GUI path"}
+	encoded, err := json.MarshalIndent(output, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(os.Getenv("HD_MAPS_OUTPUT"), append(encoded, '\n'), 0644); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestHDNavigationMapsReview(t *testing.T) {
+	a, _ := hdMapsTestApp(t)
+	states := hdMapsStates(t, a)
+	frames := 0
+	for _, s := range states {
+		for _, locale := range []localization.Locale{"zh-Hant", "zh-Hans", "ja", "en"} {
+			a.state = s
+			a.applyLocale(locale)
+			for _, scale := range []int{4, 5} {
+				a.scale = scale
+				image := ebiten.NewImage(320*scale, 200*scale)
+				before, _ := json.Marshal(a.state)
+				if !a.drawHDNavigationReview(image) {
+					t.Fatalf("HD fallback: %s %s %d", s.NavigationView, locale, scale)
+				}
+				after, _ := json.Marshal(a.state)
+				if string(before) != string(after) {
+					t.Fatal("drawing changed typed state")
+				}
+				image.Dispose()
+				frames++
+			}
+		}
+	}
+	// All destinations exercise foreign systems, multiple planets and hidden cities.
+	scenes := 0
+	for _, d := range a.reducer.World.Destinations() {
+		for _, view := range []game.NavigationView{game.NavigationSystem, game.NavigationPlanet} {
+			a.state = states[0]
+			a.state.NavigationTargetID = d.ID
+			a.state.NavigationView = view
+			before, _ := json.Marshal(a.state)
+			scene := hdNavigationMapScene(a)
+			after, _ := json.Marshal(a.state)
+			if string(before) != string(after) {
+				t.Fatal("scene extraction changed state")
+			}
+			counts := map[string]int{}
+			for _, marker := range scene.Markers {
+				counts[marker.Kind]++
+				if view == game.NavigationPlanet && marker.Kind == "city" {
+					city, ok := a.reducer.World.Destination(marker.ID)
+					if !ok {
+						t.Fatal(marker.ID)
+					}
+					city = game.ResolveDestination(a.state, city)
+					if city.Hidden || marker.X != stMapOriginX+city.MapX || marker.Y != stMapOriginY+city.MapY {
+						t.Fatalf("city visibility/anchor: %s", marker.ID)
+					}
+				}
+			}
+			if view == game.NavigationSystem {
+				if counts["reference"] != 16 || counts["planet"] != len(a.reducer.World.PlanetsInSystem(d.SystemID)) {
+					t.Fatal("wrong system marker count")
+				}
+				if d.SystemID != a.state.SystemID && counts["ship"] != 0 {
+					t.Fatal("ship shown in foreign system")
+				}
+			} else {
+				expected := 0
+				for _, city := range a.reducer.DestinationsOnPlanet(a.state, d.PlanetID) {
+					if !city.Hidden {
+						expected++
+					}
+				}
+				if counts["city"] != expected {
+					t.Fatal("wrong city marker count")
+				}
+			}
+			for _, node := range scene.Nodes {
+				if node.Kind == "text" {
+					r := node.Clip
+					if node.Box[0] < float32(r[0]) || node.Box[1] < float32(r[1]) || node.Box[0]+node.Box[2] > float32(r[0]+r[2]) || node.Box[1]+node.Box[3] > float32(r[1]+r[3]) {
+						t.Fatal("angle text outside cropped background")
+					}
+				}
+			}
+			scenes++
+		}
+	}
+	// A deliberately separated ship proves the scene reads its own polar position.
+	a.state = states[0]
+	a.state.NavigationView = game.NavigationSystem
+	a.state.NavigationTargetID = a.state.CityID
+	for _, d := range a.reducer.World.Destinations() {
+		if d.SystemID == a.state.SystemID {
+			a.state.NavigationTargetID = d.ID
+			break
+		}
+	}
+	a.state.FlightAngle = 64
+	a.state.FlightRadius = 31
+	a.frames = 0
+	scene := hdNavigationMapScene(a)
+	dx, dy := systemMapShipOffset(a.state)
+	found := false
+	for _, m := range scene.Markers {
+		if m.Kind == "ship" {
+			found = true
+			if m.X != stSystemCentreX+dx || m.Y != stSystemCentreY+dy {
+				t.Fatal("ship anchored to planet")
+			}
+		}
+	}
+	if !found {
+		t.Fatal("missing ship in current system")
+	}
+	a.frames = 15
+	for _, m := range hdNavigationMapScene(a).Markers {
+		if m.Kind == "ship" {
+			t.Fatal("ship blink dark phase ignored")
+		}
+	}
+	t.Logf("PASS %d native view/locale/size states; %d destination scenes; city visibility/anchors, own ship position and blink; state unchanged", frames, scenes)
+}

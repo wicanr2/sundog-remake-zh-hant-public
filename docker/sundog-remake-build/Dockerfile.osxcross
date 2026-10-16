@@ -1,0 +1,15 @@
+# Replaces unavailable sangokushi-osxcross-go:20260829 for this project.
+# Existing SDK/compiler image: kol-osxcross-go:20261007-r1,
+# config sha256:27a0d789783b1f88670b5023b42ec7f7471b973c5fb0b560fb99f89ef052f6ea.
+# It contains osxcross 1.5, MacOSX15.5.sdk and darwin24.5 wrappers.
+# Build: timeout 180s docker build --network none --memory 2g
+# --cpu-period 100000 --cpu-quota 200000
+# -f docker/sundog-remake-build/Dockerfile.osxcross
+# -t sundog-remake-osxcross:go1.25.12-sdk15.5-20261014-r1 .
+FROM golang:1.25.12-bookworm@sha256:c62765daa3fb92521a46cc8242797b81b03cf592b5aeffc36bae63d9abc1385c AS go
+FROM kol-osxcross-go:20261007-r1
+RUN rm -rf /usr/local/go
+COPY --from=go /usr/local/go /usr/local/go
+ENV GOTOOLCHAIN=local
+WORKDIR /workspace
+ENTRYPOINT ["/bin/bash"]

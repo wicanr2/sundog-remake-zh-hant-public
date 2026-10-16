@@ -1,0 +1,372 @@
+{
+  "schema": 1,
+  "kind": "apple2-word-boundary-candidate-catalog",
+  "tool": "apple2_word_boundary_candidates",
+  "sourceArchive": {
+    "name": "Sundog-Frozen-Legacy_Apple-II_EN.zip",
+    "sha256": "fbca3ad6a8f5ee048ff394c345ccc3b8684189928496864df1777a49d18317c7"
+  },
+  "disk": {
+    "name": "SUNDOG2.DSK",
+    "size": 143360,
+    "sha256": "59e9ed0a10b88e0e9a855b56ac1d3916a75ed888f9d8868b752206f6b9516faa"
+  },
+  "region": {
+    "start": "0x0b041",
+    "endExclusive": "0x0b0ff",
+    "boundaryRule": [
+      "ASCII 大寫字母結束一個候選詞",
+      "設有 high-bit 的 ASCII 字母結束一個候選詞"
+    ],
+    "evidenceLevel": "strong-inference",
+    "consumerStatus": "unknown",
+    "note": "這是 raw bytes 的候選詞彙切片，不是已證實的對話表或檔案系統格式。"
+  },
+  "entries": [
+    {
+      "offset": "0x0b041",
+      "endOffsetExclusive": "0x0b044",
+      "length": 3,
+      "source": "yes",
+      "rawHex": "79 65 53",
+      "translation": "是",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b044",
+      "endOffsetExclusive": "0x0b046",
+      "length": 2,
+      "source": "no",
+      "rawHex": "6e 4f",
+      "translation": "不",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b046",
+      "endOffsetExclusive": "0x0b04c",
+      "length": 6,
+      "source": "accept",
+      "rawHex": "61 63 63 65 70 54",
+      "translation": "接受",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b04c",
+      "endOffsetExclusive": "0x0b053",
+      "length": 7,
+      "source": "discuss",
+      "rawHex": "64 69 73 63 75 73 f3",
+      "translation": "討論",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b053",
+      "endOffsetExclusive": "0x0b055",
+      "length": 2,
+      "source": "it",
+      "rawHex": "69 54",
+      "translation": "它／這件事",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b055",
+      "endOffsetExclusive": "0x0b05d",
+      "length": 8,
+      "source": "threaten",
+      "rawHex": "74 68 72 65 61 74 65 4e",
+      "translation": "威脅",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b05d",
+      "endOffsetExclusive": "0x0b062",
+      "length": 5,
+      "source": "charm",
+      "rawHex": "63 68 61 72 4d",
+      "translation": "魅惑",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b062",
+      "endOffsetExclusive": "0x0b067",
+      "length": 5,
+      "source": "bluff",
+      "rawHex": "62 6c 75 66 46",
+      "translation": "虛張聲勢",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b067",
+      "endOffsetExclusive": "0x0b06c",
+      "length": 5,
+      "source": "bribe",
+      "rawHex": "62 72 69 62 45",
+      "translation": "賄賂",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b06c",
+      "endOffsetExclusive": "0x0b06f",
+      "length": 3,
+      "source": "buy",
+      "rawHex": "62 75 59",
+      "translation": "購買",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b06f",
+      "endOffsetExclusive": "0x0b073",
+      "length": 4,
+      "source": "sell",
+      "rawHex": "73 65 6c 4c",
+      "translation": "出售",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b073",
+      "endOffsetExclusive": "0x0b07e",
+      "length": 11,
+      "source": "information",
+      "rawHex": "69 6e 66 6f 72 6d 61 74 69 6f 4e",
+      "translation": "資訊",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b07e",
+      "endOffsetExclusive": "0x0b083",
+      "length": 5,
+      "source": "offer",
+      "rawHex": "6f 66 66 65 52",
+      "translation": "提議",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b083",
+      "endOffsetExclusive": "0x0b088",
+      "length": 5,
+      "source": "agree",
+      "rawHex": "61 67 72 65 45",
+      "translation": "同意",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b088",
+      "endOffsetExclusive": "0x0b08e",
+      "length": 6,
+      "source": "refuse",
+      "rawHex": "72 65 66 75 73 45",
+      "translation": "拒絕",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b08e",
+      "endOffsetExclusive": "0x0b092",
+      "length": 4,
+      "source": "fast",
+      "rawHex": "66 61 73 f4",
+      "translation": "快速",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b092",
+      "endOffsetExclusive": "0x0b096",
+      "length": 4,
+      "source": "talk",
+      "rawHex": "74 61 6c 4b",
+      "translation": "交談",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b096",
+      "endOffsetExclusive": "0x0b09a",
+      "length": 4,
+      "source": "need",
+      "rawHex": "6e 65 65 e4",
+      "translation": "需要",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b09a",
+      "endOffsetExclusive": "0x0b09e",
+      "length": 4,
+      "source": "fuel",
+      "rawHex": "66 75 65 4c",
+      "translation": "燃料",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b09e",
+      "endOffsetExclusive": "0x0b0a2",
+      "length": 4,
+      "source": "help",
+      "rawHex": "68 65 6c 50",
+      "translation": "幫助",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0a2",
+      "endOffsetExclusive": "0x0b0a7",
+      "length": 5,
+      "source": "claim",
+      "rawHex": "63 6c 61 69 ed",
+      "translation": "主張",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0a7",
+      "endOffsetExclusive": "0x0b0a9",
+      "length": 2,
+      "source": "no",
+      "rawHex": "6e ef",
+      "translation": "不",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0a9",
+      "endOffsetExclusive": "0x0b0ad",
+      "length": 4,
+      "source": "cash",
+      "rawHex": "63 61 73 48",
+      "translation": "現金",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0ad",
+      "endOffsetExclusive": "0x0b0b1",
+      "length": 4,
+      "source": "junk",
+      "rawHex": "6a 75 6e 4b",
+      "translation": "垃圾",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0b1",
+      "endOffsetExclusive": "0x0b0b7",
+      "length": 6,
+      "source": "forget",
+      "rawHex": "66 6f 72 67 65 f4",
+      "translation": "忘記",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0b7",
+      "endOffsetExclusive": "0x0b0b9",
+      "length": 2,
+      "source": "it",
+      "rawHex": "69 54",
+      "translation": "它／這件事",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0b9",
+      "endOffsetExclusive": "0x0b0bf",
+      "length": 6,
+      "source": "search",
+      "rawHex": "73 65 61 72 63 48",
+      "translation": "搜尋",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0bf",
+      "endOffsetExclusive": "0x0b0c6",
+      "length": 7,
+      "source": "nothing",
+      "rawHex": "6e 6f 74 68 69 6e 47",
+      "translation": "沒有東西",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0c6",
+      "endOffsetExclusive": "0x0b0cf",
+      "length": 9,
+      "source": "recommend",
+      "rawHex": "72 65 63 6f 6d 6d 65 6e 44",
+      "translation": "建議",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0cf",
+      "endOffsetExclusive": "0x0b0d1",
+      "length": 2,
+      "source": "uh",
+      "rawHex": "75 e8",
+      "translation": "呃",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0d1",
+      "endOffsetExclusive": "0x0b0d4",
+      "length": 3,
+      "source": "huh",
+      "rawHex": "68 75 48",
+      "translation": "啊？",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0d4",
+      "endOffsetExclusive": "0x0b0d9",
+      "length": 5,
+      "source": "dunno",
+      "rawHex": "64 75 6e 6e 4f",
+      "translation": "不知道",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0d9",
+      "endOffsetExclusive": "0x0b0db",
+      "length": 2,
+      "source": "go",
+      "rawHex": "67 4f",
+      "translation": "前往",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0db",
+      "endOffsetExclusive": "0x0b0e5",
+      "length": 10,
+      "source": "arediscuss",
+      "rawHex": "61 72 65 64 69 73 63 75 73 53",
+      "translation": "（未定：arediscuss）",
+      "translationStatus": "draft",
+      "translationNote": "可能是相鄰詞彙或控制資料，未拆詞。"
+    },
+    {
+      "offset": "0x0b0e5",
+      "endOffsetExclusive": "0x0b0e9",
+      "length": 4,
+      "source": "talk",
+      "rawHex": "74 61 6c eb",
+      "translation": "交談",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0e9",
+      "endOffsetExclusive": "0x0b0f3",
+      "length": 10,
+      "source": "aboutserve",
+      "rawHex": "61 62 6f 75 74 73 65 72 76 45",
+      "translation": "（未定：aboutserve）",
+      "translationStatus": "draft",
+      "translationNote": "可能是相鄰詞彙或控制資料，未拆詞。"
+    },
+    {
+      "offset": "0x0b0f3",
+      "endOffsetExclusive": "0x0b0f6",
+      "length": 3,
+      "source": "get",
+      "rawHex": "67 65 54",
+      "translation": "取得",
+      "translationStatus": "draft"
+    },
+    {
+      "offset": "0x0b0f6",
+      "endOffsetExclusive": "0x0b0ff",
+      "length": 9,
+      "source": "bringstop",
+      "rawHex": "62 72 69 6e 67 73 74 6f 50",
+      "translation": "（未定：bringstop）",
+      "translationStatus": "draft",
+      "translationNote": "可能是相鄰詞彙或控制資料，未拆詞。"
+    }
+  ]
+}

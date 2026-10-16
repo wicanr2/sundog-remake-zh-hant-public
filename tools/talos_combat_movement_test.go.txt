@@ -1,0 +1,281 @@
+package m68k
+
+import (
+	"crypto/sha256"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"reflect"
+	"testing"
+)
+
+// 研究入口：docs/atari-st/talos-combat-audit-20260907.md；不加入runtime。
+type movementInput struct {
+	Phase, Fuel, Tick, Ticks, Status, Seed int
+	Angle, Radius, DeltaAngle, DeltaRadius int
+	Travel                                 bool
+}
+type movementResult struct {
+	Input                                                    movementInput
+	Phase, Fuel, Tick, Mode, Angle, Radius, Counter, Updates int
+	Travel                                                   bool
+	Ship, Location                                           []uint16
+	Draws                                                    []combatDraw
+}
+
+func movementHarness(t *testing.T, disk []byte, r movementInput) *harness {
+	h := cadenceHarness(t, disk)
+	for _, frame := range []uint32{0x47000, 0x4a000} {
+		for n := uint32(0); n < 128; n++ {
+			h.mem[frame+n] = 0
+		}
+	}
+	levelsFrame(h, 0x4a000)
+	h.poke(0x4a000, 0x5000)
+	// IDA SYSTEM.INTERP base0 0x936：MOV後從1b6c還原A0／A1；兩個快取都要提供。
+	h.poke(interpBase+0x1b70, 4)
+	h.poke(interpBase+0x1b72, 0x5000)
+	h.poke(0x4a01c, 0x7000) // 原版LDL 0x29的參考參數；相位1真正解參考。
+	h.poke(0x47000, uint16(r.Fuel))
+	// local17=0略過星圖XOR繪製；到0xa75停在後續儀表／遭遇之前。
+	cadenceFlag(h, 1, r.Travel)
+	h.mem[cadenceGlobal(0x5b)+0x34] = byte(r.Status)
+	for n, v := range map[int]int{0x19: r.Phase, 0xcc: 0, 0xcd: 2, 0xd4: r.Tick, 0xd5: r.Ticks, 0xd6: r.DeltaRadius, 0xd7: r.DeltaAngle, 0xdd: r.Radius, 0xde: r.Angle} {
+		h.poke(cadenceGlobal(n), uint16(v))
+	}
+	for n := 0; n < 6; n++ {
+		h.poke(cadenceGlobal(0x49+n), uint16(0x1100+n))
+		h.poke(cadenceGlobal(0x29+n), uint16(0x22a0+n))
+		h.poke(cadenceGlobal(0x43+n), uint16(0x3300+n))
+	}
+	h.poke(cadenceGlobal(0x49), uint16((r.Radius<<8)|r.Angle))
+	h.poke(cadenceGlobal(0x43), uint16(((r.Radius+r.DeltaRadius)<<8)|((r.Angle+r.DeltaAngle+256)%256)))
+	return h
+}
+
+// 父層原始相位遞增0x128b..0x1294，保留同一個h與所有遊戲狀態。
+func movementNextPhase(h *harness, disk []byte) {
+	stream := uint32(operandStream + 0x9c00)
+	h.startDispatch(disk[0x3308b:0x33098], stream)
+	for n := 0; n < 1000; n++ {
+		if h.cpu.State.PC == interpBase+interpLoop+4 && h.cpu.State.A[4] == stream+9 {
+			return
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatal(err)
+		}
+	}
+	h.t.Fatal("原始相位遞增未終止")
+}
+
+// 真正執行移動、插值、扣油、抵達／記錄複製；只略過抵達聲音。
+// 亂數在原版呼叫點供應固定種子的明示輸入，請求界限由原版consumer決定。
+func movementRun(h *harness, disk []byte, counter *int, draws *[]combatDraw) {
+	stream := uint32(operandStream + 0xa000)
+	h.startDispatch(disk[0x326ea:0x328bc], stream)
+	for step := 0; step < 20000; step++ {
+		if h.cpu.State.PC == interpBase+interpLoop+4 {
+			ip, sp := h.cpu.State.A[4], h.cpu.State.SSP
+			if ip == stream+0xa75-0x8ea || ip == stream+0xab8-0x8ea {
+				return
+			}
+			op, proc := h.mem[ip], h.mem[ip+1]
+			if op == 0x73 && proc == 0x0b {
+				if h.mem[ip+2] != 0x10 || h.mem[ip+3] != 0x8f {
+					h.t.Fatal("未知移動亂數consumer")
+				}
+				h.poke(sp, uint16(cadenceDraw(counter, 0, 15, draws)))
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if op == 0x73 && proc == 0x03 {
+				if h.peek(sp) != 12 {
+					h.t.Fatal("未知抵達聲音")
+				}
+				h.cpu.State.SSP += 2
+				h.cpu.State.A[4] = ip + 2
+				h.start(interpLoop)
+				continue
+			}
+			if op == 0x91 || op == 0x90 || op == 0x73 || op == 0x72 || op == 0xef {
+				h.t.Fatalf("未納入移動呼叫 SHIPLIB:%x op=%x proc=%x", int(ip-stream)+0x8ea, op, proc)
+			}
+		}
+		if _, err := h.cpu.Step(); err != nil {
+			h.t.Fatalf("PC=%x IP=%x SP=%x：%v", h.cpu.State.PC, h.cpu.State.A[4], h.cpu.State.SSP, err)
+		}
+	}
+	h.t.Fatal("移動核心未終止")
+}
+
+func movementSnapshot(h *harness, r movementInput, counter, updates int, draws []combatDraw) movementResult {
+	x := movementResult{Input: r, Phase: int(h.peek(cadenceGlobal(0x19))), Fuel: int(int16(h.peek(0x47000))), Tick: int(h.peek(cadenceGlobal(0xd4))), Mode: int(h.peek(cadenceGlobal(0xcd))), Counter: counter, Updates: updates, Travel: cadenceFlagValue(h, 1), Draws: draws}
+	for n := 0; n < 6; n++ {
+		x.Ship = append(x.Ship, h.peek(cadenceGlobal(0x49+n)))
+		x.Location = append(x.Location, h.peek(cadenceGlobal(0x29+n)))
+	}
+	x.Angle = int(x.Ship[0] & 255)
+	x.Radius = int(x.Ship[0] >> 8)
+	return x
+}
+
+func movementContract(r movementInput, repeat bool) movementResult {
+	x := movementResult{Input: r, Phase: r.Phase, Fuel: r.Fuel, Tick: r.Tick, Mode: 2, Counter: r.Seed, Travel: r.Travel, Ship: []uint16{uint16((r.Radius << 8) | r.Angle), 0x1101, 0x1102, 0x1103, 0x1104, 0x1105}, Location: []uint16{0x22a0, 0x22a1, 0x22a2, 0x22a3, 0x22a4, 0x22a5}, Draws: []combatDraw{}}
+	for n := 0; n < 3000; n++ {
+		if repeat {
+			x.Phase = (x.Phase + 1) % 3
+		}
+		x.Updates++
+		if x.Travel {
+			value := cadenceDraw(&x.Counter, 0, 15, &x.Draws)
+			if x.Phase&1 == 0 && value < r.Status {
+				x.Tick++
+				radius := x.Tick*r.DeltaRadius/r.Ticks + r.Radius
+				angle := (x.Tick*r.DeltaAngle/r.Ticks + r.Angle + 256) % 256
+				x.Ship[0] = uint16(radius<<8 | angle)
+			}
+			if x.Phase == 1 {
+				x.Fuel--
+			}
+			if x.Tick == r.Ticks {
+				x.Ship = []uint16{uint16(((r.Radius + r.DeltaRadius) << 8) | ((r.Angle + r.DeltaAngle + 256) % 256)), 0x3301, 0x3302, 0x3303, 0x3304, 0x3305}
+				x.Location = []uint16{x.Ship[0], 0x3301, 0x3302, 0x3303, 0x22a4, 0x33a5}
+				x.Mode = 0
+				x.Travel = false
+			}
+		}
+		if !repeat || !x.Travel {
+			x.Angle = int(x.Ship[0] & 255)
+			x.Radius = int(x.Ship[0] >> 8)
+			return x
+		}
+	}
+	panic("獨立移動契約未終止")
+}
+
+func movementNative(t *testing.T, disk []byte, r movementInput, repeat bool) movementResult {
+	h := movementHarness(t, disk, r)
+	counter := r.Seed
+	draws := []combatDraw{}
+	updates := 0
+	for updates < 3000 {
+		if repeat {
+			movementNextPhase(h, disk)
+		}
+		movementRun(h, disk, &counter, &draws)
+		updates++
+		if !repeat || !cadenceFlagValue(h, 1) {
+			return movementSnapshot(h, r, counter, updates, draws)
+		}
+	}
+	t.Fatal("同狀態連續移動未終止")
+	return movementResult{}
+}
+
+func TestSunDogCombatMovement(t *testing.T) {
+	disk, err := os.ReadFile(os.Getenv("SUNDOG_PARITY_DISK"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(disk)) != "f7c541b3cffdc7befc5641d667f039a8b33b0dfc406d17b20844158e52155fd6" {
+		t.Fatal("磁碟身分不符")
+	}
+	report := struct {
+		Scope, Randomness                                          string
+		SingleCases, SingleDifferences, TripCases, TripDifferences int
+		FormalFuelCases, FormalFuelDifferences                     int
+		FormalMovementDifferences                                  int
+		SingleNative, TripNative                                   []movementResult
+	}{Scope: "原版SHIPLIB模式2移動0x08ea..0x0a75與旗標1不成立出口0x0ab8；local17=0排除星圖繪製，停止在儀表／遭遇前。連續航段使用同一狀態與原版父層相位遞增0x128b..0x1294，不含levels／低燃料關閉或原版全機正常路徑。", Randomness: "執行前固定seed0/1/17/41，原版random consumer的0..15明示受控輸入；每次呼叫計數與抽值保留，非自然RNG／真實時鐘。"}
+	for _, phase := range []int{0, 1, 2} {
+		for _, status := range []int{0, 1, 8, 16} {
+			for _, seed := range []int{0, 1, 17, 41} {
+				for _, tick := range []int{0, 4} {
+					for _, travel := range []bool{false, true} {
+						for _, delta := range []int{-6, 6} {
+							for _, angle := range []int{0, 250} {
+								r := movementInput{Phase: phase, Fuel: 255, Tick: tick, Ticks: 5, Status: status, Seed: seed, Angle: angle, Radius: 20, DeltaAngle: delta, DeltaRadius: delta, Travel: travel}
+								a, b := movementNative(t, disk, r, false), movementContract(r, false)
+								report.SingleNative = append(report.SingleNative, a)
+								report.SingleCases++
+								if !reflect.DeepEqual(a, b) {
+									report.SingleDifferences++
+									if report.SingleDifferences <= 3 {
+										t.Logf("單拍差異 actual=%+v expected=%+v", a, b)
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	for _, phase := range []int{0, 1, 2} {
+		for _, status := range []int{1, 8, 16} {
+			for _, seed := range []int{0, 1, 17, 41} {
+				for _, ticks := range []int{1, 5, 9, 13, 17, 33} {
+					if status == 1 && ticks > 5 {
+						continue
+					}
+					r := movementInput{Phase: phase, Fuel: 255, Ticks: ticks, Status: status, Seed: seed, Angle: 250, Radius: 20, DeltaAngle: 6, DeltaRadius: 9, Travel: true}
+					a, b := movementNative(t, disk, r, true), movementContract(r, true)
+					report.TripNative = append(report.TripNative, a)
+					report.TripCases++
+					if !reflect.DeepEqual(a, b) {
+						report.TripDifferences++
+						if report.TripDifferences <= 3 {
+							t.Logf("連續差異 input=%+v；actual phase/fuel/tick/updates=%d/%d/%d/%d；expected=%d/%d/%d/%d", r, a.Phase, a.Fuel, a.Tick, a.Updates, b.Phase, b.Fuel, b.Tick, b.Updates)
+						}
+					}
+				}
+			}
+		}
+	}
+	path := filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "remake-movement-fuel.json")
+	if raw, err := os.ReadFile(path); err == nil {
+		var rows []struct {
+			Ticks, Phase, FuelCost                                                 int
+			ActualFuelCost, ActualPhase, ActualTick, Updates, Draws, Angle, Radius int
+			Travel                                                                 bool
+		}
+		if err = json.Unmarshal(raw, &rows); err != nil {
+			t.Fatal(err)
+		}
+		if len(rows) != 18 {
+			t.Fatal("formal movement requires all18 phase/tick inputs")
+		}
+		seen := map[[2]int]bool{}
+		for _, row := range rows {
+			validTicks := row.Ticks == 1 || row.Ticks == 5 || row.Ticks == 9 || row.Ticks == 13 || row.Ticks == 17 || row.Ticks == 33
+			key := [2]int{row.Ticks, row.Phase}
+			if !validTicks || row.Phase < 0 || row.Phase > 2 || seen[key] {
+				t.Fatal("invalid or repeated formal movement input")
+			}
+			seen[key] = true
+			r := movementInput{Phase: row.Phase, Fuel: 255, Ticks: row.Ticks, Status: 16, Seed: 17, Angle: 250, Radius: 20, DeltaAngle: 6, DeltaRadius: 9, Travel: true}
+			x := movementNative(t, disk, r, true)
+			report.FormalFuelCases++
+			if 255-x.Fuel != row.FuelCost {
+				report.FormalFuelDifferences++
+			}
+			if 255-x.Fuel != row.ActualFuelCost || x.Phase != row.ActualPhase || x.Tick != row.ActualTick || x.Updates != row.Updates || len(x.Draws) != row.Draws || x.Angle != row.Angle || x.Radius != row.Radius || x.Travel != row.Travel {
+				report.FormalMovementDifferences++
+			}
+		}
+	} else if !os.IsNotExist(err) {
+		t.Fatal(err)
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-movement.json"), append(data, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if report.SingleDifferences != 0 || report.TripDifferences != 0 {
+		t.Fatalf("移動研究單拍／連續差異 %d／%d", report.SingleDifferences, report.TripDifferences)
+	}
+}
