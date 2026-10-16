@@ -47,8 +47,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 825,
-      "sha256": "a4ae08c4f8ca35a855410ad99a5efe48ff7bf59e5e7b7003f70f827255c9ab21"
+      "bytes": 1376,
+      "sha256": "2e435331116710767b6626fac44694faf9a8667749866ff67c4fe6604cdb5c6e"
     },
     {
       "path": "LICENSE",
@@ -77,8 +77,8 @@
     },
     {
       "path": "WORKLOG.md",
-      "bytes": 2552,
-      "sha256": "d8e79c83d2f004c79be26a93beac79df9092bbe24923454579b483f34a7cf58d"
+      "bytes": 3103,
+      "sha256": "0128c30918d2d525ca2eef4ef548b2cb54d45f1aaa21636bf106a57e89d648fb"
     },
     {
       "path": "assets/fonts/ASSET-MANIFEST.md",
@@ -532,8 +532,8 @@
     },
     {
       "path": "docs/atari-st/release-v1200-20261016.json",
-      "bytes": 5311,
-      "sha256": "64c207e28934690fe44bfe8390f46002b6ed9bb6fa1dbfada9f83035b7209db1"
+      "bytes": 5696,
+      "sha256": "df171eee0ff096d9a943308f29ba677ee7be3a12e47279d0e5c9d4f8d02e02ee"
     },
     {
       "path": "docs/atari-st/ship-rules.json",

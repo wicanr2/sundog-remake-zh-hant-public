@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "version": "v.1.2.0-20261016",
-  "status": "PASS-ready-for-public-engine-release",
+  "status": "PASS-published-public-engine-release",
   "engineBuildSourceCommit": "c42e8094e6617ff18b51e77f67c13d8a689d9fa0",
   "locales": [
     "zh-Hant",
@@ -131,5 +131,15 @@
     "Windows verified in Wine, not native Windows",
     "macOS static checks only",
     "no claim of whole-game original exact parity"
-  ]
+  ],
+  "release": {
+    "id": 414515547,
+    "url": "https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.2.0-20261016",
+    "tag": "v.1.2.0-20261016",
+    "tagSourceCommit": "403ae3795c6f16f28243aec026efbec2491d85cf",
+    "anonymousAssets": "PASS-four-downloads-SHA256",
+    "anonymousSourceManifest": "PASS-712-files",
+    "draft": false,
+    "prerelease": false
+  }
 }

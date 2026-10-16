@@ -7,3 +7,6 @@
 公開來源驗證結果另記錄於 WORKLOG.md。原版磁碟與完整研究輸出不隨 repo 提供；測試中的原版輸入專用檢查在缺少磁碟時明確跳過。
 
 下一步以公開 GitHub Issues 登記問題。建置入口為 docs/build.md，文件與工具索引為 docs/index.md。
+
+
+正式 [v.1.2.0-20261016](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.2.0-20261016) 已發布。三平台引擎與 SHA256SUMS 四附件匿名下載核對通過，正式 tag 固定於 403ae3795c6f16f28243aec026efbec2491d85cf；建置程式來源 c42e8094e6617ff18b51e77f67c13d8a689d9fa0 與 tag 的 313 個程式／執行期／建置輸入相同。匿名來源清單 712 檔及四語 README 回讀通過。後續文件提交保持已發布 tag 與附件。完整包及含原版音效的 96 秒故事影片只留本機。
