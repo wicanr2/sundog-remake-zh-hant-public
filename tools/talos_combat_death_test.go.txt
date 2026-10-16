@@ -1,0 +1,143 @@
+package m68k
+
+import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"testing"
+)
+
+// Prepared lethal-shot boundary; no original memory is a runtime input.
+// Evidence entry: docs/atari-st/ship-rules.md, hull-zero early exit.
+func combatLethalHarness(t *testing.T, disk []byte, enemy, mode, phase, initialHull, seed, layout int) *harness {
+	fuel, ready, initialShield := 0, true, 0
+	h := foodSleepHarness(t, disk)
+	h.cpu.State.A[1], h.cpu.State.A[2] = 0x48000, 0x80000
+	h.poke(interpBase+0x1b70, 4)
+	h.poke(interpBase+0x1b72, 0x8000)
+	levelsFrame(h, 0x46000)
+	h.poke(0x46000, 0x8000)
+	for n, v := range map[int]int{0x32: 0x7727, 0x49: 20<<8 | 250, 0x19: phase,
+		0xe5: fuel, 0xe4: 0, 0xe3: initialShield, 0xe2: 255, 0xcd: 2, 0xd4: 0, 0xd5: 1000,
+		0xd6: 0, 0xd7: 0, 0xdd: 20, 0xde: 250, 0x101: seed + 1, 0x102: 0,
+		0xce: mode, 0xd8: enemy, 0xda: 200, 0xd9: 1, 0xdb: 70, 0xd0: 512,
+		0xcf: 512, 0xd3: 3, 0xd2: -3, 0xd1: -1} {
+		h.poke(cadenceGlobal(n), uint16(v))
+	}
+	ship := func(n int) uint32 { return 0x48008 + uint32(n*2) }
+	for n, v := range map[int]int{4: 1, 6: 0x7000, 8: 2, 9: 1, 10: 1} {
+		h.poke(ship(n), uint16(v))
+	}
+	if ready {
+		h.poke(ship(5), 1)
+	}
+	for n, b := range disk[0x4000:0x401c] {
+		h.mem[0x47200+uint32(n)] = b
+	}
+	for system := 0; system < 6; system++ {
+		at := cadenceGlobal(0x5b) + uint32(system*28)
+		call := 0x3b868 + system*8
+		if disk[call] != 0x90 || disk[call+1] != 0x31 {
+			t.Fatal("system template call changed")
+		}
+		for col := 0; col < 4; col++ {
+			part := byte(31)
+			if col > 0 {
+				part = disk[call-6+col]
+			}
+			h.mem[at+20+uint32(col)] = part
+			for row := 0; row < 4; row++ {
+				if (system == 2 || system == 4) && row >= 2 || layout == 1 && system != 1 {
+					h.mem[at+uint32(row*5+col)] = 0
+				} else {
+					h.mem[at+uint32(row*5+col)] = part
+					h.mem[at+uint32(row*5+4)] = 4
+				}
+			}
+		}
+		h.mem[at+24] = 16
+		if system == 2 || system == 4 {
+			h.mem[at+24] = 8
+		}
+		if layout == 1 && system != 1 {
+			h.mem[at+24] = 0
+		}
+		h.mem[at+26], h.mem[at+27] = disk[call-2], disk[call-1]
+	}
+	h.mem[cadenceGlobal(0x5b)+0xc0] = byte(initialHull)
+	for _, flag := range []int{0, 1, 2, 3, 4, 5, 7, 29, 44} {
+		cadenceFlag(h, flag, true)
+	}
+	for n := 0; n < 2; n++ {
+		h.poke(cadenceGlobal(0xec)+uint32(n*4), 0xab21)
+	}
+
+	return h
+}
+func combatLethalCapture(h *harness, counter int) combatContinuousStep {
+	ship := func(n int) uint32 { return 0x48008 + uint32(n*2) }
+	g := func(n int) int { return int(int16(h.peek(cadenceGlobal(n)))) }
+	s := func(n int) int { return int(int16(h.peek(ship(n)))) }
+	x := combatContinuousStep{Phase: g(0x19), Fuel: g(0xe5), Weapon: g(0xe4), Shield: g(0xe3), Setting: g(0xe2),
+		Hull: int(h.mem[cadenceGlobal(0x5b)+0xc0]), Timer: g(0xd9), Cooldown: s(10), Range: g(0xdb),
+		Bearing: g(0xd0), Pitch: g(0xcf), BearingDrift: g(0xd3), PitchDrift: g(0xd2), Closing: g(0xd1),
+		Aux8: s(8), Aux9: s(9), Ready: s(5) != 0, Active: s(4) != 0, Flags: displayFlags(h),
+		RandomWords: [2]uint16{h.peek(cadenceGlobal(0x101)), h.peek(cadenceGlobal(0x102))}}
+	x.Counter = counter
+	x.Systems = combatContinuousSystems(h)
+	for n := range x.Words {
+		x.Words[n] = h.peek(cadenceGlobal(0xec) + uint32(n*4))
+	}
+
+	return x
+}
+func TestSunDogCombatLethalParent(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type input struct{ Enemy, Mode, Phase, Hull, Seed, Layout int }
+	type row struct {
+		Input                       input
+		InitialSystems              [6][18]int
+		Step                        combatContinuousStep
+		Global3, DisplayMode, Cause int
+		Calls                       [][3]int
+		Draws                       []combatDraw
+	}
+	rows := []row{}
+	for layout := 0; layout < 2; layout++ {
+		for enemy := 0; enemy < 7; enemy++ {
+			for mode := 0; mode < 8; mode++ {
+				for phase := 0; phase < 3; phase++ {
+					for _, hull := range []int{1, 2, 3, 4, 16} {
+						for _, seed := range []int{0, 1, 17, 41} {
+							h := combatLethalHarness(t, disk, enemy, mode, phase, hull, seed, layout)
+							counter := seed
+							trace := foodSleepTrace{Combat: &foodCombatTrace{Counter: &counter}}
+							r := row{Input: input{enemy, mode, phase, hull, seed, layout}, InitialSystems: combatContinuousSystems(h)}
+							foodSleepRun(h, disk, 0x31e00, 0x1278, 0x12c1, 0, &trace)
+							r.Step = combatLethalCapture(h, counter)
+							r.Global3 = int(h.peek(cadenceGlobal(3)))
+							r.DisplayMode = int(h.peek(cadenceGlobal(0x32)) >> 8 & 15)
+							r.Cause = int(h.peek(cadenceGlobal(0x18)))
+							r.Calls, r.Draws = trace.Combat.Calls, trace.Combat.Draws
+							if r.Step.Hull == 0 && (r.Global3 != 1 || r.DisplayMode != 12 || r.Cause != 2) {
+								t.Fatal("source lethal markers", r)
+							}
+							rows = append(rows, r)
+						}
+					}
+				}
+			}
+		}
+	}
+	if len(rows) != 6720 {
+		t.Fatal("missing lethal boundary inputs", len(rows))
+	}
+	raw, err := json.MarshalIndent(rows, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-combat-lethal.json"), append(raw, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("native prepared lethal-shot parent: %d cases", len(rows))
+}

@@ -587,6 +587,12 @@ func resolveEnemyShot(state *State) {
 	for damage > 0 {
 		if applyOverflowHit(state) {
 			hitHull = true
+			// SHIPLIB 0x0e79..0x0e8e jumps straight to its return on
+			// hull zero, before another target or random draw is consumed.
+			if state.HullCondition == 0 {
+				state.MessageKey = "ui.message.enemy_fired_hull"
+				return
+			}
 		}
 		damage -= overflowPerPart
 	}

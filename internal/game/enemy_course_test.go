@@ -46,6 +46,65 @@ func enemyCourseCore(s State) any {
 		s.EnemyCourse, s.Holds, s.ShipSystems}
 }
 
+func lethalParentFixture() State {
+	s := enemyCourseFixture()
+	s.EnemyCourseMode, s.CombatRolls = 0, 1
+	s.HullCondition, s.ShieldLevel = 1, 0
+	s.EnemyCourse.FireReady = true
+	for n := range s.ShipSystems {
+		if n != 1 {
+			for row := range s.ShipSystems[n].Rows {
+				s.ShipSystems[n].Rows[row] = make([]int, 4)
+			}
+		}
+	}
+	normalizeShipSystems(&s)
+	return s
+}
+
+func TestManualAwakeAndSleepLethalParentStopsOnce(t *testing.T) {
+	r, err := NewReducer()
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := lethalParentFixture()
+	advanceShipClock(&want)
+	// First native lethal vector: enemy0/mode0/phase0/hull1/seed1,
+	// with only Subc intact. The original returns after counter7.
+	if want.HullCondition != 0 || want.CombatRolls != 7 || want.CombatActive || want.Screen != ScreenOutcome || want.OutcomeKey != "ui.outcome.failure" {
+		t.Fatalf("source lethal boundary differs: %+v", enemyCourseCore(want))
+	}
+	manual, err := r.Step(lethalParentFixture(), ActionRechargeWeapon)
+	if err != nil {
+		t.Fatal(err)
+	}
+	awake := lethalParentFixture()
+	for i := 0; i < 1000 && awake.Screen != ScreenOutcome; i++ {
+		advanceAwakeVBL(&awake)
+	}
+	sleep := lethalParentFixture()
+	sleep.Screen, sleep.StatusReturn = ScreenCharacterStatus, ScreenTactical
+	sleep.Sleep = SleepState{Active: true, ShipActive: true}
+	sleep.SleepTheftProtected = true
+	for i := 0; i < 32; i++ {
+		r.advanceSleep(&sleep)
+	}
+	for name, got := range map[string]State{"manual": manual, "awake": awake, "sleep": sleep} {
+		if !reflect.DeepEqual(enemyCourseCore(got), enemyCourseCore(want)) || got.Screen != ScreenOutcome || got.Sleep.Active {
+			t.Fatalf("%s lethal callback repeated or skipped: %+v", name, enemyCourseCore(got))
+		}
+		for _, action := range []Action{ActionVBLTick, ActionSleepTick, ActionRechargeWeapon} {
+			after, err := r.Step(got, action)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if !reflect.DeepEqual(enemyCourseCore(after), enemyCourseCore(got)) {
+				t.Fatalf("%s terminal continued through %s", name, action)
+			}
+		}
+	}
+}
+
 func TestCombatParentPreparationDoesNotFireImmediately(t *testing.T) {
 	s := enemyCourseFixture()
 	advanceShipClock(&s)

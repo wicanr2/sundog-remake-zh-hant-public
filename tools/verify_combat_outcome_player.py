@@ -69,13 +69,15 @@ def main():
             if r.returncode==0 and r.stdout.strip():window=r.stdout.strip().splitlines()[-1];break
             time.sleep(.1)
         else:raise RuntimeError('找不到遊戲視窗')
-        run('xdotool','windowfocus',window);time.sleep(.5)
+        run('xdotool','windowfocus',window);time.sleep(1.2)
         if loading_library:
             for value in ['space','c','1','l']:key(value)
     def observe(name):
+        prior_write=(out/'library.json').stat().st_mtime_ns if (out/'library.json').exists() else 0
         key('F5')
         if not (out/'library.json').exists():key('m')
         key('1');key('s')
+        assert (out/'library.json').is_file() and (out/'library.json').stat().st_mtime_ns>prior_write,'未觀察到本次保存庫寫入，不能使用既有來源保存充當GUI結果'
         d=json.loads((out/'library.json').read_text())['slots']['slot-1']
         assert d['screen'] in ['tactical','shipboard'],'保存庫入口不符，停止後續操作'
         shutil.copyfile(out/'library.json',out/f'library-{name}.json')
