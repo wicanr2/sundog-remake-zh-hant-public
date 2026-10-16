@@ -105,7 +105,14 @@ func ValidateTradeState(s State) error {
 	if err := ValidateColonyState(s); err != nil {
 		return err
 	}
-	if s.TradeSaleSlot != 0 || s.TradeSalePrice != 0 || tradeSessionContext(s) && s.TradePage == TradePageSellConfirm {
+	if s.TradePage == TradePageSwapWarehouse {
+		if !s.TradeSession.Active || !tradeSessionContext(s) || s.TradeSaleSlot < 5 || s.TradeSaleSlot > 6 || s.TradeSalePrice != 0 || s.TradePurchaseLot != nil {
+			return fmt.Errorf("invalid pending warehouse swap")
+		}
+		if _, ok := PendingTradeLot(s); !ok {
+			return fmt.Errorf("missing pending swap cargo")
+		}
+	} else if s.TradeSaleSlot != 0 || s.TradeSalePrice != 0 || tradeSessionContext(s) && s.TradePage == TradePageSellConfirm {
 		if !s.TradeSession.Active || !tradeSessionContext(s) || s.TradePage != TradePageSellConfirm || s.TradeSalePrice < 0 || s.TradeSalePrice > 32767 {
 			return fmt.Errorf("invalid pending trade sale")
 		}

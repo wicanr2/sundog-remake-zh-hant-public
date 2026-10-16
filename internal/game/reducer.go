@@ -146,10 +146,10 @@ func (r Reducer) step(state State, action Action) (State, error) {
 		next.MessageKey = "ui.message.failure_terminal"
 		return next, nil
 	}
-	if state.Screen == ScreenTrade && (state.TradePage == TradePageSellConfirm || state.TradePage == TradePageBuyDestination) {
+	if state.Screen == ScreenTrade && (state.TradePage == TradePageSellConfirm || state.TradePage == TradePageBuyDestination || state.TradePage == TradePageSwapWarehouse) {
 		switch action {
 		case ActionBuyGems, ActionSellGems, ActionTradeBuyPage, ActionTradeSellPage, ActionTradePass,
-			ActionTradeExchange, ActionTradeWarehousePage, ActionTradeStorePage, ActionTradeFetchPage:
+			ActionTradeExchange, ActionTradeWarehousePage, ActionTradeStorePage, ActionTradeFetchPage, ActionTradeSwapPage:
 			return state, nil
 		}
 	}
@@ -1242,6 +1242,13 @@ func (r Reducer) step(state State, action Action) (State, error) {
 		// do_buying's Pass: the next quote of the ring stays on the page.
 		passQuote(&next)
 		next.MessageKey = "ui.message.trade_passed"
+	case ActionTradeSwapPage:
+		if state.Screen != ScreenTrade || state.TradePage != TradePageWarehouse {
+			return state, fmt.Errorf("swap starts at the warehouse menu")
+		}
+		next.TradePage = TradePageSwapPod
+		next.TradeSaleSlot, next.TradeSalePrice = 0, 0
+		next.MessageKey = "ui.trade.swap_pod"
 	case ActionTradeExchange, ActionTradeWarehousePage, ActionTradeStorePage, ActionTradeFetchPage:
 		if state.Screen != ScreenTrade {
 			return state, fmt.Errorf("the exchange pages are only valid at trade exchange")
@@ -1289,6 +1296,16 @@ func (r Reducer) step(state State, action Action) (State, error) {
 		var key string
 		var ok bool
 		switch state.TradePage {
+		case TradePageSwapPod:
+			if index >= CargoLots || state.Holds[index].Kind != HoldGoods || state.Holds[index].Goods <= 0 {
+				next.MessageKey = "ui.message.no_cargo"
+				break
+			}
+			next.TradeSaleSlot, next.TradeSalePrice = index+5, 0
+			next.TradePage = TradePageSwapWarehouse
+			next.MessageKey = "ui.trade.swap_warehouse"
+		case TradePageSwapWarehouse:
+			key, ok = r.swapLot(&next, state.TradeSaleSlot-5, index)
 		case TradePageSell:
 			key, ok = r.prepareTradeSale(&next, index+5)
 		case TradePageSellWarehouse:
@@ -1300,9 +1317,15 @@ func (r Reducer) step(state State, action Action) (State, error) {
 		default:
 			return state, fmt.Errorf("no lot list is up")
 		}
+		if state.TradePage == TradePageSwapPod {
+			break
+		}
 		next.MessageKey = key
 		if ok && state.TradePage != TradePageSell && state.TradePage != TradePageSellWarehouse {
 			next.TradePage = TradePageWarehouse
+			if state.TradePage == TradePageSwapWarehouse {
+				next.TradeSaleSlot, next.TradeSalePrice = 0, 0
+			}
 		}
 	case ActionSellGems:
 		if state.Screen != ScreenTrade {
@@ -1798,6 +1821,9 @@ func (r Reducer) step(state State, action Action) (State, error) {
 				next.MessageKey, _ = r.finishTradePurchase(&next, true)
 			case TradePageSellConfirm:
 				cancelTradeSale(&next)
+			case TradePageSwapPod, TradePageSwapWarehouse:
+				next.TradeSaleSlot, next.TradeSalePrice = 0, 0
+				next.TradePage = TradePageWarehouse
 			case TradePageStore, TradePageFetch:
 				next.TradePage = TradePageWarehouse
 			case TradePageBuy, TradePageSell, TradePageSellSource, TradePageSellWarehouse:

@@ -344,18 +344,22 @@ func (a *app) drawSTTrade(screen *ebiten.Image) {
 		}
 		a.drawSTTextRow(screen, window, 0, 4, a.lookup(heading), pen)
 		a.drawSTMenuRow(screen, window, stMenuBaseInside, 14, 0, a.lookup("ui.trade.warehouse"), a.lookup("ui.trade.pod"))
-	case game.TradePageSell, game.TradePageStore:
+	case game.TradePageSell, game.TradePageStore, game.TradePageSwapPod:
 		heading := "ui.trade.pod_contents"
 		if a.state.TradePage == game.TradePageStore {
 			heading = "ui.trade.store_which"
+		} else if a.state.TradePage == game.TradePageSwapPod {
+			heading = "ui.trade.swap_pod"
 		}
 		a.drawSTTextRow(screen, window, 0, 0, a.lookup(heading), pen)
 		lots := a.stTradeLots()
 		a.drawSTMenuRow(screen, window, stMenuBaseInside, 12, 0, lots[0], lots[1])
-	case game.TradePageFetch, game.TradePageSellWarehouse:
+	case game.TradePageFetch, game.TradePageSellWarehouse, game.TradePageSwapWarehouse:
 		heading := "ui.trade.fetch_which"
 		if a.state.TradePage == game.TradePageSellWarehouse {
 			heading = "ui.trade.contents"
+		} else if a.state.TradePage == game.TradePageSwapWarehouse {
+			heading = "ui.trade.swap_warehouse"
 		}
 		a.drawSTTextRow(screen, window, 0, 0, a.lookup(heading), pen)
 		names := []string{}
@@ -366,13 +370,12 @@ func (a *app) drawSTTrade(screen *ebiten.Image) {
 		a.drawSTMenuRow(screen, window, stMenuBaseInside, 0, 0, names[3], names[2], names[1], names[0])
 	case game.TradePageWarehouse:
 		// do_warehouse: "Contents:" then the four slots, one a row, and
-		// Store / Fetch / Swap across the top (menu 13; Swap is Store then
-		// Fetch here).
+		// Store / Fetch / Swap across the top (menu 13).
 		a.drawSTTextRow(screen, window, 0, 4, a.lookup("ui.trade.contents"), pen)
 		for i, lot := range game.WarehouseLotsOf(a.state, a.state.CityID) {
 			a.drawSTTextRow(screen, window, 2, 5+i, a.stLotName(lot), pen)
 		}
-		a.drawSTMenuRow(screen, window, stMenuBaseInside, 13, 0, a.lookup("ui.trade.store"), a.lookup("ui.trade.fetch"))
+		a.drawSTMenuRow(screen, window, stMenuBaseInside, 13, 0, a.lookup("ui.trade.store"), a.lookup("ui.trade.fetch"), a.lookup("ui.trade.swap"))
 	case game.TradePageEntrance:
 		a.drawSTMenuRow(screen, window, stMenuBaseInside, 11, 0, a.lookup("ui.trade.exchange"), a.lookup("ui.trade.warehouse"))
 		a.drawSTTextRow(screen, window, 2, 5, a.lookup("ui.trade.lots_now_selling"), pen)
@@ -414,11 +417,11 @@ func (a *app) stTradeActionAt(x, y int) (game.Action, bool) {
 		if i, ok := window.menuBoxHit(stMenuBaseInside, 14, x, y); ok {
 			return picks[i], true
 		}
-	case game.TradePageSell, game.TradePageStore:
+	case game.TradePageSell, game.TradePageStore, game.TradePageSwapPod:
 		if i, ok := window.menuBoxHit(stMenuBaseInside, 12, x, y); ok {
 			return picks[i], true
 		}
-	case game.TradePageFetch, game.TradePageSellWarehouse:
+	case game.TradePageFetch, game.TradePageSellWarehouse, game.TradePageSwapWarehouse:
 		if i, ok := window.menuBoxHit(stMenuBaseInside, 0, x, y); ok {
 			return picks[3-i], true
 		}
@@ -429,6 +432,9 @@ func (a *app) stTradeActionAt(x, y int) (game.Action, bool) {
 			}
 			if i == 1 {
 				return game.ActionTradeFetchPage, true
+			}
+			if i == 2 {
+				return game.ActionTradeSwapPage, true
 			}
 		}
 	case game.TradePageEntrance:

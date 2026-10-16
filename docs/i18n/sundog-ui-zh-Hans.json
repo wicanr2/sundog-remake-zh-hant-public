@@ -4331,6 +4331,26 @@
       "key": "ui.help.dialog_footer",
       "translation": "←→ 选择说法  ENTER：说出  右键：返回",
       "translationStatus": "2026-10-16 localized shared controls"
+    },
+    {
+      "key": "ui.trade.swap",
+      "translation": "交换",
+      "translationStatus": "AI translation; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.swap_pod",
+      "translation": "选择货舱货物",
+      "translationStatus": "AI translation; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.swap_warehouse",
+      "translation": "选择仓库货物",
+      "translationStatus": "AI translation; native editorial review pending"
+    },
+    {
+      "key": "ui.message.swapped",
+      "translation": "货物已交换。",
+      "translationStatus": "AI translation; native editorial review pending"
     }
   ]
 }

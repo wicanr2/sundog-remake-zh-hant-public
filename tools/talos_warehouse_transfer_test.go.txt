@@ -7,6 +7,111 @@ import (
 	"testing"
 )
 
+// 原始 :0f picker 的輸入迴圈：只接受非空槽，-1取消，空槽後繼續取輸入。
+// 菜單繪圖在0601..0667，輸入getter只提供執行前固定的selector；資格判斷不替換。
+func TestSunDogWarehousePicker(t *testing.T) {
+	disk := sundogWalkerDisk(t)
+	type row struct {
+		Pod                             bool
+		Mask, First, Result, InputCalls int
+		Accepted                        bool
+	}
+	report := struct {
+		Scope, Boundaries string
+		Rows              []row
+	}{Scope: "XDOTRADI raw0x44200:0667..06ab :0f原始非空槽資格／取消／重試分支。",
+		Boundaries: "跳過0601..0667繪圖前綴；SCIP1:03只回傳執行前固定輸入，G3保持0。原始SYSTEM.INTERP執行CHK／LDP／迴圈，非原版正常GUI或實體滑鼠。"}
+	for _, pod := range []bool{false, true} {
+		slots := 4
+		if pod {
+			slots = 2
+		}
+		for mask := 0; mask < 1<<slots; mask++ {
+			for first := -1; first <= slots; first++ {
+				if first == 0 {
+					continue
+				} // 正常菜單返回1..N或-1。
+				h := banvilleHarness(t, disk)
+				flag := uint16(0)
+				if pod {
+					flag = 1
+				}
+				h.poke(depotLocal(0x46000, 7), flag)
+				h.poke(depotLocal(0x46000, 8), 0x7000)
+				h.poke(depotLocal(0x46000, 3), 0)
+				h.poke(cadenceGlobal(3), 0)
+				for i := 0; i < slots; i++ {
+					p := cadenceOuter(0x39) + uint32(i*4)
+					if pod {
+						p = cadenceGlobal(0xec) + uint32(i*4)
+					}
+					value := uint16(0)
+					if mask&(1<<i) != 0 {
+						value = uint16(17<<8 | 7<<5 | 31)
+					}
+					h.poke(p, value)
+				}
+				r := row{Pod: pod, Mask: mask, First: first}
+				stream := uint32(operandStream + 0x8000)
+				h.startDispatch(disk[0x44200+0x667:0x44200+0x6af], stream)
+				stopped := false
+				for step := 0; step < 100000; step++ {
+					if h.cpu.State.PC == interpBase+interpLoop+4 {
+						ip, sp := h.cpu.State.A[4], h.cpu.State.SSP
+						at := int(ip-stream) + 0x667
+						if at == 0x6ab {
+							stopped = true
+							break
+						}
+						if at == 0x669 && h.mem[ip] == 0xef && h.mem[ip+1] == 3 {
+							if h.peek(sp) != 0 || h.peek(sp+2) != 0x7000 {
+								t.Fatal("picker getter stack ABI")
+							}
+							choice := -1
+							if r.InputCalls == 0 {
+								choice = first
+							}
+							r.InputCalls++
+							if r.InputCalls > 2 {
+								t.Fatal("picker failed to cancel after empty slot")
+							}
+							h.poke(sp, uint16(choice))
+							h.cpu.State.A[4] = ip + 2
+							h.start(interpLoop)
+							continue
+						}
+					}
+					if _, err := h.cpu.Step(); err != nil {
+						t.Fatal(err)
+					}
+				}
+				if !stopped {
+					t.Fatal("picker did not stop")
+				}
+				r.Result = int(int16(h.peek(0x47000)))
+				r.Accepted = first > 0 && mask&(1<<(first-1)) != 0
+				want, calls := -1, 1
+				if r.Accepted {
+					want = first
+				} else if first > 0 {
+					calls = 2
+				}
+				if r.Result != want || r.InputCalls != calls {
+					t.Fatalf("picker %+v want%d calls%d", r, want, calls)
+				}
+				report.Rows = append(report.Rows, r)
+			}
+		}
+	}
+	b, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(os.Getenv("SUNDOG_PARITY_OUTPUT"), "native-warehouse-picker.json"), append(b, '\n'), 0600); err != nil {
+		t.Fatal(err)
+	}
+}
+
 // XDOTRADI:10 真正倉庫操作，非:1a通用lot selector。
 func TestSunDogWarehouseTransfer(t *testing.T) {
 	disk := sundogWalkerDisk(t)

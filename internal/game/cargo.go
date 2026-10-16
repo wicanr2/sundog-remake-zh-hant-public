@@ -112,11 +112,13 @@ const (
 	TradePageBuy            = 1  // the quote
 	TradePageSell           = 2  // the pod's lots
 	TradePageEntrance       = 3  // Exchange / Warehouse, the first thing the building shows
-	TradePageWarehouse      = 4  // Store / Fetch over the warehouse's contents
+	TradePageWarehouse      = 4  // Store / Fetch / Swap over the warehouse's contents
 	TradePageStore          = 5  // pick the pod lot to store
 	TradePageFetch          = 6  // pick the warehouse lot to fetch
 	TradePageSellSource     = 7  // Warehouse / Pod source menu
 	TradePageSellWarehouse  = 8  // pick one of the four warehouse lots to sell
 	TradePageSellConfirm    = 9  // approve or withdraw the selected lot
 	TradePageBuyDestination = 10 // paid lot: Warehouse / Pod destination
+	TradePageSwapPod        = 11 // first select an occupied pod slot
+	TradePageSwapWarehouse  = 12 // then select an occupied warehouse slot
 )

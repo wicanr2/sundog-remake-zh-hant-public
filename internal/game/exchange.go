@@ -764,6 +764,37 @@ func (r Reducer) fetchLot(state *State, slot int) (string, bool) {
 	return "ui.message.fetched", true
 }
 
+// XDOTRADI:10 raw0x44200:0771..07c0 exchanges complete occupied records.
+// Unlike Store/Fetch, Swap requires no free slot and never clears either lot.
+func (r Reducer) swapLot(state *State, holdIndex, slot int) (string, bool) {
+	if holdIndex < 0 || holdIndex >= CargoLots {
+		return "ui.message.no_cargo", false
+	}
+	hold := state.Holds[holdIndex]
+	if hold.Kind != HoldGoods || hold.Goods <= 0 || hold.Goods >= goodsCodes {
+		return "ui.message.no_cargo", false
+	}
+	if slot < 0 || slot >= WarehouseLots {
+		return "ui.message.warehouse_empty", false
+	}
+	lots := WarehouseLotsOf(*state, state.CityID)
+	incoming := lots[slot]
+	kind, ok := r.World.CargoKindByCode(incoming.Goods)
+	if incoming.Goods <= 0 || !ok {
+		return "ui.message.warehouse_empty", false
+	}
+	// Reducer input is a value; detach the changed city from its map/slice.
+	warehouses := make(map[string][]Lot, len(state.Warehouses)+1)
+	for city, stored := range state.Warehouses {
+		warehouses[city] = stored
+	}
+	lots[slot] = hold.Lot()
+	warehouses[state.CityID] = lots
+	state.Warehouses = warehouses
+	state.Holds[holdIndex] = goodsHold(incoming, kind.Key)
+	return "ui.message.swapped", true
+}
+
 // QualityLetter is how the original prints a quality: 'H' less the figure.
 func QualityLetter(quality int) string {
 	if quality <= 0 || quality > 7 {

@@ -4331,6 +4331,26 @@
       "key": "ui.help.dialog_footer",
       "translation": "←→ 할 말 선택  ENTER: 말하기  우클릭: 돌아가기",
       "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.swap",
+      "translation": "교환",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.swap_pod",
+      "translation": "포드 화물 선택",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.swap_warehouse",
+      "translation": "창고 화물 선택",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.message.swapped",
+      "translation": "화물을 교환했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
     }
   ],
   "translationSource": "docs/i18n/ko.tsv"

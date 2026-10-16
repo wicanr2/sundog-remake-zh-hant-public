@@ -4079,8 +4079,8 @@
     },
     {
       "key": "ui.trade.fetch",
-      "translation": "Retrieve",
-      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+      "translation": "Fetch",
+      "translationStatus": "AI translation; cargo context corrected; native editorial review pending"
     },
     {
       "key": "ui.trade.fetch_which",
@@ -4144,8 +4144,8 @@
     },
     {
       "key": "ui.trade.store",
-      "translation": "Deposit",
-      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+      "translation": "Store",
+      "translationStatus": "AI translation; cargo context corrected; native editorial review pending"
     },
     {
       "key": "ui.trade.store_to",
@@ -4331,6 +4331,26 @@
       "key": "ui.help.dialog_footer",
       "translation": "Arrows: choose words  ENTER: speak  Right-click: back",
       "translationStatus": "2026-10-16 localized shared controls"
+    },
+    {
+      "key": "ui.trade.swap",
+      "translation": "Swap",
+      "translationStatus": "AI translation; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.swap_pod",
+      "translation": "Choose pod cargo",
+      "translationStatus": "AI translation; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.swap_warehouse",
+      "translation": "Choose warehouse cargo",
+      "translationStatus": "AI translation; native editorial review pending"
+    },
+    {
+      "key": "ui.message.swapped",
+      "translation": "Cargo swapped.",
+      "translationStatus": "AI translation; native editorial review pending"
     }
   ]
 }

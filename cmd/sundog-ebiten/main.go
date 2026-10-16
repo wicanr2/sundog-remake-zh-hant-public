@@ -1531,8 +1531,11 @@ func keyAction(key ebiten.Key, state game.State) (game.Action, bool) {
 			if key == ebiten.KeyF {
 				return game.ActionTradeFetchPage, true
 			}
+			if key == ebiten.KeyX {
+				return game.ActionTradeSwapPage, true
+			}
 			return "", false
-		case game.TradePageSell, game.TradePageStore, game.TradePageFetch, game.TradePageSellSource, game.TradePageSellWarehouse, game.TradePageSellConfirm, game.TradePageBuyDestination:
+		case game.TradePageSell, game.TradePageStore, game.TradePageFetch, game.TradePageSwapPod, game.TradePageSwapWarehouse, game.TradePageSellSource, game.TradePageSellWarehouse, game.TradePageSellConfirm, game.TradePageBuyDestination:
 			switch key {
 			case ebiten.Key1:
 				return game.ActionTradePick1, true

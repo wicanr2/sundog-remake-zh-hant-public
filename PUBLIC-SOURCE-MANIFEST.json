@@ -47,8 +47,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 1376,
-      "sha256": "2e435331116710767b6626fac44694faf9a8667749866ff67c4fe6604cdb5c6e"
+      "bytes": 1807,
+      "sha256": "f9b9ac5757936e6387fabf0914c1b1cf01fa427d3048136bf898a06111281fd9"
     },
     {
       "path": "LICENSE",
@@ -77,8 +77,8 @@
     },
     {
       "path": "WORKLOG.md",
-      "bytes": 3103,
-      "sha256": "0128c30918d2d525ca2eef4ef548b2cb54d45f1aaa21636bf106a57e89d648fb"
+      "bytes": 3534,
+      "sha256": "22422455291494906419f4194c6fcf7b1ea3aface10d8b1f5b963b1586e3cba5"
     },
     {
       "path": "assets/fonts/ASSET-MANIFEST.md",
@@ -297,8 +297,8 @@
     },
     {
       "path": "cmd/sundog-ebiten/main.go",
-      "bytes": 192998,
-      "sha256": "f1e99b1e1308303fadaaaf8533b168f6f4e7fee658d76180cf9a70b392bdf6ad"
+      "bytes": 193124,
+      "sha256": "dc57b4e2feaf332ba04e2b40e2fdbbe98f0c2c7e17c69a0882f3c8d3aa122ec3"
     },
     {
       "path": "cmd/sundog-ebiten/main_test.go",
@@ -377,8 +377,8 @@
     },
     {
       "path": "cmd/sundog-ebiten/stshop.go",
-      "bytes": 33526,
-      "sha256": "57333e14e72fcb78d185c4cdff60c2434219916142568918c3062e4f1f6b0971"
+      "bytes": 33875,
+      "sha256": "92dab7f3b8dfbf2aa3ed1ff96058634bf05f65615bce600eacd31fa8f8b4c818"
     },
     {
       "path": "cmd/sundog-ebiten/ststores.go",
@@ -414,6 +414,11 @@
       "path": "cmd/sundog-ebiten/walker_target_test.go",
       "bytes": 7360,
       "sha256": "5121ab3c7fb03e931d3bf07364045b6683018a0dd73838beae05239c16c69bbe"
+    },
+    {
+      "path": "cmd/sundog-ebiten/warehouse_swap_test.go",
+      "bytes": 2294,
+      "sha256": "f08077704f63c1134f0f194ab72d50861cd3c3bd8afc4fb2583328ce23c59de6"
     },
     {
       "path": "cmd/sundog-preview/main.go",
@@ -572,8 +577,8 @@
     },
     {
       "path": "docs/i18n/README.md",
-      "bytes": 1478,
-      "sha256": "7c75f19c19599875d132265546635e490963e83bbf1e3201c2f801eff7d48647"
+      "bytes": 1487,
+      "sha256": "efd79b27a924072c7dce9ff68666e5b1ba66b6bd3b56e7ec70ef58b3ea2f3ff5"
     },
     {
       "path": "docs/i18n/REVIEW-2026-08-31.md",
@@ -657,43 +662,43 @@
     },
     {
       "path": "docs/i18n/ko.tsv",
-      "bytes": 79199,
-      "sha256": "608a1b73f884c139cf0f23a9dd2759d6c48f8dcd202ccbe17f8dc695d4997053"
+      "bytes": 79389,
+      "sha256": "c10df4a85cb446cc962cf4223560561adf6187c21e924b2331871dde382ba5a9"
     },
     {
       "path": "docs/i18n/sundog-ui-en.json",
-      "bytes": 154560,
-      "sha256": "008dead0aa1a107b8b619f788443017e19d65bfdc21fda14c7f8590568743e1c"
+      "bytes": 155250,
+      "sha256": "53e81a7a8760ff11c0fa9c9b359dea80cc1d114f89deb6c55e141acbeeceaac7"
     },
     {
       "path": "docs/i18n/sundog-ui-ja.json",
-      "bytes": 163414,
-      "sha256": "4a048d61223cfa3527f0feea6eb50b16293996fe96a9edefdb0b720307a3bae9"
+      "bytes": 164146,
+      "sha256": "3c89b8bb2874ad2ec88c4c96563697d94b09dd3f88fc1577acfdfcdc47ab7ee5"
     },
     {
       "path": "docs/i18n/sundog-ui-ko.json",
-      "bytes": 170675,
-      "sha256": "63670b90ecb378ce506d7b2c82285cdb60e093f895b7f99e58872adfb4c438d1"
+      "bytes": 171441,
+      "sha256": "729b73feb9c951261db425a60fe1c9e889eabfacf4ba4f10613971ad720e256c"
     },
     {
       "path": "docs/i18n/sundog-ui-zh-Hans.json",
-      "bytes": 154220,
-      "sha256": "9796c661173ff789b0179f5c2e1deffa4735fba8166489d62c900f58ca7e8b96"
+      "bytes": 154879,
+      "sha256": "6159f555f1919dd3b7ed1bb2039b0c0163896a0d66509fd89843b948c5bd3170"
     },
     {
       "path": "docs/i18n/sundog-ui-zh-Hant.json",
-      "bytes": 154205,
-      "sha256": "4574ab5d2e6c5aca38f26d0a68d3e8d55827ec2d22719264e170322bc1b773d4"
+      "bytes": 154864,
+      "sha256": "8c3886a823109e136c0faa8c81c2fd491622bae83d91e53cfb68c3184d6eacf8"
     },
     {
       "path": "docs/index.md",
-      "bytes": 1312,
-      "sha256": "fa3bd0d7523b48e41c029b30189c54991abd7f87216088c1f20f013e48f18818"
+      "bytes": 1657,
+      "sha256": "9c53ae4676277c646e5675fd29141665ff4ddf7c3ac7eebc49911079e440ed44"
     },
     {
       "path": "docs/manual/remake-controls-zh-Hant.md",
-      "bytes": 14753,
-      "sha256": "1e536a15c8995062bbbe7d3d3440acbd98cac08e1f916b12729cda94ff7056df"
+      "bytes": 14939,
+      "sha256": "296857b4114cf70ff0d7ae28eaca83bebf2a235c67239f9d52461b7256054074"
     },
     {
       "path": "docs/promo/README.md",
@@ -862,8 +867,8 @@
     },
     {
       "path": "internal/game/cargo.go",
-      "bytes": 4525,
-      "sha256": "9da68b656106e098b08681a7436c44eac439f146d57c72f3eddc95dcf6d5f915"
+      "bytes": 4671,
+      "sha256": "fa347389a24c889b6f29d88a89b2e0f272662c5583f9279b041cb62121f20519"
     },
     {
       "path": "internal/game/city_subsystems_test.go",
@@ -952,8 +957,8 @@
     },
     {
       "path": "internal/game/exchange.go",
-      "bytes": 25554,
-      "sha256": "1191cdf65ba43464436b3fdd7439d7bf9356708351c3df47f6756f5bcb278e0b"
+      "bytes": 26710,
+      "sha256": "be30c2db1b15d566cb7fb9085be9746064a458e53e6feafbb188534d3df09594"
     },
     {
       "path": "internal/game/fine.go",
@@ -1107,8 +1112,8 @@
     },
     {
       "path": "internal/game/reducer.go",
-      "bytes": 79589,
-      "sha256": "6b97478137a2c6034bd50d845c977a7740592d37ce2287007294d853da6a9d3c"
+      "bytes": 80676,
+      "sha256": "73f213478d95effdd77865a95059e34b7c74e0dc8cd57964fa0f259f81505461"
     },
     {
       "path": "internal/game/reducer_test.go",
@@ -1197,8 +1202,8 @@
     },
     {
       "path": "internal/game/state.go",
-      "bytes": 40569,
-      "sha256": "604fbcbc22c142c40b644126698225cf8751be240f424f756b7887088f081651"
+      "bytes": 40744,
+      "sha256": "f6f74c1141750b27d1c642e13f7d4f6b4eb89c1e6d80503c9457cebce1e53cf3"
     },
     {
       "path": "internal/game/street.go",
@@ -1257,8 +1262,8 @@
     },
     {
       "path": "internal/game/trade_session.go",
-      "bytes": 4264,
-      "sha256": "f071f5948788f160a8c37924c107ac7375ed574906dc1faefcb9d8f61d078147"
+      "bytes": 4626,
+      "sha256": "5e30cc2397e333f033f96aeea663ae1806e6180c0f38ed96b29baba7af0aa466"
     },
     {
       "path": "internal/game/tube.go",
@@ -1272,8 +1277,13 @@
     },
     {
       "path": "internal/game/warehouse_native_parity_test.go",
-      "bytes": 2804,
-      "sha256": "b589b03ce67df80d169510674a10b7c5b821b6001416b47d5efcd13016cc8b27"
+      "bytes": 3713,
+      "sha256": "3a2d2d9332947b0b2c4765030cd6e5480f69b5a226acc0c311317b591b20708a"
+    },
+    {
+      "path": "internal/game/warehouse_swap_test.go",
+      "bytes": 3292,
+      "sha256": "dac074d72fc8b7be10d2f0eec82a56e4320222174f55cadcc1fdc2e56cbdab35"
     },
     {
       "path": "internal/input/semantic.go",
@@ -1709,6 +1719,11 @@
       "path": "internal/storage/sleep_test.go",
       "bytes": 5460,
       "sha256": "104a7c152b0b54bbfa13cae978b2e34d733a2cfc8867925dd6d3c8898e875332"
+    },
+    {
+      "path": "internal/storage/warehouse_swap_test.go",
+      "bytes": 3229,
+      "sha256": "ecdc4c6584ec39398ff192c1374049f9746d71b1cf86d0b010e4da133f5cbcb8"
     },
     {
       "path": "internal/theme/assets/modern-apple/README.md",
@@ -2782,8 +2797,8 @@
     },
     {
       "path": "tools/public-source/CONTEXT.md",
-      "bytes": 825,
-      "sha256": "a4ae08c4f8ca35a855410ad99a5efe48ff7bf59e5e7b7003f70f827255c9ab21"
+      "bytes": 1807,
+      "sha256": "f9b9ac5757936e6387fabf0914c1b1cf01fa427d3048136bf898a06111281fd9"
     },
     {
       "path": "tools/public-source/README.en.md",
@@ -2807,8 +2822,8 @@
     },
     {
       "path": "tools/public-source/WORKLOG.md",
-      "bytes": 2552,
-      "sha256": "d8e79c83d2f004c79be26a93beac79df9092bbe24923454579b483f34a7cf58d"
+      "bytes": 3534,
+      "sha256": "22422455291494906419f4194c6fcf7b1ea3aface10d8b1f5b963b1586e3cba5"
     },
     {
       "path": "tools/public-source/docs/build.md",
@@ -3092,8 +3107,8 @@
     },
     {
       "path": "tools/talos_warehouse_transfer_test.go.txt",
-      "bytes": 8721,
-      "sha256": "0899d9a527375038ba3f4dd0410ec252ceea96238a8ff74241d911349ba0144c"
+      "bytes": 11931,
+      "sha256": "1dbb02b4899c0d6e02285420cf1009fccec3fc544fb76845a1a93846717da93b"
     },
     {
       "path": "tools/test_apple2_boot_probe.py",
@@ -3582,13 +3597,18 @@
     },
     {
       "path": "tools/verify_talos_warehouse.py",
-      "bytes": 6089,
-      "sha256": "8fa3e6890695c6df5bddd9bf86c7a63d0c6d4100f7092cbae0c361f0252d33c3"
+      "bytes": 7615,
+      "sha256": "9ab340853063cacadb5ae48387abd57d3bb713035eecaa03388810deb6220090"
     },
     {
       "path": "tools/verify_trade_marquee.py",
       "bytes": 3129,
       "sha256": "9569394eb4985d331e34acd61bff97769e4e28edefb08617ccba5373557c668f"
+    },
+    {
+      "path": "tools/verify_warehouse_swap_player.py",
+      "bytes": 12004,
+      "sha256": "6677e8bd3c55def29803ac98652d36dbb992858bd35c45272cfa366a7e410198"
     }
   ]
 }

@@ -224,6 +224,7 @@ const (
 	ActionTradeWarehousePage   Action = "trade-warehouse-page"
 	ActionTradeStorePage       Action = "trade-store-page"
 	ActionTradeFetchPage       Action = "trade-fetch-page"
+	ActionTradeSwapPage        Action = "trade-swap-page"
 	ActionTradePick1           Action = "trade-pick-1"
 	ActionTradePick2           Action = "trade-pick-2"
 	ActionTradePick3           Action = "trade-pick-3"
@@ -507,12 +508,14 @@ type State struct {
 	SlewBearing     int  `json:"slewBearing,omitempty"`
 	SlewPitch       int  `json:"slewPitch,omitempty"`
 	// TradePage preserves the exchange page, including the source choice
-	// and warehouse sale list. Values are defined in cargo.go.
-	TradePage        int          `json:"tradePage,omitempty"`
-	TradeSession     TradeSession `json:"tradeSession"`
-	TradeSaleSlot    int          `json:"tradeSaleSlot"`
-	TradeSalePrice   int          `json:"tradeSalePrice"`
-	TradePurchaseLot *Lot         `json:"tradePurchaseLot,omitempty"`
+	// and warehouse sale/swap lists. Values are defined in cargo.go.
+	TradePage    int          `json:"tradePage,omitempty"`
+	TradeSession TradeSession `json:"tradeSession"`
+	// TradeSaleSlot identifies a selected lot (1..4 warehouse, 5..6 pod).
+	// On TradePageSwapWarehouse it is the pending pod source, with price 0.
+	TradeSaleSlot    int  `json:"tradeSaleSlot"`
+	TradeSalePrice   int  `json:"tradeSalePrice"`
+	TradePurchaseLot *Lot `json:"tradePurchaseLot,omitempty"`
 	// The exchange's economy (exchange.go): the quote ring, each city's supply
 	// and demand, each city's warehouse. The pod itself is State.Holds.
 	Quotes          []Lot                 `json:"quotes,omitempty"`

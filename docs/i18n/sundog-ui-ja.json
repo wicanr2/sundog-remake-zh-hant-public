@@ -195,8 +195,8 @@
     {
       "key": "ui.cargo.cryogens",
       "source": "cryogens",
-      "translation": "寒剤",
-      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+      "translation": "冷凍移民",
+      "translationStatus": "AI translation; cargo context corrected; native editorial review pending"
     },
     {
       "key": "ui.cargo.droids",
@@ -4144,8 +4144,8 @@
     },
     {
       "key": "ui.trade.store",
-      "translation": "入金",
-      "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
+      "translation": "保管",
+      "translationStatus": "AI translation; cargo context corrected; native editorial review pending"
     },
     {
       "key": "ui.trade.store_to",
@@ -4331,6 +4331,26 @@
       "key": "ui.help.dialog_footer",
       "translation": "←→ 発言選択  ENTER：話す  右クリック：戻る",
       "translationStatus": "2026-10-16 localized shared controls"
+    },
+    {
+      "key": "ui.trade.swap",
+      "translation": "交換",
+      "translationStatus": "AI translation; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.swap_pod",
+      "translation": "ポッドの貨物を選択",
+      "translationStatus": "AI translation; native editorial review pending"
+    },
+    {
+      "key": "ui.trade.swap_warehouse",
+      "translation": "倉庫の貨物を選択",
+      "translationStatus": "AI translation; native editorial review pending"
+    },
+    {
+      "key": "ui.message.swapped",
+      "translation": "貨物を交換しました。",
+      "translationStatus": "AI translation; native editorial review pending"
     }
   ]
 }

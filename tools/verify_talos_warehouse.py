@@ -39,6 +39,21 @@ def verify_warehouse_backlinks(repo, disk):
     for ref in [row["evidenceSpec"], *row["olderSpecs"]]:
         if ref["marker"] not in (repo / ref["path"]).read_text():
             raise RuntimeError(f"倉庫勘誤未回填：{ref['path']}")
+    swaps = index.get("warehouseSwapResolutions", [])
+    expected_swap = {("0x729", "0x741"), ("0x667", "0x6ab"), ("0x83e", "0x849")}
+    if len(swaps) != 1 or swaps[0]["id"] != "warehouse.swap-picker" or {(o["start"], o["endExclusive"]) for o in swaps[0]["origins"]} != expected_swap:
+        raise RuntimeError("Swap picker／父選單勘誤回鏈缺項")
+    for origin in swaps[0]["origins"]:
+        matches = [s for s in index["slices"] if all(s.get(k) == v for k, v in origin.items())]
+        if len(matches) != 1 or origin["segment"] != "XDOTRADI" or origin["diskBase"] != "0x44200":
+            raise RuntimeError("Swap原始定位缺唯一切片")
+        s = matches[0]
+        first, end = int(s["start"], 16), int(s["endExclusive"], 16)
+        if s.get("evidenceLevel") != "proven" or hashlib.sha256(disk[0x44200+first:0x44200+end]).hexdigest() != s["sha256"]:
+            raise RuntimeError("Swap位元組或證據等級不符")
+    for ref in [swaps[0]["evidenceSpec"], *swaps[0]["olderSpecs"]]:
+        if ref["marker"] not in (repo / ref["path"]).read_text():
+            raise RuntimeError(f"Swap勘誤未回填：{ref['path']}")
 
 
 def main():
@@ -64,22 +79,24 @@ def main():
     out.mkdir(mode=0o700);overlay=out/"overlay.json"
     overlay.write_text(json.dumps({"Replace":{str(talos/f"internal/m68k/sundog_{n}_test.go"):str(p) for n,p in zip(names,sources)}}))
     env=dict(os.environ,SUNDOG_PARITY_DISK=str(disk),SUNDOG_PARITY_OUTPUT=str(out),TALOS_UCSD_INTERP=str(interp.parent),GOPROXY="off",GOTOOLCHAIN="local")
-    command=["go","test","-overlay",str(overlay),"-buildvcs=false","./internal/m68k","-run","^TestSunDogWarehouse(Transfer|Persistence)$","-count=1","-v"]
+    command=["go","test","-overlay",str(overlay),"-buildvcs=false","./internal/m68k","-run","^TestSunDogWarehouse(Transfer|Persistence|Picker)$","-count=1","-v"]
     run_logged(command,out/"native.log",cwd=talos,env=env)
     native=json.loads((out/"native-warehouse-transfer.json").read_text())
     persistence=json.loads((out/"native-warehouse-persistence.json").read_text())
+    picker=json.loads((out/"native-warehouse-picker.json").read_text())
     if len(native["Rows"])!=1152 or {r["Mode"] for r in native["Rows"]}!={1,2,3}:raise RuntimeError("原生操作覆蓋不符")
     if len(persistence["Rows"])!=64 or {r["City"] for r in persistence["Rows"]}!=set(range(1,65)):raise RuntimeError("倉庫索引覆蓋不符")
     formal_command=["go","test","-buildvcs=false","./internal/game","-run","^TestExportTalosWarehouseTransfer$","-count=1","-v"]
     run_logged(formal_command,out/"formal.log",cwd=repo,env=env)
     formal=json.loads((out/"remake-warehouse-transfer.json").read_text())
-    if (formal["StoreCases"],formal["FetchCases"],formal["Differences"],formal["SwapUnsupported"],formal["StoreDifferences"],formal["FetchDifferences"])!=(384,384,0,384,0,0):raise RuntimeError(f"正式Store／Fetch比較不符：{formal}")
-    report=dict(status="PASS-store-fetch-core-with-swap-unsupported",specState="READY",fullCryoAcquisitionSpec="DRAFT",originalGUI="unverified",diskPersistence="unverified",
-                native=native,persistence=persistence,formal=formal,diskSHA256=sha(disk),interpreterSHA256=sha(interp),
+    if len(picker["Rows"])!=92 or sum(r["InputCalls"]==2 for r in picker["Rows"])!=36:raise RuntimeError("原版picker資格／重試覆蓋不符")
+    if (formal["StoreCases"],formal["FetchCases"],formal["SwapCases"],formal["Differences"],formal["SwapUnsupported"],formal["StoreDifferences"],formal["FetchDifferences"],formal["SwapDifferences"])!=(384,384,384,0,0,0,0,0):raise RuntimeError(f"正式Store／Fetch／Swap比較不符：{formal}")
+    report=dict(status="PASS-store-fetch-swap-rules-and-picker",specState="READY-GUI-save-pending",originalGUI="unverified",diskPersistence="unverified",
+                native=native,persistence=persistence,picker=picker,formal=formal,diskSHA256=sha(disk),interpreterSHA256=sha(interp),
                 go=version,talosHead=subprocess.check_output(["git","rev-parse","HEAD"],cwd=talos,text=True).strip(),command=command,formalCommand=formal_command,
-                sources={str(p.relative_to(repo)):sha(p) for p in sources+[Path(__file__).resolve(),repo/"internal/game/warehouse_native_parity_test.go",repo/"internal/game/exchange.go",repo/"internal/game/hold.go",repo/"internal/game/cargo.go",repo/"docs/atari-st/banville-state-evidence-20260908.json"]})
+                sources={str(p.relative_to(repo)):sha(p) for p in sources+[Path(__file__).resolve(),repo/"internal/game/warehouse_native_parity_test.go",repo/"internal/game/exchange.go",repo/"internal/game/hold.go",repo/"internal/game/cargo.go",repo/"internal/game/state.go",repo/"internal/game/reducer.go",repo/"internal/game/trade_session.go",repo/"docs/atari-st/banville-state-evidence-20260908.json"]})
     (out/"receipt.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
-    print("PASS:原生1152存取交換／64城市讀寫；正式Store384＋Fetch384零差異；Swap384未支援，完整取得仍DRAFT")
+    print("PASS:原生1152搬運／64城市讀寫／92picker；正式Store384＋Fetch384＋Swap384零差異；完整原版GUI未驗")
 
 
 if __name__=="__main__":main()
