@@ -25,6 +25,8 @@
 
 Swap 驗證使用自備合法磁碟、正常Dramming取貨保存及足以購買兩批貨物的資金；參數見工具 `--help`。`--review-only` 從已有正常倉庫保存重拍五語畫面，不執行購買或交換。這些輸入不隨公開來源提供。
 
-schema45 玩家工具在 Docker 從標題建角，或用 `--library-input` 接續同一正常保存。地面往返來源交易所使用既有 Apple II 格移動，交易與戰術切回 Atari ST HD；不把這段測試稱為 Atari ST 像素地面對拍。原生連續戰鬥工具參數 `--combat-continuous-parent-only` 僅驗模式1至7、敵型0及明示受控亂數，新的批量數值答案留私人。
+schema45 玩家工具在 Docker 從標題建角，或用 `--library-input` 接續同一正常保存。地面往返來源交易所使用既有 Apple II 格移動，交易與戰術切回 Atari ST HD；不把這段測試稱為 Atari ST 像素地面對拍。原生連續戰鬥工具參數 `--combat-continuous-parent-only` 僅驗非隱形模式0至7、敵型0及明示受控亂數，新的批量數值答案留私人。
 
 公開來源匯出腳本 [prepare_public_repository.py](../tools/prepare_public_repository.py) 供原私人工作樹建立新快照，使用 [public-source 範本](../tools/public-source/README.md)；公開 clone 已是匯出結果，不具備再次匯出所需的私人截圖路徑。
+
+`verify_schema45_player.py --combat-reentry-only` 從正常有貨庫續行；`--shore-visits 4 --require-mode0` 預先固定下船／走回船門後的模式0抽驗，不反覆重抽。輸出使用專案 `workplace/` 內新目錄供Go重播。保存輸入留本機。

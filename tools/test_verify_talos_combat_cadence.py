@@ -17,7 +17,7 @@ class CombatContinuousGateTests(unittest.TestCase):
         common = ("Phase", "Fuel", "Weapon", "Shield", "Setting", "Hull", "Cooldown", "Range", "Bearing", "Pitch",
                   "BearingDrift", "PitchDrift", "Counter", "Active", "Words", "Systems",
                   "Timer", "Ready", "Closing", "Aux8", "Aux9", "CanPrepareFire")
-        for mode in range(1, 8):
+        for mode in range(8):
             for phase in range(3):
                 for fuel in (0, 1, 255):
                     for ready in (False, True):
@@ -46,7 +46,7 @@ class CombatContinuousGateTests(unittest.TestCase):
     def test_native_research_is_not_full_conformance(self):
         result = self.compare()
         self.assertEqual(result["status"], "PASS-scoped")
-        self.assertEqual(result["comparedUpdates"], 1512)
+        self.assertEqual(result["comparedUpdates"], 1728)
         self.assertEqual(result["initialReadyNotComparable"], 0)
         self.assertNotIn("Ready", result["unmappedNativeFields"])
         self.assertEqual(result["unmappedNativeFields"], ["Flags", "RandomWords"])
@@ -57,6 +57,14 @@ class CombatContinuousGateTests(unittest.TestCase):
         self.assertEqual(result["status"], "FAIL")
         self.assertEqual(result["conformance"], "DRAFT")
         self.assertEqual(result["differences"]["Cooldown"], 1)
+
+    def test_mode0_cannot_be_omitted(self):
+        self.formal = [row for row in self.formal if row["Input"]["Mode"] != 0]
+        self.assertEqual(self.compare()["status"], "FAIL")
+
+    def test_cloaked_case_cannot_count_as_noncloaked(self):
+        self.controlled[0]["Steps"][0]["Flags"][0] |= 1 << 12
+        self.assertEqual(self.compare()["status"], "FAIL")
 
     def test_same_truncation_does_not_pass(self):
         self.rows[0]["Steps"].pop()

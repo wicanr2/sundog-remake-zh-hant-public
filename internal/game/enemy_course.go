@@ -202,13 +202,13 @@ func prepareEnemyFire(s *State, c *EnemyCourseState) {
 	// Clearing it belongs to the omitted display consumer, not set_fire.
 }
 
-// Modes1..7 share the source persistent course/preparation lifecycle. Mode0
-// retains its existing projection; its cloak helper residue is unverified.
+// All non-cloaked modes share the source persistent course/preparation lifecycle.
+// Cloaked mode0 retains its legacy projection; helper residue is unverified.
 func advanceEnemyCombat(s *State) {
 	if !s.CombatActive {
 		return
 	}
-	if s.EnemyCourseMode == 0 {
+	if s.EnemyCourseMode == 0 && s.ShipControls.Secondary[4] {
 		steerEnemy(s)
 		resolveEnemyFire(s)
 	} else {

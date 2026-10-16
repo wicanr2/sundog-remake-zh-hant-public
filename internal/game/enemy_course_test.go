@@ -60,32 +60,51 @@ func TestManualAwakeAndSleepShareOneCombatParent(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	base := enemyCourseFixture()
-	want := enemyCourseFixture()
-	advanceShipClock(&want)
-	manual, err := r.Step(base, ActionRechargeWeapon)
-	if err != nil {
-		t.Fatal(err)
+	for _, mode := range []int{0, 1} {
+		base := enemyCourseFixture()
+		base.EnemyCourseMode = mode
+		want := enemyCourseFixture()
+		want.EnemyCourseMode = mode
+		advanceShipClock(&want)
+		manual, err := r.Step(base, ActionRechargeWeapon)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !reflect.DeepEqual(enemyCourseCore(manual), enemyCourseCore(want)) {
+			t.Fatal("manual tactical step bypassed or repeated the parent")
+		}
+		awake := enemyCourseFixture()
+		awake.EnemyCourseMode = mode
+		for i := 0; i < 1000 && awake.ShipPhase == base.ShipPhase; i++ {
+			advanceAwakeVBL(&awake)
+		}
+		if !reflect.DeepEqual(enemyCourseCore(awake), enemyCourseCore(want)) {
+			t.Fatalf("awake callback differs: %+v", enemyCourseCore(awake))
+		}
+		sleep := enemyCourseFixture()
+		sleep.EnemyCourseMode = mode
+		sleep.Screen, sleep.StatusReturn = ScreenCharacterStatus, ScreenTactical
+		sleep.Sleep = SleepState{Active: true, ShipActive: true}
+		sleep.SleepTheftProtected = true
+		for i := 0; i < 32; i++ {
+			r.advanceSleep(&sleep)
+		}
+		if !reflect.DeepEqual(enemyCourseCore(sleep), enemyCourseCore(want)) {
+			t.Fatalf("sleep callback repeated or skipped the enemy update: %+v", enemyCourseCore(sleep))
+		}
 	}
-	if !reflect.DeepEqual(enemyCourseCore(manual), enemyCourseCore(want)) {
-		t.Fatal("manual tactical step bypassed or repeated the parent")
-	}
-	awake := enemyCourseFixture()
-	for i := 0; i < 1000 && awake.ShipPhase == base.ShipPhase; i++ {
-		advanceAwakeVBL(&awake)
-	}
-	if !reflect.DeepEqual(enemyCourseCore(awake), enemyCourseCore(want)) {
-		t.Fatalf("awake callback differs: %+v", enemyCourseCore(awake))
-	}
-	sleep := enemyCourseFixture()
-	sleep.Screen, sleep.StatusReturn = ScreenCharacterStatus, ScreenTactical
-	sleep.Sleep = SleepState{Active: true, ShipActive: true}
-	sleep.SleepTheftProtected = true
-	for i := 0; i < 32; i++ {
-		r.advanceSleep(&sleep)
-	}
-	if !reflect.DeepEqual(enemyCourseCore(sleep), enemyCourseCore(want)) {
-		t.Fatalf("sleep callback repeated or skipped the enemy update: %+v", enemyCourseCore(sleep))
+}
+
+func TestCloakedMode0RetainsLegacyProjection(t *testing.T) {
+	got, want := enemyCourseFixture(), enemyCourseFixture()
+	got.EnemyCourseMode, want.EnemyCourseMode = 0, 0
+	got.ShipControls.Secondary[4], want.ShipControls.Secondary[4] = true, true
+	advanceShipClock(&got)
+	advanceInSystemFlight(&want)
+	steerEnemy(&want)
+	resolveEnemyFire(&want)
+	if !reflect.DeepEqual(enemyCourseCore(got), enemyCourseCore(want)) {
+		t.Fatal("unproven cloaked mode0 boundary changed its retained legacy behavior")
 	}
 }
 

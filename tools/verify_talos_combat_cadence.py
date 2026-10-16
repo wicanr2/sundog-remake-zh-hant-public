@@ -22,7 +22,7 @@ def compare_combat_continuous_parent(output):
     actual, controlled, formal = [json.loads((output / name).read_text()) for name in names]
     key = lambda value: json.dumps(value, sort_keys=True)
     wanted = {key(dict(Mode=mode, Phase=phase, Fuel=fuel, Ready=ready))
-              for mode in range(1, 8) for phase in range(3) for fuel in (0, 1, 255) for ready in (False, True)}
+              for mode in range(8) for phase in range(3) for fuel in (0, 1, 255) for ready in (False, True)}
     coverage = True
     for rows, expected in ((actual, wanted), (controlled, wanted), (formal, wanted)):
         coverage = coverage and len(rows) == len(expected) and {key(row.get("Input")) for row in rows} == expected
@@ -43,6 +43,9 @@ def compare_combat_continuous_parent(output):
             for step in row.get("Steps", []):
                 coverage = coverage and set(step) == native_fields and len(step.get("Systems", [])) == 6
                 coverage = coverage and all(len(system) == 18 for system in step.get("Systems", []))
+                coverage = coverage and len(step.get("Flags", [])) == 5
+                if len(step.get("Flags", [])) == 5:
+                    coverage = coverage and not bool(step["Flags"][0] & (1 << 12))
     for row in controlled:
         draws = row.get("Draws", [])
         coverage = coverage and bool(draws)
@@ -96,12 +99,12 @@ def run_combat_continuous_parent(repo, talos, output, env, version):
     for cmd, cwd, log in zip(commands, (talos, repo), ("native.log", "formal.log")):
         run_logged(cmd, output / log, cwd=cwd, env=env, timeout=240)
     report = compare_combat_continuous_parent(output)
-    report.update(scope="原始完整SHIPLIB:12→1f→23→21→1e/1d/20及傷害/系統重算，各初態連續12更新；模式1..7、三相、Fuel0/1/255、ready真假，敵型0。不是原版正常GUI或全敵型驗收。",
+    report.update(scope="原始完整SHIPLIB:12→1f→23→21→1e/1d/20及傷害/系統重算，各初態連續12更新；模式0..7、隱形關閉、三相、Fuel0/1/255、ready真假，敵型0。不是原版正常GUI或全敵型驗收。",
                   grade="proven-native-scoped", saveSchema=45, go=version, productionRulesChanged=True,
                   originalGUI="unverified", fullParentSpec="DRAFT",
                   randomness={"actual": "原始MAINLIB RND雙字(1,0)，執行前固定，全部原始亂數程序真正執行。",
                               "controlled": "原版RND/有界rand邊界與正式combatRoll共用counter0混合序列；原指令決定範圍及呼叫順序，非原版RNG。",
-                              "comparison": "controlled全部126初態比較22個持久欄位；射擊資格對應原始flag44，其餘顯示旗標不映射；不要求自然RNG骰序一致。"},
+                              "comparison": "controlled全部144初態比較22個持久欄位；射擊資格對應原始flag44，其餘顯示旗標不映射；不要求自然RNG骰序一致。"},
                   initialState=dict(enemyType=0, enemyHull=200, range=70, bearing=512, pitch=512,
                                     bearingDrift=3, pitchDrift=-3, closing=-1, courseTimer=1, cooldown=1, aux8=2, aux9=1,
                                     weapon=0, shield=255, setting=255, hull=16, ticks=1000, attached=True,
@@ -486,7 +489,7 @@ def main():
     parser.add_argument("--fuel-flight-parent-only", action="store_true",
                         help="432組連續九次原版父程序／正式燃料背景回呼，不含交戰或GUI")
     parser.add_argument("--combat-continuous-parent-only", action="store_true",
-                        help="模式1..7連續交戰原生父鏈／正式22欄一致閘門；不是全款GUI驗收")
+                        help="模式0..7非隱形連續交戰原生父鏈／正式22欄一致閘門；不是全款GUI驗收")
     parser.add_argument("--require-initial-cooldown", action="store_true",
                         help="驗收已修初始化冷卻；正式完整航向／排程投影仍只報差異")
     parser.add_argument("--require-mode5-drift", action="store_true",

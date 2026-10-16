@@ -44,7 +44,7 @@ func TestSchema45CombatContinuesAfterSave(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for mode := 1; mode <= 7; mode++ {
+	for mode := 0; mode <= 7; mode++ {
 		for _, ready := range []bool{false, true} {
 			for _, library := range []bool{false, true} {
 				path := filepath.Join(t.TempDir(), "combat.json")

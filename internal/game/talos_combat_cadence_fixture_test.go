@@ -46,7 +46,7 @@ func TestExportTalosCombatContinuousParent(t *testing.T) {
 		return systems
 	}
 	rows := []row{}
-	for mode := 1; mode < 8; mode++ {
+	for mode := 0; mode < 8; mode++ {
 		for phase := 0; phase < 3; phase++ {
 			for _, fuel := range []int{0, 1, 255} {
 				for _, ready := range []bool{false, true} {

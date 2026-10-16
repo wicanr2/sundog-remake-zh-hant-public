@@ -17,18 +17,28 @@ def main():
     for name in ('binary', 'disk', 'output'):
         p.add_argument('--'+name, type=Path, required=True)
     p.add_argument('--library-input', type=Path, help='接續本工具正常建立的新角色庫，不重抽世界種子')
+    p.add_argument("--combat-reentry-only", action="store_true", help="從正常有貨船艙／戰術庫驗證交戰續行，不重做建角與購貨")
+    p.add_argument('--shore-visits', type=int, choices=range(9), default=0, help='開戰前預先固定正常離船／走回船次數，不重抽遭遇')
+    p.add_argument('--require-mode0', action='store_true', help='本次正常輸入必須到模式0；不重抽或改寫保存')
     a = p.parse_args()
     assert Path('/.dockerenv').is_file()
     root = Path(__file__).resolve().parents[1]
     a.binary = a.binary.resolve(strict=True); a.disk = a.disk.resolve(strict=True)
     out = a.output.resolve()
     assert not out.exists() and out.parent.stat().st_uid == os.getuid()
+    assert out.is_relative_to(root), "Go續行重播的輸出須在專案workplace內"
+    assert not a.combat_reentry_only or a.library_input is not None
     out.mkdir()
     if a.library_input:
         a.library_input = a.library_input.resolve(strict=True)
         initial = json.loads(a.library_input.read_text())['slots']['slot-1']
-        assert initial['schema'] == 45 and initial['screen'] in ('shipboard', 'trade')
-        assert initial['character'] == 'Schema Pilot' and not any(h.get('kind') for h in initial['holds'])
+        assert initial['schema'] == 45
+        if a.combat_reentry_only:
+            assert initial['screen'] in ('shipboard', 'tactical')
+            assert any(h.get('kind') == 'goods' and 2 <= h.get('goods', 0) < 31 for h in initial['holds'])
+        else:
+            assert initial['screen'] in ('shipboard', 'trade')
+            assert initial['character'] == 'Schema Pilot' and not any(h.get('kind') for h in initial['holds'])
         shutil.copyfile(a.library_input, out/'library.json')
     sha = lambda f: hashlib.sha256(f.read_bytes()).hexdigest()
     for name in ('assets', 'docs'):
@@ -119,29 +129,41 @@ def main():
             run('xdotool', 'type', '--clearmodifiers', '--delay', '100', 'Schema Pilot'); inputs.append(dict(text='Schema Pilot'))
             for value in ('Return', 'Return', 'Return'): key(value)
         s = observe('01-normal-loaded'); assert s['character'] == 'Schema Pilot'
-        if s['screen'] == 'shipboard':
-            shot('hd-new-character')
-            key('c'); key('e')
-            s = observe('02-pod-exit')
-            s = grid_walk(s, (15, 1), '02-to-exchange')
-            key('t')
-            s = observe('02-exchange-entry'); assert s['screen'] == 'trade', '正常交易入口未到，保留前綴定位路徑'
-            key('e'); key('b')
-            s = observe('03-buy-quote')
-        assert s['tradePage'] == 1
-        for attempt in range(32):
-            quote = s['quotes'][s.get('quoteIndex', 0)]
-            if 2 <= quote['goods'] < 31 and quote['price']*100 <= s['tradeSession']['funds']: break
-            key('p'); s = observe(f'03-pass-quote-{attempt}')
-        else: raise AssertionError('沒有可負擔的一般貨物，不注入或重抽新局')
-        key('b'); s = observe('04-buy-destination'); assert s['tradePage'] == 10
-        key('2'); s = observe('05-real-goods')
-        assert any(h.get('kind') == 'goods' and 2 <= h.get('goods', 0) < 31 for h in s['holds'])
-        key('Escape'); key('Escape'); s = observe('06-ground-return')
-        s = grid_walk(s, (s['shipPosition']['x'], s['shipPosition']['y']), '06-to-ship')
-        assert s['screen'] == 'shipboard'
-        key('x'); s = observe('07-combat-entry'); assert s['screen'] == 'tactical' and s['combatActive']
-        assert 1 <= s['enemyCourseMode'] <= 7, '模式0不屬持久排程驗收範圍，不重抽'
+        if not a.combat_reentry_only:
+            if s['screen'] == 'shipboard':
+                shot('hd-new-character')
+                key('c'); key('e')
+                s = observe('02-pod-exit')
+                s = grid_walk(s, (15, 1), '02-to-exchange')
+                key('t')
+                s = observe('02-exchange-entry'); assert s['screen'] == 'trade', '正常交易入口未到，保留前綴定位路徑'
+                key('e'); key('b')
+                s = observe('03-buy-quote')
+            assert s['tradePage'] == 1
+            for attempt in range(32):
+                quote = s['quotes'][s.get('quoteIndex', 0)]
+                if 2 <= quote['goods'] < 31 and quote['price']*100 <= s['tradeSession']['funds']: break
+                key('p'); s = observe(f'03-pass-quote-{attempt}')
+            else: raise AssertionError('沒有可負擔的一般貨物，不注入或重抽新局')
+            key('b'); s = observe('04-buy-destination'); assert s['tradePage'] == 10
+            key('2'); s = observe('05-real-goods')
+            assert any(h.get('kind') == 'goods' and 2 <= h.get('goods', 0) < 31 for h in s['holds'])
+            key('Escape'); key('Escape'); s = observe('06-ground-return')
+            s = grid_walk(s, (s['shipPosition']['x'], s['shipPosition']['y']), '06-to-ship')
+            assert s['screen'] == 'shipboard'
+        for visit in range(a.shore_visits):
+            assert s['screen'] == 'shipboard' and not s['combatActive']
+            before_holds = s['holds']
+            key('g'); key('space')
+            inputs.append(dict(mouse=[177, 101], scale=4, holdSeconds=.8, purpose='正常走回船門'))
+            run('xdotool', 'mousemove', '--window', window, 177*4, 101*4)
+            run('xdotool', 'mousedown', '1'); time.sleep(.8); run('xdotool', 'mouseup', '1'); time.sleep(.4)
+            s = observe(f'06-shore-return-{visit}')
+            assert s['screen'] == 'shipboard' and s['holds'] == before_holds
+        if s['screen'] == 'shipboard': key('x')
+        s = observe('07-combat-entry'); assert s['screen'] == 'tactical' and s['combatActive']
+        assert 0 <= s['enemyCourseMode'] <= 7 and not s['shipControls']['secondary'][4]
+        if a.require_mode0: assert s['enemyCourseMode'] == 0, '預先固定的正常輸入未到模式0，不重抽'
         key('u'); key('r'); s = observe('08-manual-combat'); shot('hd-combat')
         time.sleep(4); after = observe('09-background-combat')
         assert after['awakeClock']['source']['ticks'] > s['awakeClock']['source']['ticks']
@@ -159,7 +181,7 @@ func main(){var e struct{State game.State `json:"state"`};b,err:=os.ReadFile(os.
         assert all(after.get(k) == expected.get(k) for k in fields), [k for k in fields if after.get(k) != expected.get(k)]
         write('receipt.json', dict(status='PASS', saveSchema=45, checks=checks, inputs=inputs, images=images,
             reentry=dict(advancedVBLs=ticks, fields=fields), originalGUI='unverified',
-            scope='正常標題新角色、Apple II格移動往返來源交易所、Atari ST HD真購貨／戰術初始化／手動與背景更新、F5寫庫及Q保存後新程序續行；不注入或轉換舊存檔，不宣稱Atari地面像素路徑對拍。',
+            scope='正常有貨保存載入、HD交戰與新程序續行' if a.combat_reentry_only else '正常標題新角色、Apple II格移動往返來源交易所、Atari ST HD真購貨／戰術初始化／手動與背景更新、F5寫庫及Q保存後新程序續行；不注入或轉換舊存檔，不宣稱Atari地面像素路徑對拍。',
             sourceSHA256=dict(binary=sha(a.binary), disk=sha(a.disk), tool=sha(Path(__file__)),
                 library=sha(a.library_input) if a.library_input else None), finalSaveSHA256=sha(out/'save.json')))
         print('PASS schema45 normal new game/combat/reopen', flush=True)
