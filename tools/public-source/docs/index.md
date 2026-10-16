@@ -32,3 +32,7 @@ schema45 玩家工具在 Docker 從標題建角，或用 `--library-input` 接�
 `verify_schema45_player.py --combat-reentry-only` 從正常有貨庫續行；`--shore-visits 4 --require-mode0` 預先固定下船／走回船門後的模式0抽驗，不反覆重抽。輸出使用專案 `workplace/` 內新目錄供Go重播。保存輸入留本機。
 
 連續核心工具已覆蓋原始七型敵艦，含特殊UNKNOWN6的數值；每型144初態／1728更新，初始護盾255。缺型、未知索引或不相等拒絕通過。新原生數值收據留私人，不宣稱全型GUI、死亡或完整戰鬥。
+
+
+低護盾0／1／7的七型非隱形連續父鏈，各1008初態／12096更新，合計3024／36288的22欄零差異；原版矩陣全部存活。另有schema45敵型2／模式0正常HD敗北保存重開，132欄與凍結時計通過。正式規則不變，原版死亡父層、隱形與全型GUI仍未知，新批量答案與玩家保存留私人。
+研究參數與正常玩家入口見自寫tools/verify_talos_combat_cadence.py及tools/verify_combat_outcome_player.py。全cmd/internal、vet及51工具檢查通過。
