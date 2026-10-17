@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "version": "v.1.3.0-20261017",
-  "status": "PASS-verified-delivery",
+  "status": "PASS-published-public-engine-release",
   "engineBuildSourceCommit": "2480690babc5476e8e35fa866ba381aa0a5c5330",
   "changes": [
     "倉庫Swap",
@@ -23,7 +23,8 @@
     "privateToolTests": 19,
     "cleanPublicToolTests": 24,
     "buildInputCount": 323,
-    "buildInputsUnchanged": true
+    "buildInputsUnchanged": true,
+    "sharedPublicBuildInputs": 321
   },
   "player": {
     "status": "PASS",
@@ -152,6 +153,18 @@
   "release": {
     "url": "https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.3.0-20261017",
     "tag": "v.1.3.0-20261017",
-    "publication": "pending-remote-publish-and-anonymous-verification"
+    "publication": "published",
+    "id": 415487380,
+    "tagSourceCommit": "d44db249709d73c706ef1b6d3c44dad9745b3d8c",
+    "anonymousAssets": "PASS-four-downloads-SHA256",
+    "anonymousSourceManifest": "PASS-735-files-734-manifest-entries",
+    "draft": false,
+    "prerelease": false
+  },
+  "cleanup": {
+    "batchContainers": 0,
+    "historicalRootOwned": 19,
+    "markdownDirectories": 0,
+    "deliveryOwnerUID": 1000
   }
 }
