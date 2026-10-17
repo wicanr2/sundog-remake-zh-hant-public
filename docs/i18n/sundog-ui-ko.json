@@ -1672,7 +1672,7 @@
     },
     {
       "key": "ui.help.sound",
-      "translation": "F7: 음소거",
+      "translation": "F6: 배경 음악 전환　F7: 효과음 전환",
       "translationStatus": "AI translation; structurally verified; native editorial review pending"
     },
     {
@@ -3174,7 +3174,7 @@
     },
     {
       "key": "ui.options.audio_note",
-      "translation": "먼저 효과음을 가져오세요. 동봉된 음향 안내를 참고하세요.",
+      "translation": "배경 음악 포함. 원작 효과음은 본인 디스크에서 가져오세요.",
       "translationStatus": "AI translation; structurally verified; native editorial review pending"
     },
     {
@@ -4350,6 +4350,21 @@
     {
       "key": "ui.message.swapped",
       "translation": "화물을 교환했습니다.",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.options.music",
+      "translation": "HD 배경 음악",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.music.on",
+      "translation": "켜짐",
+      "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.music.off",
+      "translation": "꺼짐",
       "translationStatus": "AI translation; structurally verified; native editorial review pending"
     }
   ],

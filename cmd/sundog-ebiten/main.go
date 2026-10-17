@@ -15,6 +15,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
@@ -370,6 +371,7 @@ type app struct {
 	// disk by sundog-sound-export. Nothing is shipped, so this is silent in
 	// every default build.
 	sounds *soundboard
+	music  *musicSystem
 }
 
 type languagePack struct {
@@ -529,6 +531,8 @@ func main() {
 		soundDir = gameaudio.DefaultDir()
 	}
 	gameApp.sounds = newSoundboard(soundDir)
+	gameApp.music = newMusicSystem(gameApp.sounds, appdir.Asset("assets/music"))
+	defer gameApp.music.close()
 	if gameApp.sounds.found() {
 		log.Printf("音效讀到 %d 個檔案：%s", gameApp.sounds.count(), soundDir)
 	} else {
@@ -577,6 +581,9 @@ func openAtariDisk(flagPath, settingsPath string) *originalmedia.Disk {
 // opens in the Atari ST look when an Atari ST disk is in hand, and a loaded
 // save keeps its own look.
 func applyPreferences(a *app, settings prefs.Preferences) {
+	if a.music != nil && settings.MusicEnabled != nil {
+		a.music.enabled = *settings.MusicEnabled
+	}
 	a.applyLocale(localization.NormalizeLocale(settings.Locale))
 	// The Apple II HD direction retired on 2026-10-14. A remembered choice
 	// returns to the Atari ST default without asking the player again.
@@ -837,6 +844,11 @@ func loadLanguagePacks(sourcePath, uiPath string) (map[localization.Locale]langu
 }
 
 func (a *app) Update() error {
+	defer func() { a.music.update(sceneMusic(a.state), time.Now()) }()
+	if inpututil.IsKeyJustPressed(ebiten.KeyF6) {
+		a.toggleMusic()
+		return nil
+	}
 	a.frames++
 	if !a.state.Sleep.Active {
 		a.sleepWakeArmed = false
@@ -1287,7 +1299,7 @@ var polledKeys = []ebiten.Key{
 // because they carry extra gating, such as the failure-terminal lock. They are
 // live at runtime even though they are absent from polledKeys.
 var separatelyPolledKeys = []ebiten.Key{
-	ebiten.KeyEscape, ebiten.KeyF1, ebiten.KeyF2, ebiten.KeyF5, ebiten.KeyF7, ebiten.KeyF8, ebiten.KeyF10,
+	ebiten.KeyEscape, ebiten.KeyF1, ebiten.KeyF2, ebiten.KeyF5, ebiten.KeyF6, ebiten.KeyF7, ebiten.KeyF8, ebiten.KeyF10,
 }
 
 // typesText names the screens whose keystrokes belong to the player's text

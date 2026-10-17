@@ -1,0 +1,97 @@
+{
+  "channels": 2,
+  "codec": "Ogg Vorbis quality5",
+  "date": "2026-10-17",
+  "identity": "entirely new SunDog remake music",
+  "license": "RRSAL-1.0",
+  "listeningReview": "pending; technical analysis is not listening approval",
+  "loop": "whole decoded track, gapless wrap; cyclic reverberation",
+  "originalBGM": "unknown; not investigated",
+  "sampleRate": 44100,
+  "schema": 1,
+  "source": "tools/compose_hd_music.go",
+  "sourceInputs": "authored notes and owned oscillator/noise synthesis; no external samples, SoundFont or music service",
+  "sourceSHA256": "e621288fbd2d2f1f82476dc9904e630cbdabd35ac11ef9e6ce2f40a5a1f628db",
+  "tracks": [
+    {
+      "id": "title",
+      "title": "自由的契約",
+      "file": "title.ogg",
+      "sha256": "64f6c304698ca696fe0a9f6aaa1ecf03b7b4b0097d427410518347010017aacb",
+      "frames": 2953674,
+      "bpm": 86,
+      "bars": 24,
+      "seconds": 66.97673469387755
+    },
+    {
+      "id": "ship",
+      "title": "老船仍在呼吸",
+      "file": "ship.ogg",
+      "sha256": "60638721748fd53062769db3c435499b4e13ef5a201204ff2cbc048b08529160",
+      "frames": 3528000,
+      "bpm": 72,
+      "bars": 24,
+      "seconds": 80
+    },
+    {
+      "id": "port",
+      "title": "貨單與霓虹",
+      "file": "port.ogg",
+      "sha256": "0ad7c09481d742dc1bee78f78582689106da755994016e0dd508e7a262237756",
+      "frames": 3386880,
+      "bpm": 100,
+      "bars": 32,
+      "seconds": 76.8
+    },
+    {
+      "id": "surface",
+      "title": "異星的風",
+      "file": "surface.ogg",
+      "sha256": "761ffdb6d0fcb9ca082e284a535b6304334171f688804372ad939c34b9bd1a1b",
+      "frames": 3342316,
+      "bpm": 76,
+      "bars": 24,
+      "seconds": 75.78947845804989
+    },
+    {
+      "id": "flight",
+      "title": "星圖之外",
+      "file": "flight.ogg",
+      "sha256": "1ea0a93bac9601ea6659925077d5b3e9023e439a8d9caf2f08a8bcd93560f1d6",
+      "frames": 3763200,
+      "bpm": 90,
+      "bars": 32,
+      "seconds": 85.33333333333333
+    },
+    {
+      "id": "combat",
+      "title": "不要失去這艘船",
+      "file": "combat.ogg",
+      "sha256": "7258ad958b385866fb39a8a115bbad0a42491e8b99e0f9791bc65f6df10a966b",
+      "frames": 2822400,
+      "bpm": 120,
+      "bars": 32,
+      "seconds": 64
+    },
+    {
+      "id": "ending",
+      "title": "下一趟航行",
+      "file": "ending.ogg",
+      "sha256": "52b3a02765e6a0d82f4f304743f6f59f04b5959543750adbca0ba732912e36cd",
+      "frames": 2016000,
+      "bpm": 84,
+      "bars": 16,
+      "seconds": 45.714285714285715
+    },
+    {
+      "id": "defeat",
+      "title": "未償的契約",
+      "file": "defeat.ogg",
+      "sha256": "693f26d1bacf0a8370185223e32a9867fe2f63a55b61751c70230b27b2cc2a26",
+      "frames": 2646000,
+      "bpm": 64,
+      "bars": 16,
+      "seconds": 60
+    }
+  ]
+}

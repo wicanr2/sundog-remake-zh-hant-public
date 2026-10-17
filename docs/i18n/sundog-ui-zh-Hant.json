@@ -1672,7 +1672,7 @@
     },
     {
       "key": "ui.help.sound",
-      "translation": "F7：靜音開關",
+      "translation": "F6：配樂開關　F7：音效開關",
       "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
     },
     {
@@ -3174,7 +3174,7 @@
     },
     {
       "key": "ui.options.audio_note",
-      "translation": "音效需先匯入；請見包內「操作說明」音效章節",
+      "translation": "配樂已內附；原版音效需從自備磁碟匯入。",
       "translationStatus": "reviewed once; UI correction; 2026-09-07"
     },
     {
@@ -4351,6 +4351,21 @@
       "key": "ui.message.swapped",
       "translation": "貨物已交換。",
       "translationStatus": "AI translation; native editorial review pending"
+    },
+    {
+      "key": "ui.options.music",
+      "translation": "HD 背景配樂",
+      "translationStatus": "new remake music UI; AI translation; native review pending"
+    },
+    {
+      "key": "ui.music.on",
+      "translation": "開啟",
+      "translationStatus": "new remake music UI; AI translation; native review pending"
+    },
+    {
+      "key": "ui.music.off",
+      "translation": "關閉",
+      "translationStatus": "new remake music UI; AI translation; native review pending"
     }
   ]
 }

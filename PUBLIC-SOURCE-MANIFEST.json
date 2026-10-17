@@ -87,8 +87,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 6333,
-      "sha256": "4ffa16beb354ad67e85fe44143b5cfe16794cc4f52f3b252ccedc68ad7be3f18"
+      "bytes": 6800,
+      "sha256": "e12684b2071412b61e81a59f928c1ea03671a46d4067ebdb662e560376f24df2"
     },
     {
       "path": "LICENSE",
@@ -97,28 +97,28 @@
     },
     {
       "path": "README.en.md",
-      "bytes": 8395,
-      "sha256": "0a2f8603774ebd1ed2a2ada15dfd3c64db14c80d8588d32ae6d91d1dc2133879"
+      "bytes": 8764,
+      "sha256": "156889b48c90877edf9668615a6df156188174dd5c6165826af501dcaab28491"
     },
     {
       "path": "README.ja.md",
-      "bytes": 9533,
-      "sha256": "9e2c2d4fd4a77d7db81380dba8db43aff2bcc93768a3995e3e4427934483eb07"
+      "bytes": 9934,
+      "sha256": "583c6ee9e2dee5558fb74acfad7e5687ba5f86d0011cb147e77844166898246c"
     },
     {
       "path": "README.ko.md",
-      "bytes": 9455,
-      "sha256": "08404a0a62b89e07b2b8988f2a05e5710a1591cfeee6e509da284f8e61a89741"
+      "bytes": 9863,
+      "sha256": "6cbb8a0e608ff988a9aff74911b51d9a0715d67c640f44b013146a64f0a78412"
     },
     {
       "path": "README.md",
-      "bytes": 8060,
-      "sha256": "320cdaf98be9f6861a8395b358d94d321f9d5fa3c7f8e73e4b74523ac7c95ec2"
+      "bytes": 8351,
+      "sha256": "afc73181f0f1307c11e9a2bd80ba0c909f585497e124af48ea34edaeb03a004d"
     },
     {
       "path": "WORKLOG.md",
-      "bytes": 10791,
-      "sha256": "e57c5e400ee3dacb03e8b91c11e3dd73a4c028b13e50cffe2802506dc211c968"
+      "bytes": 11263,
+      "sha256": "8ca68f80e0fa743b44f50c13274beba5c9e17fcedb2dbaee733b494acf8799dd"
     },
     {
       "path": "assets/fonts/ASSET-MANIFEST.md",
@@ -159,6 +159,141 @@
       "path": "assets/icons/sundog-remake.png",
       "bytes": 43880,
       "sha256": "989ee5ff0c7e0c87b42e75379d5081415144f198dddd697f56da3e62e17fa25b"
+    },
+    {
+      "path": "assets/music/README.md",
+      "bytes": 3095,
+      "sha256": "af670c455b6e2d708dd4330c6e33de67fb2ba5be0d0a75ef35d44e55814fcbfd"
+    },
+    {
+      "path": "assets/music/combat-score.json",
+      "bytes": 131276,
+      "sha256": "baa4d6e960b5161fdfd423780bc45cdbe59274288f8d094e7841b61227a32e11"
+    },
+    {
+      "path": "assets/music/combat.mid",
+      "bytes": 7238,
+      "sha256": "25169d4570677f2340ee1dcb0114019db34c5bfb1be5d6c68d986c29f4fd210d"
+    },
+    {
+      "path": "assets/music/combat.ogg",
+      "bytes": 931223,
+      "sha256": "7258ad958b385866fb39a8a115bbad0a42491e8b99e0f9791bc65f6df10a966b"
+    },
+    {
+      "path": "assets/music/defeat-score.json",
+      "bytes": 8159,
+      "sha256": "47d293cbd01539715e851bdfd04b3a3d665b18b545fb125957a82d13160534ee"
+    },
+    {
+      "path": "assets/music/defeat.mid",
+      "bytes": 538,
+      "sha256": "02e2e542d8207d4f9885088f7dc957cbf374781e51f71bf52266131880203ac4"
+    },
+    {
+      "path": "assets/music/defeat.ogg",
+      "bytes": 291933,
+      "sha256": "693f26d1bacf0a8370185223e32a9867fe2f63a55b61751c70230b27b2cc2a26"
+    },
+    {
+      "path": "assets/music/ending-score.json",
+      "bytes": 23414,
+      "sha256": "50fe77df0d8db12a690a5940ef80ec47c0eb3d09ca9ef79a1095485b8e2be9a9"
+    },
+    {
+      "path": "assets/music/ending.mid",
+      "bytes": 1407,
+      "sha256": "a55ed75dd5a40cd0f72832f95b60a067b150734a7497f74404d2c42b699a4a2b"
+    },
+    {
+      "path": "assets/music/ending.ogg",
+      "bytes": 390132,
+      "sha256": "52b3a02765e6a0d82f4f304743f6f59f04b5959543750adbca0ba732912e36cd"
+    },
+    {
+      "path": "assets/music/flight-score.json",
+      "bytes": 90673,
+      "sha256": "441619e55aa7f9b389accec0c5e03b4ba0d4828519739163dd29c2c6516d70fb"
+    },
+    {
+      "path": "assets/music/flight.mid",
+      "bytes": 5174,
+      "sha256": "3bfda0699e7c7ae3fc7897930b834d5482042fb23a40c635def9d3e47068da91"
+    },
+    {
+      "path": "assets/music/flight.ogg",
+      "bytes": 739157,
+      "sha256": "1ea0a93bac9601ea6659925077d5b3e9023e439a8d9caf2f08a8bcd93560f1d6"
+    },
+    {
+      "path": "assets/music/manifest.json",
+      "bytes": 2800,
+      "sha256": "1705160bd73b85f892701f5b177498fdc30a89c3d496fa5b61c3bb72163935d5"
+    },
+    {
+      "path": "assets/music/port-score.json",
+      "bytes": 144697,
+      "sha256": "70c1efa37f24e25c48dce0382f0e3054742d95115abab55307f8d4832ad0045d"
+    },
+    {
+      "path": "assets/music/port.mid",
+      "bytes": 8120,
+      "sha256": "9b983b0b0c755310f312c1a77b6636b08a9672ceb3d879831c94b3cbf2ca642e"
+    },
+    {
+      "path": "assets/music/port.ogg",
+      "bytes": 1119928,
+      "sha256": "0ad7c09481d742dc1bee78f78582689106da755994016e0dd508e7a262237756"
+    },
+    {
+      "path": "assets/music/ship-score.json",
+      "bytes": 16425,
+      "sha256": "e5b209d9cf10c189e4022ecd9c89f16a75b96efd7b08ebce24da59b408e42029"
+    },
+    {
+      "path": "assets/music/ship.mid",
+      "bytes": 1052,
+      "sha256": "4faa10225447ffed6202a58473eb193447f3d434932b81bf5d90054694f70bd8"
+    },
+    {
+      "path": "assets/music/ship.ogg",
+      "bytes": 411413,
+      "sha256": "60638721748fd53062769db3c435499b4e13ef5a201204ff2cbc048b08529160"
+    },
+    {
+      "path": "assets/music/surface-score.json",
+      "bytes": 12826,
+      "sha256": "82217a84651e60bb132a42c4b199ef2272099ad1bd66846ac1817e52ce5094f1"
+    },
+    {
+      "path": "assets/music/surface.mid",
+      "bytes": 814,
+      "sha256": "58224ec525fc56ac77e81b1fe0586871475d817773d12171ff520f9056926bab"
+    },
+    {
+      "path": "assets/music/surface.ogg",
+      "bytes": 365527,
+      "sha256": "761ffdb6d0fcb9ca082e284a535b6304334171f688804372ad939c34b9bd1a1b"
+    },
+    {
+      "path": "assets/music/title-score.json",
+      "bytes": 44633,
+      "sha256": "6ba3d7bc1c819ed45fe6789bba961988efb84e19d07fbd1dc6824124e7b355b4"
+    },
+    {
+      "path": "assets/music/title.mid",
+      "bytes": 2619,
+      "sha256": "19b7891a2b45b52debb073e7c4d0f5df5e37c0125f34228401ca3800bb38c1e3"
+    },
+    {
+      "path": "assets/music/title.ogg",
+      "bytes": 654851,
+      "sha256": "64f6c304698ca696fe0a9f6aaa1ecf03b7b4b0097d427410518347010017aacb"
+    },
+    {
+      "path": "assets/music/validation.json",
+      "bytes": 3889,
+      "sha256": "1169de551097176bff3b9d01e8df674a867d5e294debd1bba06da2f20924ec23"
     },
     {
       "path": "cmd/apple2-directory/main.go",
@@ -337,8 +472,8 @@
     },
     {
       "path": "cmd/sundog-ebiten/main.go",
-      "bytes": 193218,
-      "sha256": "376dc066affc048941607eb91acdbbfd8566d62bfd5afe3cacae14e3c981eea5"
+      "bytes": 193616,
+      "sha256": "041616e2805cceebf6daa2411ec485038663af501e45ebd626a3917bfd6345e6"
     },
     {
       "path": "cmd/sundog-ebiten/main_test.go",
@@ -346,9 +481,19 @@
       "sha256": "873a78e687af9655a1c491540c2cdfa10593db6b736aa8a67d814ea5ec8a1ba8"
     },
     {
+      "path": "cmd/sundog-ebiten/music.go",
+      "bytes": 6567,
+      "sha256": "6a94868a3188d0cd3cfd614ae4e707a1cb4d0c82930f9fb794105c0a74bfb665"
+    },
+    {
+      "path": "cmd/sundog-ebiten/music_test.go",
+      "bytes": 6711,
+      "sha256": "890e919a7fe36b03834baadb903303412a551c504184d10822c7bea366a47cc0"
+    },
+    {
       "path": "cmd/sundog-ebiten/options.go",
-      "bytes": 18594,
-      "sha256": "0d904d2a80cb1dd5449f3c837d5aaf843e8fa07f1f500142dd8cc801ae0a99b5"
+      "bytes": 18987,
+      "sha256": "249f52e13402f50d5a41b980aa6152e0c44d218ec2a0efce51d9cfe95f247b15"
     },
     {
       "path": "cmd/sundog-ebiten/options_test.go",
@@ -372,8 +517,8 @@
     },
     {
       "path": "cmd/sundog-ebiten/sound.go",
-      "bytes": 13079,
-      "sha256": "c64b55d269b7b6c4b1e9a6c200eea42c93c92e432c5b6789c2db99109555ce8b"
+      "bytes": 13320,
+      "sha256": "d3fc16e86f39701d8fa1904adcf0aeb5322cb03e942b347745543614912a920b"
     },
     {
       "path": "cmd/sundog-ebiten/sound_test.go",
@@ -717,43 +862,43 @@
     },
     {
       "path": "docs/i18n/ko.tsv",
-      "bytes": 79389,
-      "sha256": "c10df4a85cb446cc962cf4223560561adf6187c21e924b2331871dde382ba5a9"
+      "bytes": 79524,
+      "sha256": "d5e80fea0adb4807cb8f6a6dbd65150307568f18943f8e22bd65db297d08c3cd"
     },
     {
       "path": "docs/i18n/sundog-ui-en.json",
-      "bytes": 155250,
-      "sha256": "53e81a7a8760ff11c0fa9c9b359dea80cc1d114f89deb6c55e141acbeeceaac7"
+      "bytes": 155760,
+      "sha256": "a26b7799f1abef09a6153adfc757df1327661e922b7f6ae5f769e2d2b5c61f06"
     },
     {
       "path": "docs/i18n/sundog-ui-ja.json",
-      "bytes": 164146,
-      "sha256": "3c89b8bb2874ad2ec88c4c96563697d94b09dd3f88fc1577acfdfcdc47ab7ee5"
+      "bytes": 164659,
+      "sha256": "6e69bc6f3c6eadf3b9e9a307e69febf11630eb79fc6a0865c2d775865f7baf35"
     },
     {
       "path": "docs/i18n/sundog-ui-ko.json",
-      "bytes": 171441,
-      "sha256": "729b73feb9c951261db425a60fe1c9e889eabfacf4ba4f10613971ad720e256c"
+      "bytes": 172008,
+      "sha256": "8cefd196b79837663519e8eedcf0f0bb3be2631613af6201c210d01813b0dacf"
     },
     {
       "path": "docs/i18n/sundog-ui-zh-Hans.json",
-      "bytes": 154879,
-      "sha256": "6159f555f1919dd3b7ed1bb2039b0c0163896a0d66509fd89843b948c5bd3170"
+      "bytes": 155388,
+      "sha256": "7376e80e81a3538ad5eea9a230a6a393c48b43adc952c699632746ca30cd6058"
     },
     {
       "path": "docs/i18n/sundog-ui-zh-Hant.json",
-      "bytes": 154864,
-      "sha256": "8c3886a823109e136c0faa8c81c2fd491622bae83d91e53cfb68c3184d6eacf8"
+      "bytes": 155373,
+      "sha256": "74cdefd0dcb066fe5c0f7cdd5061e00cb9dccd97e0a5ff3fe5a1687df5057ea5"
     },
     {
       "path": "docs/index.md",
-      "bytes": 4380,
-      "sha256": "d00d12ce659fef85e3a2c2d18918dd5355ddcd4d2500d070c2ac86a90a46fd1c"
+      "bytes": 4461,
+      "sha256": "668c7d907f7743be7aca43350a2165b11b6996ac38f0b42cb52e7e1e30afdd2f"
     },
     {
       "path": "docs/manual/remake-controls-zh-Hant.md",
-      "bytes": 14939,
-      "sha256": "296857b4114cf70ff0d7ae28eaca83bebf2a235c67239f9d52461b7256054074"
+      "bytes": 15292,
+      "sha256": "5e2c91fc68ffa825ddeab3f84f338af0bc6c3c7ef972f5a64fe8554727e5e1f7"
     },
     {
       "path": "docs/promo/README.md",
@@ -1422,8 +1567,8 @@
     },
     {
       "path": "internal/prefs/prefs.go",
-      "bytes": 4739,
-      "sha256": "1dba397a38657a83a6c8cb7c15024efc087af710ac715787b29980226575b197"
+      "bytes": 4930,
+      "sha256": "21f9cd5b237491cd517500d76fb07bb18e8f76568fb79fef7c0a2c1738924f50"
     },
     {
       "path": "internal/prefs/prefs_test.go",
@@ -2676,6 +2821,11 @@
       "sha256": "ad2e180186e91c06057241c1cf4e86320589d271bb196cc0f514146ad0f6214d"
     },
     {
+      "path": "tools/compose_hd_music.go",
+      "bytes": 11299,
+      "sha256": "e621288fbd2d2f1f82476dc9904e630cbdabd35ac11ef9e6ce2f40a5a1f628db"
+    },
+    {
       "path": "tools/cross_platform_render_parity.sh",
       "bytes": 2521,
       "sha256": "4f4f992f9f623d8f45afc84efa113d004fd7372979018fe007a805ed3f5dfa32"
@@ -2817,8 +2967,8 @@
     },
     {
       "path": "tools/package_release.py",
-      "bytes": 20701,
-      "sha256": "940140fde40d122962fbc9a1ed546e91d29c64e1fcf46a2de2d82377c43a5b72"
+      "bytes": 21046,
+      "sha256": "f826ba39ca31057d5d158fbca73d86a481bb5428ee2d2ad962c270acd9946157"
     },
     {
       "path": "tools/port_oracle_building_plan.py",
@@ -2907,33 +3057,33 @@
     },
     {
       "path": "tools/public-source/CONTEXT.md",
-      "bytes": 6333,
-      "sha256": "4ffa16beb354ad67e85fe44143b5cfe16794cc4f52f3b252ccedc68ad7be3f18"
+      "bytes": 6800,
+      "sha256": "e12684b2071412b61e81a59f928c1ea03671a46d4067ebdb662e560376f24df2"
     },
     {
       "path": "tools/public-source/README.en.md",
-      "bytes": 8395,
-      "sha256": "0a2f8603774ebd1ed2a2ada15dfd3c64db14c80d8588d32ae6d91d1dc2133879"
+      "bytes": 8764,
+      "sha256": "156889b48c90877edf9668615a6df156188174dd5c6165826af501dcaab28491"
     },
     {
       "path": "tools/public-source/README.ja.md",
-      "bytes": 9533,
-      "sha256": "9e2c2d4fd4a77d7db81380dba8db43aff2bcc93768a3995e3e4427934483eb07"
+      "bytes": 9934,
+      "sha256": "583c6ee9e2dee5558fb74acfad7e5687ba5f86d0011cb147e77844166898246c"
     },
     {
       "path": "tools/public-source/README.ko.md",
-      "bytes": 9455,
-      "sha256": "08404a0a62b89e07b2b8988f2a05e5710a1591cfeee6e509da284f8e61a89741"
+      "bytes": 9863,
+      "sha256": "6cbb8a0e608ff988a9aff74911b51d9a0715d67c640f44b013146a64f0a78412"
     },
     {
       "path": "tools/public-source/README.md",
-      "bytes": 8060,
-      "sha256": "320cdaf98be9f6861a8395b358d94d321f9d5fa3c7f8e73e4b74523ac7c95ec2"
+      "bytes": 8351,
+      "sha256": "afc73181f0f1307c11e9a2bd80ba0c909f585497e124af48ea34edaeb03a004d"
     },
     {
       "path": "tools/public-source/WORKLOG.md",
-      "bytes": 10791,
-      "sha256": "e57c5e400ee3dacb03e8b91c11e3dd73a4c028b13e50cffe2802506dc211c968"
+      "bytes": 11263,
+      "sha256": "8ca68f80e0fa743b44f50c13274beba5c9e17fcedb2dbaee733b494acf8799dd"
     },
     {
       "path": "tools/public-source/docs/build.md",
@@ -2942,8 +3092,8 @@
     },
     {
       "path": "tools/public-source/docs/index.md",
-      "bytes": 4380,
-      "sha256": "d00d12ce659fef85e3a2c2d18918dd5355ddcd4d2500d070c2ac86a90a46fd1c"
+      "bytes": 4461,
+      "sha256": "668c7d907f7743be7aca43350a2165b11b6996ac38f0b42cb52e7e1e30afdd2f"
     },
     {
       "path": "tools/public-source/docs/promo/README.md",
@@ -3649,6 +3799,11 @@
       "path": "tools/verify_fuel_rescue_player.py",
       "bytes": 11654,
       "sha256": "711d123b01bba6e6c95e1a2377f8cb471a2f852b3375e4bf9afd14bccfb53c58"
+    },
+    {
+      "path": "tools/verify_hd_music_player.py",
+      "bytes": 6662,
+      "sha256": "4b07bc5258eeab1b14b27e0d455446a8783e795ac68691824ba952a38c578c2a"
     },
     {
       "path": "tools/verify_locale_player.py",

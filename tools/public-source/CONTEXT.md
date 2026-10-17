@@ -1,5 +1,9 @@
 # 公開來源目前狀態
 
+來源主線新增八首HD原創配樂與F2／F6開關，原版音效由F7獨立控制，偏好保存於settings.json。曲目／授權／試聽／工具見assets/music/README.md與validation.json。自寫樂譜、MIDI與合成器，不使用原版旋律或外部取樣。全Go／vet及音訊技術、正常GUI／實際混音、保存重開通過。人耳審聽仍待，日英HD擷取有前綴字形差異；未重發既有v.1.3.0封包。
+
+以下為歷史狀態。
+
 正式[v.1.3.0-20261017](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.3.0-20261017)已發布，四附件匿名下載及735檔／734筆manifest逐項SHA回讀通過。tag固定於`d44db249709d73c706ef1b6d3c44dad9745b3d8c`，321個可公開建置輸入與來源2480690相同；舊tag`403ae3795c6f16f28243aec026efbec2491d85cf`保持。後續僅回填文件，tag與附件不移動。Windows於Wine、macOS靜態驗收；本機完整包與影片不上傳。
 
 v.1.3.0-20261017 的三平台引擎、本機完整版及96秒精訊故事HD影片已驗收。採schema45新存檔，納入倉庫Swap、持久戰鬥狀態與致命穿透中止；五語及三呈現保存重開通過。Linux實際啟動、Windows於Wine、macOS靜態驗收；原版隱形／完整死亡GUI與母語校閱仍待。完整包與影片留本機，公開僅三引擎及checksum。驗收見[發行收據](docs/atari-st/release-v1300-20261017.json)。公開來源的全cmd/internal、vet、建置與24項工具檢查通過。既有v.1.2.0-20261016及schema44保持為歷史。

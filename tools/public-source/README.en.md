@@ -1,5 +1,7 @@
 # SunDog: Atari ST HD Remake
 
+The source branch includes eight [new HD music cues](assets/music/README.md), with scene changes and crossfades. Use F2 options or F6 for music and F7 for original sound effects. Music preferences persist between launches. These additions are not included in the existing v.1.3.0-20261017 release.
+
 [繁體中文](README.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [English](README.en.md)
 
 A science fiction trading adventure rebuilt in Go and Ebitengine, with the Atari ST interface and independently drawn HD artwork. The game supports Traditional Chinese, Simplified Chinese, Japanese, Korean and English.
@@ -54,7 +56,7 @@ These unedited normal-play captures show the current source branch. Warehouse Sw
 
 ## Download and language
 
-Download the [v.1.3.0-20261017 engine release](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.3.0-20261017), or follow the [Docker build guide](docs/build.md). Select your legal `sundog.st` when prompted. Sound stays muted until you import sound from your own disk.
+Download the [v.1.3.0-20261017 engine release](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.3.0-20261017), or follow the [Docker build guide](docs/build.md). Select your legal `sundog.st` when prompted. Original sound effects stay muted until you import them from your own disk. The source branch also includes new optional HD music.
 
 Open `F2`, then use `←` / `→` on the language row. Changes apply immediately and persist after restart. Command-line options include `-locale en`, `-locale ja` and `-locale ko`. Language does not change game state or save data. See the [language data guide](docs/i18n/README.md). Translations are AI-assisted and still await complete native-language editorial review.
 

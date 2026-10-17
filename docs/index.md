@@ -1,5 +1,7 @@
 # 文件索引
 
+- [HD 原創配樂、場景對應、試聽與重建](../assets/music/README.md)
+
 - [專案介紹、故事與 HD 畫廊](../README.md)
 - [五語 HD 正常玩家截圖](../README.md#五語-hd-遊玩截圖)
 - [目前狀態與驗證限制](../CONTEXT.md)

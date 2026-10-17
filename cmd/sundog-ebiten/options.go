@@ -47,7 +47,8 @@ const (
 	optionsRowPresentation = 1
 	optionsRowDisk         = 2
 	optionsRowDetect       = 3
-	optionsRowCount        = 4
+	optionsRowMusic        = 4
+	optionsRowCount        = 5
 	optionsRowY0           = 40
 	optionsRowStep         = 14
 	optionsStatusY         = 130
@@ -155,6 +156,10 @@ func (a *app) updateOptions() {
 		if confirm || inpututil.IsKeyJustPressed(ebiten.KeySpace) {
 			a.detectDisk()
 		}
+	case optionsRowMusic:
+		if left || right || confirm || inpututil.IsKeyJustPressed(ebiten.KeySpace) {
+			a.toggleMusic()
+		}
 	}
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
 		x, y := ebiten.CursorPosition()
@@ -207,6 +212,8 @@ func (a *app) clickOptionsRow(row int) {
 		a.cyclePresentation(1)
 	case optionsRowDetect:
 		a.detectDisk()
+	case optionsRowMusic:
+		a.toggleMusic()
 	}
 }
 
@@ -318,6 +325,11 @@ func (a *app) useDisk(disk *originalmedia.Disk) {
 
 // preferences is the settings file's view of the app right now.
 func (a *app) preferences() prefs.Preferences {
+	var musicEnabled *bool
+	if a.music != nil {
+		enabled := a.music.enabled
+		musicEnabled = &enabled
+	}
 	preset := game.PresentationOf(a.state)
 	presentation := ""
 	if a.lookChosen {
@@ -330,6 +342,7 @@ func (a *app) preferences() prefs.Preferences {
 		Tileset:      string(preset.Tileset),
 		Layout:       string(preset.Layout),
 		AtariDisk:    a.atariDiskPath,
+		MusicEnabled: musicEnabled,
 	}
 }
 
@@ -395,6 +408,7 @@ func (a *app) drawOptions(screen *ebiten.Image, group theme.Group) {
 		{a.lookup("ui.options.presentation"), "◀ " + a.presentationName() + " ▶"},
 		{a.lookup("ui.options.disk"), disk},
 		{a.lookup("ui.options.detect"), a.lookup("ui.options.detect_where")},
+		{a.lookup("ui.options.music"), "◀ " + a.musicValue() + " ▶"},
 	}
 	for row, line := range rows {
 		y := optionsRowY(row)
@@ -411,9 +425,9 @@ func (a *app) drawOptions(screen *ebiten.Image, group theme.Group) {
 		}
 	}
 	if a.originalDisk == nil && a.options.statusKey == "" {
-		a.drawTextWithin(screen, a.lookup("ui.options.disk_note"), optionsLabelX, optionsRowY(optionsRowDetect)+12, 280, fg)
+		a.drawTextWithin(screen, a.lookup("ui.options.disk_note"), optionsLabelX, optionsRowY(optionsRowMusic)+12, 280, fg)
 	} else if a.options.statusKey == "" {
-		a.drawTextWithin(screen, a.lookup("ui.options.audio_note"), optionsLabelX, optionsRowY(optionsRowDetect)+12, 280, fg)
+		a.drawTextWithin(screen, a.lookup("ui.options.audio_note"), optionsLabelX, optionsRowY(optionsRowMusic)+12, 280, fg)
 	}
 	if a.options.statusKey != "" {
 		status := a.lookup(a.options.statusKey)

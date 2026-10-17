@@ -1,5 +1,7 @@
 # 陽犬號 SunDog：Atari ST HD 重製版
 
+來源主線已加入八首[HD 原創配樂](assets/music/README.md)，依場景切換並淡入淡出。F2 選項或 F6 控制音樂，F7 控制原版音效；音樂開關跨次啟動保存。既有 v.1.3.0-20261017 發行包尚未包含此新增內容。
+
 [繁體中文](README.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [English](README.en.md)
 
 以 Go 與 Ebitengine 重寫的科幻冒險遊戲。支援繁體中文、簡體中文、日文、韓文與英文，保留 Atari ST 操作分區，新增完整高解析重畫。
@@ -56,7 +58,7 @@ HD 採「清晰精繪」方向，保留明亮色彩、船形與原分區。標�
 
 ## 建置與執行
 
-[下載 v.1.3.0-20261017 引擎](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.3.0-20261017)，或依[Docker 建置說明](docs/build.md)自行編譯。啟動後選擇自己的合法 `sundog.st`。未匯入原版音效時保持靜音。
+[下載 v.1.3.0-20261017 引擎](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.3.0-20261017)，或依[Docker 建置說明](docs/build.md)自行編譯。啟動後選擇自己的合法 `sundog.st`。原版音效需自行匯入；來源主線另附可切換的 HD 配樂。
 
 在 `F2` 選項的語言列以 `←`／`→` 切換五語，立即套用並記住設定。也能用 `-locale ja`、`-locale ko` 或 `-locale en` 啟動。語言不改遊戲狀態；翻譯與檢查方式見[語系說明](docs/i18n/README.md)。翻譯尚待母語編輯完整校閱。
 

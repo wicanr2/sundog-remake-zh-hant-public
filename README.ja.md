@@ -1,5 +1,7 @@
 # SunDog：Atari ST HD リメイク
 
+ソースの main に、場面に合わせて切り替わる8曲の[新規 HD BGM](assets/music/README.md)を追加しました。F2 の設定または F6 で BGM、F7 で原作効果音を切り替えます。BGM 設定は再起動後も保存されます。既存の v.1.3.0-20261017 配布パッケージには含まれません。
+
 [繁體中文](README.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [English](README.en.md)
 
 Go と Ebitengine で作り直した、宇宙交易と冒険のゲームです。Atari ST の画面構成を基準とし、独自に描いた HD グラフィックを追加しました。繁体字中国語、簡体字中国語、日本語、韓国語、英語に対応しています。
@@ -54,7 +56,7 @@ Go と Ebitengine で作り直した、宇宙交易と冒険のゲームです�
 
 ## ダウンロードと言語設定
 
-[v.1.3.0-20261017 のエンジン](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.3.0-20261017)をダウンロードするか、[Docker ビルド手順](docs/build.md)でコンパイルしてください。起動後に合法的に所有する `sundog.st` を選びます。自分のディスクから効果音を取り込むまでは無音です。
+[v.1.3.0-20261017 のエンジン](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.3.0-20261017)をダウンロードするか、[Docker ビルド手順](docs/build.md)でコンパイルしてください。起動後に合法的に所有する `sundog.st` を選びます。原作効果音は、自分のディスクから取り込むまで無音です。新しい HD BGM はソースの main に含まれます。
 
 `F2` を開き、言語の行で `←`／`→` を押すとすぐに切り替わります。再起動後も設定は維持されます。`-locale ja`、`-locale ko`、`-locale en` でも起動できます。言語はゲームの進行やセーブデータを変更しません。[語系データの説明](docs/i18n/README.md)も参照してください。翻訳には AI を使用しており、母語話者による全体の校閲は未実施です。
 

@@ -1672,7 +1672,7 @@
     },
     {
       "key": "ui.help.sound",
-      "translation": "F7：ミュート切替",
+      "translation": "F6: BGM切替　F7: 効果音切替",
       "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
     },
     {
@@ -3174,7 +3174,7 @@
     },
     {
       "key": "ui.options.audio_note",
-      "translation": "効果音は事前取込が必要。同梱の操作説明を参照",
+      "translation": "BGMは付属。原作効果音は自分のディスクから取り込みます。",
       "translationStatus": "reviewed once; UI correction; 2026-09-07"
     },
     {
@@ -4351,6 +4351,21 @@
       "key": "ui.message.swapped",
       "translation": "貨物を交換しました。",
       "translationStatus": "AI translation; native editorial review pending"
+    },
+    {
+      "key": "ui.options.music",
+      "translation": "HD BGM",
+      "translationStatus": "new remake music UI; AI translation; native review pending"
+    },
+    {
+      "key": "ui.music.on",
+      "translation": "オン",
+      "translationStatus": "new remake music UI; AI translation; native review pending"
+    },
+    {
+      "key": "ui.music.off",
+      "translation": "オフ",
+      "translationStatus": "new remake music UI; AI translation; native review pending"
     }
   ]
 }

@@ -1,0 +1,114 @@
+{
+  "schema": 1,
+  "status": "PASS-technical-and-functional-player; listening-and-complete-visual-review-pending",
+  "identity": "new remake music; not original soundtrack parity",
+  "audio": {
+    "status": "PASS-technical",
+    "tracks": [
+      {
+        "id": "title",
+        "seconds": 66.97673469387755,
+        "LUFS": -15.3,
+        "truePeakDB": -3.5,
+        "sha256": "64f6c304698ca696fe0a9f6aaa1ecf03b7b4b0097d427410518347010017aacb"
+      },
+      {
+        "id": "ship",
+        "seconds": 80,
+        "LUFS": -15.4,
+        "truePeakDB": -3.6,
+        "sha256": "60638721748fd53062769db3c435499b4e13ef5a201204ff2cbc048b08529160"
+      },
+      {
+        "id": "port",
+        "seconds": 76.8,
+        "LUFS": -16.5,
+        "truePeakDB": -3.6,
+        "sha256": "0ad7c09481d742dc1bee78f78582689106da755994016e0dd508e7a262237756"
+      },
+      {
+        "id": "surface",
+        "seconds": 75.78947845804989,
+        "LUFS": -14.7,
+        "truePeakDB": -3.6,
+        "sha256": "761ffdb6d0fcb9ca082e284a535b6304334171f688804372ad939c34b9bd1a1b"
+      },
+      {
+        "id": "flight",
+        "seconds": 85.33333333333333,
+        "LUFS": -15.8,
+        "truePeakDB": -3.5,
+        "sha256": "1ea0a93bac9601ea6659925077d5b3e9023e439a8d9caf2f08a8bcd93560f1d6"
+      },
+      {
+        "id": "combat",
+        "seconds": 64,
+        "LUFS": -15.2,
+        "truePeakDB": -3.5,
+        "sha256": "7258ad958b385866fb39a8a115bbad0a42491e8b99e0f9791bc65f6df10a966b"
+      },
+      {
+        "id": "ending",
+        "seconds": 45.714285714285715,
+        "LUFS": -15.2,
+        "truePeakDB": -3.6,
+        "sha256": "52b3a02765e6a0d82f4f304743f6f59f04b5959543750adbca0ba732912e36cd"
+      },
+      {
+        "id": "defeat",
+        "seconds": 60,
+        "LUFS": -14.4,
+        "truePeakDB": -3.7,
+        "sha256": "693f26d1bacf0a8370185223e32a9867fe2f63a55b61751c70230b27b2cc2a26"
+      }
+    ],
+    "sampleRate": 44100,
+    "channels": 2,
+    "loop": "waveform seam and repeated PCM reader checked by Go tests; cyclic reverb baked in",
+    "stems": "four synchronized stems per cue in render; identical length/rate; same fixed gain as mix, no arbitrary gain additions",
+    "listeningReview": "pending; no claim of human listening/three-loop fatigue approval",
+    "rights": "project-authored notes and owned oscillator synthesis; RRSAL-1.0; no samples/services"
+  },
+  "controls": {
+    "F2": "music row; arrows/Enter/mouse toggle",
+    "F6": "music only",
+    "F7": "original SFX only",
+    "defaultEnabled": true,
+    "persisted": "settings.json optional musicEnabled; schema1 unchanged",
+    "gameSaveSchema": 45
+  },
+  "player": {
+    "normalSaveEntry": true,
+    "F2Off": true,
+    "F6On": true,
+    "reopenedOff": true,
+    "withoutOriginalSFX": true,
+    "routing": "ship / flight / ship observed from normal navigation and engineering",
+    "maxVolumeDB": [
+      -14.7,
+      -15.7
+    ],
+    "musicOff": "29.4466 seconds measured silence",
+    "captureFormat": "Oto ALSA FLOAT_LE, converted to WAV for analysis",
+    "receipt": "workplace/hd-music-20261017/player-r3/receipt.json"
+  },
+  "checks": {
+    "fullGo": "pass",
+    "goVet": "pass",
+    "musicRegressionTests": 6,
+    "koreanAndPackageTools": 9,
+    "windows": "cross-compiled; playback not verified",
+    "macOS": "not reverified for this feature",
+    "payload": "eight owned OGGs + manifest + RRSAL license; no original disk"
+  },
+  "visualReview": {
+    "zh-Hant": "pass",
+    "zh-Hans": "pass",
+    "ko": "pass",
+    "ja": "leading glyph differences in HD options capture",
+    "en": "leading glyph differences in HD options capture",
+    "prototypes": "locale face separation and line rasterization discarded; no speculative renderer changes retained"
+  },
+  "listeningReview": "pending; no auditory approval claimed",
+  "release": "source branch only; existing v.1.3.0 tag/assets/promo unchanged"
+}

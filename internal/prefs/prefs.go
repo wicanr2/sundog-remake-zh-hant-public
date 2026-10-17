@@ -44,6 +44,9 @@ type Preferences struct {
 	// AtariDisk is the path the player typed or the detector found. It is a
 	// path on their machine, never the disk's bytes.
 	AtariDisk string `json:"atariDisk,omitempty"`
+	// Nil means an older settings file: new remake music defaults to on.
+	// This preference is deliberately outside the schema45 game save.
+	MusicEnabled *bool `json:"musicEnabled,omitempty"`
 }
 
 // DefaultPath is where the file lives when the player did not name one: next

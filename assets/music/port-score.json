@@ -1,0 +1,8475 @@
+{
+  "cue": {
+    "ID": "port",
+    "Title": "貨單與霓虹",
+    "BPM": 100,
+    "Bars": 32,
+    "Density": 0.8,
+    "Harmony": [
+      [
+        50,
+        57,
+        60,
+        64
+      ],
+      [
+        53,
+        57,
+        60,
+        64
+      ],
+      [
+        48,
+        55,
+        59,
+        64
+      ],
+      [
+        43,
+        55,
+        59,
+        64
+      ]
+    ]
+  },
+  "events": [
+    {
+      "Beat": 0,
+      "Length": 8.5,
+      "Note": 50,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 0,
+      "Length": 8.5,
+      "Note": 57,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 0,
+      "Length": 8.5,
+      "Note": 60,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 0,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 0,
+      "Length": 1.6,
+      "Note": 38,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 2.5,
+      "Length": 1.25,
+      "Note": 38,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 0.5,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 0.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 0.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 0.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 1.75,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 1.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 1.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 1.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 3,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 3,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 3,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 3,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 0,
+      "Length": 1,
+      "Note": 62,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 1.25,
+      "Length": 1,
+      "Note": 69,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 2.5,
+      "Length": 1,
+      "Note": 72,
+      "Velocity": 0.2,
+      "Pan": 0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 3.75,
+      "Length": 1,
+      "Note": 76,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 5,
+      "Length": 1,
+      "Note": 71,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 0,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 2,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 1,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 3,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 0,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 0.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 1,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 1.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 2,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 2.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 3,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 3.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 4,
+      "Length": 1.6,
+      "Note": 38,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 6.5,
+      "Length": 1.25,
+      "Note": 38,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 4.5,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 4.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 4.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 4.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 5.75,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 5.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 5.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 5.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 7,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 7,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 7,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 7,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 4,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 6,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 5,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 7,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 4,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 4.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 5.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 6,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 6.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 7,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 7.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 8,
+      "Length": 8.5,
+      "Note": 53,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 8,
+      "Length": 8.5,
+      "Note": 57,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 8,
+      "Length": 8.5,
+      "Note": 60,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 8,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 8,
+      "Length": 1.6,
+      "Note": 41,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 10.5,
+      "Length": 1.25,
+      "Note": 41,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 8.5,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 8.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 8.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 8.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 9.75,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 9.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 9.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 9.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 11,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 11,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 11,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 11,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 8,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 10,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 9,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 11,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 8,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 8.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 9,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 9.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 10,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 10.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 11,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 11.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 12,
+      "Length": 1.6,
+      "Note": 41,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 14.5,
+      "Length": 1.25,
+      "Note": 41,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 12.5,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 12.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 12.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 12.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 13.75,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 13.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 13.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 13.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 15,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 15,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 15,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 15,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 12,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 14,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 13,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 15,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 12,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 12.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 13,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 13.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 14,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 14.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 15,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 15.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 16,
+      "Length": 8.5,
+      "Note": 48,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 16,
+      "Length": 8.5,
+      "Note": 55,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 16,
+      "Length": 8.5,
+      "Note": 59,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 16,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 16,
+      "Length": 1.6,
+      "Note": 36,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 18.5,
+      "Length": 1.25,
+      "Note": 36,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 16.5,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 16.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 16.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 16.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 17.75,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 17.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 17.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 17.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 19,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 19,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 19,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 19,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 16,
+      "Length": 1,
+      "Note": 62,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 17.25,
+      "Length": 1,
+      "Note": 69,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 18.5,
+      "Length": 1,
+      "Note": 72,
+      "Velocity": 0.2,
+      "Pan": 0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 19.75,
+      "Length": 1,
+      "Note": 76,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 21,
+      "Length": 1,
+      "Note": 71,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 16,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 18,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 17,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 19,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 16,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 16.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 17,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 17.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 18,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 18.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 19,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 19.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 20,
+      "Length": 1.6,
+      "Note": 36,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 22.5,
+      "Length": 1.25,
+      "Note": 36,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 20.5,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 20.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 20.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 20.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 21.75,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 21.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 21.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 21.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 23,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 23,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 23,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 23,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 20,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 22,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 21,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 23,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 20,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 20.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 21,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 21.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 22,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 22.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 23,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 23.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 24,
+      "Length": 8.5,
+      "Note": 43,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 24,
+      "Length": 8.5,
+      "Note": 55,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 24,
+      "Length": 8.5,
+      "Note": 59,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 24,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 24,
+      "Length": 1.6,
+      "Note": 31,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 26.5,
+      "Length": 1.25,
+      "Note": 31,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 24.5,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 24.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 24.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 24.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 25.75,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 25.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 25.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 25.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 27,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 27,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 27,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 27,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 24,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 26,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 25,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 27,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 24,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 24.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 25,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 25.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 26,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 26.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 27,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 27.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 28,
+      "Length": 1.6,
+      "Note": 31,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 30.5,
+      "Length": 1.25,
+      "Note": 31,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 28.5,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 28.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 28.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 28.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 29.75,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 29.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 29.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 29.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 31,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 31,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 31,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 31,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 28,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 30,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 29,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 31,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 28,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 28.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 29,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 29.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 30,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 30.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 31,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 31.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 32,
+      "Length": 8.5,
+      "Note": 50,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 32,
+      "Length": 8.5,
+      "Note": 57,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 32,
+      "Length": 8.5,
+      "Note": 60,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 32,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 32,
+      "Length": 1.6,
+      "Note": 38,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 34.5,
+      "Length": 1.25,
+      "Note": 38,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 32.5,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 32.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 32.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 32.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 33.75,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 33.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 33.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 33.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 35,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 35,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 35,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 35,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 32,
+      "Length": 1,
+      "Note": 50,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 33.25,
+      "Length": 1,
+      "Note": 57,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 34.5,
+      "Length": 1,
+      "Note": 60,
+      "Velocity": 0.2,
+      "Pan": 0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 35.75,
+      "Length": 1,
+      "Note": 76,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 37,
+      "Length": 1,
+      "Note": 71,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 32,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 34,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 33,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 35,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 32,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 32.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 33,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 33.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 34,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 34.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 35,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 35.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 36,
+      "Length": 1.6,
+      "Note": 38,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 38.5,
+      "Length": 1.25,
+      "Note": 38,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 36.5,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 36.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 36.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 36.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 37.75,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 37.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 37.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 37.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 39,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 39,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 39,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 39,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 36,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 38,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 37,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 39,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 36,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 36.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 37,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 37.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 38,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 38.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 39,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 39.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 40,
+      "Length": 8.5,
+      "Note": 53,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 40,
+      "Length": 8.5,
+      "Note": 57,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 40,
+      "Length": 8.5,
+      "Note": 60,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 40,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 40,
+      "Length": 1.6,
+      "Note": 41,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 42.5,
+      "Length": 1.25,
+      "Note": 41,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 40.5,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 40.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 40.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 40.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 41.75,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 41.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 41.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 41.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 43,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 43,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 43,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 43,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 40,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 42,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 41,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 43,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 40,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 40.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 41,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 41.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 42,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 42.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 43,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 43.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 44,
+      "Length": 1.6,
+      "Note": 41,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 46.5,
+      "Length": 1.25,
+      "Note": 41,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 44.5,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 44.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 44.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 44.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 45.75,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 45.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 45.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 45.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 47,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 47,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 47,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 47,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 44,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 46,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 45,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 47,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 44,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 44.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 45,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 45.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 46,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 46.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 47,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 47.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 48,
+      "Length": 8.5,
+      "Note": 48,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 48,
+      "Length": 8.5,
+      "Note": 55,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 48,
+      "Length": 8.5,
+      "Note": 59,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 48,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 48,
+      "Length": 1.6,
+      "Note": 36,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 50.5,
+      "Length": 1.25,
+      "Note": 36,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 48.5,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 48.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 48.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 48.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 49.75,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 49.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 49.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 49.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 51,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 51,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 51,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 51,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 48,
+      "Length": 1,
+      "Note": 50,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 49.25,
+      "Length": 1,
+      "Note": 57,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 50.5,
+      "Length": 1,
+      "Note": 60,
+      "Velocity": 0.2,
+      "Pan": 0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 51.75,
+      "Length": 1,
+      "Note": 76,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 53,
+      "Length": 1,
+      "Note": 71,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 48,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 50,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 49,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 51,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 48,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 48.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 49,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 49.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 50,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 50.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 51,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 51.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 52,
+      "Length": 1.6,
+      "Note": 36,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 54.5,
+      "Length": 1.25,
+      "Note": 36,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 52.5,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 52.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 52.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 52.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 53.75,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 53.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 53.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 53.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 55,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 55,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 55,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 55,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 52,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 54,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 53,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 55,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 52,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 52.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 53,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 53.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 54,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 54.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 55,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 55.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 56,
+      "Length": 8.5,
+      "Note": 43,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 56,
+      "Length": 8.5,
+      "Note": 55,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 56,
+      "Length": 8.5,
+      "Note": 59,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 56,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 56,
+      "Length": 1.6,
+      "Note": 31,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 58.5,
+      "Length": 1.25,
+      "Note": 31,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 56.5,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 56.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 56.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 56.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 57.75,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 57.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 57.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 57.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 59,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 59,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 59,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 59,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 56,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 58,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 57,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 59,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 56,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 56.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 57,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 57.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 58,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 58.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 59,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 59.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 60,
+      "Length": 1.6,
+      "Note": 31,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 62.5,
+      "Length": 1.25,
+      "Note": 31,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 60.5,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 60.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 60.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 60.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 61.75,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 61.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 61.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 61.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 63,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 63,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 63,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 63,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 60,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 62,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 61,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 63,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 60,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 60.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 61,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 61.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 62,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 62.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 63,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 63.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 64,
+      "Length": 8.5,
+      "Note": 50,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 64,
+      "Length": 8.5,
+      "Note": 57,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 64,
+      "Length": 8.5,
+      "Note": 60,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 64,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 64,
+      "Length": 1.6,
+      "Note": 38,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 66.5,
+      "Length": 1.25,
+      "Note": 38,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 64.5,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 64.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 64.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 64.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 65.75,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 65.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 65.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 65.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 67,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 67,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 67,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 67,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 64,
+      "Length": 1,
+      "Note": 62,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 65.25,
+      "Length": 1,
+      "Note": 69,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 66.5,
+      "Length": 1,
+      "Note": 72,
+      "Velocity": 0.2,
+      "Pan": 0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 67.75,
+      "Length": 1,
+      "Note": 76,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 69,
+      "Length": 1,
+      "Note": 71,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 64,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 66,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 65,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 67,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 64,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 64.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 65,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 65.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 66,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 66.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 67,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 67.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 68,
+      "Length": 1.6,
+      "Note": 38,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 70.5,
+      "Length": 1.25,
+      "Note": 38,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 68.5,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 68.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 68.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 68.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 69.75,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 69.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 69.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 69.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 71,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 71,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 71,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 71,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 68,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 70,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 69,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 71,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 68,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 68.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 69,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 69.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 70,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 70.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 71,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 71.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 72,
+      "Length": 8.5,
+      "Note": 53,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 72,
+      "Length": 8.5,
+      "Note": 57,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 72,
+      "Length": 8.5,
+      "Note": 60,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 72,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 72,
+      "Length": 1.6,
+      "Note": 41,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 74.5,
+      "Length": 1.25,
+      "Note": 41,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 72.5,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 72.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 72.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 72.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 73.75,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 73.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 73.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 73.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 75,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 72,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 74,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 73,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 75,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 72,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 72.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 73,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 73.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 74,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 74.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 75,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 75.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 76,
+      "Length": 1.6,
+      "Note": 41,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 78.5,
+      "Length": 1.25,
+      "Note": 41,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 76.5,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 76.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 76.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 76.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 77.75,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 77.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 77.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 77.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 79,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 79,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 79,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 79,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 76,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 78,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 77,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 79,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 76,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 76.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 77,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 77.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 78,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 78.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 79,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 79.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 80,
+      "Length": 8.5,
+      "Note": 48,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 80,
+      "Length": 8.5,
+      "Note": 55,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 80,
+      "Length": 8.5,
+      "Note": 59,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 80,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 80,
+      "Length": 1.6,
+      "Note": 36,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 82.5,
+      "Length": 1.25,
+      "Note": 36,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 80.5,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 80.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 80.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 80.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 81.75,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 81.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 81.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 81.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 83,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 83,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 83,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 83,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 80,
+      "Length": 1,
+      "Note": 62,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 81.25,
+      "Length": 1,
+      "Note": 69,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 82.5,
+      "Length": 1,
+      "Note": 72,
+      "Velocity": 0.2,
+      "Pan": 0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 83.75,
+      "Length": 1,
+      "Note": 76,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 85,
+      "Length": 1,
+      "Note": 71,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 80,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 82,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 81,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 83,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 80,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 80.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 81,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 81.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 82,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 82.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 83,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 83.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 84,
+      "Length": 1.6,
+      "Note": 36,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 86.5,
+      "Length": 1.25,
+      "Note": 36,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 84.5,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 84.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 84.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 84.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 85.75,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 85.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 85.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 85.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 87,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 87,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 87,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 87,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 84,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 86,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 85,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 87,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 84,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 84.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 85,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 85.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 86,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 86.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 87,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 87.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 88,
+      "Length": 8.5,
+      "Note": 43,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 88,
+      "Length": 8.5,
+      "Note": 55,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 88,
+      "Length": 8.5,
+      "Note": 59,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 88,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 88,
+      "Length": 1.6,
+      "Note": 31,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 90.5,
+      "Length": 1.25,
+      "Note": 31,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 88.5,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 88.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 88.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 88.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 89.75,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 89.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 89.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 89.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 91,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 91,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 91,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 91,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 88,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 90,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 89,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 91,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 88,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 88.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 89,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 89.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 90,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 90.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 91,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 91.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 92,
+      "Length": 1.6,
+      "Note": 31,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 94.5,
+      "Length": 1.25,
+      "Note": 31,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 92.5,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 92.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 92.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 92.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 93.75,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 93.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 93.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 93.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 95,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 95,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 95,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 95,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 92,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 94,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 93,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 95,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 92,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 92.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 93,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 93.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 94,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 94.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 95,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 95.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 96,
+      "Length": 8.5,
+      "Note": 50,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 96,
+      "Length": 8.5,
+      "Note": 57,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 96,
+      "Length": 8.5,
+      "Note": 60,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 96,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 96,
+      "Length": 1.6,
+      "Note": 38,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 98.5,
+      "Length": 1.25,
+      "Note": 38,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 96.5,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 96.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 96.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 96.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 97.75,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 97.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 97.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 97.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 99,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 99,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 99,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 99,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 96,
+      "Length": 1,
+      "Note": 62,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 97.25,
+      "Length": 1,
+      "Note": 69,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 98.5,
+      "Length": 1,
+      "Note": 72,
+      "Velocity": 0.2,
+      "Pan": 0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 99.75,
+      "Length": 1,
+      "Note": 76,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 101,
+      "Length": 1,
+      "Note": 71,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 96,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 98,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 97,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 99,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 96,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 96.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 97,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 97.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 98,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 98.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 99,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 99.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 100,
+      "Length": 1.6,
+      "Note": 38,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 102.5,
+      "Length": 1.25,
+      "Note": 38,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 100.5,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 100.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 100.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 100.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 101.75,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 101.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 101.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 101.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 103,
+      "Length": 0.8,
+      "Note": 62,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 103,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 103,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 103,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 100,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 102,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 101,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 103,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 100,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 100.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 101,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 101.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 102,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 102.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 103,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 103.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 104,
+      "Length": 8.5,
+      "Note": 53,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 104,
+      "Length": 8.5,
+      "Note": 57,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 104,
+      "Length": 8.5,
+      "Note": 60,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 104,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 104,
+      "Length": 1.6,
+      "Note": 41,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 106.5,
+      "Length": 1.25,
+      "Note": 41,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 104.5,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 104.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 104.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 104.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 105.75,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 105.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 105.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 105.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 107,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 107,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 107,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 107,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 104,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 106,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 105,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 107,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 104,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 104.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 105,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 105.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 106,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 106.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 107,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 107.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 108,
+      "Length": 1.6,
+      "Note": 41,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 110.5,
+      "Length": 1.25,
+      "Note": 41,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 108.5,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 108.5,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 108.5,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 108.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 109.75,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 109.75,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 109.75,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 109.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 111,
+      "Length": 0.8,
+      "Note": 65,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 111,
+      "Length": 0.8,
+      "Note": 69,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 111,
+      "Length": 0.8,
+      "Note": 72,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 111,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 108,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 110,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 109,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 111,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 108,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 108.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 109,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 109.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 110,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 110.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 111,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 111.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 112,
+      "Length": 8.5,
+      "Note": 48,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 112,
+      "Length": 8.5,
+      "Note": 55,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 112,
+      "Length": 8.5,
+      "Note": 59,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 112,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 112,
+      "Length": 1.6,
+      "Note": 36,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 114.5,
+      "Length": 1.25,
+      "Note": 36,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 112.5,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 112.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 112.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 112.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 113.75,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 113.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 113.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 113.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 115,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 115,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 115,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 115,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 112,
+      "Length": 1,
+      "Note": 62,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 113.25,
+      "Length": 1,
+      "Note": 69,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 114.5,
+      "Length": 1,
+      "Note": 72,
+      "Velocity": 0.2,
+      "Pan": 0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 115.75,
+      "Length": 1,
+      "Note": 76,
+      "Velocity": 0.2,
+      "Pan": -0.3,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 117,
+      "Length": 1,
+      "Note": 71,
+      "Velocity": 0.2,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 1
+    },
+    {
+      "Beat": 112,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 114,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 113,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 115,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 112,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 112.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 113,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 113.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 114,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 114.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 115,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 115.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 116,
+      "Length": 1.6,
+      "Note": 36,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 118.5,
+      "Length": 1.25,
+      "Note": 36,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 116.5,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 116.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 116.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 116.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 117.75,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 117.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 117.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 117.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 119,
+      "Length": 0.8,
+      "Note": 60,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 119,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 119,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 119,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 116,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 118,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 117,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 119,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 116,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 116.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 117,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 117.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 118,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 118.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 119,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 119.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 120,
+      "Length": 8.5,
+      "Note": 43,
+      "Velocity": 0.17,
+      "Pan": -0.65,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 120,
+      "Length": 8.5,
+      "Note": 55,
+      "Velocity": 0.17,
+      "Pan": -0.22000000000000003,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 120,
+      "Length": 8.5,
+      "Note": 59,
+      "Velocity": 0.17,
+      "Pan": 0.20999999999999996,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 120,
+      "Length": 8.5,
+      "Note": 64,
+      "Velocity": 0.17,
+      "Pan": 0.64,
+      "Voice": "pad",
+      "Layer": 0
+    },
+    {
+      "Beat": 120,
+      "Length": 1.6,
+      "Note": 31,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 122.5,
+      "Length": 1.25,
+      "Note": 31,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 120.5,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 120.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 120.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 120.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 121.75,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 121.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 121.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 121.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 123,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 123,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 123,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 123,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 120,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 122,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 121,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 123,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 120,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 120.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 121,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 121.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 122,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 122.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 123,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 123.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 124,
+      "Length": 1.6,
+      "Note": 31,
+      "Velocity": 0.23,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 126.5,
+      "Length": 1.25,
+      "Note": 31,
+      "Velocity": 0.18,
+      "Pan": 0,
+      "Voice": "bass",
+      "Layer": 2
+    },
+    {
+      "Beat": 124.5,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 124.5,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 124.5,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 124.5,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 125.75,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 125.75,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 125.75,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 125.75,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 127,
+      "Length": 0.8,
+      "Note": 55,
+      "Velocity": 0.11,
+      "Pan": -0.4,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 127,
+      "Length": 0.8,
+      "Note": 67,
+      "Velocity": 0.11,
+      "Pan": -0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 127,
+      "Length": 0.8,
+      "Note": 71,
+      "Velocity": 0.11,
+      "Pan": 0,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 127,
+      "Length": 0.8,
+      "Note": 76,
+      "Velocity": 0.11,
+      "Pan": 0.2,
+      "Voice": "keys",
+      "Layer": 0
+    },
+    {
+      "Beat": 124,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 126,
+      "Length": 0.3,
+      "Note": 36,
+      "Velocity": 0.22,
+      "Pan": 0,
+      "Voice": "kick",
+      "Layer": 3
+    },
+    {
+      "Beat": 125,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 127,
+      "Length": 0.18,
+      "Note": 38,
+      "Velocity": 0.12,
+      "Pan": 0.1,
+      "Voice": "snare",
+      "Layer": 3
+    },
+    {
+      "Beat": 124,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 124.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 125,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 125.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 126,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 126.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 127,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": -0.4,
+      "Voice": "hat",
+      "Layer": 3
+    },
+    {
+      "Beat": 127.5,
+      "Length": 0.07,
+      "Note": 42,
+      "Velocity": 0.045,
+      "Pan": 0.4,
+      "Voice": "hat",
+      "Layer": 3
+    }
+  ],
+  "identity": "new remake composition; no original melody/sample",
+  "layers": [
+    "harmony",
+    "melody",
+    "bass",
+    "pulse"
+  ],
+  "motifMIDI": [
+    62,
+    69,
+    72,
+    76,
+    71
+  ]
+}

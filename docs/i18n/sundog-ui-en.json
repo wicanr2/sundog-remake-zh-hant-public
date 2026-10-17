@@ -1672,7 +1672,7 @@
     },
     {
       "key": "ui.help.sound",
-      "translation": "F7: mute",
+      "translation": "F6: music toggle   F7: sound effects",
       "translationStatus": "reviewed once; official AI language pack; 2026-08-31"
     },
     {
@@ -3174,7 +3174,7 @@
     },
     {
       "key": "ui.options.audio_note",
-      "translation": "Import sound first; see bundled sound instructions",
+      "translation": "Music included; import original SFX from your disk.",
       "translationStatus": "reviewed once; UI correction; 2026-09-07"
     },
     {
@@ -4351,6 +4351,21 @@
       "key": "ui.message.swapped",
       "translation": "Cargo swapped.",
       "translationStatus": "AI translation; native editorial review pending"
+    },
+    {
+      "key": "ui.options.music",
+      "translation": "HD music",
+      "translationStatus": "new remake music UI; AI translation; native review pending"
+    },
+    {
+      "key": "ui.music.on",
+      "translation": "On",
+      "translationStatus": "new remake music UI; AI translation; native review pending"
+    },
+    {
+      "key": "ui.music.off",
+      "translation": "Off",
+      "translationStatus": "new remake music UI; AI translation; native review pending"
     }
   ]
 }

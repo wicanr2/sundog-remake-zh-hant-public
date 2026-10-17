@@ -51,6 +51,11 @@ PAYLOAD = {
     "docs/i18n/atari-st-dialog-en.json": "docs/i18n/atari-st-dialog-en.json",
     "docs/i18n/atari-st-dialog-ko.json": "docs/i18n/atari-st-dialog-ko.json",
     "操作說明.md": "docs/manual/remake-controls-zh-Hant.md",
+    "assets/music/manifest.json": "assets/music/manifest.json",
+    "assets/music/validation.json": "assets/music/validation.json",
+    "assets/music/README.md": "assets/music/README.md",
+    **{f"assets/music/{cue}.ogg": f"assets/music/{cue}.ogg"
+       for cue in ("title", "ship", "port", "surface", "flight", "combat", "ending", "defeat")},
 }
 
 # Windows 執行檔的匯入表只允許這些。純 Go 的建置目前只會有 kernel32。

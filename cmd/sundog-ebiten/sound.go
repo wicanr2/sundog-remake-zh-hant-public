@@ -175,11 +175,18 @@ func decodeOgg(raw []byte) ([]byte, error) {
 	if format.SampleRate != soundSampleRate {
 		return nil, fmt.Errorf("sampled at %d Hz, want %d", format.SampleRate, soundSampleRate)
 	}
+	if format.Channels != 1 && format.Channels != soundChannels {
+		return nil, fmt.Errorf("unsupported audio channels: %d", format.Channels)
+	}
 	frames := len(samples) / format.Channels
 	out := make([]byte, frames*soundChannels*2)
 	for frame := 0; frame < frames; frame++ {
-		value := clampSample(samples[frame*format.Channels])
 		for channel := 0; channel < soundChannels; channel++ {
+			sourceChannel := channel
+			if format.Channels == 1 {
+				sourceChannel = 0
+			}
+			value := clampSample(samples[frame*format.Channels+sourceChannel])
 			binary.LittleEndian.PutUint16(out[(frame*soundChannels+channel)*2:], uint16(value))
 		}
 	}

@@ -90,3 +90,8 @@ v.1.3.0-20261017 的三平台引擎、本機完整版及96秒精訊故事HD影�
 
 
 正式[v.1.3.0-20261017](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.3.0-20261017)已發布，四附件匿名下載及735檔／734筆manifest逐項SHA回讀通過。tag固定於`d44db249709d73c706ef1b6d3c44dad9745b3d8c`，321個可公開建置輸入與來源2480690相同；舊tag`403ae3795c6f16f28243aec026efbec2491d85cf`保持。後續僅回填文件，tag與附件不移動。Windows於Wine、macOS靜態驗收；本機完整包與影片不上傳。
+
+
+## 2026-10-17 HD原創配樂
+
+來源主線新增八首HD原創配樂與F2／F6開關，原版音效由F7獨立控制，偏好保存於settings.json。曲目／授權／試聽／工具見assets/music/README.md與validation.json。自寫樂譜、MIDI與合成器，不使用原版旋律或外部取樣。全Go／vet及音訊技術、正常GUI／實際混音、保存重開通過。人耳審聽仍待，日英HD擷取有前綴字形差異；未重發既有v.1.3.0封包。
