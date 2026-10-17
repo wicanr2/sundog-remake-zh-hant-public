@@ -13,6 +13,8 @@
 *.pdf
 *.wav
 *.ogg
+# 專案自寫樂譜與合成器製作的配樂，來源及授權見同目錄manifest。
+!/assets/music/*.ogg
 *.mp4
 *.jpg
 *.jpeg

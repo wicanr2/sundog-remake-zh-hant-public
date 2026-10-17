@@ -77,8 +77,8 @@
   "files": [
     {
       "path": ".gitignore",
-      "bytes": 352,
-      "sha256": "4bf932c261d9d5a7856f0347c18f2b77926ae8cbb38e6c40e74396af98699a01"
+      "bytes": 462,
+      "sha256": "68d3729a27529e56d49fe63c3a5a16e691a96d29952fc66ada7261725f5240aa"
     },
     {
       "path": "AGENTS.md",
@@ -3047,8 +3047,8 @@
     },
     {
       "path": "tools/public-source/.gitignore",
-      "bytes": 352,
-      "sha256": "4bf932c261d9d5a7856f0347c18f2b77926ae8cbb38e6c40e74396af98699a01"
+      "bytes": 462,
+      "sha256": "68d3729a27529e56d49fe63c3a5a16e691a96d29952fc66ada7261725f5240aa"
     },
     {
       "path": "tools/public-source/AGENTS.md",
