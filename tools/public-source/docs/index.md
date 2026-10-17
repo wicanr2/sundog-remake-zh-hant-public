@@ -1,5 +1,9 @@
 # 文件索引
 
+- [純滑鼠操作、螢幕鍵盤與磁碟瀏覽器](ui/mouse-controls.md)
+- [純滑鼠正常玩家驗證工具](../tools/verify_mouse_player.py)
+- [五語／三呈現滑鼠介面驗證工具](../tools/verify_mouse_locales.py)
+
 - [HD 原創配樂、場景對應、試聽與重建](../assets/music/README.md)
 
 - [專案介紹、故事與 HD 畫廊](../README.md)

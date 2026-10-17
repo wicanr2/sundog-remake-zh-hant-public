@@ -17,6 +17,7 @@ TEMPLATES = Path("tools/public-source")
 TOP = {".gitignore", "LICENSE", "go.mod", "go.sum"}
 DIRECTORIES = {"assets", "cmd", "internal", "docker", "tools"}
 DOCS = {
+    "docs/ui/mouse-controls.md",
     "docs/manual/remake-controls-zh-Hant.md",
     "docs/promo/five-language-story.json",
     "docs/atari-st/release-v1200-20261016.json",
@@ -44,6 +45,28 @@ LANGUAGE_SHOTS = {
 
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def clean_public_controls_docs(output: Path) -> None:
+    """Keep input instructions self-contained without copying private evidence."""
+    root = output.resolve()
+    for name in ("docs/ui/mouse-controls.md", "docs/manual/remake-controls-zh-Hant.md"):
+        path = output / name
+        if not path.is_file():
+            continue
+        text = path.read_text()
+        text = re.sub(r"基線為私人來源[0-9a-f]{40}。", "", text)
+        text = text.replace("前輪盤點見[WORKLOG](../../WORKLOG.md#滑鼠支援盤點2026-10-17)。", "")
+        def link(match):
+            label, target = match.groups()
+            if "://" in target or target.startswith("#"):
+                return match.group(0)
+            destination = (path.parent / target.split("#", 1)[0]).resolve()
+            if destination.is_relative_to(root) and destination.exists():
+                return match.group(0)
+            return label
+        text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", link, text)
+        path.write_text(text)
 
 
 def prepare(root: Path, output: Path, version: str) -> dict:
@@ -115,6 +138,7 @@ def prepare(root: Path, output: Path, version: str) -> dict:
         destination = output / name
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
+    clean_public_controls_docs(output)
     document = {
         "schema": 1,
         "boundary": "Fresh source snapshot; no original Git objects, disks, scans, original pixels or sounds. Private oracle images and full local packages excluded.",

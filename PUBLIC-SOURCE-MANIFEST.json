@@ -87,8 +87,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 6800,
-      "sha256": "e12684b2071412b61e81a59f928c1ea03671a46d4067ebdb662e560376f24df2"
+      "bytes": 7646,
+      "sha256": "6c0218eccef9738596e8a767db4e03c1e8f52ec242cfb3f28a86f340ceeab30a"
     },
     {
       "path": "LICENSE",
@@ -97,28 +97,28 @@
     },
     {
       "path": "README.en.md",
-      "bytes": 10329,
-      "sha256": "d737aeb878fe3d805c38a89805ceb87ad0237a7130712b02c6307e77dc048a5f"
+      "bytes": 10690,
+      "sha256": "85df41767759127a92d371320deb48c0bd6145ab49d75a4fe0ce5b3ce451fdf7"
     },
     {
       "path": "README.ja.md",
-      "bytes": 11728,
-      "sha256": "4201fd31c7c1e3e17b47cbd097abcbba1071d6604dc880ec3c785aa751730cb8"
+      "bytes": 12212,
+      "sha256": "fac298fe370573e030d75f51d7e8567498aa47dc9096efb5908ad71b271cefd9"
     },
     {
       "path": "README.ko.md",
-      "bytes": 11601,
-      "sha256": "9ee5af87b9caf03c5f2f02d9987a40cf0ab835c47b2fa79246b2ec966b75fe0d"
+      "bytes": 12060,
+      "sha256": "826f4df4d746897328387995d880097ce521390862480917a09b351de4c931a6"
     },
     {
       "path": "README.md",
-      "bytes": 9872,
-      "sha256": "3372b551a0b0b93564e8613ebe1627fc0f1120b394df351716890a1be030abee"
+      "bytes": 10253,
+      "sha256": "fc47e54738ed740483648cf754268f9d50d23c05fb226d1570bc3f68abec9088"
     },
     {
       "path": "WORKLOG.md",
-      "bytes": 11922,
-      "sha256": "e5bbffaaf4e4dd4d3a84cd6e7bfc73b65e8499843cac0b44873eb5f7374d78de"
+      "bytes": 13103,
+      "sha256": "41560a48f39e1dd87b4a8bcbdab5431acd0548d6a23007843c4ea29cdd47a409"
     },
     {
       "path": "assets/fonts/ASSET-MANIFEST.md",
@@ -326,11 +326,6 @@
       "sha256": "19040eb86d2b8b3e5193fca8d7b328d471ac6a3bb5e4b154be2200077973367a"
     },
     {
-      "path": "cmd/sundog/main.go",
-      "bytes": 34296,
-      "sha256": "36dc834e3b5da806eb5bb5b40367e8d57d33121939dbd0c174ce7a9bcc868e5c"
-    },
-    {
       "path": "cmd/sundog-dialog/main.go",
       "bytes": 1812,
       "sha256": "20f04767ed601b108a9c3c8480836a56362d7ba3414ab6b6475d15ba9e2327c4"
@@ -472,13 +467,33 @@
     },
     {
       "path": "cmd/sundog-ebiten/main.go",
-      "bytes": 193616,
-      "sha256": "041616e2805cceebf6daa2411ec485038663af501e45ebd626a3917bfd6345e6"
+      "bytes": 193984,
+      "sha256": "8c4ab9f98ad65685f27ba2bb402d744ac9c02ca2903ca362ea19fb2826486608"
     },
     {
       "path": "cmd/sundog-ebiten/main_test.go",
       "bytes": 50043,
       "sha256": "873a78e687af9655a1c491540c2cdfa10593db6b736aa8a67d814ea5ec8a1ba8"
+    },
+    {
+      "path": "cmd/sundog-ebiten/mousecontrols.go",
+      "bytes": 16930,
+      "sha256": "2ca0655c5f4f67bb8d7607db50996546cc3425618f48dacc7c6158d47fab5507"
+    },
+    {
+      "path": "cmd/sundog-ebiten/mousecontrols_test.go",
+      "bytes": 11061,
+      "sha256": "8caa71a73a2e80c259ecbe046c3753475797082a66278633ec50d1aa7144fd80"
+    },
+    {
+      "path": "cmd/sundog-ebiten/mousedrives_other.go",
+      "bytes": 157,
+      "sha256": "af3a9b9b956370ac7cb09ecdeabd7674f7573b7f6e41cc5a93ad7ee313f41bb4"
+    },
+    {
+      "path": "cmd/sundog-ebiten/mousedrives_windows.go",
+      "bytes": 420,
+      "sha256": "ca55589f2f097c7bd056c661e91d49f23928e6052d67f807221280aa2cb43f83"
     },
     {
       "path": "cmd/sundog-ebiten/music.go",
@@ -492,8 +507,8 @@
     },
     {
       "path": "cmd/sundog-ebiten/options.go",
-      "bytes": 18987,
-      "sha256": "249f52e13402f50d5a41b980aa6152e0c44d218ec2a0efce51d9cfe95f247b15"
+      "bytes": 19036,
+      "sha256": "9f786ea001db3b06234152a0f572bb843b6801061b0e918bac90b6a9d01ede8e"
     },
     {
       "path": "cmd/sundog-ebiten/options_test.go",
@@ -614,6 +629,11 @@
       "path": "cmd/sundog-sound-export/main.go",
       "bytes": 4498,
       "sha256": "57f72ea1e8e085ec50bbd46c79cc9c419f0df51cd35fe1466e7bbe6904f64c6d"
+    },
+    {
+      "path": "cmd/sundog/main.go",
+      "bytes": 34296,
+      "sha256": "36dc834e3b5da806eb5bb5b40367e8d57d33121939dbd0c174ce7a9bcc868e5c"
     },
     {
       "path": "docker/apple2-docs/Dockerfile",
@@ -867,38 +887,38 @@
     },
     {
       "path": "docs/i18n/sundog-ui-en.json",
-      "bytes": 155760,
-      "sha256": "a26b7799f1abef09a6153adfc757df1327661e922b7f6ae5f769e2d2b5c61f06"
+      "bytes": 185600,
+      "sha256": "a68fb8ac2ed5286eab0c50ec6b1e2dda6f2876ef0ab93ff6705c6c977abc43ff"
     },
     {
       "path": "docs/i18n/sundog-ui-ja.json",
-      "bytes": 164659,
-      "sha256": "6e69bc6f3c6eadf3b9e9a307e69febf11630eb79fc6a0865c2d775865f7baf35"
+      "bytes": 195160,
+      "sha256": "fc716a47ed404b04ae9bcc26d175fc00554bab009dbf1c810b2b7b0d5bf861bd"
     },
     {
       "path": "docs/i18n/sundog-ui-ko.json",
-      "bytes": 172008,
-      "sha256": "8cefd196b79837663519e8eedcf0f0bb3be2631613af6201c210d01813b0dacf"
+      "bytes": 202201,
+      "sha256": "680551aaaa48e9f9b1f0eddcdfe801d936bf81f1d596282ef0e846a40d092078"
     },
     {
       "path": "docs/i18n/sundog-ui-zh-Hans.json",
-      "bytes": 155388,
-      "sha256": "7376e80e81a3538ad5eea9a230a6a393c48b43adc952c699632746ca30cd6058"
+      "bytes": 185343,
+      "sha256": "a6f0c494c89cf34666481853d4a799cd720f7b81d063023659040b827585e847"
     },
     {
       "path": "docs/i18n/sundog-ui-zh-Hant.json",
-      "bytes": 155373,
-      "sha256": "74cdefd0dcb066fe5c0f7cdd5061e00cb9dccd97e0a5ff3fe5a1687df5057ea5"
+      "bytes": 185319,
+      "sha256": "ffe18f892d47f42388148b4f7d666e11831255422cbce9e40ceb6b3ba6ae95f8"
     },
     {
       "path": "docs/index.md",
-      "bytes": 4461,
-      "sha256": "668c7d907f7743be7aca43350a2165b11b6996ac38f0b42cb52e7e1e30afdd2f"
+      "bytes": 4689,
+      "sha256": "61d24a7f95b527a2a3aef361431e74006cda8c6076f2c19618bf99e43ff84742"
     },
     {
       "path": "docs/manual/remake-controls-zh-Hant.md",
-      "bytes": 15292,
-      "sha256": "5e2c91fc68ffa825ddeab3f84f338af0bc6c3c7ef972f5a64fe8554727e5e1f7"
+      "bytes": 18628,
+      "sha256": "7c20bc75ee1ab660391e223a6a376b69c3fb5664488a160e06310cb203aa4341"
     },
     {
       "path": "docs/promo/README.md",
@@ -959,6 +979,11 @@
       "path": "docs/screenshots/hd-warehouse-zh-Hant-20261016.png",
       "bytes": 44136,
       "sha256": "58056ee4e98367915224169fa6c1848f13fe95561346d48efacde49014b70642"
+    },
+    {
+      "path": "docs/ui/mouse-controls.md",
+      "bytes": 4815,
+      "sha256": "e9e2db156bff8d5d456bbd230d3110119c6dcc5295783201c07d8b45fb0a0757"
     },
     {
       "path": "go.mod",
@@ -3027,8 +3052,8 @@
     },
     {
       "path": "tools/prepare_public_repository.py",
-      "bytes": 6634,
-      "sha256": "44fa4089436cdb6f64a1149063b0a8ceb705f4f3b0718abbfa0cb68a884f2ff6"
+      "bytes": 7727,
+      "sha256": "daaaeef49877a4333bb03cf0bfadf432d3dba7de9e7719653b8d40ece14f214b"
     },
     {
       "path": "tools/psys_disasm.py",
@@ -3057,33 +3082,33 @@
     },
     {
       "path": "tools/public-source/CONTEXT.md",
-      "bytes": 6800,
-      "sha256": "e12684b2071412b61e81a59f928c1ea03671a46d4067ebdb662e560376f24df2"
+      "bytes": 7646,
+      "sha256": "6c0218eccef9738596e8a767db4e03c1e8f52ec242cfb3f28a86f340ceeab30a"
     },
     {
       "path": "tools/public-source/README.en.md",
-      "bytes": 10329,
-      "sha256": "d737aeb878fe3d805c38a89805ceb87ad0237a7130712b02c6307e77dc048a5f"
+      "bytes": 10690,
+      "sha256": "85df41767759127a92d371320deb48c0bd6145ab49d75a4fe0ce5b3ce451fdf7"
     },
     {
       "path": "tools/public-source/README.ja.md",
-      "bytes": 11728,
-      "sha256": "4201fd31c7c1e3e17b47cbd097abcbba1071d6604dc880ec3c785aa751730cb8"
+      "bytes": 12212,
+      "sha256": "fac298fe370573e030d75f51d7e8567498aa47dc9096efb5908ad71b271cefd9"
     },
     {
       "path": "tools/public-source/README.ko.md",
-      "bytes": 11601,
-      "sha256": "9ee5af87b9caf03c5f2f02d9987a40cf0ab835c47b2fa79246b2ec966b75fe0d"
+      "bytes": 12060,
+      "sha256": "826f4df4d746897328387995d880097ce521390862480917a09b351de4c931a6"
     },
     {
       "path": "tools/public-source/README.md",
-      "bytes": 9872,
-      "sha256": "3372b551a0b0b93564e8613ebe1627fc0f1120b394df351716890a1be030abee"
+      "bytes": 10253,
+      "sha256": "fc47e54738ed740483648cf754268f9d50d23c05fb226d1570bc3f68abec9088"
     },
     {
       "path": "tools/public-source/WORKLOG.md",
-      "bytes": 11922,
-      "sha256": "e5bbffaaf4e4dd4d3a84cd6e7bfc73b65e8499843cac0b44873eb5f7374d78de"
+      "bytes": 13103,
+      "sha256": "41560a48f39e1dd87b4a8bcbdab5431acd0548d6a23007843c4ea29cdd47a409"
     },
     {
       "path": "tools/public-source/docs/build.md",
@@ -3092,8 +3117,8 @@
     },
     {
       "path": "tools/public-source/docs/index.md",
-      "bytes": 4461,
-      "sha256": "668c7d907f7743be7aca43350a2165b11b6996ac38f0b42cb52e7e1e30afdd2f"
+      "bytes": 4689,
+      "sha256": "61d24a7f95b527a2a3aef361431e74006cda8c6076f2c19618bf99e43ff84742"
     },
     {
       "path": "tools/public-source/docs/promo/README.md",
@@ -3592,8 +3617,8 @@
     },
     {
       "path": "tools/test_prepare_public_repository.py",
-      "bytes": 3129,
-      "sha256": "0ba6190b9331e2b38fff95ba139cf4e2880754cd8a3624ee05377ab17d39b9ce"
+      "bytes": 4011,
+      "sha256": "1a4a715e521454536fda132a8deada4d57292eba49c800eff1c3f4b6786193dc"
     },
     {
       "path": "tools/test_psys_disasm.py",
@@ -3809,6 +3834,16 @@
       "path": "tools/verify_locale_player.py",
       "bytes": 7132,
       "sha256": "168118a6197305f6c61713c89d80be73c58ce76a4ce57dfd3c2bf9b3751c8543"
+    },
+    {
+      "path": "tools/verify_mouse_locales.py",
+      "bytes": 4926,
+      "sha256": "3fabaf2849e7085f8ab55d296a964143f81b1b7d36387a4c7e125c91ae217aa5"
+    },
+    {
+      "path": "tools/verify_mouse_player.py",
+      "bytes": 11711,
+      "sha256": "b4dff61e75f269a51e5de28218d928a7ade52465c63d61e5879d68f47815409a"
     },
     {
       "path": "tools/verify_release_packages.py",

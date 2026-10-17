@@ -4366,6 +4366,941 @@
       "key": "ui.music.off",
       "translation": "关闭",
       "translationStatus": "new remake music UI; AI translation; native review pending"
+    },
+    {
+      "key": "ui.mouse.menu",
+      "translation": "操作",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.close",
+      "translation": "关闭",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.context",
+      "translation": "当前画面",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.system",
+      "translation": "系统",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.keyboard",
+      "translation": "输入姓名",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.browse",
+      "translation": "浏览磁盘文件",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.parent",
+      "translation": "上一级目录",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.directory_error",
+      "translation": "无法读取目录",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.music",
+      "translation": "配乐开关",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.sfx",
+      "translation": "音效开关",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.help",
+      "translation": "操作说明",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.shift",
+      "translation": "大小写",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.space",
+      "translation": "空格",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.erase",
+      "translation": "退格",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.confirm",
+      "translation": "确认",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.take",
+      "translation": "取放物品",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.engage",
+      "translation": "飞抵目的地",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.resume",
+      "translation": "恢复航行",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.attack",
+      "translation": "攻击",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.flee",
+      "translation": "逃离战斗",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.enter",
+      "translation": "进入建筑",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.leave",
+      "translation": "离开",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.increase",
+      "translation": "增加属性",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.decrease",
+      "translation": "减少属性",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.laser",
+      "translation": "激光射击",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.jettison_all",
+      "translation": "抛弃全部货物",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.jettison1",
+      "translation": "抛弃货舱一",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.jettison2",
+      "translation": "抛弃货舱二",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.recharge",
+      "translation": "武器充能",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.wake",
+      "translation": "醒来",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.skip",
+      "translation": "跳过动画",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.cancel_item",
+      "translation": "取消持物",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.stop",
+      "translation": "停止旋回",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-north",
+      "translation": "向上",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-north",
+      "translation": "向上",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-south",
+      "translation": "向下",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-south",
+      "translation": "向下",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-west",
+      "translation": "向左",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-west",
+      "translation": "向左",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-east",
+      "translation": "向右",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-east",
+      "translation": "向右",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-attribute",
+      "translation": "上一项：属性",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-attribute",
+      "translation": "下一项：属性",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-destination",
+      "translation": "上一项：城市",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-destination",
+      "translation": "下一项：城市",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-part",
+      "translation": "上一项：零件",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-part",
+      "translation": "下一项：零件",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-pocket",
+      "translation": "上一项：携物格",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-pocket",
+      "translation": "下一项：携物格",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-store",
+      "translation": "上一项：物资格",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-store",
+      "translation": "下一项：物资格",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-system",
+      "translation": "上一项：飞船系统",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-system",
+      "translation": "下一项：飞船系统",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-target-planet",
+      "translation": "上一项：行星",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-target-planet",
+      "translation": "下一项：行星",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-target-system",
+      "translation": "上一项：星系",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-target-system",
+      "translation": "下一项：星系",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-verb",
+      "translation": "上一项：话题",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-verb",
+      "translation": "下一项：话题",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-1",
+      "translation": "选货槽 1",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-2",
+      "translation": "选货槽 2",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-3",
+      "translation": "选货槽 3",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-4",
+      "translation": "选货槽 4",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-5",
+      "translation": "选货槽 5",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-6",
+      "translation": "选货槽 6",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-1",
+      "translation": "选星系 1",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-2",
+      "translation": "选星系 2",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-3",
+      "translation": "选星系 3",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-4",
+      "translation": "选星系 4",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-5",
+      "translation": "选星系 5",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-6",
+      "translation": "选星系 6",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-1",
+      "translation": "选城市 1",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-2",
+      "translation": "选城市 2",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-3",
+      "translation": "选城市 3",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-4",
+      "translation": "选城市 4",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-5",
+      "translation": "选城市 5",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-6",
+      "translation": "选城市 6",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-100",
+      "translation": "100",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-1000",
+      "translation": "1000",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-10000",
+      "translation": "10000",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-50000",
+      "translation": "50000",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.about-sundog",
+      "translation": "关于 SunDog（原版制作名单）",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.arena-attack",
+      "translation": "攻击",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.arena-flee",
+      "translation": "逃离战斗",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.back",
+      "translation": "返回",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.buy-gems",
+      "translation": "购买",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.buy-part",
+      "translation": "购买选定零件",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.cancel-item",
+      "translation": "取消持物",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.confirm-attributes",
+      "translation": "确认",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.confirm-character-name",
+      "translation": "确认",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.decrease-attribute",
+      "translation": "减少属性",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.delete-game",
+      "translation": "删除保存库游戏",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.deliver-mission",
+      "translation": "交付殖民任务货物",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.deposit-cash",
+      "translation": "存入现金",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.distress-call",
+      "translation": "求救加油",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.eat",
+      "translation": "进食",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.enter-building",
+      "translation": "进入建筑",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.exit-cargo-pod",
+      "translation": "离开",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fire",
+      "translation": "开火",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fire-laser",
+      "translation": "激光射击",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.flight-engage",
+      "translation": "飞抵目的地",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.flight-resume",
+      "translation": "恢复航行",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.flight-tick",
+      "translation": "航程刻度",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fuel-buy-full",
+      "translation": "1 买满",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fuel-buy-one",
+      "translation": "2 买一单位",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fuel-cancel",
+      "translation": "3 结束",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.full-shields",
+      "translation": "全开护盾",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.hail",
+      "translation": "调用对方",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.hand",
+      "translation": "手上物品",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.increase-attribute",
+      "translation": "增加属性",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.install-ftl-boost",
+      "translation": "安装 FTL 增强器",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.jettison-all",
+      "translation": "抛弃全部货物",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.jettison-hold-1",
+      "translation": "抛弃货舱一",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.jettison-hold-2",
+      "translation": "抛弃货舱二",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.leave-building",
+      "translation": "离开",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-aux-fuel",
+      "translation": "O：装载辅助燃料",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-cargo",
+      "translation": "装载货物",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-cryogens",
+      "translation": "装载冷冻人员",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-game",
+      "translation": "加载已保存的游戏",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-supplies",
+      "translation": "装载殖民地物资",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.make-library",
+      "translation": "创建保存库",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.navigate",
+      "translation": "确认导航",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.new-game",
+      "translation": "开始新游戏",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-cargo",
+      "translation": "货物",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-depot",
+      "translation": "船舰服务站",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-engineering",
+      "translation": "工程舱",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-equipment",
+      "translation": "设备数据",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-ftl-boost",
+      "translation": "FTL 工程服务",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-ground",
+      "translation": "地面移动",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-library",
+      "translation": "选择游戏／角色保存库",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-navigation",
+      "translation": "导航／驾驶",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-options",
+      "translation": "选项",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-parts",
+      "translation": "船舰零件柜台",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-slots",
+      "translation": "吃角子老虎",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-status",
+      "translation": "角色状态窗口",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-stores",
+      "translation": "船上物资",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-tactical",
+      "translation": "战术显示",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-trade",
+      "translation": "交易所",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-tube-station",
+      "translation": "领航台电车",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-uniteller",
+      "translation": "Uniteller 银行",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.pay-fine",
+      "translation": "缴违停罚金",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.play",
+      "translation": "开始游玩 SunDog",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.quit",
+      "translation": "离开游戏",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.recharge-weapon",
+      "translation": "武器充能",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.refuel",
+      "translation": "购买燃料",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair",
+      "translation": "修理船体",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-hull",
+      "translation": "修理船体",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-shields",
+      "translation": "修理护盾",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-system",
+      "translation": "修理选定系统",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-weapon",
+      "translation": "修理武器",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.rest",
+      "translation": "休息",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.ride-tube",
+      "translation": "搭乘",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.save",
+      "translation": "保存游戏",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.say-verb",
+      "translation": "说出选定的话",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.select-game",
+      "translation": "选择游戏／角色保存库",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.sell-gems",
+      "translation": "出售",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.shields-off",
+      "translation": "关闭护盾",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.sit-at-booth",
+      "translation": "卡座",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.skip-landing",
+      "translation": "跳过动画",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.spin-slots",
+      "translation": "转",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.store-game",
+      "translation": "保存游戏至保存库",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tactical-move",
+      "translation": "战术移动",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tactical-stop",
+      "translation": "停止旋回",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.take-store",
+      "translation": "取放物品",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.talk",
+      "translation": "与人交谈",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-all",
+      "translation": "全部",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-clear",
+      "translation": "清除",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-deposit-page",
+      "translation": "存入现金",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-others",
+      "translation": "其他",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-transfer-page",
+      "translation": "转帐",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-withdraw-page",
+      "translation": "提领现金",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tractor",
+      "translation": "牵引光束",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-buy-page",
+      "translation": "购买",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-exchange",
+      "translation": "交易所",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-fetch-page",
+      "translation": "取回",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pass",
+      "translation": "放弃",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-sell-page",
+      "translation": "出售",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-store-page",
+      "translation": "存入",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-swap-page",
+      "translation": "交换",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-warehouse-page",
+      "translation": "仓库",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.transfer-bank",
+      "translation": "转帐",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.unload-aux-fuel",
+      "translation": "O：抛下辅助燃料",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.unload-cargo",
+      "translation": "卸下货物",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.use-counter",
+      "translation": "柜台",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.wake",
+      "translation": "醒来",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.withdraw-cash",
+      "translation": "提领现金",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.drives",
+      "translation": "磁盘驱动器",
+      "translationStatus": "remake mouse controls; review pending"
     }
   ]
 }

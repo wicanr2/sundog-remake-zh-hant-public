@@ -1,5 +1,7 @@
 # SunDog: Atari ST HD Remake
 
+The source branch supports mouse-only play through the Actions button, including an on-screen name keyboard, disk browser, attributes, cargo, interiors, parts shopping, slots and all existing tactical commands. Keyboard shortcuts remain available. See the [mouse controls](docs/ui/mouse-controls.md). The existing v.1.3.0 release does not include this update.
+
 The source branch includes eight [new HD music cues](assets/music/README.md), with scene changes and crossfades. Use F2 options or F6 for music and F7 for original sound effects. Music preferences persist between launches. These additions are not included in the existing v.1.3.0-20261017 release.
 
 [繁體中文](README.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [English](README.en.md)

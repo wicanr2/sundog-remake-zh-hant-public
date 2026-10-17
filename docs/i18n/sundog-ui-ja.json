@@ -4366,6 +4366,941 @@
       "key": "ui.music.off",
       "translation": "オフ",
       "translationStatus": "new remake music UI; AI translation; native review pending"
+    },
+    {
+      "key": "ui.mouse.menu",
+      "translation": "操作",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.close",
+      "translation": "閉じる",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.context",
+      "translation": "この画面",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.system",
+      "translation": "システム",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.keyboard",
+      "translation": "名前を入力",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.browse",
+      "translation": "ディスクを選ぶ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.parent",
+      "translation": "親フォルダー",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.directory_error",
+      "translation": "フォルダーを開けません",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.music",
+      "translation": "音楽切り替え",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.sfx",
+      "translation": "効果音切り替え",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.help",
+      "translation": "操作ヘルプ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.shift",
+      "translation": "大文字／小文字",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.space",
+      "translation": "空白",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.erase",
+      "translation": "一文字消す",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.confirm",
+      "translation": "決定",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.take",
+      "translation": "物を取る／置く",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.engage",
+      "translation": "目的地まで飛ぶ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.resume",
+      "translation": "航行再開",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.attack",
+      "translation": "攻撃",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.flee",
+      "translation": "戦闘から逃げる",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.enter",
+      "translation": "建物に入る",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.leave",
+      "translation": "外へ出る",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.increase",
+      "translation": "能力値を増やす",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.decrease",
+      "translation": "能力値を減らす",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.laser",
+      "translation": "レーザー発射",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.jettison_all",
+      "translation": "全貨物を投棄",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.jettison1",
+      "translation": "貨物室１を投棄",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.jettison2",
+      "translation": "貨物室２を投棄",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.recharge",
+      "translation": "武器を充電",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.wake",
+      "translation": "起きる",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.skip",
+      "translation": "演出をスキップ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.cancel_item",
+      "translation": "持ち物を戻す",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.stop",
+      "translation": "旋回停止",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-north",
+      "translation": "上へ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-north",
+      "translation": "上へ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-south",
+      "translation": "下へ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-south",
+      "translation": "下へ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-west",
+      "translation": "左へ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-west",
+      "translation": "左へ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-east",
+      "translation": "右へ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-east",
+      "translation": "右へ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-attribute",
+      "translation": "前：能力",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-attribute",
+      "translation": "次：能力",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-destination",
+      "translation": "前：都市",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-destination",
+      "translation": "次：都市",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-part",
+      "translation": "前：部品",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-part",
+      "translation": "次：部品",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-pocket",
+      "translation": "前：ポケット",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-pocket",
+      "translation": "次：ポケット",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-store",
+      "translation": "前：保管枠",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-store",
+      "translation": "次：保管枠",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-system",
+      "translation": "前：船内系統",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-system",
+      "translation": "次：船内系統",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-target-planet",
+      "translation": "前：惑星",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-target-planet",
+      "translation": "次：惑星",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-target-system",
+      "translation": "前：星系",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-target-system",
+      "translation": "次：星系",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-verb",
+      "translation": "前：話題",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-verb",
+      "translation": "次：話題",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-1",
+      "translation": "貨物枠 1",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-2",
+      "translation": "貨物枠 2",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-3",
+      "translation": "貨物枠 3",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-4",
+      "translation": "貨物枠 4",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-5",
+      "translation": "貨物枠 5",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-6",
+      "translation": "貨物枠 6",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-1",
+      "translation": "星系 1",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-2",
+      "translation": "星系 2",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-3",
+      "translation": "星系 3",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-4",
+      "translation": "星系 4",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-5",
+      "translation": "星系 5",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-6",
+      "translation": "星系 6",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-1",
+      "translation": "都市 1",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-2",
+      "translation": "都市 2",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-3",
+      "translation": "都市 3",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-4",
+      "translation": "都市 4",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-5",
+      "translation": "都市 5",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-6",
+      "translation": "都市 6",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-100",
+      "translation": "100",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-1000",
+      "translation": "1000",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-10000",
+      "translation": "10000",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-50000",
+      "translation": "50000",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.about-sundog",
+      "translation": "SunDogについて（オリジナル生産リスト）",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.arena-attack",
+      "translation": "攻撃",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.arena-flee",
+      "translation": "戦闘から逃げる",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.back",
+      "translation": "戻る",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.buy-gems",
+      "translation": "購入",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.buy-part",
+      "translation": "選択した部品の購入",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.cancel-item",
+      "translation": "持ち物を戻す",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.confirm-attributes",
+      "translation": "決定",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.confirm-character-name",
+      "translation": "決定",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.decrease-attribute",
+      "translation": "能力値を減らす",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.delete-game",
+      "translation": "x><x>セーブゲームを削除",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.deliver-mission",
+      "translation": "植民地化ミッションの貨物を配達",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.deposit-cash",
+      "translation": "現金を預金",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.distress-call",
+      "translation": "緊急給油を要請",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.eat",
+      "translation": "食べる",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.enter-building",
+      "translation": "建物に入る",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.exit-cargo-pod",
+      "translation": "外へ出る",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fire",
+      "translation": "発射",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fire-laser",
+      "translation": "レーザー発射",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.flight-engage",
+      "translation": "目的地まで飛ぶ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.flight-resume",
+      "translation": "航行再開",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.flight-tick",
+      "translation": "航海スケール",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fuel-buy-full",
+      "translation": "1 満量まで購入",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fuel-buy-one",
+      "translation": "2 一単位購入",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fuel-cancel",
+      "translation": "3 終了",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.full-shields",
+      "translation": "シールド全体",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.hail",
+      "translation": "相手に電話してください",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.hand",
+      "translation": "手持ちのアイテム",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.increase-attribute",
+      "translation": "能力値を増やす",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.install-ftl-boost",
+      "translation": "FTL ブーストを取り付ける",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.jettison-all",
+      "translation": "全貨物を投棄",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.jettison-hold-1",
+      "translation": "貨物室１を投棄",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.jettison-hold-2",
+      "translation": "貨物室２を投棄",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.leave-building",
+      "translation": "外へ出る",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-aux-fuel",
+      "translation": "O: 補助燃料をロード",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-cargo",
+      "translation": "貨物をロード",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-cryogens",
+      "translation": "冷凍要員をロード",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-game",
+      "translation": "ロード",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-supplies",
+      "translation": "植民地物資をロード",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.make-library",
+      "translation": "保存ライブラリを作成",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.navigate",
+      "translation": "航行確定",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.new-game",
+      "translation": "新しいゲームの開始",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-cargo",
+      "translation": "貨物",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-depot",
+      "translation": "船のサービス拠点",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-engineering",
+      "translation": "機関室",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-equipment",
+      "translation": "装備データ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-ftl-boost",
+      "translation": "FTL 整備",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-ground",
+      "translation": "地上移動",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-library",
+      "translation": "ライブラリ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-navigation",
+      "translation": "航法／操縦",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-options",
+      "translation": "オプション",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-parts",
+      "translation": "船パーツカウンター",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-slots",
+      "translation": "スロットマシン",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-status",
+      "translation": "キャラクターステータスウィンドウ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-stores",
+      "translation": "マテリアルボード",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-tactical",
+      "translation": "戦術ディスプレイ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-trade",
+      "translation": "交換",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-tube-station",
+      "translation": "パイロットトラム",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-uniteller",
+      "translation": "ユニテラー銀行",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.pay-fine",
+      "translation": "違法駐車の罰金を支払う",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.play",
+      "translation": "SunDog のプレイを開始",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.quit",
+      "translation": "ゲームを終了",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.recharge-weapon",
+      "translation": "武器を充電",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.refuel",
+      "translation": "燃料を購入",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair",
+      "translation": "船体を修理",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-hull",
+      "translation": "船体を修理",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-shields",
+      "translation": "シールドを修理",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-system",
+      "translation": "選択したシステムを修理",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-weapon",
+      "translation": "武器を修理",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.rest",
+      "translation": "休憩",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.ride-tube",
+      "translation": "乗車",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.save",
+      "translation": "ゲームを保存",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.say-verb",
+      "translation": "選択した単語を言う",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.select-game",
+      "translation": "ライブラリ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.sell-gems",
+      "translation": "販売",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.shields-off",
+      "translation": "シールドを閉じる",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.sit-at-booth",
+      "translation": "キャビン",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.skip-landing",
+      "translation": "演出をスキップ",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.spin-slots",
+      "translation": "回す",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.store-game",
+      "translation": "ゲームをライブラリに保存",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tactical-move",
+      "translation": "戦術的な動き",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tactical-stop",
+      "translation": "旋回停止",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.take-store",
+      "translation": "物を取る／置く",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.talk",
+      "translation": "人々と話す",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-all",
+      "translation": "すべて",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-clear",
+      "translation": "クリア",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-deposit-page",
+      "translation": "現金を預金",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-others",
+      "translation": "その他",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-transfer-page",
+      "translation": "送金",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-withdraw-page",
+      "translation": "現金の引き出し",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tractor",
+      "translation": "トラクタービーム",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-buy-page",
+      "translation": "購入",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-exchange",
+      "translation": "交換",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-fetch-page",
+      "translation": "回収",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pass",
+      "translation": "放棄",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-sell-page",
+      "translation": "販売",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-store-page",
+      "translation": "保管",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-swap-page",
+      "translation": "交換",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-warehouse-page",
+      "translation": "倉庫",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.transfer-bank",
+      "translation": "送金",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.unload-aux-fuel",
+      "translation": "O: 補助燃料を投下",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.unload-cargo",
+      "translation": "貨物を降ろす",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.use-counter",
+      "translation": "カウンター",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.wake",
+      "translation": "起きる",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.withdraw-cash",
+      "translation": "現金の引き出し",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.drives",
+      "translation": "ドライブ",
+      "translationStatus": "remake mouse controls; review pending"
     }
   ]
 }

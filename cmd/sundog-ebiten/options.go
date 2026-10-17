@@ -206,6 +206,8 @@ func (a *app) optionsRowAt(x, y int) (int, bool) {
 func (a *app) clickOptionsRow(row int) {
 	a.options.row = row
 	switch row {
+	case optionsRowDisk:
+		a.openMouseDiskBrowser()
 	case optionsRowLanguage:
 		a.cycleLocale(1)
 	case optionsRowPresentation:

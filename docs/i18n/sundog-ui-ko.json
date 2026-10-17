@@ -4366,6 +4366,941 @@
       "key": "ui.music.off",
       "translation": "꺼짐",
       "translationStatus": "AI translation; structurally verified; native editorial review pending"
+    },
+    {
+      "key": "ui.mouse.menu",
+      "translation": "조작",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.close",
+      "translation": "닫기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.context",
+      "translation": "현재 화면",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.system",
+      "translation": "시스템",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.keyboard",
+      "translation": "이름 입력",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.browse",
+      "translation": "디스크 선택",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.parent",
+      "translation": "상위 폴더",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.directory_error",
+      "translation": "폴더를 열 수 없습니다",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.music",
+      "translation": "음악 전환",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.sfx",
+      "translation": "효과음 전환",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.help",
+      "translation": "조작 도움말",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.shift",
+      "translation": "대소문자",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.space",
+      "translation": "공백",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.erase",
+      "translation": "한 글자 삭제",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.confirm",
+      "translation": "확인",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.take",
+      "translation": "물건 집기／놓기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.engage",
+      "translation": "목적지까지 비행",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.resume",
+      "translation": "항해 재개",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.attack",
+      "translation": "공격",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.flee",
+      "translation": "전투에서 도망",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.enter",
+      "translation": "건물 진입",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.leave",
+      "translation": "나가기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.increase",
+      "translation": "능력치 증가",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.decrease",
+      "translation": "능력치 감소",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.laser",
+      "translation": "레이저 발사",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.jettison_all",
+      "translation": "모든 화물 투기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.jettison1",
+      "translation": "화물칸 1 투기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.jettison2",
+      "translation": "화물칸 2 투기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.recharge",
+      "translation": "무기 충전",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.wake",
+      "translation": "일어나기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.skip",
+      "translation": "연출 건너뛰기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.cancel_item",
+      "translation": "집은 물건 취소",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.stop",
+      "translation": "선회 중지",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-north",
+      "translation": "위로",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-north",
+      "translation": "위로",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-south",
+      "translation": "아래로",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-south",
+      "translation": "아래로",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-west",
+      "translation": "왼쪽으로",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-west",
+      "translation": "왼쪽으로",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-east",
+      "translation": "오른쪽으로",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-east",
+      "translation": "오른쪽으로",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-attribute",
+      "translation": "이전: 능력치",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-attribute",
+      "translation": "다음: 능력치",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-destination",
+      "translation": "이전: 도시",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-destination",
+      "translation": "다음: 도시",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-part",
+      "translation": "이전: 부품",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-part",
+      "translation": "다음: 부품",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-pocket",
+      "translation": "이전: 소지품 칸",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-pocket",
+      "translation": "다음: 소지품 칸",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-store",
+      "translation": "이전: 보관 칸",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-store",
+      "translation": "다음: 보관 칸",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-system",
+      "translation": "이전: 선박 장치",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-system",
+      "translation": "다음: 선박 장치",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-target-planet",
+      "translation": "이전: 행성",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-target-planet",
+      "translation": "다음: 행성",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-target-system",
+      "translation": "이전: 항성계",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-target-system",
+      "translation": "다음: 항성계",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-verb",
+      "translation": "이전: 화제",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-verb",
+      "translation": "다음: 화제",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-1",
+      "translation": "화물 칸 1",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-2",
+      "translation": "화물 칸 2",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-3",
+      "translation": "화물 칸 3",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-4",
+      "translation": "화물 칸 4",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-5",
+      "translation": "화물 칸 5",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-6",
+      "translation": "화물 칸 6",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-1",
+      "translation": "항성계 1",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-2",
+      "translation": "항성계 2",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-3",
+      "translation": "항성계 3",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-4",
+      "translation": "항성계 4",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-5",
+      "translation": "항성계 5",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-6",
+      "translation": "항성계 6",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-1",
+      "translation": "도시 1",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-2",
+      "translation": "도시 2",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-3",
+      "translation": "도시 3",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-4",
+      "translation": "도시 4",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-5",
+      "translation": "도시 5",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-6",
+      "translation": "도시 6",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-100",
+      "translation": "100",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-1000",
+      "translation": "1000",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-10000",
+      "translation": "10000",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-50000",
+      "translation": "50000",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.about-sundog",
+      "translation": "SunDog 정보 (원작 제작진)",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.arena-attack",
+      "translation": "공격",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.arena-flee",
+      "translation": "전투에서 도망",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.back",
+      "translation": "돌아가기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.buy-gems",
+      "translation": "구입",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.buy-part",
+      "translation": "선택한 부품 구입",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.cancel-item",
+      "translation": "집은 물건 취소",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.confirm-attributes",
+      "translation": "확인",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.confirm-character-name",
+      "translation": "확인",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.decrease-attribute",
+      "translation": "능력치 감소",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.delete-game",
+      "translation": "x><x>저장 삭제",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.deliver-mission",
+      "translation": "개척 계약 화물 인도",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.deposit-cash",
+      "translation": "현금 입금",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.distress-call",
+      "translation": "긴급 급유 요청",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.eat",
+      "translation": "먹기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.enter-building",
+      "translation": "건물 진입",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.exit-cargo-pod",
+      "translation": "나가기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fire",
+      "translation": "발사",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fire-laser",
+      "translation": "레이저 발사",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.flight-engage",
+      "translation": "목적지까지 비행",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.flight-resume",
+      "translation": "항해 재개",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.flight-tick",
+      "translation": "항행 단계",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fuel-buy-full",
+      "translation": "1: 가득 채우기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fuel-buy-one",
+      "translation": "2: 한 단위 구입",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fuel-cancel",
+      "translation": "3: 완료",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.full-shields",
+      "translation": "방어막 최대 출력",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.hail",
+      "translation": "상대 함선 호출",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.hand",
+      "translation": "손에 든 물건",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.increase-attribute",
+      "translation": "능력치 증가",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.install-ftl-boost",
+      "translation": "FTL 증폭기 설치",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.jettison-all",
+      "translation": "모든 화물 투기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.jettison-hold-1",
+      "translation": "화물칸 1 투기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.jettison-hold-2",
+      "translation": "화물칸 2 투기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.leave-building",
+      "translation": "나가기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-aux-fuel",
+      "translation": "O: 보조 연료 적재",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-cargo",
+      "translation": "화물 적재",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-cryogens",
+      "translation": "냉동 이주민 적재",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-game",
+      "translation": "게임 불러오기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-supplies",
+      "translation": "개척 물자 적재",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.make-library",
+      "translation": "저장소 만들기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.navigate",
+      "translation": "항행",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.new-game",
+      "translation": "새 게임 시작",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-cargo",
+      "translation": "화물",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-depot",
+      "translation": "연료 보급소",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-engineering",
+      "translation": "기관실",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-equipment",
+      "translation": "장비 자료",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-ftl-boost",
+      "translation": "FTL 개조",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-ground",
+      "translation": "지상 이동",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-library",
+      "translation": "인물 저장소",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-navigation",
+      "translation": "항행 / 조종",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-options",
+      "translation": "설정",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-parts",
+      "translation": "함선 부품 판매대",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-slots",
+      "translation": "슬롯머신",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-status",
+      "translation": "인물 상태",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-stores",
+      "translation": "함내 물자",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-tactical",
+      "translation": "전술 표시기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-trade",
+      "translation": "거래소",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-tube-station",
+      "translation": "도시 전차",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-uniteller",
+      "translation": "Uniteller 은행",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.pay-fine",
+      "translation": "불법 주차 벌금 납부",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.play",
+      "translation": "SunDog 시작",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.quit",
+      "translation": "게임 종료",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.recharge-weapon",
+      "translation": "무기 충전",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.refuel",
+      "translation": "연료 구입",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair",
+      "translation": "선체 수리",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-hull",
+      "translation": "선체 수리",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-shields",
+      "translation": "방어막 수리",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-system",
+      "translation": "선택 장치 수리",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-weapon",
+      "translation": "무기 수리",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.rest",
+      "translation": "휴식",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.ride-tube",
+      "translation": "탑승",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.save",
+      "translation": "게임 저장",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.say-verb",
+      "translation": "선택한 말 하기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.select-game",
+      "translation": "인물 저장소",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.sell-gems",
+      "translation": "판매",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.shields-off",
+      "translation": "방어막 끄기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.sit-at-booth",
+      "translation": "부스",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.skip-landing",
+      "translation": "연출 건너뛰기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.spin-slots",
+      "translation": "돌리기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.store-game",
+      "translation": "저장소에 게임 저장",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tactical-move",
+      "translation": "전술 이동",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tactical-stop",
+      "translation": "선회 중지",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.take-store",
+      "translation": "물건 집기／놓기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.talk",
+      "translation": "대화하기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-all",
+      "translation": "전액",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-clear",
+      "translation": "지우기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-deposit-page",
+      "translation": "현금 입금",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-others",
+      "translation": "기타",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-transfer-page",
+      "translation": "송금",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-withdraw-page",
+      "translation": "현금 인출",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tractor",
+      "translation": "견인 광선",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-buy-page",
+      "translation": "구입",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-exchange",
+      "translation": "거래소",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-fetch-page",
+      "translation": "꺼내기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pass",
+      "translation": "거절",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-sell-page",
+      "translation": "판매",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-store-page",
+      "translation": "보관",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-swap-page",
+      "translation": "교환",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-warehouse-page",
+      "translation": "창고",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.transfer-bank",
+      "translation": "송금",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.unload-aux-fuel",
+      "translation": "O: 보조 연료 내리기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.unload-cargo",
+      "translation": "화물 내리기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.use-counter",
+      "translation": "판매대",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.wake",
+      "translation": "일어나기",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.withdraw-cash",
+      "translation": "현금 인출",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.drives",
+      "translation": "드라이브",
+      "translationStatus": "remake mouse controls; review pending"
     }
   ],
   "translationSource": "docs/i18n/ko.tsv"

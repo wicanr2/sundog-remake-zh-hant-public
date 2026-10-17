@@ -9,6 +9,17 @@ import prepare_public_repository as publication
 
 
 class PublicTemplateBoundaryTests(unittest.TestCase):
+    def test_controls_keep_available_links_without_private_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            manual=root/"docs/manual/remake-controls-zh-Hant.md";manual.parent.mkdir(parents=True)
+            spec=root/"docs/ui/mouse-controls.md";spec.parent.mkdir(parents=True)
+            spec.write_text("基線為私人來源"+"a"*40+"。前輪盤點見[WORKLOG](../../WORKLOG.md#滑鼠支援盤點2026-10-17)。\n")
+            manual.write_text("[操作](../ui/mouse-controls.md) [私有證據](../atari-st/private.md) [外部](https://example.test/manual)\n")
+            publication.clean_public_controls_docs(root)
+            self.assertEqual("\n",spec.read_text())
+            self.assertEqual("[操作](../ui/mouse-controls.md) 私有證據 [外部](https://example.test/manual)\n",manual.read_text())
+
     def fixture(self, root):
         tracked = set(publication.TOP) | publication.DOCS | {"tools/public-source/README.md"}
         for name in tracked:

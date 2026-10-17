@@ -4366,6 +4366,941 @@
       "key": "ui.music.off",
       "translation": "Off",
       "translationStatus": "new remake music UI; AI translation; native review pending"
+    },
+    {
+      "key": "ui.mouse.menu",
+      "translation": "Actions",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.close",
+      "translation": "Close",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.context",
+      "translation": "This screen",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.system",
+      "translation": "System",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.keyboard",
+      "translation": "Enter name",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.browse",
+      "translation": "Choose disk",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.parent",
+      "translation": "Parent folder",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.directory_error",
+      "translation": "Cannot open folder",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.music",
+      "translation": "Toggle music",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.sfx",
+      "translation": "Toggle effects",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.help",
+      "translation": "Help",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.shift",
+      "translation": "Case",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.space",
+      "translation": "Space",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.erase",
+      "translation": "Backspace",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.confirm",
+      "translation": "Confirm",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.take",
+      "translation": "Take / put item",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.engage",
+      "translation": "Fly to destination",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.resume",
+      "translation": "Resume flight",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.attack",
+      "translation": "Attack",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.flee",
+      "translation": "Flee",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.enter",
+      "translation": "Enter building",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.leave",
+      "translation": "Leave",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.increase",
+      "translation": "Increase attribute",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.decrease",
+      "translation": "Decrease attribute",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.laser",
+      "translation": "Fire laser",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.jettison_all",
+      "translation": "Jettison all cargo",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.jettison1",
+      "translation": "Jettison hold 1",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.jettison2",
+      "translation": "Jettison hold 2",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.recharge",
+      "translation": "Recharge weapon",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.wake",
+      "translation": "Wake up",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.skip",
+      "translation": "Skip animation",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.cancel_item",
+      "translation": "Cancel held item",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.stop",
+      "translation": "Stop turning",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-north",
+      "translation": "Up",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-north",
+      "translation": "Up",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-south",
+      "translation": "Down",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-south",
+      "translation": "Down",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-west",
+      "translation": "Left",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-west",
+      "translation": "Left",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.move-east",
+      "translation": "Right",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.interior-east",
+      "translation": "Right",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-attribute",
+      "translation": "Prev. attribute",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-attribute",
+      "translation": "Next attribute",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-destination",
+      "translation": "Prev. city",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-destination",
+      "translation": "Next city",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-part",
+      "translation": "Prev. part",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-part",
+      "translation": "Next part",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-pocket",
+      "translation": "Prev. pocket",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-pocket",
+      "translation": "Next pocket",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-store",
+      "translation": "Prev. store slot",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-store",
+      "translation": "Next store slot",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-system",
+      "translation": "Prev. ship system",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-system",
+      "translation": "Next ship system",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-target-planet",
+      "translation": "Prev. planet",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-target-planet",
+      "translation": "Next planet",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-target-system",
+      "translation": "Prev. star system",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-target-system",
+      "translation": "Next star system",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.previous-verb",
+      "translation": "Prev. topic",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.next-verb",
+      "translation": "Next topic",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-1",
+      "translation": "Cargo slot 1",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-2",
+      "translation": "Cargo slot 2",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-3",
+      "translation": "Cargo slot 3",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-4",
+      "translation": "Cargo slot 4",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-5",
+      "translation": "Cargo slot 5",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pick-6",
+      "translation": "Cargo slot 6",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-1",
+      "translation": "Star system 1",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-2",
+      "translation": "Star system 2",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-3",
+      "translation": "Star system 3",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-4",
+      "translation": "Star system 4",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-5",
+      "translation": "Star system 5",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-pick-6",
+      "translation": "Star system 6",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-1",
+      "translation": "City 1",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-2",
+      "translation": "City 2",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-3",
+      "translation": "City 3",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-4",
+      "translation": "City 4",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-5",
+      "translation": "City 5",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tube-pick-6",
+      "translation": "City 6",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-100",
+      "translation": "100",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-1000",
+      "translation": "1000",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-10000",
+      "translation": "10000",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-50000",
+      "translation": "50000",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.about-sundog",
+      "translation": "About SunDog (original production list)",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.arena-attack",
+      "translation": "Attack",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.arena-flee",
+      "translation": "Flee",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.back",
+      "translation": "Return",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.buy-gems",
+      "translation": "Buy",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.buy-part",
+      "translation": "Purchase Selected Parts",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.cancel-item",
+      "translation": "Cancel held item",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.confirm-attributes",
+      "translation": "Confirm",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.confirm-character-name",
+      "translation": "Confirm",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.decrease-attribute",
+      "translation": "Decrease attribute",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.delete-game",
+      "translation": "x><x>Delete save game",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.deliver-mission",
+      "translation": "Delivery colonization mission cargo",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.deposit-cash",
+      "translation": "Deposit cash",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.distress-call",
+      "translation": "Request emergency refueling",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.eat",
+      "translation": "Eat",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.enter-building",
+      "translation": "Enter building",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.exit-cargo-pod",
+      "translation": "Leave",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fire",
+      "translation": "Fire",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fire-laser",
+      "translation": "Fire laser",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.flight-engage",
+      "translation": "Fly to destination",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.flight-resume",
+      "translation": "Resume flight",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.flight-tick",
+      "translation": "Voyage scale",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fuel-buy-full",
+      "translation": "1 Fill",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fuel-buy-one",
+      "translation": "2 Buy one",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.fuel-cancel",
+      "translation": "3 Finish",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.full-shields",
+      "translation": "Full shield",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.hail",
+      "translation": "Call the other party",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.hand",
+      "translation": "Items in hand",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.increase-attribute",
+      "translation": "Increase attribute",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.install-ftl-boost",
+      "translation": "Install FTL boost",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.jettison-all",
+      "translation": "Jettison all cargo",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.jettison-hold-1",
+      "translation": "Jettison hold 1",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.jettison-hold-2",
+      "translation": "Jettison hold 2",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.leave-building",
+      "translation": "Leave",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-aux-fuel",
+      "translation": "O: Load Auxiliary Fuel",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-cargo",
+      "translation": "Load Cargo",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-cryogens",
+      "translation": "Load Cryopersonnel",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-game",
+      "translation": "Load Game",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.load-supplies",
+      "translation": "Load Colony Supplies",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.make-library",
+      "translation": "Create Save Library",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.navigate",
+      "translation": "Navigate",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.new-game",
+      "translation": "Start a new game",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-cargo",
+      "translation": "Cargo",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-depot",
+      "translation": "Fuel depot",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-engineering",
+      "translation": "Engineering compartment",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-equipment",
+      "translation": "Equipment data",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-ftl-boost",
+      "translation": "FTL engineering",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-ground",
+      "translation": "Ground Movement",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-library",
+      "translation": "Character Library",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-navigation",
+      "translation": "Navigation / Pilotage",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-options",
+      "translation": "Options",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-parts",
+      "translation": "Ship Parts Counter",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-slots",
+      "translation": "Slot Machine",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-status",
+      "translation": "Character status window",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-stores",
+      "translation": "Shipboard supplies",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-tactical",
+      "translation": "Tactical Display",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-trade",
+      "translation": "Exchange",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-tube-station",
+      "translation": "Pilot Tram",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.open-uniteller",
+      "translation": "Uniteller Bank",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.pay-fine",
+      "translation": "Pay the illegal parking fine",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.play",
+      "translation": "Start playing SunDog",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.quit",
+      "translation": "Leave Game",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.recharge-weapon",
+      "translation": "Recharge weapon",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.refuel",
+      "translation": "Buy Fuel",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair",
+      "translation": "Repair Hull",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-hull",
+      "translation": "Repair Hull",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-shields",
+      "translation": "Repair Shields",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-system",
+      "translation": "Repair Selected Systems",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.repair-weapon",
+      "translation": "Repair Weapon",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.rest",
+      "translation": "Rest",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.ride-tube",
+      "translation": "TRANSPORT",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.save",
+      "translation": "Save Game",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.say-verb",
+      "translation": "Say selected words",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.select-game",
+      "translation": "Character Library",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.sell-gems",
+      "translation": "Sell",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.shields-off",
+      "translation": "Turn off shield",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.sit-at-booth",
+      "translation": "Decks",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.skip-landing",
+      "translation": "Skip animation",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.spin-slots",
+      "translation": "Spin",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.store-game",
+      "translation": "Save game to save library",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tactical-move",
+      "translation": "Tactical Movement",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tactical-stop",
+      "translation": "Stop turning",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.take-store",
+      "translation": "Take / put item",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.talk",
+      "translation": "Talk to people",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-all",
+      "translation": "All",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-amount-clear",
+      "translation": "Clear",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-deposit-page",
+      "translation": "Deposit cash",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-others",
+      "translation": "Other",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-transfer-page",
+      "translation": "Transfer",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.teller-withdraw-page",
+      "translation": "Withdraw Cash",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.tractor",
+      "translation": "Tractor beam",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-buy-page",
+      "translation": "Buy",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-exchange",
+      "translation": "Exchange",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-fetch-page",
+      "translation": "Fetch",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-pass",
+      "translation": "Abandon",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-sell-page",
+      "translation": "Sell",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-store-page",
+      "translation": "Store",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-swap-page",
+      "translation": "Swap",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.trade-warehouse-page",
+      "translation": "Warehouse",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.transfer-bank",
+      "translation": "Transfer",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.unload-aux-fuel",
+      "translation": "O: Drop Auxiliary Fuel",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.unload-cargo",
+      "translation": "Unload Cargo",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.use-counter",
+      "translation": "Counter",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.wake",
+      "translation": "Wake up",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.action.withdraw-cash",
+      "translation": "Withdraw Cash",
+      "translationStatus": "remake mouse controls; review pending"
+    },
+    {
+      "key": "ui.mouse.drives",
+      "translation": "Drives",
+      "translationStatus": "remake mouse controls; review pending"
     }
   ]
 }

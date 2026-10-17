@@ -243,6 +243,7 @@ func viewportFor(width, height int) (scale, originX, originY int) {
 }
 
 type app struct {
+	mouseCard      mouseControlCard
 	reducer        game.Reducer
 	state          game.State
 	labels         catalog.Catalog
@@ -857,6 +858,13 @@ func (a *app) Update() error {
 	if a.frameLimit > 0 && a.frames >= a.frameLimit {
 		return ebiten.Termination
 	}
+	if a.updateMouseControls() {
+		if a.state.QuitRequested {
+			a.autosave()
+			return ebiten.Termination
+		}
+		return nil
+	}
 	// The original title is a required player-owned asset. Never let a title
 	// frame without a valid disk fall through to the remake menu underneath.
 	if a.state.Screen == game.ScreenTitle && a.originalDisk == nil && !a.showOptions {
@@ -980,7 +988,10 @@ func (a *app) Update() error {
 		}
 	}
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonRight) {
-		if slewing {
+		if a.arenaOwnsRightButton() {
+			// updateSTArena owns the held/released trigger. The generic Back
+			// action would leave combat before that input can be processed.
+		} else if slewing {
 			a.step(game.ActionTacticalStop)
 		} else if a.state.HandItem != 0 && a.state.HandOrigin.Kind != "" {
 			a.step(game.ActionCancelItem)
@@ -2341,6 +2352,7 @@ func footerMouseAction(screen game.Screen, x int) game.Action {
 }
 
 func (a *app) Draw(screen *ebiten.Image) {
+	defer a.drawMouseControls(screen)
 	group, ok := a.reducer.GroupOf(a.state)
 	if !ok {
 		return
