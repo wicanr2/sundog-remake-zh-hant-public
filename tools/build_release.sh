@@ -85,62 +85,15 @@ echo "== 版本 $version"
 
 # ---- Linux（cgo，因為 Ebiten 的 X11／OpenGL 後端要它）----
 echo "== linux/amd64"
-run_build "$BUILD_IMAGE" '
-set -eu
-export PATH=/usr/local/go/bin:$PATH GOCACHE=/cache/build GOMODCACHE=/cache/mod GOFLAGS=-buildvcs=false
-CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags "-s -w -X main.buildVersion=$SUNDOG_VERSION" \
-	-o /stage/bin/sundog-remake-linux-amd64 ./cmd/sundog-ebiten
-# 音效轉檔工具沒有畫面，不用 cgo。
-CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags "-s -w" \
-	-o /stage/bin/sundog-sound-export-linux-amd64 ./cmd/sundog-sound-export
-'
+run_build "$BUILD_IMAGE" 'exec bash /work/tools/build_release_phase.sh linux /stage "$SUNDOG_VERSION"'
 
 # ---- Windows（純 Go，沒有 cgo，也沒有要隨包散布的 DLL）----
 echo "== windows/amd64"
-run_build "$BUILD_IMAGE" '
-set -eu
-export PATH=/usr/local/go/bin:$PATH GOCACHE=/cache/build GOMODCACHE=/cache/mod GOFLAGS=-buildvcs=false
-CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -trimpath -ldflags "-s -w -H=windowsgui -X main.buildVersion=$SUNDOG_VERSION" \
-	-o /stage/bin/sundog-remake.exe ./cmd/sundog-ebiten
-# 轉檔工具是命令列的，要留著主控台視窗才看得到輸出。
-CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -trimpath -ldflags "-s -w" \
-	-o /stage/bin/sundog-sound-export.exe ./cmd/sundog-sound-export
-'
+run_build "$BUILD_IMAGE" 'exec bash /work/tools/build_release_phase.sh windows /stage "$SUNDOG_VERSION"'
 
 # ---- macOS（cgo 走 osxcross，兩個弧各編一次再 lipo）----
 echo "== darwin universal"
-run_build "$OSXCROSS_IMAGE" '
-set -eu
-export PATH=/osxcross/bin:/usr/local/go/bin:$PATH GOCACHE=/cache/build GOMODCACHE=/cache/mod GOFLAGS=-buildvcs=false
-eval "$(osxcross-conf)"
-lipo_tool=x86_64-apple-$OSXCROSS_TARGET-lipo
-for a in arm64 amd64; do
-	cc=$([ $a = arm64 ] && echo arm64-apple-$OSXCROSS_TARGET-clang || echo x86_64-apple-$OSXCROSS_TARGET-clang)
-	CGO_ENABLED=1 GOOS=darwin GOARCH=$a CC=$cc CXX=${cc}++ \
-		go build -trimpath -ldflags "-s -w -X main.buildVersion=$SUNDOG_VERSION" -o /stage/bin/sundog-darwin-$a ./cmd/sundog-ebiten
-	CGO_ENABLED=0 GOOS=darwin GOARCH=$a \
-		go build -trimpath -ldflags "-s -w" -o /stage/bin/sound-export-$a ./cmd/sundog-sound-export
-done
-$lipo_tool -create /stage/bin/sundog-darwin-arm64 /stage/bin/sundog-darwin-amd64 \
-	-output /stage/bin/sundog-remake-macos-universal
-$lipo_tool -create /stage/bin/sound-export-arm64 /stage/bin/sound-export-amd64 \
-	-output /stage/bin/sundog-sound-export-macos-universal
-rm -f /stage/bin/sundog-darwin-arm64 /stage/bin/sundog-darwin-amd64 \
-	/stage/bin/sound-export-arm64 /stage/bin/sound-export-amd64
-# 靜態驗收：兩個弧都在、arm64 有 ad-hoc 簽章（沒有的話 Apple Silicon 會直接 Killed: 9）、
-# 相依只在 /usr/lib 與 /System/Library。
-$lipo_tool -info /stage/bin/sundog-remake-macos-universal | grep -q "x86_64 arm64"
-$lipo_tool -thin arm64 /stage/bin/sundog-remake-macos-universal -output /tmp/thin-arm64
-x86_64-apple-$OSXCROSS_TARGET-otool -l /tmp/thin-arm64 | grep -q LC_CODE_SIGNATURE
-for a in arm64 x86_64; do
-	$lipo_tool -thin $a /stage/bin/sundog-remake-macos-universal -output /tmp/thin-$a
-	if x86_64-apple-$OSXCROSS_TARGET-otool -L /tmp/thin-$a | tail -n +2 |
-		grep -vE "^\s+(/usr/lib/|/System/Library/)"; then
-		echo "macOS binary 連到了玩家機器上不存在的東西" >&2
-		exit 1
-	fi
-done
-'
+run_build "$OSXCROSS_IMAGE" 'exec bash /work/tools/build_release_phase.sh macos /stage "$SUNDOG_VERSION"'
 
 # ---- 共用酬載與三種封裝 ----
 echo "== 封裝"

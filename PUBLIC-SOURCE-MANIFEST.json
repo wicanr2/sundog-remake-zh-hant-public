@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "boundary": "Fresh source snapshot; no original Git objects, disks, scans, original pixels or sounds. Private oracle images and full local packages excluded.",
-  "gameVersion": "v.1.2.0-20261016",
+  "gameVersion": "v.1.3.0-20261017",
   "screenshots": [
     {
       "path": "docs/screenshots/hd-shipboard.png",
@@ -87,8 +87,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 5239,
-      "sha256": "60155f02d095861308d0d4712ad9ebf221299f142df951f73d18406d32f4d6e9"
+      "bytes": 5850,
+      "sha256": "76ce150032ae68ef7fa77861c48a3a43d25b266a87ab2395b8e1f42c1ed8f472"
     },
     {
       "path": "LICENSE",
@@ -97,28 +97,28 @@
     },
     {
       "path": "README.en.md",
-      "bytes": 8441,
-      "sha256": "ae2b0e7f2793b23c3da71661de0be7649fa3a52e90e51ee0e20e3c73539b0d5b"
+      "bytes": 8395,
+      "sha256": "0a2f8603774ebd1ed2a2ada15dfd3c64db14c80d8588d32ae6d91d1dc2133879"
     },
     {
       "path": "README.ja.md",
-      "bytes": 9599,
-      "sha256": "980c1e69d3e1ab079c48211e3f9fb3faa551be8bd5b598dbfe1a1b92ffcca1ae"
+      "bytes": 9533,
+      "sha256": "9e2c2d4fd4a77d7db81380dba8db43aff2bcc93768a3995e3e4427934483eb07"
     },
     {
       "path": "README.ko.md",
-      "bytes": 9510,
-      "sha256": "74159a045128af0f4fa9d64ac95b8c846d9bc58b7705b11e863cc746b4539672"
+      "bytes": 9455,
+      "sha256": "08404a0a62b89e07b2b8988f2a05e5710a1591cfeee6e509da284f8e61a89741"
     },
     {
       "path": "README.md",
-      "bytes": 8077,
-      "sha256": "7e65f251253be69fb54bb8237c8161a28b637762f5af014d0ea5babfc7cf6f2d"
+      "bytes": 8060,
+      "sha256": "320cdaf98be9f6861a8395b358d94d321f9d5fa3c7f8e73e4b74523ac7c95ec2"
     },
     {
       "path": "WORKLOG.md",
-      "bytes": 9284,
-      "sha256": "51c7eaf0aa4303b6260a0452ad102fc4602fb1f32fd318bce9bc3189e5528a0b"
+      "bytes": 10307,
+      "sha256": "100ca730fd6c3dac4ef3878ff1cb30a3884ba4e156f5366e23387384a339f5f6"
     },
     {
       "path": "assets/fonts/ASSET-MANIFEST.md",
@@ -591,6 +591,11 @@
       "sha256": "df171eee0ff096d9a943308f29ba677ee7be3a12e47279d0e5c9d4f8d02e02ee"
     },
     {
+      "path": "docs/atari-st/release-v1300-20261017.json",
+      "bytes": 6251,
+      "sha256": "5a0dfa0a64cdd125588dc4c67a0efc4b44d9c26c822bfc27301ca7f209d780fa"
+    },
+    {
       "path": "docs/atari-st/ship-rules.json",
       "bytes": 82519,
       "sha256": "498b5bcd01ec38fa65d903b6c65ba001f9653d5169aead0dd530837579d6fefe"
@@ -622,8 +627,8 @@
     },
     {
       "path": "docs/build.md",
-      "bytes": 2503,
-      "sha256": "01993b3323d58b3bf1959699122771a5e04e964a2f0cbf5e0d94781d02cb1538"
+      "bytes": 3153,
+      "sha256": "99bfaac5810cdf4b87c689c5114b6840828177539665cfb506bffd40e12fd49d"
     },
     {
       "path": "docs/i18n/README.md",
@@ -742,8 +747,8 @@
     },
     {
       "path": "docs/index.md",
-      "bytes": 4288,
-      "sha256": "3dfc02d710d579377d9a8fe9d5e8078ad46565989bf6b20f324aa7fbebfbf40b"
+      "bytes": 4380,
+      "sha256": "d00d12ce659fef85e3a2c2d18918dd5355ddcd4d2500d070c2ac86a90a46fd1c"
     },
     {
       "path": "docs/manual/remake-controls-zh-Hant.md",
@@ -2552,8 +2557,13 @@
     },
     {
       "path": "tools/build_release.sh",
-      "bytes": 7083,
-      "sha256": "046f58263576237bc7c4d47a0e14c06f6a3d09ffdfab613e53e6bcf01ba46c21"
+      "bytes": 4525,
+      "sha256": "1cba3a34212a0253e69c6bdd9b41d30262326a918eda0fc76b5f81bf9cccd3d6"
+    },
+    {
+      "path": "tools/build_release_phase.sh",
+      "bytes": 4335,
+      "sha256": "1088c2c9fe7d0ca75c5ada642cb81095a0cc750cbadf813bd7ecc4b69c272bce"
     },
     {
       "path": "tools/build_story_promo_cards.py",
@@ -2797,8 +2807,8 @@
     },
     {
       "path": "tools/pack_private_full.py",
-      "bytes": 7461,
-      "sha256": "86eed8b6ed70b495da9b55c20f8e34a9fbee954763c5543fac1a67c3ca117b64"
+      "bytes": 7509,
+      "sha256": "389573a2333179d3e0c6ff05f9b1510fa9ed89ceefa8a146ba6a1cb84497ab6e"
     },
     {
       "path": "tools/package_public.py",
@@ -2808,7 +2818,7 @@
     {
       "path": "tools/package_release.py",
       "bytes": 20701,
-      "sha256": "54e27649f02dc2ea4b663ae607a3d678ce7338f8744892c46f4fbb57045206bf"
+      "sha256": "940140fde40d122962fbc9a1ed546e91d29c64e1fcf46a2de2d82377c43a5b72"
     },
     {
       "path": "tools/port_oracle_building_plan.py",
@@ -2867,8 +2877,8 @@
     },
     {
       "path": "tools/prepare_public_repository.py",
-      "bytes": 6585,
-      "sha256": "8691d23fec4f68e447536f1d69b40458423615cf80fc0427aa66f64c58d10217"
+      "bytes": 6634,
+      "sha256": "44fa4089436cdb6f64a1149063b0a8ceb705f4f3b0718abbfa0cb68a884f2ff6"
     },
     {
       "path": "tools/psys_disasm.py",
@@ -2897,43 +2907,43 @@
     },
     {
       "path": "tools/public-source/CONTEXT.md",
-      "bytes": 5239,
-      "sha256": "60155f02d095861308d0d4712ad9ebf221299f142df951f73d18406d32f4d6e9"
+      "bytes": 5850,
+      "sha256": "76ce150032ae68ef7fa77861c48a3a43d25b266a87ab2395b8e1f42c1ed8f472"
     },
     {
       "path": "tools/public-source/README.en.md",
-      "bytes": 8441,
-      "sha256": "ae2b0e7f2793b23c3da71661de0be7649fa3a52e90e51ee0e20e3c73539b0d5b"
+      "bytes": 8395,
+      "sha256": "0a2f8603774ebd1ed2a2ada15dfd3c64db14c80d8588d32ae6d91d1dc2133879"
     },
     {
       "path": "tools/public-source/README.ja.md",
-      "bytes": 9599,
-      "sha256": "980c1e69d3e1ab079c48211e3f9fb3faa551be8bd5b598dbfe1a1b92ffcca1ae"
+      "bytes": 9533,
+      "sha256": "9e2c2d4fd4a77d7db81380dba8db43aff2bcc93768a3995e3e4427934483eb07"
     },
     {
       "path": "tools/public-source/README.ko.md",
-      "bytes": 9510,
-      "sha256": "74159a045128af0f4fa9d64ac95b8c846d9bc58b7705b11e863cc746b4539672"
+      "bytes": 9455,
+      "sha256": "08404a0a62b89e07b2b8988f2a05e5710a1591cfeee6e509da284f8e61a89741"
     },
     {
       "path": "tools/public-source/README.md",
-      "bytes": 8077,
-      "sha256": "7e65f251253be69fb54bb8237c8161a28b637762f5af014d0ea5babfc7cf6f2d"
+      "bytes": 8060,
+      "sha256": "320cdaf98be9f6861a8395b358d94d321f9d5fa3c7f8e73e4b74523ac7c95ec2"
     },
     {
       "path": "tools/public-source/WORKLOG.md",
-      "bytes": 9284,
-      "sha256": "51c7eaf0aa4303b6260a0452ad102fc4602fb1f32fd318bce9bc3189e5528a0b"
+      "bytes": 10307,
+      "sha256": "100ca730fd6c3dac4ef3878ff1cb30a3884ba4e156f5366e23387384a339f5f6"
     },
     {
       "path": "tools/public-source/docs/build.md",
-      "bytes": 2503,
-      "sha256": "01993b3323d58b3bf1959699122771a5e04e964a2f0cbf5e0d94781d02cb1538"
+      "bytes": 3153,
+      "sha256": "99bfaac5810cdf4b87c689c5114b6840828177539665cfb506bffd40e12fd49d"
     },
     {
       "path": "tools/public-source/docs/index.md",
-      "bytes": 4288,
-      "sha256": "3dfc02d710d579377d9a8fe9d5e8078ad46565989bf6b20f324aa7fbebfbf40b"
+      "bytes": 4380,
+      "sha256": "d00d12ce659fef85e3a2c2d18918dd5355ddcd4d2500d070c2ac86a90a46fd1c"
     },
     {
       "path": "tools/public-source/docs/promo/README.md",
@@ -3642,13 +3652,13 @@
     },
     {
       "path": "tools/verify_locale_player.py",
-      "bytes": 7024,
-      "sha256": "9a4e4aad12b48b47180b10522ec87562fe8f7933dd5e83b86e8507a9a90c9049"
+      "bytes": 7132,
+      "sha256": "168118a6197305f6c61713c89d80be73c58ce76a4ce57dfd3c2bf9b3751c8543"
     },
     {
       "path": "tools/verify_release_packages.py",
-      "bytes": 14085,
-      "sha256": "2cf25c49cb7000ee03631f571f10bc6bcbffa0cc0e566e6350448aad8f2b9e04"
+      "bytes": 14966,
+      "sha256": "d7c0882057de8f7fd4fe45d071ff7eb167bf29a29ab9b7819adac87c69c0bda0"
     },
     {
       "path": "tools/verify_schema45_player.py",

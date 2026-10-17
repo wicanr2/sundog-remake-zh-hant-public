@@ -20,6 +20,7 @@ DOCS = {
     "docs/manual/remake-controls-zh-Hant.md",
     "docs/promo/five-language-story.json",
     "docs/atari-st/release-v1200-20261016.json",
+    "docs/atari-st/release-v1300-20261017.json",
     "docs/atari-st/fuel-normal-player-parity-20261016.json",
 }
 SHOTS = {

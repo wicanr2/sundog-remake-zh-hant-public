@@ -44,4 +44,6 @@ docker run --rm --network none --memory 4g --cpus 2 --pids-limit 512 \
 
 同一容器環境可執行 `go vet ./cmd/... ./internal/...` 與 `(cd tools && python3 -m unittest test_package_public test_package_release)`。需要 `HD_WORLD_DISK` 的來源路由檢查、受控原版匯出及正常玩家自動化須另備合法磁碟或研究環境；普通測試通過不等於這些項目已重驗。
 
-三平台封裝入口為 `tools/build_release.sh`，需另外準備 AppImage 工具與 macOS SDK 工具鏈。公開 repo 不附 SDK、原版資料、既有二進位 Release 或本機完整版。
+三平台容器入口為 [build_release_phase.sh](../tools/build_release_phase.sh)，接受 `linux`、`windows`、`macos` 或 `package`、既有暫存目錄與完整版號。主機只啟動受限 Docker。來源唯讀掛為 `/work`，Go 快取掛為 `/cache/build` 與 `/cache/mod`，可寫暫存目錄掛為 `/stage`；容器內執行 `bash /work/tools/build_release_phase.sh linux /stage v.1.3.0-20261017`，Windows 更換階段即可。
+
+Linux／Windows 使用上述 Go 1.25.12 image；macOS 使用 `docker/sundog-remake-build/Dockerfile.osxcross` 的 SDK15.5 工具鏈。`package` 階段另掛既有 AppImage 工具目錄為 `/appimage:ro`、正式輸出目錄為 `/out`。所有可寫容器指定目前 UID/GID、資源上限、`--network none` 與外層逾時。公開 repo 不附 SDK、AppImage 工具、原版資料或本機完整版。

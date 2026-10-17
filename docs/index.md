@@ -6,6 +6,7 @@
 - [建置及測試](build.md)
 - [五語資料與韓文 TSV 來源](i18n/README.md)
 - [精訊故事影片與重建工具](promo/README.md)
+- [v.1.3.0 schema45、三平台與故事影片驗收](atari-st/release-v1300-20261017.json)
 - [v.1.2.0 五語與三平台驗收](atari-st/release-v1200-20261016.json)
 - [完整繁中操作說明](manual/remake-controls-zh-Hant.md)
 - [倉庫 Swap 正常玩家驗證工具](../tools/verify_warehouse_swap_player.py)

@@ -42,6 +42,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--delivery',type=Path,required=True)
     p.add_argument('--platform',choices=['linux-x86_64','windows-amd64','macos-universal'],required=True)
+    p.add_argument('--save-schema',type=int,choices=[44,45],default=45)
     a=p.parse_args();assert Path('/.dockerenv').is_file()
     root=a.delivery.resolve(strict=True);version=root.name
     assert re.fullmatch(r'v\.[0-9]+\.[0-9]+\.[0-9]+-[0-9]{8}',version), '掛載目錄須保留完整版號'
@@ -85,8 +86,8 @@ def main():
         else:env['XDG_CONFIG_HOME']=str(out/'config')
         empty=out/'empty-cwd';empty.mkdir()
         def run(*argv):return subprocess.check_output(list(map(str,argv)),env=env,text=True,timeout=20).strip()
-        def press(key,pause=.65):
-            inputs.append(dict(key=key,pause=pause,holdSeconds=.3));run('xdotool','keydown','--clearmodifiers',key);time.sleep(.3);run('xdotool','keyup',key);time.sleep(pause)
+        def press(key,pause=1):
+            inputs.append(dict(key=key,pause=pause,holdSeconds=.6));run('xdotool','keydown','--clearmodifiers',key);time.sleep(.6);run('xdotool','keyup',key);time.sleep(pause)
         def find_window():
             for _ in range(150):
                 r=subprocess.run(['xdotool','search','--onlyvisible','--name','SunDog'],env=env,text=True,capture_output=True)
@@ -120,7 +121,18 @@ def main():
             press('1');stored_at=time.time();press('s')
             libs=[(p,d) for p,d in documents() if 'slots' in d];assert len(libs)==1
             assert libs[0][0].stat().st_mtime>=stored_at, '本次未寫入保存庫'
-            press('Escape')
+            # Wine/software rendering can finish the HD library after a short
+            # Escape pulse. Observe the actual return before the next input.
+            started=time.monotonic();run('xdotool','keydown','--clearmodifiers','Escape')
+            try:
+                while True:
+                    run('import','-window',window,header)
+                    rgb=run('convert',header,'-format','%[hex:p{8,8}]','info:')[:6]
+                    if min(int(rgb[i:i+2],16) for i in (0,2,4))<=170:break
+                    assert app.poll() is None and time.monotonic()-started<25,'保存庫未返回遊戲'
+                    time.sleep(.1)
+            finally:run('xdotool','keyup','Escape')
+            inputs.append(dict(key='Escape',ready='observed-library-closed',heldSeconds=time.monotonic()-started))
             libs=[(p,d) for p,d in documents() if 'slots' in d];assert len(libs)==1
             path,d=libs[0];s=d['slots']['slot-1'];states.append(dict(name=name,state=s,sha256=sha(path)))
             time.sleep(2.2);run('import','-window',window,out/(name+'.png'));return s
@@ -164,7 +176,7 @@ def main():
                 app=subprocess.Popen(command(),cwd=empty,env=env,stdout=log,stderr=subprocess.STDOUT);window=find_window();time.sleep(2)
                 run('import','-window',window,out/'first-launch.png')
                 press('Return',1);press('F5');press('p',1)
-                initial=capture('newgame');assert initial['schema']==44 and initial['screen']=='shipboard' and initial['layout']=='atari-st'
+                initial=capture('newgame');assert initial['schema']==a.save_schema and initial['screen']=='shipboard' and initial['layout']=='atari-st'
                 press('F8');hd=capture('hd-shipboard');assert hd['tileset']=='atari-st-hd-tiles' and hd['layout']=='atari-st'
                 assert all(initial.get(k)==hd.get(k) for k in ['holds','cash','bank','colony','position','fuel','tradeRolls','combatRolls'])
                 options_key('F2',True)
@@ -185,7 +197,7 @@ def main():
                     press('F8');other=capture('presentation');assert other['layout']=='remake'
                     assert all(ground.get(k)==other.get(k) for k in ['holds','cash','bank','colony','position','fuel','tradeRolls','combatRolls'])
                 press('q');app.wait(timeout=20);assert app.returncode==0
-                saves=[(p,d['state']) for p,d in documents() if d.get('format')=='sundog-remake-prototype-save-v44'];assert len(saves)==1
+                saves=[(p,d['state']) for p,d in documents() if d.get('format')==f'sundog-remake-prototype-save-v{a.save_schema}'];assert len(saves)==1
                 saved_path,before=saves[0]
                 app=subprocess.Popen(command(True),cwd=empty,env=env,stdout=log,stderr=subprocess.STDOUT);window=find_window();time.sleep(1)
                 after=capture('reopened');fields=['schema','screen','holds','warehouses','cash','bank','colony','position','fuel','theme','tileset','layout','shipSystems']

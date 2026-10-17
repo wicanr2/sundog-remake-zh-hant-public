@@ -4,7 +4,7 @@
 
 以 Go 與 Ebitengine 重寫的科幻冒險遊戲。支援繁體中文、簡體中文、日文、韓文與英文，保留 Atari ST 操作分區，新增完整高解析重畫。
 
-最新已發布版本為 **v.1.2.0-20261016**。本公開儲存庫提供引擎原始碼、工具、翻譯與獨立 HD 美術。遊戲需要玩家自備合法 Atari ST `sundog.st`；不附原版磁碟、圖像、音效或手冊掃描。原私人專案的 Git 歷史、對拍圖片與舊 Release 留在私人儲存庫。
+最新已發布版本為 **v.1.3.0-20261017**。本公開儲存庫提供引擎原始碼、工具、翻譯與獨立 HD 美術。遊戲需要玩家自備合法 Atari ST `sundog.st`；不附原版磁碟、圖像、音效或手冊掃描。原私人專案的 Git 歷史、對拍圖片與舊 Release 留在私人儲存庫。
 
 ![正常新局的獨立 HD 船艙](docs/screenshots/hd-shipboard.png)
 
@@ -52,11 +52,11 @@ HD 採「清晰精繪」方向，保留明亮色彩、船形與原分區。標�
 </tr>
 </table>
 
-畫面來自目前來源主線的正常保存載入，沒有後製。倉庫「交換」是 v.1.2.0-20261016 發布後新增的功能，尚未收入該版安裝包。來源與雜湊見[公開檔案清單](PUBLIC-SOURCE-MANIFEST.json)。
+畫面來自目前來源主線的正常保存載入，沒有後製。倉庫「交換」已收入 v.1.3.0-20261017。來源與雜湊見[公開檔案清單](PUBLIC-SOURCE-MANIFEST.json)。
 
 ## 建置與執行
 
-[下載 v.1.2.0-20261016 引擎](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.2.0-20261016)，或依[Docker 建置說明](docs/build.md)自行編譯。啟動後選擇自己的合法 `sundog.st`。未匯入原版音效時保持靜音。
+[下載 v.1.3.0-20261017 引擎](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.3.0-20261017)，或依[Docker 建置說明](docs/build.md)自行編譯。啟動後選擇自己的合法 `sundog.st`。未匯入原版音效時保持靜音。
 
 在 `F2` 選項的語言列以 `←`／`→` 切換五語，立即套用並記住設定。也能用 `-locale ja`、`-locale ko` 或 `-locale en` 啟動。語言不改遊戲狀態；翻譯與檢查方式見[語系說明](docs/i18n/README.md)。翻譯尚待母語編輯完整校閱。
 
@@ -79,7 +79,7 @@ HD 採「清晰精繪」方向，保留明亮色彩、船形與原分區。標�
 | 移動／確認 | 方向鍵或滑鼠／`Enter` 或 `Space` |
 | 角色保存庫 | `M` 建庫、`N` 新局、`1`–`8` 選槽、`S` 儲存、`L` 載入 |
 
-各畫面的可用動作見 `F1` 與[完整繁中操作說明](docs/manual/remake-controls-zh-Hant.md)。建立角色時字母鍵用來輸入名字，離開用 `F10`。來源主線只支援 schema45 新存檔，預設檔名包含 v45。已發布 v.1.2.0-20261016 使用 schema44；舊檔保留給舊版讀取，不轉換。
+各畫面的可用動作見 `F1` 與[完整繁中操作說明](docs/manual/remake-controls-zh-Hant.md)。建立角色時字母鍵用來輸入名字，離開用 `F10`。目前版本只支援 schema45 新存檔，預設檔名包含 v45。v.1.3.0-20261017 使用 schema45；舊版 v.1.2.0-20261016 使用 schema44。舊檔保留給舊版讀取，不轉換。
 
 存檔、角色庫與設定使用系統設定目錄：Linux `~/.config/sundog-remake/`、Windows `%APPDATA%\sundog-remake\`、macOS `~/Library/Application Support/sundog-remake/`。
 

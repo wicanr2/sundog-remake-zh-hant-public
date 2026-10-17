@@ -16,6 +16,7 @@ def main():
     for name in ("binary", "disk", "settings", "output"):
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--save", type=Path)
+    parser.add_argument("--save-schema", type=int, choices=(44,45), default=45)
     args = parser.parse_args()
     assert Path("/.dockerenv").is_file()
     out = args.output.resolve()
@@ -26,7 +27,7 @@ def main():
     source_hash = None
     if args.save is not None:
         source = json.loads(args.save.read_text())["state"]
-        assert source["schema"] == 44 and source["screen"] == "shipboard"
+        assert source["schema"] == args.save_schema and source["screen"] == "shipboard"
         source_hash = sha(args.save)
     out.mkdir(parents=True)
     assert out.stat().st_uid == os.getuid()
@@ -124,7 +125,7 @@ def main():
         press("q")
         assert app.wait(timeout=10) == 0
         saved = json.loads((out / "save.json").read_text())["state"]
-        assert saved["schema"] == 44 and saved["screen"] == "shipboard"
+        assert saved["schema"] == args.save_schema and saved["screen"] == "shipboard"
         assert preferences()["locale"] == "ko"
         app, window = start(False)
         assert preferences()["locale"] == "ko"

@@ -1,0 +1,157 @@
+{
+  "schema": 1,
+  "version": "v.1.3.0-20261017",
+  "status": "PASS-verified-delivery",
+  "engineBuildSourceCommit": "2480690babc5476e8e35fa866ba381aa0a5c5330",
+  "changes": [
+    "倉庫Swap",
+    "schema45持久戰鬥狀態與非隱形模式0至7父回呼",
+    "船體歸零後立即中止剩餘穿透結算"
+  ],
+  "locales": [
+    "zh-Hant",
+    "zh-Hans",
+    "ja",
+    "ko",
+    "en"
+  ],
+  "saveSchema": 45,
+  "oldSaves": "schema44原檔保留給舊版讀取，不轉換；預設新檔名含v45。",
+  "sourceChecks": {
+    "fullGoTests": "PASS-private-and-clean-public",
+    "goVet": "PASS-private-and-clean-public",
+    "privateToolTests": 19,
+    "cleanPublicToolTests": 24,
+    "buildInputCount": 323,
+    "buildInputsUnchanged": true
+  },
+  "player": {
+    "status": "PASS",
+    "receipt": "workplace/release-v1300-20261017/locales-r1/receipt.json",
+    "scope": "actual packaged Linux engine; title/F5/default pilot, five options, Japanese/Korean/English engineering and Korean save/reopen"
+  },
+  "platforms": {
+    "linux-x86_64": {
+      "status": "PASS",
+      "archiveSHA256": "4289e753b05f22fd9f7073b1e546fa953dfbab91bff7faa32a3364c7e6d3f8f3",
+      "scope": "實際本平台完整ZIP乾淨解壓、正式啟動腳本、正常新局及預設位置保存重開；Linux另驗導航／戰術／護盾／地面；兩平台都驗三呈現切換。Wine不是Windows實機。",
+      "languageCycleCases": 5
+    },
+    "windows-amd64": {
+      "status": "PASS-Wine",
+      "archiveSHA256": "1c6dffd654c8a4465c0b3dfc2c8a5149a71c764b5ea966e61ecca37b94740172",
+      "scope": "實際本平台完整ZIP乾淨解壓、正式啟動腳本、正常新局及預設位置保存重開；Linux另驗導航／戰術／護盾／地面；兩平台都驗三呈現切換。Wine不是Windows實機。",
+      "languageCycleCases": 5
+    },
+    "macos-universal": {
+      "status": "PASS-static",
+      "archiveSHA256": "b129ab7bd67232d99a91b5171f1508b62be9bbe68087305ab168c5c58d033636",
+      "scope": "完整ZIP逐檔manifest、原始磁碟、33音效、雙架構／系統相依／arm64簽章及啟動腳本靜態驗收；macOS實機未驗。",
+      "languageCycleCases": 0
+    }
+  },
+  "promo": {
+    "path": "dist-all/v.1.3.0-20261017/promo/SunDog-v.1.3.0-20261017-HD.mp4",
+    "sha256": "3e5165ae3e868a41abb75a3bd41960301c88afba5842f5ac9b11c026dac79f07",
+    "seconds": 96,
+    "status": "PASS-technical-and-visual",
+    "storySource": "docs/promo/five-language-story.json",
+    "originalManualArchiveSHA256": "992ef92df64a601a8033d2b5b98720a8edcc14bb4db86e6a015fd09422e264a1",
+    "printedPages": "4–9",
+    "storySeconds": 25,
+    "originalScansInVideo": false,
+    "audio": "separately labelled original sound demonstration; not live capture",
+    "visualReview": {
+      "contactSheets": [
+        "contact-sheet-full.png",
+        "contact-sheet-01.png",
+        "contact-sheet-02.png"
+      ],
+      "coverageSeconds": [
+        0,
+        96
+      ],
+      "subtitles": "PASS-width-and-visual-no-crop",
+      "blackFrames": "none",
+      "freezes": "20 expected story cards, stationary GUI recordings and declared player stills; all scene boundaries match",
+      "maxVolumeDB": -7.6,
+      "meanVolumeDB": -38.7,
+      "audioScope": "79–87秒為獨立原版音效示範；其餘有意靜音，未作人耳同步驗收。"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "patch/SHA256SUMS",
+      "bytes": 330,
+      "sha256": "c4be5ebd3185073a2c602695cf8dbf7553742ce13c72720af59469f540c3671b",
+      "rights": "public-engine"
+    },
+    {
+      "path": "patch/SunDog-v.1.3.0-20261017-linux-x86_64.AppImage",
+      "bytes": 19319288,
+      "sha256": "20ce6772032a0c80d100575bb6d384ea8d7ca50ba0d9f745a81de9014d67c7c3",
+      "rights": "public-engine"
+    },
+    {
+      "path": "patch/SunDog-v.1.3.0-20261017-macos-universal.zip",
+      "bytes": 23717811,
+      "sha256": "54212379d565b6ba9717da483a13a8044537d32acd4cfac02b30b783cdde61eb",
+      "rights": "public-engine"
+    },
+    {
+      "path": "patch/SunDog-v.1.3.0-20261017-windows-amd64.zip",
+      "bytes": 19023129,
+      "sha256": "d9df86817c30c9eacf5c4f3204f0b8adfb0b0529e8f130cbd7276747de0a8c11",
+      "rights": "public-engine"
+    },
+    {
+      "path": "full-local/SHA256SUMS",
+      "bytes": 471,
+      "sha256": "fe0ef5f55ae58b695fc51f7b09f2902ce585c304dc847d5c2e68269b5cda8567",
+      "rights": "private-local-full"
+    },
+    {
+      "path": "full-local/SunDog-v.1.3.0-20261017-linux-x86_64-private-full.zip",
+      "bytes": 19818491,
+      "sha256": "4289e753b05f22fd9f7073b1e546fa953dfbab91bff7faa32a3364c7e6d3f8f3",
+      "rights": "private-local-full"
+    },
+    {
+      "path": "full-local/SunDog-v.1.3.0-20261017-macos-universal-private-full.zip",
+      "bytes": 24708735,
+      "sha256": "b129ab7bd67232d99a91b5171f1508b62be9bbe68087305ab168c5c58d033636",
+      "rights": "private-local-full"
+    },
+    {
+      "path": "full-local/SunDog-v.1.3.0-20261017-private-full.zip",
+      "bytes": 62500165,
+      "sha256": "ca05d24281574746fec257845a45edd98a9cf168acf749366e8e6ea4d9889203",
+      "rights": "private-local-full"
+    },
+    {
+      "path": "full-local/SunDog-v.1.3.0-20261017-windows-amd64-private-full.zip",
+      "bytes": 20013878,
+      "sha256": "1c6dffd654c8a4465c0b3dfc2c8a5149a71c764b5ea966e61ecca37b94740172",
+      "rights": "private-local-full"
+    },
+    {
+      "path": "promo/SunDog-v.1.3.0-20261017-HD.mp4",
+      "bytes": 1701511,
+      "sha256": "3e5165ae3e868a41abb75a3bd41960301c88afba5842f5ac9b11c026dac79f07",
+      "rights": "private-local-original-sound-and-original-presentation"
+    }
+  ],
+  "boundary": "Only three patch engines and SHA256SUMS may be uploaded. Full local packages and promo contain original data and stay local.",
+  "limitations": [
+    "native-language editorial review pending",
+    "Windows verified in Wine, not native Windows",
+    "macOS static checks only",
+    "cloaked mode0 and original complete death GUI remain unverified",
+    "no claim of whole-game original exact parity"
+  ],
+  "release": {
+    "url": "https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.3.0-20261017",
+    "tag": "v.1.3.0-20261017",
+    "publication": "pending-remote-publish-and-anonymous-verification"
+  }
+}

@@ -2,7 +2,7 @@
 """把已編好的三個平台執行檔包成可散布的套件。
 
 輸入是 `tools/build_release.sh` 編出來的 staging 目錄；本工具只做封裝，不編譯。
-三個平台共用同一份酬載（字型、四語 catalog／對話、操作說明），差別在外殼：
+三個平台共用同一份酬載（字型、五語 catalog／對話、操作說明），差別在外殼：
 
 * Linux：AppDir ＋ appimagetool → 單一 AppImage
 * Windows：zip，**每一筆都打開 UTF-8 檔名旗標**，中文檔名在任何解壓工具下都一致
@@ -127,7 +127,7 @@ def copy_payload(repo: Path, target: Path) -> None:
 
 def write_readme(target: Path, version: str, platform: str, launch: str, notes: list[str]) -> None:
     lines = [
-        f"# 陽犬號 SunDog 四語系重製版 {version}",
+        f"# 陽犬號 SunDog 五語系重製版 {version}",
         "",
         f"平台：{platform}",
         "",

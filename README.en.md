@@ -4,7 +4,7 @@
 
 A science fiction trading adventure rebuilt in Go and Ebitengine, with the Atari ST interface and independently drawn HD artwork. The game supports Traditional Chinese, Simplified Chinese, Japanese, Korean and English.
 
-Latest published version: **v.1.2.0-20261016**. You need your own legally obtained Atari ST `sundog.st` disk. This repository and its engine releases do not include original disks, graphics, sounds or scanned manuals. The original private repository's history, comparison images and earlier releases remain private.
+Latest published version: **v.1.3.0-20261017**. You need your own legally obtained Atari ST `sundog.st` disk. This repository and its engine releases do not include original disks, graphics, sounds or scanned manuals. The original private repository's history, comparison images and earlier releases remain private.
 
 ![HD cabin after normal character creation](docs/screenshots/hd-shipboard.png)
 
@@ -50,11 +50,11 @@ The same saved warehouse in Dramming, captured after switching languages through
 </tr>
 </table>
 
-These unedited normal-play captures show the current source branch. Warehouse Swap was added after v.1.2.0-20261016 and is not included in that release’s installers. Image hashes are recorded in the [public source manifest](PUBLIC-SOURCE-MANIFEST.json).
+These unedited normal-play captures show the current source branch. Warehouse Swap is included in v.1.3.0-20261017. Image hashes are recorded in the [public source manifest](PUBLIC-SOURCE-MANIFEST.json).
 
 ## Download and language
 
-Download the [v.1.2.0-20261016 engine release](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.2.0-20261016), or follow the [Docker build guide](docs/build.md). Select your legal `sundog.st` when prompted. Sound stays muted until you import sound from your own disk.
+Download the [v.1.3.0-20261017 engine release](https://github.com/wicanr2/sundog-remake-zh-hant-public/releases/tag/v.1.3.0-20261017), or follow the [Docker build guide](docs/build.md). Select your legal `sundog.st` when prompted. Sound stays muted until you import sound from your own disk.
 
 Open `F2`, then use `←` / `→` on the language row. Changes apply immediately and persist after restart. Command-line options include `-locale en`, `-locale ja` and `-locale ko`. Language does not change game state or save data. See the [language data guide](docs/i18n/README.md). Translations are AI-assisted and still await complete native-language editorial review.
 
@@ -77,7 +77,7 @@ Full packages containing original data and the sound demonstration video are loc
 | Move / confirm | Arrow keys or mouse / `Enter` or `Space` |
 | Character library | `M` create, `N` new game, `1`–`8` slot, `S` store, `L` load |
 
-Use `F1` for each screen's actions. During naming, letter keys enter text; use `F10` to quit. The source branch supports new schema45 saves with v45 default filenames. Published v.1.2.0-20261016 uses schema44; keep old saves for the older build. No conversion is provided. Saves, the library and preferences use the system configuration folder: Linux `~/.config/sundog-remake/`, Windows `%APPDATA%\sundog-remake\`, macOS `~/Library/Application Support/sundog-remake/`.
+Use `F1` for each screen's actions. During naming, letter keys enter text; use `F10` to quit. This release supports new schema45 saves with v45 default filenames. The previous v.1.2.0-20261016 release uses schema44; keep old saves for the older build. No conversion is provided. Saves, the library and preferences use the system configuration folder: Linux `~/.config/sundog-remake/`, Windows `%APPDATA%\sundog-remake\`, macOS `~/Library/Application Support/sundog-remake/`.
 
 ## Verification and licence
 
