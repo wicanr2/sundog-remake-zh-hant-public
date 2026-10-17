@@ -34,6 +34,27 @@ Press `F8` to cycle **Atari ST → Atari ST HD → Apple II**. Atari ST remains 
 
 These are normal player captures from the integrated HD candidate, taken on different branches. They are not original comparison images or a claim that all scenes share one state. File hashes are recorded in the [public source manifest](PUBLIC-SOURCE-MANIFEST.json).
 
+## HD original music
+
+Eight original cues change with the scene and crossfade between tracks. Music works with the Atari ST, Atari ST HD and Apple II presentations; its setting is independent of the visual style.
+
+| Scene | Listen |
+|---|---|
+| Title, character creation and main menu | [Title](assets/music/title.ogg) |
+| Cabin, engineering, stores and cargo | [Ship](assets/music/ship.ogg) |
+| Cities, trading, banks and interiors | [Port](assets/music/port.ogg) |
+| Planetary surface exploration | [Surface](assets/music/surface.ogg) |
+| Navigation and flight | [Flight](assets/music/flight.ogg) |
+| Space combat and the ground arena | [Combat](assets/music/combat.ogg) |
+| Mission completion and score | [Ending](assets/music/ending.ogg) |
+| Failure outcome | [Defeat](assets/music/defeat.ogg) |
+
+Music is on by default. Toggle it with the music row in `F2` options or with `F6`; `F7` controls original sound effects separately. The setting persists between launches. Music does not change game rules or the save format.
+
+The source main branch includes these tracks. The published **v.1.3.0-20261017** packages predate them; [build from source](docs/build.md) to use the music.
+
+These are new compositions for the remake, licensed under [RRSAL-1.0](LICENSE). See the [music guide](assets/music/README.md) for sources and scores, and the [verification record](assets/music/validation.json) for playback, loops and saved preferences. Listening review and overlapping sound-effect levels on physical devices remain pending.
+
 ## HD screenshots in five languages
 
 The same saved warehouse in Dramming, captured after switching languages through the game interface. Click an image for the original 1280×800 capture.
@@ -72,7 +93,8 @@ Full packages containing original data and the sound demonstration video are loc
 
 | Action | Keys |
 |---|---|
-| Help / options / mute | `F1` / `F2` / `F7` |
+| Help / options | `F1` / `F2` |
+| HD music / original sound effects | `F6` / `F7` |
 | Presentation / character library | `F8` / `F5` |
 | Back / save and quit | `Esc` or right-click / `Q` or `F10` |
 | Cabin functions | `N` navigation, `X` tactical, `E` engineering, `B` stores, `C` cargo, `H` status, `G` disembark |

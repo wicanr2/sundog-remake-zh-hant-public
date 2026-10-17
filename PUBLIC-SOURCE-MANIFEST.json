@@ -97,28 +97,28 @@
     },
     {
       "path": "README.en.md",
-      "bytes": 8764,
-      "sha256": "156889b48c90877edf9668615a6df156188174dd5c6165826af501dcaab28491"
+      "bytes": 10329,
+      "sha256": "d737aeb878fe3d805c38a89805ceb87ad0237a7130712b02c6307e77dc048a5f"
     },
     {
       "path": "README.ja.md",
-      "bytes": 9934,
-      "sha256": "583c6ee9e2dee5558fb74acfad7e5687ba5f86d0011cb147e77844166898246c"
+      "bytes": 11728,
+      "sha256": "4201fd31c7c1e3e17b47cbd097abcbba1071d6604dc880ec3c785aa751730cb8"
     },
     {
       "path": "README.ko.md",
-      "bytes": 9863,
-      "sha256": "6cbb8a0e608ff988a9aff74911b51d9a0715d67c640f44b013146a64f0a78412"
+      "bytes": 11601,
+      "sha256": "9ee5af87b9caf03c5f2f02d9987a40cf0ab835c47b2fa79246b2ec966b75fe0d"
     },
     {
       "path": "README.md",
-      "bytes": 8351,
-      "sha256": "afc73181f0f1307c11e9a2bd80ba0c909f585497e124af48ea34edaeb03a004d"
+      "bytes": 9872,
+      "sha256": "3372b551a0b0b93564e8613ebe1627fc0f1120b394df351716890a1be030abee"
     },
     {
       "path": "WORKLOG.md",
-      "bytes": 11263,
-      "sha256": "8ca68f80e0fa743b44f50c13274beba5c9e17fcedb2dbaee733b494acf8799dd"
+      "bytes": 11922,
+      "sha256": "e5bbffaaf4e4dd4d3a84cd6e7bfc73b65e8499843cac0b44873eb5f7374d78de"
     },
     {
       "path": "assets/fonts/ASSET-MANIFEST.md",
@@ -3062,28 +3062,28 @@
     },
     {
       "path": "tools/public-source/README.en.md",
-      "bytes": 8764,
-      "sha256": "156889b48c90877edf9668615a6df156188174dd5c6165826af501dcaab28491"
+      "bytes": 10329,
+      "sha256": "d737aeb878fe3d805c38a89805ceb87ad0237a7130712b02c6307e77dc048a5f"
     },
     {
       "path": "tools/public-source/README.ja.md",
-      "bytes": 9934,
-      "sha256": "583c6ee9e2dee5558fb74acfad7e5687ba5f86d0011cb147e77844166898246c"
+      "bytes": 11728,
+      "sha256": "4201fd31c7c1e3e17b47cbd097abcbba1071d6604dc880ec3c785aa751730cb8"
     },
     {
       "path": "tools/public-source/README.ko.md",
-      "bytes": 9863,
-      "sha256": "6cbb8a0e608ff988a9aff74911b51d9a0715d67c640f44b013146a64f0a78412"
+      "bytes": 11601,
+      "sha256": "9ee5af87b9caf03c5f2f02d9987a40cf0ab835c47b2fa79246b2ec966b75fe0d"
     },
     {
       "path": "tools/public-source/README.md",
-      "bytes": 8351,
-      "sha256": "afc73181f0f1307c11e9a2bd80ba0c909f585497e124af48ea34edaeb03a004d"
+      "bytes": 9872,
+      "sha256": "3372b551a0b0b93564e8613ebe1627fc0f1120b394df351716890a1be030abee"
     },
     {
       "path": "tools/public-source/WORKLOG.md",
-      "bytes": 11263,
-      "sha256": "8ca68f80e0fa743b44f50c13274beba5c9e17fcedb2dbaee733b494acf8799dd"
+      "bytes": 11922,
+      "sha256": "e5bbffaaf4e4dd4d3a84cd6e7bfc73b65e8499843cac0b44873eb5f7374d78de"
     },
     {
       "path": "tools/public-source/docs/build.md",
